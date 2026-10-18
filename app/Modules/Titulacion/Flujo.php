@@ -119,8 +119,13 @@ final class Flujo
             $entregaOk = $entrega === null
                 || (($filaEntrega['estado'] ?? '') === 'aprobado'
                     && (SubdireccionFirma::tipoDeDocumento($entrega) === null || !empty($filaEntrega['subdir_en'])));
+            foreach ($e['personal']['extras'] ?? [] as $extra) {
+                $fx = $docs[$clave . '|' . $extra['clave']] ?? null;
+                $okx = ($fx['estado'] ?? '') === 'aprobado' && (SubdireccionFirma::tipoDeDocumento($extra) === null || !empty($fx['subdir_en']));
+                $entregaOk = $entregaOk && $okx;
+            }
             $e['entrega_asignacion'] = !empty($entrega['asignacion']);
-            $e['entrega_por_firmar'] = $entrega !== null && ($filaEntrega['estado'] ?? '') === 'aprobado' && !$entregaOk;
+            $e['entrega_por_firmar'] = $entrega !== null && !$entregaOk && $hito !== null;
             $e['entrega_ok'] = $entregaOk;
             $e['personal_ok'] = !isset($e['personal']) || ($hito !== null && $entregaOk);
 

@@ -313,18 +313,6 @@ final class Catalogo
             // Campos que se llenan en celdas «etiqueta: valor» además de las secciones.
             $campos = [...$campos, ...$def[3]];
         }
-        if ($modalidad !== 'articulo') {
-            $capitulado = ['k' => 'capitulado', 'h' => 'Estructura capitular', 'label' => 'Estructura capitular propuesta (un capítulo por línea)', 'tipo' => 'area', 'filas' => 8, 'max' => 2000, 'req' => true,
-                'ayuda' => 'Escribe un capítulo por línea, sin numerar (por ejemplo: «Introducción»). El oficio de aprobación los numerará como Capítulo 1, 2…'];
-            $pos = count($campos);
-            foreach ($campos as $i => $c) {
-                if (($c['tipo'] ?? '') === 'cronograma') {
-                    $pos = $i;
-                    break;
-                }
-            }
-            array_splice($campos, $pos, 0, [$capitulado]);
-        }
         return ['plantilla' => $def[0], 'campos' => $campos, 'etiquetas_extra' => $etiquetasExtra];
     }
 
@@ -557,9 +545,9 @@ final class Catalogo
             ],
             'personal' => [
                 'titulo' => 'Dictamen de la Comisión Revisora de Protocolos',
-                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, la plataforma genera el oficio con tu tema y estructura capitular, que firma el Director.',
+                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, la plataforma genera el oficio de aprobación de tema y modalidad.',
                 'campos' => [['k' => 'fecha', 'label' => 'Fecha de aprobación del protocolo', 'tipo' => 'fecha', 'req' => true]],
-                'entrega' => self::oficio('oficio_aprobacion_tema', 'Oficio de aprobación de tema y estructura capitular'),
+                'entrega' => self::oficio('oficio_aprobacion_tema', 'Oficio de aprobación de tema y modalidad'),
             ],
             'blanco' => ['rep'],
         ];
@@ -598,18 +586,22 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'sustentacion', 'titulo' => 'Solicitud de sustentación y voto aprobatorio', 'tipo' => 'captura',
-            'descripcion' => 'Con las correcciones atendidas y el voto aprobatorio del asesor y revisores, solicita la autorización de impresión y la asignación del jurado.',
-            'campos' => [['k' => 'fecha_voto', 'label' => 'Fecha del voto aprobatorio', 'tipo' => 'fecha', 'req' => true]],
+            'descripcion' => 'Con las correcciones atendidas y el voto aprobatorio del asesor y revisores, solicita la autorización de impresión y la asignación del jurado. Escribe aquí el título y la estructura capitular de tu trabajo: Titulación los valida con tu solicitud y, con ellos, la plataforma genera el oficio de estructura capitular que firma el Director, para que lo incluyas en tu trabajo después de la portada.',
+            'campos' => [
+                ['k' => 'fecha_voto', 'label' => 'Fecha del voto aprobatorio', 'tipo' => 'fecha', 'req' => true],
+                ['k' => 'capitulado', 'label' => 'Estructura capitular (un capítulo por línea, sin numerar)', 'tipo' => 'area', 'filas' => 8, 'max' => 2000, 'req' => true,
+                    'ayuda' => 'Por ejemplo: «Introducción». El oficio los numerará como Capítulo 1, 2… Titulación valida que correspondan a tu trabajo.'],
+            ],
             'formatos' => ['sustentacion'],
             'documentos' => [
                 self::doc('sustentacion_firmada', 'Solicitud de sustentación firmada (pasante y asesor)', '', null, 'sustentacion'),
                 self::doc('voto_aprobatorio', 'Voto aprobatorio firmado por el asesor y los revisores', 'Es la segunda hoja del formato de sustentación.'),
-                self::doc('indice_generico', 'Título del trabajo e índice genérico'),
             ],
             'personal' => [
                 'titulo' => 'Autorización de impresión',
                 'campos' => [['k' => 'fecha', 'label' => 'Fecha de autorización', 'tipo' => 'fecha', 'req' => true]],
                 'entrega' => self::oficio('oficio_impresion', 'Oficio de autorización de impresión'),
+                'extras' => [self::oficio('oficio_estructura', 'Oficio de estructura capitular (para incluir después de la portada)')],
             ],
         ];
 

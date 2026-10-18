@@ -10,14 +10,15 @@ final class Oficios
 {
     /** Oficios que firma la Subdirección o la Dirección: clave del documento => nombre. */
     public const TIPOS = [
-        'oficio_aprobacion_tema' => 'Oficio de aprobación de tema y estructura capitular',
+        'oficio_aprobacion_tema' => 'Oficio de aprobación de tema y modalidad',
+        'oficio_estructura' => 'Oficio de estructura capitular',
         'oficio_impresion' => 'Oficio de autorización de impresión',
         'carta_afinidad' => 'Carta de afinidad',
         'oficio_sinodal' => 'Oficio de citación a sinodal',
     ];
 
     /** Oficios que firma el Director (el resto, el Subdirector). */
-    public const DIRECCION = ['oficio_aprobacion_tema'];
+    public const DIRECCION = ['oficio_estructura'];
 
     public const EXAMEN = ['previo' => 'examen previo', 'definitivo' => 'examen definitivo', 'protesta' => 'toma de protesta'];
 
@@ -140,7 +141,7 @@ final class Oficios
         $pdf = self::nuevo();
         $direccion = in_array($clave, self::DIRECCION, true);
 
-        if ($clave === 'oficio_aprobacion_tema') {
+        if ($clave === 'oficio_estructura') {
             self::cabecera($pdf, 'Ciudad Universitaria, Toluca México; a ' . $hoy);
             $pdf->SetFont('Helvetica', 'B', 11);
             $pdf->Cell(0, 5.5, self::l1($x['nombre']), 0, 1);
@@ -158,7 +159,7 @@ final class Oficios
                 $pdf->SetX(55);
                 $pdf->Cell(0, 5.2, self::l1($l), 0, 1);
             }
-            $caps = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string) ($tramite['datos']['protocolo']['capitulado'] ?? '')) ?: []), static fn(string $l): bool => $l !== ''));
+            $caps = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string) ($tramite['datos']['sustentacion']['capitulado'] ?? '')) ?: []), static fn(string $l): bool => $l !== ''));
             foreach ($caps as $i => $c) {
                 $pdf->SetX(25);
                 $pdf->Cell(28, 5.2, self::l1('Capítulo ' . ($i + 1) . '.'), 0, 0);
@@ -200,6 +201,7 @@ final class Oficios
         }
 
         $cuerpo = match ($clave) {
+            'oficio_aprobacion_tema' => "Por este medio le informo que, con base en el dictamen de la Comisión Revisora de Protocolos de la Licenciatura en {$x['carrera']}, el $fecha fue aprobado el tema «{$x['titulo']}» con la opción de evaluación profesional «{$x['modalidad']}»" . ($x['asesor'] !== '' ? ", bajo la dirección de {$x['asesor']}" : '') . ".\n\nCon ello queda registrado el tema y la modalidad. Cuenta con exclusividad sobre el tema por dos años, de conformidad con el Reglamento de Evaluación Profesional de la UAEM.",
             'oficio_impresion' => "Una vez atendidas las observaciones de los revisores y contando con el voto aprobatorio, se autoriza la impresión del trabajo escrito «{$x['titulo']}», presentado por {$x['nombre']} (Licenciatura en {$x['carrera']}), con fecha de autorización $fecha.\n\nSe le recuerda cargar el PDF final del trabajo en la plataforma, con una copia de este oficio, y completar los documentos requeridos para la evaluación profesional.",
             'carta_afinidad' => "Por este medio se hace constar que, tras el dictamen de la Coordinación de Docencia, los estudios avanzados que {$x['nombre']} (Licenciatura en {$x['carrera']}) pretende cursar para la opción «{$x['modalidad']}» son afines a la licenciatura, con fecha de autorización $fecha.",
         };
