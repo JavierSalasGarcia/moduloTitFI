@@ -7,6 +7,7 @@ use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
 use App\Modules\Titulacion\Services\DocumentosGenerados;
+use App\Modules\Titulacion\Services\Jurado;
 use App\Modules\Titulacion\Services\SubdireccionFirma;
 use InvalidArgumentException;
 use Throwable;
@@ -212,6 +213,18 @@ final class GestionController extends TitulacionBase
             flash('error', implode(' ', array_slice($errores, 0, 3)));
             redirigir($volver);
         }
+        if ($entrega !== null && !empty($entrega['asignacion'])) {
+            try {
+                Jurado::solicitar($t, $etapaClave, (string) $entrega['asignacion'], $datos, Auth::id());
+            } catch (\RuntimeException $e) {
+                flash('error', $e->getMessage());
+                redirigir($volver);
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo solicitar la asignación: ' . $e->getMessage());
+                flash('error', 'No se pudo enviar la solicitud al Coordinador. Intenta de nuevo.');
+                redirigir($volver);
+            }
+        }
         if ($entrega !== null && !empty($entrega['oficio'])) {
             try {
                 [$ruta, $caja] = DocumentosGenerados::guardarOficio($t, (string) $entrega['clave'], $datos);
@@ -248,6 +261,15 @@ final class GestionController extends TitulacionBase
             $partes[] = $c['label'] . ': ' . $v;
         }
         return $partes ? ' (' . implode('; ', $partes) . ')' : '';
+    }
+
+    public function reenviarCoordinador(string $id, string $asig): void
+    {
+        $t = $this->tramite($id, true);
+        $ok = ctype_digit($asig) && (int) Database::valor('SELECT COUNT(*) FROM tit_asignaciones_jurado WHERE id = ? AND tramite_id = ?', [(int) $asig, (int) $t['id']]) > 0
+            && Jurado::reenviarCoordinador((int) $asig);
+        flash($ok ? 'exito' : 'error', $ok ? 'Se reenvió el correo al Coordinador con un enlace nuevo.' : 'No hay una solicitud pendiente.');
+        redirigir('titulacion/gestion/' . $t['id']);
     }
 
     /** Expediente completo para auditoría: todos los PDF vigentes del trámite, en orden, con índice y huellas. */
@@ -314,6 +336,9 @@ final class GestionController extends TitulacionBase
         }
         TitulacionRepository::borrarHito((int) $t['id'], $etapaClave);
         $etapaDef = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, $etapaClave);
+        if (!empty($etapaDef['personal']['entrega']['asignacion'])) {
+            Database::ejecutar("UPDATE tit_asignaciones_jurado SET estado = 'cancelada' WHERE tramite_id = ? AND etapa = ? AND estado = 'solicitada'", [(int) $t['id'], $etapaClave]);
+        }
         if (!empty($etapaDef['personal']['entrega']['oficio'])) {
             Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [(int) $t['id'], $etapaDef['personal']['entrega']['clave']]);
         }

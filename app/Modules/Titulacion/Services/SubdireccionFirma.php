@@ -36,6 +36,13 @@ final class SubdireccionFirma
         return $c !== '' && $c === self::correoSubdirector();
     }
 
+    public static function esDirector(): bool
+    {
+        $c = strtolower(trim((string) (Auth::usuario()['email'] ?? '')));
+        $d = strtolower(trim((string) \ajuste('titulacion_director_email', '')));
+        return $c !== '' && $c === $d;
+    }
+
     public static function esAsistente(): bool
     {
         $c = strtolower(trim((string) (Auth::usuario()['email'] ?? '')));
@@ -51,7 +58,7 @@ final class SubdireccionFirma
 
     public static function puedeFirmar(): bool
     {
-        return self::esSubdirector() || self::esAsistente();
+        return self::esSubdirector() || self::esAsistente() || self::esDirector();
     }
 
     // ----------------------------------------------------------------- qué se firma
@@ -74,6 +81,9 @@ final class SubdireccionFirma
             }
         }
         foreach (Oficios::TIPOS as $clave => $nombre) {
+            if (in_array($clave, Oficios::DIRECCION, true)) {
+                continue;
+            }
             $salida[$clave] = ['nombre' => $nombre];
         }
         return $memo = $salida;
@@ -91,6 +101,9 @@ final class SubdireccionFirma
     {
         if (!empty($def['oficio']) && isset(Oficios::TIPOS[$def['clave']])) {
             return $def['clave'];
+        }
+        if (!empty($def['asignacion'])) {
+            return null;
         }
         if (!empty($def['generado']) && !empty($def['formato']) && isset(self::formatosFirmables()[$def['formato']]) && !isset(Oficios::TIPOS[$def['formato']])) {
             return (string) $def['formato'];
@@ -111,7 +124,9 @@ final class SubdireccionFirma
     public static function solicitar(array $tramite, int $documentoId, string $tipo, string $descripcion, ?array $caja): void
     {
         $tid = (int) $tramite['id'];
-        Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [$tid, $tipo]);
+        if ($tipo !== 'oficio_sinodal') {   // hay un oficio por sinodal: no se sustituyen entre sí
+            Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [$tid, $tipo]);
+        }
         Database::ejecutar(
             "INSERT INTO tit_firmas_subdireccion (tramite_id, tipo, documento_id, formato, descripcion, caja, creado_en) VALUES (?, 'documento', ?, ?, ?, ?, ?)",
             [$tid, $documentoId, $tipo, $descripcion . ' · ' . $tramite['folio'], $caja ? json_encode($caja) : null, date('Y-m-d H:i:s')]
@@ -119,12 +134,17 @@ final class SubdireccionFirma
         TitulacionRepository::evento($tid, Auth::id(), 'firma', 'En espera de la firma de la Subdirección: ' . $descripcion, true);
     }
 
+    /** Lo que le toca firmar a quien tiene la sesión: la Dirección solo sus oficios; la Subdirección (y su asistente), el resto. */
     public static function pendientes(): array
     {
+        $dir = Oficios::DIRECCION;
+        $marcas = implode(',', array_fill(0, count($dir), '?'));
+        $condicion = self::esDirector() && !self::esSubdirector() && !self::esAsistente() ? "f.formato IN ($marcas)" : "f.formato NOT IN ($marcas)";
         return Database::todas(
             "SELECT f.*, t.folio, t.modalidad, u.nombre AS alumno_nombre
              FROM tit_firmas_subdireccion f JOIN tit_tramites t ON t.id = f.tramite_id JOIN usuarios u ON u.id = t.alumno_id
-             WHERE f.estado = 'pendiente' ORDER BY f.creado_en"
+             WHERE f.estado = 'pendiente' AND $condicion ORDER BY f.creado_en",
+            $dir
         );
     }
 
@@ -156,7 +176,7 @@ final class SubdireccionFirma
         }
         $relativa = 'titulacion/' . (int) $t['id'] . '/subdireccion/' . $s['formato'] . '_' . bin2hex(random_bytes(6)) . '.pdf';
         $destino = FirmaElectronica::almacen() . '/' . $relativa;
-        self::estampar($origen, $destino, $caja, $capacidad, (string) $t['folio']);
+        self::estampar($origen, $destino, $caja, $capacidad, (string) $t['folio'], (string) $s['formato']);
         $hash = hash_file('sha256', $destino) ?: '';
         $ahora = date('Y-m-d H:i:s');
         $st = Database::pdo()->prepare(
@@ -173,10 +193,13 @@ final class SubdireccionFirma
         TitulacionRepository::evento((int) $t['id'], $autor, 'firma', 'Firmado por la Subdirección: ' . $s['descripcion'], true);
         Audit::record('titulacion::subdireccion', 'firma', $capacidad . ' · ' . $s['formato'] . ' · ' . $t['folio'] . ' · ' . substr($hash, 0, 12));
         self::sincronizar((int) $t['id']);
+        if ($s['formato'] === 'oficio_sinodal') {
+            Jurado::oficioFirmado((int) $doc['id']);
+        }
     }
 
     /** Recalcula etapa y estado del trámite tras una firma. */
-    private static function sincronizar(int $id): void
+    public static function sincronizar(int $id): void
     {
         $t = TitulacionRepository::obtener($id);
         if (!$t || $t['estado'] === 'cancelado') {
@@ -190,15 +213,15 @@ final class SubdireccionFirma
     }
 
     /** Sello visible sobre el nombre impreso: nombre y cargo del Subdirector, folio y huella; leyenda solo si no firmó él. */
-    private static function estampar(string $origenAbs, string $salidaAbs, array $caja, string $capacidad, string $folio): void
+    private static function estampar(string $origenAbs, string $salidaAbs, array $caja, string $capacidad, string $folio, string $formato = ''): void
     {
         $mm = 25.4 / 72;
         $huella = substr(hash_file('sha256', $origenAbs) ?: '', 0, 8);
         SelloPdf::estampar(
             $origenAbs, $salidaAbs, (int) ($caja['p'] ?? 0),
             ((float) $caja['x'] + (float) $caja['w'] / 2) * $mm, (float) $caja['y'] * $mm - 1.5,
-            'FIRMA ELECTRÓNICA · SUBDIRECCIÓN ACADÉMICA',
-            [mb_strtoupper(Formatos::subdirector()), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $folio . ' ' . $huella],
+            in_array($formato, Oficios::DIRECCION, true) ? 'FIRMA ELECTRÓNICA · DIRECCIÓN' : 'FIRMA ELECTRÓNICA · SUBDIRECCIÓN ACADÉMICA',
+            [in_array($formato, Oficios::DIRECCION, true) ? Oficios::director() : mb_strtoupper(Formatos::subdirector()), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $folio . ' ' . $huella],
             self::LEYENDAS[$capacidad] ?? ''
         );
     }

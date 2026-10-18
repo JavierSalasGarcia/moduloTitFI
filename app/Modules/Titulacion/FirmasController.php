@@ -47,15 +47,13 @@ final class FirmasController extends TitulacionBase
     public function firmar(): void
     {
         $this->soloFirmantes();
-        $ids = array_filter(array_map('intval', (array) ($_POST['ids'] ?? [])));
-        if (!empty($_POST['todas'])) {
-            $ids = array_map(static fn(array $f): int => (int) $f['id'], SubdireccionFirma::pendientes());
-        }
+        $propios = array_map(static fn(array $f): int => (int) $f['id'], SubdireccionFirma::pendientes());
+        $ids = !empty($_POST['todas']) ? $propios : array_values(array_intersect(array_map('intval', (array) ($_POST['ids'] ?? [])), $propios));
         if (!$ids) {
             flash('error', 'Selecciona al menos un documento.');
             redirigir('titulacion/firmas');
         }
-        $capacidad = SubdireccionFirma::esSubdirector() ? 'personal' : 'delegada';
+        $capacidad = SubdireccionFirma::esSubdirector() || (SubdireccionFirma::esDirector() && !SubdireccionFirma::esAsistente()) ? 'personal' : 'delegada';
         $ok = 0;
         $fallos = 0;
         foreach ($ids as $id) {
@@ -86,17 +84,11 @@ final class FirmasController extends TitulacionBase
     {
         $this->privado();
         $this->soloFirmantes();
-        $f = ctype_digit($id) ? Database::una("SELECT * FROM tit_firmas_subdireccion WHERE id = ? AND estado = 'pendiente'", [(int) $id]) : null;
-        $t = $f ? TitulacionRepository::obtener((int) $f['tramite_id']) : null;
-        if (!$f || !$t) {
+        $f = ctype_digit($id) ? Database::una("SELECT f.*, d.ruta FROM tit_firmas_subdireccion f JOIN tit_documentos d ON d.id = f.documento_id WHERE f.id = ? AND f.estado = 'pendiente'", [(int) $id]) : null;
+        if (!$f || !in_array((int) $f['id'], array_map(static fn(array $x): int => (int) $x['id'], SubdireccionFirma::pendientes()), true)) {
             $this->noEncontrado();
         }
-        try {
-            [$bytes, $nombre, $mime] = Services\Formatos::generar((string) $f['formato'], $t);
-        } catch (Throwable) {
-            $this->noEncontrado();
-        }
-        $this->enviarBytes($bytes, $nombre, $mime);
+        $this->enviarArchivo((string) $f['ruta'], $f['formato'] . '.pdf', true);
     }
 
     // ----------------------------------------------------------------- asistentes (solo Subdirector)

@@ -313,6 +313,18 @@ final class Catalogo
             // Campos que se llenan en celdas «etiqueta: valor» además de las secciones.
             $campos = [...$campos, ...$def[3]];
         }
+        if ($modalidad !== 'articulo') {
+            $capitulado = ['k' => 'capitulado', 'h' => 'Estructura capitular', 'label' => 'Estructura capitular propuesta (un capítulo por línea)', 'tipo' => 'area', 'filas' => 8, 'max' => 2000, 'req' => true,
+                'ayuda' => 'Escribe un capítulo por línea, sin numerar (por ejemplo: «Introducción»). El oficio de aprobación los numerará como Capítulo 1, 2…'];
+            $pos = count($campos);
+            foreach ($campos as $i => $c) {
+                if (($c['tipo'] ?? '') === 'cronograma') {
+                    $pos = $i;
+                    break;
+                }
+            }
+            array_splice($campos, $pos, 0, [$capitulado]);
+        }
         return ['plantilla' => $def[0], 'campos' => $campos, 'etiquetas_extra' => $etiquetasExtra];
     }
 
@@ -324,6 +336,12 @@ final class Catalogo
         return ['clave' => $clave, 'nombre' => $nombre, 'nota' => $nota, 'condicion' => $condicion, 'formato' => $formato,
             'activo' => true, 'fisico' => false, 'cotejo' => false, 'firma_cotejo' => 'sello',
             'generado' => $formato !== null];
+    }
+
+    /** Asignación de sinodales que firma el Coordinador de Docencia (se activa al fijar la fecha del examen). */
+    private static function asignacion(string $clave, string $nombre, string $tipo): array
+    {
+        return ['asignacion' => $tipo] + self::doc($clave, $nombre);
     }
 
     /** Oficio que genera la plataforma con los datos del trámite y firma la Subdirección. */
@@ -364,7 +382,7 @@ final class Catalogo
             'Copias en tamaño carta, legibles y por ambos lados cuando corresponda; los originales se entregan en Apoyo a Titulación.',
         ];
         if ($conTrabajo) {
-            array_unshift($l, 'Seis ejemplares del trabajo escrito (4 impresos o en PDF en CD y 2 en PDF en CD, con el mismo empastado).');
+            array_unshift($l, 'Una memoria USB en un estuche para cada sinodal con tu trabajo escrito en PDF (lo acuerdas con cada profesor); Titulación solo valida el PDF completo que subiste.');
         }
         return $l;
     }
@@ -488,13 +506,14 @@ final class Catalogo
             'clave' => 'fecha', 'titulo' => 'Fecha, hora y lugar de la toma de protesta', 'tipo' => 'personal',
             'descripcion' => 'Apoyo a Titulación asigna el jurado y te comunica la fecha. Preséntate puntualmente.',
             'personal' => [
-                'titulo' => 'Asignar fecha, hora y lugar',
+                'titulo' => 'Fecha de la toma de protesta y asignación de jurado',
+                'descripcion' => 'Titulación fija la fecha; la Coordinación de Docencia asigna al jurado y firma desde el enlace de su correo. Después se generan los oficios individuales.',
                 'campos' => [
                     ['k' => 'fecha', 'label' => 'Fecha', 'tipo' => 'fecha', 'req' => true],
                     ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
                     ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
-                    ['k' => 'jurado', 'label' => 'Jurado (opcional)', 'tipo' => 'area', 'req' => false],
                 ],
+                'entrega' => self::asignacion('asignacion_jurado', 'Asignación de jurado (Coordinación de Docencia)', 'protesta'),
             ],
         ];
         $etapas[] = self::etapaResultado(false);
@@ -538,9 +557,9 @@ final class Catalogo
             ],
             'personal' => [
                 'titulo' => 'Dictamen de la Comisión Revisora de Protocolos',
-                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, la plataforma genera el oficio de aprobación de tema y modalidad.',
+                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, la plataforma genera el oficio con tu tema y estructura capitular, que firma el Director.',
                 'campos' => [['k' => 'fecha', 'label' => 'Fecha de aprobación del protocolo', 'tipo' => 'fecha', 'req' => true]],
-                'entrega' => self::oficio('oficio_aprobacion_tema', 'Oficio de aprobación de tema y modalidad'),
+                'entrega' => self::oficio('oficio_aprobacion_tema', 'Oficio de aprobación de tema y estructura capitular'),
             ],
             'blanco' => ['rep'],
         ];
@@ -566,14 +585,14 @@ final class Catalogo
                 self::doc('trabajo_previo', 'Trabajo escrito en PDF para revisión', 'Con copia del oficio de aprobación de tema al inicio.'),
             ],
             'personal' => [
-                'titulo' => 'Asignación de revisores y examen previo',
+                'titulo' => 'Fecha del examen previo y asignación de revisores',
+                'descripcion' => 'Titulación fija la fecha; la Coordinación de Docencia de la licenciatura asigna a los revisores y firma desde el enlace que le llega por correo. Después se generan los oficios individuales.',
                 'campos' => [
-                    ['k' => 'revisores', 'label' => 'Revisores asignados', 'tipo' => 'area', 'req' => true],
                     ['k' => 'fecha', 'label' => 'Fecha del examen previo', 'tipo' => 'fecha', 'req' => true],
                     ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
                     ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
                 ],
-                'entrega' => self::oficio('oficio_revisores', 'Oficios de asignación de revisores'),
+                'entrega' => self::asignacion('asignacion_revisores', 'Asignación de revisores (Coordinación de Docencia)', 'previo'),
             ],
         ];
 
@@ -620,14 +639,14 @@ final class Catalogo
             'clave' => 'fecha', 'titulo' => 'Fecha, hora y lugar de la evaluación', 'tipo' => 'personal',
             'descripcion' => 'Apoyo a Titulación define fecha, hora y lugar con la Coordinación de Docencia, que asigna al jurado.',
             'personal' => [
-                'titulo' => 'Asignar jurado, fecha, hora y lugar',
+                'titulo' => 'Fecha del examen definitivo y asignación de jurado',
+                'descripcion' => 'Titulación fija la fecha; la Coordinación de Docencia asigna al jurado y firma desde el enlace de su correo. Después se generan los oficios individuales.',
                 'campos' => [
-                    ['k' => 'jurado', 'label' => 'Jurado asignado', 'tipo' => 'area', 'req' => true],
                     ['k' => 'fecha', 'label' => 'Fecha', 'tipo' => 'fecha', 'req' => true],
                     ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
                     ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
                 ],
-                'entrega' => self::oficio('oficio_jurado', 'Oficios de asignación de jurado'),
+                'entrega' => self::asignacion('asignacion_jurado', 'Asignación de jurado (Coordinación de Docencia)', 'definitivo'),
             ],
         ];
         $etapas[] = self::etapaResultado(true);

@@ -119,6 +119,7 @@ final class Flujo
             $entregaOk = $entrega === null
                 || (($filaEntrega['estado'] ?? '') === 'aprobado'
                     && (SubdireccionFirma::tipoDeDocumento($entrega) === null || !empty($filaEntrega['subdir_en'])));
+            $e['entrega_asignacion'] = !empty($entrega['asignacion']);
             $e['entrega_por_firmar'] = $entrega !== null && ($filaEntrega['estado'] ?? '') === 'aprobado' && !$entregaOk;
             $e['entrega_ok'] = $entregaOk;
             $e['personal_ok'] = !isset($e['personal']) || ($hito !== null && $entregaOk);
@@ -171,6 +172,9 @@ final class Flujo
         }
         if ($e['por_cotejar'] > 0) {
             return ['turno' => 'personal', 'texto' => 'Lleva a Apoyo a Titulación el original de ' . $e['por_cotejar'] . ' documento(s) para su cotejo.'];
+        }
+        if (!$e['personal_ok'] && !empty($e['hito']) && !empty($e['entrega_asignacion'])) {
+            return ['turno' => 'personal', 'texto' => 'Fecha fijada: esperando que el Coordinador de Docencia asigne y firme a los sinodales (le llegó un correo con su enlace).'];
         }
         if (!$e['personal_ok'] && !empty($e['entrega_por_firmar'])) {
             return ['turno' => 'personal', 'texto' => 'Oficio generado: esperando la firma electrónica de la Subdirección Académica.'];

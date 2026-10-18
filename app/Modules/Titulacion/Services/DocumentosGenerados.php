@@ -66,9 +66,9 @@ final class DocumentosGenerados
     }
 
     /** Genera y guarda un oficio del departamento. @return array{0:string,1:array} [ruta relativa, caja de firma] */
-    public static function guardarOficio(array $tramite, string $clave, array $datosHito): array
+    public static function guardarOficio(array $tramite, string $clave, array $datosHito, array $extra = []): array
     {
-        [$bytes, $caja] = Oficios::generar($clave, $tramite, $datosHito);
+        [$bytes, $caja] = Oficios::generar($clave, $tramite, $datosHito, $extra);
         $relativa = 'titulacion/' . (int) $tramite['id'] . '/' . $clave . '_' . bin2hex(random_bytes(8)) . '.pdf';
         $abs = FirmaElectronica::almacen() . '/' . $relativa;
         if (!is_dir(dirname($abs))) {

@@ -81,6 +81,73 @@ CREATE TABLE IF NOT EXISTS tit_firmas_externas (
   CONSTRAINT fk_tit_fext_usuario FOREIGN KEY (firmante_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- ---------------------------------------------------------------- Coordinación de Docencia y sinodales
+CREATE TABLE IF NOT EXISTS tit_coordinadores (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  carrera VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  nombre VARCHAR(160) NOT NULL,
+  email VARCHAR(120) NOT NULL,
+  activo TINYINT(1) NOT NULL DEFAULT 1,
+  creado_por INT UNSIGNED NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_coord (carrera, email),
+  CONSTRAINT fk_tit_coord_usuario FOREIGN KEY (creado_por) REFERENCES usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS tit_asignaciones_jurado (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  tramite_id BIGINT UNSIGNED NOT NULL,
+  tipo ENUM('previo','definitivo','protesta') NOT NULL,
+  etapa VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  carrera VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  fecha DATE NOT NULL,
+  hora CHAR(5) NOT NULL,
+  lugar VARCHAR(200) NOT NULL,
+  coord_nombre VARCHAR(160) NOT NULL,
+  coord_email VARCHAR(120) NOT NULL,
+  token_hash CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  vence DATE NOT NULL,
+  estado ENUM('solicitada','firmada','cancelada') NOT NULL DEFAULT 'solicitada',
+  creado_por INT UNSIGNED NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  firmada_en DATETIME NULL,
+  firmante_id INT UNSIGNED NULL,
+  documento_id BIGINT UNSIGNED NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_asig_token (token_hash),
+  KEY idx_tit_asig_tramite (tramite_id, estado),
+  CONSTRAINT fk_tit_asig_tramite FOREIGN KEY (tramite_id) REFERENCES tit_tramites(id) ON DELETE CASCADE,
+  CONSTRAINT fk_tit_asig_creador FOREIGN KEY (creado_por) REFERENCES usuarios(id),
+  CONSTRAINT fk_tit_asig_firmante FOREIGN KEY (firmante_id) REFERENCES usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS tit_sinodales (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  asignacion_id BIGINT UNSIGNED NOT NULL,
+  tramite_id BIGINT UNSIGNED NOT NULL,
+  calidad ENUM('propietario','suplente') NOT NULL,
+  orden TINYINT UNSIGNED NOT NULL,
+  nombre VARCHAR(160) NOT NULL,
+  email VARCHAR(120) NOT NULL,
+  oficio_doc_id BIGINT UNSIGNED NULL,
+  token_hash CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  vence DATE NULL,
+  estado ENUM('esperando_firma','pendiente','acuse','cancelado') NOT NULL DEFAULT 'esperando_firma',
+  enviado_en DATETIME NULL,
+  acuse_en DATETIME NULL,
+  firmante_id INT UNSIGNED NULL,
+  ruta_acuse VARCHAR(500) NULL,
+  hash_acuse CHAR(64) NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_sin_token (token_hash),
+  KEY idx_tit_sin_asig (asignacion_id),
+  KEY idx_tit_sin_email (email, estado),
+  CONSTRAINT fk_tit_sin_asig FOREIGN KEY (asignacion_id) REFERENCES tit_asignaciones_jurado(id) ON DELETE CASCADE,
+  CONSTRAINT fk_tit_sin_tramite FOREIGN KEY (tramite_id) REFERENCES tit_tramites(id) ON DELETE CASCADE,
+  CONSTRAINT fk_tit_sin_firmante FOREIGN KEY (firmante_id) REFERENCES usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ---------------------------------------------------------------- Columnas nuevas (solo si faltan)
 SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_firmas_subdireccion ADD COLUMN caja VARCHAR(120) NULL AFTER descripcion', 'DO 0')
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_firmas_subdireccion' AND COLUMN_NAME = 'caja');
@@ -105,4 +172,7 @@ PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 -- ---------------------------------------------------------------- Ajustes
 INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
 ('titulacion_subdirector_email', 'jsalasg@uaemex.mx', 'Titulación: correo de la cuenta de quien ocupa la Subdirección Académica (firma documentos y administra a su asistente y el piloto automático).'),
+('titulacion_director', 'DR. MARCELO ROMERO HUERTAS', 'Titulación: nombre de quien dirige la Facultad, tal como se imprime y se sella en el oficio de aprobación de tema y estructura capitular.'),
+('titulacion_director_email', '', 'Titulación: correo de la cuenta del Director de la Facultad, quien firma el oficio de aprobación de tema y estructura capitular.'),
+('titulacion_lema', '', 'Titulación: lema oficial del año que aparece bajo «Patria, Ciencia y Trabajo» en los oficios (se antepone el año). Déjalo vacío para omitirlo.'),
 ('titulacion_max_mb', '5', 'Titulación: tamaño máximo en MB de cada PDF que sube el pasante.');

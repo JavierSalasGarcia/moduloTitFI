@@ -206,8 +206,31 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
           <?php $ent = $etapa['personal']['entrega'] ?? null; $filaEnt = $ent ? ($docs[$etapa['clave'] . '|' . $ent['clave']] ?? null) : null; ?>
-          <?php if ($filaEnt): ?><div><a href="<?= url($base . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : '' ?></div><?php endif; ?>
+          <?php if ($filaEnt): ?><div><a href="<?= url($base . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) && !empty($ent['oficio']) ? ' · esperando la firma' : '' ?></div><?php endif; ?>
         </div>
+        <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $etapa['clave']); ?>
+          <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
+            <p class="texto-secundario">El Coordinador de Docencia (<?= e($asig['coord_nombre']) ?>) está asignando a los sinodales; le llegó un correo con su enlace.</p>
+          <?php elseif ($asig): $sins = \App\Modules\Titulacion\Services\Jurado::sinodales((int) $asig['id']); ?>
+            <h4 style="margin-top:12px">Oficios a tus sinodales</h4>
+            <p class="texto-secundario">Tú das seguimiento: cada profesor debe firmar de recibido su oficio. Si tarda, mándale un recordatorio por aquí o visítalo para asegurarte de que revise su correo.</p>
+            <div class="tabla-contenedor"><table class="tabla">
+              <thead><tr><th>Calidad</th><th>Profesor</th><th>Oficio</th><th>Estado</th><th></th></tr></thead>
+              <tbody>
+              <?php foreach ($sins as $sn): $of = $docs[$etapa['clave'] . '|oficio_sinodal_' . $sn['orden']] ?? null; ?>
+                <tr>
+                  <td><?= e($sn['calidad'] === 'suplente' ? 'Suplente' : 'Propietario') ?></td>
+                  <td><?= e($sn['nombre']) ?><br><small><?= e($sn['email']) ?></small></td>
+                  <td><?php if ($of && !empty($of['subdir_en'])): ?><a href="<?= url($base . '/archivo/' . (int) $of['id'] . '?ver=1') ?>" target="_blank" rel="noopener">Ver / descargar</a><?php else: ?><span class="texto-secundario">Esperando firma de la Subdirección</span><?php endif; ?></td>
+                  <td><?php if ($sn['estado'] === 'acuse'): ?><span class="tit-chip ok">Firmó de recibido el <?= e(fecha_corta($sn['acuse_en'])) ?></span><?php elseif ($sn['estado'] === 'pendiente'): ?><span class="tit-chip rev">Sin firmar</span><?php else: ?><span class="tit-chip pend">Oficio por firmar</span><?php endif; ?></td>
+                  <td><?php if ($sn['estado'] === 'pendiente' && $editable): ?><form method="post" action="<?= url($base . '/sinodal/' . (int) $sn['id'] . '/recordar') ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Enviar recordatorio</button></form><?php endif; ?></td>
+                </tr>
+              <?php endforeach; ?>
+              </tbody>
+            </table></div>
+            <p class="nota">La memoria USB con tu trabajo en un estuche se acuerda directamente con cada profesor.</p>
+          <?php endif; ?>
+        <?php endif; ?>
       <?php else: ?>
         <p class="texto-secundario"><?= e($etapa['personal']['descripcion'] ?? 'Esta parte la realiza el Departamento de Evaluación Profesional; te avisaremos aquí cuando esté lista.') ?></p>
       <?php endif; ?>

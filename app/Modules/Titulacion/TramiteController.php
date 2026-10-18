@@ -9,6 +9,7 @@ use App\Core\Database;
 use App\Core\AccessControl;
 use App\Modules\Titulacion\Services\DocumentosGenerados;
 use App\Modules\Titulacion\Services\FirmasExternas;
+use App\Modules\Titulacion\Services\Jurado;
 use App\Modules\Titulacion\Services\Formatos;
 use InvalidArgumentException;
 use Throwable;
@@ -477,16 +478,32 @@ final class TramiteController extends TitulacionBase
         redirigir('titulacion/licenciatura/tramite/' . $t['id'] . '?etapa=' . $fila['etapa']);
     }
 
+    /** El pasante pide reenviar el correo a un sinodal que aún no firma de recibido. */
+    public function recordarSinodal(string $id, string $sid): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::esDueno($t)) {
+            $this->prohibido('Recordatorio en trámite ajeno');
+        }
+        if (!ctype_digit($sid)) {
+            $this->noEncontrado();
+        }
+        if (AccessControl::ready() && AccessControl::limited('tit_recordar:' . (int) $sid, 3, 3600)) {
+            flash('error', 'Ya enviaste varios recordatorios a este profesor; espera una hora o visítalo para asegurarte de que revise su correo.');
+        } elseif (Jurado::recordar((int) $sid, (int) $t['id'])) {
+            flash('exito', 'Recordatorio enviado por correo al profesor.');
+        } else {
+            flash('error', 'Ese oficio ya no está pendiente.');
+        }
+        redirigir('titulacion/licenciatura/tramite/' . $t['id']);
+    }
+
     /** Sugerencias de profesores (por nombre o correo) para capturar asesor y coasesor. */
     public function profesores(): void
     {
-        if (!Auth::usuario() || !(TitulacionAccess::puedeIniciar() || TitulacionAccess::esPersonal())) {
-            http_response_code(403);
-            exit;
-        }
         $q = mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 60);
         $salida = [];
-        if (mb_strlen($q) >= 3) {
+        if (Auth::usuario() && mb_strlen($q) >= 3) {
             $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
             $salida = Database::todas(
                 "SELECT nombre, email FROM usuarios WHERE activo = 1 AND rol IN ('profesor','coordinador','titular') AND (nombre LIKE ? OR email LIKE ?) ORDER BY nombre LIMIT 8",

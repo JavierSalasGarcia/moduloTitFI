@@ -466,6 +466,57 @@
     "GET /titulacion/profesores": [
       "App\\Modules\\Titulacion\\TramiteController",
       "profesores"
+    ],
+    "GET /titulacion/jurado/t/{token}": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "coordinador",
+      "publico"
+    ],
+    "POST /titulacion/jurado/t/{token}/firmar": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "firmarCoordinador",
+      "publico"
+    ],
+    "GET /titulacion/jurado/t/{token}/trabajo": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "trabajoCoordinador",
+      "publico"
+    ],
+    "GET /titulacion/sinodal/t/{token}": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "sinodal",
+      "publico"
+    ],
+    "GET /titulacion/sinodal/t/{token}/oficio": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "oficioSinodal",
+      "publico"
+    ],
+    "GET /titulacion/sinodal/t/{token}/trabajo": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "trabajoSinodal",
+      "publico"
+    ],
+    "POST /titulacion/sinodal/t/{token}/firmar": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "firmarSinodal",
+      "publico"
+    ],
+    "POST /titulacion/estructura/coordinador": [
+      "App\\Modules\\Titulacion\\EstructuraController",
+      "coordinador"
+    ],
+    "POST /titulacion/estructura/coordinador/{id}/quitar": [
+      "App\\Modules\\Titulacion\\EstructuraController",
+      "quitarCoordinador"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/sinodal/{sid}/recordar": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "recordarSinodal"
+    ],
+    "POST /titulacion/gestion/{id}/jurado/{asig}/reenviar": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "reenviarCoordinador"
     ]
   }
 }

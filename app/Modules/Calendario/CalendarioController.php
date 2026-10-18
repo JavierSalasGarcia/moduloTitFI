@@ -57,6 +57,28 @@ final class CalendarioController extends Controller
         $porDia = [];
         $agendaMes = [];
 
+        // 4. Exámenes de titulación con acuse firmado como sinodal.
+        $mail = strtolower((string) (Auth::usuario()['email'] ?? ''));
+        $examenes = [];
+        if ($mail !== '') {
+            try {
+                $examenes = \App\Modules\Titulacion\Services\Jurado::eventosDe($mail, $primerDia, sprintf('%04d-%02d-%02d', $anio, $numMes, $diasEnMes));
+            } catch (\Throwable) {
+                $examenes = [];
+            }
+        }
+        foreach ($examenes as $x) {
+            $alumno = (string) (json_decode((string) $x['datos'], true)['datos']['nombre'] ?? '');
+            $etq = ['previo' => 'Examen previo', 'definitivo' => 'Examen definitivo', 'protesta' => 'Toma de protesta'][$x['tipo']] ?? 'Examen';
+            $item = [
+                'id' => null, 'titulo' => '🎓 [Titulación] ' . $etq . ': ' . $alumno,
+                'inicio' => $x['fecha'] . ' ' . $x['hora'] . ':00', 'lugar' => $x['lugar'], 'depto' => 'Evaluación Profesional',
+                'tipo' => 'interno', 'descripcion' => 'Sinodal ' . $x['calidad'] . ' · ' . $x['folio'],
+            ];
+            $porDia[(int) date('j', strtotime($x['fecha']))][] = $item;
+            $agendaMes[] = $item;
+        }
+
         // Guardamos los títulos internos para este mes indexados por día para desduplicar
         $titulosInternosPorDia = [];
 

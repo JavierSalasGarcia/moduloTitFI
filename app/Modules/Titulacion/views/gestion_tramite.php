@@ -109,6 +109,14 @@ $chips = [
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
           <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : ' · firmado' ?></div><?php endif; ?>
+          <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $e['clave']); ?>
+            <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
+              <div class="tit-aviso">Esperando al Coordinador de Docencia: <?= e($asig['coord_nombre']) ?> (<?= e($asig['coord_email']) ?>).
+                <form method="post" action="<?= url($base . '/jurado/' . (int) $asig['id'] . '/reenviar') ?>" style="display:inline"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reenviar correo</button></form></div>
+            <?php elseif ($asig): foreach (\App\Modules\Titulacion\Services\Jurado::sinodales((int) $asig['id']) as $sn): ?>
+              <div><?= e($sn['calidad'] === 'suplente' ? 'Suplente' : 'Propietario') ?>: <?= e($sn['nombre']) ?> · <?= e(['esperando_firma' => 'oficio por firmar', 'pendiente' => 'sin acuse', 'acuse' => 'acuse firmado'][$sn['estado']] ?? $sn['estado']) ?></div>
+            <?php endforeach; endif; ?>
+          <?php endif; ?>
           <div class="texto-secundario">Registrado por <?= e($hito['completado_nombre']) ?> · <?= e(fecha_corta($hito['completado_en'])) ?></div>
         </div>
         <form method="post" action="<?= url($base . '/reabrir/' . $e['clave']) ?>" onsubmit="return confirm('¿Reabrir esta etapa?')" style="margin-top:8px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reabrir etapa</button></form>
@@ -122,7 +130,7 @@ $chips = [
               <?php foreach ($e['personal']['campos'] ?? [] as $campo): $valor = ''; $nombre = 'h[' . $campo['k'] . ']'; include __DIR__ . '/_campo.php'; endforeach; ?>
             </div>
             <?php if ($ent): ?>
-              <p class="texto-secundario">Al registrar, la plataforma genera «<?= e($ent['nombre']) ?>» con estos datos y lo envía a la firma electrónica de la Subdirección.</p>
+              <p class="texto-secundario"><?= !empty($ent['asignacion']) ? 'Al registrar, se envía por correo al Coordinador de Docencia de la licenciatura la solicitud para asignar a los sinodales y firmar.' : 'Al registrar, la plataforma genera «' . e($ent['nombre']) . '» con estos datos y lo envía a la firma electrónica correspondiente.' ?></p>
             <?php endif; ?>
             <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Registrar y completar etapa</button></div>
           </form>
