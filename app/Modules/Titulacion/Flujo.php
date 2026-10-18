@@ -82,14 +82,16 @@ final class Flujo
             $clave = $e['clave'];
             $e['captura_ok'] = self::capturaCompleta($e, $tramite['datos']);
             $e['docs_estado'] = [];
-            $porValidar = $rechazados = $faltan = $porCotejar = $porFirmar = 0;
+            $porValidar = $rechazados = $faltan = $porCotejar = $porFirmar = $porFirmasExt = 0;
             foreach ($e['documentos'] ?? [] as $d) {
                 $fila = $docs[$clave . '|' . $d['clave']] ?? null;
-                $estado = $fila['estado'] ?? 'pendiente';
+                $estado = !empty($fila['pendiente_firmas']) ? 'firmas' : ($fila['estado'] ?? 'pendiente');
                 $cotejado = empty($d['cotejo']) || !empty($fila['cotejo_en']);
                 $firmado = SubdireccionFirma::tipoDeDocumento($d) === null || !empty($fila['subdir_en']);
                 $ok = ($estado === 'aprobado' && $cotejado && $firmado) || ($estado === 'no_aplica' && $d['condicion'] !== null);
-                if ($estado === 'aprobado' && !$firmado) {
+                if ($estado === 'firmas') {
+                    $porFirmasExt++;
+                } elseif ($estado === 'aprobado' && !$firmado) {
                     $porFirmar++;
                 } elseif ($estado === 'aprobado' && !$cotejado) {
                     $porCotejar++;
@@ -105,6 +107,7 @@ final class Flujo
             $e['por_validar'] = $porValidar;
             $e['por_cotejar'] = $porCotejar;
             $e['por_firmar'] = $porFirmar;
+            $e['por_firmas_ext'] = $porFirmasExt;
             $e['rechazados'] = $rechazados;
             $e['faltan'] = $faltan;
             $e['docs_ok'] = array_reduce($e['docs_estado'], static fn(bool $c, array $x): bool => $c && $x['ok'], true);
@@ -153,6 +156,9 @@ final class Flujo
         }
         if ($e['rechazados'] > 0) {
             return ['turno' => 'alumno', 'texto' => 'Corrige y vuelve a subir ' . $e['rechazados'] . ' documento(s) observado(s).'];
+        }
+        if ($e['por_firmas_ext'] > 0) {
+            return ['turno' => 'alumno', 'texto' => 'Esperando la firma de tu asesor: le llegó un correo con su enlace. Puedes reenviárselo.'];
         }
         if ($e['faltan'] > 0) {
             return ['turno' => 'alumno', 'texto' => 'Sube ' . $e['faltan'] . ' documento(s) pendiente(s).'];

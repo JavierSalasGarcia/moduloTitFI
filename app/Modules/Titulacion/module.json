@@ -443,6 +443,29 @@
     "GET /titulacion/gestion/{id}/expediente": [
       "App\\Modules\\Titulacion\\GestionController",
       "expediente"
+    ],
+    "GET /titulacion/firma/t/{token}": [
+      "App\\Modules\\Titulacion\\FirmaExternaController",
+      "ver",
+      "publico"
+    ],
+    "GET /titulacion/firma/t/{token}/documento": [
+      "App\\Modules\\Titulacion\\FirmaExternaController",
+      "documento",
+      "publico"
+    ],
+    "POST /titulacion/firma/t/{token}/firmar": [
+      "App\\Modules\\Titulacion\\FirmaExternaController",
+      "firmar",
+      "publico"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/reenviar/{doc}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "reenviar"
+    ],
+    "GET /titulacion/profesores": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "profesores"
     ]
   }
 }

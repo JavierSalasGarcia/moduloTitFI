@@ -7,6 +7,7 @@ $base = 'titulacion/licenciatura/tramite/' . (int) $t['id'];
 $total = count($flujo['etapas']);
 $hechas = count(array_filter($flujo['etapas'], static fn(array $e): bool => $e['situacion'] === 'completa'));
 $chips = [
+  'firmas' => ['rev', 'Esperando firma del asesor'],
     'pendiente' => ['pend', 'Pendiente'], 'en_revision' => ['rev', 'En validación'], 'aprobado' => ['ok', 'Validado'],
     'rechazado' => ['mal', 'Con observaciones'], 'no_aplica' => ['na', 'No me aplica'],
 ];
@@ -115,7 +116,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php endif; ?>
 
     <?php if (!$bloqueada && !empty($etapa['documentos'])): ?>
-      <h3>Documentos <span class="texto-secundario" style="font-weight:400;font-size:13px">(solo PDF, legibles y a color)</span></h3>
+      <h3>Documentos <span class="texto-secundario" style="font-weight:400;font-size:13px">(solo PDF escaneado, no fotografías; legible y a color; máximo 5 MB)</span></h3>
       <?php foreach ($etapa['docs_estado'] as $dc => $info): $d = $info['def']; $fila = $info['fila']; $est = $info['estado']; [$cl, $et] = $chips[$est] ?? ['pend', $est]; ?>
         <div class="tit-doc" id="doc-<?= e($dc) ?>">
           <div>
@@ -134,7 +135,12 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
             <?php if ($fila && $fila['ruta']): ?>
               <p class="nota"><a href="<?= url($base . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= !empty($d['generado']) ? 'Ver PDF firmado' : 'Ver PDF enviado' ?></a><?= empty($d['generado']) ? ' · ' . e((string) $fila['nombre_original']) : '' ?><?= !empty($fila['subdir_en']) ? ' · firmado por la Subdirección el ' . e(fecha_corta($fila['subdir_en'])) : ($est === 'aprobado' && \App\Modules\Titulacion\Services\SubdireccionFirma::tipoDeDocumento($d) !== null ? ' · esperando la firma de la Subdirección' : '') ?></p>
             <?php endif; ?>
-            <?php if (($d['validacion'] ?? '') === 'comision' && $protocoloEnRevision): ?>
+            <?php if ($fila && !empty($fila['pendiente_firmas'])): ?>
+              <p class="nota">Firmaste el documento. Falta la firma de: <?= e(implode(', ', array_map(static fn(array $x): string => $x['nombre'] . ' (' . $x['rol'] . ')', array_filter(\App\Modules\Titulacion\Services\FirmasExternas::pendientesDe((int) $fila['id']), static fn(array $x): bool => $x['estado'] === 'pendiente')))) ?>. Les llegó un correo con su enlace.</p>
+              <?php if ($editable): ?>
+                <form method="post" action="<?= url($base . '/reenviar/' . $dc) ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reenviar correo al asesor</button></form>
+              <?php endif; ?>
+            <?php elseif (($d['validacion'] ?? '') === 'comision' && $protocoloEnRevision): ?>
               <p class="nota">Tu protocolo está en revisión de la comisión; recibirás el dictamen aquí y por correo.</p>
             <?php elseif (!empty($d['generado']) && $editable && $etapa['propia_ok'] && !in_array($est, ['aprobado', 'en_revision'], true)): ?>
               <?php if (isset($formatos[$d['formato']]) && $formatos[$d['formato']]['impedimento']): ?>
@@ -142,7 +148,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
               <?php else: ?>
                 <form method="post" action="<?= url($base . '/generar/' . $etapa['clave'] . '/' . $dc) ?>">
                   <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-                  <button class="btn btn-mini btn-primario" type="submit">Firmar electrónicamente y enviar</button>
+                  <button class="btn btn-mini btn-primario" type="submit"><?= $dc === 'protocolo_firmado' ? 'Firmar y enviar a mi asesor' : 'Firmar electrónicamente y enviar' ?></button>
                 </form>
               <?php endif; ?>
             <?php elseif (!empty($d['generado'])): ?>
@@ -262,3 +268,4 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
   </section>
 </aside>
 </div>
+<script src="<?= url('assets/js/titulacion-profesores.js') ?>" data-url="<?= url('titulacion/profesores') ?>" defer></script>

@@ -247,8 +247,10 @@ final class Catalogo
     {
         $titulo = fn(string $h = 'Título', string $label = 'Título del trabajo') => ['k' => 'titulo', 'h' => $h, 'label' => $label, 'tipo' => 'area', 'filas' => 2, 'max' => 400, 'req' => true, 'tema' => true, 'ayuda' => 'Especifica claramente el qué, es decir, el objeto de estudio.'];
         $asesor = [
-            ['k' => 'asesor', 'h' => 'Asesor', 'label' => 'Asesor (adscrito a la UAEM)', 'tipo' => 'texto', 'max' => 160, 'req' => true],
-            ['k' => 'coasesor', 'h' => 'Coasesor', 'label' => 'Coasesor (opcional)', 'tipo' => 'texto', 'max' => 160, 'req' => false, 'vacio' => 'No aplica'],
+            ['k' => 'asesor', 'h' => 'Asesor', 'label' => 'Asesor (adscrito a la UAEM): nombre', 'tipo' => 'texto', 'max' => 160, 'req' => true, 'prof' => 'asesor', 'ayuda' => 'Escribe el nombre o el correo: si está registrado se completan solos. Si no, captura ambos; le llegará un correo para firmar tu protocolo.'],
+            ['k' => 'asesor_correo', 'label' => 'Asesor: correo electrónico', 'tipo' => 'email', 'max' => 120, 'req' => true, 'prof_correo' => 'asesor'],
+            ['k' => 'coasesor', 'h' => 'Coasesor', 'label' => 'Coasesor (opcional): nombre', 'tipo' => 'texto', 'max' => 160, 'req' => false, 'vacio' => 'No aplica', 'prof' => 'coasesor'],
+            ['k' => 'coasesor_correo', 'label' => 'Coasesor: correo electrónico', 'tipo' => 'email', 'max' => 120, 'req' => false, 'prof_correo' => 'coasesor'],
         ];
         $area = ['k' => 'area', 'h' => 'Área académica', 'label' => 'Área académica', 'tipo' => 'texto', 'max' => 160, 'req' => true, 'ayuda' => 'La que corresponda según la Coordinación de Docencia.'];
         $a = fn(string $k, string $h, string $label, string $ayuda = '', bool $req = true) => ['k' => $k, 'h' => $h, 'label' => $label, 'tipo' => 'area', 'filas' => 5, 'max' => 4000, 'req' => $req, 'ayuda' => $ayuda];
@@ -321,7 +323,7 @@ final class Catalogo
     {
         return ['clave' => $clave, 'nombre' => $nombre, 'nota' => $nota, 'condicion' => $condicion, 'formato' => $formato,
             'activo' => true, 'fisico' => false, 'cotejo' => false, 'firma_cotejo' => 'sello',
-            'generado' => $formato !== null && $formato !== 'protocolo'];
+            'generado' => $formato !== null];
     }
 
     /** Oficio que genera la plataforma con los datos del trámite y firma la Subdirección. */
@@ -527,11 +529,11 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'protocolo', 'titulo' => 'Protocolo y aprobación del tema', 'tipo' => 'captura',
-            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; descárgalo, fírmalo con tu asesor y súbelo para su revisión por la Comisión Revisora de Protocolos.',
+            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; escribe aquí todo el protocolo; la plataforma lo firma por ti, le pide la firma a tu asesor por correo y lo turna a la Comisión Revisora de Protocolos.',
             'campos' => $proto['campos'] ?? [],
             'formatos' => ['protocolo'],
             'documentos' => [
-                ['validacion' => 'comision'] + self::doc('protocolo_firmado', 'Solicitud y protocolo firmados (pasante y asesor)', 'En PDF, completo y legible. Lo revisa la comisión de evaluación de tu licenciatura.', null, 'protocolo'),
+                ['validacion' => 'comision'] + self::doc('protocolo_firmado', 'Solicitud y protocolo firmados (pasante y asesor)', 'La plataforma lo genera con lo que escribiste; tu asesor lo firma por correo. Después lo revisa la comisión de tu licenciatura.', null, 'protocolo'),
                 self::doc('carta_presentacion', 'Carta de presentación del pasante y asesor', 'Descárgala en blanco desde «Formatos en blanco».', 'Solo para instituciones incorporadas.'),
             ],
             'personal' => [

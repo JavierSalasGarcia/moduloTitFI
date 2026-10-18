@@ -7,6 +7,7 @@ $base = 'titulacion/gestion/' . (int) $t['id'];
 $ver = 'titulacion/licenciatura/tramite/' . (int) $t['id'];
 $p = $t['datos']['datos'] ?? [];
 $chips = [
+  'firmas' => ['rev', 'Esperando firma del asesor'],
     'pendiente' => ['pend', 'Pendiente'], 'en_revision' => ['rev', 'Por validar'], 'aprobado' => ['ok', 'Validado'],
     'rechazado' => ['mal', 'Devuelto'], 'no_aplica' => ['na', 'No le aplica'],
 ];

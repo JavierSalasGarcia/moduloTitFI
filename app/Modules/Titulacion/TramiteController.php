@@ -6,7 +6,9 @@ namespace App\Modules\Titulacion;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
+use App\Core\AccessControl;
 use App\Modules\Titulacion\Services\DocumentosGenerados;
+use App\Modules\Titulacion\Services\FirmasExternas;
 use App\Modules\Titulacion\Services\Formatos;
 use InvalidArgumentException;
 use Throwable;
@@ -354,6 +356,11 @@ final class TramiteController extends TitulacionBase
                 redirigir($volver);
             }
         }
+        $maxMb = max(1, (int) \ajuste('titulacion_max_mb', '5'));
+        if (!empty($_FILES['archivo']) && (int) ($_FILES['archivo']['size'] ?? 0) > $maxMb * 1048576) {
+            flash('error', 'El PDF excede ' . $maxMb . ' MB. Escanéalo con menor resolución o comprímelo antes de subirlo.');
+            redirigir($volver);
+        }
         try {
             $ruta = guardar_archivo('archivo', 'titulacion/' . (int) $t['id'], ['pdf']);
         } catch (InvalidArgumentException $e) {
@@ -407,6 +414,26 @@ final class TramiteController extends TitulacionBase
             flash('error', 'Ese documento ya fue enviado.');
             redirigir($volver);
         }
+        if ($docClave === 'protocolo_firmado') {
+            $abierta = RevisionRepository::rondaAbierta((int) $t['id']);
+            if ($abierta && $abierta['estado'] !== 'recibida') {
+                flash('error', 'Tu protocolo ya está en revisión de la comisión; no puedes reemplazarlo hasta recibir el dictamen.');
+                redirigir($volver);
+            }
+            try {
+                [$ruta, $cajas] = DocumentosGenerados::firmarProtocolo($t, (string) ($t['datos']['datos']['nombre'] ?? Auth::usuario()['nombre'] ?? ''));
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo generar el protocolo: ' . $e->getMessage());
+                flash('error', 'No se pudo generar el protocolo. Intenta de nuevo.');
+                redirigir($volver);
+            }
+            $docId = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, 'protocolo_' . $t['folio'] . '.pdf', Auth::id());
+            FirmasExternas::solicitarProtocolo($t, $docId, $cajas);
+            Audit::record('titulacion::firma_pasante', 'correcto', 'Trámite ' . $t['id'] . ' · protocolo');
+            $this->sincronizar((int) $t['id']);
+            flash('exito', 'Protocolo firmado. Enviamos a tu asesor un correo para que lo firme; cuando lo haga pasa a la comisión.');
+            redirigir($volver);
+        }
         try {
             $ruta = DocumentosGenerados::firmarPorPasante($t, (string) $def['formato'], (string) ($t['datos']['datos']['nombre'] ?? Auth::usuario()['nombre'] ?? ''));
         } catch (Throwable $e) {
@@ -422,6 +449,54 @@ final class TramiteController extends TitulacionBase
         $this->sincronizar((int) $t['id']);
         flash('exito', 'Documento firmado y enviado. Personal de Titulación lo validará.');
         redirigir($volver);
+    }
+
+    /** Reenvía al asesor el enlace de firma (el anterior deja de servir). */
+    public function reenviar(string $id, string $docClave): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::puedeEditar($t)) {
+            $this->prohibido('Reenvío en trámite ajeno o cerrado');
+        }
+        $docs = TitulacionRepository::documentosVigentes((int) $t['id']);
+        $fila = null;
+        foreach ($docs as $d) {
+            if ($d['clave'] === $docClave && !empty($d['pendiente_firmas'])) {
+                $fila = $d;
+            }
+        }
+        if ($fila === null) {
+            $this->noEncontrado();
+        }
+        if (AccessControl::ready() && AccessControl::limited('tit_reenvio:' . (int) $fila['id'], 3, 3600)) {
+            flash('error', 'Ya reenviaste el enlace varias veces; espera una hora.');
+        } else {
+            $n = FirmasExternas::reenviar((int) $fila['id']);
+            flash('exito', $n > 0 ? 'Enlace reenviado por correo.' : 'No hay firmas pendientes.');
+        }
+        redirigir('titulacion/licenciatura/tramite/' . $t['id'] . '?etapa=' . $fila['etapa']);
+    }
+
+    /** Sugerencias de profesores (por nombre o correo) para capturar asesor y coasesor. */
+    public function profesores(): void
+    {
+        if (!Auth::usuario() || !(TitulacionAccess::puedeIniciar() || TitulacionAccess::esPersonal())) {
+            http_response_code(403);
+            exit;
+        }
+        $q = mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 60);
+        $salida = [];
+        if (mb_strlen($q) >= 3) {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
+            $salida = Database::todas(
+                "SELECT nombre, email FROM usuarios WHERE activo = 1 AND rol IN ('profesor','coordinador','titular') AND (nombre LIKE ? OR email LIKE ?) ORDER BY nombre LIMIT 8",
+                [$like, $like]
+            );
+        }
+        header('Content-Type: application/json; charset=UTF-8');
+        header('Cache-Control: no-store');
+        echo json_encode($salida, JSON_UNESCAPED_UNICODE);
+        exit;
     }
 
     public function noAplica(string $id, string $etapaClave, string $docClave): void
