@@ -80,6 +80,10 @@ final class GestionController extends TitulacionBase
             flash('error', 'El comentario excede 900 caracteres.');
             redirigir($volver);
         }
+        if (!empty($d['pendiente_firmas'])) {
+            flash('error', 'El documento aún espera la firma del asesor.');
+            redirigir($volver);
+        }
         $etapaDef = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, (string) $d['etapa']);
         $defDoc = $etapaDef ? Catalogo::documentoDeEtapa($etapaDef, (string) $d['clave']) : null;
         if (($defDoc['validacion'] ?? '') === 'comision' && RevisionRepository::comisionConfigurada((string) ($t['datos']['datos']['carrera'] ?? ''))) {
@@ -280,6 +284,9 @@ final class GestionController extends TitulacionBase
                 . ($d['revisor_nombre'] ? ' · validado por ' . $d['revisor_nombre'] : '')
                 . ($d['subdir_en'] ? ' · firmado por la Subdirección el ' . $d['subdir_en'] . ' (' . $d['subdir_capacidad'] . ')' : '')
                 . ($d['cotejo_en'] ? ' · original cotejado el ' . $d['cotejo_en'] : '');
+            foreach (Services\FirmasExternas::pendientesDe((int) $d['id']) as $x) {
+                $detalle .= ' · firma de ' . $x['rol'] . ' ' . $x['nombre'] . ' <' . $x['email'] . '>: ' . ($x['estado'] === 'firmada' ? 'firmada el ' . $x['firmada_en'] : 'pendiente');
+            }
             $agregar((string) ($d['subdir_ruta'] ?: $d['ruta']), $d['etapa'] . '_' . $d['clave'], $detalle);
             if (!empty($d['cotejo_ruta'])) {
                 $agregar((string) $d['cotejo_ruta'], $d['etapa'] . '_' . $d['clave'] . '_cotejo', 'Copia con sello de cotejo');

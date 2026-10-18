@@ -40,9 +40,13 @@ $req = !empty($campo['req']);
   <?php else: ?>
     <?php $htmlTipo = ['fecha' => 'date', 'hora' => 'time', 'email' => 'email', 'tel' => 'tel'][$tipo] ?? 'text'; ?>
     <input id="<?= e($id) ?>" type="<?= $htmlTipo ?>" name="<?= e($nombre) ?>" value="<?= e((string) $valor) ?>"
+      <?= !empty($campo['prof']) ? 'data-prof="' . e($campo['prof']) . '" list="dl-prof-' . e($campo['prof']) . '" autocomplete="off"' : '' ?>
+      <?= !empty($campo['prof_correo']) ? 'data-prof-correo="' . e($campo['prof_correo']) . '" list="dl-prof-' . e($campo['prof_correo']) . '-c" autocomplete="off"' : '' ?>
       <?= isset($campo['max']) ? 'maxlength="' . (int) $campo['max'] . '"' : '' ?>
       <?= !empty($campo['patron']) ? 'pattern="' . e((string) $campo['patron']) . '"' : '' ?> <?= $req ? 'required' : '' ?>>
   <?php endif; ?>
+  <?php if (!empty($campo['prof'])): ?><datalist id="dl-prof-<?= e($campo['prof']) ?>"></datalist><?php endif; ?>
+  <?php if (!empty($campo['prof_correo'])): ?><datalist id="dl-prof-<?= e($campo['prof_correo']) ?>-c"></datalist><?php endif; ?>
   <?php if (!empty($campo['ayuda'])): ?><span class="ayuda-form"><?= e($campo['ayuda']) ?></span><?php endif; ?>
 <?php endif; ?>
 </div>
