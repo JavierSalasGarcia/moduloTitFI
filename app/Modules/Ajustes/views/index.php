@@ -20,6 +20,12 @@ $campo = static function(string $clave, string $etiqueta, string $tipo='text') u
     <p class="ayuda-form">Obtén tu clave en <a href="https://build.nvidia.com/" target="_blank" rel="noopener">NVIDIA ↗</a>. La disponibilidad y las condiciones de uso dependen de tu cuenta.</p>
     </details>
   </section>
+  <section class="card"><h2>Autoridades y leyendas oficiales</h2>
+    <p class="ayuda-form">Se usan en todos los oficios, formatos y firmas electrónicas de la plataforma. El correo debe ser el de la cuenta con la que esa persona entra a Traza FI.</p>
+    <?php $campo('institucion_director_nombre','Director de la Facultad: nombre como se imprime (con grado)'); $campo('institucion_director_email','Director de la Facultad: correo de su cuenta','email');
+          $campo('institucion_subdirector_nombre','Subdirector Académico: nombre como se imprime (con grado)'); $campo('institucion_subdirector_email','Subdirector Académico: correo de su cuenta','email');
+          $campo('institucion_lema_anual','Lema oficial del año (aparece bajo «Patria, Ciencia y Trabajo»; vacío para omitirlo)'); ?>
+  </section>
   <section class="card"><h2>Departamentos</h2><label>Área responsable de los grupos de investigación<select name="valor[firmas_depto_investigacion]"><?php foreach ($departamentos as $d): ?><option value="<?= (int)$d['id'] ?>" <?= (string)$d['id']===($valores['firmas_depto_investigacion']??'')?'selected':'' ?>><?= e($d['nombre']) ?></option><?php endforeach; ?></select></label></section>
   <section class="card"><h2>Comunidad</h2><?php $campo('umbral_likes_trazabilidad','Apoyos necesarios para dar seguimiento a una propuesta','number'); ?></section>
   <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar ajustes</button></div>

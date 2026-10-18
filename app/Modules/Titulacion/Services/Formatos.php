@@ -148,7 +148,7 @@ final class Formatos
     /** Nombre del Subdirector Académico tal como debe aparecer; se captura una vez en Ajustes. */
     public static function subdirector(): string
     {
-        $nombre = trim((string) \ajuste('titulacion_subdirector', 'DR. JAVIER SALAS GARCÍA'));
+        $nombre = trim((string) \ajuste('institucion_subdirector_nombre', 'DR. JAVIER SALAS GARCÍA'));
         return $nombre !== '' ? $nombre : 'DR. JAVIER SALAS GARCÍA';
     }
 
