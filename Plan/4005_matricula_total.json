@@ -1,0 +1,5190 @@
+{
+  "id_categoria": "4005",
+  "categoria": "Matrícula total",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4005",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZDAzMTNjYjEtZmMxMi00ZWMyLWJkN2EtMzQ4ODkxZTAxZDY4IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias del Agua",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ciencias del Agua",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Inteligencia Artificial Aplicada",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Brecha Genero Absoluta1"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+        },
+        "registros": [
+          {
+            "Brecha Genero Absoluta1": -1557,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "002",
+        "metricas": [
+          "Indice Paridad Genero1"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+        },
+        "registros": [
+          {
+            "Indice Paridad Genero1": 0.31500219973603166,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Matricula_UAEMEX",
+          "longitud",
+          "latitud"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+          "Matrícula Total_UAEMéx.longitud": "longitud",
+          "Matrícula Total_UAEMéx.latitud": "latitud"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+        },
+        "registros": [
+          {
+            "longitud": -99.6766745,
+            "latitud": 19.28247944,
+            "Matricula_UAEMEX": 27132,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "005",
+        "metricas": [
+          "Matricula Fuera de Toluca1"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Matricula Fuera de Toluca1": 0,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "010",
+        "metricas": [
+          "% Crecimiento Interanual1"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "% Crecimiento Interanual1": 0.06370106761565836,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "011",
+        "metricas": [
+          "Matricula Toluca1"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Matricula Toluca1": 2989,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "012",
+        "metricas": [
+          "Matricula Ciclo Actual1"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+        },
+        "registros": [
+          {
+            "Matricula Ciclo Actual1": 2989,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "013",
+        "metricas": [
+          "Ciclo escolar",
+          "Sexo",
+          "Matricula_UAEMEX"
+        ],
+        "campos_modelo": {
+          "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+          "Matrícula Total_UAEMéx.Sexo": "Sexo",
+          "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+        },
+        "formatos": {
+          "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2016-2017",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2013,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2016-2017",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 540,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 1941,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 580,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2055,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 629,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2039,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 642,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2101,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 678,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2033,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 663,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2038,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 646,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2071,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 664,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2149,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 661,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2273,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 716,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 20
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Matricula_UAEMEX",
+          "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+          "periodo_inicial": "2016-2017",
+          "valor_inicial": 2553,
+          "periodo_final": "2025-2026",
+          "valor_final": 2989,
+          "cambio_absoluto": 436,
+          "visual_fuente": "013",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Matricula_UAEMEX: 2553 en 2016-2017 y 2989 en 2025-2026 (cambio +436).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.4444444444444444,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 212,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.18181818181818182,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 17,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 23,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 19,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 20,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 20,
+            "periodo_final": "2025-2026",
+            "valor_final": 13,
+            "cambio_absoluto": -7,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 20 en 2016-2017 y 13 en 2025-2026 (cambio -7).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias del Agua": {
+      "nombre": "Doctorado en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 1.2857142857142858,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 56,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": -0.1111111111111111,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 6
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 22,
+            "periodo_final": "2018-2019",
+            "valor_final": 16,
+            "cambio_absoluto": -6,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 22 en 2016-2017 y 16 en 2018-2019 (cambio -6).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 1.6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 29,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.4444444444444444,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 6
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2023-2024",
+            "valor_inicial": 7,
+            "periodo_final": "2025-2026",
+            "valor_final": 13,
+            "cambio_absoluto": 6,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 7 en 2023-2024 y 13 en 2025-2026 (cambio +6).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -346,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.37318840579710144,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 6959,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.10495626822157435,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 758,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 758,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 542,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 138,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 491,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 141,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 524,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 165,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 510,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 180,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 519,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 184,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 522,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 205,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 507,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 200,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 509,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 178,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 507,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 179,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 552,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 206,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 680,
+            "periodo_final": "2025-2026",
+            "valor_final": 758,
+            "cambio_absoluto": 78,
+            "visual_fuente": "013",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 680 en 2016-2017 y 758 en 2025-2026 (cambio +78).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -410,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.20233463035019456,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 6262,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.0016207455429497568,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 618,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 618,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 541,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 61,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 512,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 64,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 552,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 70,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 570,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 83,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 587,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 106,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 540,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 96,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 536,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 88,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 522,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 99,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 518,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 99,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 514,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 104,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 602,
+            "periodo_final": "2025-2026",
+            "valor_final": 618,
+            "cambio_absoluto": 16,
+            "visual_fuente": "013",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 602 en 2016-2017 y 618 en 2025-2026 (cambio +16).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -360,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.29133858267716534,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 6082,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.031446540880503145,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 656,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 656,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 460,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 143,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 433,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 139,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 445,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 135,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 439,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 137,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 468,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 148,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 463,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 126,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 479,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 135,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 501,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 139,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 507,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 129,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 508,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 148,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 603,
+            "periodo_final": "2025-2026",
+            "valor_final": 656,
+            "cambio_absoluto": 53,
+            "visual_fuente": "013",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 603 en 2016-2017 y 656 en 2025-2026 (cambio +53).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -254,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.1910828025477707,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 3030,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.10979228486646884,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 374,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 374,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 234,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 251,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 36,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 253,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 47,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 242,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 48,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 245,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 45,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 225,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 47,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 251,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 47,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 266,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 55,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 283,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 54,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 314,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 60,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 261,
+            "periodo_final": "2025-2026",
+            "valor_final": 374,
+            "cambio_absoluto": 113,
+            "visual_fuente": "013",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 261 en 2016-2017 y 374 en 2025-2026 (cambio +113).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -63,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.37623762376237624,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 206,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 1.0746268656716418,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 139,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 139,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 51,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 16,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 101,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2024-2025",
+            "valor_inicial": 67,
+            "periodo_final": "2025-2026",
+            "valor_final": 139,
+            "cambio_absoluto": 72,
+            "visual_fuente": "013",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 67 en 2024-2025 y 139 en 2025-2026 (cambio +72).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -105,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.5569620253164557,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 3768,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": -0.06582278481012659,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 369,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 369,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 172,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 132,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 193,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 154,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 216,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 174,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 222,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 169,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 225,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 171,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 237,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 168,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 226,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 152,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 238,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 155,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 248,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 147,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 237,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 132,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 304,
+            "periodo_final": "2025-2026",
+            "valor_final": 369,
+            "cambio_absoluto": 65,
+            "visual_fuente": "013",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 304 en 2016-2017 y 369 en 2025-2026 (cambio +65).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -11,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.35294117647058826,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 231,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": -0.08,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 23,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 23,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 19,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 17,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 27,
+            "periodo_final": "2025-2026",
+            "valor_final": 23,
+            "cambio_absoluto": -4,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 27 en 2016-2017 y 23 en 2025-2026 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias del Agua": {
+      "nombre": "Maestría en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.7222222222222222,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 74,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": 0.2916666666666667,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 31,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 31,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 6
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 19,
+            "periodo_final": "2018-2019",
+            "valor_final": 31,
+            "cambio_absoluto": 12,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 19 en 2016-2017 y 31 en 2018-2019 (cambio +12).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 1.2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 133,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": -0.15384615384615385,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 15,
+            "periodo_final": "2025-2026",
+            "valor_final": 11,
+            "cambio_absoluto": -4,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 15 en 2016-2017 y 11 en 2025-2026 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Inteligencia Artificial Aplicada": {
+      "nombre": "Maestría en Inteligencia Artificial Aplicada",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.3333333333333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Brecha Genero Absoluta1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "Brecha Genero Absoluta1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Brecha Genero Absoluta": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta1": -5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Indice Paridad Genero1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "Indice Paridad Genero1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Indice Paridad Genero": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero1": 0.375,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Matricula_UAEMEX",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX",
+            "Matrícula Total_UAEMéx.longitud": "longitud",
+            "Matrícula Total_UAEMéx.latitud": "latitud"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Matricula_UAEMEX": 86,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Matricula Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "Matricula Fuera de Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "% Crecimiento Interanual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "% Crecimiento Interanual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.% Crecimiento Interanual": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Interanual1": -0.21428571428571427,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Matricula Toluca1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "Matricula Toluca1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Toluca1": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Matricula Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "Matricula Ciclo Actual1"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Matricula Ciclo Actual1": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Matricula_UAEMEX"
+          ],
+          "campos_modelo": {
+            "Matrícula Total_UAEMéx.Ciclo escolar": "Ciclo escolar",
+            "Matrícula Total_UAEMéx.Sexo": "Sexo",
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "Matricula_UAEMEX"
+          },
+          "formatos": {
+            "Matrícula Total_UAEMéx.Matricula_UAEMEX": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Matricula_UAEMEX",
+            "metrica_modelo": "Matrícula Total_UAEMéx.Matricula_UAEMEX",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 9,
+            "periodo_final": "2025-2026",
+            "valor_final": 11,
+            "cambio_absoluto": 2,
+            "visual_fuente": "013",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matricula_UAEMEX: 9 en 2019-2020 y 11 en 2025-2026 (cambio +2).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "conciliacion_ultimo_periodo": {
+    "periodo": "2025-2026",
+    "metrica": "Matricula_UAEMEX",
+    "total_facultad": 2989,
+    "suma_programas_publicados": 2989,
+    "diferencia_sin_programa_identificable": 0,
+    "interpretacion": "La suma de programas coincide con el total de Facultad."
+  },
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

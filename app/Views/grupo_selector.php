@@ -1,0 +1,3 @@
+<details class="ux-disclosure"><summary><?= e($etiqueta) ?></summary>
+<?php if($grupos): ?><label>Grupos disponibles<select name="<?= e($nombreCampo) ?>[]" multiple data-recipient-groups><?php foreach($grupos as $g): ?><option value="<?= (int)$g['id'] ?>"><?= e($g['nombre']) ?> · <?= (int)$g['total'] ?> personas activas</option><?php endforeach; ?></select></label><p class="ayuda-form">Se añadirán sus integrantes activos al enviar. Los destinatarios repetidos se incluyen una sola vez. Puedes elegir hasta 10 grupos.</p><?php else: ?><p>No tienes grupos disponibles.</p><?php endif; ?>
+<a href="<?= url('grupos-destinatarios') ?>" target="_blank" rel="noopener">Gestionar mis grupos ↗</a></details>

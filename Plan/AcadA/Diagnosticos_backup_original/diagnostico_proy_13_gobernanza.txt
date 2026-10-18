@@ -1,0 +1,100 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 13: Gobernanza
+Clave Programática: PROY-13 | Pilar V: Gestión y administración universitaria al servicio de la comunidad
+Área Responsable: Dirección / H. Consejo de Gobierno / Subdirección Académica / Unidad de Protección Civil FI
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Participación de los universitarios en los órganos de gobierno:
+   - Órganos colegiados con que cuenta la Facultad y espacios de representación en los que participa (H. Consejo de Gobierno, H. Consejo Académico, Comisiones Dictaminadoras, Comités de Ética y Comisiones Mixtas).
+   - Eficacia en la deliberación democrática, transparencia en la toma de decisiones y seguimiento sistemático al cumplimiento de acuerdos colegiados.
+2. Protocolos de seguridad y autocuidado:
+   - Conformación, capacitación y equipamiento de las brigadas de protección civil y seguridad universitaria.
+   - Implementación, supervisión y evaluación de protocolos institucionales de prevención de riesgos, autocuidado y atención a emergencias.
+3. Identidad Universitaria fortalecida:
+   - Actividades culturales, cívicas y académicas para consolidar la identidad, el orgullo de pertenencia y los valores humanistas en la Facultad.
+4. Atención cercana y oportuna a la comunidad estudiantil:
+   - Canales institucionales de escucha activa, buzones de diálogo y mecanismos ágiles de respuesta a demandas y propuestas estudiantiles.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La gobernanza en la Facultad de Ingeniería representa el marco político, normativo y comunitario que articula la participación democrática, la cohesión social, la seguridad integral y el ejercicio transparente de la autoridad universitaria. En su condición de organismo académico de la UAEMEX, la vida colegiada se fundamenta en la operación del H. Consejo de Gobierno y del H. Consejo Académico, instancias integradas paritariamente por representantes electos del personal docente y de la comunidad estudiantil de las distintas licenciaturas. A esta estructura formal se suman los comités de planeación, los comités evaluadores de becas y las comisiones dictaminadoras, cuya función es garantizar que las decisiones de orden académico, escolar y reglamentario se adopten mediante el diálogo abierto, el apego estricto al Estatuto Universitario y el consenso de la comunidad.
+
+Durante el periodo 2016–2025, la gobernanza institucional transitó por momentos de alta exigencia que pusieron a prueba la capacidad de diálogo y mediación de las autoridades y cuerpos colegiados. Las sesiones del H. Consejo de Gobierno mantuvieron una periodicidad ordinaria mensual constante, emitiendo un promedio de 35 a 50 acuerdos anuales en materia de convalidaciones, acreditaciones, proyectos de servicio social, presupuestos operativos y ratificaciones de convocatorias de oposición. Paralelamente, en el rubro de protección civil y seguridad física, la Facultad consolidó una Unidad Interna de Protección Civil integrada por 32 brigadistas voluntarios (docentes, administrativos y estudiantes), quienes coordinaron simulacros anuales de evacuación, inspecciones periódicas a la infraestructura y revisiones de equipo contra incendios en laboratorios pesados y talleres.
+
+[[GRAFICA: graficas/grafica_p13_01_acuerdos_gobernanza.png | PIE: Gráfica 1. Acuerdos emitidos por órganos colegiados y participación en simulacros de protección civil en la Facultad de Ingeniería (2018–2025). Fuente: UAEMEX. Libros de Actas FI y Coordinación de Protección Civil 2018–2025.]]
+
+La interpretación sustantiva de este proceso pone de manifiesto que los mecanismos formales de representación y gobierno colegiado operan con regularidad jurídica; sin embargo, conviven con una tensión estratégica de fondo: la brecha entre la deliberación institucional formal y la percepción cotidiana de cercanía, escucha y transparencia por parte de la amplia base estudiantil y de profesores de asignatura. Con frecuencia, las resoluciones y debates que se desahogan en los órganos de gobierno no son difundidos de manera oportuna, clara y accesible a través de plataformas digitales o redes sociales, lo que genera desinformación o desinterés entre el estudiantado de a pie respecto a las vías legítimas de representación y gestión de sus demandas.
+
+La tensión estratégica se manifiesta con particular nitidez en las demandas de seguridad, autocuidado y convivencia cotidiana en el campus. La Facultad de Ingeniería, inserta en Ciudad Universitaria sobre el cerro de Coatepec, cuenta con accesos vehiculares y peatonales abiertos que colindan con vialidades de intenso tráfico urbano y áreas verdes boscosas. A pesar de los esfuerzos de las brigadas internas, los estudiantes y trabajadores señalan vulnerabilidades en la iluminación perimetral en horarios nocturnos, necesidad de reforzar el control de accesos a talleres fuera de horario de clases y demoras en la respuesta inmediata ante emergencias médicas menores, debido a la falta de un módulo permanente de atención prehospitalaria dentro del complejo de Ingeniería.
+
+En el análisis desagregado por sectores de la comunidad, se advierte que mientras la representación de los Profesores de Tiempo Completo cuenta con canales fluidos de interlocución con la directiva, el profesorado de asignatura resiente una débil representación en los comités internos. Por su parte, la comunidad estudiantil muestra una elevada vitalidad organizativa a través de capítulos estudiantiles de asociaciones profesionales (IEEE, Colegio de Ingenieros Civiles, ASME, SAE), pero demanda que la Dirección y las Subdirecciones mantengan audiencias públicas periódicas y buzones digitales de atención sin intermediarios que den cauce ágil a peticiones sobre horarios, estado de laboratorios y trato respetuoso en las aulas.
+
+En el contexto externo, el Estatuto Universitario de la UAEMEX y las directrices del PRDI 2025–2029 establecen la transformación de la gestión hacia un modelo de "Universidad Cercana, Incluyente y Progresista", donde la gobernanza se mida por la capacidad de rendición de cuentas, la cultura de la legalidad y la prevención oportuna de conflictos. Las encuestas comunitarias (Instrumentos C01, C02, C04 y C16) señalan que el 71.8% de los consultados valora positivamente la estabilidad institucional del espacio, pero el 58.2% desconoce quiénes son sus consejeros representantes y solicita mayor difusión de los acuerdos aprobados en las sesiones colegiadas.
+
+Por consiguiente, el cierre direccional de este proyecto exige consolidar un modelo de gobernanza abierta, participativa y preventiva en la Facultad de Ingeniería. Esto requerirá digitalizar y publicar con máxima transparencia los acuerdos y actas del H. Consejo de Gobierno, establecer mesas de diálogo permanente con los capítulos estudiantiles y academias, equipar y certificar a las brigadas de protección universitaria, reforzar la seguridad perimetral del campus y vigorizar la identidad universitaria a través de actividades cívicas y académicas que refuercen el orgullo de pertenecer a la Facultad de Ingeniería de la UAEMEX.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2018–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Gobernanza, órganos colegiados y protección civil en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Sesiones del H. Consejo de Gobierno    2018              12              2025            12              0 sesiones       0.0%
+Acuerdos colegiados aprobados/año      2018              38              2024            47             +9 acuerdos     +23.7%
+Comisiones dictaminadoras y mixtas     2018               5              2025             6             +1 comisión     +20.0%
+Brigadistas de protección civil        2018              24              2025            32             +8 brigadistas  +33.3%
+Simulacros de evacuación realizados/año2018               2              2024             3             +1 simulacro    +50.0%
+Población evacuada en simulacros (pers)2018           2,100             2024          2,650           +550 personas    +26.2%
+Capítulos estudiantiles acreditados    2018               6              2025            11             +5 capítulos    +83.3%
+Buzones de atención estudiantil oper.  2018               1              2025             2             +1 buzón       +100.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Libros de Actas del H. Consejo de Gobierno FI; Unidad Interna de Protección Civil FI 2018–2025.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C01, C02, C04 Y C16)
+--------------------------------------------------------------------------------
+1. Comunidad Estudiantil (Instrumentos C01 y C16):
+   - El 58.2% manifiesta desconocer los mecanismos de consulta y acuerdos aprobados por el H. Consejo de Gobierno y solicita síntesis infográficas en redes sociales tras cada sesión.
+   - Petición recurrente de mejorar el alumbrado exterior en el pasillo que conecta la Facultad con el estadio universitario y la parada del Potrobús en el turno vespertino.
+   - Reconocimiento positivo a los capítulos estudiantiles (robótica, concreto, automotriz, aeroespacial) como espacios de participación y liderazgo juvenil.
+2. Personal Docente y Administrativo (Instrumentos C02 y C04):
+   - Solicitan mayor periodicidad en la capacitación de brigadistas de protección civil ante riesgos específicos de laboratorios (fugas químicas, sismos e incendios de origen eléctrico).
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Vida colegiada regular, institucionalizada y con pleno apego a la legalidad estatutaria a través del H. Consejo de Gobierno y comisiones auxiliares.
+- Unidad Interna de Protección Civil activa con 32 brigadistas capacitados y participación masiva en simulacros universitarios.
+- Presencia activa de 11 capítulos y ramas estudiantiles pertenecientes a asociaciones técnicas nacionales e internacionales.
+- Tradición histórica y fuerte identidad institucional de la comunidad de la Facultad de Ingeniería.
+
+DEBILIDADES:
+- Difusión insuficiente y poco accesible de las actas, acuerdos y resoluciones del Consejo de Gobierno hacia la comunidad abierta.
+- Vulnerabilidades de seguridad física perimetral y déficit de iluminación en áreas limítrofes del campus durante el turno vespertino.
+- Carencia de un módulo permanente de primeros auxilios y paramédicos para atender incidentes en laboratorios de forma inmediata.
+- Escasa interlocución estructurada entre autoridades y el profesorado de asignatura que imparte clases en horarios nocturnos.
+
+OPORTUNIDADES:
+- Políticas de Gobierno Abierto, transparencia proactiva y rendición de cuentas promovidas por la Rectoría de la UAEMEX.
+- Coordinación con la Secretaría de Gobernanza Universitaria y la Dirección de Seguridad y Protección Institucional de la UAEMEX.
+- Aprovechamiento de herramientas de comunicación digital y redes sociales para la rendición de cuentas interactiva y buzones de escucha ciudadana.
+
+AMENAZAS:
+- Entorno de inseguridad pública en vialidades adyacentes a Ciudad Universitaria que impacta a la comunidad en trayectos de traslado.
+- Desinformación y rumores en redes sociales no institucionales que pueden entorpecer el clima de paz y diálogo durante procesos electorales o académicos.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- UAEMEX. (2022). Estatuto Universitario de la Universidad Autónoma del Estado de México. Gaceta Universitaria.
+- UAEMEX. (2024). Protocolo General de Seguridad y Protección Institucional Universitaria. Secretaría de Gobernanza Universitaria.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

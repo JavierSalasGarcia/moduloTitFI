@@ -1,0 +1,225 @@
+{
+  "id_categoria": "4029",
+  "categoria": "Proed",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4029",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZDNmMmI0NTUtMGM5MC00MTYwLWEyYmMtZWUxMDhkYjEyNjU3IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 9,
+      "nombre": "Fortalecimiento de la formación integral del docente"
+    },
+    {
+      "numero": 10,
+      "nombre": "Dignificación de las y los trabajadores universitarios"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio universitario",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "002",
+        "metricas": [
+          "Año",
+          "Suma de Proed",
+          "Sexo"
+        ],
+        "campos_modelo": {
+          "Proed_18-24.Año": "Año",
+          "Sum(Proed_18-24.Proed)": "Suma de Proed",
+          "Proed_18-24.Sexo": "Sexo"
+        },
+        "formatos": {
+          "Proed_18-24.Año": "0",
+          "Sum(Proed_18-24.Proed)": "#,0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Sexo": "Hombres",
+            "Suma de Proed": 50,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2018,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 30,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2019,
+            "Sexo": "Hombres",
+            "Suma de Proed": 50,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2019,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 31,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sexo": "Hombres",
+            "Suma de Proed": 41,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 31,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2021,
+            "Sexo": "Hombres",
+            "Suma de Proed": 41,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2021,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 31,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2022,
+            "Sexo": "Hombres",
+            "Suma de Proed": 35,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2022,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 27,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2023,
+            "Sexo": "Hombres",
+            "Suma de Proed": 35,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2023,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 27,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2024,
+            "Sexo": "Hombres",
+            "Suma de Proed": 32,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2024,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 28,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2025,
+            "Sexo": "Hombres",
+            "Suma de Proed": 32,
+            "proyectos": [
+              9,
+              10
+            ]
+          },
+          {
+            "Año": 2025,
+            "Sexo": "Mujeres",
+            "Suma de Proed": 28,
+            "proyectos": [
+              9,
+              10
+            ]
+          }
+        ],
+        "numero_registros": 16
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Proed",
+          "metrica_modelo": "Sum(Proed_18-24.Proed)",
+          "periodo_inicial": "2018",
+          "valor_inicial": 80,
+          "periodo_final": "2025",
+          "valor_final": 60,
+          "cambio_absoluto": -20,
+          "visual_fuente": "002",
+          "proyectos": [
+            9,
+            10
+          ]
+        }
+      ],
+      "diagnostico": "Suma de Proed: 80 en 2018 y 60 en 2025 (cambio -20).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

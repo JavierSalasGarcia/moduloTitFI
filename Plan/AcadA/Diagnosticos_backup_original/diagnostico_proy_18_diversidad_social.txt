@@ -1,0 +1,105 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 18: Reconocimiento de la diversidad social en la universidad
+Clave Programática: PROY-18 | Pilar VI: Incidencia y reconocimiento social
+Área Responsable: Subdirección Académica / Subdirección Administrativa / Enlace de Género e Inclusión FI
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Favorecer la inclusión y el respeto a la diversidad:
+   - Proyectos de investigación y diagnósticos locales en materia de equidad de género, inclusión y derechos humanos.
+   - Capacitación continua y sensibilización a la comunidad universitaria en igualdad sustantiva, no discriminación y prevención de violencias.
+   - Difusión, observancia y aplicación de los protocolos institucionales de atención ante casos de violencia de género.
+   - Conformación de la comunidad universitaria desagregada por género (estudiantado, profesorado y personal administrativo).
+   - Transversalidad efectiva de la perspectiva de género en planes de estudio, actividades extracurriculares y vida colegiada.
+2. Incorporación de personas de grupos sociales en condición de vulnerabilidad:
+   - Apoyo psicopedagógico, tutoría adaptada e inclusión para el estudiantado con necesidades educativas específicas o discapacidad.
+   - Adecuación de infraestructura física para accesibilidad universal (rampas, señalética en Braille, guías podotáctiles y sanitarios accesibles).
+3. Transversalización de la perspectiva de cuidados:
+   - Programas de autocuidado, salud socioemocional y bienestar comunitario.
+   - Apoyos institucionales y esquemas de flexibilidad académica y laboral para personas con responsabilidades de cuidados primarios de hijas, hijos o familiares dependientes.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+El reconocimiento de la diversidad social, la equidad de género y la inclusión irrestricta constituyen imperativos éticos y normativos indispensables para garantizar que la Facultad de Ingeniería sea un espacio seguro, justo y libre de discriminación para todas las personas que integran su comunidad. Históricamente, los campos de la ingeniería y las ciencias exactas han enfrentado estereotipos de género y barreras socioculturales que limitaban la presencia y desarrollo de las mujeres y de sectores en situación de vulnerabilidad. En el ciclo escolar 2025–2026, la Facultad atiende a una comunidad donde 834 alumnas cursan estudios de licenciatura y posgrado, representando el 27.9% de la matrícula total, mientras que en el cuerpo docente laboran 76 profesoras (26.8% del claustro) y en el personal administrativo las mujeres representan el 51.9% de la fuerza laboral. Asimismo, el espacio académico cuenta con un enlace formal de la Secretaría de Igualdad Sustantiva y Cuidados de la UAEMEX y ha canalizado 2,213 becas institucionales con criterios prioritarios de equidad socieconómica y de género.
+
+A lo largo del periodo analizado (2016–2025), se constata un avance cuantitativo sostenido pero gradual en la incorporación de mujeres a la vida académica de la Facultad. Entre el ciclo 2016–2017 y el ciclo 2025–2026, la matrícula femenina de licenciatura se incrementó de 618 a 834 estudiantes, lo que representó un crecimiento neto de 216 alumnas (+35.0%) y elevó la participación de las mujeres de 24.2% a 27.9% del total escolar. En el rubro de solicitudes de ingreso, el número de aspirantes mujeres creció de 592 en 2016 a 728 en 2025, reflejando una mayor atracción vocacional hacia las disciplinas STEM. Paralelamente, en el claustro del Sistema Nacional de Investigadoras e Investigadores (SNII), la presencia de mujeres pasó de 3 científicas en 2018 a 9 investigadoras en 2025 (+200.0%), alcanzando el 22.5% de los nombramientos vigentes en el espacio académico.
+
+[[GRAFICA: graficas/grafica_p18_01_genero_matricula.png | PIE: Gráfica 1. Evolución de la matrícula estudiantil por género en la Facultad de Ingeniería (2016–2025). Fuente: UAEMEX. Agendas Estadísticas 2016–2025.]]
+
+La lectura sustantiva de esta evolución pone de relieve que los esfuerzos de difusión vocacional y visibilización de mujeres en la ciencia han comenzado a rendir frutos; no obstante, coexiste una tensión estratégica profunda entre el incremento en el acceso y la persistencia de brechas estructurales en la permanencia, el clima escolar y la accesibilidad física del campus. A pesar del aumento en la matrícula, el índice de deserción escolar de las mujeres en los primeros semestres suele estar asociado a factores de aislamiento en grupos mayoritariamente masculinos, falta de modelos de rol femeninos en asignaturas del tronco duro y situaciones de micromachismos en talleres y laboratorios que aún no han sido erradicadas por completo.
+
+La tensión estratégica se manifiesta con igual contundencia en la dimensión de la accesibilidad física y la perspectiva de cuidados. La topografía accidentada de Ciudad Universitaria y la antigüedad arquitectónica de los edificios de la Facultad presentan severas barreras para personas con discapacidad motriz, visual o auditiva: aunque se han construido rampas en los accesos exteriores principales, la conexión vertical entre pisos de aulas y el acceso a cubículos y laboratorios superiores carece de elevadores accesibles, lo que restringe el libre tránsito de estudiantes y trabajadores en sillas de ruedas o con movilidad reducida. Asimismo, una proporción estimada del 8.5% de la matrícula y más del 30% de las trabajadoras desempeñan tareas de cuidado primario de hijos o familiares dependientes, careciendo la Facultad de un lactario digno, salas de cuidado infantil temporal o esquemas formales de flexibilidad de horarios que prevengan la deserción escolar o el rezago laboral por sobrecarga de cuidados.
+
+En el análisis desagregado por programas educativos, se constatan marcadas diferencias en la distribución de género. Mientras que en la Licenciatura de Ingeniería en Sistemas Energéticos Sustentables la participación femenina alcanza el 29.3% y en la naciente carrera de Inteligencia Artificial se sitúa en 27.3%, en programas como Ingeniería Mecánica e Ingeniería Civil la proporción de mujeres se mantiene en 17.8% y 21.2% respectivamente, revelando la persistencia de sesgos tradicionales en torno a las ingenierías de obra y maquinaria pesada.
+
+En el contexto externo, el Plan de Desarrollo del Estado de México 2023–2029 (PDEM) establece la igualdad de género y la atención a personas con discapacidad como ejes transversales prioritarios de la administración estatal, en concordancia con el ODS 5 (Igualdad de género) y el ODS 10 (Reducción de desigualdades) de la Agenda 2030 de la ONU. Asimismo, los resultados de la consulta comunitaria (Instrumentos C01, C04 y C16) señalan que el 64.1% de las alumnas encuestadas consideran prioritario intensificar los talleres obligatorios de prevención del acoso escolar y violencia digital, a la vez que el personal administrativo femenino demanda apoyos tangibles de corresponsabilidad en el cuidado familiar.
+
+Por consiguiente, el cierre direccional de este proyecto convoca a consolidar una política de inclusión integral, igualdad sustantiva y accesibilidad universal en la Facultad de Ingeniería. Esto exigirá implementar un programa sistemático de mentorías para mujeres en ingeniería (redes de acompañamiento entre alumnas avanzadas e investigadoras), adecuar la infraestructura física para garantizar rutas 100% accesibles en todos los edificios, habilitar un lactario institucional en condiciones óptimas de higiene, capacitar permanentemente a docentes y administrativos en protocolos de género y derechos humanos, e incorporar la perspectiva de cuidados en los reglamentos y servicios de apoyo estudiantil.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2016–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Composición por género, inclusión y apoyos en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Matrícula femenina total (4005)       2016–2017           618 (24.2%)   2025–2026         834 (27.9%)   +216 alumnas    +35.0%
+Matrícula masculina total (4005)      2016–2017         1,935 (75.8%)   2025–2026       2,155 (72.1%)   +220 alumnos    +11.4%
+Solicitudes de ingreso de mujeres     2016–2017           592 (21.7%)   2025–2026         728 (25.5%)   +136 solicitudes+23.0%
+Nuevo ingreso femenino de lic. (4003) 2016–2017           112 (24.1%)   2025–2026         204 (28.3%)    +92 alumnas    +82.1%
+Mujeres en el personal académico(4031)2018                 74 (23.6%)   2025               76 (26.8%)     +2 profesoras  +2.7%
+Mujeres en el SNII (4025)             2018                  3 (17.6%)   2025                9 (22.5%)     +6 investigad.+200.0%
+Mujeres en personal administrativo    2018                 46 (50.5%)   2025               41 (51.9%)     -5 trabajadoras-10.9%
+Becas otorgadas totales (4020)        2018              1,200           2025            2,213           +1,013 becas    +84.4%
+Becas otorgadas a mujeres             2018                340 (28.3%)   2025              730 (33.0%)   +390 becarias  +114.7%
+Rampas y accesos adaptados en campus  2018                  8           2025               14             +6 accesos    +75.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2016–2025; Departamento de Control Escolar y Recursos Humanos FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C01, C04 Y C16)
+--------------------------------------------------------------------------------
+1. Alumnas de Licenciatura (Instrumentos C01 y C16):
+   - El 64.1% considera que, aunque el ambiente general es de respeto, aún existen comentarios y actitudes en laboratorios que subestiman la capacidad técnica de las mujeres en el manejo de herramientas pesadas.
+   - Petición unánime de dotar de insumos de gestión menstrual gratuitos en sanitarios de mujeres y mantener iluminación adecuada en paradas de autobús.
+   - Solicitud de difusión clara de los canales confidenciales de denuncia del Protocolo de la Defensoría de los Derechos Universitarios y de la Secretaría de Igualdad Sustantiva.
+2. Personal Administrativo y Docente (Instrumentos C02 y C04):
+   - Madres y padres trabajadores solicitan convenios o apoyos para estancias infantiles en Ciudad Universitaria y flexibilización en casos de enfermedad comprobada de hijos menores.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Crecimiento del 35.0% en la matrícula femenina de licenciatura en el periodo 2016–2025, alcanzando 834 alumnas en las seis carreras.
+- Duplicación de becas otorgadas a mujeres (+114.7%), amortiguando el impacto socioeconómico en estudiantes vulnerables.
+- Triplicación de investigadoras con nombramiento en el SNII (de 3 a 9 científicas), consolidando liderazgos académicos visibles.
+- Presencia activa de un enlace de género y difusión permanente de los protocolos de la UAEMEX contra el acoso y la violencia.
+
+DEBILIDADES:
+- Persistencia de baja representación femenina en programas nucleares como Ingeniería Mecánica (17.8%).
+- Barreras arquitectónicas y desniveles en edificios antiguos que impiden el acceso universal y autónomo de personas en sillas de ruedas.
+- Carencia de un lactario universitario formal y de servicios de apoyo para estudiantes y trabajadoras con labores de cuidados primarios.
+- Baja proporción de mujeres en comisiones dictaminadoras y puestos directivos de la Facultad.
+
+OPORTUNIDADES:
+- Políticas públicas del Gobierno del Estado de México y de la Secretaría de Igualdad Sustantiva y Cuidados de la UAEMEX para el financiamiento de espacios accesibles e incluyentes.
+- Redes internacionales de mujeres ingenieras (IEEE Women in Engineering - WIE, Society of Women Engineers) para vinculación, becas y mentoría.
+- Convocatorias de becas federales y estatales orientadas específicamente a cerrar la brecha de género en carreras STEM.
+
+AMENAZAS:
+- Factores culturales y estereotipos de género en el entorno social que desincentivan la elección de carreras de ingeniería entre jóvenes mujeres de preparatoria.
+- Condiciones de inseguridad pública en el transporte público concesionado que afecta de forma diferenciada a las estudiantes en horarios nocturnos.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- Gobierno del Estado de México. (2023). Plan de Desarrollo del Estado de México 2023–2029. Gaceta del Gobierno.
+- ONU Mujeres. (2020). Las mujeres en las ciencias, la tecnología, la ingeniería y las matemáticas en América Latina y el Caribe. ONU Mujeres.
+- UAEMEX. (2023). Protocolo para la prevención, atención y sanción de la violencia de género en la UAEMEX. Gaceta Universitaria.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

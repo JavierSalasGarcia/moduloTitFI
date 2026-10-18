@@ -1,0 +1,59 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 2: ESTUDIANTADO CON OPORTUNIDADES PARA SU PLENO DESARROLLO Y PERTINENCIA EN LOS ESTUDIOS PROFESIONALES
+================================================================================
+
+DIAGNÓSTICO
+
+1. Cobertura de estudios profesionales
+
+La Facultad de Ingeniería (FI) de la Universidad Autónoma del Estado de México (UAEMéx) se posiciona como una institución de referencia en la formación de profesionales de la ingeniería en la región centro del país (UAEMéx, 2025a). Durante el periodo de análisis 2016–2025, la matrícula total de licenciatura registró un crecimiento del 17.1%, transitando de 2,553 estudiantes en el ciclo 2016–2017 a 2,989 en el ciclo 2024–2025, alcanzando 3,015 alumnos en el periodo 2025–2026 (UAEMéx, 2025a). Esta expansión responde a una alta demanda social: el nuevo ingreso anual creció un 55.6%, pasando de 464 estudiantes en 2016 a 722 en 2025, mientras que las solicitudes de ingreso se incrementaron de 1,520 a 1,745 aspirantes (Facultad de Ingeniería [FI-UAEMéx], 2025a).
+
+[[GRAFICA: grafica_p02_01_matricula_licenciatura.png | Figura 1. Evolución de la matrícula total y nuevo ingreso en licenciatura en la Facultad de Ingeniería (2016–2025).]]
+
+La matrícula se distribuye en programas consolidados: Ingeniería en Computación (812 estudiantes), Ingeniería Mecánica (620 estudiantes), Ingeniería Civil (595 estudiantes) e Ingeniería en Electrónica (480 estudiantes), conviviendo con programas orientados a la transición tecnológica como Ingeniería en Sistemas Energéticos Sustentables e Ingeniería en Inteligencia Artificial (FI-UAEMéx, 2025a). La oferta opera bajo modalidad presencial escolarizada, complementada con mediación tecnológica en la plataforma SEDUCA y el desarrollo de Guías de Estudio Independiente (GEI) y recursos digitales que favorecen la flexibilidad curricular (Dirección de Aprendizaje Digital [DAD-UAEMéx], 2024).
+
+Tabla 1. Evolución de la matrícula, demanda e indicadores de licenciatura (2016–2025)
+| Indicador Clave | Periodo Inicial (2016) | Periodo Final (2025) | Variación Neta | Tasa de Crecimiento |
+|---|---|---|---|---|
+| Matrícula total de licenciatura | 2,553 alumnos | 2,989 alumnos | +436 alumnos | +17.1% |
+| Nuevo ingreso anual | 464 alumnos | 722 alumnos | +258 alumnos | +55.6% |
+| Solicitudes anuales de ingreso | 1,520 aspirantes | 1,745 aspirantes | +225 solicitudes | +14.8% |
+| Personas egresadas por año | 324 egresados | 318 egresados | -6 egresados | -1.9% |
+| Cobertura de tutoría académica | 2,221 tutorados | 2,914 tutorados | +693 tutorados | +31.2% |
+| Becas y apoyos otorgados | 580 beneficiarios | 691 beneficiarios | +111 apoyos | +19.1% |
+Fuente: UAEMéx (2025a) y Facultad de Ingeniería (2025a).
+
+2. Plan de estudios pertinente
+
+La calidad académica está respaldada por 42 aulas equipadas, 18 laboratorios especializados de docencia e investigación y centros de cómputo con conectividad institucional de alta velocidad (FI-UAEMéx, 2025a). El acervo bibliográfico supera los 18,500 volúmenes físicos en biblioteca especializada y acceso a bases de datos internacionales como IEEE Xplore, ScienceDirect y SpringerLink (Dirección de Recursos Bibliotecarios [DRB-UAEMéx], 2024).
+
+En cuanto a la acreditación externa, la carrera de Ingeniería Mecánica cuenta con acreditación internacional vigente otorgada por el Consejo de Acreditación de la Enseñanza de la Ingeniería (CACEI, 2023) vigente hasta 2027; Ingeniería en Computación está acreditada por el Consejo Nacional de Acreditación en Informática y Computación (CONAIC, 2022) con vigencia a 2027; e Ingeniería en Electrónica e Ingeniería en Sistemas Energéticos Sustentables cuentan con reconocimiento de calidad de los Comités Interinstitucionales para la Evaluación de la Educación Superior (CIEES, 2024). En particular, la licenciatura en Ingeniería Civil concluyó la vigencia de su acreditación CACEI en 2024, encontrándose en proceso de autoevaluación y atención de recomendaciones para su reacreditación programada para 2026–2027 (FI-UAEMéx, 2025a). Asimismo, los comités curriculares han incorporado los criterios transversales de sustentabilidad, perspectiva de género y derechos humanos del Sistema de Evaluación y Acreditación de la Educación Superior (SEAES, 2023) en apego a la Ley General de Educación Superior (Secretaría de Educación Pública [SEP], 2021).
+
+3. Internacionalización, multilingüismo e interculturalidad
+
+Durante 2016–2025, un promedio anual de 15 a 22 estudiantes de licenciatura realizó estancias de movilidad académica nacional e internacional en instituciones de América Latina, Norteamérica y Europa (Dirección de Relaciones Internacionales [DRI-UAEMéx], 2025). En materia de multilingüismo, la Facultad articula cursos de inglés y francés orientados a alcanzar niveles B2 y C1 según el Marco Común Europeo de Referencia, requisito para acceder a becas de posgrado y convocatorias globales (FI-UAEMéx, 2025b).
+
+4. Formación de estudiantes con conciencia social y constructores de una sociedad justa y equitativa
+
+El índice de abandono escolar se redujo de 9.4% en 2016 a 8.1% en 2025, manteniendo una retención de primer a segundo año del 84.5% (UAEMéx, 2025a). La eficiencia terminal por cohorte generacional oscila entre 4.2% y 8.2%, y la titulación por cohorte en 2.29%, debido a la exigencia académica en ciencias básicas (FI-UAEMéx, 2025b). No obstante, en el Examen General para el Egreso de la Licenciatura (EGEL-CENEVAL), el 71.57% de las personas sustentantes obtiene testimonios satisfactorios o sobresalientes, situando a los programas de la Facultad en el Padrón de Alto Rendimiento Académico (Centro Nacional de Evaluación para la Educación Superior [CENEVAL], 2025).
+
+El acompañamiento integral se garantiza con el Programa Institucional de Tutoría Académica, que cubre al 97.5% de la matrícula (2,914 estudiantes) y asesorías disciplinares (Dirección de Servicios al Estudiante [DSE-UAEMéx], 2024). Asimismo, 691 estudiantes cuentan con becas institucionales, el 98% de la matrícula activa tiene afiliación vigente al IMSS y más de 345 prestadores anuales de servicio social colaboran en proyectos de retribución comunitaria en municipios mexiquenses (FI-UAEMéx, 2025a).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- CACEI. (2023). *Marco de referencia para la acreditación de programas de ingeniería: Criterios internacionales*. Consejo de Acreditación de la Enseñanza de la Ingeniería, A.C.
+- CENEVAL. (2025). *Resultados institucionales del Examen General para el Egreso de la Licenciatura (EGEL): Facultad de Ingeniería*. Centro Nacional de Evaluación para la Educación Superior, A.C.
+- CIEES. (2024). *Padrón de programas de educación superior evaluados y acreditados*. Comités Interinstitucionales para la Evaluación de la Educación Superior, A.C.
+- CONAIC. (2022). *Constancia de acreditación nacional del programa de Ingeniería en Computación*. Consejo Nacional de Acreditación en Informática y Computación, A.C.
+- DAD-UAEMéx. (2024). *Informe de operación de plataformas y contenidos educativos digitales*. Dirección de Aprendizaje Digital, Universidad Autónoma del Estado de México.
+- DRI-UAEMéx. (2025). *Estadísticas de movilidad estudiantil y convenios internacionales 2016–2025*. Dirección de Relaciones Internacionales, UAEMéx.
+- DSE-UAEMéx. (2024). *Reporte del Programa Institucional de Tutoría y Apoyos Estudiantiles*. Dirección de Servicios al Estudiante, UAEMéx.
+- Facultad de Ingeniería. (2025a). *Segundo Informe Anual de Actividades: Gestión 2024–2025*. UAEMéx.
+- Facultad de Ingeniería. (2025b). *Estudio de seguimiento de trayectorias escolares y eficiencia terminal en licenciatura*. Subdirección Académica, UAEMéx.
+- SEAES. (2023). *Política nacional de evaluación y acreditación de la educación superior*. Secretaría de Educación Pública.
+- SEP. (2021). *Ley General de Educación Superior*. Diario Oficial de la Federación, 20 de abril de 2021.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. Dirección de Planeación y Desarrollo Institucional, UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

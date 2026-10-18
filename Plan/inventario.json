@@ -1,0 +1,393 @@
+{
+  "fecha_extraccion": "2026-09-21",
+  "fuente_tablero": "https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "fuente_guia": "G:\\Para EA\\Guía para la formulación de planes de desarrollo.pdf",
+  "categorias": [
+    {
+      "id": "4001",
+      "titulo": "Solicitudes",
+      "archivo": "4001_solicitudes.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4001",
+      "programas": 11,
+      "registros_facultad": 36,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4002",
+      "titulo": "Tasa de crecimiento de solicitudes",
+      "archivo": "4002_tasa_de_crecimiento_de_solicitudes.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4002",
+      "programas": 11,
+      "registros_facultad": 14,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4003",
+      "titulo": "Nuevo ingreso UAEMéx",
+      "archivo": "4003_nuevo_ingreso_uaemex.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4003",
+      "programas": 12,
+      "registros_facultad": 36,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4004",
+      "titulo": "Tasa de crecimiento de Ingreso",
+      "archivo": "4004_tasa_de_crecimiento_de_ingreso.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4004",
+      "programas": 12,
+      "registros_facultad": 14,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4005",
+      "titulo": "Matrícula total",
+      "archivo": "4005_matricula_total.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4005",
+      "programas": 14,
+      "registros_facultad": 27,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4006",
+      "titulo": "Tasa de crecimiento de Matrícula",
+      "estado": "derivado_de_4005",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4006",
+      "archivo": "4006_tasa_de_crecimiento_de_matricula.json",
+      "programas": 14,
+      "registros_facultad": 10,
+      "errores_facultad": 0
+    },
+    {
+      "id": "4007",
+      "titulo": "Egresados",
+      "archivo": "4007_egresados.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4007",
+      "programas": 15,
+      "registros_facultad": 23,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4008",
+      "titulo": "Tasa de crecimiento Egresados",
+      "archivo": "4008_tasa_de_crecimiento_egresados.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4008",
+      "programas": 15,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4013",
+      "titulo": "Estudios profesionales - Eficiencia terminal cohorte",
+      "archivo": "4013_estudios_profesionales_eficiencia_terminal_cohorte.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4013",
+      "programas": 5,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4014",
+      "titulo": "Estudios profesionales - Eficiencia terminal global",
+      "archivo": "4014_estudios_profesionales_eficiencia_terminal_global.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4014",
+      "programas": 5,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4015",
+      "titulo": "Estudios profesionales - Abandono escolar",
+      "archivo": "4015_estudios_profesionales_abandono_escolar.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4015",
+      "programas": 5,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4016",
+      "titulo": "Estudios profesionales - Reprobados",
+      "archivo": "4016_estudios_profesionales_reprobados.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4016",
+      "programas": 5,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4017",
+      "titulo": "Estudios profesionales - Índice de titulación",
+      "archivo": "4017_estudios_profesionales_indice_de_titulacion.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4017",
+      "programas": 5,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4018",
+      "titulo": "Servicio social",
+      "archivo": "4018_servicio_social.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4018",
+      "programas": 5,
+      "registros_facultad": 22,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4019",
+      "titulo": "Tasa de crecimiento de Servicio Social",
+      "archivo": "4019_tasa_de_crecimiento_de_servicio_social.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4019",
+      "programas": 5,
+      "registros_facultad": 11,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4020",
+      "titulo": "Número de Becas UAEMéx",
+      "archivo": "4020_numero_de_becas_uaemex.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4020",
+      "programas": 18,
+      "registros_facultad": 16,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4021",
+      "titulo": "Tasa de crecimiento Becas",
+      "archivo": "4021_tasa_de_crecimiento_becas.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4021",
+      "programas": 18,
+      "registros_facultad": 8,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4022",
+      "titulo": "Volumen y libro por alumno",
+      "archivo": "4022_volumen_y_libro_por_alumno.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4022",
+      "programas": 0,
+      "registros_facultad": 11,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4023",
+      "titulo": "Tutores",
+      "archivo": "4023_tutores.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4023",
+      "programas": 0,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4024",
+      "titulo": "Tasa de crecimiento tutor",
+      "archivo": "4024_tasa_de_crecimiento_tutor.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4024",
+      "programas": 0,
+      "registros_facultad": 24,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4025",
+      "titulo": "SNII",
+      "archivo": "4025_snii.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4025",
+      "programas": 0,
+      "registros_facultad": 16,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4026",
+      "titulo": "Tasa de crecimiento SNII",
+      "archivo": "4026_tasa_de_crecimiento_snii.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4026",
+      "programas": 0,
+      "registros_facultad": 8,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4027",
+      "titulo": "PTC registrados en SEP",
+      "archivo": "4027_ptc_registrados_en_sep.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4027",
+      "programas": 0,
+      "registros_facultad": 16,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4028",
+      "titulo": "Tasa de crecimiento de PTC",
+      "archivo": "4028_tasa_de_crecimiento_de_ptc.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4028",
+      "programas": 0,
+      "registros_facultad": 8,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4029",
+      "titulo": "Proed",
+      "archivo": "4029_proed.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4029",
+      "programas": 0,
+      "registros_facultad": 16,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4030",
+      "titulo": "Tasa de crecimiento Proed",
+      "archivo": "4030_tasa_de_crecimiento_proed.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4030",
+      "programas": 0,
+      "registros_facultad": 8,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4031",
+      "titulo": "Personal académico",
+      "archivo": "4031_personal_academico.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4031",
+      "programas": 0,
+      "registros_facultad": 10,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4032",
+      "titulo": "Tasa de crecimiento de PA",
+      "archivo": "4032_tasa_de_crecimiento_de_pa.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4032",
+      "programas": 0,
+      "registros_facultad": 20,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4033",
+      "titulo": "Personal administrativo",
+      "archivo": "4033_personal_administrativo.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4033",
+      "programas": 0,
+      "registros_facultad": 8,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4034",
+      "titulo": "Tasa de crecimiento de Per. Admv.",
+      "archivo": "4034_tasa_de_crecimiento_de_per_admv.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4034",
+      "programas": 0,
+      "registros_facultad": 8,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4035",
+      "titulo": "Talleres y participantes",
+      "archivo": "4035_talleres_y_participantes.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4035",
+      "programas": 0,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4036",
+      "titulo": "T. C. de Talleres y participantes",
+      "archivo": "4036_t_c_de_talleres_y_participantes.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4036",
+      "programas": 0,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    },
+    {
+      "id": "4037",
+      "titulo": "Infraestructura",
+      "archivo": "4037_infraestructura.json",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4037",
+      "programas": 0,
+      "registros_facultad": 12,
+      "errores_facultad": 0,
+      "estado": "extraido"
+    }
+  ],
+  "excluidas": [
+    {
+      "id": "4000",
+      "titulo": "Infomación UAEMéx",
+      "motivo": "Ficha general de la UAEMéx, sin desglose por Facultad",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4000"
+    },
+    {
+      "id": "4009",
+      "titulo": "PEP - Eficiencia terminal cohorte",
+      "motivo": "Indicador exclusivo de bachillerato",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4009"
+    },
+    {
+      "id": "4010",
+      "titulo": "PEP - Eficiencia terminal global",
+      "motivo": "Indicador exclusivo de bachillerato",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4010"
+    },
+    {
+      "id": "4011",
+      "titulo": "PEP - Reprobación",
+      "motivo": "Indicador exclusivo de bachillerato",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4011"
+    },
+    {
+      "id": "4012",
+      "titulo": "PEP - Abandono escolar",
+      "motivo": "Indicador exclusivo de bachillerato",
+      "url": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4012"
+    }
+  ],
+  "proyectos": {
+    "1": "Excelencia educativa y equidad en el bachillerato",
+    "2": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales",
+    "3": "Estudios avanzados de excelencia y pertinencia social",
+    "4": "Investigación abierta, inclusiva, equitativa y de calidad",
+    "5": "Innovación, desarrollo tecnológico y transferencia sostenible y equitativa",
+    "6": "Difusión y divulgación de la ciencia abierta a través de bienes públicos del conocimiento",
+    "7": "Cultura para el desarrollo integral de la comunidad universitaria",
+    "8": "Deporte universitario",
+    "9": "Fortalecimiento de la formación integral del docente",
+    "10": "Dignificación de las y los trabajadores universitarios",
+    "11": "Gestión administrativa para responder al quehacer universitario",
+    "12": "Fortalecimiento tecnológico",
+    "13": "Gobernanza",
+    "14": "Fortalecimiento del marco normativo",
+    "15": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional",
+    "16": "Manejo de recursos universitarios con integridad, transparencia y pulcritud",
+    "17": "Vigilancia y control preventivo de la gestión universitaria",
+    "18": "Reconocimiento de la diversidad social en la universidad",
+    "19": "Construcción de una cultura de paz",
+    "20": "Retribución social a través de trabajos colaborativos con la sociedad mexiquense",
+    "21": "Comunicación universitaria amplia y moderna",
+    "22": "Sostenibilidad ambiental y ética ecológica"
+  }
+}

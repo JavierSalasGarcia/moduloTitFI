@@ -1,0 +1,4902 @@
+{
+  "id_categoria": "4007",
+  "categoria": "Egresados",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4007",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZmI3ZTE1NTAtMTk2NS00OWZlLWEyMjItM2E0NTM5NDg1NzdlIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico ",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias del Agua",
+    "Doctorado en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería Civil",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ciencias del Agua",
+    "Maestría en Informática",
+    "Maestría en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+    "Maestría en Ingeniería con áreas terminales en Estructuras, Mecánica y Transporte",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Egresados Ciclo Actual1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+        },
+        "registros": [
+          {
+            "Egresados Ciclo Actual1": 327,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Indice Paridad Genero Egresados"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+        },
+        "registros": [
+          {
+            "Indice Paridad Genero Egresados": 0.3512396694214876,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "004",
+        "metricas": [
+          "Egresados Fuera de Toluca1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Egresados Fuera de Toluca1": 0,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "008",
+        "metricas": [
+          "Egresados Toluca1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Egresados Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Egresados Toluca1": 327,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "009",
+        "metricas": [
+          "Brecha Genero Absoluta Egresados1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+        },
+        "registros": [
+          {
+            "Brecha Genero Absoluta Egresados1": -157,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "011",
+        "metricas": [
+          "Ciclo escolar",
+          "Sexo",
+          "Suma de Total_Egresados"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+          "Egresados_UAEMEX.Sexo": "Sexo",
+          "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+        },
+        "formatos": {
+          "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2017-2018",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 232,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 68,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 196,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 60,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 220,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 73,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 248,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 79,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 240,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 90,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 227,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 96,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 250,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 94,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 242,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 85,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 16
+      },
+      {
+        "visual": "013",
+        "metricas": [
+          "% Crecimiento Anual Egresados"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "% Crecimiento Anual Egresados": -0.04941860465116279,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "014",
+        "metricas": [
+          "Suma de Total_Egresados",
+          "longitud",
+          "latitud"
+        ],
+        "campos_modelo": {
+          "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+          "Egresados_UAEMEX.longitud": "longitud",
+          "Egresados_UAEMEX.latitud": "latitud"
+        },
+        "formatos": {
+          "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+        },
+        "registros": [
+          {
+            "longitud": -99.6766745,
+            "latitud": 19.28247944,
+            "Suma de Total_Egresados": 2500,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Total_Egresados",
+          "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+          "periodo_inicial": "2017-2018",
+          "valor_inicial": 300,
+          "periodo_final": "2024-2025",
+          "valor_final": 327,
+          "cambio_absoluto": 27,
+          "visual_fuente": "011",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Suma de Total_Egresados: 300 en 2017-2018 y 327 en 2024-2025 (cambio +27).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 15
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0.3333333333333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 40,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 6,
+            "periodo_final": "2024-2025",
+            "valor_final": 8,
+            "cambio_absoluto": 2,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 6 en 2017-2018 y 8 en 2024-2025 (cambio +2).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias del Agua": {
+      "nombre": "Doctorado en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": -0.75,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 12,
+            "periodo_final": "2018-2019",
+            "valor_final": 3,
+            "cambio_absoluto": -9,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 12 en 2017-2018 y 3 en 2018-2019 (cambio -9).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ingeniería con áreas en Estructuras, Mecánica y Transporte": {
+      "nombre": "Doctorado en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 72,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.2,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 72,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -48,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 51,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 47,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 56,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 6,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 48,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 11,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 65,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 11,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 71,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 13,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 60,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 12,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": -0.14285714285714285,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 529,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 54,
+            "periodo_final": "2024-2025",
+            "valor_final": 72,
+            "cambio_absoluto": 18,
+            "visual_fuente": "011",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 54 en 2017-2018 y 72 en 2024-2025 (cambio +18).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.23529411764705882,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -52,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 42,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 10,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 53,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 13,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 49,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 26,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 49,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 13,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 42,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 18,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 52,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 20,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 16,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0.16666666666666666,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 531,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 64,
+            "periodo_final": "2024-2025",
+            "valor_final": 84,
+            "cambio_absoluto": 20,
+            "visual_fuente": "011",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 64 en 2017-2018 y 84 en 2024-2025 (cambio +20).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 31,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.34782608695652173,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 31,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -15,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 18,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 10,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 23,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 8,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0.14814814814814814,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 242,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 27,
+            "periodo_final": "2024-2025",
+            "valor_final": 31,
+            "cambio_absoluto": 4,
+            "visual_fuente": "011",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 27 en 2017-2018 y 31 en 2024-2025 (cambio +4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería Civil": {
+      "nombre": "Licenciatura en Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 73,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.43137254901960786,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 73,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -29,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 15,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 53,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 11,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 24,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 14,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 74,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 70,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 51,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": -0.20652173913043478,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 669,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 81,
+            "periodo_final": "2024-2025",
+            "valor_final": 73,
+            "cambio_absoluto": -8,
+            "visual_fuente": "011",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 81 en 2017-2018 y 73 en 2024-2025 (cambio -8).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 52,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.625,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 52,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -12,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 13,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 17,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 16,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 24,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 23,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 24,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 34,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 28,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 18,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 20,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 32,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 20,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0.0196078431372549,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 364,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 35,
+            "periodo_final": "2024-2025",
+            "valor_final": 52,
+            "cambio_absoluto": 17,
+            "visual_fuente": "011",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 35 en 2017-2018 y 52 en 2024-2025 (cambio +17).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 1.5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 61,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 10,
+            "periodo_final": "2024-2025",
+            "valor_final": 5,
+            "cambio_absoluto": -5,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 10 en 2017-2018 y 5 en 2024-2025 (cambio -5).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias del Agua": {
+      "nombre": "Maestría en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0.6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0.14285714285714285,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 7,
+            "periodo_final": "2018-2019",
+            "valor_final": 8,
+            "cambio_absoluto": 1,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 7 en 2017-2018 y 8 en 2018-2019 (cambio +1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Informática": {
+      "nombre": "Maestría en Informática",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería con áreas en Estructuras, Mecánica y Transporte": {
+      "nombre": "Maestría en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 1,
+            "periodo_final": "2018-2019",
+            "valor_final": 1,
+            "cambio_absoluto": 0,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "diagnostico": "Suma de Total_Egresados: 1 en 2017-2018 y 1 en 2018-2019 (cambio +0).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería con áreas terminales en Estructuras, Mecánica y Transporte": {
+      "nombre": "Maestría en Ingeniería con áreas terminales en Estructuras, Mecánica y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": -1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Hombre",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 22,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 2,
+            "periodo_final": "2023-2024",
+            "valor_final": 2,
+            "cambio_absoluto": 0,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "diagnostico": "Suma de Total_Egresados: 2 en 2017-2018 y 2 en 2023-2024 (cambio +0).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Egresados Ciclo Actual1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "Egresados Ciclo Actual1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Ciclo Actual1": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Indice Paridad Genero Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "Indice Paridad Genero Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.1_Indice Paridad Genero Egresados": "0.0"
+          },
+          "registros": [
+            {
+              "Indice Paridad Genero Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Egresados Fuera de Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "Egresados Fuera de Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Fuera de Toluca1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Egresados Toluca1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Toluca": "Egresados Toluca1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Egresados Toluca1": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Brecha Genero Absoluta Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "Brecha Genero Absoluta Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Brecha Genero Absoluta Egresados": "#,0"
+          },
+          "registros": [
+            {
+              "Brecha Genero Absoluta Egresados1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Ciclo escolar",
+            "Sexo",
+            "Suma de Total_Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar",
+            "Egresados_UAEMEX.Sexo": "Sexo",
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Hombre",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Sexo": "Mujer",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "% Crecimiento Anual Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados Ciclo Anterior": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Egresados": -0.3333333333333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "014",
+          "metricas": [
+            "Suma de Total_Egresados",
+            "longitud",
+            "latitud"
+          ],
+          "campos_modelo": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "Suma de Total_Egresados",
+            "Egresados_UAEMEX.longitud": "longitud",
+            "Egresados_UAEMEX.latitud": "latitud"
+          },
+          "formatos": {
+            "Sum(Egresados_UAEMEX.Total_Egresados)": "#,0"
+          },
+          "registros": [
+            {
+              "longitud": -99.6766745,
+              "latitud": 19.28247944,
+              "Suma de Total_Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Egresados",
+            "metrica_modelo": "Sum(Egresados_UAEMEX.Total_Egresados)",
+            "periodo_inicial": "2021-2022",
+            "valor_inicial": 1,
+            "periodo_final": "2023-2024",
+            "valor_final": 3,
+            "cambio_absoluto": 2,
+            "visual_fuente": "011",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Egresados: 1 en 2021-2022 y 3 en 2023-2024 (cambio +2).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "conciliacion_ultimo_periodo": {
+    "periodo": "2024-2025",
+    "metrica": "Suma de Total_Egresados",
+    "total_facultad": 327,
+    "suma_programas_publicados": 325,
+    "diferencia_sin_programa_identificable": 2,
+    "interpretacion": "La diferencia no se asignó a ninguna carrera; puede representar registros sin programa identificable en el modelo público."
+  },
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

@@ -1,0 +1,176 @@
+{
+  "id_categoria": "4028",
+  "categoria": "Tasa de crecimiento de PTC",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4028",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZmMxYzMxZGYtNTczZS00YTU1LWE2ZDUtZWEzMjJiMzFiMmZhIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 4,
+      "nombre": "Investigación abierta, inclusiva, equitativa y de calidad"
+    },
+    {
+      "numero": 9,
+      "nombre": "Fortalecimiento de la formación integral del docente"
+    },
+    {
+      "numero": 10,
+      "nombre": "Dignificación de las y los trabajadores universitarios"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "003",
+        "metricas": [
+          "Año",
+          "Total_PTC_SEP1",
+          "Año Anterior_PTC_SEP"
+        ],
+        "campos_modelo": {
+          "PTC_registrados en SEP_18-23.Año": "Año",
+          "PTC_registrados en SEP_18-23.Total_PTC_SEP1": "Total_PTC_SEP1",
+          "PTC_registrados en SEP_18-23.Año Anterior_PTC_SEP": "Año Anterior_PTC_SEP"
+        },
+        "formatos": {
+          "PTC_registrados en SEP_18-23.Año": "0",
+          "PTC_registrados en SEP_18-23.Total_PTC_SEP1": "#,0",
+          "PTC_registrados en SEP_18-23.Año Anterior_PTC_SEP": "0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Total_PTC_SEP1": 71,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Total_PTC_SEP1": 69,
+            "Año Anterior_PTC_SEP": 71,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Total_PTC_SEP1": 74,
+            "Año Anterior_PTC_SEP": 69,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Total_PTC_SEP1": 73,
+            "Año Anterior_PTC_SEP": 74,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Total_PTC_SEP1": 71,
+            "Año Anterior_PTC_SEP": 73,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Total_PTC_SEP1": 70,
+            "Año Anterior_PTC_SEP": 71,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Año Anterior_PTC_SEP": 70,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "proyectos": [
+              4,
+              9,
+              10,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 8
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Total_PTC_SEP1",
+          "metrica_modelo": "PTC_registrados en SEP_18-23.Total_PTC_SEP1",
+          "periodo_inicial": "2018",
+          "valor_inicial": 71,
+          "periodo_final": "2023",
+          "valor_final": 70,
+          "cambio_absoluto": -1,
+          "visual_fuente": "003",
+          "proyectos": [
+            4,
+            9,
+            10,
+            15
+          ]
+        }
+      ],
+      "diagnostico": "Total_PTC_SEP1: 71 en 2018 y 70 en 2023 (cambio -1).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

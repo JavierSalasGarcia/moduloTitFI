@@ -1,0 +1,1308 @@
+[
+  {
+    "sheet": "2 EstudiantadoEstProf",
+    "rows": 39,
+    "columns": 40,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "Hoja1",
+    "rows": 20,
+    "columns": 4,
+    "reference_rows": [],
+    "reference_count": 0
+  },
+  {
+    "sheet": "3 Est avanzados excelencia",
+    "rows": 32,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 7,
+        "values": [
+          "5",
+          "PRDI25-29-Obj-37",
+          "Garantizar una formación en estudios avanzados de excelencia y pertinencia social, a través del desarrollo de programas innovadores con la integración de la investigación de la Agenda Estratégica de Investigación, para asegurar que el conocimiento generado impulse la transformación social.",
+          "PRDI25-29-Obj-84",
+          "Consolidar una oferta educativa de estudios avanzados de excelencia, para garantizar la inclusión, la pertinencia social y la alineación con las demandas de los sectores productivo, gubernamental y social.",
+          "18",
+          "Generar protocolos de acción para incrementar la tasa de graduación y la eficiencia terminal en 10 espacios académicos, en 2026",
+          "ACT-PRDI-NS-2848",
+          "",
+          "Actividad",
+          "Sin fórmula",
+          "Generar protocolos de acción para incrementar la tasa de graduación y la eficiencia terminal en espacios académicos",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "=M7",
+          "=N7",
+          "=O7",
+          "=P7",
+          "=Q7",
+          "Anual",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 2
+  },
+  {
+    "sheet": "4 Investigación abierta",
+    "rows": 138,
+    "columns": 32,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "5 Innovación, desarrollo tec",
+    "rows": 4,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "6 Dif y divulga de la ciencia",
+    "rows": 5,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "7 Cultura desarrollo integral",
+    "rows": 8,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "8 Deporte universitario",
+    "rows": 10,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "9 Fortalecimiento docente",
+    "rows": 18,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "10 Dignificación las y los trab",
+    "rows": 8,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "11 Gestión administrativa",
+    "rows": 4,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "12 Fortalecimiento tecnológico",
+    "rows": 4,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "13 Gobernanza",
+    "rows": 10,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "16 Manejo recursos universitari",
+    "rows": 3,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "18 Reconocimiento de la diversi",
+    "rows": 12,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "19 Constr cultura de paz ",
+    "rows": 10,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "20 Retribución social ",
+    "rows": 13,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "21 Comunicación universitaria",
+    "rows": 3,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "22 Sostenibilidad ambiental ",
+    "rows": 14,
+    "columns": 24,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  },
+  {
+    "sheet": "Indicadores x proyec",
+    "rows": 105,
+    "columns": 10,
+    "reference_rows": [
+      {
+        "row": 7,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 31,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 37,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 51,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 61,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 77,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 87,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 95,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 103,
+        "values": [
+          "",
+          "",
+          "Ref.  2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 9
+  },
+  {
+    "sheet": "Apertura programática",
+    "rows": 224,
+    "columns": 16,
+    "reference_rows": [
+      {
+        "row": 1,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Fecha de toma de protesta",
+          "",
+          "",
+          "",
+          "2026-08-31 00:00:00",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 6,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 37,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 50,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 63,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 70,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 78,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 89,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 100,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 115,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 124,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 132,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 140,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 154,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 161,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 175,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 188,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 204,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "row": 211,
+        "values": [
+          "No.",
+          "Meta",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "=TEXT($J$1,\"mmmm\")",
+          "Medición",
+          "Área responsable",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 19
+  },
+  {
+    "sheet": "Metas adicionales",
+    "rows": 2,
+    "columns": 17,
+    "reference_rows": [
+      {
+        "row": 2,
+        "values": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "Ref. 2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "",
+          ""
+        ]
+      }
+    ],
+    "reference_count": 1
+  }
+]

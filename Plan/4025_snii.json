@@ -1,0 +1,246 @@
+{
+  "id_categoria": "4025",
+  "categoria": "SNII",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4025",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNWFmMWRlNTktMmRmMi00OWZiLTk0YTItZjczMmU2YmE1ZGEyIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 4,
+      "nombre": "Investigación abierta, inclusiva, equitativa y de calidad"
+    },
+    {
+      "numero": 9,
+      "nombre": "Fortalecimiento de la formación integral del docente"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "004",
+        "metricas": [
+          "Año",
+          "Suma de Total_SNII",
+          "Sexo_SNII"
+        ],
+        "campos_modelo": {
+          "2025_SNII.Año": "Año",
+          "Sum(2025_SNII.Total_SNII)": "Suma de Total_SNII",
+          "2025_SNII.Sexo_SNII": "Sexo_SNII"
+        },
+        "formatos": {
+          "2025_SNII.Año": "0",
+          "Sum(2025_SNII.Total_SNII)": "0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 11,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2018,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 6,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 14,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 8,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 17,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 8,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 17,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 8,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 21,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 16,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 20,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 16,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 19,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 15,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Sexo_SNII": "Hombres",
+            "Suma de Total_SNII": 23,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Sexo_SNII": "Mujeres",
+            "Suma de Total_SNII": 17,
+            "proyectos": [
+              4,
+              9,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 16
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Total_SNII",
+          "metrica_modelo": "Sum(2025_SNII.Total_SNII)",
+          "periodo_inicial": "2018",
+          "valor_inicial": 17,
+          "periodo_final": "2025",
+          "valor_final": 40,
+          "cambio_absoluto": 23,
+          "visual_fuente": "004",
+          "proyectos": [
+            4,
+            9,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Suma de Total_SNII: 17 en 2018 y 40 en 2025 (cambio +23).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

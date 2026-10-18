@@ -1,0 +1,20 @@
+{
+  "clave": "ejemplo",
+  "nombre": "Módulo de ejemplo",
+  "version": "1.0.0",
+  "descripcion": "Función independiente de ejemplo.",
+  "roles": ["admin", "titular", "operativo"],
+  "menu": [
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Ejemplo",
+      "ruta": "ejemplo",
+      "roles": ["admin", "titular", "operativo"],
+      "orden": 50
+    }
+  ],
+  "rutas": {
+    "GET /ejemplo": ["App\\Modules\\Ejemplo\\EjemploController", "index"],
+    "POST /ejemplo": ["App\\Modules\\Ejemplo\\EjemploController", "guardar"]
+  }
+}

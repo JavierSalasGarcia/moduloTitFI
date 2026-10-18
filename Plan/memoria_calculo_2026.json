@@ -1,0 +1,3021 @@
+{
+  "titulo": "Referencia base 2026 para la planeación de la Facultad de Ingeniería",
+  "version_archivo": 4,
+  "control_totales": {
+    "filas_detalladas_extraidas": 121,
+    "total_declarado_en_hoja_resumen": 123,
+    "diferencia": 2
+  },
+  "periodo_base": "Ref. 2026",
+  "autor_corporativo": "Sistema de Planeación y Desarrollo Institucional",
+  "sigla": "SPDI",
+  "anio": 2026,
+  "cita_apa_primera": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026a)",
+  "cita_apa_subsecuente": "(SPDI, 2026a)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026a). Memoria de cálculo NS 2026–2030 (versión 4) [Hoja de cálculo no publicada]. Universidad Autónoma del Estado de México.",
+  "archivo_origen": "C:\\Users\\edigi\\Downloads\\Memoria de cálculo NS 2026-2030 Ver4.xlsx",
+  "criterio_integracion": "Se adopta Ref. 2026 como referencia base de planeación. Las celdas vacías, fórmulas sin variables completas y errores #REF! se registran como dato no disponible, no como cero. Los valores de años posteriores son programación y no observaciones.",
+  "hallazgos_calidad": [
+    "Se extrajeron 121 actividades e indicadores de las hojas de proyecto; 2 tienen un valor Ref. 2026 positivo y verificable con el criterio aplicado.",
+    "La hoja de resumen declara 123 metas, pero las hojas detalladas contienen 121: el proyecto 2 declara 27 y detalla 26; el proyecto 6 declara 4 y detalla 3. La diferencia requiere conciliación con SPDI.",
+    "La hoja Indicadores x proyecto contiene referencias #REF! y no se utiliza como fuente numérica.",
+    "La mayoría de las metas no tiene variables completas para calcular Ref. 2026.",
+    "Sólo se incorporan como observados los valores directos o indicadores con todas sus variables numéricas."
+  ],
+  "cambios_detectados_respecto_version_3": [
+    "La celda de meta del espacio académico del proyecto 2 incorpora el texto provisional “meta fac”; se conserva como texto de trabajo y no se interpreta como meta aprobada.",
+    "La fila ACT-POA-NS-2651 del proyecto 19 cambia su clasificación de indicador a actividad; su Ref. 2026 de cinco se integra como valor directo.",
+    "No se detectaron nuevos valores positivos de Ref. 2026 en las celdas de variables o resultados respecto de la versión 3."
+  ],
+  "impacto_en_el_diagnostico": {
+    "uso": "Ref. 2026 sustituye cualquier referencia anterior como línea base de las metas del plan.",
+    "contexto_historico": "Las series de los tableros institucionales anteriores a 2026 se conservan para explicar tendencias, brechas entre licenciaturas y valores extremos, pero no funcionan como línea base de programación.",
+    "regla_de_calidad": "Una referencia sólo se incorpora como observación cuando existe un valor directo o cuando todas las variables de la fórmula están disponibles. Los vacíos, errores #REF! y fórmulas incompletas requieren validación del área responsable.",
+    "efecto_en_metas": "Las metas cuantitativas se mantienen iguales o por encima de Ref. 2026. Cuando la memoria no contiene una referencia verificable, el primer resultado esperado es documentarla y validarla antes de fijar una cantidad de crecimiento."
+  },
+  "proyectos": {
+    "2": {
+      "numero": 2,
+      "hoja": "2 EstudiantadoEstProf",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2726",
+          "tipo": "Actividad",
+          "meta_prdi": "Incorporar contenidos temáticos o actividades académicas sobre los criterios transversales del seaes, en 30 planes de estudio reestructurados, durante la administración",
+          "meta_espacio_academico": "meta fac",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Incorporar contenidos temáticos o actividades académicas sobre los criterios transversales del seaes, en planes de estudio reestructurados",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2727",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con el acervo de 120 unidades de aprendizaje de estudios profesionales apegados a las referencias documentales básicas durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con el acervo de unidades de aprendizaje de estudios profesionales apegados a las referencias documentales básicas",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-NS-210",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 89.13% de los programas educativos de estudios profesionales evaluables cuenten con reconocimiento por su excelencia, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de programas educativos de estudios profesionales con reconocimiento por su excelencia / Número de programas educativos de Estudios Profesionales evaluables)*100",
+          "variables": [
+            {
+              "nombre": "Número de programas educativos de estudios profesionales con reconocimiento por su excelencia",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Número de programas educativos de Estudios Profesionales evaluables",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M6,M5/M6*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-351",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 92.9% de la matrícula en programas educativos de estudios profesionales evaluables, curse en programas educativos reconocidos por su excelencia, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Matrícula de estudiantes de estudios profesionales del sistema dependiente en programas educativos reconocidos por su excelencia / Matrícula de estudiantes de estudios profesionales del sistema dependiente en programas educativos evaluables)*100",
+          "variables": [
+            {
+              "nombre": "Matrícula de estudiantes de estudios profesionales del sistema dependiente en programas educativos reconocidos por su excelencia",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Matrícula de estudiantes de estudios profesionales del sistema dependiente en programas educativos evaluables",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M8,M7/M8*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-200",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 72% de los sustentantes que presentan el EGEL obtengan testimonios de desempeño sobresaliente o satisfactorio, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de sustentantes de estudios profesionales que obtienen testimonio de desempeño sobresaliente o satisfactorio en el EGEL / \nTotal de sustentantes de estudios profesionales que presentan los EGEL)*100",
+          "variables": [
+            {
+              "nombre": "Número de sustentantes de estudios profesionales que obtienen testimonio de desempeño sobresaliente o satisfactorio en el EGEL",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de sustentantes de estudios profesionales que presentan los EGEL",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M10,M9/M10*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2781",
+          "tipo": "Actividad",
+          "meta_prdi": "Implementar 1 programa de preparación para EGEL anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Implementar un programa de preparación para EGEL",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": 0,
+          "estado_ref_2026": "valor_directo",
+          "formula_ref_2026": "=M11",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2785",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 550 estudiantes de estudios profesionales participen en movilidad intrainstitucional durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr que estudiantes de estudios profesionales participen en movilidad intrainstitucional",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M12",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-353",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr anualmente que 100% de los estudiantes de estudios profesionales estén beneficiados con el nuevo Programa Institucional de Tutoría Académica",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de estudiantes de estudios profesionales beneficiados con tutoría/ Total de estudiantes de estudios profesionales) * 100",
+          "variables": [
+            {
+              "nombre": "Número de estudiantes de estudios profesionales beneficiados con tutoría",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de estudiantes de estudios profesionales",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M14,M13/M14*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2789",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 1 030 estudiantes de estudios profesionales participen en movilidad nacional e internacional durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr que estudiantes de estudios profesionales participen en movilidad nacional e internacional",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M15",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2729",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar anualmente en los 55 espacios académicos un proyecto colaborativo de beneficio social",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar en los espacios académicos un proyecto colaborativo de beneficio social",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M16",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2792",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con 70 manuales de prácticas apegados a los indicadores del Sistema para Evaluar la Calidad de Medios Educativos anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con manuales de prácticas apegados a los indicadores del Sistema para Evaluar la Calidad de Medios Educativos",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M17",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-357",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 80.03% de las GEI disponibles en SEDUCA sean utilizadas, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de guías de estudio independiente utilizadas / Número total de guías de estudio independiente vigentes disponibles en SEDUCA) *100",
+          "variables": [
+            {
+              "nombre": "Número de guías de estudio independiente utilizadas",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Número total de guías de estudio independiente vigentes disponibles en SEDUCA",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M19,M18/M19*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2728",
+          "tipo": "Actividad",
+          "meta_prdi": "Incrementar a 52 000 el número de estudiantes de estudios profesionales en la renovada plataforma seduca, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Incrementar el número de estudiantes de estudios profesionales en la renovada plataforma seduca",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M20",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2805",
+          "tipo": "Actividad",
+          "meta_prdi": "Desarrollar 470 actividades académicas de educación continua al año",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Desarrollar actividades académicas de educación continua",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M21",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2205",
+          "tipo": "Actividad",
+          "meta_prdi": "Certificar en una segunda lengua a 720 estudiantes de estudios profesionales anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Certificar internacionalmente en una segunda lengua a estudiantes de estudios profesionales",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M22",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-1764",
+          "tipo": "Actividad",
+          "meta_prdi": "Incrementar la matrícula a 78 002 estudiantes de estudios profesionales en sus diversas modalidades para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Atender la matrícula de Estudios Profesionales en sus diversas modalidades",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": 0,
+          "estado_ref_2026": "valor_directo",
+          "formula_ref_2026": "=M23",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-40",
+          "tipo": "Indicador",
+          "meta_prdi": "Contar con una titulación por cohorte a 2029 de 30.5%",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Titulados al primer año de egreso/Nuevo ingreso n-5 )*100",
+          "variables": [
+            {
+              "nombre": "Titulados al primer año de egreso",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Nuevo ingreso n-5",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M25,M24/M25*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2814",
+          "tipo": "Actividad",
+          "meta_prdi": "Implementar semestralmente 1 programa de fomento a la titulación",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Implementar un programa de fomento a la titulación",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M26",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-NS-127",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr la eficiencia terminal por cohorte en estudios Profesionales de 53.59% en 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(La suma acumulada del número de egresados de la cohorte de estudios profesionales en cada uno de los años que dura la cohorte/Número total de alumnos de ingreso a primer año de la cohorte)*100",
+          "variables": [
+            {
+              "nombre": "La suma acumulada del número de egresados de la cohorte de estudios profesionales en cada uno de los años que dura la cohorte",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Número total de alumnos de ingreso a primer año de la cohorte",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M28,M27/M28*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-34",
+          "tipo": "Indicador",
+          "meta_prdi": "Disminuir a 7.80% el abandono escolar de estudios profesionales al término de la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(1-((Matrícula total n mas 1-Nuevo ingreso 1o n mas 1+Egresados n)/(Matrícula total n)))*100",
+          "variables": [
+            {
+              "nombre": "Matrícula total n mas 1",
+              "valor_ref_2026": 0
+            },
+            {
+              "nombre": "Nuevo ingreso 1o n mas 1",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Egresados n",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Matrícula total n",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M32,(1-((M29-M30+M31)/(M32)))*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2297",
+          "tipo": "Actividad",
+          "meta_prdi": "Otorgar anualmente 38 000 becas, apoyos o estímulos institucionales a estudiantes de Estudios Profesionales",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Otorgar becas, apoyos o estímulos a alumnos de estudios profesionales para la permanencia y conclusión de estudios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M33",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-366",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 98% del total de estudiantes activos de Estudios Profesionales cuenten con servicios de salud a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Alumnos afiliados al Seguro Facultativo de Estudios Profesionales / Matrícula activa de Estudios Profesionales)*100",
+          "variables": [
+            {
+              "nombre": "Alumnos afiliados al Seguro Facultativo de Estudios Profesionales",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Matrícula activa de Estudios Profesionales",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M35,M34/M35*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2285",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr la participación de 32 300 estudiantes y personas egresadas en los sectores gubernamental, productivo y social, mediante las prácticas o estancias profesionales, al cierre de la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr la participación de alumnos en los sectores gubernamental, productivo y social mediante las prácticas o estancias profesionales",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M36",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2826",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr la participación de 500 estudiantes de estudios profesionales en cursos, talleres o actividades de capacitación de empleabilidad, realizadas en conjunto con instituciones externas, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr la participación de estudiantes de estudios profesionales en cursos, talleres o actividades de capacitación de empleabilidad, realizadas en conjunto con instituciones externas",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M37",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2825",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 10 eventos de promoción y difusión en apoyo al desarrollo profesional para el empleo y la inserción laboral, durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar  eventos de promoción y difusión en apoyo al desarrollo profesional para el empleo y la inserción laboral",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M38",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2753",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 40 intervenciones de impacto anuales en espacios académicos para fortalecer la vinculación colaborativa entre egresados y estudiantes",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar intervenciones de impacto en espacios académicos para fortalecer la vinculación colaborativa entre egresados y estudiantes",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M39",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable",
+      "ceros_por_validar": [
+        {
+          "clave": "ACT-PRDI-NS-2781",
+          "descripcion": "Implementar un programa de preparación para EGEL",
+          "motivo": "El cero está escrito en Ref. 2026, pero debe confirmarse con el área responsable antes de tratarlo como observación."
+        },
+        {
+          "clave": "ACT-PRDI-NS-1764",
+          "descripcion": "Atender la matrícula de Estudios Profesionales en sus diversas modalidades",
+          "motivo": "El cero está escrito en Ref. 2026, pero debe confirmarse con el área responsable antes de tratarlo como observación."
+        }
+      ]
+    },
+    "3": {
+      "numero": 3,
+      "hoja": "3 Est avanzados excelencia",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2838",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con 233 estudiantes de estudios avanzados participantes en estancias cortas o movilidad académica, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con estudiantes de estudios avanzados participantes en estancias cortas o movilidad académica",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2685",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar  4 350 alumnos en estudios avanzados, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Atender la matrícula de estudios avanzados para la generación y aplicación del conocimiento",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2844",
+          "tipo": "Actividad",
+          "meta_prdi": "Ofertar 1 nuevo programa de estudios avanzados o diplomado superior en los CU y UAP vinculado con entidades de gobierno o industria, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Ofertar nuevos programas de estudios avanzados o diplomado superior en los CU y UAP vinculado con entidades de gobierno o industria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2847",
+          "tipo": "Actividad",
+          "meta_prdi": "Registrar 50 protocolos de investigación de alumnos de estudios avanzados con temáticas vinculadas a la Agenda Estratégica de Investigación, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Registrar protocolos de investigación de alumnos de estudios avanzados con temáticas vinculadas a la Agenda Estratégica de Investigación",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M6",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2848",
+          "tipo": "Actividad",
+          "meta_prdi": "Generar protocolos de acción para incrementar la tasa de graduación y la eficiencia terminal en 10 espacios académicos, en 2026",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Generar protocolos de acción para incrementar la tasa de graduación y la eficiencia terminal en espacios académicos",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M7",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2849",
+          "tipo": "Actividad",
+          "meta_prdi": "Incrementar a 1190 graduados de estudios avanzados, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Incrementar graduados de estudios avanzados",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M8",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-365",
+          "tipo": "Indicador",
+          "meta_prdi": "Incrementar a 17.56% la graduación de estudios avanzados por la opción de trabajo terminal de grado, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de alumnos graduados por la opción de trabajo terminal de grado en el año que se reporta/Total de alumnos graduados en el año que se reporta)*100",
+          "variables": [
+            {
+              "nombre": "Número de alumnos graduados por la opción de trabajo terminal de grado en el año que se reporta",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de alumnos graduados en el año que se reporta)*100",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M10,M9/M10*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "4": {
+      "numero": 4,
+      "hoja": "4 Investigación abierta",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2870",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con 200 CA de calidad, a 2028",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con Cuerpos Académicos de calidad",
+              "valor_ref_2026": 3
+            }
+          ],
+          "valor_ref_2026": 3,
+          "estado_ref_2026": "valor_directo",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 2,
+            "2028": 2,
+            "2029": 2,
+            "2030": 2
+          }
+        },
+        {
+          "clave": "IND-PRDI-221",
+          "tipo": "Indicador",
+          "meta_prdi": "Mantener 98.68% de los CA que realizan investigación que contribuye a la solución de problemas sociales, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de cuerpos académicos registrados en SEP que realizan investigación que contribuyen a la solución de problemas sociales/Total de cuerpos académicos registrados en SEP)*100",
+          "variables": [
+            {
+              "nombre": "Número de cuerpos académicos registrados en SEP que realizan investigación que contribuyen a la solución de problemas sociales",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de cuerpos académicos registrados en SEP",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M5,M4/M5*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-368",
+          "tipo": "Indicador",
+          "meta_prdi": "Mantener el 49.59% de los PTC con participación en redes con pares extranjeros, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de Profesores de Tiempo Completo  con participación en redes con pares extranjeros/Total de Profesores de Tiempo Completo)*100",
+          "variables": [
+            {
+              "nombre": "Número de Profesores de Tiempo Completo  con participación en redes con pares extranjeros",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de Profesores de Tiempo Completo",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M7,M6/M7*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-370",
+          "tipo": "Indicador",
+          "meta_prdi": "Mantener 49.81% de los PTC que participan en redes nacionales, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de Profesores de Tiempo Completo con participación en redes nacionales/Total de Profesores de Tiempo Completo)*100",
+          "variables": [
+            {
+              "nombre": "Número de Profesores de Tiempo Completo con participación en redes nacionales",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de Profesores de Tiempo Completo",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M9,M8/M9*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2854",
+          "tipo": "Actividad",
+          "meta_prdi": "Atender las necesidades prioritarias de mantenimiento, equipamiento y medidas de seguridad de 115 laboratorios de investigación, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Atender las necesidades prioritarias de mantenimiento, equipamiento y medidas de seguridad de laboratorios de investigación",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M10",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2858",
+          "tipo": "Actividad",
+          "meta_prdi": "Promover la participación en 2 convocatorias externas de proyectos de investigación, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Promover la participación en convocatorias externas de proyectos de investigación",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M11",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-367",
+          "tipo": "Indicador",
+          "meta_prdi": "Contar con 19.51% de los proyectos de investigación en DT e innovación que cuenten con un plan de transferencia, innovación o impacto social documentado, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de proyectos de investigación en DT e Innovación que cuentan con plan de transferencia, innovación impacto social documentado/Total de proyectos de investigación en DT e Innovación)*100",
+          "variables": [
+            {
+              "nombre": "Número de proyectos de investigación en DT e Innovación que cuentan con plan de transferencia, innovación impacto social documentado",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de proyectos de investigación en DT e Innovación",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M13,M12/M13*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-225",
+          "tipo": "Indicador",
+          "meta_prdi": "Contar con 53.22% de producción científica con sentido social, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de producción científica con sentido social/Total de la producción científica reportada)*100",
+          "variables": [
+            {
+              "nombre": "Número de producción científica con sentido social",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de la producción científica reportada",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M15,M14/M15*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        }
+      ],
+      "referencias_validas": [
+        {
+          "clave": "ACT-PRDI-NS-2870",
+          "valor": 3,
+          "descripcion": "Contar con Cuerpos Académicos de calidad"
+        }
+      ],
+      "estado": "con_valor_base_verificable"
+    },
+    "5": {
+      "numero": 5,
+      "hoja": "5 Innovación, desarrollo tec",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2875",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con 222 expedientes, registros y patentes ante el IMPI, a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con expedientes, registros y patentes ante el IMPI",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2881",
+          "tipo": "Actividad",
+          "meta_prdi": "Capacitar a 100 miembros de la comunidad universitaria en materia de propiedad intelectual y gestión de activos de conocimiento, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar a miembros de la comunidad universitaria en materia de propiedad intelectual y gestión de activos de conocimiento",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "6": {
+      "numero": 6,
+      "hoja": "6 Dif y divulga de la ciencia",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2890",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 1 programa de sostenibilidad y  fortalecimiento del Acceso Abierto no comercial para las revistas científicas editadas en la Universidad, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar un programa de sostenibilidad y  fortalecimiento del Acceso Abierto no comercial para las revistas científicas editadas en la Universidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2897",
+          "tipo": "Actividad",
+          "meta_prdi": "Capacitar a 1000 miembros de la comunidad universitaria en Ciencia Abierta, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar a  miembros de la comunidad universitaria en Ciencia Abierta",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2899",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 1 evaluación de la calidad, criterios y políticas de Acceso Abierto Diamante de las publicaciones periódicas científicas institucionales, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar evaluaciones de la calidad, criterios y políticas de Acceso Abierto Diamante de las publicaciones periódicas científicas institucionales",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "7": {
+      "numero": 7,
+      "hoja": "7 Cultura desarrollo integral",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-3193",
+          "tipo": "Actividad",
+          "meta_prdi": "Abrir 850 talleres culturales anualmente en beneficio de la colectividad universitaria de nivel superior",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Abrir talleres culturales en beneficio de la colectividad universitaria de nivel superior",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-1816",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 850 presentaciones artísticas anualmente.",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar presentaciones artísticas",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3195",
+          "tipo": "Actividad",
+          "meta_prdi": "Organizar 3 programas de fortalecimiento al talento audiovisual para desarrollar la creatividad cultural de los universitarios, durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Organizar programas de fortalecimiento al talento audiovisual para desarrollar la creatividad cultural de los universitarios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3200",
+          "tipo": "Actividad",
+          "meta_prdi": "Organizar 6 programas audiovisuales vanguardistas que fomenten la innovación cultural durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Organizar programas audiovisuales vanguardistas que fomenten la innovación cultural",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M6",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3202",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar al año, 4 programas artísticos que contribuyan al fortalecimiento cultural de la comunidad universitaria",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar programas artísticos que contribuyan al fortalecimiento cultural de la comunidad universitaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M7",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3205",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar al año 1 festival cultural que reúna a los talentos de distintos talleres y espacios académicos",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar festivales culturales que reúna a los talentos de distintos talleres y espacios académicos",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M8",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "8": {
+      "numero": 8,
+      "hoja": "8 Deporte universitario",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2746",
+          "tipo": "Actividad",
+          "meta_prdi": "Organizar anualmente 12 eventos regionales que promuevan el bienestar, el autocuidado y la actividad física responsable",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Organizar eventos regionales que promuevan el bienestar, el autocuidado y la actividad física responsable",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-372",
+          "tipo": "Indicador",
+          "meta_prdi": "Mantener anualmente la participación de 41.01% del personal académico en actividades de cultura física",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de académicos que participan en actividades deportivas/ Total del personal académico)*100",
+          "variables": [
+            {
+              "nombre": "Número de académicos que participan en actividades deportivas",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total del personal académico",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M5,M4/M5*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-374",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 30.02% del personal administrativo participe en actividades de cultura física, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de administrativos en actividades deportivas/ Total del personal administrativo)*100",
+          "variables": [
+            {
+              "nombre": "Número de administrativos en actividades deportivas",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total del personal administrativo",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M7,M6/M7*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-377",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr anualmente que 50% de estudiantes del nivel superior participen en actividades de cultura física",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de estudiantes de nivel superior que participan en actividades deportivas/ Total matrícula estudiantil de estudios profesionales)*100",
+          "variables": [
+            {
+              "nombre": "Número de estudiantes de nivel superior que participan en actividades deportivas",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total matrícula estudiantil de estudios profesionales",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M9,M8/M9*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2909",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con la participación anual de 300 deportistas universitarios para impulsar su talento competitivo a nivel estatal, nacional e internacional",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con la participación deportistas universitarios para impulsar su talento competitivo a nivel estatal, nacional e internacional",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M10",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "9": {
+      "numero": 9,
+      "hoja": "9 Fortalecimiento docente",
+      "metas": [
+        {
+          "clave": "IND-NS-212",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr a 2029 que 65% del personal académico de nivel superior participe en actividades de formación",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de académicos de nivel superior que participan en actividades de formación./Total de académicos de nivel superior)*100",
+          "variables": [
+            {
+              "nombre": "Número de académicos de nivel superior que participan en actividades de formación.",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de académicos de nivel superior",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M4,M3/M4*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-371",
+          "tipo": "Indicador",
+          "meta_prdi": "Actualizar anualmente a 25.01% del personal académico del nivel superior en conocimientos propios de la disciplina que enseñan",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal académico de nivel superior que participa en actividades de capacitación de actualización disciplinar/Total de personal académico de nivel superior)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal académico de nivel superior que participa en actividades de capacitación de actualización disciplinar",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal académico de nivel superior",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M6,M5/M6*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-373",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr que 50% de personal académico de nivel superior se capacite en el desarrollo de competencias didácticas y digitales a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal académico de nivel superior que participa en actividades de capacitación en el desarrollo de competencias didácticas y digitales/Total de personal académico de nivel superior)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal académico de nivel superior que participa en actividades de capacitación en el desarrollo de competencias didácticas y digitales",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal académico de nivel superior",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M8,M7/M8*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-375",
+          "tipo": "Indicador",
+          "meta_prdi": "Capacitar a 100% del personal académico en el nuevo modelo educativo durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal académico capacitado en el nuevo modelo educativo/Total de personal académico)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal académico capacitado en el nuevo modelo educativo",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal académico",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M10,M9/M10*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-376",
+          "tipo": "Indicador",
+          "meta_prdi": "Brindar capacitación en temas transversales a 25.01% del personal académico de nivel superior anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal académico de nivel superior que participa en actividades de capacitación en temas transversales/Total de personal académico de nivel superior)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal académico de nivel superior que participa en actividades de capacitación en temas transversales",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal académico de nivel superior",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M12,M11/M12*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2923",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr la certificación internacional en una segunda lengua en nivel C1 de cuatro habilidades de 360 profesores de lengua de estudios profesionales al final de la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr la certificación internacional en una segunda lengua en nivel C1 de cuatro habilidades de profesores de lengua de estudios profesionales",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M13",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2926",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con 715 PTC en el SNII para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con PTC en el SNII",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M14",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-47",
+          "tipo": "Indicador",
+          "meta_prdi": "Alcanzar 75.06% del profesorado de tiempo completo (PTC) con Perfil PRODEP, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(PTC registrados en la SEP que cuentan con perfil Prodep/Total de PTC registrados en la SEP)*100",
+          "variables": [
+            {
+              "nombre": "PTC registrados en la SEP que cuentan con perfil Prodep",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de PTC registrados en la SEP",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M16,M15/M16*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2927",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr 34 participantes del personal académico de Estudios Avanzados en actividades de internacionalización (seminarios, coil, cátedras), durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr participantes del personal académico de Estudios Avanzados en actividades de internacionalización (seminarios, coil, cátedras)",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M17",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2928",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 316 académicos e investigadores participen en estancias internacionales o de movilidad durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr que académicos e investigadores participen en estancias internacionales o de movilidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M18",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "10": {
+      "numero": 10,
+      "hoja": "10 Dignificación las y los trab",
+      "metas": [
+        {
+          "clave": "IND-PRDI-378",
+          "tipo": "Indicador",
+          "meta_prdi": "Capacitar a 80% de los integrantes del personal administrativo en competencias básicas y técnicas a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal administrativo capacitado en  competencias básicas y técnicas / Total de personal administrativo)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal administrativo capacitado en en competencias básicas y técnicas",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal administrativo",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M4,M3/M4*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-380",
+          "tipo": "Indicador",
+          "meta_prdi": "Capacitar 35.01% del personal administrativo en competencias transversales, equidad de género, ética y cultura de paz a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal administrativo capacitado en  competencias transversales, equidad de género, ética y paz / Total de personal administrativo)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal administrativo capacitado en  competencias transversales, equidad de género, ética y paz",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal administrativo",
+              "valor_ref_2026": 0
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M6,M5/M6*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "IND-PRDI-382",
+          "tipo": "Indicador",
+          "meta_prdi": "Capacitar a 20% del personal universitario en Tecnologías de la Información y Comunicación, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de personal universitario capacitado en temas de Tecnologías de la Información/ Total de personal universitario)*100",
+          "variables": [
+            {
+              "nombre": "Número de personal universitario capacitado en temas de Tecnologías de la Información",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de personal universitario",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M8,M7/M8*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "11": {
+      "numero": 11,
+      "hoja": "11 Gestión administrativa",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2743",
+          "tipo": "Actividad",
+          "meta_prdi": "Armonizar 70 manuales de organización de espacios universitarios a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Armonizar manuales de organización de espacios universitarios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2957",
+          "tipo": "Actividad",
+          "meta_prdi": "Armonizar 50 manuales de procedimientos de espacios universitarios a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Armonizar manuales de procedimientos de espacios universitarios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "12": {
+      "numero": 12,
+      "hoja": "12 Fortalecimiento tecnológico",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2968",
+          "tipo": "Actividad",
+          "meta_prdi": "Desarrollar 160 guías de estudio independiente (GEI) al año",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Desarrollar guías de estudio independiente (GEI)",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3242",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar con 100% de los espacios académicos con mantenimiento preventivo a equipos de salas de cómputo, anualmente",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Dar mantenimiento preventivo a equipos de salas de cómputo",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "13": {
+      "numero": 13,
+      "hoja": "13 Gobernanza",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2980",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar anualmente 1 campaña de protección universitaria en materia de autoprotección y reacción ante emergencias para la comunidad universitaria de nivel superior",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar campañas de protección universitaria en materia de autoprotección y reacción ante emergencias para la comunidad universitaria de nivel superior",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2982",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar anualmente 1 simulacro de acuerdo con la convocatoria nacional",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar simulacro de acuerdo con la convocatoria nacional",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2748",
+          "tipo": "Actividad",
+          "meta_prdi": "Efectuar anualmente 1 campaña del protocolo de atención integral a víctimas en todas las áreas universitarias",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Efectuar campañas del protocolo de atención integral a víctimas en todas las áreas universitarias",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2983",
+          "tipo": "Actividad",
+          "meta_prdi": "Difundir anualmente 1 campaña de los Protocolos de Seguridad y Protección Civil",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Difundir la campaña de los Protocolos de Seguridad y Protección Civil",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M6",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2984",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 1 curso anual dirigido al personal de Protección Universitaria sobre Derechos Humanos y perspectiva de Género",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar cursos dirigidos al personal de Protección Universitaria sobre Derechos Humanos y perspectiva de Género",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M7",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2749",
+          "tipo": "Actividad",
+          "meta_prdi": "Atender anualmente a 15 000 asistentes a conferencias, foros y charlas, relacionados con la pertenencia universitaria",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Atender anualmente a asistentes a conferencias, foros y charlas, relacionados con la pertenencia universitaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M8",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2992",
+          "tipo": "Actividad",
+          "meta_prdi": "Contar anualmente con 8 500 asistentes a visitas guiadas",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con  asistentes a visitas guiadas",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M9",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3243",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 100% de los espacios universitarios con cronista cuente con una nueva crónica sobre la historia de su espacio, al final de la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con una nueva crónica sobre la historia del espacio universitario",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M10",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "14": {
+      "numero": 14,
+      "hoja": null,
+      "metas": [],
+      "referencias_validas": [],
+      "estado": "sin_hoja_en_la_memoria"
+    },
+    "15": {
+      "numero": 15,
+      "hoja": null,
+      "metas": [],
+      "referencias_validas": [],
+      "estado": "sin_hoja_en_la_memoria"
+    },
+    "16": {
+      "numero": 16,
+      "hoja": "16 Manejo recursos universitari",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2763",
+          "tipo": "Actividad",
+          "meta_prdi": "Implementar anualmente 1 programa institucional que fortalezca la generación de ingresos extraordinarios",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Implementar un programa institucional que fortalezca la generación de ingresos extraordinarios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "17": {
+      "numero": 17,
+      "hoja": null,
+      "metas": [],
+      "referencias_validas": [],
+      "estado": "sin_hoja_en_la_memoria"
+    },
+    "18": {
+      "numero": 18,
+      "hoja": "18 Reconocimiento de la diversi",
+      "metas": [
+        {
+          "clave": "IND-PRDI-431",
+          "tipo": "Indicador",
+          "meta_prdi": "Sensibilizar durante la administración a 40% de estudiantado de estudios profesionales en temas de inclusión a grupos históricamente vulnerados",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de estudiantes sensibilizados / Total del estudiantado)*100",
+          "variables": [
+            {
+              "nombre": "Número de estudiantes sensibilizados",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total del estudiantado",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M4,M3/M4*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3075",
+          "tipo": "Actividad",
+          "meta_prdi": "Difundir 3 materiales de divulgación al año (guías, cartillas y manuales) orientados a promover el respeto y reconocimiento de las identidades entre la comunidad universitaria",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Difundir materiales de divulgación (guías, cartillas y manuales) orientados a promover el respeto y reconocimiento de las identidades entre la comunidad universitaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-407",
+          "tipo": "Indicador",
+          "meta_prdi": "Incrementar a 4.90% los proyectos de investigación en materia de cultura de paz y estudios de género respecto al total de proyectos de investigación, para 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Proyectos de investigación en materia de cultura de paz y estudios de género/Total de proyectos de investigación)*100",
+          "variables": [
+            {
+              "nombre": "Proyectos de investigación en materia de cultura de paz y estudios de género",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Total de proyectos de investigación",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M7,M6/M7*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3081",
+          "tipo": "Actividad",
+          "meta_prdi": "Implementar 2 eventos socioculturales al año con temáticas de inclusión y vulnerabilidad",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Implementar eventos socioculturales con temáticas de inclusión y vulnerabilidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M8",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3087",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 1 actividad anual sobre equidad social y de género",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar actividades sobre equidad social y de género",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M9",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2767",
+          "tipo": "Actividad",
+          "meta_prdi": "Implementar 4 programas de sensibilización al año en temas de corresponsabilidad y autocuidado",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Implementar programas de sensibilización en temas de corresponsabilidad y autocuidado",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M10",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3097",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar anualmente 10 talleres articulados que fortalezcan el Programa Universitario de Bienestar Integral",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar talleres articulados que fortalezcan el Programa Universitario de Bienestar Integral",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M11",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-POA-NS-2650",
+          "tipo": "Actividad",
+          "meta_prdi": "Certificar anualmente a 10% del personal académico, administrativo de confianza y directivo en materia de bienestar integral",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar anualmente al personal académico, administrativo de confianza y directivo de nivel superior en materia de bienestar integral.",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M12",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "19": {
+      "numero": 19,
+      "hoja": "19 Constr cultura de paz ",
+      "metas": [
+        {
+          "clave": "ACT-POA-NS-2651",
+          "tipo": "Actividad",
+          "meta_prdi": "Certificar anualmente a 10.03% del personal académico, administrativo de confianza y directivo, en competencias básicas de mediación, gestión pacífica de conflictos y atención a las violencias",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar anualmente a personal académico, administrativo de confianza y directivo del nivel superior, en competencias básicas de mediación, gestión pacífica de conflictos y atención a las violencias",
+              "valor_ref_2026": 5
+            }
+          ],
+          "valor_ref_2026": 5,
+          "estado_ref_2026": "valor_directo",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 6,
+            "2028": 7,
+            "2029": 0,
+            "2030": 9
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3188",
+          "tipo": "Actividad",
+          "meta_prdi": "Involucrar a 400 estudiantes en actividades comunitarias, proyectos de intervención social y programas extracurriculares orientados a la construcción de paz durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Involucrar  a estudiantes en actividades comunitarias, proyectos de intervención social y programas extracurriculares orientados a la construcción de paz",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3244",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 100% de los espacios académicos, realicen actividades culturales con temáticas de igualdad de género y cultura de paz, durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar actividades culturales con temáticas de igualdad de género y cultura de paz",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3189",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 2 campañas anuales para difundir los protocolos institucionales de atención y prevención de violencias a toda la comunidad universitaria",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar campañas para difundir los protocolos institucionales de atención y prevención de violencias a toda la comunidad universitaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M6",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-420",
+          "tipo": "Indicador",
+          "meta_prdi": "Lograr la participación de 40% de la comunidad universitaria en actividades y programas que promuevan la convivencia pacífica, la inclusión y el respeto, durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "(Número de participantes  en actividades y programas que promuevan la convivencia pacífica, la inclusión y el respeto/Número de integrantes de la comunidad universitaria)*100",
+          "variables": [
+            {
+              "nombre": "Número de participantes  en actividades y programas que promuevan la convivencia pacífica, la inclusión y el respeto",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Número de integrantes de la comunidad universitaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M8,M7/M8*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2766",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 1 jornada anual sobre los 16 días de activismo con diversas actividades (conferencias, talleres, capacitaciones) presenciales y virtuales en los diversos espacios de la universidad",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar jornadas sobre los 16 días de activismo con diversas actividades (conferencias, talleres, capacitaciones) presenciales y virtuales en los diversos espacios de la universidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M9",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3178",
+          "tipo": "Actividad",
+          "meta_prdi": "Publicar 30 contenidos anuales en las redes sociales oficiales sobre temas que promuevan la igualdad sustantiva, la prevención de las violencias, la inclusión, el cuidado y la cultura de paz",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Publicar contenidos en las redes sociales oficiales sobre temas que promuevan la igualdad sustantiva, la prevención de las violencias, la inclusión, el cuidado y la cultura de paz",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M10",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [
+        {
+          "clave": "ACT-POA-NS-2651",
+          "valor": 5,
+          "descripcion": "Capacitar anualmente a personal académico, administrativo de confianza y directivo del nivel superior, en competencias básicas de mediación, gestión pacífica de conflictos y atención a las violencias"
+        }
+      ],
+      "estado": "con_valor_base_verificable"
+    },
+    "20": {
+      "numero": 20,
+      "hoja": "20 Retribución social ",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-3103",
+          "tipo": "Actividad",
+          "meta_prdi": "Coordinar cada año 15 eventos de emprendimiento con los responsables del Programa Emprendedor de todos los espacios académicos",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Coordinar eventos de emprendimiento con los responsables del Programa Emprendedor de todos los espacios académicos",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3107",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 8 pláticas o talleres al año para desarrollar proyectos de negocio, innovación y desarrollo tecnológico, dirigidos a la comunidad universitaria y abiertos a la sociedad en general",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar pláticas o talleres para desarrollar proyectos de negocio, innovación y desarrollo tecnológico, dirigidos a la comunidad universitaria y abiertos a la sociedad en general",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3113",
+          "tipo": "Actividad",
+          "meta_prdi": "Capacitar al año a 250 universitarios y público en general en temas relacionados con la economía social y solidaria",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar a universitarios y público en general en temas relacionados con la economía social y solidaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2755",
+          "tipo": "Actividad",
+          "meta_prdi": "Atender 40 proyectos de economía social y solidaria en el territorio mexiquense al cierre de la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Atender proyectos de economía social y solidaria en el territorio mexiquense",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M6",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3115",
+          "tipo": "Actividad",
+          "meta_prdi": "Ejecutar 6 colaboraciones de impacto social con organizaciones locales o sectores productivos de mediano y largo plazo durante la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Ejecutar colaboraciones de impacto social con organizaciones locales o sectores productivos de mediano y largo plazo",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M7",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3116",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr cada año la participación de 35 espacios académicos en servicios comunitarios de beneficio social y proyectos de Brigadas Universitarias Multidisciplinarias (BUM TUAEMEX)",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Lograr  la participación de espacios académicos en servicios comunitarios de beneficio social y proyectos de Brigadas Universitarias Multidisciplinarias (BUM TUUAEMEX)",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M8",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "IND-PRDI-410",
+          "tipo": "Indicador",
+          "meta_prdi": "Incrementar 5% al año la participación de universitarios en el Programa de Competencias Laborales",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "((Número de universitarios participantes en el programa de competencias laborales en el año actual/Número de universitarios participantes en el programa de competencias laborales en el año anterior)-1)*100",
+          "variables": [
+            {
+              "nombre": "Número de universitarios participantes en el programa de competencias laborales en el año actual",
+              "valor_ref_2026": null
+            },
+            {
+              "nombre": "Número de universitarios participantes en el programa de competencias laborales en el año anterior",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=IF(M10,((M9/M10)-1)*100,\"0\")",
+          "proyeccion_libro": {
+            "2027": "0",
+            "2028": "0",
+            "2029": "0",
+            "2030": "0"
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3125",
+          "tipo": "Actividad",
+          "meta_prdi": "Mantener 35 colaboraciones al año con empresas, instituciones y organizaciones para el Catálogo de descuentos universitarios",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Mantener colaboraciones con empresas, instituciones y organizaciones para el Catálogo de descuentos universitarios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M11",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3135",
+          "tipo": "Actividad",
+          "meta_prdi": "Aperturar anualmente 1 grupo de lenguas originarias en algún espacio universitario, CELE o extensión de CELE",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Aperturar grupos de lenguas originarias en algún espacio universitario, CELE o extensión de CELE",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M12",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3245",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 100% de los espacios académicos cuenten con servicios de Atención Psicológica al cierre de la administración",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Contar con el Servicio de Atención Psicologíca",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M13",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "21": {
+      "numero": 21,
+      "hoja": "21 Comunicación universitaria",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-2723",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar 3 campañas anuales que promuevan los valores universitarios de cercanía, inclusión y progresismo tanto en medios impresos como digitales",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar campañas que promuevan los valores universitarios de cercanía, inclusión y progresismo tanto en medios impresos como digitales en apego al enfoque institucional",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    },
+    "22": {
+      "numero": 22,
+      "hoja": "22 Sostenibilidad ambiental ",
+      "metas": [
+        {
+          "clave": "ACT-PRDI-NS-3154",
+          "tipo": "Actividad",
+          "meta_prdi": "Establecer 1 programa de reducción del uso de unicel y desechables",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Establecer un programa de reducción del uso de unicel y desechables",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M3",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3155",
+          "tipo": "Actividad",
+          "meta_prdi": "Operar anualmente 1 campaña de acopio de residuos de aceite vegetal-comestible generado en las cafeterías de los espacios académicos y cocinas de la Licenciatura en Gastronomía",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Operar campañas de acopio de residuos de aceite vegetal-comestible generado en las cafeterías de los espacios académicos",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M4",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3157",
+          "tipo": "Actividad",
+          "meta_prdi": "Realizar anualmente 1 campaña institucional de reforestación que incluya las 4 regiones con presencia universitaria",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Realizar campañas institucionales de reforestación que incluya las regiones con presencia universitaria",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M5",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3161",
+          "tipo": "Actividad",
+          "meta_prdi": "Operar anualmente 1 programa de mantenimiento y fortalecimiento de huertos universitarios",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Operar un programa de mantenimiento y fortalecimiento de huertos universitarios",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M6",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3247",
+          "tipo": "Actividad",
+          "meta_prdi": "Lograr que 100% de los espacios académicos operen el Plan Institucional de Manejo de Residuos Sólidos Urbanos a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Operar el plan de manejo de residuos sólidos urbano",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M7",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3163",
+          "tipo": "Actividad",
+          "meta_prdi": "Promover en 22 espacios académicos el proceso de compostaje de los residuos orgánicos de poda y jardinería a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Promover en espacios académicos el proceso de compostaje de los residuos orgánicos de poda y jardinería",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M8",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2747",
+          "tipo": "Actividad",
+          "meta_prdi": "Capacitar anualmente a 1 736 estudiantes de nivel superior en temas de sustentabilidad",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar a estudiantes de nivel superior en temas de sustentabilidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M9",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2392",
+          "tipo": "Actividad",
+          "meta_prdi": "Capacitar a 1 034 integrantes del personal docente en temas de sustentabilidad a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar a académicos en temas de sustentabilidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M10",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-2391",
+          "tipo": "Actividad",
+          "meta_prdi": "Capacitar a 2 115 integrantes del personal administrativo en temas de sustentabilidad a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Capacitar a administrativos en temas de sustentabilidad",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M11",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3248",
+          "tipo": "Actividad",
+          "meta_prdi": "Implementar 1 programa de cuidado y ahorro de agua en 100% de los espacios universitarios a 2029",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Implementar un programa de cuidado y ahorro de agua",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M12",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3170",
+          "tipo": "Actividad",
+          "meta_prdi": "Ejecutar anualmente 1 programa institucional de eficiencia energética",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Ejecutar el programa institucional de eficiencia energética",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M13",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        },
+        {
+          "clave": "ACT-PRDI-NS-3171",
+          "tipo": "Actividad",
+          "meta_prdi": "Efectuar anualmente 1 programa institucional de reducción de uso de papel",
+          "meta_espacio_academico": "",
+          "metodo_calculo": "Sin fórmula",
+          "variables": [
+            {
+              "nombre": "Efectua rel  programa institucional de reducción de uso de papel",
+              "valor_ref_2026": null
+            }
+          ],
+          "valor_ref_2026": null,
+          "estado_ref_2026": "no_disponible",
+          "formula_ref_2026": "=M14",
+          "proyeccion_libro": {
+            "2027": 0,
+            "2028": 0,
+            "2029": 0,
+            "2030": 0
+          }
+        }
+      ],
+      "referencias_validas": [],
+      "estado": "sin_valor_base_verificable"
+    }
+  }
+}

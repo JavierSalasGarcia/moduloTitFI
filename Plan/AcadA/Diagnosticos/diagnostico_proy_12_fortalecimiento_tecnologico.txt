@@ -1,0 +1,31 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 12: FORTALECIMIENTO TECNOLÓGICO
+================================================================================
+
+DIAGNÓSTICO
+
+1. Infraestructura, cultura digital, conectividad y sistemas de información
+
+La Facultad dispone de 450 computadoras en 7 salas y laboratorios, conectadas mediante red de fibra óptica con ancho de banda de 1 Gbps y red inalámbrica Eduroam (Centro de Cómputo [CC-FI], 2025; Dirección de Tecnologías de Información [DTI-UAEMéx], 2024).
+
+Tabla 1. Diagnóstico del parque tecnológico, servidores y conectividad (2016–2025)
+| Componente Tecnológico | Capacidad 2016 | Capacidad 2025 | Variación Neta | Condición / Reto Actual |
+|---|---|---|---|---|
+| Equipos de cómputo en laboratorios | 320 equipos | 450 equipos | +130 equipos | 38% requiere actualización de GPU |
+| Servidores de cálculo y virtualización| 2 servidores | 5 servidores | +3 servidores | Clúster para IA y simulación |
+| Ancho de banda de conexión institucional| 200 Mbps | 1,000 Mbps (1 Gbps)| +800 Mbps | Alta demanda en horas pico |
+| Puntos de acceso inalámbrico (AP WiFi) | 12 APs | 32 APs | +20 APs | Zonas de sombra en edificios antiguos |
+| Licenciamiento de software especializado| 8 paquetes | 15 paquetes | +7 suites | MATLAB, SolidWorks, ANSYS, AutoCAD |
+Fuente: CC-FI (2025) y DTI-UAEMéx (2024).
+
+El 38% de los equipos de docencia supera los 5 años de servicio, requiriendo actualización de tarjetas gráficas (GPU) y memoria RAM para simuladores y Deep Learning, además de reforzar protocolos de ciberseguridad (CC-FI, 2025; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- CC-FI. (2025). *Diagnóstico del estado físico y tecnológico de equipos de cómputo y servidores*. Centro de Cómputo, Facultad de Ingeniería, UAEMéx.
+- DTI-UAEMéx. (2024). *Reporte de conectividad, enlaces institucionales y seguridad de la información*. Dirección de Tecnologías de la Información y Comunicaciones, UAEMéx.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

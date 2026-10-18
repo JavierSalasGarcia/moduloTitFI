@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node --version)",
+      "PowerShell(php --version)",
+      "PowerShell(python --version)",
+      "PowerShell(node D:\\\\Proyectos\\\\plataformaFI\\\\database\\\\generar_seed.js)",
+      "PowerShell(php -r \"echo password_hash\\('fi2026', PASSWORD_DEFAULT\\);\")",
+      "PowerShell(& C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root --default-character-set=utf8mb4 -e \"source D:/Proyectos/plataformaFI/database/schema.sql\")",
+      "PowerShell(& C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root --default-character-set=utf8mb4 plataforma_fi -e \"source D:/Proyectos/plataformaFI/database/seed_departamentos.sql\")",
+      "PowerShell(& C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root --default-character-set=utf8mb4 plataforma_fi -e \"source D:/Proyectos/plataformaFI/database/seed_demo.sql\")",
+      "PowerShell(& C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root --default-character-set=utf8mb4 plataforma_fi -e \"source D:/Proyectos/plataformaFI/database/schema_fase2.sql\")",
+      "PowerShell(& C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root --default-character-set=utf8mb4 plataforma_fi -e \"source D:/Proyectos/plataformaFI/database/seed_fase2.sql\")",
+      "PowerShell(ّ$ErrorActionPreference='Stop'; function Entrar\\($email\\) { $s = $null; $r = Invoke-WebRequest -Uri http://localhost:8090/login -SessionVariable s -UseBasicParsing; $csrf = \\([regex]::Match\\($r.Content, 'name=\"_csrf\" value=\"\\([^\"]+\\)\"'\\)\\).Groups[1].Value; Invoke-WebRequest -Uri http://localhost:8090/login -Method POST -Body @{_csrf=$csrf; email=$email; clave='fi2026'} -WebSession $s -UseBasicParsing | Out-Null; return $s }; $s = Entrar 'luis.mendoza@alumno.uaemex.mx'; $foro = Invoke-WebRequest -Uri http://localhost:8090/foro/1 -WebSession $s -UseBasicParsing; $csrf = \\([regex]::Match\\($foro.Content, 'name=\"_csrf\" value=\"\\([^\"]+\\)\"'\\)\\).Groups[1].Value; $like = Invoke-WebRequest -Uri http://localhost:8090/foro/1/like -Method POST -Body @{_csrf=$csrf} -WebSession $s -UseBasicParsing; \"Umbral alcanzado: $\\($like.Content -match 'trazabilidad'\\)\"; & C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root plataforma_fi -e \"SELECT estado FROM foro_publicaciones WHERE id=1;\")",
+      "PowerShell($css = curl.exe -s http://localhost:8090/assets/css/app.css; \"Keyframes: $\\($css -match 'fi-entrada'\\)\"; \"Reduced motion: $\\($css -match 'prefers-reduced-motion'\\)\"; \"Hover gate: $\\($css -match 'hover: hover'\\)\"; \"Drawer curve: $\\($css -match 'ease-drawer'\\)\")",
+      "PowerShell(cd 'D:\\\\Proyectos\\\\plataformaFI'; & \\(Get-Content graphify-out\\\\.graphify_python\\) -m graphify query \"What modules exist in this project? List all Controllers and their responsibilities.\")"
+    ]
+  }
+}

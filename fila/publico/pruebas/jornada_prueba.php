@@ -1,0 +1,302 @@
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/../lib/datos.php';
+
+/** Base con horario amplio de hoy, para poder mover la jornada a voluntad. */
+function base_con_jornada(string $inicio = '08:00', string $fin = '18:00'): array
+{
+    return base_de_prueba(['inicio' => $inicio, 'fin' => $fin]);
+}
+
+Pruebas::caso('la jornada se propone sola desde el horario semanal', function () {
+    $dep = base_con_jornada('09:00', '15:00');
+    $hoy = (new DateTimeImmutable('now'))->format('Y-m-d');
+    $jornada = jornada($dep, $hoy);
+
+    Pruebas::igual('09:00', $jornada['apertura']);
+    Pruebas::igual('15:00', $jornada['cierre']);
+    Pruebas::igual('programada', $jornada['estado'], 'todavia no llegas a la oficina');
+});
+
+Pruebas::caso('el horario programado queda disponible automáticamente dentro del intervalo', function () {
+    $dep = base_con_jornada();
+    $estado = fila_estado($dep, momento_hoy('08:30'));
+
+    Pruebas::igual(true, $estado['abierta'], 'si se puede tomar turno');
+    Pruebas::igual('atendiendo', $estado['atencion']);
+    Pruebas::igual('18:00', u_hora($estado['disponible_hasta']));
+});
+
+Pruebas::caso('antes del primer intervalo anuncia la hora de apertura', function () {
+    $dep = base_con_jornada();
+    $estado = fila_estado($dep, momento_hoy('07:30'));
+    Pruebas::igual('pausada', $estado['atencion']);
+    Pruebas::igual('08:00', u_hora($estado['no_disponible_hasta']));
+});
+
+Pruebas::caso('al abrir la jornada la atencion queda disponible hasta el cierre', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    $estado = fila_estado($dep, momento_hoy('10:00'));
+
+    Pruebas::igual('atendiendo', $estado['atencion']);
+    Pruebas::igual('15:00', u_hora($estado['disponible_hasta']));
+    Pruebas::igual(null, $estado['no_disponible_hasta']);
+});
+
+Pruebas::caso('una clase o videoconferencia recorta el disponible hasta', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    consulta('INSERT INTO bloqueos (dependencia_id, inicio, fin, motivo, origen) VALUES (1,?,?,?,?)',
+        [hoy('12:00'), hoy('14:00'), 'Clase', 'manual']);
+
+    $estado = fila_estado($dep, momento_hoy('10:00'));
+    Pruebas::igual('atendiendo', $estado['atencion']);
+    Pruebas::igual('12:00', u_hora($estado['disponible_hasta']), 'hasta que empieza la clase');
+});
+
+Pruebas::caso('durante la clase se muestra hasta que hora no hay atencion', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    consulta('INSERT INTO bloqueos (dependencia_id, inicio, fin, motivo, origen) VALUES (1,?,?,?,?)',
+        [hoy('12:00'), hoy('14:00'), 'Comida', 'manual']);
+
+    $estado = fila_estado($dep, momento_hoy('12:30'));
+    Pruebas::igual('ocupado', $estado['atencion']);
+    Pruebas::igual('14:00', u_hora($estado['no_disponible_hasta']));
+    Pruebas::igual(null, $estado['disponible_hasta']);
+});
+
+Pruebas::caso('si llegas tarde la fila arranca a la hora en que abriste', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    crear_turno($dep, 'Ana Ruiz', 'ana@uaemex.mx', 'Caso', 10);
+    abrir_jornada($dep, '15:00', null, null, '10:30');   // llegaste a las 10:30
+
+    $jornada = jornada($dep, (new DateTimeImmutable('now'))->format('Y-m-d'));
+    Pruebas::igual('10:30', $jornada['apertura']);
+    Pruebas::igual('abierta', $jornada['estado']);
+    Pruebas::cierto($jornada['abierta_en'] !== null, 'queda constancia de la hora real');
+
+    $estado = fila_estado($dep, momento_hoy('09:00'));
+    Pruebas::igual(hoy('10:30'), $estado['turnos'][0]['estimado']->format('Y-m-d H:i'),
+        'quien madrugo espera a que llegues');
+});
+
+Pruebas::caso('el tope cierra el registro aunque quede jornada', function () {
+    $dep = base_con_jornada('08:00', '18:00');
+    abrir_jornada($dep, '18:00', '17:00', null, '08:00');
+
+    $antes = fila_estado($dep, momento_hoy('16:30'));
+    Pruebas::igual(true, $antes['abierta']);
+
+    $despues = fila_estado($dep, momento_hoy('17:30'));
+    Pruebas::igual(false, $despues['abierta']);
+    Pruebas::igual('El registro en la cola cerró a las 17:00.', $despues['motivo_cierre']);
+    Pruebas::igual('atendiendo', $despues['atencion'], 'sigues atendiendo a los ya formados');
+});
+
+Pruebas::caso('sin tope, la cola se cierra cuando el turno ya no alcanza', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    $estado = fila_estado($dep, momento_hoy('14:55'));
+    Pruebas::igual(false, $estado['abierta'], 'faltan 5 minutos y un turno dura 10');
+    Pruebas::igual('Por hoy ya no alcanza el horario de atención.', $estado['motivo_cierre']);
+});
+
+Pruebas::caso('un turno debe caber completo antes del final del intervalo', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    Pruebas::igual(true, fila_estado($dep, momento_hoy('14:50'))['abierta'],
+        'puede terminar exactamente a las 15:00');
+    Pruebas::igual(false, fila_estado($dep, momento_hoy('14:51'))['abierta'],
+        'no permite que la atención rebase las 15:00');
+});
+
+Pruebas::caso('fuera de horario anuncia la siguiente fecha y hora de atención', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    $estado = fila_estado($dep, momento_hoy('16:00'));
+    $manana = (new DateTimeImmutable('tomorrow 08:00'))->format('Y-m-d H:i');
+    Pruebas::igual('cerrada', $estado['atencion']);
+    Pruebas::igual($manana, $estado['proxima_atencion']->format('Y-m-d H:i'));
+    Pruebas::cierto(str_starts_with(leyenda_publica_atencion($estado), 'Próxima atención:'));
+});
+
+Pruebas::caso('entre dos intervalos anuncia el siguiente horario del mismo día', function () {
+    $dep=base_con_jornada();
+    consulta('DELETE FROM horarios WHERE dependencia_id=?',[$dep['id']]);
+    $dia=(int)(new DateTimeImmutable('now'))->format('N');
+    consulta('INSERT INTO horarios (dependencia_id,dia,inicio,fin) VALUES (?,?,?,?),(?,?,?,?)',
+        [$dep['id'],$dia,'09:00','11:00',$dep['id'],$dia,'15:00','17:00']);
+    $estado=fila_estado($dep,momento_hoy('14:25'));
+    Pruebas::igual(hoy('15:00'),$estado['proxima_atencion']->format('Y-m-d H:i'));
+    Pruebas::igual('Hoy a las 3:00 p. m.',u_proxima_atencion_breve($estado['proxima_atencion'],$estado['ahora']));
+    $disponible=fila_estado($dep,momento_hoy('15:12'));
+    Pruebas::igual('atendiendo',$disponible['atencion']);
+    Pruebas::igual(null,$disponible['proxima_atencion']);
+    Pruebas::igual('17:00',u_hora($disponible['disponible_hasta']));
+});
+
+Pruebas::caso('la siguiente atención usa hoy mañana o fecha completa según la distancia', function () {
+    $ahora=new DateTimeImmutable('2026-09-30 12:00');
+    Pruebas::igual('Hoy a las 3:00 p. m.',
+        u_proxima_atencion_breve(new DateTimeImmutable('2026-09-30 15:00'),$ahora));
+    Pruebas::igual('Mañana a las 9:00 a. m.',
+        u_proxima_atencion_breve(new DateTimeImmutable('2026-10-01 09:00'),$ahora));
+    Pruebas::igual('Viernes 2 de octubre a las 9:00 a. m.',
+        u_proxima_atencion_breve(new DateTimeImmutable('2026-10-02 09:00'),$ahora));
+});
+
+Pruebas::caso('la cola respeta a los que ya estan formados', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    for ($i = 0; $i < 3; $i++) {
+        crear_turno($dep, "Persona {$i}", "p{$i}@uaemex.mx", 'Caso', 10);
+    }
+    // A las 14:30 quedan 30 minutos: los tres formados los ocupan, no cabe uno mas.
+    $estado = fila_estado($dep, momento_hoy('14:30'));
+    Pruebas::igual(3, count($estado['espera']));
+    Pruebas::igual(false, $estado['abierta']);
+});
+
+Pruebas::caso('cancelar la cola cancela a todos y devuelve a quien avisar', function () {
+    $dep = base_con_jornada();
+    abrir_jornada($dep, null, null, null, '08:00');
+    crear_turno($dep, 'Ana Ruiz', 'ana@uaemex.mx', 'Caso', 10);
+    crear_turno($dep, 'Luis Mora', 'luis@uaemex.mx', 'Caso', 5);
+
+    $afectados = cancelar_cola($dep, 'Salida de emergencia');
+    Pruebas::igual(2, count($afectados));
+    Pruebas::igual('ana@uaemex.mx', $afectados[0]['email']);
+
+    $estado = fila_estado($dep, momento_hoy('11:00'));
+    Pruebas::igual(0, count($estado['espera']));
+    Pruebas::igual('cerrada', $estado['atencion']);
+    Pruebas::igual('Salida de emergencia', $estado['motivo_cierre']);
+});
+
+Pruebas::caso('se puede dejar lista la jornada de manana sin tocar la de hoy', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    $manana = (new DateTimeImmutable('now'))->modify('+1 day')->format('Y-m-d');
+
+    configurar_jornada($dep, $manana, ['apertura' => '10:00', 'cierre' => '14:00', 'tope' => '13:00']);
+    $j = jornada($dep, $manana, false);
+    Pruebas::igual('10:00', $j['apertura']);
+    Pruebas::igual('13:00', $j['tope']);
+    Pruebas::igual('programada', $j['estado']);
+
+    $hoy = jornada($dep, (new DateTimeImmutable('now'))->format('Y-m-d'), false);
+    Pruebas::igual('abierta', $hoy['estado'], 'la de hoy sigue igual');
+});
+
+Pruebas::caso('un dia cancelado no admite a nadie', function () {
+    $dep = base_con_jornada();
+    configurar_jornada($dep, (new DateTimeImmutable('now'))->format('Y-m-d'),
+        ['estado' => 'cancelada', 'nota' => 'Consejo académico todo el día']);
+
+    $estado = fila_estado($dep, momento_hoy('10:00'));
+    Pruebas::igual(false, $estado['abierta']);
+    Pruebas::igual('sin-atencion', $estado['atencion']);
+    Pruebas::igual('Consejo académico todo el día', $estado['motivo_cierre']);
+});
+
+Pruebas::caso('las citas confirmadas se pueden listar para cancelarlas', function () {
+    $dep = base_con_jornada();
+    $cita = crear_cita($dep, 'Sara Díaz', 'sara@uaemex.mx', 'Proyecto', '', 30, hoy('13:00'));
+    aprobar_cita($cita);
+    Pruebas::igual(1, count(citas_confirmadas((int) $dep['id'])));
+
+    cancelar_cita(cita_por_token($cita['token']), 'titular');
+    Pruebas::igual(0, count(citas_confirmadas((int) $dep['id'])));
+    Pruebas::igual(0, count(bloqueos(1, momento_hoy('00:00'))), 'el bloque queda libre');
+});
+
+Pruebas::caso('la leyenda dice hasta que hora estas disponible', function () {
+    $dep = base_con_jornada('08:00', '15:00');
+    abrir_jornada($dep, '15:00', null, null, '08:00');
+    Pruebas::igual('Disponible ahora · hasta las 3:00 p. m.',
+        leyenda_atencion(fila_estado($dep, momento_hoy('10:00'))));
+
+    consulta('INSERT INTO bloqueos (dependencia_id, inicio, fin, motivo, origen) VALUES (1,?,?,?,?)',
+        [hoy('12:00'), hoy('14:00'), 'Videoconferencia', 'manual']);
+    Pruebas::igual('Disponible ahora · hasta las 12:00 p. m.',
+        leyenda_atencion(fila_estado($dep, momento_hoy('10:00'))));
+    Pruebas::igual('No disponible hasta 14:00',
+        leyenda_atencion(fila_estado($dep, momento_hoy('12:30'))));
+    Pruebas::igual('Disponible ahora · hasta las 3:00 p. m.',
+        leyenda_atencion(fila_estado($dep, momento_hoy('14:10'))), 'al terminar, vuelve');
+});
+
+Pruebas::caso('la leyenda anuncia la hora de llegada mientras no abres', function () {
+    $dep = base_con_jornada('09:00', '15:00');
+    Pruebas::igual('Disponible a partir de las 09:00',
+        leyenda_atencion(fila_estado($dep, momento_hoy('08:00'))));
+});
+
+Pruebas::caso('al cerrar, la leyenda explica el motivo', function () {
+    $dep = base_con_jornada();
+    cerrar_jornada($dep, 'Salí a una emergencia');
+    Pruebas::igual('Salí a una emergencia',
+        leyenda_atencion(fila_estado($dep, momento_hoy('13:00'))));
+
+    $otra = base_con_jornada();
+    cerrar_jornada($otra);
+    Pruebas::igual('La atención de hoy terminó',
+        leyenda_atencion(fila_estado($otra, momento_hoy('13:00'))));
+});
+
+Pruebas::caso('de la reunion en curso se sabe cuanto falta', function () {
+    $dep = base_con_jornada('08:00', '18:00');
+    abrir_jornada($dep, '18:00', null, null, '08:00');
+    $turno = crear_turno($dep, 'Ana Ruiz', 'ana@uaemex.mx', 'Caso', 10);
+    consulta('UPDATE turnos SET estado = ?, llamado = ? WHERE id = ?',
+        ['llamado', hoy('11:00'), $turno['id']]);
+
+    $aMitad = fila_estado($dep, momento_hoy('11:04'))['actual'];
+    Pruebas::igual(6, $aMitad['restan']);
+    Pruebas::igual(4, $aMitad['transcurridos']);
+
+    $pasado = fila_estado($dep, momento_hoy('11:16'))['actual'];
+    Pruebas::igual(-6, $pasado['restan'], 'se pasaron seis minutos');
+    Pruebas::igual(16, $pasado['transcurridos']);
+});
+
+Pruebas::caso('una cita cancelada se reagenda conservando datos y archivos', function () {
+    $dep = base_con_jornada();
+    $cita = crear_cita($dep, 'Sara Díaz', 'sara@uaemex.mx', 'Proyecto de titulación',
+        'Llevo dos capítulos escritos.', 30, hoy('13:00'));
+    consulta('INSERT INTO adjuntos (cita_id, nombre, ruta, tipo, bytes, creado) VALUES (?,?,?,?,?,?)',
+        [$cita['id'], 'borrador.pdf', 'subidas/citas/1/borrador.pdf', 'application/pdf', 1024,
+         ahora_texto()]);
+    aprobar_cita($cita);
+    cancelar_cita(cita_por_token($cita['token']), 'titular');
+
+    $previa = cita_por_token($cita['token']);
+    Pruebas::cierto(puede_reagendarse($previa));
+
+    $nueva = reagendar_cita($previa, (new DateTimeImmutable('now'))->modify('+2 days')
+        ->format('Y-m-d 11:00:00'));
+
+    Pruebas::igual('sara@uaemex.mx', $nueva['email']);
+    Pruebas::igual('Proyecto de titulación', $nueva['asunto']);
+    Pruebas::igual('Llevo dos capítulos escritos.', $nueva['descripcion']);
+    Pruebas::igual(30, (int) $nueva['minutos']);
+    Pruebas::igual('solicitada', $nueva['estado']);
+    Pruebas::cierto($nueva['token'] !== $previa['token'], 'es otra solicitud');
+
+    $archivos = adjuntos_de((int) $nueva['id']);
+    Pruebas::igual(1, count($archivos));
+    Pruebas::igual('borrador.pdf', $archivos[0]['nombre'], 'no tiene que volver a subirlo');
+});
+
+Pruebas::caso('una cita vigente no se reagenda por enlace', function () {
+    $dep = base_con_jornada();
+    $cita = crear_cita($dep, 'Sara Díaz', 'sara@uaemex.mx', 'Proyecto', '', 30, hoy('13:00'));
+    Pruebas::igual(false, puede_reagendarse($cita), 'una solicitud pendiente sigue su curso');
+    aprobar_cita($cita);
+    Pruebas::igual(false, puede_reagendarse(cita_por_token($cita['token'])));
+
+    rechazar_cita(cita_por_token($cita['token']), 'Ese día estaré fuera');
+    Pruebas::cierto(puede_reagendarse(cita_por_token($cita['token'])), 'rechazada sí');
+});

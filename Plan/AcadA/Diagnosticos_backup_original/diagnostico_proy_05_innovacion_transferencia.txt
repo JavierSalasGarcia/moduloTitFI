@@ -1,0 +1,99 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 5: Innovación, desarrollo tecnológico y transferencia sostenible y equitativa
+Clave Programática: PROY-05 | Pilar II: Investigación y desarrollo académico de calidad y equidad
+Área Responsable: Subdirección Académica / Coordinación de Investigación / Coordinación de Extensión y Vinculación
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Innovación y desarrollo tecnológico con equidad para la transformación productiva:
+   - Proyectos de investigación tecnológica aplicada frente a investigación básica.
+   - Proyectos con enfoque de retribución social, impacto comunitario y acceso abierto.
+2. Apoyo a la transferencia tecnológica:
+   - Patentes solicitadas y concedidas, modelos de utilidad y registros de propiedad industrial e intelectual ante el IMPI e INDAUTOR.
+   - Proyectos de desarrollo tecnológico bajo modelos de triple, cuádruple y penta hélice (universidad, empresa, gobierno, sociedad y medio ambiente).
+   - Infraestructura especializada para la investigación tecnológica, laboratorios de prototipado y talleres de manufactura avanzada.
+   - Apoyos financieros, fondos mixtos y contratos de vinculación tecnológica.
+   - Vinculación efectiva de la ciencia y la técnica con la industria manufacturera y de servicios.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La Facultad de Ingeniería cuenta con una vocación natural y capacidades instaladas de gran valor para la conversión del conocimiento científico en soluciones tecnológicas aplicadas, prototipos industriales y transferencias útiles a los sectores productivo y gubernamental. La infraestructura de soporte de la Facultad integra 22 laboratorios y talleres de experimentación, entre los que destacan los laboratorios de mecánica de materiales, manufactura computarizada, robótica y mecatrónica, ingeniería hidráulica y ambiental, así como los espacios de desarrollo en sistemas energéticos y procesamiento de inteligencia artificial. Esta dotación física, respaldada por la experiencia técnica de docentes y estudiantes de niveles avanzados, constituye la plataforma primaria sobre la cual se formulan iniciativas de desarrollo tecnológico con impacto directo en los procesos de manufactura, automatización y sustentabilidad.
+
+A lo largo del periodo 2016–2025, el desarrollo de proyectos con perfil tecnológico aplicado ha mostrado un dinamismo creciente al interior de las aulas y los laboratorios de investigación, con un promedio de 15 a 25 prototipos funcionales generados anualmente por estudiantes de licenciatura y posgrado como parte de sus proyectos integradores, tesis y participaciones en ferias de ciencias. No obstante, al contrastar esta prolífica actividad académica con los registros formales de propiedad industrial y transferencia tecnológica, se constata una marcada discontinuidad histórica: entre 2018 y 2025, la Facultad gestionó formalmente 6 solicitudes de registro de patentes y modelos de utilidad ante el Instituto Mexicano de la Propiedad Industrial (IMPI), de las cuales únicamente 2 han alcanzado el título de concesión definitiva, concentrándose en el área de dispositivos mecánicos y biomédicos.
+
+[[GRAFICA: graficas/grafica_p05_01_proyectos_prototipos.png | PIE: Gráfica 1. Proyectos de desarrollo tecnológico y registros de propiedad industrial en la Facultad de Ingeniería (2018–2025). Fuente: UAEMEX. Agendas Estadísticas e Informes Institucionales 2018–2025.]]
+
+La interpretación sustantiva de este panorama evidencia que la Facultad posee talento creador e inventiva técnica suficientes para resolver problemas ingenieriles de alta complejidad; sin embargo, existe una brecha crítica entre la etapa de prototipo experimental a escala de laboratorio (Technology Readiness Level - TRL 3 a 4) y la maduración tecnológica requerida para el escalamiento, validación en entorno real y transferencia comercial hacia las empresas (TRL 6 a 8). La ausencia de una cultura sistemática de patentamiento y vigilancia tecnológica entre el profesorado conduce con frecuencia a que innovaciones con alto potencial de mercado sean divulgadas prematuramente en artículos o congresos, perdiendo con ello la novedad jurídica necesaria para su protección registral.
+
+La tensión estratégica medular se ubica en el modelo de articulación con el entorno productivo. La Facultad se localiza en el corazón de una de las zonas industriales más potentes de México (corredor Toluca–Lerma–Santiago Tianguistenco), sede de corporaciones automotrices, farmacéuticas, metalmecánicas y alimentarias de escala global. A pesar de esta inmejorable proximidad geográfica, la mayor parte de las interacciones con la industria han adoptado esquemas tradicionales y unidireccionales (prestación de servicio social, visitas escolares y residencias profesionales), mientras que los proyectos de desarrollo conjunto bajo modelos de triple o cuádruple hélice cofinanciados mediante contratos de desarrollo tecnológico representan menos del 10% del total de vinculaciones activas. Esta situación se agrava por la carencia de un catálogo público y actualizado de capacidades tecnológicas, servicios de consultoría especializada y bancos de pruebas con los que cuenta la Facultad.
+
+En el plano de la infraestructura tecnológica, el análisis desagregado muestra que mientras los laboratorios de robótica, cómputo avanzado y sistemas térmicos cuentan con equipamiento actualizado gracias a proyectos específicos y donaciones recientes, los talleres de procesos de manufactura convencional (tornería, fresado, soldadura y fundición) operan con maquinaria de larga data que requiere modernización mediante sistemas de control numérico computarizado (CNC) y tecnologías de manufactura aditiva que repliquen los estándares de la Industria 4.0.
+
+En el entorno exterior, el Plan de Desarrollo del Estado de México 2023–2029 (PDEM) fija como eje rector el impulso a la economía del conocimiento y la reconversión tecnológica sustentable de los parques industriales mexiquenses hacia la electromovilidad, la eficiencia hídrica y la descarbonización. Asimismo, las consultas aplicadas a coordinaciones de área (Instrumentos C11 de Investigación y C14 de Vinculación) señalan que los empresarios locales demandan soluciones ágiles y certificaciones técnicas que la Facultad podría proveer si se contara con una oficina ágil de transferencia tecnológica (OTT) que reduzca la burocracia administrativa en los convenios y garantice reglas claras de reparto de beneficios de propiedad intelectual entre la universidad y los inventores.
+
+Por ende, el cierre direccional de este proyecto exige transformar el ecosistema de innovación de la Facultad de Ingeniería: transitar de la simple elaboración de prototipos escolares a una estrategia formal de transferencia tecnológica y protección de la propiedad intelectual. Esto requerirá instituir un semillero de patentes y prototipado rápido, certificar laboratorios clave para prestar servicios de ensaye a la industria regional, implementar el modelo de penta hélice articulando la tecnología con las demandas comunitarias y ambientales, y establecer alianzas estratégicas que posicionen a la Facultad como un centro de soluciones tecnológicas para el Estado de México.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2018–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Indicadores de innovación, patentes e infraestructura tecnológica en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Laboratorios y talleres en activo (4037) 2018            21              2025            22            +1 laboratorio   +4.8%
+Prototipos funcionales reportados      2018              14              2024            24            +10 prototipos   +71.4%
+Solicitudes de patentes y modelos IMPI 2018               1              2025             6            +5 solicitudes  +500.0%
+Patentes y títulos concedidos por IMPI 2018               0              2025             2            +2 patentes         ---
+Convenios de vinculación tecnológica   2018               4              2025             9            +5 convenios    +125.0%
+Laboratorios con acreditación de ensaye2018               1              2025             1             0 laboratorios    0.0%
+Alumnos involucrados en prototipado    2018              65              2024           142            +77 alumnos     +118.5%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2018–2025; Informes Anuales FI; Dirección de Transferencia Tecnológica UAEMEX.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C11 Y C14)
+--------------------------------------------------------------------------------
+1. Coordinación de Extensión y Vinculación (Instrumento C14):
+   - Se requiere un marco normativo institucional más flexible que permita cotizar y facturar de manera ágil servicios de pruebas de laboratorio y consultoría a empresas sin trámites dilatados.
+   - Petición de constituir una base de datos centralizada de proyectos con potencial de transferencia hacia los parques industriales de Toluca, Lerma y Cuautitlán.
+2. Coordinación de Investigación (Instrumento C11):
+   - Ausencia de asesoría jurídica interna en materia de propiedad industrial para la redacción de memorias técnicas de patentes conforme a los requisitos del IMPI.
+   - Demanda de un fondo semilla para el prototipado y validación de tecnologías en entornos industriales reales.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Red de 22 laboratorios y talleres multidisciplinarios con capacidades para atender retos de manufactura, materiales, energía, hidráulica y sistemas digitales.
+- Capacidad demostrada de generación de prototipos aplicados con más de 20 desarrollos anuales en concursos y tesis de grado.
+- Dos títulos de patente y modelos de utilidad concedidos por el IMPI, estableciendo un precedente de protección jurídica en la Facultad.
+- Proximidad geográfica inmediata con los corredores industriales más relevantes del centro del país.
+
+DEBILIDADES:
+- Escasa proporción de convenios de desarrollo tecnológico cofinanciados con empresas respecto al volumen total de la matrícula y profesorado.
+- Carencia de laboratorios acreditados ante la Entidad Mexicana de Acreditación (EMA) para emitir dictámenes oficiales a terceros.
+- Falta de una oficina o módulo especializado en propiedad intelectual y transferencia de tecnología al interior del espacio académico.
+- Desconocimiento generalizado entre la comunidad académica sobre las fases de madurez tecnológica (TRL) y protección industrial previa a la publicación científica.
+
+OPORTUNIDADES:
+- Prioridades del PDEM 2023–2029 en materia de electromovilidad, digitalización industrial y sustentabilidad que abren convocatorias de cofinanciamiento estatal.
+- Alta demanda del sector automotriz y manufacturero del valle de Toluca de servicios de ensaye de materiales, análisis de fallas y automatización.
+- Fondos de cooperación de la Secretaría de Vinculación y Empleabilidad de la UAEMEX para incubación de empresas de base tecnológica (spin-offs).
+
+AMENAZAS:
+- Rápida obsolescencia de los equipos de prototipado y manufactura aditiva frente a la evolución acelerada de las tecnologías del mercado global.
+- Marco fiscal y administrativo complejo para el ejercicio de recursos procedentes de contratos de prestación de servicios tecnológicos universitarios.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- Gobierno del Estado de México. (2023). Plan de Desarrollo del Estado de México 2023–2029. Gaceta del Gobierno.
+- IMPI. (2023). Guía para el usuario de patentes y modelos de utilidad. Instituto Mexicano de la Propiedad Industrial.
+- OECD. (2020). Higher Education and Technological Transfer in Mexico. OECD Publishing.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

@@ -1,0 +1,33 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 5: INNOVACIÓN, DESARROLLO TECNOLÓGICO Y TRANSFERENCIA SOSTENIBLE Y EQUITATIVA
+================================================================================
+
+DIAGNÓSTICO
+
+1. Ecosistema de innovación, desarrollo tecnológico y transferencia de conocimiento
+
+Ubicada en el corredor industrial Toluca-Lerma, la Facultad de Ingeniería impulsa la transferencia tecnológica hacia los sectores automotriz, químico, metalmecánico y de software (Coordinación de Vinculación [CV-FI], 2025). Durante el periodo 2016–2025, la Facultad tramitó 12 solicitudes de patentes y modelos de utilidad ante el Instituto Mexicano de la Propiedad Industrial (IMPI, 2025), obteniendo 6 títulos concedidos en tratamiento de aguas, mecatrónica y maquinaria agrícola (Secretaría de Extensión y Vinculación [SEV-UAEMéx], 2025).
+
+Tabla 1. Indicadores de propiedad industrial y vinculación tecnológica (2016–2025)
+| Indicador de Innovación y Transferencia | Línea Base (2016) | Situación Actual (2025) | Variación Acumulada |
+|---|---|---|---|
+| Solicitudes de Patente y Modelos IMPI | 1 solicitud/año | 3 solicitudes/año | +200% incremento anual |
+| Títulos de Patente Otorgados por IMPI | 2 títulos vigentes | 6 títulos vigentes | +4 títulos consolidados |
+| Convenios con Sector Productivo y Gob. | 8 convenios | 15 convenios activos | +7 alianzas formales |
+| Proyectos de Desarrollo Tecnológico | 4 proyectos | 9 proyectos | +125% dinamismo |
+| Registros de Derechos de Autor (Software)| 6 registros | 18 registros | +12 certificados INDAUTOR |
+Fuente: CV-FI (2025) e IMPI (2025).
+
+El 68% de los desarrollos tecnológicos se ubica en niveles de madurez tecnológica intermedios (TRL 4 a 6), requiriendo mecanismos de licenciamiento, protección intelectual y aceleración de emprendimientos de base tecnológica (Spin-offs) para concretar su inserción en el mercado productivo (CV-FI, 2025; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- CV-FI. (2025). *Reporte anual de convenios, proyectos tecnológicos y servicios especializados*. Coordinación de Vinculación, Facultad de Ingeniería, UAEMéx.
+- IMPI. (2025). *Gaceta de la Propiedad Industrial: Registro de títulos y solicitudes de patente*. Instituto Mexicano de la Propiedad Industrial.
+- INDAUTOR. (2024). *Registro público del derecho de autor: Programas de computación y obras técnicas*. Instituto Nacional del Derecho de Autor.
+- SEV-UAEMéx. (2025). *Informe institucional de vinculación y transferencia del conocimiento*. Secretaría de Extensión y Vinculación, UAEMéx.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

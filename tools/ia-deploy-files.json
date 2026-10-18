@@ -1,0 +1,14 @@
+[
+ "app/Modules/Portal/GeminiClient.php",
+ "app/Modules/Portal/ConsultasSeguras.php",
+ "app/Modules/Busqueda/Buscador.php",
+ "app/Modules/Portal/AsistenteConsulta.php",
+ "app/Modules/Portal/PortalController.php",
+ "app/Modules/Portal/views/index.php",
+ "app/Modules/Ajustes/InteligenciaController.php",
+ "app/Modules/Ajustes/views/inteligencia.php",
+ "app/Modules/Ajustes/AjustesController.php",
+ "app/Modules/Ajustes/views/index.php",
+ "app/Modules/Ajustes/module.php",
+ "app/Core/Router.php"
+]

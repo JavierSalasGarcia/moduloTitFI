@@ -1,0 +1,16 @@
+[
+  "app/Core/RecipientGroups.php",
+  "app/Views/grupo_selector.php",
+  "public/assets/js/recipient-groups.js",
+  "app/Modules/Firmas/DestinatariosController.php",
+  "app/Modules/Firmas/views/destinatarios.php",
+  "app/Modules/Firmas/views/destinatario_form.php",
+  "app/Modules/Tickets/TicketsController.php",
+  "app/Modules/Tickets/views/nuevo.php",
+  "app/Modules/Reuniones/ReunionesController.php",
+  "app/Modules/Reuniones/views/nueva.php",
+  "app/Modules/Firmas/FirmasController.php",
+  "app/Modules/Firmas/views/nuevo.php",
+  "app/Core/InterfaceUi.php",
+  "app/Modules/Firmas/module.php"
+]

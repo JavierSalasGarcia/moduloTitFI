@@ -1,0 +1,10 @@
+[
+  "app/Modules/Organizacion/module.json",
+  "app/Modules/Organizacion/OrganizacionController.php",
+  "app/Modules/Organizacion/views/index.php",
+  "app/Modules/Perfil/module.json",
+  "app/Modules/Perfil/PerfilController.php",
+  "app/Modules/Perfil/views/index.php",
+  "app/Modules/Seguridad/module.php",
+  "app/Views/layouts/app.php"
+]

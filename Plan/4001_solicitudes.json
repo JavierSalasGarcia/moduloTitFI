@@ -1,0 +1,4926 @@
+{
+  "id_categoria": "4001",
+  "categoria": "Solicitudes",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4001",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNWUwZTE3YTItNTQwZi00ZTM5LWEyYjAtYjk1MmEzZDlhODU3IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "14_Espacio académico",
+  "filtro_programa": "17_Programa educativo_1",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "002",
+        "metricas": [
+          "Ciclo escolar",
+          "Solicitudes_Sexo",
+          "Suma de Total_Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+          "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+          "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+        },
+        "formatos": {
+          "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2016-2017",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2292,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2016-2017",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 440,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2529,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 507,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2459,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 523,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2706,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 537,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 1652,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 385,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 1631,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 325,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2176,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 475,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2029,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 489,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2283,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 563,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2255,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 603,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 20
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Superavit Mujeres Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+        },
+        "registros": [
+          {
+            "Superavit Mujeres Solicitudes": -1652,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "005",
+        "metricas": [
+          "% Crecimiento Anual Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "% Crecimiento Anual Solicitudes": 0.004216444132115249,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "007",
+        "metricas": [
+          "Solicitudes Ciclo Actual"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+        },
+        "registros": [
+          {
+            "Solicitudes Ciclo Actual": 2858,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "008",
+        "metricas": [
+          "Indice Paridad Genero Solicitudes1"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Indice Paridad Genero Solicitudes1": 0.26740576496674057,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "011",
+        "metricas": [
+          "Solicitudes Toluca"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Solicitudes Toluca": 2858,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "012",
+        "metricas": [
+          "Solicitudes Fuera de Toluca"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Solicitudes Fuera de Toluca": 0,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "013",
+        "metricas": [
+          "Número y nombre de región",
+          "Ciclo escolar",
+          "Suma de Total_Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+          "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+          "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+        },
+        "formatos": {
+          "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+        },
+        "registros": [
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2016-2017",
+            "Suma de Total_Solicitudes": 2732,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2017-2018",
+            "Suma de Total_Solicitudes": 3036,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2018-2019",
+            "Suma de Total_Solicitudes": 2982,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2019-2020",
+            "Suma de Total_Solicitudes": 3243,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2020-2021",
+            "Suma de Total_Solicitudes": 2037,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2021-2022",
+            "Suma de Total_Solicitudes": 1956,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2022-2023",
+            "Suma de Total_Solicitudes": 2651,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2023-2024",
+            "Suma de Total_Solicitudes": 2518,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2024-2025",
+            "Suma de Total_Solicitudes": 2846,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2025-2026",
+            "Suma de Total_Solicitudes": 2858,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Total_Solicitudes",
+          "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+          "periodo_inicial": "2016-2017",
+          "valor_inicial": 2732,
+          "periodo_final": "2025-2026",
+          "valor_final": 2858,
+          "cambio_absoluto": 126,
+          "visual_fuente": "002",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Suma de Total_Solicitudes: 2732 en 2016-2017 y 2858 en 2025-2026 (cambio +126).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.3333333333333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 21,
+            "periodo_final": "2025-2026",
+            "valor_final": 12,
+            "cambio_absoluto": -9,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 21 en 2019-2020 y 12 en 2025-2026 (cambio -9).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 628,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 166,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 697,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 210,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 593,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 157,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 775,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 199,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 427,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 146,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 423,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 111,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 481,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 121,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 561,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 161,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 584,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 177,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 481,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 146,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -335,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": -0.17608409986859397,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 627,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.30353430353430355,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 627,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Solicitudes": 794,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Solicitudes": 907,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Solicitudes": 750,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 974,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 573,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 534,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 602,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 722,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 761,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 627,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 794,
+            "periodo_final": "2025-2026",
+            "valor_final": 627,
+            "cambio_absoluto": -167,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 794 en 2016-2017 y 627 en 2025-2026 (cambio -167).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 770,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 58,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 839,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 60,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 921,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 89,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 1044,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 108,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 549,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 69,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 553,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 46,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 552,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 56,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 622,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 86,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 703,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 82,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 723,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 104,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -619,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": 0.0535031847133758,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 827,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.14384508990318118,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 827,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Solicitudes": 828,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Solicitudes": 899,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Solicitudes": 1010,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 1152,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 618,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 599,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 608,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 708,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 785,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 827,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 828,
+            "periodo_final": "2025-2026",
+            "valor_final": 827,
+            "cambio_absoluto": -1,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 828 en 2016-2017 y 827 en 2025-2026 (cambio -1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 540,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 133,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 548,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 120,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 498,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 133,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 415,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 98,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 312,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 73,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 358,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 100,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 457,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 108,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 465,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 124,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 398,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 124,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 345,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 130,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -215,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": -0.09003831417624521,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 475,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.37681159420289856,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 475,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Solicitudes": 673,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Solicitudes": 668,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Solicitudes": 631,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 513,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 385,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 458,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 565,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 589,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 522,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 475,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 673,
+            "periodo_final": "2025-2026",
+            "valor_final": 475,
+            "cambio_absoluto": -198,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 673 en 2016-2017 y 475 en 2025-2026 (cambio -198).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 211,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 24,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 282,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 39,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 261,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 40,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 243,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 28,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 198,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 17,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 187,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 21,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 409,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 210,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 28,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 295,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 43,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 214,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 36,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -178,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": -0.2603550295857988,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 250,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.16822429906542055,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 250,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Solicitudes": 235,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Solicitudes": 321,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Solicitudes": 301,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 271,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 215,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 208,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 477,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 238,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 338,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 250,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 235,
+            "periodo_final": "2025-2026",
+            "valor_final": 250,
+            "cambio_absoluto": 15,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 235 en 2016-2017 y 250 en 2025-2026 (cambio +15).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 167,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 65,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 309,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 111,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -198,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": 0.8103448275862069,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 420,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.3592233009708738,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 420,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 232,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 420,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2024-2025",
+            "valor_inicial": 232,
+            "periodo_final": "2025-2026",
+            "valor_final": 420,
+            "cambio_absoluto": 188,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 232 en 2024-2025 y 420 en 2025-2026 (cambio +188).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 143,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 163,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 78,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 186,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 104,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 128,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 61,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 144,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 70,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 87,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 33,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 247,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 96,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 148,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 65,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 116,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 56,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 150,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 63,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -87,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": 0.23837209302325582,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 213,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.42,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 213,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Solicitudes": 202,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Solicitudes": 241,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Solicitudes": 290,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 189,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 214,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 120,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 343,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 213,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 172,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 213,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 202,
+            "periodo_final": "2025-2026",
+            "valor_final": 213,
+            "cambio_absoluto": 11,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 202 en 2016-2017 y 213 en 2025-2026 (cambio +11).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 40,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -11,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": 0.3125,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.3125,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 46,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 31,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 19,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 46,
+            "periodo_final": "2025-2026",
+            "valor_final": 21,
+            "cambio_absoluto": -25,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 46 en 2019-2020 y 21 en 2025-2026 (cambio -25).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 30,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": -0.375,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 1.5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 51,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 51,
+            "periodo_final": "2025-2026",
+            "valor_final": 5,
+            "cambio_absoluto": -46,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 51 en 2019-2020 y 5 en 2025-2026 (cambio -46).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Ciclo escolar",
+            "Solicitudes_Sexo",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "2016-2025_Solicitudes.Solicitudes_Sexo": "Solicitudes_Sexo",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Superavit Mujeres Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "Superavit Mujeres Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Superavit Mujeres Solicitudes": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Solicitudes": -4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "% Crecimiento Anual Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "% Crecimiento Anual Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.% Crecimiento Anual Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Solicitudes": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Solicitudes Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "Solicitudes Ciclo Actual"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Ciclo Actual": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Indice Paridad Genero Solicitudes1"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Indice Paridad Genero Solicitudes": "Indice Paridad Genero Solicitudes1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Solicitudes1": 0.3333333333333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Solicitudes Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "Solicitudes Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Toluca": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "012",
+          "metricas": [
+            "Solicitudes Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "Solicitudes Fuera de Toluca"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Solicitudes Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Número y nombre de región": "Número y nombre de región",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar",
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "Suma de Total_Solicitudes"
+          },
+          "formatos": {
+            "Sum(2016-2025_Solicitudes.Total_Solicitudes)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Solicitudes": 26,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Solicitudes": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Solicitudes": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Solicitudes": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Solicitudes",
+            "metrica_modelo": "Sum(2016-2025_Solicitudes.Total_Solicitudes)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 26,
+            "periodo_final": "2025-2026",
+            "valor_final": 8,
+            "cambio_absoluto": -18,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Solicitudes: 26 en 2019-2020 y 8 en 2025-2026 (cambio -18).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "conciliacion_ultimo_periodo": {
+    "periodo": "2025-2026",
+    "metrica": "Suma de Total_Solicitudes",
+    "total_facultad": 2858,
+    "suma_programas_publicados": 2858,
+    "diferencia_sin_programa_identificable": 0,
+    "interpretacion": "La suma de programas coincide con el total de Facultad."
+  },
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

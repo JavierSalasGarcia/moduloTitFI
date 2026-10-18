@@ -1,0 +1,94 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 6: Difusión y divulgación de la ciencia abierta a través de bienes públicos del conocimiento
+Clave Programática: PROY-06 | Pilar II: Investigación y desarrollo académico de calidad y equidad
+Área Responsable: Subdirección Académica / Coordinación de Difusión Cultural / Coordinación de Investigación
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Difusión y divulgación en el marco de la ciencia abierta y el diálogo de saberes:
+   - Producción intelectual, científica, académica, tecnológica y cultural depositada en plataformas de acceso abierto institucional.
+   - Actividades sistemáticas de divulgación científica dirigidas a la comunidad universitaria y a la sociedad en general.
+   - Participación comunitaria de docentes y estudiantes en jornadas, ferias y redes de divulgación del conocimiento.
+2. Libros abiertos y revistas científicas como bienes públicos digitales:
+   - Procesos editoriales y tecnológicos para generar publicaciones científicas, libros especializados y revistas como bienes públicos digitales de libre acceso.
+   - Acceso universal a tesis de licenciatura y posgrado a través de repositorios institucionales de acceso abierto (RI-UAEMEX).
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La divulgación de la ciencia y la difusión del conocimiento tecnológico constituyen un compromiso ético ineludible para la Facultad de Ingeniería, en su carácter de organismo público sostenido por la sociedad mexiquense. La producción académica e intelectual generada por sus docentes, investigadoras, investigadores y estudiantes abarca cientos de contribuciones anuales en campos críticos como la seguridad estructural, el manejo del agua, la eficiencia de los sistemas de transporte, la generación de energías limpias y la aplicación de algoritmos computacionales. La Facultad dispone de espacios tradicionales y digitales para la comunicación de estos saberes: conferencias magistrales, coloquios de investigación, el simposio anual de ingeniería y la participación activa en foros de ciencia y tecnología; no obstante, la transición hacia el paradigma contemporáneo de la Ciencia Abierta, que concibe al conocimiento como un bien público digital al alcance de toda la ciudadanía, se encuentra en una etapa incipiente de institucionalización.
+
+Durante el periodo 2016–2025, la visibilidad científica de la Facultad se canalizó mayoritariamente a través de publicaciones en revistas especializadas arbitradas de circulación internacional y memorias de congresos, promediando más de 70 publicaciones por año. De forma paralela, el repositorio institucional de la UAEMEX (RI-UAEMEX) y los portales de acceso abierto alojan un inventario acumulado que supera las 1,200 tesis digitales de licenciatura y posgrado emanadas de este espacio académico. Sin embargo, en el ámbito de las publicaciones periódicas propias y los libros de texto o monografías científicas con sello institucional bajo licencias Creative Commons, la producción ha sido esporádica y ha dependido de iniciativas individuales aisladas, careciendo de una línea editorial permanente de la Facultad que sistematice la producción de bienes públicos digitales.
+
+[[GRAFICA: graficas/grafica_p06_01_publicaciones_tesis.png | PIE: Gráfica 1. Evolución de publicaciones académicas y tesis en acceso abierto de la Facultad de Ingeniería (2016–2025). Fuente: UAEMEX. Repositorio Institucional y Agendas Estadísticas 2016–2025.]]
+
+La interpretación sustantiva de esta trayectoria pone de relieve una notable paradoja: la Facultad genera un volumen sustancial de conocimiento de frontera pero su impacto público se concentra predominantemente en círculos de pares académicos especializados, dejando desatendida la divulgación social de la ingeniería hacia sectores no especializados, escuelas secundarias, preparatorias y comunidades rurales de la entidad. Las soluciones desarrolladas en los laboratorios para sanear cuerpos de agua, mejorar la movilidad o mitigar riesgos sísmicos permanecen con frecuencia contenidas en artículos en idioma inglés protegidos por barreras de pago de grandes editoriales comerciales, contraviniendo el espíritu de retribución social promovido por la universidad pública.
+
+La tensión estratégica central radica en la falta de un sistema institucionalizado que traduzca el conocimiento técnico a lenguajes accesibles y bienes digitales abiertos sin que ello menoscabe el reconocimiento curricular de los docentes. En el marco normativo actual, los comités evaluadores del SNII y del PROED privilegian de forma casi exclusiva las publicaciones con factor de impacto en revistas cerradas (JCR), otorgando escaso o nulo puntaje a la divulgación comunitaria, a la publicación de libros abiertos o a la generación de contenidos digitales de libre acceso. Como consecuencia, el profesorado enfoca sus esfuerzos en satisfacer métricas bibliométricas tradicionales, desatendiendo la creación de recursos educativos abiertos (REA) y bienes comunes del conocimiento.
+
+En el plano desagregado de los medios de comunicación y formatos digitales, la Facultad cuenta con una infraestructura básica de difusión en redes sociales y portales web institucionales que se emplean principalmente para avisos administrativos, escolares y eventos cívicos, pero que no son aprovechados como canales sistemáticos de divulgación científica interactiva (podcasts de ingeniería, cápsulas audiovisuales sobre inventos de la Facultad, infografías de prevención de riesgos o repositorios de software de código abierto desarrollado por estudiantes).
+
+En el entorno exterior, la Política de Ciencia Abierta de la UAEMEX (pionera en América Latina a través de plataformas como Redalyc y AmeliCA) y la Recomendación sobre la Ciencia Abierta de la UNESCO establecen directrices explícitas para eliminar las barreras de acceso al conocimiento científico y democratizar la información tecnológica. De igual forma, las encuestas del Instrumento C13 (Coordinación de Difusión Cultural) y C11 (Investigación) confirman que el 82.4% de los docentes encuestados estarían dispuestos a participar en brigadas de divulgación y ferias científicas de la ingeniería si la Facultad contara con un programa organizado de divulgación que reconozca formalmente estas actividades en su planeación anual.
+
+Por consiguiente, el rumbo estratégico del Proyecto 6 debe encaminarse a constituir una política permanente de comunicación pública y ciencia abierta en la Facultad de Ingeniería. Esto exigirá establecer un comité editorial que coordine la publicación de series digitales de libros y cuadernos tecnológicos de acceso libre, capacitar a docentes y alumnos en técnicas de narrativa y divulgación científica, aprovechar las plataformas digitales universitarias para divulgar los aportes de la ingeniería en la vida cotidiana de las personas y garantizar que cada proyecto financiado con recursos públicos retribuya a la sociedad un bien del conocimiento libremente accesible.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2016–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Comportamiento de productos de divulgación y acceso abierto en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Publicaciones científicas en acceso ab.2016              18              2024            46            +28 artículos   +155.6%
+Tesis depositadas en RI-UAEMEX         2016              95              2024           168            +73 tesis        +76.8%
+Eventos y jornadas de divulgación      2016               4              2025             8            +4 eventos      +100.0%
+Libros abiertos / monografías FI       2016               0              2025             2            +2 títulos          ---
+Estudiantes en redes de divulgación    2018               8              2025            24            +16 alumnos     +200.0%
+Cápsulas y productos digitales divulg. 2018               3              2025            15            +12 productos   +400.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Repositorio Institucional RI-UAEMEX; Agendas Estadísticas 2016–2025; Coordinación de Difusión Cultural FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C11 Y C13)
+--------------------------------------------------------------------------------
+1. Coordinación de Difusión Cultural (Instrumento C13):
+   - Se advierte la necesidad de coordinar esfuerzos con la Coordinación de Investigación para traducir los hallazgos técnicos de laboratorios a materiales de divulgación para bachilleratos y público no especializado.
+   - Demanda de un espacio multimedia o cabina de grabación en la Facultad para producir podcasts y cápsulas científicas de alta calidad.
+2. Docentes e Investigadores (Instrumento C11):
+   - Solicitan el respaldo de la administración para la tramitación de identificadores DOI, códigos ISBN y licencias Creative Commons institucionales para textos y notas de clase generadas en las academias.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Alto volumen de generación de conocimiento científico y tesis de titulación depositadas en el Repositorio Institucional (más de 1,200 registros históricos).
+- Alumnado y profesorado con disposición y entusiasmo para participar en ferias de ciencia, concursos de robótica y jornadas de puertas abiertas.
+- Posicionamiento de la UAEMEX como referente internacional en el impulso al acceso abierto diamante y la ciencia como bien común (Redalyc / AmeliCA).
+
+DEBILIDADES:
+- Inexistencia de una revista científica o serie editorial propia de la Facultad con periodicidad continua y registro de acceso abierto.
+- Escasa capacitación de los cuadros docentes en periodismo científico, divulgación pública y narrativas digitales para audiencias amplias.
+- Predominio de publicaciones en circuitos cerrados comerciales (revistas con muros de pago) debido a los criterios bibliométricos del SNII.
+- Limitada producción de libros de texto digitales y recursos educativos abiertos con arbitraje de pares académicos.
+
+OPORTUNIDADES:
+- Recomendación de la UNESCO sobre Ciencia Abierta y marco de la Ley General de Educación Superior que priorizan la apropiación social del conocimiento.
+- Demanda de contenidos de orientación vocacional en secundarias y preparatorias mexiquenses que puede ser atendida con divulgación tecnológica temprana.
+- Infraestructura de plataformas de radio y televisión universitaria (UniRadio, UAEMéx TV) para proyectar las innovaciones de la Facultad.
+
+AMENAZAS:
+- Exclusión de investigadores en índices tradicionales por los altos costos de cargos por procesamiento de artículos (APC) cobrados por consorcios editoriales.
+- Falta de incentivos en los sistemas de evaluación laboral docente para quienes dedican tiempo sustantivo a la divulgación comunitaria.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- Becerril-García, A., & Aguado-López, E. (2020). La ciencia abierta como bien público en América Latina. Revista Iberoamericana de Ciencia, Tecnología y Sociedad, 15(44), 89–115.
+- UNESCO. (2021). Recomendación de la UNESCO sobre la Ciencia Abierta. UNESCO Publishing.
+- UAEMEX. (2022). Política Institucional de Ciencia Abierta de la Universidad Autónoma del Estado de México. Gaceta Universitaria.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================
