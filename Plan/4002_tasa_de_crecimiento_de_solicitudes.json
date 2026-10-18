@@ -1,0 +1,2481 @@
+{
+  "id_categoria": "4002",
+  "categoria": "Tasa de crecimiento de solicitudes",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4002",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYzVlNzU0OWMtZWM0Mi00MWI5LTg3NjAtZmNmMzhkY2JiNDgwIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "14_Espacio académico",
+  "filtro_programa": "17_Programa educativo_1",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Crecimiento Acumulado Total Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "Crecimiento Acumulado Total Solicitudes": 0.046120058565153735,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "TCMA Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "TCMA Solicitudes": 0.005022363084448145,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "008",
+        "metricas": [
+          "Solicitudes_UAEMEX",
+          "Ciclo Escolar Anterior_Solicitudes",
+          "Ciclo escolar"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+          "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+          "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+        },
+        "formatos": {
+          "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+          "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2016-2017",
+            "Solicitudes_UAEMEX": 2732,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Solicitudes_UAEMEX": 3036,
+            "Ciclo Escolar Anterior_Solicitudes": 2732,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Solicitudes_UAEMEX": 2982,
+            "Ciclo Escolar Anterior_Solicitudes": 3036,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Solicitudes_UAEMEX": 3243,
+            "Ciclo Escolar Anterior_Solicitudes": 2982,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Solicitudes_UAEMEX": 2037,
+            "Ciclo Escolar Anterior_Solicitudes": 3243,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Solicitudes_UAEMEX": 1956,
+            "Ciclo Escolar Anterior_Solicitudes": 2037,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Solicitudes_UAEMEX": 2651,
+            "Ciclo Escolar Anterior_Solicitudes": 1956,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Solicitudes_UAEMEX": 2518,
+            "Ciclo Escolar Anterior_Solicitudes": 2651,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Solicitudes_UAEMEX": 2846,
+            "Ciclo Escolar Anterior_Solicitudes": 2518,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Solicitudes_UAEMEX": 2858,
+            "Ciclo Escolar Anterior_Solicitudes": 2846,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10
+      },
+      {
+        "visual": "009",
+        "metricas": [
+          "Ciclo Mayor Crecimiento Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo Mayor Crecimiento Solicitudes": "2022-2023",
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "010",
+        "metricas": [
+          "Ciclo Menor Crecimiento Solicitudes"
+        ],
+        "campos_modelo": {
+          "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Solicitudes_UAEMEX",
+          "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+          "periodo_inicial": "2016-2017",
+          "valor_inicial": 2732,
+          "periodo_final": "2025-2026",
+          "valor_final": 2858,
+          "cambio_absoluto": 126,
+          "visual_fuente": "008",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Solicitudes_UAEMEX: 2732 en 2016-2017 y 2858 en 2025-2026 (cambio +126).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.42857142857142855,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.08905184924374354,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 6,
+              "Ciclo Escolar Anterior_Solicitudes": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 12,
+              "Ciclo Escolar Anterior_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 8,
+              "Ciclo Escolar Anterior_Solicitudes": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 5,
+              "Ciclo Escolar Anterior_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 4,
+              "Ciclo Escolar Anterior_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 12,
+              "Ciclo Escolar Anterior_Solicitudes": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2025-2026",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 21,
+            "periodo_final": "2025-2026",
+            "valor_final": 12,
+            "cambio_absoluto": -9,
+            "visual_fuente": "008",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 21 en 2019-2020 y 12 en 2025-2026 (cambio -9).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.21032745591939547,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.025896224788817923,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_UAEMEX": 794,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_UAEMEX": 907,
+              "Ciclo Escolar Anterior_Solicitudes": 794,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_UAEMEX": 750,
+              "Ciclo Escolar Anterior_Solicitudes": 907,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 974,
+              "Ciclo Escolar Anterior_Solicitudes": 750,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 573,
+              "Ciclo Escolar Anterior_Solicitudes": 974,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 534,
+              "Ciclo Escolar Anterior_Solicitudes": 573,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 602,
+              "Ciclo Escolar Anterior_Solicitudes": 534,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 722,
+              "Ciclo Escolar Anterior_Solicitudes": 602,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 761,
+              "Ciclo Escolar Anterior_Solicitudes": 722,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 627,
+              "Ciclo Escolar Anterior_Solicitudes": 761,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2019-2020",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 794,
+            "periodo_final": "2025-2026",
+            "valor_final": 627,
+            "cambio_absoluto": -167,
+            "visual_fuente": "008",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 794 en 2016-2017 y 627 en 2025-2026 (cambio -167).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.0012077294685990338,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.0001342642481454437,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_UAEMEX": 828,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_UAEMEX": 899,
+              "Ciclo Escolar Anterior_Solicitudes": 828,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_UAEMEX": 1010,
+              "Ciclo Escolar Anterior_Solicitudes": 899,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 1152,
+              "Ciclo Escolar Anterior_Solicitudes": 1010,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 618,
+              "Ciclo Escolar Anterior_Solicitudes": 1152,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 599,
+              "Ciclo Escolar Anterior_Solicitudes": 618,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 608,
+              "Ciclo Escolar Anterior_Solicitudes": 599,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 708,
+              "Ciclo Escolar Anterior_Solicitudes": 608,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 785,
+              "Ciclo Escolar Anterior_Solicitudes": 708,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 827,
+              "Ciclo Escolar Anterior_Solicitudes": 785,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2023-2024",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 828,
+            "periodo_final": "2025-2026",
+            "valor_final": 827,
+            "cambio_absoluto": -1,
+            "visual_fuente": "008",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 828 en 2016-2017 y 827 en 2025-2026 (cambio -1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.29420505200594355,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.03797467456367698,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_UAEMEX": 673,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_UAEMEX": 668,
+              "Ciclo Escolar Anterior_Solicitudes": 673,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_UAEMEX": 631,
+              "Ciclo Escolar Anterior_Solicitudes": 668,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 513,
+              "Ciclo Escolar Anterior_Solicitudes": 631,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 385,
+              "Ciclo Escolar Anterior_Solicitudes": 513,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 458,
+              "Ciclo Escolar Anterior_Solicitudes": 385,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 565,
+              "Ciclo Escolar Anterior_Solicitudes": 458,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 589,
+              "Ciclo Escolar Anterior_Solicitudes": 565,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 522,
+              "Ciclo Escolar Anterior_Solicitudes": 589,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 475,
+              "Ciclo Escolar Anterior_Solicitudes": 522,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 673,
+            "periodo_final": "2025-2026",
+            "valor_final": 475,
+            "cambio_absoluto": -198,
+            "visual_fuente": "008",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 673 en 2016-2017 y 475 en 2025-2026 (cambio -198).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": 0.06382978723404255,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": 0.006898732231266358,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_UAEMEX": 235,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_UAEMEX": 321,
+              "Ciclo Escolar Anterior_Solicitudes": 235,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_UAEMEX": 301,
+              "Ciclo Escolar Anterior_Solicitudes": 321,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 271,
+              "Ciclo Escolar Anterior_Solicitudes": 301,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 215,
+              "Ciclo Escolar Anterior_Solicitudes": 271,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 208,
+              "Ciclo Escolar Anterior_Solicitudes": 215,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 477,
+              "Ciclo Escolar Anterior_Solicitudes": 208,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 238,
+              "Ciclo Escolar Anterior_Solicitudes": 477,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 338,
+              "Ciclo Escolar Anterior_Solicitudes": 238,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 250,
+              "Ciclo Escolar Anterior_Solicitudes": 338,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2023-2024",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 235,
+            "periodo_final": "2025-2026",
+            "valor_final": 250,
+            "cambio_absoluto": 15,
+            "visual_fuente": "008",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 235 en 2016-2017 y 250 en 2025-2026 (cambio +15).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": 0.8103448275862069,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": 0.8103448275862069,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 232,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 420,
+              "Ciclo Escolar Anterior_Solicitudes": 232,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2025-2026",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2025-2026",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2024-2025",
+            "valor_inicial": 232,
+            "periodo_final": "2025-2026",
+            "valor_final": 420,
+            "cambio_absoluto": 188,
+            "visual_fuente": "008",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 232 en 2024-2025 y 420 en 2025-2026 (cambio +188).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": 0.054455445544554455,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": 0.0059089972440309335,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Solicitudes_UAEMEX": 202,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Solicitudes_UAEMEX": 241,
+              "Ciclo Escolar Anterior_Solicitudes": 202,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Solicitudes_UAEMEX": 290,
+              "Ciclo Escolar Anterior_Solicitudes": 241,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 189,
+              "Ciclo Escolar Anterior_Solicitudes": 290,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 214,
+              "Ciclo Escolar Anterior_Solicitudes": 189,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 120,
+              "Ciclo Escolar Anterior_Solicitudes": 214,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 343,
+              "Ciclo Escolar Anterior_Solicitudes": 120,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 213,
+              "Ciclo Escolar Anterior_Solicitudes": 343,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 172,
+              "Ciclo Escolar Anterior_Solicitudes": 213,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 213,
+              "Ciclo Escolar Anterior_Solicitudes": 172,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 202,
+            "periodo_final": "2025-2026",
+            "valor_final": 213,
+            "cambio_absoluto": 11,
+            "visual_fuente": "008",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 202 en 2016-2017 y 213 en 2025-2026 (cambio +11).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.5434782608695652,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.12250716869424028,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 46,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 18,
+              "Ciclo Escolar Anterior_Solicitudes": 46,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 8,
+              "Ciclo Escolar Anterior_Solicitudes": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 31,
+              "Ciclo Escolar Anterior_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 19,
+              "Ciclo Escolar Anterior_Solicitudes": 31,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 16,
+              "Ciclo Escolar Anterior_Solicitudes": 19,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 21,
+              "Ciclo Escolar Anterior_Solicitudes": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 46,
+            "periodo_final": "2025-2026",
+            "valor_final": 21,
+            "cambio_absoluto": -25,
+            "visual_fuente": "008",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 46 en 2019-2020 y 21 en 2025-2026 (cambio -25).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.9019607843137255,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.32095278655493853,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 51,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 3,
+              "Ciclo Escolar Anterior_Solicitudes": 51,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 10,
+              "Ciclo Escolar Anterior_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 6,
+              "Ciclo Escolar Anterior_Solicitudes": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 3,
+              "Ciclo Escolar Anterior_Solicitudes": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 8,
+              "Ciclo Escolar Anterior_Solicitudes": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Solicitudes_UAEMEX": 5,
+              "Ciclo Escolar Anterior_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2021-2022",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 51,
+            "periodo_final": "2025-2026",
+            "valor_final": 5,
+            "cambio_absoluto": -46,
+            "visual_fuente": "008",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 51 en 2019-2020 y 5 en 2025-2026 (cambio -46).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "Crecimiento Acumulado Total Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Crecimiento Acumulado Total Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Solicitudes": -0.6923076923076923,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "TCMA Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "TCMA Solicitudes"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.TCMA Solicitudes": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Solicitudes": -0.17835142476898092,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Solicitudes_UAEMEX",
+            "Ciclo Escolar Anterior_Solicitudes",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "Solicitudes_UAEMEX",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "Ciclo Escolar Anterior_Solicitudes",
+            "2016-2025_Solicitudes.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2016-2025_Solicitudes.Solicitudes_UAEMEX": "0",
+            "2016-2025_Solicitudes.Año Anterior_Solicitudes": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Solicitudes_UAEMEX": 26,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Solicitudes_UAEMEX": 5,
+              "Ciclo Escolar Anterior_Solicitudes": 26,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Solicitudes_UAEMEX": 7,
+              "Ciclo Escolar Anterior_Solicitudes": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Solicitudes_UAEMEX": 11,
+              "Ciclo Escolar Anterior_Solicitudes": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Solicitudes_UAEMEX": 13,
+              "Ciclo Escolar Anterior_Solicitudes": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Solicitudes_UAEMEX": 8,
+              "Ciclo Escolar Anterior_Solicitudes": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ciclo Escolar Anterior_Solicitudes": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Mayor Crecimiento Solicitudes": "Ciclo Mayor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Solicitudes": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ciclo Menor Crecimiento Solicitudes"
+          ],
+          "campos_modelo": {
+            "2016-2025_Solicitudes.Ciclo Menor Crecimiento Solicitudes": "Ciclo Menor Crecimiento Solicitudes"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Solicitudes": "2020-2021",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Solicitudes_UAEMEX",
+            "metrica_modelo": "2016-2025_Solicitudes.Solicitudes_UAEMEX",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 26,
+            "periodo_final": "2024-2025",
+            "valor_final": 8,
+            "cambio_absoluto": -18,
+            "visual_fuente": "008",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Solicitudes_UAEMEX: 26 en 2019-2020 y 8 en 2024-2025 (cambio -18).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

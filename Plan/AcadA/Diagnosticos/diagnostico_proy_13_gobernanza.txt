@@ -1,0 +1,39 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 13: GOBERNANZA
+================================================================================
+
+DIAGNÓSTICO
+
+1. Participación institucional de la comunidad y toma de decisiones colegiada
+
+El gobierno colegiado opera mediante el H. Consejo de Gobierno y el H. Consejo Académico con representación paritaria de docentes y estudiantes, sesionando formalmente 24 veces al año en apego a la Legislación Universitaria (Secretaría del Consejo [SC-FI], 2025; UAEMéx, 2021).
+
+2. Protocolos de seguridad, protección civil y prevención de riesgos en instalaciones
+
+La Unidad Interna de Protección Civil coordina la seguridad en los 18 laboratorios y talleres de la Facultad, contando con 48 brigadistas acreditados, 85 extintores vigentes y 36 cámaras de videovigilancia (Unidad de Protección Civil [UPC-FI], 2025; Dirección de Seguridad y Protección Universitaria [DSPU-UAEMéx], 2024).
+
+Tabla 1. Indicadores de seguridad, protección civil y sesiones de gobierno colegiado (2016–2025)
+| Rubro de Gobernanza y Seguridad | Periodo 2016–2017 | Periodo 2024–2025 | Variación | Desempeño |
+|---|---|---|---|---|
+| Sesiones ordinarias de Consejos (Gob/Acad)| 22 sesiones/año | 24 sesiones/año | +2 sesiones | Operación colegiada continua |
+| Simulacros de protección civil anuales | 2 simulacros | 3 simulacros | +1 simulacro | 100% de cumplimiento normativo |
+| Brigadistas universitarios capacitados | 25 brigadistas | 48 brigadistas | +23 personas | +92.0% personal habilitado |
+| Incidentes graves en laboratorios | 0 incidentes | 0 incidentes | 0 incidentes | Saldo blanco sostenido |
+| Cámaras de videovigilancia operativas | 14 cámaras | 36 cámaras | +22 cámaras | Cobertura perimetral al 90% |
+Fuente: UPC-FI (2025) y SC-FI (2025).
+
+3. Identidad Universitaria y memoria histórica de la ingeniería mexiquense
+
+Con 68 años de trayectoria, la Facultad preserva su acervo documental y conmemorativo, siendo prioritario consolidar el archivo histórico digital y fomentar la identidad verde y oro (SC-FI, 2025; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- DSPU-UAEMéx. (2024). *Manual institucional de seguridad y protocolos de emergencia en campus universitarios*. Dirección de Seguridad y Protección Universitaria, UAEMéx.
+- SC-FI. (2025). *Actas de sesiones ordinarias y extraordinarias del H. Consejo de Gobierno y Consejo Académico*. Secretaría del Consejo, Facultad de Ingeniería, UAEMéx.
+- UAEMéx. (2021). *Legislación Universitaria: Estatuto General y Reglamentos Orgánicos*. UAEMéx.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+- UPC-FI. (2025). *Programa Interno de Protección Civil y Gestión Integral del Riesgo*. Unidad Interna de Protección Civil, Facultad de Ingeniería, UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

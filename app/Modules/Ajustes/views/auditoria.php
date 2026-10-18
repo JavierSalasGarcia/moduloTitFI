@@ -1,0 +1,6 @@
+<p>Fecha y hora de Ciudad de México. Se distinguen el autor real y la cuenta utilizada. No se almacenan contraseñas, códigos ni el contenido de los formularios.</p>
+<form method="get" class="buscador"><label>Buscar correo o acción<input type="search" name="q" value="<?= e($q) ?>" placeholder="Por ejemplo: inicio_sesion"></label><button class="btn">Buscar</button></form>
+<p><?= (int)$total ?> registros · Página <?= (int)$pagina ?></p>
+<div class="card tabla-contenedor"><table class="tabla" data-no-tools><thead><tr><th>Fecha y hora</th><th>Autor real</th><th>Cuenta utilizada</th><th>Acción</th><th>Resultado</th><th>Detalle</th></tr></thead><tbody>
+<?php foreach($eventos as $ev): ?><tr><td><?= e($ev['creado_en']) ?></td><td><?= e($ev['actor_email']?:'Sin sesión') ?></td><td><?= e($ev['usuario_email']?:'Sin sesión') ?></td><td><?= e($ev['accion']) ?></td><td><?= e($ev['resultado']) ?></td><td><?= e($ev['detalle']) ?></td></tr><?php endforeach; ?>
+</tbody></table></div><nav class="ux-toolbar" aria-label="Páginas"><?php if($pagina>1): ?><a class="btn" href="<?= url('ajustes/auditoria?q='.urlencode($q).'&pagina='.($pagina-1)) ?>">Anterior</a><?php endif; ?><?php if($pagina*50<$total): ?><a class="btn" href="<?= url('ajustes/auditoria?q='.urlencode($q).'&pagina='.($pagina+1)) ?>">Siguiente</a><?php endif; ?></nav>

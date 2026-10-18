@@ -1,0 +1,1245 @@
+{
+  "communities": {
+    "0": [
+      "app_core_auth",
+      "app_core_auth_auth",
+      "app_core_auth_auth_csrftoken",
+      "app_core_auth_auth_iniciarsesion",
+      "app_core_auth_auth_intentar",
+      "app_core_auth_auth_salir",
+      "app_core_auth_auth_usuario",
+      "app_core_helpers",
+      "app_core_helpers_descargar_archivo",
+      "app_core_helpers_e",
+      "app_core_helpers_fecha_corta",
+      "app_core_helpers_flash",
+      "app_core_helpers_flash_leer",
+      "app_core_helpers_guardar_archivo",
+      "app_core_helpers_guardar_archivo_datos",
+      "app_core_helpers_guardar_archivos",
+      "app_core_helpers_icono",
+      "app_core_helpers_url",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_actualizarusuario",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_crearusuario",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_eliminarusuario",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_guardar",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_index",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_usuarios",
+      "app_modules_auth_authcontroller_authcontroller_entrar",
+      "app_modules_auth_authcontroller_authcontroller_formulario",
+      "app_modules_auth_authcontroller_authcontroller_salir",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller_actualizarcategoria",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller_crear",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller_eliminar",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller_index",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller_nuevo",
+      "app_modules_comunicados_comunicadoscontroller_comunicadoscontroller_puedeemitir",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_crear",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_suscribir",
+      "app_modules_firmas_firmascontroller_firmascontroller",
+      "app_modules_firmas_firmascontroller_firmascontroller_anexar",
+      "app_modules_firmas_firmascontroller_firmascontroller_avanzarruta",
+      "app_modules_firmas_firmascontroller_firmascontroller_cancelar",
+      "app_modules_firmas_firmascontroller_firmascontroller_crear",
+      "app_modules_firmas_firmascontroller_firmascontroller_descargardocumento",
+      "app_modules_firmas_firmascontroller_firmascontroller_detalle",
+      "app_modules_firmas_firmascontroller_firmascontroller_exigircreador",
+      "app_modules_firmas_firmascontroller_firmascontroller_firmantependiente",
+      "app_modules_firmas_firmascontroller_firmascontroller_firmar",
+      "app_modules_firmas_firmascontroller_firmascontroller_guardarmifirma",
+      "app_modules_firmas_firmascontroller_firmascontroller_index",
+      "app_modules_firmas_firmascontroller_firmascontroller_mifirma",
+      "app_modules_firmas_firmascontroller_firmascontroller_nuevo",
+      "app_modules_firmas_firmascontroller_firmascontroller_obtenerpropia",
+      "app_modules_firmas_firmascontroller_firmascontroller_rechazar",
+      "app_modules_firmas_firmascontroller_firmascontroller_regenerarhoja",
+      "app_modules_firmas_firmascontroller_firmascontroller_resolverfirmantes",
+      "app_modules_firmas_firmascontroller_firmascontroller_resolverusuario",
+      "app_modules_firmas_firmascontroller_firmascontroller_usuariosactivos",
+      "app_modules_firmas_gruposcontroller_gruposcontroller",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_agregarmiembro",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_crear",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_eliminar",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_escoordinvestigacion",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_grupoeditable",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_index",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_puedeeditar",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_quitarmiembro",
+      "app_modules_firmas_gruposcontroller_gruposcontroller_resolverusuario",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_archivo",
+      "app_modules_teams_teamscontroller_teamscontroller",
+      "app_modules_teams_teamscontroller_teamscontroller_actualizardescripcion",
+      "app_modules_teams_teamscontroller_teamscontroller_completarticket",
+      "app_modules_teams_teamscontroller_teamscontroller_crearcarpeta",
+      "app_modules_teams_teamscontroller_teamscontroller_crearsitio",
+      "app_modules_teams_teamscontroller_teamscontroller_crearticket",
+      "app_modules_teams_teamscontroller_teamscontroller_descargarevidencia",
+      "app_modules_teams_teamscontroller_teamscontroller_desindexarbulk",
+      "app_modules_teams_teamscontroller_teamscontroller_desvincular",
+      "app_modules_teams_teamscontroller_teamscontroller_editarsitio",
+      "app_modules_teams_teamscontroller_teamscontroller_eliminarcarpeta",
+      "app_modules_teams_teamscontroller_teamscontroller_eliminarsitio",
+      "app_modules_teams_teamscontroller_teamscontroller_eliminarticket",
+      "app_modules_teams_teamscontroller_teamscontroller_index",
+      "app_modules_teams_teamscontroller_teamscontroller_indexarlote",
+      "app_modules_teams_teamscontroller_teamscontroller_limpiarruta",
+      "app_modules_teams_teamscontroller_teamscontroller_normalizarurlbase",
+      "app_modules_teams_teamscontroller_teamscontroller_versitio",
+      "app_modules_teams_teamscontroller_teamscontroller_vincular",
+      "app_modules_tickets_ticketscontroller_ticketscontroller",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_atiendeticket",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_cambiarestado",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_clasificar",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_comentar",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_crear",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_descargararchivo",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_detalle",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_index",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_matriz",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_nuevo",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_obtenerpropio",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_rechazar",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_redirigir",
+      "app_modules_tickets_ticketscontroller_ticketscontroller_resolverdestino"
+    ],
+    "1": [
+      "lib_fpdf_fpdf",
+      "lib_fpdf_fpdf_fpdf",
+      "lib_fpdf_fpdf_fpdf_acceptpagebreak",
+      "lib_fpdf_fpdf_fpdf_addfont",
+      "lib_fpdf_fpdf_fpdf_addlink",
+      "lib_fpdf_fpdf_fpdf_addpage",
+      "lib_fpdf_fpdf_fpdf_aliasnbpages",
+      "lib_fpdf_fpdf_fpdf_beginpage",
+      "lib_fpdf_fpdf_fpdf_cell",
+      "lib_fpdf_fpdf_fpdf_checkoutput",
+      "lib_fpdf_fpdf_fpdf_close",
+      "lib_fpdf_fpdf_fpdf_construct",
+      "lib_fpdf_fpdf_fpdf_dounderline",
+      "lib_fpdf_fpdf_fpdf_enddoc",
+      "lib_fpdf_fpdf_fpdf_endpage",
+      "lib_fpdf_fpdf_fpdf_error",
+      "lib_fpdf_fpdf_fpdf_escape",
+      "lib_fpdf_fpdf_fpdf_footer",
+      "lib_fpdf_fpdf_fpdf_getoffset",
+      "lib_fpdf_fpdf_fpdf_getpageheight",
+      "lib_fpdf_fpdf_fpdf_getpagesize",
+      "lib_fpdf_fpdf_fpdf_getpagewidth",
+      "lib_fpdf_fpdf_fpdf_getstringwidth",
+      "lib_fpdf_fpdf_fpdf_getx",
+      "lib_fpdf_fpdf_fpdf_gety",
+      "lib_fpdf_fpdf_fpdf_httpencode",
+      "lib_fpdf_fpdf_fpdf_image",
+      "lib_fpdf_fpdf_fpdf_isascii",
+      "lib_fpdf_fpdf_fpdf_line",
+      "lib_fpdf_fpdf_fpdf_link",
+      "lib_fpdf_fpdf_fpdf_ln",
+      "lib_fpdf_fpdf_fpdf_loadfont",
+      "lib_fpdf_fpdf_fpdf_multicell",
+      "lib_fpdf_fpdf_fpdf_newobj",
+      "lib_fpdf_fpdf_fpdf_out",
+      "lib_fpdf_fpdf_fpdf_output",
+      "lib_fpdf_fpdf_fpdf_pageno",
+      "lib_fpdf_fpdf_fpdf_parsegif",
+      "lib_fpdf_fpdf_fpdf_parsejpg",
+      "lib_fpdf_fpdf_fpdf_parsepng",
+      "lib_fpdf_fpdf_fpdf_parsepngstream",
+      "lib_fpdf_fpdf_fpdf_put",
+      "lib_fpdf_fpdf_fpdf_putcatalog",
+      "lib_fpdf_fpdf_fpdf_putfonts",
+      "lib_fpdf_fpdf_fpdf_putheader",
+      "lib_fpdf_fpdf_fpdf_putimage",
+      "lib_fpdf_fpdf_fpdf_putimages",
+      "lib_fpdf_fpdf_fpdf_putinfo",
+      "lib_fpdf_fpdf_fpdf_putlinks",
+      "lib_fpdf_fpdf_fpdf_putpage",
+      "lib_fpdf_fpdf_fpdf_putpages",
+      "lib_fpdf_fpdf_fpdf_putresourcedict",
+      "lib_fpdf_fpdf_fpdf_putresources",
+      "lib_fpdf_fpdf_fpdf_putstream",
+      "lib_fpdf_fpdf_fpdf_putstreamobject",
+      "lib_fpdf_fpdf_fpdf_puttrailer",
+      "lib_fpdf_fpdf_fpdf_putxobjectdict",
+      "lib_fpdf_fpdf_fpdf_readint",
+      "lib_fpdf_fpdf_fpdf_readstream",
+      "lib_fpdf_fpdf_fpdf_rect",
+      "lib_fpdf_fpdf_fpdf_setauthor",
+      "lib_fpdf_fpdf_fpdf_setautopagebreak",
+      "lib_fpdf_fpdf_fpdf_setcompression",
+      "lib_fpdf_fpdf_fpdf_setcreator",
+      "lib_fpdf_fpdf_fpdf_setdisplaymode",
+      "lib_fpdf_fpdf_fpdf_setdrawcolor",
+      "lib_fpdf_fpdf_fpdf_setfillcolor",
+      "lib_fpdf_fpdf_fpdf_setfont",
+      "lib_fpdf_fpdf_fpdf_setfontsize",
+      "lib_fpdf_fpdf_fpdf_setkeywords",
+      "lib_fpdf_fpdf_fpdf_setleftmargin",
+      "lib_fpdf_fpdf_fpdf_setlinewidth",
+      "lib_fpdf_fpdf_fpdf_setlink",
+      "lib_fpdf_fpdf_fpdf_setmargins",
+      "lib_fpdf_fpdf_fpdf_setrightmargin",
+      "lib_fpdf_fpdf_fpdf_setsubject",
+      "lib_fpdf_fpdf_fpdf_settextcolor",
+      "lib_fpdf_fpdf_fpdf_settitle",
+      "lib_fpdf_fpdf_fpdf_settopmargin",
+      "lib_fpdf_fpdf_fpdf_setx",
+      "lib_fpdf_fpdf_fpdf_setxy",
+      "lib_fpdf_fpdf_fpdf_sety",
+      "lib_fpdf_fpdf_fpdf_text",
+      "lib_fpdf_fpdf_fpdf_textstring",
+      "lib_fpdf_fpdf_fpdf_tounicodecmap",
+      "lib_fpdf_fpdf_fpdf_utf8encode",
+      "lib_fpdf_fpdf_fpdf_utf8toutf16",
+      "lib_fpdf_fpdf_fpdf_write"
+    ],
+    "2": [
+      "app_core_controller_controller_vista",
+      "app_core_database_database",
+      "app_core_database_database_ejecutar",
+      "app_core_database_database_pdo",
+      "app_core_database_database_todas",
+      "app_core_database_database_una",
+      "app_core_database_database_valor",
+      "app_core_helpers_ajuste",
+      "app_core_helpers_redirigir",
+      "app_core_router",
+      "app_core_router_router",
+      "app_core_router_router_despachar",
+      "app_core_router_router_registrarmodulo",
+      "app_core_view_view",
+      "app_core_view_view_capturar",
+      "app_core_view_view_render",
+      "app_modules_alumnos_alumnoscontroller_alumnoscontroller_crear",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_agregarbitacora",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_archivo",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_cambiarestado",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_crear",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_detalle",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_esgestor",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_exigirautoridad",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_index",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_invitar",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_nueva",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_obtener",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_postular",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_profesores",
+      "app_modules_comisiones_comisionescontroller_comisionescontroller_responder",
+      "app_modules_directorio_directoriocontroller_directoriocontroller",
+      "app_modules_directorio_directoriocontroller_directoriocontroller_detalle",
+      "app_modules_directorio_directoriocontroller_directoriocontroller_index",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_cerrar",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_crear",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_detalle",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_index",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_nueva",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_obtener",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_opcionesconvotos",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_tablero",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_tablerocsv",
+      "app_modules_encuestas_encuestascontroller_encuestascontroller_votar",
+      "app_modules_foro_forocontroller_forocontroller",
+      "app_modules_foro_forocontroller_forocontroller_alternarlike",
+      "app_modules_foro_forocontroller_forocontroller_comentar",
+      "app_modules_foro_forocontroller_forocontroller_detalle",
+      "app_modules_foro_forocontroller_forocontroller_evaluarumbral",
+      "app_modules_foro_forocontroller_forocontroller_index",
+      "app_modules_foro_forocontroller_forocontroller_likecomentario",
+      "app_modules_foro_forocontroller_forocontroller_likepublicacion",
+      "app_modules_foro_forocontroller_forocontroller_obtener",
+      "app_modules_foro_forocontroller_forocontroller_publicar",
+      "app_modules_recursos_recursoscontroller_recursoscontroller",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_actualizar",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_agregarnota",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_crear",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_editarnota",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_eliminar",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_eliminarnota",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_exigiradmin",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_ficha",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_guardardesdeformulario",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_notapropia",
+      "app_modules_recursos_recursoscontroller_recursoscontroller_panel",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_cambiarestado",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_comentar",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_crear",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_detalle",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_index",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_nueva",
+      "app_modules_solicitudes_solicitudescontroller_solicitudescontroller_obtenerpropia",
+      "pdo"
+    ],
+    "3": [
+      "exception",
+      "lib_fpdi_src_fpdftrait",
+      "lib_fpdi_src_fpdftrait_enddoc",
+      "lib_fpdi_src_fpdftrait_gettemplatesize",
+      "lib_fpdi_src_fpdftrait_put",
+      "lib_fpdi_src_fpdftrait_putimages",
+      "lib_fpdi_src_fpdftrait_putlinks",
+      "lib_fpdi_src_fpdftrait_putxobjectdict",
+      "lib_fpdi_src_fpdftrait_usetemplate",
+      "lib_fpdi_src_fpdi",
+      "lib_fpdi_src_fpdiexception",
+      "lib_fpdi_src_fpdiexception_fpdiexception",
+      "lib_fpdi_src_fpditrait",
+      "lib_fpdi_src_fpditrait_adjustlastlink",
+      "lib_fpdi_src_fpditrait_cleanup",
+      "lib_fpdi_src_fpditrait_getimportedpagesize",
+      "lib_fpdi_src_fpditrait_getpdfparserinstance",
+      "lib_fpdi_src_fpditrait_getpdfreader",
+      "lib_fpdi_src_fpditrait_getpdfreaderid",
+      "lib_fpdi_src_fpditrait_setminpdfversion",
+      "lib_fpdi_src_fpditrait_setsourcefile",
+      "lib_fpdi_src_fpditrait_setsourcefilewithparserparams",
+      "lib_fpdi_src_fpditrait_useimportedpage",
+      "lib_fpdi_src_pdfparser_crossreference_abstractreader",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference",
+      "lib_fpdi_src_pdfparser_crossreference_crossreferenceexception",
+      "lib_fpdi_src_pdfparser_crossreference_crossreferenceexception_crossreferenceexception",
+      "lib_fpdi_src_pdfparser_crossreference_readerinterface",
+      "lib_fpdi_src_pdfparser_crossreference_readerinterface_getoffsetfor",
+      "lib_fpdi_src_pdfparser_crossreference_readerinterface_gettrailer",
+      "lib_fpdi_src_pdfparser_filter_ascii85exception",
+      "lib_fpdi_src_pdfparser_filter_ascii85exception_ascii85exception",
+      "lib_fpdi_src_pdfparser_filter_asciihex",
+      "lib_fpdi_src_pdfparser_filter_filterexception",
+      "lib_fpdi_src_pdfparser_filter_filterexception_filterexception",
+      "lib_fpdi_src_pdfparser_filter_flateexception",
+      "lib_fpdi_src_pdfparser_filter_flateexception_flateexception",
+      "lib_fpdi_src_pdfparser_filter_lzwexception",
+      "lib_fpdi_src_pdfparser_filter_lzwexception_lzwexception",
+      "lib_fpdi_src_pdfparser_pdfparser",
+      "lib_fpdi_src_pdfparser_pdfparserexception",
+      "lib_fpdi_src_pdfparser_pdfparserexception_pdfparserexception",
+      "lib_fpdi_src_pdfparser_type_pdfarray",
+      "lib_fpdi_src_pdfparser_type_pdfboolean",
+      "lib_fpdi_src_pdfparser_type_pdfdictionary",
+      "lib_fpdi_src_pdfparser_type_pdfhexstring",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobject_pdfindirectobject",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobjectreference",
+      "lib_fpdi_src_pdfparser_type_pdfname",
+      "lib_fpdi_src_pdfparser_type_pdfnull",
+      "lib_fpdi_src_pdfparser_type_pdfnumeric",
+      "lib_fpdi_src_pdfparser_type_pdfstream",
+      "lib_fpdi_src_pdfparser_type_pdfstring",
+      "lib_fpdi_src_pdfparser_type_pdftoken",
+      "lib_fpdi_src_pdfparser_type_pdftype",
+      "lib_fpdi_src_pdfparser_type_pdftypeexception",
+      "lib_fpdi_src_pdfparser_type_pdftypeexception_pdftypeexception",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle",
+      "lib_fpdi_src_pdfreader_page",
+      "lib_fpdi_src_pdfreader_pageboundaries",
+      "lib_fpdi_src_pdfreader_pageboundaries_pageboundaries",
+      "lib_fpdi_src_pdfreader_pageboundaries_pageboundaries_isvalidname",
+      "lib_fpdi_src_pdfreader_pdfreader",
+      "lib_fpdi_src_pdfreader_pdfreaderexception",
+      "lib_fpdi_src_pdfreader_pdfreaderexception_pdfreaderexception",
+      "lib_fpdi_src_tcpdf_fpdi"
+    ],
+    "4": [
+      "app_core_controller",
+      "app_core_controller_controller",
+      "app_core_controller_controller_construct",
+      "app_core_controller_controller_post",
+      "app_core_database",
+      "app_core_view",
+      "app_modules_ajustes_ajustescontroller",
+      "app_modules_ajustes_module",
+      "app_modules_alumnos_alumnoscontroller",
+      "app_modules_alumnos_alumnoscontroller_alumnoscontroller",
+      "app_modules_alumnos_alumnoscontroller_alumnoscontroller_index",
+      "app_modules_alumnos_module",
+      "app_modules_busqueda_busquedacontroller",
+      "app_modules_busqueda_busquedacontroller_busquedacontroller",
+      "app_modules_busqueda_busquedacontroller_busquedacontroller_index",
+      "app_modules_busqueda_module",
+      "app_modules_calendario_calendariocontroller",
+      "app_modules_calendario_module",
+      "app_modules_comisiones_comisionescontroller",
+      "app_modules_comisiones_module",
+      "app_modules_comunicados_comunicadoscontroller",
+      "app_modules_comunicados_module",
+      "app_modules_directorio_directoriocontroller",
+      "app_modules_directorio_module",
+      "app_modules_encuestas_encuestascontroller",
+      "app_modules_encuestas_module",
+      "app_modules_eventos_eventoscontroller",
+      "app_modules_eventos_eventoscontroller_eventoscontroller",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_biblioteca",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_detalle",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_exportarics",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_filtros",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_index",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_puedeemitircomunicados",
+      "app_modules_eventos_eventoscontroller_eventoscontroller_sanitizeicstext",
+      "app_modules_eventos_module",
+      "app_modules_firmas_firmascontroller",
+      "app_modules_firmas_gruposcontroller",
+      "app_modules_firmas_module",
+      "app_modules_foro_forocontroller",
+      "app_modules_foro_module",
+      "app_modules_funciones_funcionescontroller",
+      "app_modules_funciones_funcionescontroller_funcionescontroller",
+      "app_modules_funciones_funcionescontroller_funcionescontroller_index",
+      "app_modules_funciones_module",
+      "app_modules_portal_module",
+      "app_modules_portal_portalcontroller",
+      "app_modules_portal_portalcontroller_portalcontroller",
+      "app_modules_portal_portalcontroller_portalcontroller_comunidad",
+      "app_modules_portal_portalcontroller_portalcontroller_filtrocomunicados",
+      "app_modules_portal_portalcontroller_portalcontroller_index",
+      "app_modules_portal_portalcontroller_portalcontroller_staff",
+      "app_modules_recursos_module",
+      "app_modules_recursos_recursoscontroller",
+      "app_modules_solicitudes_module",
+      "app_modules_solicitudes_solicitudescontroller",
+      "app_modules_teams_module",
+      "app_modules_teams_teamscontroller",
+      "app_modules_tickets_module",
+      "app_modules_tickets_ticketscontroller",
+      "controller"
+    ],
+    "5": [
+      "lib_fpdi_src_pdfparser_crossreference_abstractreader_abstractreader",
+      "lib_fpdi_src_pdfparser_crossreference_abstractreader_abstractreader_construct",
+      "lib_fpdi_src_pdfparser_crossreference_abstractreader_abstractreader_gettrailer",
+      "lib_fpdi_src_pdfparser_crossreference_abstractreader_abstractreader_readtrailer",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader_fixedreader",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader_fixedreader_construct",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader_fixedreader_fixfaultysubsectionshift",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader_fixedreader_getoffsetfor",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader_fixedreader_getsubsections",
+      "lib_fpdi_src_pdfparser_crossreference_fixedreader_fixedreader_read",
+      "lib_fpdi_src_pdfparser_crossreference_linereader",
+      "lib_fpdi_src_pdfparser_crossreference_linereader_linereader",
+      "lib_fpdi_src_pdfparser_crossreference_linereader_linereader_construct",
+      "lib_fpdi_src_pdfparser_crossreference_linereader_linereader_extract",
+      "lib_fpdi_src_pdfparser_crossreference_linereader_linereader_getoffsetfor",
+      "lib_fpdi_src_pdfparser_crossreference_linereader_linereader_getoffsets",
+      "lib_fpdi_src_pdfparser_crossreference_linereader_linereader_read",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_construct",
+      "lib_fpdi_src_pdfparser_streamreader",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_addoffset",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_cleanup",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_construct",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_createbyfile",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_createbystring",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_destruct",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_ensure",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_ensurecontent",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_getbuffer",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_getbufferlength",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_getbyte",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_getoffset",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_getposition",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_getstream",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_gettotallength",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_increaselength",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_readbyte",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_readbytes",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_readline",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_reset",
+      "lib_fpdi_src_pdfparser_streamreader_streamreader_setoffset",
+      "readerinterface"
+    ],
+    "6": [
+      "app_core_totp",
+      "app_core_totp_totp",
+      "app_core_totp_totp_base32decode",
+      "app_core_totp_totp_calcularcodigo",
+      "app_core_totp_totp_generarsecreto",
+      "app_core_totp_totp_verificar",
+      "app_core_webauthn",
+      "app_core_webauthn_webauthn",
+      "app_core_webauthn_webauthn_base64urldecode",
+      "app_core_webauthn_webauthn_generarchallenge",
+      "app_core_webauthn_webauthn_verificar",
+      "app_modules_ajustes_ajustescontroller_ajustescontroller_exportar",
+      "app_modules_auth_authcontroller",
+      "app_modules_auth_authcontroller_authcontroller",
+      "app_modules_auth_authcontroller_authcontroller_biometriachallenge",
+      "app_modules_auth_authcontroller_authcontroller_consultarpermisocontrasena",
+      "app_modules_auth_authcontroller_authcontroller_enviarcorreohostinger",
+      "app_modules_auth_authcontroller_authcontroller_loginbiometrico",
+      "app_modules_auth_authcontroller_authcontroller_logintotp",
+      "app_modules_auth_authcontroller_authcontroller_solicitarotp",
+      "app_modules_auth_authcontroller_authcontroller_verificarotp",
+      "app_modules_auth_authcontroller_authcontroller_verificarprimerpaso",
+      "app_modules_auth_module",
+      "app_modules_calendario_calendariocontroller_calendariocontroller",
+      "app_modules_calendario_calendariocontroller_calendariocontroller_ejecutarsincronizacion",
+      "app_modules_calendario_calendariocontroller_calendariocontroller_index",
+      "app_modules_calendario_calendariocontroller_calendariocontroller_parseics",
+      "app_modules_calendario_calendariocontroller_calendariocontroller_parseicsdatetime",
+      "app_modules_calendario_calendariocontroller_calendariocontroller_sincronizarics",
+      "app_modules_calendario_calendariocontroller_calendariocontroller_vincularics",
+      "app_modules_seguridad_module",
+      "app_modules_seguridad_seguridadcontroller",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_biometriaregistrochallenge",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_eliminarbiometria",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_index",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_registrarbiometria",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_totpdesvincular",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_totpgenerar",
+      "app_modules_seguridad_seguridadcontroller_seguridadcontroller_totpvincular",
+      "lib_fpdf_fpdf_fpdf_header"
+    ],
+    "7": [
+      "app_core_auth_auth_csrfvalido",
+      "app_core_auth_auth_departamentoid",
+      "app_core_auth_auth_id",
+      "app_core_auth_auth_rol",
+      "app_core_auth_auth_tienerol",
+      "app_modules_firmas_pdffirmador",
+      "app_modules_firmas_pdffirmador_pdffirmador",
+      "app_modules_firmas_pdffirmador_pdffirmador_cargarlibs",
+      "app_modules_firmas_pdffirmador_pdffirmador_dibujarsello",
+      "app_modules_firmas_pdffirmador_pdffirmador_esestampable",
+      "app_modules_firmas_pdffirmador_pdffirmador_estampar",
+      "app_modules_firmas_pdffirmador_pdffirmador_hojafirmas",
+      "app_modules_firmas_pdffirmador_pdffirmador_latin1",
+      "lib_fpdi_src_graphicsstate",
+      "lib_fpdi_src_graphicsstate_graphicsstate",
+      "lib_fpdi_src_graphicsstate_graphicsstate_add",
+      "lib_fpdi_src_graphicsstate_graphicsstate_construct",
+      "lib_fpdi_src_graphicsstate_graphicsstate_rotate",
+      "lib_fpdi_src_graphicsstate_graphicsstate_scale",
+      "lib_fpdi_src_graphicsstate_graphicsstate_touserspace",
+      "lib_fpdi_src_graphicsstate_graphicsstate_translate",
+      "lib_fpdi_src_math_matrix",
+      "lib_fpdi_src_math_matrix_matrix",
+      "lib_fpdi_src_math_matrix_matrix_construct",
+      "lib_fpdi_src_math_matrix_matrix_getvalues",
+      "lib_fpdi_src_math_matrix_matrix_multiply",
+      "lib_fpdi_src_math_vector",
+      "lib_fpdi_src_math_vector_vector",
+      "lib_fpdi_src_math_vector_vector_construct",
+      "lib_fpdi_src_math_vector_vector_getx",
+      "lib_fpdi_src_math_vector_vector_gety",
+      "lib_fpdi_src_math_vector_vector_multiplywithmatrix",
+      "lib_fpdi_src_pdfparser_type_pdfdictionary_pdfdictionary_get",
+      "lib_fpdi_src_pdfparser_type_pdftype_pdftype_flatten",
+      "lib_fpdi_src_pdfparser_type_pdftype_pdftype_resolve",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_byvectors",
+      "self"
+    ],
+    "8": [
+      "legacy_app",
+      "legacy_app_category_icons",
+      "legacy_app_category_names",
+      "legacy_app_createlistitem",
+      "legacy_app_dom",
+      "legacy_app_getdepartmentcategory",
+      "legacy_app_getrelationshipsfor",
+      "legacy_app_getshortfunctiontitle",
+      "legacy_app_initapp",
+      "legacy_app_openorganigramamodal",
+      "legacy_app_populateroleselector",
+      "legacy_app_rendercontextnav",
+      "legacy_app_renderdirectoriotab",
+      "legacy_app_renderfuncionestab",
+      "legacy_app_renderinterface",
+      "legacy_app_rendermaincanvas",
+      "legacy_app_renderportaltab",
+      "legacy_app_renderrelacionestab",
+      "legacy_app_setupeventlisteners",
+      "legacy_app_state",
+      "legacy_app_updaterolestate"
+    ],
+    "9": [
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_cleanup",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_ensureexpectedtype",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_getcatalog",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_getcrossreference",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_getindirectobject",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_getpdfversion",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_getstreamreader",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_gettokenizer",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_parsepdfarray",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_parsepdfdictionary",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_parsepdfindirectobject",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_parsepdfname",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_readvalue",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_resolvefileheader",
+      "lib_fpdi_src_pdfparser_type_pdfname_pdfname",
+      "lib_fpdi_src_pdfparser_type_pdfname_pdfname_create",
+      "lib_fpdi_src_pdfparser_type_pdfname_pdfname_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfname_pdfname_parse",
+      "lib_fpdi_src_pdfparser_type_pdfname_pdfname_unescape",
+      "lib_fpdi_src_pdfreader_page_page_construct"
+    ],
+    "10": [
+      "lib_fpdi_src_fpditrait_writepdftype",
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_parsepdfhexstring",
+      "lib_fpdi_src_pdfparser_type_pdfboolean_pdfboolean",
+      "lib_fpdi_src_pdfparser_type_pdfboolean_pdfboolean_create",
+      "lib_fpdi_src_pdfparser_type_pdfboolean_pdfboolean_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfdictionary_pdfdictionary_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfhexstring_pdfhexstring",
+      "lib_fpdi_src_pdfparser_type_pdfhexstring_pdfhexstring_create",
+      "lib_fpdi_src_pdfparser_type_pdfhexstring_pdfhexstring_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfhexstring_pdfhexstring_parse",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobject_pdfindirectobject_create",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobject_pdfindirectobject_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfnull_pdfnull",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_ensure",
+      "lib_fpdi_src_pdfparser_type_pdftoken_pdftoken",
+      "lib_fpdi_src_pdfparser_type_pdftoken_pdftoken_create",
+      "lib_fpdi_src_pdfparser_type_pdftoken_pdftoken_ensure",
+      "lib_fpdi_src_pdfparser_type_pdftype_pdftype",
+      "lib_fpdi_src_pdfparser_type_pdftype_pdftype_ensuretype"
+    ],
+    "11": [
+      "fpdftpl",
+      "fpdftrait",
+      "fpditrait",
+      "lib_fpdi_src_fpdi_fpdi",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_enddoc",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_getnexttemplateid",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_gettemplatesize",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_getxobjectdict",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_newobj",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_put",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_putxobjects",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_useimportedpage",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_usetemplate",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_writepdftype",
+      "lib_fpdi_src_tfpdf_fpdi",
+      "lib_fpdi_src_tfpdf_fpdi_fpdi",
+      "tcpdf"
+    ],
+    "12": [
+      "lib_fpdi_src_fpdftpltrait",
+      "lib_fpdi_src_fpdftpltrait_addpage",
+      "lib_fpdi_src_fpdftpltrait_begintemplate",
+      "lib_fpdi_src_fpdftpltrait_endtemplate",
+      "lib_fpdi_src_fpdftpltrait_getnexttemplateid",
+      "lib_fpdi_src_fpdftpltrait_gettemplatesize",
+      "lib_fpdi_src_fpdftpltrait_link",
+      "lib_fpdi_src_fpdftpltrait_out",
+      "lib_fpdi_src_fpdftpltrait_putimages",
+      "lib_fpdi_src_fpdftpltrait_putxobjectdict",
+      "lib_fpdi_src_fpdftpltrait_setdrawcolor",
+      "lib_fpdi_src_fpdftpltrait_setfillcolor",
+      "lib_fpdi_src_fpdftpltrait_setfont",
+      "lib_fpdi_src_fpdftpltrait_setfontsize",
+      "lib_fpdi_src_fpdftpltrait_setlinewidth",
+      "lib_fpdi_src_fpdftpltrait_setlink",
+      "lib_fpdi_src_fpdftpltrait_setpageformat",
+      "lib_fpdi_src_fpdftpltrait_usetemplate"
+    ],
+    "13": [
+      "filterinterface",
+      "lib_fpdi_src_pdfparser_filter_ascii85",
+      "lib_fpdi_src_pdfparser_filter_ascii85_ascii85",
+      "lib_fpdi_src_pdfparser_filter_ascii85_ascii85_decode",
+      "lib_fpdi_src_pdfparser_filter_asciihex_asciihex",
+      "lib_fpdi_src_pdfparser_filter_asciihex_asciihex_decode",
+      "lib_fpdi_src_pdfparser_filter_asciihex_asciihex_encode",
+      "lib_fpdi_src_pdfparser_filter_flate",
+      "lib_fpdi_src_pdfparser_filter_flate_flate",
+      "lib_fpdi_src_pdfparser_filter_flate_flate_decode",
+      "lib_fpdi_src_pdfparser_filter_flate_flate_extensionloaded",
+      "lib_fpdi_src_pdfparser_filter_lzw",
+      "lib_fpdi_src_pdfparser_filter_lzw_lzw",
+      "lib_fpdi_src_pdfparser_filter_lzw_lzw_addstringtotable",
+      "lib_fpdi_src_pdfparser_filter_lzw_lzw_decode",
+      "lib_fpdi_src_pdfparser_filter_lzw_lzw_getnextcode",
+      "lib_fpdi_src_pdfparser_filter_lzw_lzw_initstable"
+    ],
+    "14": [
+      "lib_fpdi_src_pdfparser_type_pdfarray_pdfarray",
+      "lib_fpdi_src_pdfparser_type_pdfarray_pdfarray_create",
+      "lib_fpdi_src_pdfparser_type_pdfarray_pdfarray_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfarray_pdfarray_parse",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobjectreference_pdfindirectobjectreference",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobjectreference_pdfindirectobjectreference_create",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobjectreference_pdfindirectobjectreference_ensure",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_construct",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_destruct",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_getpage",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_getpagecount",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_getparser",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_getpdfversion",
+      "lib_fpdi_src_pdfreader_pdfreader_pdfreader_readpages",
+      "lib_fpdi_src_tcpdf_fpdi_fpdi_adjustlastlink"
+    ],
+    "15": [
+      "lib_fpdi_src_pdfparser_type_pdfnumeric_pdfnumeric",
+      "lib_fpdi_src_pdfparser_type_pdfnumeric_pdfnumeric_create",
+      "lib_fpdi_src_pdfparser_type_pdfnumeric_pdfnumeric_ensure",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_bypdfarray",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_construct",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_getheight",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_getllx",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_getlly",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_geturx",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_getury",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_getwidth",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_toarray",
+      "lib_fpdi_src_pdfreader_datastructure_rectangle_rectangle_topdfarray"
+    ],
+    "16": [
+      "app_modules_busqueda_buscador",
+      "app_modules_busqueda_buscador_buscador",
+      "app_modules_busqueda_buscador_buscador_buscar",
+      "app_modules_busqueda_buscador_buscador_buscarconembeddings",
+      "app_modules_busqueda_buscador_buscador_buscarlocal",
+      "app_modules_busqueda_buscador_buscador_coseno",
+      "app_modules_busqueda_buscador_buscador_cosenodisperso",
+      "app_modules_busqueda_buscador_buscador_embeber",
+      "app_modules_busqueda_buscador_buscador_hayembeddings",
+      "app_modules_busqueda_buscador_buscador_metodoactivo",
+      "app_modules_busqueda_buscador_buscador_tfidf",
+      "app_modules_busqueda_buscador_buscador_tokenizar",
+      "app_modules_busqueda_buscador_buscador_top"
+    ],
+    "17": [
+      "app_core_app",
+      "app_core_app_app",
+      "app_core_app_app_config",
+      "app_core_app_app_run",
+      "app_core_modulemanager",
+      "app_core_modulemanager_modulemanager",
+      "app_core_modulemanager_modulemanager_descubrir",
+      "app_core_modulemanager_modulemanager_dir",
+      "app_core_modulemanager_modulemanager_menu",
+      "app_core_view_view_resolver",
+      "app_views_layouts_app"
+    ],
+    "18": [
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_checkforencryption",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_construct",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_findstartxref",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_getindirectobject",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_getoffsetfor",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_getreaders",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_getsize",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_gettrailer",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_initreaderinstance",
+      "lib_fpdi_src_pdfparser_crossreference_crossreference_crossreference_readxref"
+    ],
+    "19": [
+      "lib_fpdi_src_pdfparser_tokenizer",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer_clearstack",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer_construct",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer_getnexttoken",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer_getstreamreader",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer_leapwhitespaces",
+      "lib_fpdi_src_pdfparser_tokenizer_tokenizer_pushstack",
+      "lib_fpdi_src_pdfparser_type_pdfdictionary_pdfdictionary_parse",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobject",
+      "lib_fpdi_src_pdfparser_type_pdfindirectobject_pdfindirectobject_parse"
+    ],
+    "20": [
+      "lib_fpdi_src_fpditrait_importpage",
+      "lib_fpdi_src_pdfparser_type_pdfdictionary_pdfdictionary",
+      "lib_fpdi_src_pdfparser_type_pdfdictionary_pdfdictionary_create",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_create",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_extractstream",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_getfilters",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_getstream",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_getunfilteredstream",
+      "lib_fpdi_src_pdfparser_type_pdfstream_pdfstream_parse"
+    ],
+    "21": [
+      "lib_fpdi_src_pdfreader_page_page",
+      "lib_fpdi_src_pdfreader_page_page_getattribute",
+      "lib_fpdi_src_pdfreader_page_page_getboundary",
+      "lib_fpdi_src_pdfreader_page_page_getcontentstream",
+      "lib_fpdi_src_pdfreader_page_page_getexternallinks",
+      "lib_fpdi_src_pdfreader_page_page_getpagedictionary",
+      "lib_fpdi_src_pdfreader_page_page_getpageobject",
+      "lib_fpdi_src_pdfreader_page_page_getrotation",
+      "lib_fpdi_src_pdfreader_page_page_getwidthandheight"
+    ],
+    "22": [
+      "lib_fpdi_src_pdfparser_pdfparser_pdfparser_parsepdfstring",
+      "lib_fpdi_src_pdfparser_type_pdfstring_pdfstring",
+      "lib_fpdi_src_pdfparser_type_pdfstring_pdfstring_create",
+      "lib_fpdi_src_pdfparser_type_pdfstring_pdfstring_ensure",
+      "lib_fpdi_src_pdfparser_type_pdfstring_pdfstring_escape",
+      "lib_fpdi_src_pdfparser_type_pdfstring_pdfstring_parse",
+      "lib_fpdi_src_pdfparser_type_pdfstring_pdfstring_unescape"
+    ],
+    "23": [
+      "fpdftpltrait",
+      "lib_fpdi_src_fpdftpl",
+      "lib_fpdi_src_fpdftpl_fpdftpl",
+      "lib_fpdi_src_tfpdf_fpdftpl",
+      "lib_fpdi_src_tfpdf_fpdftpl_fpdftpl",
+      "tfpdf"
+    ],
+    "24": [
+      "fpdi",
+      "lib_fpdi_src_tcpdffpdi",
+      "lib_fpdi_src_tcpdffpdi_tcpdffpdi"
+    ],
+    "25": [
+      "legacy_mo_data",
+      "legacy_mo_data_mo_departamentos_data"
+    ],
+    "26": [
+      "lib_fpdi_src_pdfparser_filter_filterinterface",
+      "lib_fpdi_src_pdfparser_filter_filterinterface_decode"
+    ],
+    "27": [
+      "app_bootstrap"
+    ],
+    "28": [
+      "app_config"
+    ],
+    "29": [
+      "app_config_local"
+    ],
+    "30": [
+      "app_modules_ajustes_views_index"
+    ],
+    "31": [
+      "app_modules_ajustes_views_usuarios"
+    ],
+    "32": [
+      "app_modules_alumnos_views_index"
+    ],
+    "33": [
+      "app_modules_auth_views_login"
+    ],
+    "34": [
+      "app_modules_busqueda_views_index"
+    ],
+    "35": [
+      "app_modules_calendario_views_index"
+    ],
+    "36": [
+      "app_modules_comisiones_views_detalle"
+    ],
+    "37": [
+      "app_modules_comisiones_views_index"
+    ],
+    "38": [
+      "app_modules_comisiones_views_nueva"
+    ],
+    "39": [
+      "app_modules_comunicados_views_index"
+    ],
+    "40": [
+      "app_modules_comunicados_views_nuevo"
+    ],
+    "41": [
+      "app_modules_directorio_views_detalle"
+    ],
+    "42": [
+      "app_modules_directorio_views_index"
+    ],
+    "43": [
+      "app_modules_encuestas_views_detalle"
+    ],
+    "44": [
+      "app_modules_encuestas_views_index"
+    ],
+    "45": [
+      "app_modules_encuestas_views_nueva"
+    ],
+    "46": [
+      "app_modules_encuestas_views_tablero"
+    ],
+    "47": [
+      "app_modules_eventos_views_biblioteca"
+    ],
+    "48": [
+      "app_modules_eventos_views_detalle"
+    ],
+    "49": [
+      "app_modules_eventos_views_index"
+    ],
+    "50": [
+      "app_modules_firmas_views_detalle"
+    ],
+    "51": [
+      "app_modules_firmas_views_grupos"
+    ],
+    "52": [
+      "app_modules_firmas_views_index"
+    ],
+    "53": [
+      "app_modules_firmas_views_mi_firma"
+    ],
+    "54": [
+      "app_modules_firmas_views_nuevo"
+    ],
+    "55": [
+      "app_modules_foro_views_detalle"
+    ],
+    "56": [
+      "app_modules_foro_views_index"
+    ],
+    "57": [
+      "app_modules_funciones_views_index"
+    ],
+    "58": [
+      "app_modules_portal_views_index"
+    ],
+    "59": [
+      "app_modules_portal_views_index_comunidad"
+    ],
+    "60": [
+      "app_modules_recursos_views_ficha"
+    ],
+    "61": [
+      "app_modules_recursos_views_panel"
+    ],
+    "62": [
+      "app_modules_seguridad_views_index"
+    ],
+    "63": [
+      "app_modules_solicitudes_views_detalle"
+    ],
+    "64": [
+      "app_modules_solicitudes_views_index"
+    ],
+    "65": [
+      "app_modules_solicitudes_views_nueva"
+    ],
+    "66": [
+      "app_modules_teams_views_index"
+    ],
+    "67": [
+      "app_modules_teams_views_sitio"
+    ],
+    "68": [
+      "app_modules_tickets_views_detalle"
+    ],
+    "69": [
+      "app_modules_tickets_views_index"
+    ],
+    "70": [
+      "app_modules_tickets_views_matriz"
+    ],
+    "71": [
+      "app_modules_tickets_views_nuevo"
+    ],
+    "72": [
+      "app_views_errores_403"
+    ],
+    "73": [
+      "app_views_errores_404"
+    ],
+    "74": [
+      "app_views_layouts_auth"
+    ],
+    "75": [
+      "lib_fpdf_font_courier"
+    ],
+    "76": [
+      "lib_fpdf_font_courierb"
+    ],
+    "77": [
+      "lib_fpdf_font_courierbi"
+    ],
+    "78": [
+      "lib_fpdf_font_courieri"
+    ],
+    "79": [
+      "lib_fpdf_font_helvetica"
+    ],
+    "80": [
+      "lib_fpdf_font_helveticab"
+    ],
+    "81": [
+      "lib_fpdf_font_helveticabi"
+    ],
+    "82": [
+      "lib_fpdf_font_helveticai"
+    ],
+    "83": [
+      "lib_fpdf_font_symbol"
+    ],
+    "84": [
+      "lib_fpdf_font_times"
+    ],
+    "85": [
+      "lib_fpdf_font_timesb"
+    ],
+    "86": [
+      "lib_fpdf_font_timesbi"
+    ],
+    "87": [
+      "lib_fpdf_font_timesi"
+    ],
+    "88": [
+      "lib_fpdf_font_zapfdingbats"
+    ],
+    "89": [
+      "lib_fpdi_autoload"
+    ],
+    "90": [
+      "lib_fpdi_src_autoload"
+    ],
+    "91": [
+      "public_assets_js_app"
+    ],
+    "92": [
+      "public_index"
+    ],
+    "93": [
+      "scratch_db_update"
+    ]
+  },
+  "cohesion": {
+    "0": 0.054746651135701804,
+    "1": 0.051462904911180773,
+    "2": 0.06425153793574846,
+    "3": 0.07226107226107226,
+    "4": 0.053551912568306013,
+    "5": 0.0753045404208195,
+    "6": 0.07317073170731707,
+    "7": 0.07057057057057058,
+    "8": 0.2571428571428571,
+    "9": 0.14761904761904762,
+    "10": 0.12280701754385964,
+    "11": 0.16339869281045752,
+    "12": 0.16993464052287582,
+    "13": 0.14705882352941177,
+    "14": 0.16666666666666666,
+    "15": 0.15384615384615385,
+    "16": 0.2948717948717949,
+    "17": 0.18181818181818182,
+    "18": 0.34545454545454546,
+    "19": 0.2,
+    "20": 0.37777777777777777,
+    "21": 0.5,
+    "22": 0.2857142857142857,
+    "23": 0.4,
+    "24": 0.6666666666666666,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_core_auth_auth",
+      "label": "Auth",
+      "degree": 123
+    },
+    {
+      "id": "lib_fpdf_fpdf_fpdf",
+      "label": "FPDF",
+      "degree": 89
+    },
+    {
+      "id": "app_core_database_database",
+      "label": "Database",
+      "degree": 61
+    },
+    {
+      "id": "app_core_helpers_flash",
+      "label": "flash()",
+      "degree": 61
+    },
+    {
+      "id": "lib_fpdi_src_pdfparser_type_pdftype_pdftype",
+      "label": "PdfType",
+      "degree": 52
+    },
+    {
+      "id": "lib_fpdi_src_pdfparser_pdfparser_pdfparser",
+      "label": "PdfParser",
+      "degree": 43
+    },
+    {
+      "id": "lib_fpdi_src_pdfparser_streamreader_streamreader",
+      "label": "StreamReader",
+      "degree": 41
+    },
+    {
+      "id": "app_core_helpers_redirigir",
+      "label": "redirigir()",
+      "degree": 30
+    },
+    {
+      "id": "lib_fpdi_src_pdfparser_type_pdfdictionary_pdfdictionary",
+      "label": "PdfDictionary",
+      "degree": 25
+    },
+    {
+      "id": "app_core_controller_controller",
+      "label": "Controller",
+      "degree": 22
+    }
+  ],
+  "surprises": [
+    {
+      "source": "importPage()",
+      "target": "PdfArray",
+      "source_files": [
+        "lib/fpdi/src/FpdiTrait.php",
+        "lib/fpdi/src/PdfParser/Type/PdfArray.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "importPage()",
+      "target": "PdfName",
+      "source_files": [
+        "lib/fpdi/src/FpdiTrait.php",
+        "lib/fpdi/src/PdfParser/Type/PdfName.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "importPage()",
+      "target": "PdfNumeric",
+      "source_files": [
+        "lib/fpdi/src/FpdiTrait.php",
+        "lib/fpdi/src/PdfParser/Type/PdfNumeric.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "importPage()",
+      "target": "PageBoundaries",
+      "source_files": [
+        "lib/fpdi/src/FpdiTrait.php",
+        "lib/fpdi/src/PdfReader/PageBoundaries.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "ComisionesController",
+      "target": "Controller",
+      "source_files": [
+        "app/Modules/Comisiones/ComisionesController.php",
+        "app/Core/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Auth` connect `Auth` to `Database`, `Controller`, `.Header`, `self`?",
+      "why": "High betweenness centrality (0.425) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `PdfType` connect `PdfType` to `FpdiTrait.php`, `self`, `PdfParser`, `Fpdi`, `PdfArray`, `PdfNumeric`, `PdfDictionary`, `Page`, `PdfString`?",
+      "why": "High betweenness centrality (0.197) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `FPDF` connect `FPDF` to `.Header`, `FpdfTplTrait`?",
+      "why": "High betweenness centrality (0.170) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 112 inferred relationships involving `Auth` (e.g. with `.despachar()` and `.crear()`) actually correct?",
+      "why": "`Auth` has 112 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 54 inferred relationships involving `Database` (e.g. with `.crear()` and `.index()`) actually correct?",
+      "why": "`Database` has 54 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 60 inferred relationships involving `flash()` (e.g. with `.actualizarUsuario()` and `.crearUsuario()`) actually correct?",
+      "why": "`flash()` has 60 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `CATEGORY_NAMES`, `CATEGORY_ICONS`, `state` to the rest of the system?",
+      "why": "5 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

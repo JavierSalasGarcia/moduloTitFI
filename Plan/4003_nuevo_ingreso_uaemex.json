@@ -1,0 +1,5089 @@
+{
+  "id_categoria": "4003",
+  "categoria": "Nuevo ingreso UAEMéx",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4003",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYzRmYTUwMTktMWYxYS00YzAwLWJkZjItMTQxYjY5NWJmM2Q5IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura de Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Ingreso Fuera de Toluca"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Ingreso Fuera de Toluca": 0,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "002",
+        "metricas": [
+          "Ingreso Ciclo Actual"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+        },
+        "registros": [
+          {
+            "Ingreso Ciclo Actual": 722,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Ciclo escolar",
+          "Género_Ingreso",
+          "Suma de Total_Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+          "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+          "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+        },
+        "formatos": {
+          "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2016-2017",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 369,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2016-2017",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 95,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 384,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 112,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 422,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 137,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 449,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 126,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 424,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 128,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 319,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 93,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 486,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 132,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 511,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 172,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 600,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 170,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 552,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 170,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 20
+      },
+      {
+        "visual": "006",
+        "metricas": [
+          "Número y nombre de región",
+          "Ciclo escolar",
+          "Suma de Total_Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+          "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+          "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+        },
+        "formatos": {
+          "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+        },
+        "registros": [
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2016-2017",
+            "Suma de Total_Ingreso": 464,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2017-2018",
+            "Suma de Total_Ingreso": 496,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2018-2019",
+            "Suma de Total_Ingreso": 559,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2019-2020",
+            "Suma de Total_Ingreso": 575,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2020-2021",
+            "Suma de Total_Ingreso": 552,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2021-2022",
+            "Suma de Total_Ingreso": 412,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2022-2023",
+            "Suma de Total_Ingreso": 618,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2023-2024",
+            "Suma de Total_Ingreso": 683,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2024-2025",
+            "Suma de Total_Ingreso": 770,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2025-2026",
+            "Suma de Total_Ingreso": 722,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10
+      },
+      {
+        "visual": "008",
+        "metricas": [
+          "Ingreso Toluca"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Ingreso Toluca": 722,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "010",
+        "metricas": [
+          "Indice Paridad Genero Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Indice Paridad Genero Ingreso": 0.3079710144927536,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "011",
+        "metricas": [
+          "Superavit Mujeres Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+        },
+        "registros": [
+          {
+            "Superavit Mujeres Ingreso": -382,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "013",
+        "metricas": [
+          "% Crecimiento Anual Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "% Crecimiento Anual Ingreso": -0.06233766233766234,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Total_Ingreso",
+          "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+          "periodo_inicial": "2016-2017",
+          "valor_inicial": 464,
+          "periodo_final": "2025-2026",
+          "valor_final": 722,
+          "cambio_absoluto": 258,
+          "visual_fuente": "003",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Suma de Total_Ingreso: 464 en 2016-2017 y 722 en 2025-2026 (cambio +258).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 14,
+            "periodo_final": "2025-2026",
+            "valor_final": 3,
+            "cambio_absoluto": -11,
+            "visual_fuente": "003",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 14 en 2019-2020 y 3 en 2025-2026 (cambio -11).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 152,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 34,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 89,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 42,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 99,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 33,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 95,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 37,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 30,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 97,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 34,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 114,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 119,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 39,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 109,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 43,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Ingreso": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Ingreso": 118,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Ingreso": 131,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 132,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 97,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 131,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 149,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 158,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 152,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 152,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.3944954128440367,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -66,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": -0.0379746835443038,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 113,
+            "periodo_final": "2025-2026",
+            "valor_final": 152,
+            "cambio_absoluto": 39,
+            "visual_fuente": "003",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 113 en 2016-2017 y 152 en 2025-2026 (cambio +39).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 156,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 102,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 13,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 102,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 15,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 118,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 16,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 110,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 17,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 115,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 24,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 81,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 11,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 121,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 17,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 115,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 133,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 129,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Ingreso": 115,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Ingreso": 117,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Ingreso": 134,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 127,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 139,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 92,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 138,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 144,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 155,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 156,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 156,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.20930232558139536,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -102,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": 0.0064516129032258064,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 115,
+            "periodo_final": "2025-2026",
+            "valor_final": 156,
+            "cambio_absoluto": 41,
+            "visual_fuente": "003",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 115 en 2016-2017 y 156 en 2025-2026 (cambio +41).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 143,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 88,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 23,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 91,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 22,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 105,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 105,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 109,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 26,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 76,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 15,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 125,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 37,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 114,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 31,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 105,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Ingreso": 111,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Ingreso": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Ingreso": 134,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 130,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 135,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 91,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 154,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 150,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 145,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 143,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 143,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.3619047619047619,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": -0.013793103448275862,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 111,
+            "periodo_final": "2025-2026",
+            "valor_final": 143,
+            "cambio_absoluto": 32,
+            "visual_fuente": "003",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 111 en 2016-2017 y 143 en 2025-2026 (cambio +32).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 114,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 58,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 12,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 61,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 15,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 60,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 50,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 40,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 74,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 15,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 88,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 15,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 106,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 16,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 97,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 17,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Ingreso": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Ingreso": 70,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Ingreso": 76,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 56,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 46,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 89,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 103,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 122,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 114,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 114,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.17525773195876287,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -80,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": -0.06557377049180328,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 66,
+            "periodo_final": "2025-2026",
+            "valor_final": 114,
+            "cambio_absoluto": 48,
+            "visual_fuente": "003",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 66 en 2016-2017 y 114 en 2025-2026 (cambio +48).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura de Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 51,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 16,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.3137254901960784,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -35,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 54,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 13,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.24074074074074073,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -41,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 36,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 23,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 49,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 49,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 43,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 20,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 56,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 65,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 60,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 36,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 43,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 25,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 20
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2016-2017",
+              "Suma de Total_Ingreso": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2017-2018",
+              "Suma de Total_Ingreso": 78,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2018-2019",
+              "Suma de Total_Ingreso": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 62,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 55,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 81,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 103,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 96,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.5813953488372093,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -18,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": -0.2916666666666667,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 59,
+            "periodo_final": "2025-2026",
+            "valor_final": 68,
+            "cambio_absoluto": 9,
+            "visual_fuente": "003",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 59 en 2016-2017 y 68 en 2025-2026 (cambio +9).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.42857142857142855,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": -0.16666666666666666,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 11,
+            "periodo_final": "2025-2026",
+            "valor_final": 10,
+            "cambio_absoluto": -1,
+            "visual_fuente": "003",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 11 en 2019-2020 y 10 en 2025-2026 (cambio -1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": -0.42857142857142855,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 16,
+            "periodo_final": "2025-2026",
+            "valor_final": 4,
+            "cambio_absoluto": -12,
+            "visual_fuente": "003",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 16 en 2019-2020 y 4 en 2025-2026 (cambio -12).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ingreso Fuera de Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "Ingreso Fuera de Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Fuera de Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Fuera de Toluca": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Ingreso Ciclo Actual"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "Ingreso Ciclo Actual"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Ciclo Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Ciclo Actual": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo escolar",
+            "Género_Ingreso",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "2025_Nvo Ingreso.Género_Ingreso": "Género_Ingreso",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Género_Ingreso": "Mujeres",
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 14
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "Número y nombre de región",
+            "Ciclo escolar",
+            "Suma de Total_Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Número y nombre de región": "Número y nombre de región",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar",
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "Suma de Total_Ingreso"
+          },
+          "formatos": {
+            "Sum(2025_Nvo Ingreso.Total_Ingreso)": "#,0"
+          },
+          "registros": [
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2019-2020",
+              "Suma de Total_Ingreso": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2020-2021",
+              "Suma de Total_Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2021-2022",
+              "Suma de Total_Ingreso": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2022-2023",
+              "Suma de Total_Ingreso": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2023-2024",
+              "Suma de Total_Ingreso": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2024-2025",
+              "Suma de Total_Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2025-2026",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Ingreso Toluca"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "Ingreso Toluca"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Ingreso Toluca": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Indice Paridad Genero Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Indice Paridad Genero Ingreso": "Indice Paridad Genero Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Indice Paridad Genero Ingreso": 0.25,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "011",
+          "metricas": [
+            "Superavit Mujeres Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "Superavit Mujeres Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Superavit Mujeres Ingreso": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres Ingreso": -3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "013",
+          "metricas": [
+            "% Crecimiento Anual Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "% Crecimiento Anual Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.% Crecimiento Anual Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "% Crecimiento Anual Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ingreso",
+            "metrica_modelo": "Sum(2025_Nvo Ingreso.Total_Ingreso)",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 9,
+            "periodo_final": "2025-2026",
+            "valor_final": 5,
+            "cambio_absoluto": -4,
+            "visual_fuente": "003",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ingreso: 9 en 2019-2020 y 5 en 2025-2026 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "conciliacion_ultimo_periodo": {
+    "periodo": "2025-2026",
+    "metrica": "Suma de Total_Ingreso",
+    "total_facultad": 722,
+    "suma_programas_publicados": 722,
+    "diferencia_sin_programa_identificable": 0,
+    "interpretacion": "La suma de programas coincide con el total de Facultad."
+  },
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

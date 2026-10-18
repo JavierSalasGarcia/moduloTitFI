@@ -1,0 +1,221 @@
+{
+  "id_categoria": "4031",
+  "categoria": "Personal académico",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4031",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZmIxOTYzOGItNzI5ZC00OTQyLWFjMGQtN2VmYWM5NjE2NzQ0IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 9,
+      "nombre": "Fortalecimiento de la formación integral del docente"
+    },
+    {
+      "numero": 10,
+      "nombre": "Dignificación de las y los trabajadores universitarios"
+    },
+    {
+      "numero": 11,
+      "nombre": "Gestión administrativa para responder al quehacer universitario"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio universitario",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "003",
+        "metricas": [
+          "Año",
+          "Profesor Tiempo Completo",
+          "Profesor Asignatura",
+          "Profesor Medio Tiempo",
+          "Técnico Académico Medio Tiempo",
+          "Técnico Académico Tiempo Completo",
+          "Total"
+        ],
+        "campos_modelo": {
+          "Hoja1.Año": "Año",
+          "Sum(Hoja1.Profesor Tiempo Completo)": "Profesor Tiempo Completo",
+          "Sum(Hoja1.Profesor Asignatura)": "Profesor Asignatura",
+          "Sum(Hoja1.Profesor Medio Tiempo)": "Profesor Medio Tiempo",
+          "Sum(Hoja1.Técnico Académico Medio Tiempo)": "Técnico Académico Medio Tiempo",
+          "Sum(Hoja1.Técnico Académico Tiempo Completo)": "Técnico Académico Tiempo Completo",
+          "Sum(Hoja1.Total)": "Total"
+        },
+        "formatos": {
+          "Hoja1.Año": "0",
+          "Sum(Hoja1.Profesor Tiempo Completo)": "#,0",
+          "Sum(Hoja1.Profesor Asignatura)": "#,0",
+          "Sum(Hoja1.Profesor Medio Tiempo)": "#,0",
+          "Sum(Hoja1.Técnico Académico Medio Tiempo)": "#,0",
+          "Sum(Hoja1.Técnico Académico Tiempo Completo)": "#,0",
+          "Sum(Hoja1.Total)": "#,0"
+        },
+        "registros": [
+          {
+            "Año": 2016,
+            "Profesor Tiempo Completo": 96,
+            "Profesor Asignatura": 194,
+            "Profesor Medio Tiempo": 11,
+            "Técnico Académico Medio Tiempo": 5,
+            "Técnico Académico Tiempo Completo": 306,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2017,
+            "Profesor Asignatura": 201,
+            "Profesor Medio Tiempo": 10,
+            "Total": 312,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2018,
+            "Profesor Tiempo Completo": 98,
+            "Profesor Asignatura": 199,
+            "Profesor Medio Tiempo": 11,
+            "Técnico Académico Tiempo Completo": 6,
+            "Total": 314,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2019,
+            "Profesor Tiempo Completo": 69,
+            "Profesor Asignatura": 203,
+            "Profesor Medio Tiempo": 10,
+            "Total": 288,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2020,
+            "Profesor Tiempo Completo": 72,
+            "Profesor Asignatura": 183,
+            "Profesor Medio Tiempo": 9,
+            "Técnico Académico Tiempo Completo": 7,
+            "Total": 271,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2021,
+            "Profesor Tiempo Completo": 74,
+            "Profesor Asignatura": 194,
+            "Profesor Medio Tiempo": 10,
+            "Total": 285,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2022,
+            "Profesor Asignatura": 195,
+            "Total": 286,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2023,
+            "Profesor Tiempo Completo": 75,
+            "Profesor Asignatura": 193,
+            "Técnico Académico Tiempo Completo": 9,
+            "Total": 287,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2024,
+            "Profesor Tiempo Completo": 73,
+            "Profesor Asignatura": 178,
+            "Profesor Medio Tiempo": 8,
+            "Técnico Académico Tiempo Completo": 10,
+            "Total": 269,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2025,
+            "Profesor Tiempo Completo": 74,
+            "Profesor Asignatura": 191,
+            "Técnico Académico Medio Tiempo": 0,
+            "Técnico Académico Tiempo Completo": 11,
+            "Total": 284,
+            "proyectos": [
+              9,
+              10,
+              11
+            ]
+          }
+        ],
+        "numero_registros": 10
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Profesor Asignatura",
+          "metrica_modelo": "Sum(Hoja1.Profesor Asignatura)",
+          "periodo_inicial": "2016",
+          "valor_inicial": 194,
+          "periodo_final": "2025",
+          "valor_final": 191,
+          "cambio_absoluto": -3,
+          "visual_fuente": "003",
+          "proyectos": [
+            9,
+            10,
+            11
+          ]
+        }
+      ],
+      "diagnostico": "Profesor Asignatura: 194 en 2016 y 191 en 2025 (cambio -3).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

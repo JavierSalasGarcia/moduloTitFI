@@ -1,0 +1,371 @@
+{
+  "id_categoria": "4024",
+  "categoria": "Tasa de crecimiento tutor",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4024",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNzgyMmNhNTYtOWE3MS00YmFmLTkwMTctNDg2YzU1YmU2ODRlIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 9,
+      "nombre": "Fortalecimiento de la formación integral del docente"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "002",
+        "metricas": [
+          "Año",
+          "Suma de Tutores",
+          "Año Anterior_Tutores"
+        ],
+        "campos_modelo": {
+          "Tutores.Año": "Año",
+          "Sum(Tutores.Tutores)": "Suma de Tutores",
+          "Tutores.Año Anterior_Tutores": "Año Anterior_Tutores"
+        },
+        "formatos": {
+          "Tutores.Año": "0",
+          "Sum(Tutores.Tutores)": "#,0",
+          "Tutores.Año Anterior_Tutores": "0"
+        },
+        "registros": [
+          {
+            "Año": 2014,
+            "Suma de Tutores": 123,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2015,
+            "Suma de Tutores": 128,
+            "Año Anterior_Tutores": 123,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2016,
+            "Suma de Tutores": 122,
+            "Año Anterior_Tutores": 128,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2017,
+            "Suma de Tutores": 129,
+            "Año Anterior_Tutores": 122,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2018,
+            "Año Anterior_Tutores": 129,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Suma de Tutores": 72,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Suma de Tutores": 74,
+            "Año Anterior_Tutores": 72,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Suma de Tutores": 75,
+            "Año Anterior_Tutores": 74,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Suma de Tutores": 79,
+            "Año Anterior_Tutores": 75,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Suma de Tutores": 74,
+            "Año Anterior_Tutores": 79,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Suma de Tutores": 73,
+            "Año Anterior_Tutores": 74,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Suma de Tutores": 64,
+            "Año Anterior_Tutores": 73,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 12
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Año",
+          "Total de Alumnos_Tutoria",
+          "Año Anterior_Alum_Tuto"
+        ],
+        "campos_modelo": {
+          "Tutores.Año": "Año",
+          "Tutores.Total de Alumnos_Tutoria": "Total de Alumnos_Tutoria",
+          "Tutores.Año Anterior_Alum_Tuto": "Año Anterior_Alum_Tuto"
+        },
+        "formatos": {
+          "Tutores.Año": "0"
+        },
+        "registros": [
+          {
+            "Año": 2014,
+            "Total de Alumnos_Tutoria": 2221,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2015,
+            "Total de Alumnos_Tutoria": 1880,
+            "Año Anterior_Alum_Tuto": 2221,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2016,
+            "Total de Alumnos_Tutoria": 1291,
+            "Año Anterior_Alum_Tuto": 1880,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2017,
+            "Total de Alumnos_Tutoria": 1718,
+            "Año Anterior_Alum_Tuto": 1291,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2018,
+            "Total de Alumnos_Tutoria": 1813,
+            "Año Anterior_Alum_Tuto": 1718,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Total de Alumnos_Tutoria": 2467,
+            "Año Anterior_Alum_Tuto": 1813,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Total de Alumnos_Tutoria": 2698,
+            "Año Anterior_Alum_Tuto": 2467,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Total de Alumnos_Tutoria": 2629,
+            "Año Anterior_Alum_Tuto": 2698,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Total de Alumnos_Tutoria": 2621,
+            "Año Anterior_Alum_Tuto": 2629,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Total de Alumnos_Tutoria": 2662,
+            "Año Anterior_Alum_Tuto": 2621,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Total de Alumnos_Tutoria": 2738,
+            "Año Anterior_Alum_Tuto": 2662,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Total de Alumnos_Tutoria": 2914,
+            "Año Anterior_Alum_Tuto": 2738,
+            "proyectos": [
+              2,
+              3,
+              9,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 12
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Total de Alumnos_Tutoria",
+          "metrica_modelo": "Tutores.Total de Alumnos_Tutoria",
+          "periodo_inicial": "2014",
+          "valor_inicial": 2221,
+          "periodo_final": "2025",
+          "valor_final": 2914,
+          "cambio_absoluto": 693,
+          "visual_fuente": "003",
+          "proyectos": [
+            2,
+            3,
+            9,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Total de Alumnos_Tutoria: 2221 en 2014 y 2914 en 2025 (cambio +693).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

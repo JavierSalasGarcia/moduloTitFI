@@ -1,0 +1,103 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 11: Gestión administrativa para responder al quehacer universitario
+Clave Programática: PROY-11 | Pilar V: Gestión y administración universitaria al servicio de la comunidad
+Área Responsable: Dirección / Subdirección Administrativa / Departamento de Mantenimiento / Coordinación de Planeación
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Mejora del clima laboral:
+   - Acciones de bienestar, integración, comunicación asertiva y mejora del clima laboral institucional.
+2. Optimización y cuidado de la infraestructura y el equipamiento:
+   - Inventario, estado de conservación y suficiencia de la infraestructura física (aulas, laboratorios, talleres, cubículos, auditorios, sanitarios y áreas exteriores).
+   - Servicios de mantenimiento preventivo, correctivo y adecuaciones físicas para el ahorro de energía y agua.
+3. Certificación de los sistemas de Gestión de Calidad y Ambiental:
+   - Mantenimiento y ampliación del alcance de procesos certificados bajo normas internacionales (ISO 9001, ISO 14001 / ATR).
+4. Proceso orgánico-funcional universitario:
+   - Actualización y difusión de manuales de organización y manuales de procedimientos acordes a la normatividad y operación real.
+5. Transporte Universitario:
+   - Rutas, unidades y usuarios del sistema de transporte escolar universitario (Potrobús).
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La gestión administrativa de la Facultad de Ingeniería constituye el soporte logístico, material y normativo indispensable para que las funciones sustantivas de docencia, investigación y difusión de la cultura se desarrollen con oportunidad, seguridad y eficiencia. La infraestructura del espacio académico comprende uno de los complejos físicos de mayor envergadura dentro de Ciudad Universitaria, contando al corte de 2025 con 65 aulas equipadas, 22 laboratorios y talleres disciplinares, 134 cubículos para profesores e investigadores, seis auditorios y salas de conferencias, un centro de autoacceso de idiomas, biblioteca central de área y áreas deportivas. Asimismo, el espacio académico cuenta con procesos administrativos certificados bajo la norma ISO 9001 por organismos acreditadores externos (ATR) y con manuales de organización que delimitan formalmente las atribuciones de sus dependencias internas.
+
+A lo largo del periodo analizado (2016–2025), la gestión administrativa enfrentó el desafío de sostener la operatividad física en un escenario de crecimiento de la matrícula (+17.1%) en coexistencia con una disminución del 13.2% en el personal administrativo de soporte y una contracción real en los presupuestos de gasto corriente para mantenimiento mayor. A pesar de estas restricciones, la Facultad mantuvo en operación ininterrumpida la totalidad de sus 65 aulas y rehabilitó de manera progresiva laboratorios clave de hidráulica, sistemas térmicos y cómputo. En el ámbito del transporte universitario, la consolidación del sistema Potrobús ha sido un factor decisivo de apoyo estudiantil, canalizando diariamente a más de 1,200 estudiantes de la Facultad a través de las rutas de Toluca, Metepec, Zinacantepec, Lerma y Tenango del Valle, mitigando costos de traslado y riesgos de inseguridad en el transporte público concesionado.
+
+[[GRAFICA: graficas/grafica_p11_01_infraestructura_aulas.png | PIE: Gráfica 1. Capacidad física instalada de la Facultad de Ingeniería: aulas, laboratorios y cubículos (2016–2025). Fuente: UAEMEX. Agendas Estadísticas 2016–2025.]]
+
+La lectura sustantiva de esta trayectoria demuestra que la administración de la Facultad ha operado con un alto sentido de responsabilidad, disciplina presupuestal y capacidad de resiliencia; no obstante, convive con una tensión estratégica derivada del envejecimiento natural de los edificios y de la insuficiencia de fondos etiquetados para mantenimiento mayor preventivo. Varios de los edificios principales de la Facultad superan los 45 años de antigüedad, lo que genera fallas recurrentes en redes hidrosanitarias, filtraciones en losas durante la temporada de lluvias y obsolescencia en redes eléctricas que no fueron diseñadas para soportar la densa carga de computadoras personales, servidores y equipos de aire acondicionado que hoy demanda la enseñanza técnica moderna.
+
+La tensión estratégica se manifiesta de forma patente en la relación entre los procedimientos certificados y la experiencia cotidiana de los usuarios. Aunque la Facultad ostenta certificaciones de calidad (ISO 9001) en procesos de gestión escolar, compras y biblioteca, los trámites que involucran dependencias de la administración central (adquisición de reactivos, contratación de pólizas de mantenimiento para maquinaria especializada y autorizaciones de pago a proveedores) sufren retrasos burocráticos prolongados que impactan directamente en las prácticas de laboratorio de los estudiantes. Asimismo, los manuales de procedimientos vigentes requieren una profunda actualización que armonice la normativa universitaria con el uso de expedientes digitales, firmas electrónicas y plataformas web para erradicar el consumo innecesario de papel y optimizar los tiempos de resolución.
+
+En el análisis desagregado por instalaciones y servicios, los sanitarios de estudiantes y los laboratorios pesados de ingeniería mecánica y civil concentran las mayores quejas de mantenimiento correctivo debido al uso intensivo diario por miles de estudiantes. En contraparte, los auditorios y salas de cómputo presentan condiciones óptimas de conservación gracias a inversiones recientes en iluminación LED y proyectores multimedia. En el renglón ambiental, la Facultad ha implementado la separación primaria de residuos y el acopio de chatarra electrónica, pero aún carece de un sistema integral de cosecha de agua de lluvia y paneles solares a gran escala que reduzcan la huella ecológica y el gasto en energía eléctrica.
+
+En el contexto externo, el Plan de Desarrollo del Estado de México 2023–2029 (PDEM) y la directriz institucional de la UAEMEX demandan una administración transparente, austera, eficiente y sustentable, libre de duplicidad de funciones. La consulta comunitaria aplicada a docentes y estudiantes (Instrumentos C01, C02 y C16) refleja que el 62.3% califica la limpieza y las aulas como adecuadas, pero señala como deficiencias críticas la lentitud en la reparación de equipos de laboratorio dañados, la insuficiencia de enchufes eléctricos en las aulas para laptops de estudiantes y la saturación de las unidades del Potrobús en los horarios pico de entrada (6:30 a 7:30 h) y salida (19:00 a 20:30 h).
+
+Por lo tanto, el cierre direccional de este proyecto exige transformar la gestión administrativa de la Facultad de Ingeniería hacia un modelo de gestión ágil, preventivo y sustentable. Esto requerirá implementar un plan maestro de mantenimiento predictivo y correctivo con bitácoras digitales, actualizar integralmente el Manual de Organización y los Manuales de Procedimientos hacia trámites 100% digitales, recertificar los laboratorios bajo la norma ISO 9001 e ISO 14001, coordinar con la Secretaría de Rectoría la ampliación de frecuencias del Potrobús y adoptar tecnologías de eficiencia energética e hídrica que hagan del campus un modelo de sustentabilidad y servicio a la comunidad.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2016–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Infraestructura física y servicios administrativos en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Aulas en activo (4037)                 2016              65              2025            65             0 aulas          0.0%
+Laboratorios y talleres en servicio    2016              21              2025            22            +1 laboratorio   +4.8%
+Cubículos de profesores (4037)         2016             134             2025           134             0 cubículos      0.0%
+Auditorios y salas de conferencias     2016               6              2025             6             0 auditorios     0.0%
+Procesos certificados ISO 9001 (ATR)   2016               4              2025             5            +1 proceso      +25.0%
+Usuarios diarios estimados de Potrobús 2018             850             2025         1,250          +400 usuarios    +47.1%
+Rutas de Potrobús que atienden la zona 2018               4              2025             7            +3 rutas        +75.0%
+Manuales de procedimientos actualizados 2018              2              2025             3            +1 manual       +50.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2016–2025; Departamento de Mantenimiento y Servicios FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C01, C02, C04 Y C16)
+--------------------------------------------------------------------------------
+1. Comunidad Estudiantil (Instrumentos C01 y C16):
+   - El 65.8% demanda mayor mantenimiento y reposición de consumibles (papel, jabón, mantenimiento de grifería) en los núcleos sanitarios de los edificios A, B y C.
+   - Solicitud urgente de ampliar la capacidad del Potrobús en las rutas procedentes de Metepec, Lerma y Zinacantepec, donde decenas de alumnos se quedan varados en las paradas matutinas.
+   - Petición de instalar módulos de carga eléctrica para dispositivos móviles en áreas de convivencia comunes y pasillos.
+2. Personal Docente y Administrativo (Instrumentos C02 y C04):
+   - Coinciden en la lentitud de los procesos de compras institucionales y en la rigidez de los proveedores asignados por la administración central para refacciones especializadas de laboratorios.
+   - Demanda de un sistema digital de tickets para reportar desperfectos de mantenimiento y monitorear el tiempo de atención en tiempo real.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Robusta capacidad instalada con 65 aulas, 22 laboratorios, 134 cubículos y seis auditorios en funcionamiento continuo.
+- Procesos de gestión administrativa certificados bajo la norma internacional ISO 9001 (ATR).
+- Sistema de transporte Potrobús con siete rutas que brindan movilidad segura y gratuita a más de 1,200 alumnos de la Facultad.
+- Personal de mantenimiento con probada experiencia y capacidad de atención a contingencias en el campus.
+
+DEBILIDADES:
+- Deterioro natural por antigüedad de instalaciones hidrosanitarias y eléctricas en los edificios fundacionales.
+- Insuficiencia presupuestal etiquetada para el mantenimiento mayor preventivo y reposición de infraestructura de laboratorio.
+- Demoras burocráticas en las gestiones de compras y pagos centralizados que ralentizan la adquisición de refacciones y consumibles.
+- Saturación del servicio de Potrobús en horas pico, generando tiempos de espera prolongados para el estudiantado.
+
+OPORTUNIDADES:
+- Lineamientos institucionales de la SDFI y de la Secretaría de Finanzas para la digitalización integral de procesos y compras en línea.
+- Fondos del Gobierno del Estado de México (PDEM 2023–2029) para proyectos de eficiencia energética, captación de agua pluvial y movilidad limpia.
+- Adopción de sistemas digitales de tickets y gestión de servicios que mejoren los tiempos de respuesta interna.
+
+AMENAZAS:
+- Incremento en los costos de materiales de construcción, refacciones importadas y tarifas de energía eléctrica que merman el gasto operativo.
+- Riesgos de afectaciones por fenómenos hidrometeorológicos y sismos que demandan peritajes estructurales y pólizas de seguro vigentes.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- ATR. (2024). Dictamen de auditoría de vigilancia al Sistema de Gestión de la Calidad ISO 9001:2015. American Trust Register, S.C.
+- Gobierno del Estado de México. (2023). Plan de Desarrollo del Estado de México 2023–2029. Gaceta del Gobierno.
+- UAEMEX. (2023). Manual de Organización de la Facultad de Ingeniería. Universidad Autónoma del Estado de México.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

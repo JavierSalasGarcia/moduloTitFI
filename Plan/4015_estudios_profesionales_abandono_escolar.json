@@ -1,0 +1,978 @@
+{
+  "id_categoria": "4015",
+  "categoria": "Estudios profesionales - Abandono escolar",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4015",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYzAwZWU1MGItYzg2ZS00ZjJkLWExYTEtMzNlY2ZlNDNkZmE3IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa Educativo",
+  "programas_disponibles": [
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Ciclo escolar",
+          "Programa educativo",
+          "Espacio académico"
+        ],
+        "campos_modelo": {
+          "10_Lic_Abandono.Ciclo escolar": "Ciclo escolar",
+          "Sum(10_Lic_Abandono.Programa educativo.1)": "Programa educativo",
+          "Sum(10_Lic_Abandono.Espacio académico_1)": "Espacio académico"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo escolar": "2013-2014",
+            "Programa educativo": 2.966666666666667,
+            "Espacio académico": 4.7,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2014-2015",
+            "Programa educativo": 6.086716152034552,
+            "Espacio académico": 5.4,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2015-2016",
+            "Programa educativo": 9.496493481520474,
+            "Espacio académico": 8.3,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2016-2017",
+            "Programa educativo": 9.552665979088804,
+            "Espacio académico": 9.8,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Programa educativo": 5.884500719240077,
+            "Espacio académico": 5.4,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Programa educativo": 11.289638828734388,
+            "Espacio académico": 10.9,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Programa educativo": 6.293422435174379,
+            "Espacio académico": 5.9,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Programa educativo": 5.637552039276176,
+            "Espacio académico": 8.4,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Programa educativo": 10.881368819833398,
+            "Espacio académico": 10.8,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Programa educativo": 12.074580684506353,
+            "Espacio académico": 11.446012972148035,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Programa educativo": 13.703846179296375,
+            "Espacio académico": 12.809917355371903,
+            "proyectos": [
+              2,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Programa educativo": 8.831239110983157,
+            "Espacio académico": 8.1,
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 12
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Programa educativo",
+          "metrica_modelo": "Sum(10_Lic_Abandono.Programa educativo.1)",
+          "periodo_inicial": "2013-2014",
+          "valor_inicial": 2.966667,
+          "periodo_final": "2024-2025",
+          "valor_final": 8.831239,
+          "cambio_absoluto": 5.864572,
+          "visual_fuente": "001",
+          "proyectos": [
+            2,
+            15
+          ]
+        }
+      ],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Programa educativo: 2.96667 en 2013-2014 y 8.83124 en 2024-2025 (cambio +5.86457).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo escolar",
+            "Programa educativo",
+            "Espacio académico"
+          ],
+          "campos_modelo": {
+            "10_Lic_Abandono.Ciclo escolar": "Ciclo escolar",
+            "Sum(10_Lic_Abandono.Programa educativo.1)": "Programa educativo",
+            "Sum(10_Lic_Abandono.Espacio académico_1)": "Espacio académico"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo escolar": "2013-2014",
+              "Programa educativo": 0.2,
+              "Espacio académico": 4.7,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2014-2015",
+              "Programa educativo": 2.1406727828746197,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2015-2016",
+              "Programa educativo": 6.092124814264488,
+              "Espacio académico": 8.3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Programa educativo": 8.235294117647063,
+              "Espacio académico": 9.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Programa educativo": -1.1075949367088667,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Programa educativo": 9.724238026124821,
+              "Espacio académico": 10.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Programa educativo": 5.21739130434783,
+              "Espacio académico": 5.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Programa educativo": 0,
+              "Espacio académico": 8.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Programa educativo": 7.152682255845944,
+              "Espacio académico": 10.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Programa educativo": 9.19377652050919,
+              "Espacio académico": 11.446012972148035,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Programa educativo": 9.752547307132463,
+              "Espacio académico": 12.809917355371903,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Programa educativo": 1.0204081632653073,
+              "Espacio académico": 8.1,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Programa educativo",
+            "metrica_modelo": "Sum(10_Lic_Abandono.Programa educativo.1)",
+            "periodo_inicial": "2013-2014",
+            "valor_inicial": 0.2,
+            "periodo_final": "2024-2025",
+            "valor_final": 1.020408,
+            "cambio_absoluto": 0.820408,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Programa educativo: 0.2 en 2013-2014 y 1.02041 en 2024-2025 (cambio +0.820408).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo escolar",
+            "Programa educativo",
+            "Espacio académico"
+          ],
+          "campos_modelo": {
+            "10_Lic_Abandono.Ciclo escolar": "Ciclo escolar",
+            "Sum(10_Lic_Abandono.Programa educativo.1)": "Programa educativo",
+            "Sum(10_Lic_Abandono.Espacio académico_1)": "Espacio académico"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo escolar": "2013-2014",
+              "Programa educativo": 6.8,
+              "Espacio académico": 4.7,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2014-2015",
+              "Programa educativo": 6.605504587155964,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2015-2016",
+              "Programa educativo": 6.315789473684208,
+              "Espacio académico": 8.3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Programa educativo": 10.299003322259138,
+              "Espacio académico": 9.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Programa educativo": 5.902777777777779,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Programa educativo": 7.234726688102899,
+              "Espacio académico": 10.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Programa educativo": 6.125574272588052,
+              "Espacio académico": 5.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Programa educativo": 11.111111111111116,
+              "Espacio académico": 8.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Programa educativo": 11.358024691358025,
+              "Espacio académico": 10.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Programa educativo": 13.227513227513231,
+              "Espacio académico": 11.446012972148035,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Programa educativo": 12.077294685990337,
+              "Espacio académico": 12.809917355371903,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Programa educativo": 13.452188006482979,
+              "Espacio académico": 8.1,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Programa educativo",
+            "metrica_modelo": "Sum(10_Lic_Abandono.Programa educativo.1)",
+            "periodo_inicial": "2013-2014",
+            "valor_inicial": 6.8,
+            "periodo_final": "2024-2025",
+            "valor_final": 13.452188,
+            "cambio_absoluto": 6.652188,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Programa educativo: 6.8 en 2013-2014 y 13.4522 en 2024-2025 (cambio +6.65219).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo escolar",
+            "Programa educativo",
+            "Espacio académico"
+          ],
+          "campos_modelo": {
+            "10_Lic_Abandono.Ciclo escolar": "Ciclo escolar",
+            "Sum(10_Lic_Abandono.Programa educativo.1)": "Programa educativo",
+            "Sum(10_Lic_Abandono.Espacio académico_1)": "Espacio académico"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo escolar": "2013-2014",
+              "Programa educativo": 9.6,
+              "Espacio académico": 4.7,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2014-2015",
+              "Programa educativo": 5.892547660311953,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2015-2016",
+              "Programa educativo": 9.771986970684043,
+              "Espacio académico": 8.3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Programa educativo": 12.603648424543945,
+              "Espacio académico": 9.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Programa educativo": 10.839160839160844,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Programa educativo": 14.827586206896548,
+              "Espacio académico": 10.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Programa educativo": 5.034722222222221,
+              "Espacio académico": 5.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Programa educativo": 6.980519480519476,
+              "Espacio académico": 8.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Programa educativo": 11.375212224108655,
+              "Espacio académico": 10.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Programa educativo": 10.423452768729646,
+              "Espacio académico": 11.446012972148035,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Programa educativo": 12.031250000000004,
+              "Espacio académico": 12.809917355371903,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Programa educativo": 6.132075471698117,
+              "Espacio académico": 8.1,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Programa educativo",
+            "metrica_modelo": "Sum(10_Lic_Abandono.Programa educativo.1)",
+            "periodo_inicial": "2013-2014",
+            "valor_inicial": 9.6,
+            "periodo_final": "2024-2025",
+            "valor_final": 6.132075,
+            "cambio_absoluto": -3.467925,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Programa educativo: 9.6 en 2013-2014 y 6.13208 en 2024-2025 (cambio -3.46792).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo escolar",
+            "Programa educativo",
+            "Espacio académico"
+          ],
+          "campos_modelo": {
+            "10_Lic_Abandono.Ciclo escolar": "Ciclo escolar",
+            "Sum(10_Lic_Abandono.Programa educativo.1)": "Programa educativo",
+            "Sum(10_Lic_Abandono.Espacio académico_1)": "Espacio académico"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo escolar": "2013-2014",
+              "Programa educativo": 7.5,
+              "Espacio académico": 4.7,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2014-2015",
+              "Programa educativo": 9.128630705394192,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2015-2016",
+              "Programa educativo": 15.267175572519086,
+              "Espacio académico": 8.3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Programa educativo": 8.812260536398464,
+              "Espacio académico": 9.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Programa educativo": 12.543554006968638,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Programa educativo": 16.333333333333332,
+              "Espacio académico": 10.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Programa educativo": 12.413793103448278,
+              "Espacio académico": 5.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Programa educativo": 7.586206896551728,
+              "Espacio académico": 8.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Programa educativo": 10.29411764705882,
+              "Espacio académico": 10.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Programa educativo": 16.778523489932883,
+              "Espacio académico": 11.446012972148035,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Programa educativo": 24.61059190031153,
+              "Espacio académico": 12.809917355371903,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Programa educativo": 13.649851632047483,
+              "Espacio académico": 8.1,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Programa educativo",
+            "metrica_modelo": "Sum(10_Lic_Abandono.Programa educativo.1)",
+            "periodo_inicial": "2013-2014",
+            "valor_inicial": 7.5,
+            "periodo_final": "2024-2025",
+            "valor_final": 13.649852,
+            "cambio_absoluto": 6.149852,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Programa educativo: 7.5 en 2013-2014 y 13.6499 en 2024-2025 (cambio +6.14985).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo escolar",
+            "Programa educativo",
+            "Espacio académico"
+          ],
+          "campos_modelo": {
+            "10_Lic_Abandono.Ciclo escolar": "Ciclo escolar",
+            "Sum(10_Lic_Abandono.Programa educativo.1)": "Programa educativo",
+            "Sum(10_Lic_Abandono.Espacio académico_1)": "Espacio académico"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo escolar": "2013-2014",
+              "Programa educativo": -11,
+              "Espacio académico": 4.7,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2014-2015",
+              "Programa educativo": 7.352941176470584,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2015-2016",
+              "Programa educativo": 11.231884057971019,
+              "Espacio académico": 8.3,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2016-2017",
+              "Programa educativo": 7.565789473684214,
+              "Espacio académico": 9.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Programa educativo": 1.729106628242072,
+              "Espacio académico": 5.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Programa educativo": 8.71794871794872,
+              "Espacio académico": 10.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Programa educativo": 3.069053708439895,
+              "Espacio académico": 5.9,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Programa educativo": -0.2525252525252597,
+              "Espacio académico": 8.4,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Programa educativo": 14.308176100628934,
+              "Espacio académico": 10.8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Programa educativo": 11.378205128205131,
+              "Espacio académico": 11.446012972148035,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Programa educativo": 10.941475826972013,
+              "Espacio académico": 12.809917355371903,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Programa educativo": 10.632911392405065,
+              "Espacio académico": 8.1,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Programa educativo",
+            "metrica_modelo": "Sum(10_Lic_Abandono.Programa educativo.1)",
+            "periodo_inicial": "2013-2014",
+            "valor_inicial": -11,
+            "periodo_final": "2024-2025",
+            "valor_final": 10.632911,
+            "cambio_absoluto": 21.632911,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Programa educativo: -11 en 2013-2014 y 10.6329 en 2024-2025 (cambio +21.6329).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

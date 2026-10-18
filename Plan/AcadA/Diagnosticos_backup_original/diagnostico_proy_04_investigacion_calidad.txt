@@ -1,0 +1,98 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 4: Investigación abierta, inclusiva, equitativa y de calidad
+Clave Programática: PROY-04 | Pilar II: Investigación y desarrollo académico de calidad y equidad
+Área Responsable: Subdirección Académica / Coordinación de Investigación
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Ciencia abierta para la transformación social:
+   - Cuerpos académicos: conformación, grado de consolidación (consolidados, en consolidación, en formación) y redes de colaboración.
+   - Líneas de Generación y Aplicación del Conocimiento (LGAC) registradas y actualizadas.
+   - Producción científica de alto impacto (artículos en revistas JCR/Scopus, libros arbitrados, capítulos de libro y memorias en extenso).
+   - Personal académico con nombramiento en el Sistema Nacional de Investigadoras e Investigadores (SNII).
+   - Recursos financieros asignados a proyectos de investigación con fondos institucionales y externos (CONAHCYT, COMECYT, sector productivo).
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La capacidad científica y de generación de conocimiento de la Facultad de Ingeniería ha experimentado una evolución sumamente favorable en la última década, consolidándose como uno de los espacios con mayor potencial investigativo en el área de las ciencias físico-matemáticas e ingenierías de la Universidad Autónoma del Estado de México. Al corte del año 2025, el espacio académico cuenta con 40 investigadoras e investigadores distinguidos con nombramiento en el Sistema Nacional de Investigadoras e Investigadores (SNII), lo que refleja la alta calificación de su claustro científico. A este capital humano se suma la operación de tres cuerpos académicos reconocidos por la SEP-PRODEP y líneas de generación y aplicación del conocimiento que abarcan desde el modelado computacional, los biomateriales y la ingeniería estructural, hasta los sistemas de energía renovable y la optimización de procesos logísticos.
+
+La trayectoria histórica de este indicador da cuenta de un crecimiento exponencial y sostenido. En el año 2018, la Facultad registraba 17 docentes adscritos al Sistema Nacional de Investigadores; hacia 2021 la cifra ascendió a 25 miembros, y para el ejercicio 2025 alcanzó un récord de 40 integrantes en el SNII. Este salto representó un incremento neto de 23 investigadoras e investigadores y una tasa de crecimiento de 135.3% en siete años, duplicando con creces la masa crítica dedicada a la investigación formal. Asimismo, la plantilla de Profesores de Tiempo Completo (PTC) registrados ante la SEP se mantiene en 82 integrantes, lo que sitúa a casi la mitad de los PTC en el máximo sistema de reconocimiento nacional.
+
+[[GRAFICA: graficas/grafica_p04_01_evolucion_snii.png | PIE: Gráfica 1. Evolución del número de integrantes de la Facultad de Ingeniería en el SNII (2018–2025). Fuente: UAEMEX. Agendas Estadísticas 2018–2025.]]
+
+La interpretación de esta trayectoria evidencia una maduración cualitativa en los perfiles académicos de la Facultad, impulsada por la incorporación de investigadores jóvenes con grado de doctor y la recertificación sistemática de los cuadros consolidados. Sin embargo, este vigoroso avance en la habilitación individual convive con una tensión estratégica en la dimensión colectiva e institucional de la investigación. A pesar de contar con 40 miembros en el SNII, la Facultad cuenta únicamente con tres cuerpos académicos registrados, lo que revela que una proporción significativa de los investigadores trabaja de manera atomizada o dispersa en líneas de interés individual, limitando la integración de proyectos interdisciplinarios de gran calado institucional que compitan con mayor fortaleza por fondos de escala nacional o internacional.
+
+Asimismo, la tensión se manifiesta en el financiamiento y en la vinculación social de los productos de investigación. La producción científica anual promedia entre 60 y 85 artículos científicos, concentrándose en revistas internacionales indizadas; no obstante, el acceso a recursos financieros extraordinarios ha sufrido contracciones debido a las modificaciones en los fideicomisos públicos federales y a la reducción de convocatorias abiertas para ciencia básica y de frontera. De manera paralela, la adopción del paradigma de Ciencia Abierta promovido por la UAEMEX y la UNESCO —que exige depositar datos abiertos, códigos y publicaciones en repositorios institucionales de acceso público sin muros de pago— enfrenta barreras presupuestales por el elevado costo de los cargos de procesamiento de artículos (APC) en editoriales de prestigio.
+
+En el análisis desagregado por género, el Claustro del SNII en la Facultad exhibe una brecha que reproduce las asimetrías históricas en las áreas STEM (Ciencia, Tecnología, Ingeniería y Matemáticas): de los 40 miembros registrados en 2025, el 77.5% son hombres y el 22.5% mujeres. Aunque en los niveles de Candidata e Investigadora Nacional Nivel I la participación femenina ha ganado terreno en años recientes, en los niveles II y III prevalece una marcada subrepresentación que exige políticas institucionales de mentoría y apoyos de corresponsabilidad en cuidados para investigadoras en etapas de consolidación.
+
+En el contexto externo, el Plan de Desarrollo del Estado de México 2023–2029 (PDEM) y la Ley General en Materia de Humanidades, Ciencias, Tecnologías e Innovación demandan explícitamente orientar la investigación a la solución de retos territoriales urgentes: escasez de agua, transición energética limpia, tratamiento de residuos industriales, seguridad hídrica e infraestructura urbana resiliente. La consulta comunitaria aplicada (Instrumento C11, Coordinación de Investigación) corrobora que los docentes investigadores identifican como principal traba la sobrecarga de horas frente a grupo en licenciatura y la excesiva carga administrativa en la comprobación de recursos, lo que resta tiempo efectivo para la gestión de proyectos de investigación aplicada y la dirección de tesistas.
+
+Por lo tanto, el cierre direccional de este proyecto convoca a la Facultad a transitar de una investigación centrada en la productividad individual hacia una investigación colaborativa, equitativa y con compromiso social. Esto implicará reestructurar y registrar nuevos Cuerpos Académicos en torno a los problemas neurálgicos de la entidad, fomentar la participación de investigadoras mujeres en proyectos de liderazgo científico, adherirse plenamente al ecosistema de Ciencia Abierta de la UAEMEX y articular la investigación con las necesidades de desarrollo sustentable de la sociedad mexiquense.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2018–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Capacidad científica y cuerpos académicos en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Integrantes en el SNII (4025)          2018              17              2025            40            +23 miembros    +135.3%
+Tasa anual de crecimiento SNII (4026)  2018              ---             2025           +5.3%               ---           ---
+Profesores de Tiempo Completo (4027)   2018              85              2025            82             -3 PTC          -3.5%
+PTC con perfil deseable PRODEP         2018              62              2025            68             +6 PTC          +9.7%
+Cuerpos Académicos reconocidos         2018               3              2025             3              0 cuerpos        0.0%
+Artículos científicos en revistas ind. 2018              48              2024            76            +28 artículos    +58.3%
+Proyectos de investigación registrados 2018              22              2025            34            +12 proyectos    +54.5%
+Mujeres en el SNII (paridad de género) 2018               3 (17.6%)      2025             9 (22.5%)     +6 investigad. +200.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2018–2025; Secretaría de Investigación y Estudios Avanzados UAEMEX.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C02, C03 Y C11)
+--------------------------------------------------------------------------------
+1. Coordinación de Investigación (Instrumento C11):
+   - Urgencia de simplificar las reglas de operación y comprobación de gasto institucional para proyectos con financiamiento interno (fondos SIEA).
+   - Necesidad de consolidar al menos dos nuevos Cuerpos Académicos en las áreas de Inteligencia Artificial y Logística Sustentable.
+2. Investigadores y Docentes de Tiempo Completo (Instrumentos C02 y C03):
+   - El 78% considera que la carga horaria en docencia de licenciatura limita la redacción de propuestas de investigación de largo plazo.
+   - Petición generalizada de un fondo de apoyo semilla para el pago de cuotas de publicación Open Access (APC) que permitan colocar los resultados en revistas Q1 y Q2 sin que los docentes cubran los costos con sus propios ingresos.
+   - Demanda de renovación de equipos de laboratorio de alta gama cuyas pólizas de mantenimiento se encuentran vencidas.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Récord histórico de 40 integrantes en el SNII en 2025, lo que representa un crecimiento del 135.3% respecto a 2018.
+- 82.9% de los Profesores de Tiempo Completo cuenta con reconocimiento de Perfil Deseable PRODEP vigente.
+- Producción científica ascendente en revistas de alto impacto indizadas en JCR y Scopus.
+- Participación consolidada en redes temáticas de investigación con universidades nacionales y extranjeras.
+
+DEBILIDADES:
+- Estancamiento en el número de Cuerpos Académicos registrados (solo tres para 40 investigadores SNII), reflejando atomización investigativa.
+- Disparidad de género en el SNII: únicamente el 22.5% de los nombramientos corresponde a mujeres investigadoras.
+- Ausencia de un fondo institucional propio para apoyar los costos de procesamiento de artículos en acceso abierto (Ciencia Abierta).
+- Desconexión parcial entre las líneas de investigación teóricas y las demandas territoriales directas de los municipios mexiquenses.
+
+OPORTUNIDADES:
+- Convocatorias estatales del Consejo Mexiquense de Ciencia y Tecnología (COMECYT) orientadas a proyectos de impacto en sustentabilidad, agua e industria.
+- Adhesión a las directrices de Ciencia Abierta de la UAEMEX y la UNESCO para aumentar la visibilidad, citación e impacto social del trabajo científico.
+- Sinergias con el sector productivo mediante convenios de investigación aplicada y desarrollo conjunto de soluciones de ingeniería.
+
+AMENAZAS:
+- Reducción general de fondos federales concursables para investigación básica y mantenimiento de infraestructura científica mayor.
+- Exigencias normativas más severas en el reglamento del SNII sobre retribución social del conocimiento que requieren mecanismos institucionales de acreditación.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- COMECYT. (2024). Programa Especial de Ciencia, Tecnología e Innovación del Estado de México. Gobierno del Estado de México.
+- CONAHCYT. (2023). Reglamento del Sistema Nacional de Investigadoras e Investigadores. Diario Oficial de la Federación.
+- UNESCO. (2021). Recomendación de la UNESCO sobre la Ciencia Abierta. Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Secretaría de Desarrollo y Fortalecimiento Institucional.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. Universidad Autónoma del Estado de México.
+================================================================================

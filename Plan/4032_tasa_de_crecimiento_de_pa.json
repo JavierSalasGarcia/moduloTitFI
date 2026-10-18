@@ -1,0 +1,327 @@
+{
+  "id_categoria": "4032",
+  "categoria": "Tasa de crecimiento de PA",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4032",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYWNmODk5MTQtNDQwMS00ZDAwLWJhNGYtM2E4ZTZlZDZhNWIyIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 9,
+      "nombre": "Fortalecimiento de la formación integral del docente"
+    },
+    {
+      "numero": 10,
+      "nombre": "Dignificación de las y los trabajadores universitarios"
+    },
+    {
+      "numero": 11,
+      "nombre": "Gestión administrativa para responder al quehacer universitario"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio universitario",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Año",
+          "Total_PTC",
+          "Año Anterior_PTC"
+        ],
+        "campos_modelo": {
+          "Personal Académico.Año": "Año",
+          "Personal Académico.Total_PTC": "Total_PTC",
+          "Personal Académico.Año Anterior_PTC": "Año Anterior_PTC"
+        },
+        "formatos": {
+          "Personal Académico.Año": "0",
+          "Personal Académico.Total_PTC": "0",
+          "Personal Académico.Año Anterior_PTC": "0"
+        },
+        "registros": [
+          {
+            "Año": 2016,
+            "Total_PTC": 96,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2017,
+            "Año Anterior_PTC": 96,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2018,
+            "Total_PTC": 98,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Total_PTC": 69,
+            "Año Anterior_PTC": 98,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Total_PTC": 72,
+            "Año Anterior_PTC": 69,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Total_PTC": 74,
+            "Año Anterior_PTC": 72,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Año Anterior_PTC": 74,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Total_PTC": 75,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Total_PTC": 73,
+            "Año Anterior_PTC": 75,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Total_PTC": 74,
+            "Año Anterior_PTC": 73,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10
+      },
+      {
+        "visual": "002",
+        "metricas": [
+          "Año",
+          "Total_P Académico",
+          "Año Anterior_Per_Académico"
+        ],
+        "campos_modelo": {
+          "Personal Académico.Año": "Año",
+          "Personal Académico.Total_P Académico": "Total_P Académico",
+          "Personal Académico.Año Anterior_Per_Académico": "Año Anterior_Per_Académico"
+        },
+        "formatos": {
+          "Personal Académico.Año": "0",
+          "Personal Académico.Total_P Académico": "0",
+          "Personal Académico.Año Anterior_Per_Académico": "0"
+        },
+        "registros": [
+          {
+            "Año": 2016,
+            "Total_P Académico": 306,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2017,
+            "Total_P Académico": 312,
+            "Año Anterior_Per_Académico": 306,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2018,
+            "Total_P Académico": 314,
+            "Año Anterior_Per_Académico": 312,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Total_P Académico": 288,
+            "Año Anterior_Per_Académico": 314,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Total_P Académico": 271,
+            "Año Anterior_Per_Académico": 288,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Total_P Académico": 285,
+            "Año Anterior_Per_Académico": 271,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Total_P Académico": 286,
+            "Año Anterior_Per_Académico": 285,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Total_P Académico": 287,
+            "Año Anterior_Per_Académico": 286,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Total_P Académico": 269,
+            "Año Anterior_Per_Académico": 287,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Total_P Académico": 284,
+            "Año Anterior_Per_Académico": 269,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Total_P Académico",
+          "metrica_modelo": "Personal Académico.Total_P Académico",
+          "periodo_inicial": "2016",
+          "valor_inicial": 306,
+          "periodo_final": "2025",
+          "valor_final": 284,
+          "cambio_absoluto": -22,
+          "visual_fuente": "002",
+          "proyectos": [
+            9,
+            10,
+            11,
+            15
+          ]
+        }
+      ],
+      "diagnostico": "Total_P Académico: 306 en 2016 y 284 en 2025 (cambio -22).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

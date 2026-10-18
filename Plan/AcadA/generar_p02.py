@@ -1,0 +1,152 @@
+# -*- coding: utf-8 -*-
+"""
+Script generador para los diagnósticos de los Proyectos 02, 03, 04, 05 y 06
+Facultad de Ingeniería — UAEMEX (Plan de Desarrollo 2026–2030)
+"""
+import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+DIAG_DIR = r"D:\Proyectos\plataformaFI\Plan\AcadA\Diagnosticos"
+os.makedirs(DIAG_DIR, exist_ok=True)
+
+# ----------------------------------------------------------------------------------------------------
+# PROYECTO 02
+# ----------------------------------------------------------------------------------------------------
+p02_text = """================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 2: Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales
+Clave Programática: PROY-02 | Pilar I: Estudiantado con oportunidades para su pleno desarrollo personal
+Área Responsable: Subdirección Académica / Coordinaciones de Docencia de Licenciatura
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Cobertura de estudios profesionales:
+   - Matrícula total y por programa educativo (Ingeniería Civil, Mecánica, Computación, Electrónica, Sistemas Energéticos Sustentables, Inteligencia Artificial).
+   - Nuevo ingreso y demanda histórica de solicitudes.
+   - Modalidades educativas y diversificación formativa.
+   - Producción y uso de material didáctico digital.
+2. Plan de estudios pertinente:
+   - Infraestructura académica disponible (aulas, talleres, laboratorios especializados, salas de cómputo).
+   - Acervo bibliográfico (volúmenes impresos y títulos digitales por alumno).
+   - Reconocimiento de calidad y acreditación de programas educativos (CACEI / CONAIC).
+   - Reestructuración curricular con incorporación de criterios del Sistema de Evaluación y Acreditación de la Educación Superior (SEAES).
+   - Opciones y convenios de doble titulación.
+3. Internacionalización, multilingüismo e interculturalidad:
+   - Movilidad académica estudiantil intrainstitucional, nacional e internacional.
+4. Formación de estudiantes con conciencia social y constructores de una sociedad justa:
+   - Eficiencia terminal (global y por cohorte generacional).
+   - Índice de abandono escolar y reprobación de asignaturas críticas.
+   - Titulación (global, por cohorte y por Examen General de Egreso de Licenciatura - EGEL).
+   - Cobertura y operación del Programa Institucional de Tutoría académica y asesoría disciplinar.
+   - Fomento de competencias profesionales y brigadas multidisciplinarias.
+   - Cultura digital, acceso a becas y apoyos socioeconómicos, y afiliación al servicio médico.
+   - Cumplimiento de servicio social, prácticas y estancias profesionales en el sector productivo.
+   - Participación en certámenes académicos y certificaciones disciplinares.
+5. Educación continua:
+   - Cursos, diplomados, certificaciones técnicas y microcredenciales complementarias.
+6. Acercamiento con el sector laboral:
+   - Seguimiento sistemático de personas egresadas y trayectorias de empleabilidad.
+   - Vinculación con la red Alumni y plataformas de promoción del empleo universitario.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La Facultad de Ingeniería constituye uno de los polos formativos de mayor tradición, solidez académica y demanda en el Estado de México, al concentrar una matrícula total de 2,989 estudiantes en el ciclo escolar 2025–2026. La capacidad instalada del espacio académico permite atender a una comunidad escolar integrada en seis programas de licenciatura: Ingeniería Civil, Ingeniería Mecánica, Ingeniería en Computación, Ingeniería en Electrónica, Ingeniería en Sistemas Energéticos Sustentables y la recién incorporada Ingeniería en Inteligencia Artificial. Esta capacidad de atención se fundamenta en un acervo bibliográfico que supera los 15,000 volúmenes, 65 aulas activas, 22 laboratorios y talleres disciplinares, así como un acompañamiento tutorial que reporta una cobertura formal de 2,914 alumnas y alumnos atendidos por docentes tutores.
+
+A lo largo de la última década, la trayectoria histórica de la demanda y la atención escolar ha reflejado una expansión sostenida. Entre el ciclo escolar 2016–2017 y el ciclo 2025–2026, la matrícula general de licenciatura transitó de 2,553 a 2,989 estudiantes, lo que representó un incremento neto de 436 plazas y una tasa de crecimiento acumulada del 17.1%. De manera paralela, el volumen de solicitudes de ingreso aumentó de 2,732 a 2,858 aspirantes anuales, alcanzando picos intermedios cercanos a los 3,000 registros, mientras que el nuevo ingreso formalizado transitó de 464 a 722 alumnas y alumnos en el mismo periodo, impulsado por la ampliación de grupos y la apertura de opciones emergentes de formación tecnológica.
+
+[[GRAFICA: graficas/grafica_p02_01_matricula_ingreso.png | PIE: Gráfica 1. Evolución de la matrícula total, nuevo ingreso y solicitudes de la Facultad de Ingeniería (2016–2025). Fuente: UAEMEX. Agendas Estadísticas 2016–2025.]]
+
+La interpretación de esta trayectoria evidencia que la Facultad de Ingeniería conserva una alta reputación social y un firme posicionamiento regional como institución formadora de ingenieros de excelencia; sin embargo, este crecimiento en la captación de estudiantes no ha estado exento de tensiones estructurales en la trayectoria escolar. Aunque la capacidad de atracción se mantiene vigorosa, los indicadores de avance regular y culminación oportuna muestran comportamientos diferenciados que demandan intervenciones focalizadas. En el plano de la conclusión de estudios, la eficiencia terminal global se ubicó en 59.1% al cierre del periodo 2024–2025, mientras que la eficiencia terminal calculada por cohorte generacional registró una trayectoria descendente, pasando de 7.3% en 2013–2014 a 4.2% en 2024–2025. Esta disparidad confirma que una proporción relevante del estudiantado prolonga su estancia formativa más allá de los diez semestres reglamentarios debido a cargas acumuladas de asignaturas no acreditadas.
+
+La tensión estratégica central del proyecto radica en la coexistencia de una elevada cobertura tutorial frente a índices persistentes de rezago y deserción en momentos formativos clave. Mientras que la cobertura tutorial registrada nominalmente abarca al 97.5% de la matrícula, la tasa de abandono escolar en estudios profesionales se situó en 9.7% en el ciclo 2024–2025, tras haber experimentado fluctuaciones que alcanzaron hasta 15.6% en etapas intermedias de ajuste curricular. Asimismo, el índice de reprobación en exámenes ordinarios y extraordinarios registró un 10.3%, concentrándose de manera preponderante en las unidades de aprendizaje de ciencias básicas (cálculo diferencial e integral, álgebra lineal, estática y programación básica) que se cursan durante los primeros cuatro periodos lectivos. Esta correlación demuestra que la tutoría, concebida como trámite generalizado, pierde efectividad preventiva si no se articula de forma directa con asesorías disciplinares tempranas y con el rediseño didáctico de las asignaturas de alta reprobación.
+
+[[GRAFICA: graficas/grafica_p02_02_eficiencia_abandono_reprobacion.png | PIE: Gráfica 2. Cruce comparativo de eficiencia terminal, abandono escolar y reprobación en estudios profesionales (2016–2025). Fuente: UAEMEX. Agendas Estadísticas 2016–2025.]]
+
+El análisis desagregado por programa educativo revela marcadas asimetrías que no deben quedar ocultas tras los promedios globales de la Facultad. Programas consolidados de alta matrícula como Ingeniería en Computación (con más de 950 estudiantes) e Ingeniería Civil (con cerca de 800) experimentan las mayores presiones sobre la infraestructura de cómputo y laboratorios pesados, registrando simultáneamente los volúmenes más abultados de solicitudes pero enfrentando brechas en la titulación oportuna por modalidades de tesis o informe técnico. Por su parte, la Licenciatura de Ingeniería en Sistemas Energéticos Sustentables presenta un comportamiento de matrícula más moderado (alrededor de 230 alumnos), con una estrecha relación alumno-docente que favorece la retención pero exige mayor difusión para incrementar la demanda vocacional. En contraste, la Licenciatura en Ingeniería en Inteligencia Artificial, puesta en marcha en 2024–2025 con un cupo exacto de 67 estudiantes admitidos por año y una demanda que creció vertiginosamente de 232 a 420 solicitudes en 2025, experimenta una fuerte demanda de equipamiento de cómputo de alto rendimiento y conectividad avanzada, convirtiéndose en un referente de atracción tecnológica cuya primera generación requerirá seguimiento exhaustivo para evitar deserciones prematuras.
+
+En el contexto externo, el Plan de Desarrollo del Estado de México 2023–2029 (PDEM) y la Ley General de Educación Superior (LGES) colocan en el centro la pertinencia de la formación técnica con los clústeres industriales de la entidad (automotriz, metalmecánico, logístico, químico y tecnologías de la información), a la par de exigir la incorporación de los criterios del SEAES basados en responsabilidad social, equidad de género, sustentabilidad y vinculación comunitaria. Asimismo, las encuestas de opinión aplicadas a estudiantes de la Facultad confirman estas prioridades: mientras el estudiantado de primeros semestres identifica como principal obstáculo la brecha de preparación previa en matemáticas y física frente a la rigurosidad universitaria, las y los estudiantes de semestres avanzados señalan que la dispersión horaria, la falta de flexibilidad en estancias profesionales y la insuficiencia de licencias de software especializado representan las mayores barreras para culminar su carrera y obtener el título profesional.
+
+En consecuencia, el rumbo estratégico del espacio académico exige transitar de una gestión centrada en la administración del crecimiento de la matrícula hacia una política integral de retención, pertinencia y titulación ágil. Esto requerirá modernizar las prácticas docentes en ciencias básicas, reestructurar los planes de estudio conforme a los lineamientos del SEAES y de los organismos acreditadores (CACEI/CONAIC), afianzar la flexibilidad curricular en estancias profesionales y articular el acompañamiento socioemocional y tutorial con asesorías disciplinares que aseguren el egreso con sentido humano y excelencia técnica.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2016–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Comportamiento histórico de variables clave de estudios profesionales en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Solicitudes de ingreso (4001)          2016–2017         2,732           2025–2026       2,858         +126 solicitudes +4.6%
+Nuevo ingreso formalizado (4003)       2016–2017           464           2025–2026         722         +258 alumnos     +55.6%
+Matrícula total de licenciatura (4005) 2016–2017         2,553           2025–2026       2,989         +436 alumnos     +17.1%
+Egresados de licenciatura (4007)       2016–2017           324           2024–2025         318           -6 egresados   -1.9%
+Eficiencia terminal global (4014)      2016–2017          54.2%          2024–2025        59.1%        +4.9 puntos pct.   ---
+Eficiencia terminal cohorte (4013)     2013–2014           7.3%          2024–2025         4.2%        -3.1 puntos pct.   ---
+Índice de abandono escolar (4015)      2016–2017          12.8%          2024–2025         9.7%        -3.1 puntos pct.   ---
+Índice de reprobación (4016)           2016–2017          14.1%          2024–2025        10.3%        -3.8 puntos pct.   ---
+Índice de titulación global (4017)     2016–2017          68.5%          2024–2025        74.3%        +5.8 puntos pct.   ---
+Alumnos con tutoría académica (4023)   2016–2017         2,340           2025–2026       2,914         +574 tutorados   +24.5%
+Alumnos con servicio social (4018)     2016–2017           385           2024–2025         412          +27 prestadores +7.0%
+Becas otorgadas UAEMEX (4020)          2018–2019         1,200           2024–2025       2,213         +1,013 becas     +84.4%
+Libros y volúmenes por alumno (4022)   2016–2017           5.8           2024–2025         5.2         -0.6 libros/al.  -10.3%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2016–2025; Dirección de Planeación Institucional.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (HALLAZGOS DE ENCUESTAS FI 360)
+--------------------------------------------------------------------------------
+1. Estudiantes de primeros periodos (Instrumento C01, 184 registros):
+   - El 68.5% identifica las materias del tronco común de matemáticas y física (Cálculo, Álgebra y Mecánica) como el factor crítico de reprobación inicial.
+   - Demanda de tutorías orientadas a la resolución práctica de ejercicios y asesorías de pares (alumnos de semestres avanzados).
+   - Necesidad de cursos propedéuticos y talleres de nivelación previa al arranque formal del primer semestre.
+2. Estudiantes de semestres avanzados (Instrumento C16, 73 registros):
+   - El 52.1% señala que los horarios discontinuos y la carga de créditos en periodos terminales dificultan la liberación oportuna de prácticas profesionales.
+   - Solicitud expresa de agilizar los trámites de titulación, ampliar las opciones de titulación por diplomado superior o créditos de posgrado, y flexibilizar convenios con industrias.
+   - Demanda de actualización de software especializado (SolidWorks, MATLAB, simuladores eléctricos, librerías de IA) en laboratorios de libre acceso.
+3. Coordinaciones de Licenciatura (Instrumentos C05 a C10):
+   - Coinciden en la urgencia de armonizar las unidades de aprendizaje con los lineamientos del SEAES y renovar las acreditaciones del CACEI bajo el marco internacional.
+   - Advierten sobre la necesidad de adecuar los laboratorios de cómputo e instrumentación pesada al incremento sostenido de la matrícula.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Capacidad de atracción y posicionamiento institucional respaldada por 2,858 solicitudes anuales y una matrícula consolidada de 2,989 estudiantes en seis licenciaturas.
+- Cobertura tutorial institucionalizada que atiende a 2,914 alumnas y alumnos (97.5% de la matrícula).
+- Amplio acceso a apoyos socioeconómicos y académicos, con 2,213 becas otorgadas en el ciclo 2024–2025.
+- La totalidad de los programas de licenciatura evaluables cuenta con reconocimiento y acreditación vigente ante CACEI y CONAIC.
+
+DEBILIDADES:
+- Reducida eficiencia terminal por cohorte generacional (4.2% al corte 2024–2025), asociada a la prolongación de estudios por rezago en asignaturas básicas.
+- Tasa de abandono escolar del 9.7% y reprobación del 10.3%, concentrada en los primeros cuatro semestres de las carreras.
+- Desbalance en la proporción de titulación por tesis frente a otras opciones menos orientadas al desarrollo disciplinar.
+- Rezago en la disponibilidad de volúmenes bibliográficos físicos y licencias concurrentes de software por estudiante (5.2 libros/alumno).
+
+OPORTUNIDADES:
+- Alineación estratégica con los corredores industriales del Estado de México (PDEM 2023–2029) para convenios de educación dual, estancias y proyectos de inserción laboral.
+- Convocatorias y directrices del SEAES y la LGES para reestructurar planes curriculares con enfoque en sostenibilidad, perspectiva de género y competencias globales.
+- Alta demanda laboral de ingenieros especializados en inteligencia artificial, desarrollo de software, energía sustentable y automatización.
+
+AMENAZAS:
+- Exigencias crecientes de los marcos de acreditación internacional del CACEI respecto a infraestructura de laboratorio, seguimiento de egresados y evaluación por resultados de aprendizaje.
+- Condiciones socioeconómicas adversas en el entorno estatal que incrementan la vulnerabilidad y el riesgo de deserción por necesidades económicas de las familias.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- CACEI. (2021). Marco de referencia para la acreditación de programas de ingeniería a nivel licenciatura. Consejo de Acreditación de la Enseñanza de la Ingeniería, A.C.
+- Gobierno del Estado de México. (2023). Plan de Desarrollo del Estado de México 2023–2029. Gaceta del Gobierno.
+- Secretaría de Educación Pública. (2021). Ley General de Educación Superior. Diario Oficial de la Federación.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Secretaría de Desarrollo y Fortalecimiento Institucional, Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. Universidad Autónoma del Estado de México.
+================================================================================
+"""
+
+with open(os.path.join(DIAG_DIR, "diagnostico_proy_02_estudios_profesionales.txt"), "w", encoding="utf-8") as f:
+    f.write(p02_text.strip())
+
+print("[+] Proyecto 02 generado exitosamente.")

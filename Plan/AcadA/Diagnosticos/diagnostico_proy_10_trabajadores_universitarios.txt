@@ -1,0 +1,34 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 10: DIGNIFICACIÓN DE LAS Y LOS TRABAJADORES UNIVERSITARIOS
+================================================================================
+
+DIAGNÓSTICO
+
+1. Desarrollo, capacitación y dignificación del personal administrativo
+
+La plantilla administrativa y operativa de la Facultad de Ingeniería se compone de 105 personas trabajadoras (64 sindicalizadas ante el SUTESUAEM, 24 de confianza y 17 mandos medios y directivos) (Coordinación Administrativa [CA-FI], 2025). El personal acumula más de 1,250 horas anuales de capacitación en seguridad en laboratorios, primeros auxilios y ofimática coordinadas por la Dirección de Recursos Humanos (DRH-UAEMéx, 2024).
+
+[[GRAFICA: grafica_p10_01_personal_administrativo.png | Figura 1. Distribución del personal administrativo y horas de capacitación anual (2016–2025).]]
+
+Tabla 1. Composición del personal administrativo y programas de capacitación (2016–2025)
+| Indicador del Personal Administrativo | Periodo 2016–2017 | Periodo 2024–2025 | Variación | Desempeño |
+|---|---|---|---|---|
+| Total de personal administrativo | 98 trabajadores | 105 trabajadores | +7 personas | Crecimiento moderado (+7.1%) |
+| Personal sindicalizado (SUTESUAEM) | 61 trabajadores | 64 trabajadores | +3 personas | Estabilidad contractual |
+| Horas anuales de capacitación laboral | ~750 horas | ~1,250 horas | +500 horas | +66.7% profesionalización |
+| Cursos de seguridad e higiene impartidos| 4 cursos/año | 8 cursos/año | +4 cursos | +100% prevención de riesgos |
+| Evaluaciones de desempeño aprobadas | 92% del personal | 96% del personal | +4.0 puntos | Alto compromiso laboral |
+Fuente: CA-FI (2025) y DRH-UAEMéx (2024).
+
+Las demandas prioritarias identificadas en las encuestas laborales incluyen la renovación de mobiliario ergonómico, dotación oportuna de equipo de protección personal para laboratorios pesados y el fortalecimiento de programas de salud ocupacional y salud mental (CA-FI, 2025; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- CA-FI. (2025). *Informe de gestión administrativa, infraestructura y recursos humanos*. Coordinación Administrativa, Facultad de Ingeniería, UAEMéx.
+- DRH-UAEMéx. (2024). *Reporte del Programa Institucional de Capacitación y Desarrollo del Personal Administrativo*. Dirección de Recursos Humanos, UAEMéx.
+- SUTESUAEM. (2024). *Contrato Colectivo de Trabajo celebrado entre la UAEMéx y el Sindicato Único de Trabajadores y Empleados al Servicio de la UAEM*. UAEMéx.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

@@ -1,0 +1,11 @@
+[
+ "app/Core/DocumentArchive.php",
+ "app/Modules/Teams/DocumentExtractor.php",
+ "app/Modules/Teams/DocumentalController.php",
+ "app/Modules/Teams/views/documentos.php",
+ "app/Modules/Teams/views/documento_nuevo.php",
+ "app/Modules/Teams/views/documento.php",
+ "app/Modules/Ajustes/views/inteligencia.php",
+ "app/Modules/Portal/ConsultasSeguras.php",
+ "app/Modules/Teams/module.php"
+]

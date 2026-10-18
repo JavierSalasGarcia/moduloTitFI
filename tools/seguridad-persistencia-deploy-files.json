@@ -1,0 +1,12 @@
+[
+  "app/Core/AccessControl.php",
+  "app/Modules/Auth/RegistroController.php",
+  "app/Modules/Auth/views/registro.php",
+  "app/Modules/Ajustes/AjustesController.php",
+  "app/Modules/Ajustes/views/usuarios.php",
+  "app/Modules/Alumnos/AlumnosController.php",
+  "app/Modules/Alumnos/views/index.php",
+  "app/Views/layouts/app.php",
+  "app/Modules/Plan/views/index.php",
+  "public/assets/js/plan.js"
+]

@@ -1,0 +1,29 @@
+{
+  "clave": "organizacion",
+  "nombre": "Estructura académica",
+  "version": "1.0.0",
+  "descripcion": "Administración de coordinaciones, NAB y CAP por posgrado y profesor.",
+  "roles": ["admin"],
+  "menu": [
+    {
+      "seccion": "ADMINISTRACIÓN",
+      "titulo": "Estructura académica",
+      "ruta": "ajustes/organizacion",
+      "roles": ["admin"],
+      "orden": 41
+    }
+  ],
+  "rutas": {
+    "GET /ajustes/organizacion": ["App\\Modules\\Organizacion\\OrganizacionController", "index"],
+    "GET /ajustes/organizacion/buscar-profesores": ["App\\Modules\\Organizacion\\OrganizacionController", "buscarProfesores"],
+    "POST /ajustes/organizacion/programa/{id}/responsable": ["App\\Modules\\Organizacion\\OrganizacionController", "asignarResponsable"],
+    "POST /ajustes/organizacion/programa/{id}/profesor": ["App\\Modules\\Organizacion\\OrganizacionController", "asignarProfesor"],
+    "POST /ajustes/organizacion/programa/{id}/miembro": ["App\\Modules\\Organizacion\\OrganizacionController", "asignarMiembro"],
+    "POST /ajustes/organizacion/responsable/{id}/retirar": ["App\\Modules\\Organizacion\\OrganizacionController", "retirarResponsable"],
+    "POST /ajustes/organizacion/profesor/{id}/retirar": ["App\\Modules\\Organizacion\\OrganizacionController", "retirarProfesor"],
+    "POST /ajustes/organizacion/miembro/{id}/retirar": ["App\\Modules\\Organizacion\\OrganizacionController", "retirarMiembro"],
+    "POST /ajustes/organizacion/ca/crear": ["App\\Modules\\Organizacion\\OrganizacionController", "crearCa"],
+    "POST /ajustes/organizacion/ca/{id}/miembro": ["App\\Modules\\Organizacion\\OrganizacionController", "agregarMiembroCa"],
+    "POST /ajustes/organizacion/ca/{id}/miembro/retirar": ["App\\Modules\\Organizacion\\OrganizacionController", "retirarMiembroCa"]
+  }
+}

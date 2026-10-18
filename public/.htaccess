@@ -1,0 +1,11 @@
+Options -Indexes
+RewriteEngine On
+
+# Las URL /public/... son heredadas de la disposicion anterior. El front
+# controller vive ahora en la raiz publica del dominio.
+RewriteCond %{THE_REQUEST} \s/+public(?:[/?\x20]) [NC]
+RewriteRule ^(.*)$ /$1 [R=301,L,NE]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]

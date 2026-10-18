@@ -1,0 +1,34 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 6: DIFUSIÓN Y DIVULGACIÓN DE LA CIENCIA ABIERTA A TRAVÉS DE BIENES PÚBLICOS DEL CONOCIMIENTO
+================================================================================
+
+DIAGNÓSTICO
+
+1. Publicaciones científicas, bienes públicos de conocimiento y divulgación social de la ciencia
+
+Durante 2016–2025, la producción científica indizada en JCR y Scopus aumentó un 71.4%, transitando de 28 a 48 artículos anuales, publicándose el 65% en revistas de acceso abierto de cuartiles Q1 y Q2 (SIEA-UAEMéx, 2025). La producción se difunde como bienes públicos de conocimiento mediante el Repositorio Institucional (RI-UAEMéx, 2025).
+
+Tabla 1. Producción editorial científica y actividades de divulgación (2016–2025)
+| Indicador de Difusión y Divulgación | Periodo 2016–2017 | Periodo 2024–2025 | Variación | Crecimiento % |
+|---|---|---|---|---|
+| Artículos en revistas indizadas (JCR/Scopus) | 28 artículos | 48 artículos | +20 artículos | +71.4% |
+| Capítulos de libro y libros científicos | 16 publicaciones | 24 publicaciones | +8 obras | +50.0% |
+| Eventos de divulgación científica anuales | 4 eventos | 10 eventos | +6 eventos | +150.0% |
+| Asistentes a actividades de divulgación | ~850 personas | ~2,400 personas | +1,550 personas | +182.4% |
+| Ponencias en congresos internacionales | 35 ponencias | 56 ponencias | +21 ponencias | +60.0% |
+Fuente: UAEMéx (2025a) y Subdirección Académica de la Facultad de Ingeniería (2025).
+
+En divulgación comunitaria, se celebran el Coloquio de Investigación en Ingeniería y talleres de robótica para estudiantes de nivel básico y medio superior (Subdirección Académica [SA-FI], 2025). Se identifica la necesidad de ampliar los formatos digitales transmedia y pódcast de divulgación técnica orientados a la ciudadanía (UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- Clarivate Analytics. (2024). *Journal Citation Reports (JCR): Engineering multidisciplinary and science indices*. Web of Science Group.
+- Elsevier. (2024). *Scopus Custom Data: Producción científica institucional de la UAEMéx*. Elsevier B.V.
+- RI-UAEMéx. (2025). *Métricas de consulta de publicaciones en acceso abierto*. Repositorio Institucional, UAEMéx.
+- SA-FI. (2025). *Memoria anual de eventos de difusión y divulgación científica*. Subdirección Académica, Facultad de Ingeniería, UAEMéx.
+- SIEA-UAEMéx. (2025). *Reporte de productividad editorial científica*. Secretaría de Investigación y Estudios Avanzados, UAEMéx.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

@@ -1,0 +1,897 @@
+{
+  ".claude/launch.json": {
+    "mtime": 1783835935.011217,
+    "ast_hash": "f957015f70bfda544a1c9682dcb43a23",
+    "semantic_hash": "f957015f70bfda544a1c9682dcb43a23"
+  },
+  ".claude/settings.local.json": {
+    "mtime": 1783921133.4508536,
+    "ast_hash": "e58e104146b3effe2c429e2a7713e2bd",
+    "semantic_hash": "e58e104146b3effe2c429e2a7713e2bd"
+  },
+  "app/Core/App.php": {
+    "mtime": 1783835098.6955905,
+    "ast_hash": "5ead6a078f427f374d47050ce613b7d3",
+    "semantic_hash": "5ead6a078f427f374d47050ce613b7d3"
+  },
+  "app/Core/Auth.php": {
+    "mtime": 1784326996.8567462,
+    "ast_hash": "db035bd2d8e8c15b3d4a0a6b23f6a1b2",
+    "semantic_hash": "db035bd2d8e8c15b3d4a0a6b23f6a1b2"
+  },
+  "app/Core/Controller.php": {
+    "mtime": 1783835186.319196,
+    "ast_hash": "7ae5a9081246608a9735f1c63fb51719",
+    "semantic_hash": "7ae5a9081246608a9735f1c63fb51719"
+  },
+  "app/Core/Database.php": {
+    "mtime": 1783835138.4136336,
+    "ast_hash": "da4e6cd95e29a8002ef17b95caf48be9",
+    "semantic_hash": "da4e6cd95e29a8002ef17b95caf48be9"
+  },
+  "app/Core/ModuleManager.php": {
+    "mtime": 1783836874.6394956,
+    "ast_hash": "64cf941d3e40ab01ea85959c44edaec8",
+    "semantic_hash": "64cf941d3e40ab01ea85959c44edaec8"
+  },
+  "app/Core/Router.php": {
+    "mtime": 1783836897.403289,
+    "ast_hash": "18c98361fdce3d9339cb701bb3a38a21",
+    "semantic_hash": "18c98361fdce3d9339cb701bb3a38a21"
+  },
+  "app/Core/View.php": {
+    "mtime": 1783835168.8667564,
+    "ast_hash": "52c63c31d06fc8581eea6388b2b2d392",
+    "semantic_hash": "52c63c31d06fc8581eea6388b2b2d392"
+  },
+  "app/Core/helpers.php": {
+    "mtime": 1783922946.2011473,
+    "ast_hash": "9d1f2d5642e64d8328ec9b975e39c636",
+    "semantic_hash": "9d1f2d5642e64d8328ec9b975e39c636"
+  },
+  "app/Modules/Ajustes/AjustesController.php": {
+    "mtime": 1784327004.5613744,
+    "ast_hash": "33cb753dcd9a9b90d3d2f21307003851",
+    "semantic_hash": "33cb753dcd9a9b90d3d2f21307003851"
+  },
+  "app/Modules/Ajustes/module.php": {
+    "mtime": 1784312538.3804007,
+    "ast_hash": "dfc11bf8b3216643d2b597d0bbfcb322",
+    "semantic_hash": "dfc11bf8b3216643d2b597d0bbfcb322"
+  },
+  "app/Modules/Ajustes/views/index.php": {
+    "mtime": 1783837763.2610886,
+    "ast_hash": "c08334685fed6686e5619e3d0750624d",
+    "semantic_hash": "c08334685fed6686e5619e3d0750624d"
+  },
+  "app/Modules/Alumnos/AlumnosController.php": {
+    "mtime": 1783837371.8898804,
+    "ast_hash": "ca751fb717c5d4eb25206fb8ad43cbf3",
+    "semantic_hash": "ca751fb717c5d4eb25206fb8ad43cbf3"
+  },
+  "app/Modules/Alumnos/module.php": {
+    "mtime": 1784276668.7432573,
+    "ast_hash": "9620d4fee1930728cf7c9cbd7ddff3bd",
+    "semantic_hash": "9620d4fee1930728cf7c9cbd7ddff3bd"
+  },
+  "app/Modules/Alumnos/views/index.php": {
+    "mtime": 1783837396.813454,
+    "ast_hash": "f0e3254c9ee0ef4cd98edccfeffb7c45",
+    "semantic_hash": "f0e3254c9ee0ef4cd98edccfeffb7c45"
+  },
+  "app/Modules/Auth/AuthController.php": {
+    "mtime": 1784326747.0182118,
+    "ast_hash": "67b536374c0b80775853cbfaa0d1d8b4",
+    "semantic_hash": "67b536374c0b80775853cbfaa0d1d8b4"
+  },
+  "app/Modules/Auth/module.php": {
+    "mtime": 1784325531.883448,
+    "ast_hash": "415cdf59dc40a6644fe005bd0067d574",
+    "semantic_hash": "415cdf59dc40a6644fe005bd0067d574"
+  },
+  "app/Modules/Auth/views/login.php": {
+    "mtime": 1784327657.5426457,
+    "ast_hash": "c6198c002a012b36313562648c73c68b",
+    "semantic_hash": "c6198c002a012b36313562648c73c68b"
+  },
+  "app/Modules/Busqueda/Buscador.php": {
+    "mtime": 1783861597.551411,
+    "ast_hash": "a9f8f2c2238a54d6e30371353fad9fea",
+    "semantic_hash": "a9f8f2c2238a54d6e30371353fad9fea"
+  },
+  "app/Modules/Busqueda/BusquedaController.php": {
+    "mtime": 1783861609.001908,
+    "ast_hash": "0c05d4214e93de2f3b1e8ec953cc2aaa",
+    "semantic_hash": "0c05d4214e93de2f3b1e8ec953cc2aaa"
+  },
+  "app/Modules/Busqueda/module.php": {
+    "mtime": 1784276644.7770073,
+    "ast_hash": "f277489031551aad92ada289a0b97a10",
+    "semantic_hash": "f277489031551aad92ada289a0b97a10"
+  },
+  "app/Modules/Busqueda/views/index.php": {
+    "mtime": 1783861619.0357478,
+    "ast_hash": "411f83e2eb4f73663970f050cbf4ec9d",
+    "semantic_hash": "411f83e2eb4f73663970f050cbf4ec9d"
+  },
+  "app/Modules/Calendario/CalendarioController.php": {
+    "mtime": 1784330469.1453037,
+    "ast_hash": "b3b45292e2d036a5e9a57ce07997e04b",
+    "semantic_hash": "b3b45292e2d036a5e9a57ce07997e04b"
+  },
+  "app/Modules/Calendario/module.php": {
+    "mtime": 1784328887.1842346,
+    "ast_hash": "ff2508ea8e0b5c2c22417b1bb30b5fe6",
+    "semantic_hash": "ff2508ea8e0b5c2c22417b1bb30b5fe6"
+  },
+  "app/Modules/Calendario/views/index.php": {
+    "mtime": 1784329005.728991,
+    "ast_hash": "90f4a992575f7e7bd36dbd6086597b5c",
+    "semantic_hash": "90f4a992575f7e7bd36dbd6086597b5c"
+  },
+  "app/Modules/Comisiones/ComisionesController.php": {
+    "mtime": 1783837694.5171847,
+    "ast_hash": "e530d194f429437304906ea986a614dd",
+    "semantic_hash": "e530d194f429437304906ea986a614dd"
+  },
+  "app/Modules/Comisiones/module.php": {
+    "mtime": 1783837648.316154,
+    "ast_hash": "1820dbcc3a7a98d1fcab6b9ee0eefa15",
+    "semantic_hash": "1820dbcc3a7a98d1fcab6b9ee0eefa15"
+  },
+  "app/Modules/Comisiones/views/detalle.php": {
+    "mtime": 1783837748.3935158,
+    "ast_hash": "f4fdd578ed66568e2425bf63dc5d7d7a",
+    "semantic_hash": "f4fdd578ed66568e2425bf63dc5d7d7a"
+  },
+  "app/Modules/Comisiones/views/index.php": {
+    "mtime": 1783837707.0174687,
+    "ast_hash": "e07b9bf4d9ffd578192765965cf25740",
+    "semantic_hash": "e07b9bf4d9ffd578192765965cf25740"
+  },
+  "app/Modules/Comisiones/views/nueva.php": {
+    "mtime": 1783837715.9892318,
+    "ast_hash": "5d83d73a8ab32826bf5afd6c827ac60f",
+    "semantic_hash": "5d83d73a8ab32826bf5afd6c827ac60f"
+  },
+  "app/Modules/Comunicados/ComunicadosController.php": {
+    "mtime": 1784305742.2960305,
+    "ast_hash": "8dc1b27af16a36ea5efab38e2efaf2b1",
+    "semantic_hash": "8dc1b27af16a36ea5efab38e2efaf2b1"
+  },
+  "app/Modules/Comunicados/module.php": {
+    "mtime": 1784305721.4710968,
+    "ast_hash": "d140d2ffda64f56bbd20329649acbadf",
+    "semantic_hash": "d140d2ffda64f56bbd20329649acbadf"
+  },
+  "app/Modules/Comunicados/views/index.php": {
+    "mtime": 1784304587.1592717,
+    "ast_hash": "ec2ba31e1210b6a659e5f4813cbc4494",
+    "semantic_hash": "ec2ba31e1210b6a659e5f4813cbc4494"
+  },
+  "app/Modules/Comunicados/views/nuevo.php": {
+    "mtime": 1783837441.8378315,
+    "ast_hash": "1e9e7792de132aa5de67e8c8acda4bbe",
+    "semantic_hash": "1e9e7792de132aa5de67e8c8acda4bbe"
+  },
+  "app/Modules/Directorio/DirectorioController.php": {
+    "mtime": 1783835384.2561774,
+    "ast_hash": "cbc036c9ea01ef61eb39e183dcfe9636",
+    "semantic_hash": "cbc036c9ea01ef61eb39e183dcfe9636"
+  },
+  "app/Modules/Directorio/module.php": {
+    "mtime": 1783862328.2530828,
+    "ast_hash": "bb3b7e929567e20819e0841b5874d0dc",
+    "semantic_hash": "bb3b7e929567e20819e0841b5874d0dc"
+  },
+  "app/Modules/Directorio/views/detalle.php": {
+    "mtime": 1783835403.4644332,
+    "ast_hash": "59faef3eef38fbce22702493535da207",
+    "semantic_hash": "59faef3eef38fbce22702493535da207"
+  },
+  "app/Modules/Directorio/views/index.php": {
+    "mtime": 1783835393.2072568,
+    "ast_hash": "e9f552a86644db168b27a0f891b8af4a",
+    "semantic_hash": "e9f552a86644db168b27a0f891b8af4a"
+  },
+  "app/Modules/Encuestas/EncuestasController.php": {
+    "mtime": 1783863729.5938847,
+    "ast_hash": "a3b9798a71f1d0c398829bba128dda89",
+    "semantic_hash": "a3b9798a71f1d0c398829bba128dda89"
+  },
+  "app/Modules/Encuestas/module.php": {
+    "mtime": 1783863714.921352,
+    "ast_hash": "698c6ee1c01d83fe67f869ee3a477b22",
+    "semantic_hash": "698c6ee1c01d83fe67f869ee3a477b22"
+  },
+  "app/Modules/Encuestas/views/detalle.php": {
+    "mtime": 1783837534.6520443,
+    "ast_hash": "bd909f4ae4db68337200e331b76c2972",
+    "semantic_hash": "bd909f4ae4db68337200e331b76c2972"
+  },
+  "app/Modules/Encuestas/views/index.php": {
+    "mtime": 1783837499.279882,
+    "ast_hash": "782de762de1845562702e1d51d4bbfb0",
+    "semantic_hash": "782de762de1845562702e1d51d4bbfb0"
+  },
+  "app/Modules/Encuestas/views/nueva.php": {
+    "mtime": 1783837504.4065027,
+    "ast_hash": "0010ea3a63f7f5534475ad5650e92d3e",
+    "semantic_hash": "0010ea3a63f7f5534475ad5650e92d3e"
+  },
+  "app/Modules/Encuestas/views/tablero.php": {
+    "mtime": 1783863760.544479,
+    "ast_hash": "9fc535ed497f3d538ab317731bb0baee",
+    "semantic_hash": "9fc535ed497f3d538ab317731bb0baee"
+  },
+  "app/Modules/Eventos/EventosController.php": {
+    "mtime": 1784330203.251342,
+    "ast_hash": "46e58330fe8ff8179870092641f3763c",
+    "semantic_hash": "46e58330fe8ff8179870092641f3763c"
+  },
+  "app/Modules/Eventos/module.php": {
+    "mtime": 1784330194.972091,
+    "ast_hash": "12122d8648026c7c653ce5e06245129b",
+    "semantic_hash": "12122d8648026c7c653ce5e06245129b"
+  },
+  "app/Modules/Eventos/views/biblioteca.php": {
+    "mtime": 1783862405.9606957,
+    "ast_hash": "c18cb8a302b3b3b19299fd17c547d4e8",
+    "semantic_hash": "c18cb8a302b3b3b19299fd17c547d4e8"
+  },
+  "app/Modules/Eventos/views/detalle.php": {
+    "mtime": 1784330211.8677714,
+    "ast_hash": "9d959212e13b726ecaaf8737174ea31e",
+    "semantic_hash": "9d959212e13b726ecaaf8737174ea31e"
+  },
+  "app/Modules/Eventos/views/index.php": {
+    "mtime": 1784305710.2700765,
+    "ast_hash": "103538c6c820b79e4fb8c21416ef84c8",
+    "semantic_hash": "103538c6c820b79e4fb8c21416ef84c8"
+  },
+  "app/Modules/Foro/ForoController.php": {
+    "mtime": 1783837582.502336,
+    "ast_hash": "eff8f61c7ae12238b9c6c2de597bfb08",
+    "semantic_hash": "eff8f61c7ae12238b9c6c2de597bfb08"
+  },
+  "app/Modules/Foro/module.php": {
+    "mtime": 1783837558.7108796,
+    "ast_hash": "3f3559d852ba605cc772d5518d4055f7",
+    "semantic_hash": "3f3559d852ba605cc772d5518d4055f7"
+  },
+  "app/Modules/Foro/views/detalle.php": {
+    "mtime": 1783837622.5131414,
+    "ast_hash": "95e39ec4d5714de70537aa6be6261b71",
+    "semantic_hash": "95e39ec4d5714de70537aa6be6261b71"
+  },
+  "app/Modules/Foro/views/index.php": {
+    "mtime": 1783837607.5958748,
+    "ast_hash": "8ccd0fc9a289be0a8fc3c49639b998e1",
+    "semantic_hash": "8ccd0fc9a289be0a8fc3c49639b998e1"
+  },
+  "app/Modules/Funciones/FuncionesController.php": {
+    "mtime": 1783835285.9235063,
+    "ast_hash": "fbb3b227331d9dfce6cafda3a0c9c59d",
+    "semantic_hash": "fbb3b227331d9dfce6cafda3a0c9c59d"
+  },
+  "app/Modules/Funciones/module.php": {
+    "mtime": 1783837203.5258274,
+    "ast_hash": "c1905145c2f6ca69d13149247fea5c14",
+    "semantic_hash": "c1905145c2f6ca69d13149247fea5c14"
+  },
+  "app/Modules/Funciones/views/index.php": {
+    "mtime": 1783835289.697287,
+    "ast_hash": "1f71214653f86a36b74d66d698c87055",
+    "semantic_hash": "1f71214653f86a36b74d66d698c87055"
+  },
+  "app/Modules/Portal/PortalController.php": {
+    "mtime": 1784276697.382591,
+    "ast_hash": "0546c92ad3325471684240805cde767b",
+    "semantic_hash": "0546c92ad3325471684240805cde767b"
+  },
+  "app/Modules/Portal/module.php": {
+    "mtime": 1783837201.177542,
+    "ast_hash": "9cf76a756f137a6f0d57938be62832c7",
+    "semantic_hash": "9cf76a756f137a6f0d57938be62832c7"
+  },
+  "app/Modules/Portal/views/index.php": {
+    "mtime": 1784276679.5237782,
+    "ast_hash": "7f8cbaac35d8be9e8a6f093516a5d2f6",
+    "semantic_hash": "7f8cbaac35d8be9e8a6f093516a5d2f6"
+  },
+  "app/Modules/Portal/views/index_comunidad.php": {
+    "mtime": 1784259745.9683816,
+    "ast_hash": "e500d5c3991158c906035d8075f33586",
+    "semantic_hash": "e500d5c3991158c906035d8075f33586"
+  },
+  "app/Modules/Recursos/RecursosController.php": {
+    "mtime": 1783862268.8102727,
+    "ast_hash": "d3d8f4bcb58e36ebfe2d39804fceb450",
+    "semantic_hash": "d3d8f4bcb58e36ebfe2d39804fceb450"
+  },
+  "app/Modules/Recursos/module.php": {
+    "mtime": 1783862239.5815687,
+    "ast_hash": "3af4f05879fb3f0565774f271c2d28d7",
+    "semantic_hash": "3af4f05879fb3f0565774f271c2d28d7"
+  },
+  "app/Modules/Recursos/views/ficha.php": {
+    "mtime": 1783862289.813923,
+    "ast_hash": "4948041546771fbc42007e4d54dfe1b3",
+    "semantic_hash": "4948041546771fbc42007e4d54dfe1b3"
+  },
+  "app/Modules/Recursos/views/panel.php": {
+    "mtime": 1783862309.8737404,
+    "ast_hash": "9227d67210b08d6d6773dd66b8823d7e",
+    "semantic_hash": "9227d67210b08d6d6773dd66b8823d7e"
+  },
+  "app/Modules/Solicitudes/SolicitudesController.php": {
+    "mtime": 1783835325.0290499,
+    "ast_hash": "fcf3f0cbfd27b1d2ffb330e856dd6f8f",
+    "semantic_hash": "fcf3f0cbfd27b1d2ffb330e856dd6f8f"
+  },
+  "app/Modules/Solicitudes/module.php": {
+    "mtime": 1784276659.409163,
+    "ast_hash": "73d4a10fefc9a7df8d54a03636c0a605",
+    "semantic_hash": "73d4a10fefc9a7df8d54a03636c0a605"
+  },
+  "app/Modules/Solicitudes/views/detalle.php": {
+    "mtime": 1783835366.81643,
+    "ast_hash": "fb8d55ade011aa69db68c85aef316ecf",
+    "semantic_hash": "fb8d55ade011aa69db68c85aef316ecf"
+  },
+  "app/Modules/Solicitudes/views/index.php": {
+    "mtime": 1783835343.5124846,
+    "ast_hash": "abdc483878c4e0dba82728bcfb777029",
+    "semantic_hash": "abdc483878c4e0dba82728bcfb777029"
+  },
+  "app/Modules/Solicitudes/views/nueva.php": {
+    "mtime": 1783835352.4518971,
+    "ast_hash": "dc9d212c5d42b9806b83b6bd2278d95f",
+    "semantic_hash": "dc9d212c5d42b9806b83b6bd2278d95f"
+  },
+  "app/Modules/Tickets/TicketsController.php": {
+    "mtime": 1784276396.359213,
+    "ast_hash": "70413cabc4260081cb8b64d547cac68a",
+    "semantic_hash": "70413cabc4260081cb8b64d547cac68a"
+  },
+  "app/Modules/Tickets/module.php": {
+    "mtime": 1784276650.5250752,
+    "ast_hash": "fa1eb29bc02d7eb7428cf1149f0e3f48",
+    "semantic_hash": "fa1eb29bc02d7eb7428cf1149f0e3f48"
+  },
+  "app/Modules/Tickets/views/detalle.php": {
+    "mtime": 1784276406.5818822,
+    "ast_hash": "e84bd4db1cb6442ac3914ea0ced505f2",
+    "semantic_hash": "e84bd4db1cb6442ac3914ea0ced505f2"
+  },
+  "app/Modules/Tickets/views/index.php": {
+    "mtime": 1783923446.7643633,
+    "ast_hash": "47cc52f2ea02481ae33321767b6cdf01",
+    "semantic_hash": "47cc52f2ea02481ae33321767b6cdf01"
+  },
+  "app/Modules/Tickets/views/nuevo.php": {
+    "mtime": 1784276374.8114455,
+    "ast_hash": "1e4fc5408350f36295b4af92491199c5",
+    "semantic_hash": "1e4fc5408350f36295b4af92491199c5"
+  },
+  "app/Views/errores/403.php": {
+    "mtime": 1783836943.1654081,
+    "ast_hash": "a1d151273a6571b8419f2a440788d42d",
+    "semantic_hash": "a1d151273a6571b8419f2a440788d42d"
+  },
+  "app/Views/errores/404.php": {
+    "mtime": 1783835209.4840858,
+    "ast_hash": "58ecdf6ed8d16f4ab64be9b5290e32a8",
+    "semantic_hash": "58ecdf6ed8d16f4ab64be9b5290e32a8"
+  },
+  "app/Views/layouts/app.php": {
+    "mtime": 1784327651.792418,
+    "ast_hash": "1f21b00679b9ce50c3b9a2c057076951",
+    "semantic_hash": "1f21b00679b9ce50c3b9a2c057076951"
+  },
+  "app/Views/layouts/auth.php": {
+    "mtime": 1783835207.4499028,
+    "ast_hash": "7b63fa6f669dae06d53630943c1a5a10",
+    "semantic_hash": "7b63fa6f669dae06d53630943c1a5a10"
+  },
+  "app/bootstrap.php": {
+    "mtime": 1783953215.98352,
+    "ast_hash": "e748868009e3777d44a2acf8503e93cf",
+    "semantic_hash": "e748868009e3777d44a2acf8503e93cf"
+  },
+  "app/config.local.php": {
+    "mtime": 1783836854.8898292,
+    "ast_hash": "547c154fb742756e04a20fcb5c8aedae",
+    "semantic_hash": "547c154fb742756e04a20fcb5c8aedae"
+  },
+  "app/config.php": {
+    "mtime": 1783836853.403925,
+    "ast_hash": "eed95b1410d773077ad777b3171d8c8b",
+    "semantic_hash": "eed95b1410d773077ad777b3171d8c8b"
+  },
+  "database/schema.sql": {
+    "mtime": 1784330765.551659,
+    "ast_hash": "4678f0ea09d54eae4e81ffe22607a22f",
+    "semantic_hash": "4678f0ea09d54eae4e81ffe22607a22f"
+  },
+  "database/seed_departamentos.sql": {
+    "mtime": 1783834937.7616851,
+    "ast_hash": "1d287918a6bdf1cc9a3b7d1e78c86890",
+    "semantic_hash": "1d287918a6bdf1cc9a3b7d1e78c86890"
+  },
+  "legacy/app.js": {
+    "mtime": 1782921046.0936124,
+    "ast_hash": "2ecae965ee72481e4596af047f22b565",
+    "semantic_hash": "2ecae965ee72481e4596af047f22b565"
+  },
+  "legacy/mo_data.js": {
+    "mtime": 1782919273.0962348,
+    "ast_hash": "4943303d5506def5d4e0555ef13072ae",
+    "semantic_hash": "4943303d5506def5d4e0555ef13072ae"
+  },
+  "public/assets/js/app.js": {
+    "mtime": 1783837186.4275417,
+    "ast_hash": "9a782898db231b7e83588cd3fdbf014a",
+    "semantic_hash": "9a782898db231b7e83588cd3fdbf014a"
+  },
+  "public/index.php": {
+    "mtime": 1783835046.1205516,
+    "ast_hash": "99b9e50469bebebc9431f63b62240791",
+    "semantic_hash": "99b9e50469bebebc9431f63b62240791"
+  },
+  "skills-lock.json": {
+    "mtime": 1783861447.0152643,
+    "ast_hash": "d70d164a5d9696e0fd5b8d5aa85157f0",
+    "semantic_hash": "d70d164a5d9696e0fd5b8d5aa85157f0"
+  },
+  "api-1.json": {
+    "mtime": 1784324656.9051166,
+    "ast_hash": "ad6cbf3a9262a541903d3a7f9918bae3",
+    "semantic_hash": "ad6cbf3a9262a541903d3a7f9918bae3"
+  },
+  "app/Core/Totp.php": {
+    "mtime": 1784311850.9282632,
+    "ast_hash": "04054dc565940cdfef930cb340d3f73d",
+    "semantic_hash": "04054dc565940cdfef930cb340d3f73d"
+  },
+  "app/Core/WebAuthn.php": {
+    "mtime": 1784311509.42819,
+    "ast_hash": "b37413db6b4083d63b9f33c84d34b32c",
+    "semantic_hash": "b37413db6b4083d63b9f33c84d34b32c"
+  },
+  "app/Modules/Ajustes/views/usuarios.php": {
+    "mtime": 1784322639.8057883,
+    "ast_hash": "e67907d8e9f30292814c769ff1d07097",
+    "semantic_hash": "e67907d8e9f30292814c769ff1d07097"
+  },
+  "app/Modules/Firmas/FirmasController.php": {
+    "mtime": 1783923177.8927686,
+    "ast_hash": "56a4c5dd635f3507a6d02c1e6431e8b0",
+    "semantic_hash": "56a4c5dd635f3507a6d02c1e6431e8b0"
+  },
+  "app/Modules/Firmas/GruposController.php": {
+    "mtime": 1783923206.821749,
+    "ast_hash": "a9fed2e485755ae8c7641baafe849d56",
+    "semantic_hash": "a9fed2e485755ae8c7641baafe849d56"
+  },
+  "app/Modules/Firmas/PdfFirmador.php": {
+    "mtime": 1783953161.0338845,
+    "ast_hash": "573546c8b90c161283c5d6dd6386e3eb",
+    "semantic_hash": "573546c8b90c161283c5d6dd6386e3eb"
+  },
+  "app/Modules/Firmas/module.php": {
+    "mtime": 1784304944.799137,
+    "ast_hash": "921ba2c31851e9a797935b7ed4ecfaae",
+    "semantic_hash": "921ba2c31851e9a797935b7ed4ecfaae"
+  },
+  "app/Modules/Firmas/views/detalle.php": {
+    "mtime": 1783923284.778435,
+    "ast_hash": "cf3e48b0af35d13d3e93a734fad89bab",
+    "semantic_hash": "cf3e48b0af35d13d3e93a734fad89bab"
+  },
+  "app/Modules/Firmas/views/grupos.php": {
+    "mtime": 1783923320.8852997,
+    "ast_hash": "a62afaf1f8733c8ac424434c87d305bc",
+    "semantic_hash": "a62afaf1f8733c8ac424434c87d305bc"
+  },
+  "app/Modules/Firmas/views/index.php": {
+    "mtime": 1783923226.6825068,
+    "ast_hash": "bfc33dca7f015fd0eb3ddd045d46e48c",
+    "semantic_hash": "bfc33dca7f015fd0eb3ddd045d46e48c"
+  },
+  "app/Modules/Firmas/views/mi_firma.php": {
+    "mtime": 1783923299.7462037,
+    "ast_hash": "5dd8611b06dc2770a12146515a7af4c5",
+    "semantic_hash": "5dd8611b06dc2770a12146515a7af4c5"
+  },
+  "app/Modules/Firmas/views/nuevo.php": {
+    "mtime": 1783923249.8435125,
+    "ast_hash": "07452ae860b34a53a3dfecf049c19374",
+    "semantic_hash": "07452ae860b34a53a3dfecf049c19374"
+  },
+  "app/Modules/Seguridad/SeguridadController.php": {
+    "mtime": 1784312507.8436954,
+    "ast_hash": "9939f083d91682ad69723e3fb5c9bf03",
+    "semantic_hash": "9939f083d91682ad69723e3fb5c9bf03"
+  },
+  "app/Modules/Seguridad/module.php": {
+    "mtime": 1784312627.8871772,
+    "ast_hash": "5f4027c15dd987a96741f80c9e17420e",
+    "semantic_hash": "5f4027c15dd987a96741f80c9e17420e"
+  },
+  "app/Modules/Seguridad/views/index.php": {
+    "mtime": 1784313309.2514708,
+    "ast_hash": "4f678c75bb57421bba42b5fb0b70e630",
+    "semantic_hash": "4f678c75bb57421bba42b5fb0b70e630"
+  },
+  "app/Modules/Teams/TeamsController.php": {
+    "mtime": 1784310179.8117416,
+    "ast_hash": "be981401777f2ec795c2b8761f3d8227",
+    "semantic_hash": "be981401777f2ec795c2b8761f3d8227"
+  },
+  "app/Modules/Teams/module.php": {
+    "mtime": 1784309226.2747731,
+    "ast_hash": "d93314edd2751af0c8aae4596a98173c",
+    "semantic_hash": "d93314edd2751af0c8aae4596a98173c"
+  },
+  "app/Modules/Teams/views/index.php": {
+    "mtime": 1784310054.6874695,
+    "ast_hash": "71d1f49e9c864215a3eb4e2a982f8999",
+    "semantic_hash": "71d1f49e9c864215a3eb4e2a982f8999"
+  },
+  "app/Modules/Teams/views/sitio.php": {
+    "mtime": 1784272508.094629,
+    "ast_hash": "a1812e0c070ed28c5a01f9d1544b0e77",
+    "semantic_hash": "a1812e0c070ed28c5a01f9d1544b0e77"
+  },
+  "app/Modules/Tickets/views/matriz.php": {
+    "mtime": 1783923479.612283,
+    "ast_hash": "0359848c28ad6fe9f9878312476d769a",
+    "semantic_hash": "0359848c28ad6fe9f9878312476d769a"
+  },
+  "lib/fpdf/font/courier.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "e3a400edf2823f5423a09d71bd4486a9",
+    "semantic_hash": "e3a400edf2823f5423a09d71bd4486a9"
+  },
+  "lib/fpdf/font/courierb.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "2d564d4f9999663f48ef24147d470fb1",
+    "semantic_hash": "2d564d4f9999663f48ef24147d470fb1"
+  },
+  "lib/fpdf/font/courierbi.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "2fcddf6e2c5149d7467d5584e0c76c98",
+    "semantic_hash": "2fcddf6e2c5149d7467d5584e0c76c98"
+  },
+  "lib/fpdf/font/courieri.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "ca447582faaa6db180bafa2827a030d4",
+    "semantic_hash": "ca447582faaa6db180bafa2827a030d4"
+  },
+  "lib/fpdf/font/helvetica.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "fedda30dc11649f4ee7b7938bd39018e",
+    "semantic_hash": "fedda30dc11649f4ee7b7938bd39018e"
+  },
+  "lib/fpdf/font/helveticab.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "a0b9565fe962b534ce1088abde8510c0",
+    "semantic_hash": "a0b9565fe962b534ce1088abde8510c0"
+  },
+  "lib/fpdf/font/helveticabi.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "dd29b08bdb147a287aa7dbc0a8c12f07",
+    "semantic_hash": "dd29b08bdb147a287aa7dbc0a8c12f07"
+  },
+  "lib/fpdf/font/helveticai.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "34a17a707789bb94d9da3042fca26969",
+    "semantic_hash": "34a17a707789bb94d9da3042fca26969"
+  },
+  "lib/fpdf/font/symbol.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "5af7a3aa37a425427e42d56164f94269",
+    "semantic_hash": "5af7a3aa37a425427e42d56164f94269"
+  },
+  "lib/fpdf/font/times.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "05a3e5045e9355af620d3363712a4bf3",
+    "semantic_hash": "05a3e5045e9355af620d3363712a4bf3"
+  },
+  "lib/fpdf/font/timesb.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "b07e9f901ff3a4ccbba22cd55e367e93",
+    "semantic_hash": "b07e9f901ff3a4ccbba22cd55e367e93"
+  },
+  "lib/fpdf/font/timesbi.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "10effb29e797882e3d0d6f7b23c0b643",
+    "semantic_hash": "10effb29e797882e3d0d6f7b23c0b643"
+  },
+  "lib/fpdf/font/timesi.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "6b734bfc501e1956c8b8adb6afa3d351",
+    "semantic_hash": "6b734bfc501e1956c8b8adb6afa3d351"
+  },
+  "lib/fpdf/font/zapfdingbats.php": {
+    "mtime": 1442682902.0,
+    "ast_hash": "2e89c742b93fda1036de2f563a050dd6",
+    "semantic_hash": "2e89c742b93fda1036de2f563a050dd6"
+  },
+  "lib/fpdf/fpdf.php": {
+    "mtime": 1687727994.0,
+    "ast_hash": "3858983d405bcb842877b615b25ca346",
+    "semantic_hash": "3858983d405bcb842877b615b25ca346"
+  },
+  "lib/fpdi/autoload.php": {
+    "mtime": 1783922899.830047,
+    "ast_hash": "d80ebc96722f6e894501faef87d3d7af",
+    "semantic_hash": "d80ebc96722f6e894501faef87d3d7af"
+  },
+  "lib/fpdi/src/FpdfTpl.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "0414adf136277eeb8d947a00e5132027",
+    "semantic_hash": "0414adf136277eeb8d947a00e5132027"
+  },
+  "lib/fpdi/src/FpdfTplTrait.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "179d3b370d59e9d8878e427a9718dc6b",
+    "semantic_hash": "179d3b370d59e9d8878e427a9718dc6b"
+  },
+  "lib/fpdi/src/FpdfTrait.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "172bacacc8b87daffc45d2531d252132",
+    "semantic_hash": "172bacacc8b87daffc45d2531d252132"
+  },
+  "lib/fpdi/src/Fpdi.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "7be4c22fa2e0cdced76f277a64aedda4",
+    "semantic_hash": "7be4c22fa2e0cdced76f277a64aedda4"
+  },
+  "lib/fpdi/src/FpdiException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "43712f468dcb4dc3ab937212bf563441",
+    "semantic_hash": "43712f468dcb4dc3ab937212bf563441"
+  },
+  "lib/fpdi/src/FpdiTrait.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "435817d3173ff7ac7cb6c1e65d0c40d6",
+    "semantic_hash": "435817d3173ff7ac7cb6c1e65d0c40d6"
+  },
+  "lib/fpdi/src/GraphicsState.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "c40dbdae7667b08010ae3d13718914e7",
+    "semantic_hash": "c40dbdae7667b08010ae3d13718914e7"
+  },
+  "lib/fpdi/src/Math/Matrix.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "de009f5925d1ccb7b95cbe87dab90e7f",
+    "semantic_hash": "de009f5925d1ccb7b95cbe87dab90e7f"
+  },
+  "lib/fpdi/src/Math/Vector.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "62c8ed69a8983f2a5f8de54c5b8c685e",
+    "semantic_hash": "62c8ed69a8983f2a5f8de54c5b8c685e"
+  },
+  "lib/fpdi/src/PdfParser/CrossReference/AbstractReader.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "52b92415d21fe79f4367d5d3a91a0033",
+    "semantic_hash": "52b92415d21fe79f4367d5d3a91a0033"
+  },
+  "lib/fpdi/src/PdfParser/CrossReference/CrossReference.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "a66a3c0d751bbf4406c62f9fc2e9188d",
+    "semantic_hash": "a66a3c0d751bbf4406c62f9fc2e9188d"
+  },
+  "lib/fpdi/src/PdfParser/CrossReference/CrossReferenceException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "0252de7cb934586f9737cfc19491d6f3",
+    "semantic_hash": "0252de7cb934586f9737cfc19491d6f3"
+  },
+  "lib/fpdi/src/PdfParser/CrossReference/FixedReader.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "c77f888b5f807469f0ea595f5c13dc9c",
+    "semantic_hash": "c77f888b5f807469f0ea595f5c13dc9c"
+  },
+  "lib/fpdi/src/PdfParser/CrossReference/LineReader.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "d4c989f3ebd97358184701428cfbfcaf",
+    "semantic_hash": "d4c989f3ebd97358184701428cfbfcaf"
+  },
+  "lib/fpdi/src/PdfParser/CrossReference/ReaderInterface.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "c5e07a0e889a5bfb6894ef9f063ea24f",
+    "semantic_hash": "c5e07a0e889a5bfb6894ef9f063ea24f"
+  },
+  "lib/fpdi/src/PdfParser/Filter/Ascii85.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "5e4924b2b81dc37598d4bfd9ddd43c19",
+    "semantic_hash": "5e4924b2b81dc37598d4bfd9ddd43c19"
+  },
+  "lib/fpdi/src/PdfParser/Filter/Ascii85Exception.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "84e912a11a08c2f7081101e63cec4986",
+    "semantic_hash": "84e912a11a08c2f7081101e63cec4986"
+  },
+  "lib/fpdi/src/PdfParser/Filter/AsciiHex.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "58a55f26948466770c84e72163722e48",
+    "semantic_hash": "58a55f26948466770c84e72163722e48"
+  },
+  "lib/fpdi/src/PdfParser/Filter/FilterException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "e6ac89058e51483a27394d2baf55f2b4",
+    "semantic_hash": "e6ac89058e51483a27394d2baf55f2b4"
+  },
+  "lib/fpdi/src/PdfParser/Filter/FilterInterface.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "0918d57760b403fa9570fb871f60be7c",
+    "semantic_hash": "0918d57760b403fa9570fb871f60be7c"
+  },
+  "lib/fpdi/src/PdfParser/Filter/Flate.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "245bdeae5fd8df71212cf054acb3e8de",
+    "semantic_hash": "245bdeae5fd8df71212cf054acb3e8de"
+  },
+  "lib/fpdi/src/PdfParser/Filter/FlateException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "b89ca434fefe0639c2912b67c0bd4280",
+    "semantic_hash": "b89ca434fefe0639c2912b67c0bd4280"
+  },
+  "lib/fpdi/src/PdfParser/Filter/Lzw.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "b8231ba8be3f9eee69349bc40e14339b",
+    "semantic_hash": "b8231ba8be3f9eee69349bc40e14339b"
+  },
+  "lib/fpdi/src/PdfParser/Filter/LzwException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "cdcfa0a9bea489b927d8c960e14fe3fd",
+    "semantic_hash": "cdcfa0a9bea489b927d8c960e14fe3fd"
+  },
+  "lib/fpdi/src/PdfParser/PdfParser.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "e7f914e4792ce7d205b48cea12d93bac",
+    "semantic_hash": "e7f914e4792ce7d205b48cea12d93bac"
+  },
+  "lib/fpdi/src/PdfParser/PdfParserException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "5ca8fd8b636679cc41b51e5843bccac6",
+    "semantic_hash": "5ca8fd8b636679cc41b51e5843bccac6"
+  },
+  "lib/fpdi/src/PdfParser/StreamReader.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "94b3c00ae3b4207dc6eb93ead196fc14",
+    "semantic_hash": "94b3c00ae3b4207dc6eb93ead196fc14"
+  },
+  "lib/fpdi/src/PdfParser/Tokenizer.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "835a0d8c547b8fd5e87c387d2d111d8c",
+    "semantic_hash": "835a0d8c547b8fd5e87c387d2d111d8c"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfArray.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "9c5891485437fce4af5b5d97995a74ae",
+    "semantic_hash": "9c5891485437fce4af5b5d97995a74ae"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfBoolean.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "d485b364937d91e8d17c29f93ed81c0d",
+    "semantic_hash": "d485b364937d91e8d17c29f93ed81c0d"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfDictionary.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "e9589d63fbd51eae24a489e1a5a76e17",
+    "semantic_hash": "e9589d63fbd51eae24a489e1a5a76e17"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfHexString.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "179a9dc72af442ee0324a8006f465d8b",
+    "semantic_hash": "179a9dc72af442ee0324a8006f465d8b"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfIndirectObject.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "989e649f70d777da1c5b463ca99e78ac",
+    "semantic_hash": "989e649f70d777da1c5b463ca99e78ac"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfIndirectObjectReference.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "a7e850ee55f74147bff5001a8fb49ec6",
+    "semantic_hash": "a7e850ee55f74147bff5001a8fb49ec6"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfName.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "03c831ef5a9f9e42342f841b228215d0",
+    "semantic_hash": "03c831ef5a9f9e42342f841b228215d0"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfNull.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "0e375411f33f23cc6ad316164e3ff96b",
+    "semantic_hash": "0e375411f33f23cc6ad316164e3ff96b"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfNumeric.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "9a4dd69caccf5f675b09de4f39eda3aa",
+    "semantic_hash": "9a4dd69caccf5f675b09de4f39eda3aa"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfStream.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "6c123777a458354021b22bcd4a072e1f",
+    "semantic_hash": "6c123777a458354021b22bcd4a072e1f"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfString.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "58e9e76d39ae375121ba2407a198a398",
+    "semantic_hash": "58e9e76d39ae375121ba2407a198a398"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfToken.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "43df25c9e89c0b920dbad6da3d925dc1",
+    "semantic_hash": "43df25c9e89c0b920dbad6da3d925dc1"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfType.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "dd5f020d5c8363441addfe7b3ce9aa05",
+    "semantic_hash": "dd5f020d5c8363441addfe7b3ce9aa05"
+  },
+  "lib/fpdi/src/PdfParser/Type/PdfTypeException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "814319438b89a63f33973f1a5624d649",
+    "semantic_hash": "814319438b89a63f33973f1a5624d649"
+  },
+  "lib/fpdi/src/PdfReader/DataStructure/Rectangle.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "7fc0b16cc9e852ea9b1866d1c37bbab8",
+    "semantic_hash": "7fc0b16cc9e852ea9b1866d1c37bbab8"
+  },
+  "lib/fpdi/src/PdfReader/Page.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "696b76d020ac4da9ac7a839096dedee8",
+    "semantic_hash": "696b76d020ac4da9ac7a839096dedee8"
+  },
+  "lib/fpdi/src/PdfReader/PageBoundaries.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "de98a81d0647c4a69fdd51994e71dba5",
+    "semantic_hash": "de98a81d0647c4a69fdd51994e71dba5"
+  },
+  "lib/fpdi/src/PdfReader/PdfReader.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "ca1b9669aff462372774671f7e66683c",
+    "semantic_hash": "ca1b9669aff462372774671f7e66683c"
+  },
+  "lib/fpdi/src/PdfReader/PdfReaderException.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "0617a87281e241a66ee571f1c83faf3f",
+    "semantic_hash": "0617a87281e241a66ee571f1c83faf3f"
+  },
+  "lib/fpdi/src/TcpdfFpdi.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "055b99b604bf1c8f0d4894a84811d2a4",
+    "semantic_hash": "055b99b604bf1c8f0d4894a84811d2a4"
+  },
+  "lib/fpdi/src/Tcpdf/Fpdi.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "9b4a9b00ddda9f3ae6fd9172b432a931",
+    "semantic_hash": "9b4a9b00ddda9f3ae6fd9172b432a931"
+  },
+  "lib/fpdi/src/Tfpdf/FpdfTpl.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "5c5b17a08bd0b1e720b26b3f9d6ed9bb",
+    "semantic_hash": "5c5b17a08bd0b1e720b26b3f9d6ed9bb"
+  },
+  "lib/fpdi/src/Tfpdf/Fpdi.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "972cee331b7a8ff726629a753503b598",
+    "semantic_hash": "972cee331b7a8ff726629a753503b598"
+  },
+  "lib/fpdi/src/autoload.php": {
+    "mtime": 1738754554.0,
+    "ast_hash": "c17a5569d256876f263cb4fd7bdabdda",
+    "semantic_hash": "c17a5569d256876f263cb4fd7bdabdda"
+  },
+  "scratch_db_update.php": {
+    "mtime": 1783922223.310042,
+    "ast_hash": "1df8b895800b765d0aec9893250b1c25",
+    "semantic_hash": "1df8b895800b765d0aec9893250b1c25"
+  }
+}
