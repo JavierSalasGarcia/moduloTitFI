@@ -47,6 +47,16 @@ $config = [
         'user_dir'          => dirname(__DIR__) . '/storage/pki/users',
         'user_cert_days'    => 365,
     ],
+    'titulacion' => [
+        // Personal que valida trámites de titulación: cuentas de estas dependencias
+        // (roles titular, operativo o coordinador) y los correos listados como gestores.
+        'departamentos' => [
+            'departamento_de_evaluacion_profesional_y_grado',
+            'subdireccion_academica',
+            'titular_de_la_subdireccion_academica',
+        ],
+        'gestores' => ['jsalasg@uaemex.mx'],
+    ],
     'asuntos' => [
         // Se aceptan el dominio exacto y sus subdominios institucionales.
         'dominios_correo' => ['uaemex.mx', 'fingenieria.mx'],

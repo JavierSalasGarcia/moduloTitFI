@@ -39,6 +39,7 @@ plataformaFI/
 │       ├── Recursos/        ← menú RECURSOS configurable por el admin (archivos/enlaces)
 │       ├── Eventos/         ← avisos suscribibles + buscador + biblioteca de concluidos
 │       ├── Calendario/      ← calendario personal con los eventos suscritos
+│       ├── Titulacion/      ← trámite de titulación en línea (licenciatura; posgrado próximamente)
 │       ├── Directorio/      ← organigrama navegable
 │       └── Ajustes/         ← parámetros configurables (solo admin)
 ├── database/                ← schema.sql, schema_fase2.sql y seeds
