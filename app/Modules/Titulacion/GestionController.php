@@ -236,6 +236,20 @@ final class GestionController extends TitulacionBase
             $docId = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $entrega['clave'], 'personal', 'aprobado', $ruta, $entrega['clave'] . '_' . $t['folio'] . '.pdf', Auth::id());
             SubdireccionFirma::solicitar($t, $docId, (string) $entrega['clave'], (string) $entrega['nombre'], $caja);
         }
+        foreach ($etapa['personal']['extras'] ?? [] as $extra) {
+            if (empty($extra['oficio'])) {
+                continue;
+            }
+            try {
+                [$rutaX, $cajaX] = DocumentosGenerados::guardarOficio($t, (string) $extra['clave'], $datos);
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo generar el oficio ' . $extra['clave'] . ': ' . $e->getMessage());
+                flash('error', 'No se pudo generar «' . $extra['nombre'] . '». Intenta de nuevo.');
+                redirigir($volver);
+            }
+            $idX = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $extra['clave'], 'personal', 'aprobado', $rutaX, $extra['clave'] . '_' . $t['folio'] . '.pdf', Auth::id());
+            SubdireccionFirma::solicitar($t, $idX, (string) $extra['clave'], (string) $extra['nombre'], $cajaX);
+        }
         TitulacionRepository::guardarHito((int) $t['id'], $etapaClave, $datos, Auth::id());
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'hito', 'Etapa completada por el departamento: ' . ($etapa['personal']['titulo'] ?? $etapa['titulo']) . $this->resumenHito($datos, $etapa));
         Audit::record('titulacion::hito', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $etapaClave);
@@ -338,6 +352,9 @@ final class GestionController extends TitulacionBase
         $etapaDef = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, $etapaClave);
         if (!empty($etapaDef['personal']['entrega']['asignacion'])) {
             Database::ejecutar("UPDATE tit_asignaciones_jurado SET estado = 'cancelada' WHERE tramite_id = ? AND etapa = ? AND estado = 'solicitada'", [(int) $t['id'], $etapaClave]);
+        }
+        foreach ($etapaDef['personal']['extras'] ?? [] as $x) {
+            Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [(int) $t['id'], $x['clave']]);
         }
         if (!empty($etapaDef['personal']['entrega']['oficio'])) {
             Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [(int) $t['id'], $etapaDef['personal']['entrega']['clave']]);

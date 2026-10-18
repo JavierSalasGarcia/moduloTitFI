@@ -109,6 +109,7 @@ $chips = [
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
           <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : ' · firmado' ?></div><?php endif; ?>
+          <?php foreach ($e['personal']['extras'] ?? [] as $x): $fx = $docs[$e['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url($ver . '/archivo/' . (int) $fx['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
           <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $e['clave']); ?>
             <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
               <div class="tit-aviso">Esperando al Coordinador de Docencia: <?= e($asig['coord_nombre']) ?> (<?= e($asig['coord_email']) ?>).
