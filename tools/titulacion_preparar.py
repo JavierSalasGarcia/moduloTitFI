@@ -372,6 +372,92 @@ def construir(clave, ruta):
             'campos': [c for c in campos if c], 'subdirector': subdirector, 'subdirector_impreso': NOMBRE_SUBDIRECTOR}
 
 
+def crear_revision_protocolo():
+    """Genera la plantilla en blanco del formato «Revisión de protocolo» (dictamen) y su especificación.
+
+    El formato no existía en blanco (solo un ejemplo lleno); se dibuja con reportlab respetando la
+    distribución del ejemplo y se registra como cualquier otro formato, así que puede ajustarse en el
+    visor de coordenadas."""
+    from reportlab.lib.pagesizes import letter
+    from reportlab.pdfgen import canvas
+
+    ruta = DESTINO_PDF / 'RevisionProtocolo.pdf'
+    DESTINO_PDF.mkdir(parents=True, exist_ok=True)
+    c = canvas.Canvas(str(ruta), pagesize=letter, pageCompression=0)
+    c.setTitle('Revisión de protocolo')
+    H = 792.0
+
+    def y_(v):
+        return H - v
+
+    def txt(x, y, t, size=8.5, bold=False, centro=False):
+        c.setFont('Helvetica-Bold' if bold else 'Helvetica', size)
+        (c.drawCentredString if centro else c.drawString)(x, y_(y), t)
+
+    def caja(x, y, w, h):
+        c.setLineWidth(0.8)
+        c.rect(x, y_(y + h), w, h)
+
+    def linea(x0, x1, y):
+        c.setLineWidth(0.6)
+        c.line(x0, y_(y), x1, y_(y))
+
+    img = MODULO / 'plantillas' / 'img'
+    c.drawImage(str(img / 'uaem.jpg'), 50, y_(92), width=62, height=55.5, preserveAspectRatio=True, mask=None)
+    c.drawImage(str(img / 'facultad.jpg'), 446, y_(84), width=106, height=46.3, preserveAspectRatio=True, mask=None)
+    txt(306, 44, 'UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MÉXICO', 10, True, True)
+    txt(306, 57, 'FACULTAD DE INGENIERÍA', 10, True, True)
+    txt(306, 83, 'REVISIÓN DE PROTOCOLO', 10, True, True)
+
+    caja(50, 112, 512, 130)
+    txt(58, 130, 'NOMBRE DEL PASANTE:'); linea(170, 385, 134)
+    txt(396, 130, 'No DE CUENTA:'); linea(470, 554, 134)
+    txt(58, 156, 'TÍTULO DEL TRABAJO:'); linea(165, 554, 160); linea(165, 554, 174)
+    txt(58, 214, 'MODALIDAD:'); linea(165, 554, 218)
+
+    caja(50, 250, 512, 62)
+    txt(58, 270, 'FECHA DE RECEPCIÓN:'); linea(170, 280, 274)
+    txt(300, 270, 'FECHA DE ENTREGA:'); linea(410, 554, 274)
+    txt(58, 298, 'No. DE REVISIÓN:'); txt(160, 298, '1ª'); caja(172, 290, 16, 14); txt(204, 298, '2ª'); caja(216, 290, 16, 14)
+
+    caja(50, 320, 512, 62)
+    txt(306, 336, 'DICTAMEN DEL PROTOCOLO', 9, True, True)
+    txt(58, 366, 'SE APRUEBA:'); caja(122, 358, 16, 14)
+    txt(160, 366, 'NO SE APRUEBA:'); caja(240, 358, 16, 14)
+    txt(282, 366, 'REQUIERE REVISIÓN DEL COORD. DE', 8); txt(488, 366, 'SI', 8); caja(500, 359, 13, 13); txt(520, 366, 'NO', 8); caja(535, 359, 13, 13)
+
+    txt(50, 396, 'OBSERVACIONES', 8.5, True)
+    caja(50, 400, 512, 156)
+
+    txt(306, 586, 'ATENTAMENTE', 9, False, True)
+    txt(306, 636, 'COMISIÓN DE EVALUACIÓN PROFESIONAL DE TRABAJOS DE TITULACIÓN', 8.5, False, True)
+    c.showPage()
+    c.save()
+
+    def fila(k, x, y, w, h=13, s=9, a='L'):
+        return texto(k, 0, x, y, w, h, s, a)
+
+    campos = [
+        fila('licenciatura_titulo', 106, 62, 400, 13, 10, 'C'),
+        fila('nombre', 172, 121, 212),
+        fila('cuenta', 472, 121, 80, 13, 9, 'C'),
+        {'k': 'titulo', 'tipo': 'parrafo', 'p': 0, 'cajas': [[167, 147, 386, 12.5], [167, 161, 386, 12.5]], 's': 9},
+        fila('modalidad_nombre', 167, 205, 386),
+        fila('fecha_recepcion', 172, 261, 106, 13, 9, 'C'),
+        fila('fecha_entrega', 412, 261, 140, 13, 9, 'C'),
+        {'k': 'revision', 'tipo': 'marca', 'p': 0, 'm': {'1': [180.0, 297.0], '2': [224.0, 297.0]}},
+        {'k': 'dictamen', 'tipo': 'marca', 'p': 0, 'm': {'aprobado': [130.0, 365.0], 'no_aprobado': [248.0, 365.0]}},
+        fila('siglas', 438, 357, 36, 13, 8, 'C'),
+        {'k': 'requiere_coord', 'tipo': 'marca', 'p': 0, 'm': {'si': [506.5, 365.5], 'no': [541.5, 365.5]}},
+        {'k': 'observaciones', 'tipo': 'parrafo', 'p': 0,
+         'cajas': [[56, 404 + i * 13.4, 500, 12.5] for i in range(11)], 's': 9},
+        fila('firmante', 156, 604, 300, 13, 10, 'C'),
+        fila('licenciatura_titulo', 106, 646, 400, 13, 8.5, 'C'),
+    ]
+    return {'plantilla': 'pdf/RevisionProtocolo.pdf', 'ancho': 612.0, 'alto': 792.0, 'campos': campos,
+            'subdirector': [], 'subdirector_impreso': NOMBRE_SUBDIRECTOR}
+
+
 def main():
     DESTINO_PDF.mkdir(parents=True, exist_ok=True)
     DESTINO_DOCX.mkdir(parents=True, exist_ok=True)
@@ -390,6 +476,8 @@ def main():
         specs[clave] = construir(clave, destino)
         print('ok', clave, len(specs[clave]['campos']), 'campos')
     shutil.copy(ORIGEN / 'Membretada.docx', DESTINO_DOCX / 'Membretada.docx')  # hoja membretada del protocolo
+    specs['revision_protocolo'] = crear_revision_protocolo()
+    print('ok revision_protocolo (plantilla dibujada)')
     # Formatos en blanco que el pasante descarga tal cual (sin llenado automático).
     blancos = ['SolicitudPr#U00f3rrogaTrabEscrito.pdf', 'SolicitudCoasesoria.pdf', 'CartaPresentacion_v082025.docx',
                'CartaDeAutorizacionRI.pdf', 'CartaDeAutorizacionRI2Tesistas.pdf', 'CartaDeExcepcionRI.pdf',

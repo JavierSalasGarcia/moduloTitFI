@@ -103,4 +103,19 @@ abstract class TitulacionBase extends Controller
         echo $bytes;
         exit;
     }
+
+    /**
+     * Añade semáforo y días hábiles restantes a cada asignación.
+     *
+     * @param array<int,array<string,mixed>> $asigs
+     */
+    protected function decorarAsignaciones(array $asigs): array
+    {
+        $hoy = new \DateTimeImmutable('today');
+        foreach ($asigs as &$a) {
+            $a['semaforo'] = Services\Calendario::semaforo((string) $a['estado'], (string) $a['fecha_limite'], $hoy);
+            $a['restan'] = Services\Calendario::restantes($hoy, new \DateTimeImmutable((string) $a['fecha_limite']));
+        }
+        return $asigs;
+    }
 }

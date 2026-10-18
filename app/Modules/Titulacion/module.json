@@ -17,7 +17,8 @@
         "profesor",
         "alumno"
       ],
-      "orden": 20
+      "orden": 20,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::veLicenciatura"
     },
     {
       "seccion": "TITULACIÓN",
@@ -31,7 +32,53 @@
         "profesor",
         "alumno"
       ],
-      "orden": 21
+      "orden": 21,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::vePosgrado"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Protocolos por evaluar",
+      "ruta": "titulacion/revision",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 22,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEvaluador"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Mi comisión",
+      "ruta": "titulacion/comision",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 23,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEncargado"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Protocolos recibidos",
+      "ruta": "titulacion/protocolos",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 24,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
     },
     {
       "seccion": "TITULACIÓN",
@@ -41,9 +88,21 @@
         "admin",
         "titular",
         "operativo",
-        "coordinador"
+        "coordinador",
+        "profesor",
+        "alumno"
       ],
-      "orden": 22
+      "orden": 25,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Estructura",
+      "ruta": "titulacion/estructura",
+      "roles": [
+        "admin"
+      ],
+      "orden": 26
     },
     {
       "seccion": "TITULACIÓN",
@@ -52,7 +111,7 @@
       "roles": [
         "admin"
       ],
-      "orden": 23
+      "orden": 27
     }
   ],
   "rutas": {
@@ -203,6 +262,114 @@
     "POST /titulacion/configuracion/formatos/{clave}/eliminar": [
       "App\\Modules\\Titulacion\\ConfiguracionController",
       "eliminarFormato"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/dictamen/{ronda}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "dictamen"
+    ],
+    "GET /titulacion/estructura": [
+      "App\\Modules\\Titulacion\\EstructuraController",
+      "index"
+    ],
+    "POST /titulacion/estructura/miembros": [
+      "App\\Modules\\Titulacion\\EstructuraController",
+      "agregar"
+    ],
+    "POST /titulacion/estructura/miembros/{id}": [
+      "App\\Modules\\Titulacion\\EstructuraController",
+      "actualizar"
+    ],
+    "POST /titulacion/estructura/miembros/{id}/eliminar": [
+      "App\\Modules\\Titulacion\\EstructuraController",
+      "eliminar"
+    ],
+    "GET /titulacion/protocolos": [
+      "App\\Modules\\Titulacion\\ProtocolosController",
+      "index"
+    ],
+    "POST /titulacion/protocolos/{id}/enviar": [
+      "App\\Modules\\Titulacion\\ProtocolosController",
+      "enviar"
+    ],
+    "POST /titulacion/protocolos/{id}/recordatorio/{asig}": [
+      "App\\Modules\\Titulacion\\ProtocolosController",
+      "recordatorio"
+    ],
+    "GET /titulacion/protocolos/{id}/documento": [
+      "App\\Modules\\Titulacion\\ProtocolosController",
+      "documento"
+    ],
+    "GET /titulacion/comision": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "index"
+    ],
+    "GET /titulacion/comision/{id}": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "ver"
+    ],
+    "POST /titulacion/comision/{id}/asignar": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "asignar"
+    ],
+    "POST /titulacion/comision/{id}/recordatorio/{asig}": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "recordatorio"
+    ],
+    "POST /titulacion/comision/{id}/cancelar/{asig}": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "cancelar"
+    ],
+    "POST /titulacion/comision/{id}/dictaminar": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "dictaminar"
+    ],
+    "GET /titulacion/comision/{id}/revision/{asig}": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "revisionPdf"
+    ],
+    "GET /titulacion/revision": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "lista"
+    ],
+    "GET /titulacion/revision/{id}": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "ver"
+    ],
+    "POST /titulacion/revision/{id}/guardar": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "guardar"
+    ],
+    "POST /titulacion/revision/{id}/firmar": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "firmar"
+    ],
+    "GET /titulacion/revision/{id}/documento": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "documento"
+    ],
+    "GET /titulacion/revision/t/{token}": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "porToken",
+      "publico"
+    ],
+    "POST /titulacion/revision/t/{token}/guardar": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "guardarToken",
+      "publico"
+    ],
+    "POST /titulacion/revision/t/{token}/firmar": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "firmarToken",
+      "publico"
+    ],
+    "GET /titulacion/revision/t/{token}/documento": [
+      "App\\Modules\\Titulacion\\RevisionController",
+      "documentoToken",
+      "publico"
+    ],
+    "POST /titulacion/configuracion/parametros": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "parametros"
     ]
   }
 }

@@ -49,6 +49,20 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php endif; ?>
     <?php if (!empty($etapa['descripcion'])): ?><p><?= e($etapa['descripcion']) ?></p><?php endif; ?>
 
+    <?php if (!$bloqueada && !empty($linea)): ?>
+      <h3>Revisión de tu protocolo<?= $linea['numero'] > 0 ? ' · ' . (int) $linea['numero'] . 'ª revisión' : '' ?></h3>
+      <ol class="tit-linea" aria-label="Avance de la revisión del protocolo">
+        <?php foreach ($linea['pasos'] as $p): ?><li class="<?= e($p['clase']) ?>"><?= e($p['texto']) ?></li><?php endforeach; ?>
+      </ol>
+      <?php if (!empty($linea['ronda'])): $rr = $linea['ronda']; ?>
+        <div class="<?= $rr['dictamen'] === 'aprobado' ? 'tit-ok' : 'tit-obs' ?>" style="margin-top:12px">
+          <strong>Dictamen de la comisión: <?= $rr['dictamen'] === 'aprobado' ? 'se aprueba' : 'no se aprueba' ?></strong>
+          <?php if ($rr['observaciones']): ?><div style="white-space:pre-wrap;margin-top:4px"><?= e((string) $rr['observaciones']) ?></div><?php endif; ?>
+          <div style="margin-top:4px"><a href="<?= url($base . '/dictamen/' . (int) $rr['id']) ?>" target="_blank" rel="noopener">Ver el dictamen firmado (PDF)</a></div>
+        </div>
+      <?php endif; ?>
+    <?php endif; ?>
+
     <?php if (!$bloqueada && !empty($etapa['campos'])): ?>
       <h3>Datos <?= $etapa['captura_ok'] ? '<span class="tit-chip ok">Completos</span>' : '<span class="tit-chip pend">Pendientes</span>' ?></h3>
       <form class="formulario" method="post" action="<?= url($base . '/captura/' . $etapa['clave']) ?>">
@@ -120,7 +134,9 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
             <?php if ($fila && $fila['ruta']): ?>
               <p class="nota"><a href="<?= url($base . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener">Ver PDF enviado</a> · <?= e((string) $fila['nombre_original']) ?></p>
             <?php endif; ?>
-            <?php if ($editable && $etapa['propia_ok'] && $est !== 'aprobado'): ?>
+            <?php if (($d['validacion'] ?? '') === 'comision' && $protocoloEnRevision): ?>
+              <p class="nota">Tu protocolo está en revisión de la comisión; recibirás el dictamen aquí y por correo.</p>
+            <?php elseif ($editable && $etapa['propia_ok'] && $est !== 'aprobado'): ?>
               <form method="post" enctype="multipart/form-data" action="<?= url($base . '/documento/' . $etapa['clave'] . '/' . $dc) ?>">
                 <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
                 <input type="file" name="archivo" accept="application/pdf,.pdf" required aria-label="PDF de <?= e($d['nombre']) ?>">

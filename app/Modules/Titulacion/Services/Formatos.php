@@ -103,6 +103,12 @@ final class Formatos
             'voto_dia' => $t('Voto aprobatorio: día'), 'voto_mes' => $t('Voto aprobatorio: mes'), 'voto_anio' => $t('Voto aprobatorio: año'),
             'voto2_dia' => $t('Fecha del voto (hoja 2): día'), 'voto2_mes' => $t('Fecha del voto (hoja 2): mes'), 'voto2_anio' => $t('Fecha del voto (hoja 2): año'),
             'motivos' => $t('Motivos (Art. 5)'), 'nombre_v' => $t('Nombre (voto aprobatorio)'), 'cuenta_v' => $t('Cuenta (voto aprobatorio)'), 'titulo_v' => $t('Título (voto aprobatorio)'),
+            'licenciatura_titulo' => $t('Encabezado: LICENCIATURA DE INGENIERÍA EN…'), 'siglas' => $t('Siglas de la licenciatura'),
+            'fecha_recepcion' => $t('Fecha de recepción del protocolo'), 'fecha_entrega' => $t('Fecha de entrega del dictamen'),
+            'observaciones' => $t('Observaciones del dictamen'), 'firmante' => $t('Nombre de quien firma el dictamen'),
+            'revision' => ['label' => 'Casilla: número de revisión', 'tipo' => 'marca', 'opciones' => ['1' => '1ª revisión', '2' => '2ª revisión']],
+            'dictamen' => ['label' => 'Casilla: dictamen (se aprueba / no se aprueba)', 'tipo' => 'marca', 'opciones' => ['aprobado' => 'Se aprueba', 'no_aprobado' => 'No se aprueba']],
+            'requiere_coord' => ['label' => 'Casilla: requiere revisión del coordinador', 'tipo' => 'marca', 'opciones' => ['si' => 'Sí', 'no' => 'No']],
             'carrera' => ['label' => 'Casilla: licenciatura', 'tipo' => 'marca', 'opciones' => $carreras],
             'carrera_v' => ['label' => 'Casilla: licenciatura (voto)', 'tipo' => 'marca', 'opciones' => $carreras],
             'sistema' => ['label' => 'Casilla: sistema', 'tipo' => 'marca', 'opciones' => Catalogo::sistemas()],
@@ -132,6 +138,9 @@ final class Formatos
             'prot_dia' => '3', 'prot_mes' => 'marzo', 'prot_anio' => '26', 'voto_dia' => '5', 'voto_mes' => 'septiembre', 'voto_anio' => '26',
             'voto2_dia' => '5', 'voto2_mes' => 'septiembre', 'voto2_anio' => '26',
             'carrera_v' => 'computacion', 'sistema_v' => 'fi', 'modalidad_v' => 'tesis', 'nombre_v' => 'María José Hernández Peña',
+            'licenciatura_titulo' => 'LICENCIATURA DE INGENIERÍA EN COMPUTACIÓN', 'siglas' => 'ICO', 'fecha_recepcion' => '25-09-2025',
+            'fecha_entrega' => '03-11-2025', 'revision' => '1', 'dictamen' => 'aprobado', 'requiere_coord' => 'no', 'firmante' => 'DR. JAVIER SALAS GARCÍA',
+            'observaciones' => 'FORMA: Revisar la redacción del título y la numeración de las secciones. FONDO: Ampliar la metodología y precisar los alcances del diseño propuesto, de modo que sea posible evaluar si el trabajo está completo.',
             'cuenta_v' => '1912345', 'titulo_v' => 'Diseño e implementación de un sistema distribuido', '_subdirector' => self::subdirector(),
         ];
     }

@@ -60,8 +60,51 @@ final class ConfiguracionController extends TitulacionBase
             'formatos' => $formatos,
             'etapas' => $this->etapasDisponibles(),
             'modalidades' => Catalogo::modalidades(),
+            'param' => [
+                'dias' => (int) \ajuste('titulacion_dias_revision', '7'), 'aviso' => (int) \ajuste('titulacion_dias_aviso', '2'),
+                'firma' => \ajuste('titulacion_firma_revisores', 'sello'), 'inhabiles' => \ajuste('titulacion_dias_inhabiles', ''),
+                'gracia' => (int) \ajuste('titulacion_token_gracia', '14'), 'pki' => \App\Modules\Firmas\PadesSigner::habilitado(),
+            ],
             'bitacora' => Database::todas('SELECT b.*, u.nombre FROM tit_config_bitacora b JOIN usuarios u ON u.id = b.usuario_id ORDER BY b.id DESC LIMIT 15'),
         ]);
+    }
+
+    public function parametros(): void
+    {
+        $this->admin();
+        $dias = (int) $this->post('dias');
+        $aviso = (int) $this->post('aviso');
+        $gracia = (int) $this->post('gracia');
+        $firma = $this->post('firma') === 'pades' ? 'pades' : 'sello';
+        $inhabiles = [];
+        foreach (preg_split('/[\s,;]+/', $this->post('inhabiles'), -1, PREG_SPLIT_NO_EMPTY) ?: [] as $f) {
+            $d = \DateTimeImmutable::createFromFormat('!Y-m-d', $f);
+            if ($d && $d->format('Y-m-d') === $f) {
+                $inhabiles[$f] = $f;
+            }
+        }
+        if (strlen(implode("\n", $inhabiles)) > 250) {
+            flash('error', 'Hay demasiadas fechas no laborables (máximo 25 en total). Captura solo las del periodo en curso.');
+            redirigir('titulacion/configuracion#parametros');
+        }
+        if ($dias < 1 || $dias > 30 || $aviso < 0 || $aviso > 10 || $gracia < 1 || $gracia > 60) {
+            flash('error', 'Revisa los valores: plazo de 1 a 30 días hábiles, aviso de 0 a 10 y gracia del enlace de 1 a 60 días.');
+            redirigir('titulacion/configuracion#parametros');
+        }
+        ksort($inhabiles);
+        foreach ([
+            'titulacion_dias_revision' => [(string) $dias, 'Titulación: días hábiles que tiene cada evaluador para revisar un protocolo.'],
+            'titulacion_dias_aviso' => [(string) $aviso, 'Titulación: faltando estos días hábiles el semáforo de la revisión pasa a ámbar.'],
+            'titulacion_firma_revisores' => [$firma, 'Titulación: firma de las revisiones de protocolo (sello o pades).'],
+            'titulacion_dias_inhabiles' => [implode("\n", $inhabiles), 'Titulación: fechas no laborables (AAAA-MM-DD, una por línea) que no cuentan como días hábiles.'],
+            'titulacion_token_gracia' => [(string) $gracia, 'Titulación: días extra tras la fecha límite en que sigue vigente el enlace del correo.'],
+        ] as $clave => [$valor, $desc]) {
+            Database::ejecutar('INSERT INTO ajustes (clave, valor, descripcion) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE valor = VALUES(valor)', [$clave, $valor, $desc]);
+        }
+        Services\Calendario::reiniciar();
+        Configuracion::bitacora(Auth::id(), 'parametros', 'Revisión de protocolos: ' . $dias . ' días hábiles, firma ' . $firma);
+        flash('exito', 'Parámetros de revisión guardados.');
+        redirigir('titulacion/configuracion#parametros');
     }
 
     /** @return array<string,string> clave de etapa => título (la primera definición). */

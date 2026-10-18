@@ -80,7 +80,11 @@ $chips = [
               </form>
             <?php endif; ?>
           <?php endif; ?>
-          <?php if ($fila && in_array($est, ['en_revision', 'aprobado', 'no_aplica', 'rechazado'], true) && $t['estado'] === 'abierto'): ?>
+          <?php $porComision = ($d['validacion'] ?? '') === 'comision' && \App\Modules\Titulacion\RevisionRepository::comisionConfigurada((string) ($t['datos']['datos']['carrera'] ?? '')); ?>
+          <?php if ($porComision): ?>
+            <p class="nota">La valida la comisión de revisión de protocolos. <a href="<?= url('titulacion/protocolos') ?>">Ver revisión</a></p>
+          <?php endif; ?>
+          <?php if (!$porComision && $fila && in_array($est, ['en_revision', 'aprobado', 'no_aplica', 'rechazado'], true) && $t['estado'] === 'abierto'): ?>
             <form class="formulario" method="post" action="<?= url($base . '/documento/' . (int) $fila['id']) ?>" style="margin-top:8px">
               <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
               <input type="text" name="comentario" maxlength="900" placeholder="Observaciones (obligatorias si lo devuelves)" style="min-width:260px">
