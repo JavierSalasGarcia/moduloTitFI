@@ -105,7 +105,14 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
       <?php foreach ($etapa['docs_estado'] as $dc => $info): $d = $info['def']; $fila = $info['fila']; $est = $info['estado']; [$cl, $et] = $chips[$est] ?? ['pend', $est]; ?>
         <div class="tit-doc" id="doc-<?= e($dc) ?>">
           <div>
-            <h4><?= e($d['nombre']) ?> <span class="tit-chip <?= $cl ?>"><?= e($et) ?></span></h4>
+            <h4><?= e($d['nombre']) ?><?= !empty($d['fisico']) || !empty($d['cotejo']) ? ' <span title="Entrega en físico" aria-label="Entrega en físico">*</span>' : '' ?> <span class="tit-chip <?= $cl ?>"><?= e($et) ?></span>
+              <?php if (!empty($d['cotejo'])): ?>
+                <?php if ($fila && $fila['cotejo_en']): ?><span class="tit-chip ok">Original cotejado</span>
+                <?php else: ?><span class="tit-chip rev">Llevar original para cotejo</span><?php endif; ?>
+              <?php endif; ?></h4>
+            <?php if (!empty($d['cotejo']) && $fila && $fila['cotejo_en']): ?>
+              <p class="nota">Cotejado por <?= e((string) $fila['cotejo_nombre']) ?> el <?= e(fecha_corta($fila['cotejo_en'])) ?><?= $fila['cotejo_ruta'] ? ' · <a href="' . e(url($base . '/archivo/' . (int) $fila['id'] . '?cotejo=1')) . '" target="_blank" rel="noopener">PDF con sello de cotejo</a>' : '' ?></p>
+            <?php endif; ?>
             <?php if ($d['nota']): ?><p class="nota"><?= e($d['nota']) ?></p><?php endif; ?>
             <?php if ($d['condicion']): ?><p class="nota"><em><?= e($d['condicion']) ?></em></p><?php endif; ?>
             <?php if ($est === 'rechazado' && $fila): ?><div class="tit-obs"><strong>Observaciones<?= $fila['revisor_nombre'] ? ' de ' . e($fila['revisor_nombre']) : '' ?>:</strong> <?= e((string) $fila['comentario']) ?></div><?php endif; ?>
@@ -136,6 +143,10 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
           </div>
         </div>
       <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php if (!$bloqueada && array_filter($etapa['docs_estado'] ?? [], static fn(array $x): bool => !empty($x['def']['fisico']) || !empty($x['def']['cotejo']))): ?>
+      <p class="texto-secundario" style="font-size:13px">* Este documento también se entrega en físico en Apoyo a Titulación. Cuando se indica «original para cotejo», el personal lo compara con el PDF que subiste y registra el cotejo con su firma electrónica.</p>
     <?php endif; ?>
 
     <?php if (!$bloqueada && !empty($etapa['presencial'])): ?>

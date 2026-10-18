@@ -156,7 +156,7 @@ final class ProtocoloMembretado
         $x .= self::p([['Correo electrónico: ', true], [(string) ($d['correo'] ?: '—')]], 'left', 40);
         $x .= self::p([['Teléfono celular: ', true], [(string) ($d['telefono'] ?: '—')]], 'left', 40);
 
-        $ed = new DocxEditor(dirname(__DIR__) . '/plantillas/docx/Membretada.docx');
+        $ed = new DocxEditor(\App\Modules\Titulacion\Configuracion::rutaProtocolo());
         $ed->reemplazarCuerpo($x);
         return $ed->guardar();
     }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /** Genera todos los formatos del módulo Titulación con datos de ejemplo (sin base de datos). */
 define('APP_RAIZ', dirname(__DIR__) . '/app');
-foreach (['Catalogo', 'Flujo', 'Services/PdfFormato', 'Services/DocxEditor', 'Services/ProtocoloMembretado', 'Services/Formatos'] as $f) {
+foreach (['Catalogo', 'Flujo', 'Services/PdfFormato', 'Services/DocxEditor', 'Services/ProtocoloMembretado', 'Configuracion', 'Services/Formatos'] as $f) {
     require APP_RAIZ . "/Modules/Titulacion/$f.php";
 }
 

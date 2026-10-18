@@ -191,6 +191,11 @@ final class Catalogo
     /** Formatos que el sistema llena. 'pdf' usa formatos/pdf_specs.json; 'docx' se arma por modalidad. */
     public static function formatos(): array
     {
+        return Configuracion::aplicarFormatos(self::formatosBase());
+    }
+
+    private static function formatosBase(): array
+    {
         return [
             'aprovechamiento' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de evaluación profesional por Aprovechamiento académico', 'firma' => 'el pasante'],
             'egel_50' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de evaluación profesional por EGEL (convocatoria «Pagando menos»)', 'firma' => 'el pasante'],
@@ -312,7 +317,8 @@ final class Catalogo
     /** Documento que sube el pasante. */
     private static function doc(string $clave, string $nombre, string $nota = '', ?string $condicion = null, ?string $formato = null): array
     {
-        return ['clave' => $clave, 'nombre' => $nombre, 'nota' => $nota, 'condicion' => $condicion, 'formato' => $formato];
+        return ['clave' => $clave, 'nombre' => $nombre, 'nota' => $nota, 'condicion' => $condicion, 'formato' => $formato,
+            'activo' => true, 'fisico' => false, 'cotejo' => false, 'firma_cotejo' => 'sello'];
     }
 
     private static function docsIdentidad(bool $ingles, bool $dictamen): array
@@ -360,6 +366,12 @@ final class Catalogo
      * Cualquier etapa puede traer 'documentos' (los valida el personal) y 'personal'.
      */
     public static function etapas(string $modalidad, ?string $variante = null): array
+    {
+        return Configuracion::aplicarEtapas(self::etapasBase($modalidad, $variante), $modalidad);
+    }
+
+    /** Etapas tal como las define el catálogo, sin los cambios de configuración. */
+    public static function etapasBase(string $modalidad, ?string $variante = null): array
     {
         $m = self::modalidad($modalidad);
         if ($m === null) {
