@@ -27,7 +27,7 @@ final class SubdireccionFirma
 
     public static function correoSubdirector(): string
     {
-        return strtolower(trim((string) \ajuste('titulacion_subdirector_email', '')));
+        return strtolower(trim((string) \ajuste('institucion_subdirector_email', '')));
     }
 
     public static function esSubdirector(): bool
@@ -39,7 +39,7 @@ final class SubdireccionFirma
     public static function esDirector(): bool
     {
         $c = strtolower(trim((string) (Auth::usuario()['email'] ?? '')));
-        $d = strtolower(trim((string) \ajuste('titulacion_director_email', '')));
+        $d = strtolower(trim((string) \ajuste('institucion_director_email', '')));
         return $c !== '' && $c === $d;
     }
 

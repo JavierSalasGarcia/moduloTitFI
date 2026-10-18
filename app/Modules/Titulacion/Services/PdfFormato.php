@@ -107,7 +107,7 @@ final class PdfFormato
 
     /**
      * El nombre del Subdirector Académico viene impreso en los formatos. Se captura una sola vez
-     * en Ajustes («titulacion_subdirector») y, si difiere del impreso, se cubre y se reescribe.
+     * en Ajustes («institucion_subdirector_nombre») y, si difiere del impreso, se cubre y se reescribe.
      */
     private static function sustituirSubdirector(\setasign\Fpdi\Fpdi $pdf, array $spec, int $pagina, string $nombre): void
     {

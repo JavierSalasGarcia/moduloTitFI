@@ -171,8 +171,15 @@ PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
 -- ---------------------------------------------------------------- Ajustes
 INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
-('titulacion_subdirector_email', 'jsalasg@uaemex.mx', 'Titulación: correo de la cuenta de quien ocupa la Subdirección Académica (firma documentos y administra a su asistente y el piloto automático).'),
-('titulacion_director', 'DR. MARCELO ROMERO HUERTAS', 'Titulación: nombre de quien dirige la Facultad, tal como se imprime y se sella en el oficio de aprobación de tema y estructura capitular.'),
-('titulacion_director_email', '', 'Titulación: correo de la cuenta del Director de la Facultad, quien firma el oficio de aprobación de tema y estructura capitular.'),
-('titulacion_lema', '', 'Titulación: lema oficial del año que aparece bajo «Patria, Ciencia y Trabajo» en los oficios (se antepone el año). Déjalo vacío para omitirlo.'),
 ('titulacion_max_mb', '5', 'Titulación: tamaño máximo en MB de cada PDF que sube el pasante.');
+
+-- ---------------------------------------------------------------- Autoridades y leyendas (comunes a toda la plataforma)
+-- Se editan en Ajustes por el administrador general. Si existían las claves anteriores de Titulación, se conservan sus valores.
+INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
+('institucion_director_nombre', COALESCE((SELECT valor FROM (SELECT valor FROM ajustes WHERE clave = 'titulacion_director') t), 'DR. MARCELO ROMERO HUERTAS'), 'Nombre de quien dirige la Facultad, tal como se imprime en oficios y formatos (incluye grado).'),
+('institucion_director_email', COALESCE((SELECT valor FROM (SELECT valor FROM ajustes WHERE clave = 'titulacion_director_email') t), ''), 'Correo de la cuenta del Director de la Facultad: con ella firma electrónicamente los oficios que le corresponden.'),
+('institucion_subdirector_nombre', COALESCE((SELECT valor FROM (SELECT valor FROM ajustes WHERE clave = 'titulacion_subdirector') t), 'DR. JAVIER SALAS GARCÍA'), 'Nombre de quien ocupa la Subdirección Académica, tal como se imprime en oficios y formatos (incluye grado).'),
+('institucion_subdirector_email', COALESCE((SELECT valor FROM (SELECT valor FROM ajustes WHERE clave = 'titulacion_subdirector_email') t), 'jsalasg@uaemex.mx'), 'Correo de la cuenta de la Subdirección Académica: con ella firma electrónicamente, administra a su asistente y programa el piloto automático.'),
+('institucion_lema_anual', COALESCE((SELECT valor FROM (SELECT valor FROM ajustes WHERE clave = 'titulacion_lema') t), ''), 'Lema oficial del año que se imprime bajo «Patria, Ciencia y Trabajo» en los oficios (se antepone el año). Vacío para omitirlo.');
+
+DELETE FROM ajustes WHERE clave IN ('titulacion_director', 'titulacion_director_email', 'titulacion_subdirector', 'titulacion_subdirector_email', 'titulacion_lema');

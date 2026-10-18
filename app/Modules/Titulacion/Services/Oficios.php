@@ -45,7 +45,7 @@ final class Oficios
 
     public static function director(): string
     {
-        return mb_strtoupper((string) \ajuste('titulacion_director', 'DR. MARCELO ROMERO HUERTAS'));
+        return mb_strtoupper((string) \ajuste('institucion_director_nombre', 'DR. MARCELO ROMERO HUERTAS'));
     }
 
     /** Hoja membretada como fondo de cada página. */
@@ -90,7 +90,7 @@ final class Oficios
         $pdf->SetFont('Helvetica', 'B', 10.5);
         $pdf->Cell(0, 5, 'A T E N T A M E N T E', 0, 1, 'C');
         $pdf->Cell(0, 5, self::l1('PATRIA, CIENCIA Y TRABAJO'), 0, 1, 'C');
-        $texto = trim((string) \ajuste('titulacion_lema', ''));
+        $texto = trim((string) \ajuste('institucion_lema_anual', ''));
         if ($lema && $texto !== '') {
             $pdf->SetFont('Helvetica', 'I', 8.5);
             $pdf->Cell(0, 4.5, self::l1('"' . date('Y') . ', ' . $texto . '"'), 0, 1, 'C');
