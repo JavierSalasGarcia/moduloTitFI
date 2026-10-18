@@ -21,7 +21,7 @@ $base = 'titulacion/firma/t/' . $token;
 <?php endif; ?>
 <section class="tarjeta" style="max-width:720px;margin:20px auto">
   <h2>Firma de protocolo · <?= e($folio) ?></h2>
-  <p><strong><?= e($alumno) ?></strong> te pide firmar, como <?= $f['rol'] === 'coasesor' ? 'coasesor' : 'asesor' ?>, su protocolo:</p>
+  <p><strong><?= e($alumno) ?></strong> te pide firmar, como <?= e(\App\Core\Persona::f(\App\Core\Persona::completar(['nombre' => $f['nombre'], 'genero' => $f['genero']], (string) $f['email']), $f['rol'], $f['rol'] . 'a')) ?>, su protocolo:</p>
   <p style="font-style:italic">«<?= e($tema) ?>»</p>
   <p><a class="btn btn-primario" href="<?= url($base . '/documento') ?>" target="_blank" rel="noopener">Leer el protocolo (PDF)</a></p>
   <?php if ($f['estado'] === 'firmada'): ?>

@@ -506,7 +506,7 @@ final class TramiteController extends TitulacionBase
         if (Auth::usuario() && mb_strlen($q) >= 3) {
             $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
             $salida = Database::todas(
-                "SELECT nombre, email FROM usuarios WHERE activo = 1 AND rol IN ('profesor','coordinador','titular') AND (nombre LIKE ? OR email LIKE ?) ORDER BY nombre LIMIT 8",
+                "SELECT nombre, grado, genero, email FROM usuarios WHERE activo = 1 AND rol IN ('profesor','coordinador','titular') AND (nombre LIKE ? OR email LIKE ?) ORDER BY nombre LIMIT 8",
                 [$like, $like]
             );
         }

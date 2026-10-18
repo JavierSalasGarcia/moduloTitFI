@@ -4,6 +4,9 @@
 <form method="post" action="<?= url('registro') ?>" class="formulario">
 <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
 <label>Nombre completo<input name="nombre" type="text" autocomplete="name" required maxlength="120"></label>
+<label>Grado académico (opcional)<input name="grado" type="text" maxlength="30" list="grados-lista" placeholder="Ej. Dr., Mtra., Ing."><small>Se antepone a tu nombre en oficios y correos.</small></label>
+<datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
+<label>Género<select name="genero" required><option value="">Elige…</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option></select><small>Para dirigirnos a ti correctamente en oficios y correos.</small></label>
 <label>Correo electrónico UAEMEX<input name="email" type="email" autocomplete="email" value="<?= e((string) ($_SESSION['_registro_email'] ?? '')) ?>" required maxlength="75" pattern="[^@\s]+@(?:[A-Za-z0-9-]+\.)*[uU][aA][eE][mM][eE][xX]\.[mM][xX]" title="Usa un correo de uaemex.mx o de uno de sus subdominios" placeholder="usuario@alumno.uaemex.mx"><small>Se admiten uaemex.mx y sus subdominios, por ejemplo alumno.uaemex.mx o profesor.uaemex.mx.</small></label>
 <label>Contraseña<input name="clave" type="password" autocomplete="new-password" minlength="10" maxlength="72" required><small>Al menos 10 caracteres.</small></label>
 <label>Confirma tu contraseña<input name="confirmacion" type="password" autocomplete="new-password" minlength="10" maxlength="72" required></label>

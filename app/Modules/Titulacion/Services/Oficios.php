@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Titulacion\Services;
 
+use App\Core\Persona;
 use App\Modules\Titulacion\Catalogo;
 
 /** Oficios del departamento sobre la hoja membretada de la Facultad. */
@@ -45,7 +46,13 @@ final class Oficios
 
     public static function director(): string
     {
-        return mb_strtoupper((string) (Autoridades::director()['nombre'] ?? 'DR. MARCELO ROMERO HUERTAS'));
+        $a = Autoridades::director();
+        return $a ? mb_strtoupper(Persona::tratamiento($a)) : 'DR. MARCELO ROMERO HUERTAS';
+    }
+
+    private static function cargoDirector(): string
+    {
+        return Persona::f(Autoridades::director() ?? [], 'Director', 'Directora');
     }
 
     /** Hoja membretada como fondo de cada página. */
@@ -110,6 +117,12 @@ final class Oficios
         return ['p' => $pdf->PageNo() - 1, 'x' => 65 * $mm, 'y' => $y * $mm, 'w' => 85 * $mm, 'h' => 11.0];
     }
 
+    private static function asesor(array $r): string
+    {
+        $n = trim((string) ($r['asesor'] ?? ''));
+        return $n === '' ? '' : Persona::tratamiento(['nombre' => $n, 'grado' => $r['asesor_grado'] ?? null]);
+    }
+
     /** Datos comunes del trámite. */
     private static function datos(array $t): array
     {
@@ -121,7 +134,8 @@ final class Oficios
             'carrera' => Catalogo::carreras()[$p['carrera'] ?? '']['nombre'] ?? '',
             'modalidad' => Catalogo::modalidad((string) $t['modalidad'])['nombre'] ?? '',
             'titulo' => (string) ($d['revision']['titulo'] ?? $t['titulo'] ?? $d['protocolo']['titulo'] ?? ''),
-            'asesor' => (string) ($d['protocolo']['asesor'] ?? ''),
+            'asesor' => self::asesor($d['protocolo'] ?? []),
+            'pasante' => Persona::porId((int) $t['alumno_id']) ?? [],
         ];
     }
 
@@ -170,7 +184,7 @@ final class Oficios
             $pdf->Ln(4);
             $pdf->SetFont('Helvetica', '', 11);
             $pdf->MultiCell(0, 5.8, self::l1('Asimismo, para la aprobación del trabajo y demás trámites deberá sujetarse al reglamento respectivo de esta Institución.'), 0, 'J');
-            $caja = self::firma($pdf, self::director(), ['Director', 'FACULTAD DE INGENIERÍA', 'U.A.E.M.'], true);
+            $caja = self::firma($pdf, self::director(), [self::cargoDirector(), 'FACULTAD DE INGENIERÍA', 'U.A.E.M.'], true);
             $pdf->SetFont('Helvetica', '', 9);
             $pdf->Cell(0, 6, 'c.c.p. Archivo.', 0, 1);
             return [$pdf->Output('S'), $caja];
@@ -182,11 +196,12 @@ final class Oficios
             $examen = self::EXAMEN[$a['tipo']] ?? 'examen';
             self::cabecera($pdf, 'Ciudad Universitaria, Toluca México; a ' . $hoy);
             $pdf->SetFont('Helvetica', 'B', 11);
-            $pdf->Cell(0, 5.5, self::l1(mb_strtoupper((string) $s['nombre'])), 0, 1);
+            $s = Persona::completar($s, (string) $s['email']);
+            $pdf->Cell(0, 5.5, self::l1(mb_strtoupper(Persona::tratamiento($s))), 0, 1);
             $pdf->Cell(0, 5.5, 'P r e s e n t e .', 0, 1);
             $pdf->Ln(8);
             $pdf->SetFont('Helvetica', '', 11);
-            $cuerpo = 'Por este medio le comunico que, a propuesta de la Coordinación de Docencia de la Licenciatura en ' . $x['carrera'] . ', fue designado como sinodal ' . $s['calidad']
+            $cuerpo = 'Por este medio le comunico que, a propuesta de la Coordinación de Docencia de la Licenciatura en ' . $x['carrera'] . ', fue ' . Persona::f($s, 'designado', 'designada') . ' como sinodal ' . ($s['calidad'] === 'suplente' ? 'suplente' : Persona::f($s, 'propietario', 'propietaria'))
                 . ' para el ' . $examen . ' de ' . $x['nombre'] . ' (cuenta ' . $x['cuenta'] . '), opción «' . $x['modalidad'] . '»'
                 . ($x['titulo'] !== '' && !in_array($tramite['modalidad'], ['aprovechamiento', 'egel', 'creditos'], true) ? ', con el trabajo «' . $x['titulo'] . '»' : '') . '.';
             $pdf->MultiCell(0, 5.8, self::l1($cuerpo), 0, 'J');
@@ -196,7 +211,7 @@ final class Oficios
             $pdf->Ln(4);
             $pdf->SetFont('Helvetica', '', 11);
             $pdf->MultiCell(0, 5.8, self::l1('Le ruego confirmar de recibido desde el enlace del correo que acompaña este oficio, donde también podrá descargar el trabajo escrito. Para el pago del examen definitivo, los trámites deben realizarse fuera del horario de labores de la UAEM.'), 0, 'J');
-            $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), ['SUBDIRECTOR ACADÉMICO', 'FACULTAD DE INGENIERÍA'], true);
+            $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA'], true);
             return [$pdf->Output('S'), $caja];
         }
 
@@ -211,7 +226,7 @@ final class Oficios
         $pdf->Ln(4);
         $pdf->SetFont('Helvetica', '', 11);
         $pdf->MultiCell(0, 5.8, self::l1($cuerpo), 0, 'J');
-        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), ['SUBDIRECTOR ACADÉMICO', 'FACULTAD DE INGENIERÍA'], true);
+        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA'], true);
         return [$pdf->Output('S'), $caja];
     }
 
@@ -241,7 +256,7 @@ final class Oficios
         }
         $pdf->Ln(3);
         $pdf->SetFont('Helvetica', '', 10.5);
-        $pdf->MultiCell(0, 5.2, self::l1('Quien suscribe, ' . mb_strtoupper((string) $asig['coord_nombre']) . ', Coordinador de Docencia de la Licenciatura en ' . $x['carrera'] . ', mediante el presente solicita la elaboración de oficios para el (los) alumno (s):'), 0, 'J');
+        $pdf->MultiCell(0, 5.2, self::l1('Quien suscribe, ' . mb_strtoupper((string) $asig['coord_nombre']) . ', ' . Persona::f(['genero' => $asig['coord_genero'] ?? null], 'Coordinador', 'Coordinadora') . ' de Docencia de la Licenciatura en ' . $x['carrera'] . ', mediante el presente solicita la elaboración de oficios para el (los) alumno (s):'), 0, 'J');
         $pdf->Ln(2);
         $pdf->SetFont('Helvetica', 'B', 9.5);
         $pdf->Cell(35, 6, 'No. de cuenta', 1, 0, 'C');
@@ -265,12 +280,12 @@ final class Oficios
         $pdf->SetFont('Helvetica', '', 9);
         foreach ($sinodales as $s) {
             $pdf->Cell(32, 5.5, $s['calidad'] === 'suplente' ? 'Suplente' : 'Propietario', 1, 0);
-            $pdf->Cell(0, 5.5, self::l1(mb_strimwidth($s['nombre'] . '  <' . $s['email'] . '>', 0, 88, '…')), 1, 1);
+            $pdf->Cell(0, 5.5, self::l1(mb_strimwidth(Persona::tratamiento($s) . '  <' . $s['email'] . '>', 0, 88, '…')), 1, 1);
         }
         $pdf->Ln(2);
         $pdf->SetFont('Helvetica', 'B', 9.5);
         $pdf->MultiCell(0, 5, self::l1(ucfirst(self::EXAMEN[$asig['tipo']] ?? 'examen') . ': ' . self::fecha($asig['fecha']) . ' a las ' . $asig['hora'] . ' horas, en ' . $asig['lugar'] . '.'), 0, 'J');
-        $caja = self::firma($pdf, mb_strtoupper((string) $asig['coord_nombre']), ['COORDINADOR DE DOCENCIA DE LA', 'LICENCIATURA EN ' . mb_strtoupper($x['carrera'])], false, 14.0, 215.0);
+        $caja = self::firma($pdf, mb_strtoupper((string) $asig['coord_nombre']), [Persona::f(['genero' => $asig['coord_genero'] ?? null], 'COORDINADOR', 'COORDINADORA') . ' DE DOCENCIA DE LA', 'LICENCIATURA EN ' . mb_strtoupper($x['carrera'])], false, 14.0, 215.0);
         return [$pdf->Output('S'), $caja];
     }
 }

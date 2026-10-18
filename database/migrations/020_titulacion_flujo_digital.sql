@@ -159,6 +159,28 @@ SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_documentos ADD COLUMN pendien
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_documentos' AND COLUMN_NAME = 'pendiente_firmas');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
+-- ---------------------------------------------------------------- Grado y género (comunes a toda la plataforma)
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE usuarios ADD COLUMN grado VARCHAR(30) NULL AFTER nombre', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'grado');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE usuarios ADD COLUMN genero ENUM(''masculino'',''femenino'') NULL AFTER grado', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'genero');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- Personas de Titulación que aún no tienen cuenta: su grado y género se capturan con ellas.
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_sinodales ADD COLUMN grado VARCHAR(30) NULL AFTER nombre, ADD COLUMN genero ENUM(''masculino'',''femenino'') NULL AFTER grado', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_sinodales' AND COLUMN_NAME = 'genero');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_firmas_externas ADD COLUMN grado VARCHAR(30) NULL AFTER nombre, ADD COLUMN genero ENUM(''masculino'',''femenino'') NULL AFTER grado', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_firmas_externas' AND COLUMN_NAME = 'genero');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_asignaciones_jurado ADD COLUMN coord_genero ENUM(''masculino'',''femenino'') NULL AFTER coord_nombre', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_asignaciones_jurado' AND COLUMN_NAME = 'coord_genero');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
 -- ---------------------------------------------------------------- Ajustes
 INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
 ('titulacion_max_mb', '5', 'Titulación: tamaño máximo en MB de cada PDF que sube el pasante.');

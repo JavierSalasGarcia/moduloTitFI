@@ -266,6 +266,7 @@ final class AuthController extends Controller
         $token = (string) App::config('correo.api_token', '');
         $senderEmail = (string) App::config('correo.remitente', 'contacto@fingenieria.mx');
         $senderName = (string) App::config('correo.nombre_remitente', 'Traza FI');
+        $saludoPersona = \App\Core\Persona::saludo(\App\Core\Persona::completar(['nombre' => $nombreDestinatario], $destinatario));
         if ($token === '') {
             return false;
         }
@@ -309,10 +310,10 @@ final class AuthController extends Controller
             'to' => [$destinatario],
             'displayName' => $senderName,
             'subject' => $restablecimiento ? 'Código para restablecer contraseña - Traza FI' : 'Código de Seguridad - Traza FI',
-            'text' => "Hola $nombreDestinatario,\n\nTu código de verificación de 6 dígitos para acceder a Traza FI es: $codigo\n\nEste código es de un solo uso y expira en 10 minutos.\n\nAtentamente,\nFacultad de Ingeniería · UAEMEX",
+            'text' => $saludoPersona . ",\n\nTu código de verificación de 6 dígitos para acceder a Traza FI es: $codigo\n\nEste código es de un solo uso y expira en 10 minutos.\n\nAtentamente,\nFacultad de Ingeniería · UAEMEX",
             'html' => "<div style='font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;'>" .
                       "<h2 style='color: #0f172a; margin-top: 0;'>Código de verificación (Traza FI)</h2>" .
-                      "<p style='color: #475569; font-size: 14px;'>Hola <strong>" . htmlspecialchars($nombreDestinatario) . "</strong>,</p>" .
+                      "<p style='color: #475569; font-size: 14px;'><strong>" . htmlspecialchars($saludoPersona) . "</strong>,</p>" .
                       "<p style='color: #475569; font-size: 14px;'>Tu código de acceso temporal para acceder a Traza FI es:</p>" .
                       "<div style='background: #f1f5f9; padding: 15px; border-radius: 6px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 4px; color: #0f172a; margin: 20px 0;'>$codigo</div>" .
                       "<p style='color: #64748b; font-size: 12.5px;'>Este código expira en 10 minutos y es de un solo uso.</p>" .

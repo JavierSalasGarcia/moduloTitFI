@@ -8,7 +8,9 @@
   function par(rol) {
     return {
       nombre: document.querySelector('[data-prof="' + rol + '"]'),
-      correo: document.querySelector('[data-prof-correo="' + rol + '"]')
+      correo: document.querySelector('[data-prof-correo="' + rol + '"]'),
+      grado: document.querySelector('[data-prof-grado="' + rol + '"]'),
+      genero: document.querySelector('[data-prof-genero="' + rol + '"]')
     };
   }
   function buscar(q, cb) {
@@ -33,7 +35,7 @@
             var o = document.createElement('option');
             o.value = porNombre ? p.nombre : p.email;
             o.label = porNombre ? p.email : p.nombre;
-            o.dataset.nombre = p.nombre; o.dataset.email = p.email;
+            o.dataset.nombre = p.nombre; o.dataset.email = p.email; o.dataset.grado = p.grado || ''; o.dataset.genero = p.genero || '';
             lista.appendChild(o);
           });
         });
@@ -46,6 +48,8 @@
       var p = par(rol);
       if (p.nombre) { p.nombre.value = o.dataset.nombre; }
       if (p.correo) { p.correo.value = o.dataset.email; }
+      if (p.grado) { p.grado.value = o.dataset.grado; }
+      if (p.genero) { p.genero.value = o.dataset.genero; }
     });
   });
 })();

@@ -100,6 +100,14 @@ final class AjustesController extends Controller
         ]);
     }
 
+    /** @return array{0:?string,1:?string} grado y género capturados en el formulario */
+    private function tratamiento(): array
+    {
+        $grado = mb_substr(trim($this->post('grado')), 0, 30);
+        $genero = $this->post('genero');
+        return [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino'], true) ? $genero : null];
+    }
+
     public function crearUsuario(): void
     {
         $nombre = $this->post('nombre');
@@ -107,6 +115,7 @@ final class AjustesController extends Controller
         $password = $this->post('password');
         $deptoId = (isset($_POST['departamento_id']) && $_POST['departamento_id'] !== '') ? (int)$_POST['departamento_id'] : null;
         $rol = $this->post('rol');
+        [$grado, $genero] = $this->tratamiento();
         $permiteContrasena = isset($_POST['permite_contrasena']) ? 1 : 0;
         
         $tipoContratacion = ($rol === 'profesor') ? $this->post('tipo_contratacion') : null;
@@ -122,8 +131,8 @@ final class AjustesController extends Controller
 
         try {
             Database::ejecutar(
-                'INSERT INTO usuarios (nombre, email, password_hash, departamento_id, rol, activo, tipo_contratacion, programa_id, permite_contrasena) VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?)',
-                [$nombre, $email, $hash, $deptoId, $rol, $tipoContratacion, $programaId, $permiteContrasena]
+                'INSERT INTO usuarios (nombre, grado, genero, email, password_hash, departamento_id, rol, activo, tipo_contratacion, programa_id, permite_contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)',
+                [$nombre, $grado, $genero, $email, $hash, $deptoId, $rol, $tipoContratacion, $programaId, $permiteContrasena]
             );
             $nuevoId = (int) Database::pdo()->lastInsertId();
             if ($rol === 'coordinador' && $posgradoId) {
@@ -145,6 +154,7 @@ final class AjustesController extends Controller
         $password = $this->post('password');
         $deptoId = (isset($_POST['departamento_id']) && $_POST['departamento_id'] !== '') ? (int)$_POST['departamento_id'] : null;
         $rol = $this->post('rol');
+        [$grado, $genero] = $this->tratamiento();
         $activo = isset($_POST['activo']) ? 1 : 0;
         $permiteContrasena = isset($_POST['permite_contrasena']) ? 1 : 0;
         
@@ -161,13 +171,13 @@ final class AjustesController extends Controller
             if ($password !== '') {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
                 Database::ejecutar(
-                    'UPDATE usuarios SET nombre = ?, email = ?, password_hash = ?, departamento_id = ?, rol = ?, activo = ?, tipo_contratacion = ?, programa_id = ?, logins_contrasena_restantes = CASE WHEN permite_contrasena = 0 AND ? = 1 THEN 20 ELSE logins_contrasena_restantes END, permite_contrasena = ? WHERE id = ?',
-                    [$nombre, $email, $hash, $deptoId, $rol, $activo, $tipoContratacion, $programaId, $permiteContrasena, $permiteContrasena, (int)$id]
+                    'UPDATE usuarios SET nombre = ?, grado = ?, genero = ?, email = ?, password_hash = ?, departamento_id = ?, rol = ?, activo = ?, tipo_contratacion = ?, programa_id = ?, logins_contrasena_restantes = CASE WHEN permite_contrasena = 0 AND ? = 1 THEN 20 ELSE logins_contrasena_restantes END, permite_contrasena = ? WHERE id = ?',
+                    [$nombre, $grado, $genero, $email, $hash, $deptoId, $rol, $activo, $tipoContratacion, $programaId, $permiteContrasena, $permiteContrasena, (int)$id]
                 );
             } else {
                 Database::ejecutar(
-                    'UPDATE usuarios SET nombre = ?, email = ?, departamento_id = ?, rol = ?, activo = ?, tipo_contratacion = ?, programa_id = ?, logins_contrasena_restantes = CASE WHEN permite_contrasena = 0 AND ? = 1 THEN 20 ELSE logins_contrasena_restantes END, permite_contrasena = ? WHERE id = ?',
-                    [$nombre, $email, $deptoId, $rol, $activo, $tipoContratacion, $programaId, $permiteContrasena, $permiteContrasena, (int)$id]
+                    'UPDATE usuarios SET nombre = ?, grado = ?, genero = ?, email = ?, departamento_id = ?, rol = ?, activo = ?, tipo_contratacion = ?, programa_id = ?, logins_contrasena_restantes = CASE WHEN permite_contrasena = 0 AND ? = 1 THEN 20 ELSE logins_contrasena_restantes END, permite_contrasena = ? WHERE id = ?',
+                    [$nombre, $grado, $genero, $email, $deptoId, $rol, $activo, $tipoContratacion, $programaId, $permiteContrasena, $permiteContrasena, (int)$id]
                 );
             }
 

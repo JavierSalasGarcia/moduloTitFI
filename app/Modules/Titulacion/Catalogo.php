@@ -249,8 +249,12 @@ final class Catalogo
         $asesor = [
             ['k' => 'asesor', 'h' => 'Asesor', 'label' => 'Asesor (adscrito a la UAEM): nombre', 'tipo' => 'texto', 'max' => 160, 'req' => true, 'prof' => 'asesor', 'ayuda' => 'Escribe el nombre o el correo: si está registrado se completan solos. Si no, captura ambos; le llegará un correo para firmar tu protocolo.'],
             ['k' => 'asesor_correo', 'label' => 'Asesor: correo electrónico', 'tipo' => 'email', 'max' => 120, 'req' => true, 'prof_correo' => 'asesor'],
+            ['k' => 'asesor_grado', 'label' => 'Asesor: grado (Dr., Mtra., Ing.…)', 'tipo' => 'texto', 'max' => 30, 'req' => true, 'prof_grado' => 'asesor'],
+            ['k' => 'asesor_genero', 'label' => 'Asesor: género', 'tipo' => 'select', 'opciones' => ['masculino' => 'Masculino', 'femenino' => 'Femenino'], 'req' => true, 'prof_genero' => 'asesor'],
             ['k' => 'coasesor', 'h' => 'Coasesor', 'label' => 'Coasesor (opcional): nombre', 'tipo' => 'texto', 'max' => 160, 'req' => false, 'vacio' => 'No aplica', 'prof' => 'coasesor'],
             ['k' => 'coasesor_correo', 'label' => 'Coasesor: correo electrónico', 'tipo' => 'email', 'max' => 120, 'req' => false, 'prof_correo' => 'coasesor'],
+            ['k' => 'coasesor_grado', 'label' => 'Coasesor: grado', 'tipo' => 'texto', 'max' => 30, 'req' => false, 'prof_grado' => 'coasesor'],
+            ['k' => 'coasesor_genero', 'label' => 'Coasesor: género', 'tipo' => 'select', 'opciones' => ['masculino' => 'Masculino', 'femenino' => 'Femenino'], 'req' => false, 'prof_genero' => 'coasesor'],
         ];
         $area = ['k' => 'area', 'h' => 'Área académica', 'label' => 'Área académica', 'tipo' => 'texto', 'max' => 160, 'req' => true, 'ayuda' => 'La que corresponda según la Coordinación de Docencia.'];
         $a = fn(string $k, string $h, string $label, string $ayuda = '', bool $req = true) => ['k' => $k, 'h' => $h, 'label' => $label, 'tipo' => 'area', 'filas' => 5, 'max' => 4000, 'req' => $req, 'ayuda' => $ayuda];

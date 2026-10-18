@@ -164,7 +164,7 @@ final class ProtocoloPdf
         $pdf->SetXY(24, $y + 6);
         $pdf->Cell(74, 5, self::l1(mb_strimwidth($nombre, 0, 44, '…')), 0, 0, 'C');
         $pdf->SetXY(118, $y + 6);
-        $pdf->Cell(74, 5, self::l1(mb_strimwidth((string) ($r['asesor'] ?? ''), 0, 44, '…')), 0, 0, 'C');
+        $pdf->Cell(74, 5, self::l1(mb_strimwidth(\App\Core\Persona::tratamiento(['nombre' => (string) ($r['asesor'] ?? ''), 'grado' => $r['asesor_grado'] ?? null]), 0, 44, '…')), 0, 0, 'C');
         $pagina = $pdf->PageNo() - 1;
         $mm = 72 / 25.4;
         $cajas = [

@@ -68,7 +68,7 @@ final class JuradoController extends TitulacionBase
         $a = Jurado::porToken($token) ?? $this->invalido();
         $elegidos = [];
         foreach ([0, 1, 2, 3] as $i) {
-            $elegidos[$i] = ['nombre' => (string) ($_POST['s'][$i]['nombre'] ?? ''), 'email' => (string) ($_POST['s'][$i]['email'] ?? '')];
+            $elegidos[$i] = ['nombre' => (string) ($_POST['s'][$i]['nombre'] ?? ''), 'email' => (string) ($_POST['s'][$i]['email'] ?? ''), 'grado' => (string) ($_POST['s'][$i]['grado'] ?? ''), 'genero' => (string) ($_POST['s'][$i]['genero'] ?? '')];
         }
         $_SESSION['_jurado_borrador'][$a['id']] = $elegidos;
         $usuario = Auth::usuario();

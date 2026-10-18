@@ -24,6 +24,10 @@ include __DIR__ . '/_banner_enlace.php';
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px">
           <label style="flex:1 1 240px"><?= e($et) ?> · nombre
             <input type="text" name="s[<?= $i ?>][nombre]" maxlength="160" required value="<?= e((string) ($borrador[$i]['nombre'] ?? '')) ?>" data-prof="s<?= $i ?>" list="dl-prof-s<?= $i ?>" autocomplete="off"></label>
+          <label style="flex:0 1 110px">Grado
+            <input type="text" name="s[<?= $i ?>][grado]" maxlength="30" value="<?= e((string) ($borrador[$i]['grado'] ?? '')) ?>" data-prof-grado="s<?= $i ?>" placeholder="Dr., Mtra."></label>
+          <label style="flex:0 1 130px">Género
+            <select name="s[<?= $i ?>][genero]" required data-prof-genero="s<?= $i ?>"><option value="">Elige…</option><option value="masculino" <?= ($borrador[$i]['genero'] ?? '') === 'masculino' ? 'selected' : '' ?>>Masculino</option><option value="femenino" <?= ($borrador[$i]['genero'] ?? '') === 'femenino' ? 'selected' : '' ?>>Femenino</option></select></label>
           <label style="flex:1 1 240px">Correo
             <input type="email" name="s[<?= $i ?>][email]" maxlength="120" required value="<?= e((string) ($borrador[$i]['email'] ?? '')) ?>" data-prof-correo="s<?= $i ?>" list="dl-prof-s<?= $i ?>-c" autocomplete="off"></label>
           <datalist id="dl-prof-s<?= $i ?>"></datalist><datalist id="dl-prof-s<?= $i ?>-c"></datalist>
