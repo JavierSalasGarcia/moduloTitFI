@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 /** Genera todos los formatos del módulo Titulación con datos de ejemplo (sin base de datos). */
 define('APP_RAIZ', dirname(__DIR__) . '/app');
-foreach (['Catalogo', 'Flujo', 'Services/PdfFormato', 'Services/DocxEditor', 'Services/ProtocoloDocx', 'Services/Formatos'] as $f) {
+foreach (['Catalogo', 'Flujo', 'Services/PdfFormato', 'Services/DocxEditor', 'Services/ProtocoloMembretado', 'Services/Formatos'] as $f) {
     require APP_RAIZ . "/Modules/Titulacion/$f.php";
 }
 
 use App\Modules\Titulacion\Catalogo;
 use App\Modules\Titulacion\Services\PdfFormato;
-use App\Modules\Titulacion\Services\ProtocoloDocx;
+use App\Modules\Titulacion\Services\ProtocoloMembretado;
 
 $salida = sys_get_temp_dir() . '/titulacion-prueba';
 @mkdir($salida, 0775, true);
@@ -31,10 +31,10 @@ foreach (array_keys(PdfFormato::specs()) as $clave) {
 foreach (array_keys(array_filter(Catalogo::modalidades(), static fn(array $m): bool => $m['tipo'] === 'con_trabajo')) as $mod) {
     $secciones = [];
     foreach (Catalogo::protocolo($mod)['campos'] as $c) {
-        $c['valor'] = $c['tipo'] === 'cronograma' ? [['a' => 'Actividad', 'b' => [1, 2]]] : 'Texto de prueba';
+        $c['valor'] = $c['tipo'] === 'cronograma' ? [['a' => 'Actividad', 'b' => [1, 2]]] : ($c['tipo'] === 'fecha' ? '2024-03-15' : "Texto de prueba\nsegundo párrafo");
         $secciones[] = $c;
     }
-    $docx = ProtocoloDocx::generar($mod, ['dia' => '18', 'mes' => 'octubre', 'anio' => '2026', 'nombre' => 'Prueba', 'cuenta' => '1', 'carrera' => 'civil', 'tema' => 'Tema', 'etiquetas' => [], 'secciones' => $secciones]);
+    $docx = ProtocoloMembretado::generar($mod, ['dia' => '18', 'mes' => 'octubre', 'anio' => '2026', 'nombre' => 'Prueba', 'cuenta' => '1', 'carrera' => 'civil', 'tema' => 'Tema', 'secciones' => $secciones, 'subdirector' => '', 'fecha_nacimiento' => '', 'correo' => '', 'telefono' => '']);
     $ok = str_starts_with($docx, 'PK');
     file_put_contents("$salida/protocolo-$mod.docx", $docx);
     echo ($ok ? 'ok   ' : 'FALLA ') . "protocolo-$mod.docx\n";

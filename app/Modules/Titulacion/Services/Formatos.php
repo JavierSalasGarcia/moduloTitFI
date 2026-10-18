@@ -167,22 +167,12 @@ final class Formatos
                 $tema = (string) $valor;
             }
         }
-        $etiquetas = [
-            'Nombre del pasante:' => $p['nombre'] ?? '',
-            'Número de cuenta:' => $p['cuenta'] ?? '',
-            'Fecha de nacimiento:' => !empty($p['fecha_nacimiento']) ? ProtocoloDocx::fechaLarga((string) $p['fecha_nacimiento']) : '',
-            'Correo electrónico:' => $p['correo_pers'] ?? '',
-            'Teléfono celular:' => $p['telefono'] ?? '',
-        ];
-        foreach ($proto['etiquetas_extra'] as $etiqueta => $k) {
-            $iso = (string) ($respuestas[$k] ?? '');
-            $etiquetas[$etiqueta] = $iso !== '' ? ProtocoloDocx::fechaLarga($iso) : '';
-        }
-        return ProtocoloDocx::generar((string) $t['modalidad'], [
+        return ProtocoloMembretado::generar((string) $t['modalidad'], [
             'dia' => $hoy['dia'], 'mes' => $hoy['mes'], 'anio' => $hoy['anio'],
             'nombre' => $p['nombre'] ?? '', 'cuenta' => $p['cuenta'] ?? '', 'carrera' => $p['carrera'] ?? '',
-            'tema' => $tema, 'etiquetas' => $etiquetas, 'secciones' => $secciones,
-            'subdirector' => self::subdirector(),
+            'tema' => $tema, 'secciones' => $secciones, 'subdirector' => self::subdirector(),
+            'fecha_nacimiento' => !empty($p['fecha_nacimiento']) ? ProtocoloMembretado::fechaLarga((string) $p['fecha_nacimiento']) : '',
+            'correo' => $p['correo_pers'] ?? '', 'telefono' => $p['telefono'] ?? '',
         ]);
     }
 }

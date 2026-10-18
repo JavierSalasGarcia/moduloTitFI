@@ -389,8 +389,7 @@ def main():
         reescribir_pdf(origen, destino)
         specs[clave] = construir(clave, destino)
         print('ok', clave, len(specs[clave]['campos']), 'campos')
-    for modalidad in ('Articulo', 'Ensayo', 'Memoria', 'Aplicacion', 'Autoempleo', 'Residencia', 'Tesina', 'Tesis'):
-        shutil.copy(ORIGEN / ('Protocolo' + modalidad + '.docx'), DESTINO_DOCX / ('Protocolo' + modalidad + '.docx'))
+    shutil.copy(ORIGEN / 'Membretada.docx', DESTINO_DOCX / 'Membretada.docx')  # hoja membretada del protocolo
     # Formatos en blanco que el pasante descarga tal cual (sin llenado automático).
     blancos = ['SolicitudPr#U00f3rrogaTrabEscrito.pdf', 'SolicitudCoasesoria.pdf', 'CartaPresentacion_v082025.docx',
                'CartaDeAutorizacionRI.pdf', 'CartaDeAutorizacionRI2Tesistas.pdf', 'CartaDeExcepcionRI.pdf',
