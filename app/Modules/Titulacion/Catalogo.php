@@ -498,14 +498,14 @@ final class Catalogo
             'clave' => 'fecha', 'titulo' => 'Fecha, hora y lugar de la toma de protesta', 'tipo' => 'personal',
             'descripcion' => 'Apoyo a Titulación asigna el jurado y te comunica la fecha. Preséntate puntualmente.',
             'personal' => [
-                'titulo' => 'Fecha de la toma de protesta y asignación de jurado',
-                'descripcion' => 'Titulación fija la fecha; la Coordinación de Docencia asigna al jurado y firma desde el enlace de su correo. Después se generan los oficios individuales.',
+                'titulo' => 'Fecha y lugar de la toma de protesta',
+                'descripcion' => 'Titulación fija la fecha. En esta opción la comisión es siempre el Director (presidente) y el Subdirector Académico (secretario); el acta oficial se genera en otro sistema y se firma en papel.',
+                'comision_fija' => true,
                 'campos' => [
                     ['k' => 'fecha', 'label' => 'Fecha', 'tipo' => 'fecha', 'req' => true],
                     ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
                     ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
                 ],
-                'entrega' => self::asignacion('asignacion_jurado', 'Asignación de jurado (Coordinación de Docencia)', 'protesta'),
             ],
         ];
         $etapas[] = self::etapaResultado(false);
