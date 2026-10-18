@@ -6,7 +6,9 @@ namespace App\Modules\Titulacion;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
+use App\Modules\Titulacion\Services\FirmaElectronica;
 use App\Modules\Titulacion\Services\Formatos;
+use App\Modules\Titulacion\Services\SubdireccionFirma;
 use InvalidArgumentException;
 use Throwable;
 
@@ -292,6 +294,14 @@ final class TramiteController extends TitulacionBase
         }
         try {
             [$bytes, $nombre, $mime] = Formatos::generar($formato, $t);
+            if (SubdireccionFirma::firmable($formato)) {
+                SubdireccionFirma::solicitar($t, $formato);
+                SubdireccionFirma::procesarPiloto();
+                $firmado = SubdireccionFirma::firmado((int) $t['id'], $formato);
+                if ($firmado && is_file(FirmaElectronica::almacen() . '/' . $firmado['ruta_firmado'])) {
+                    $this->enviarArchivo((string) $firmado['ruta_firmado'], ucfirst($formato) . '_' . $t['folio'] . '_firmado.pdf', false);
+                }
+            }
         } catch (Throwable $e) {
             if (!$e instanceof \RuntimeException) {
                 error_log('Titulación: no se pudo generar ' . $formato . ': ' . $e->getMessage());
