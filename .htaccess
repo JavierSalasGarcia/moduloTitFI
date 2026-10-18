@@ -1,0 +1,33 @@
+# La raiz del dominio es el unico punto de entrada publico. Los archivos de la
+# aplicacion siguen fuera de public/ por compatibilidad con el hosting, pero
+# nunca se sirven directamente: todas las rutas pasan por index.php.
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Canonicaliza las URL antiguas /public/... sin interferir con las reescrituras
+# internas que sirven los recursos estaticos.
+RewriteCond %{THE_REQUEST} \s/+public(?:[/?\x20]) [NC]
+RewriteRule ^public(?:/(.*))?$ /$1 [R=301,L,NE]
+
+# Fila tiene un subdirectorio fisico llamado publico; siempre debe entrar por
+# el front controller integrado y nunca ejecutar ese index.php directamente.
+RewriteRule ^fila/publico(?:/.*)?$ index.php [L,QSA]
+
+# Entorno de pruebas aislado. Su propio .htaccess aplica el front controller y
+# las mismas protecciones dentro de /pruebas/.
+RewriteRule ^pruebas(?:/.*)?$ - [L]
+
+# Solo esta carpeta contiene archivos que pueden entregarse directamente.
+RewriteRule ^assets/(.+)$ public/assets/$1 [L]
+
+# El resto de las solicitudes se resuelve en el front controller.
+RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+# Defensa adicional si mod_rewrite dejara de estar disponible.
+<FilesMatch "(?i)^(?:cred.*\.txt|api-.*\.json|.*\.(?:sql|key|pem|env|ini|log|bak|dist))$">
+    Require all denied
+</FilesMatch>

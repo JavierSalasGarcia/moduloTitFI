@@ -1,0 +1,1990 @@
+{
+  "id_categoria": "4021",
+  "categoria": "Tasa de crecimiento Becas",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4021",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiOTVmMjQyN2UtNDY0My00ZjE4LTkzZjEtYmY0NDU2NDhmZjI3IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 18,
+      "nombre": "Reconocimiento de la diversidad social en la universidad"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias de la Ingeniería (Computación)",
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Dinámicos)",
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Energéticos)",
+    "Doctorado en Ciencias del Agua",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería Mecánica",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ciencias del Agua",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Inteligencia Artificial Aplicada",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Año",
+          "Total_becas_1",
+          "Año Anterior_Becas_1"
+        ],
+        "campos_modelo": {
+          "2025_Becas bach lic pe.Año": "Año",
+          "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+          "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+        },
+        "formatos": {
+          "2025_Becas bach lic pe.Año": "0",
+          "2025_Becas bach lic pe.Total_becas_1": "0",
+          "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Total_becas_1": 1200,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Total_becas_1": 1813,
+            "Año Anterior_Becas_1": 1200,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Total_becas_1": 2700,
+            "Año Anterior_Becas_1": 1813,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Total_becas_1": 2412,
+            "Año Anterior_Becas_1": 2700,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Total_becas_1": 2312,
+            "Año Anterior_Becas_1": 2412,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Total_becas_1": 2144,
+            "Año Anterior_Becas_1": 2312,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Total_becas_1": 2199,
+            "Año Anterior_Becas_1": 2144,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Total_becas_1": 2213,
+            "Año Anterior_Becas_1": 2199,
+            "proyectos": [
+              2,
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 8
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Total_becas_1",
+          "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+          "periodo_inicial": "2018",
+          "valor_inicial": 1200,
+          "periodo_final": "2025",
+          "valor_final": 2213,
+          "cambio_absoluto": 1013,
+          "visual_fuente": "001",
+          "proyectos": [
+            2,
+            3,
+            18,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Total_becas_1: 1200 en 2018 y 2213 en 2025 (cambio +1013).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2019,
+              "Total_becas_1": 55,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 38,
+              "Año Anterior_Becas_1": 55,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 36,
+              "Año Anterior_Becas_1": 38,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 50,
+              "Año Anterior_Becas_1": 36,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 36,
+              "Año Anterior_Becas_1": 50,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 30,
+              "Año Anterior_Becas_1": 36,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 31,
+              "Año Anterior_Becas_1": 30,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2019",
+            "valor_inicial": 55,
+            "periodo_final": "2025",
+            "valor_final": 31,
+            "cambio_absoluto": -24,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 55 en 2019 y 31 en 2025 (cambio -24).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias de la Ingeniería (Computación)": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería (Computación)",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 34,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 12,
+              "Año Anterior_Becas_1": 34,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 31,
+              "Año Anterior_Becas_1": 12,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 4,
+              "Año Anterior_Becas_1": 31,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 34,
+            "periodo_final": "2021",
+            "valor_final": 4,
+            "cambio_absoluto": -30,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 34 en 2018 y 4 en 2021 (cambio -30).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Dinámicos)": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería (Sistemas Dinámicos)",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 13,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 5,
+              "Año Anterior_Becas_1": 13,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 0,
+              "Año Anterior_Becas_1": 5,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 9,
+              "Año Anterior_Becas_1": 0,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 13,
+            "periodo_final": "2021",
+            "valor_final": 9,
+            "cambio_absoluto": -4,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 13 en 2018 y 9 en 2021 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Energéticos)": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería (Sistemas Energéticos)",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 10,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 1,
+              "Año Anterior_Becas_1": 10,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 0,
+              "Año Anterior_Becas_1": 1,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 6,
+              "Año Anterior_Becas_1": 0,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 10,
+            "periodo_final": "2021",
+            "valor_final": 6,
+            "cambio_absoluto": -4,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 10 en 2018 y 6 en 2021 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias del Agua": {
+      "nombre": "Doctorado en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 56,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2023,
+              "Total_becas_1": 12,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 23,
+              "Año Anterior_Becas_1": 12,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 33,
+              "Año Anterior_Becas_1": 23,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 3
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2023",
+            "valor_inicial": 12,
+            "periodo_final": "2025",
+            "valor_final": 33,
+            "cambio_absoluto": 21,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 12 en 2023 y 33 en 2025 (cambio +21).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 243,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 423,
+              "Año Anterior_Becas_1": 243,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 664,
+              "Año Anterior_Becas_1": 423,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 577,
+              "Año Anterior_Becas_1": 664,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 567,
+              "Año Anterior_Becas_1": 577,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 541,
+              "Año Anterior_Becas_1": 567,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 540,
+              "Año Anterior_Becas_1": 541,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 549,
+              "Año Anterior_Becas_1": 540,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 243,
+            "periodo_final": "2025",
+            "valor_final": 549,
+            "cambio_absoluto": 306,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 243 en 2018 y 549 en 2025 (cambio +306).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2024,
+              "Total_becas_1": 470,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 467,
+              "Año Anterior_Becas_1": 470,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2024",
+            "valor_inicial": 470,
+            "periodo_final": "2025",
+            "valor_final": 467,
+            "cambio_absoluto": -3,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 470 en 2024 y 467 en 2025 (cambio -3).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 188,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 387,
+              "Año Anterior_Becas_1": 188,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 608,
+              "Año Anterior_Becas_1": 387,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 559,
+              "Año Anterior_Becas_1": 608,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 542,
+              "Año Anterior_Becas_1": 559,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 524,
+              "Año Anterior_Becas_1": 542,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 547,
+              "Año Anterior_Becas_1": 524,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 533,
+              "Año Anterior_Becas_1": 547,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 188,
+            "periodo_final": "2025",
+            "valor_final": 533,
+            "cambio_absoluto": 345,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 188 en 2018 y 533 en 2025 (cambio +345).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 72,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 147,
+              "Año Anterior_Becas_1": 72,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 273,
+              "Año Anterior_Becas_1": 147,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 223,
+              "Año Anterior_Becas_1": 273,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 247,
+              "Año Anterior_Becas_1": 223,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 215,
+              "Año Anterior_Becas_1": 247,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 227,
+              "Año Anterior_Becas_1": 215,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 235,
+              "Año Anterior_Becas_1": 227,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 72,
+            "periodo_final": "2025",
+            "valor_final": 235,
+            "cambio_absoluto": 163,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 72 en 2018 y 235 en 2025 (cambio +163).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería Mecánica": {
+      "nombre": "Licenciatura en Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 217,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 392,
+              "Año Anterior_Becas_1": 217,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 626,
+              "Año Anterior_Becas_1": 392,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 556,
+              "Año Anterior_Becas_1": 626,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 515,
+              "Año Anterior_Becas_1": 556,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 460,
+              "Año Anterior_Becas_1": 515,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 6
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 217,
+            "periodo_final": "2023",
+            "valor_final": 460,
+            "cambio_absoluto": 243,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 217 en 2018 y 460 en 2023 (cambio +243).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2024,
+              "Total_becas_1": 4,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 30,
+              "Año Anterior_Becas_1": 4,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2024",
+            "valor_inicial": 4,
+            "periodo_final": "2025",
+            "valor_final": 30,
+            "cambio_absoluto": 26,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 4 en 2024 y 30 en 2025 (cambio +26).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 195,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 318,
+              "Año Anterior_Becas_1": 195,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 382,
+              "Año Anterior_Becas_1": 318,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 379,
+              "Año Anterior_Becas_1": 382,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 318,
+              "Año Anterior_Becas_1": 379,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 267,
+              "Año Anterior_Becas_1": 318,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 264,
+              "Año Anterior_Becas_1": 267,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 241,
+              "Año Anterior_Becas_1": 264,
+              "proyectos": [
+                2,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 195,
+            "periodo_final": "2025",
+            "valor_final": 241,
+            "cambio_absoluto": 46,
+            "visual_fuente": "001",
+            "proyectos": [
+              2,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 195 en 2018 y 241 en 2025 (cambio +46).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 71,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_becas_1": 52,
+              "Año Anterior_Becas_1": 71,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 51,
+              "Año Anterior_Becas_1": 52,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 40,
+              "Año Anterior_Becas_1": 51,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 39,
+              "Año Anterior_Becas_1": 40,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 53,
+              "Año Anterior_Becas_1": 39,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 56,
+              "Año Anterior_Becas_1": 53,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 55,
+              "Año Anterior_Becas_1": 56,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 71,
+            "periodo_final": "2025",
+            "valor_final": 55,
+            "cambio_absoluto": -16,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 71 en 2018 y 55 en 2025 (cambio -16).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias del Agua": {
+      "nombre": "Maestría en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 80,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_becas_1": 21,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Año Anterior_Becas_1": 21,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_becas_1": 22,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 17,
+              "Año Anterior_Becas_1": 22,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 16,
+              "Año Anterior_Becas_1": 17,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 14,
+              "Año Anterior_Becas_1": 16,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 10,
+              "Año Anterior_Becas_1": 14,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 17,
+              "Año Anterior_Becas_1": 10,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2018",
+            "valor_inicial": 21,
+            "periodo_final": "2025",
+            "valor_final": 17,
+            "cambio_absoluto": -4,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 21 en 2018 y 17 en 2025 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Inteligencia Artificial Aplicada": {
+      "nombre": "Maestría en Inteligencia Artificial Aplicada",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2025,
+              "Total_becas_1": 3,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Año",
+            "Total_becas_1",
+            "Año Anterior_Becas_1"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "2025_Becas bach lic pe.Total_becas_1": "Total_becas_1",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "Año Anterior_Becas_1"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "2025_Becas bach lic pe.Total_becas_1": "0",
+            "2025_Becas bach lic pe.Año Anterior_Becas_1": "0"
+          },
+          "registros": [
+            {
+              "Año": 2020,
+              "Total_becas_1": 5,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_becas_1": 6,
+              "Año Anterior_Becas_1": 5,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_becas_1": 18,
+              "Año Anterior_Becas_1": 6,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_becas_1": 22,
+              "Año Anterior_Becas_1": 18,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_becas_1": 28,
+              "Año Anterior_Becas_1": 22,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_becas_1": 19,
+              "Año Anterior_Becas_1": 28,
+              "proyectos": [
+                3,
+                18,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 6
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_becas_1",
+            "metrica_modelo": "2025_Becas bach lic pe.Total_becas_1",
+            "periodo_inicial": "2020",
+            "valor_inicial": 5,
+            "periodo_final": "2025",
+            "valor_final": 19,
+            "cambio_absoluto": 14,
+            "visual_fuente": "001",
+            "proyectos": [
+              3,
+              18,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_becas_1: 5 en 2020 y 19 en 2025 (cambio +14).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

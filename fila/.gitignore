@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+config.toml
+datos/
+*.db
+*.db-wal
+*.db-shm
+.pytest_cache/
+
+# Parte publica
+publico/config.php
+publico/subidas/citas/*
+publico/subidas/pendientes/*
+publico/subidas/minutas/*
+!publico/subidas/**/.gitkeep

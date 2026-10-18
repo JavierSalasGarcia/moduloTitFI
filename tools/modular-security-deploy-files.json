@@ -1,0 +1,15 @@
+[
+  "app/Core/Roles.php",
+  "app/Core/ModuleManager.php",
+  "app/Core/Router.php",
+  "app/Core/Auth.php",
+  "app/Core/App.php",
+  "app/Core/helpers.php",
+  "app/bootstrap.php",
+  "app/Modules/Auth/AuthController.php",
+  "app/Modules/Auth/module.php",
+  "app/Modules/Auth/views/login.php",
+  "app/Views/layouts/app.php",
+  "app/Views/layouts/plan.php",
+  "public/assets/.htaccess"
+]

@@ -1,0 +1,2081 @@
+{
+  "id_categoria": "4006",
+  "categoria": "Tasa de crecimiento de Matrícula",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4006",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los proyectos aplicables. El proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados.",
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "serie_derivada_de_4005",
+        "metricas": [
+          "ciclo_escolar",
+          "matricula",
+          "matricula_anterior",
+          "crecimiento_interanual_pct"
+        ],
+        "formatos": {
+          "crecimiento_interanual_pct": "0.00 %"
+        },
+        "registros": [
+          {
+            "ciclo_escolar": "2016-2017",
+            "matricula": 2553.0,
+            "matricula_anterior": null,
+            "crecimiento_interanual_pct": null,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2017-2018",
+            "matricula": 2521.0,
+            "matricula_anterior": 2553.0,
+            "crecimiento_interanual_pct": -1.253427,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2018-2019",
+            "matricula": 2684.0,
+            "matricula_anterior": 2521.0,
+            "crecimiento_interanual_pct": 6.465688,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2019-2020",
+            "matricula": 2681.0,
+            "matricula_anterior": 2684.0,
+            "crecimiento_interanual_pct": -0.111773,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2020-2021",
+            "matricula": 2779.0,
+            "matricula_anterior": 2681.0,
+            "crecimiento_interanual_pct": 3.655352,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2021-2022",
+            "matricula": 2696.0,
+            "matricula_anterior": 2779.0,
+            "crecimiento_interanual_pct": -2.986686,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2022-2023",
+            "matricula": 2684.0,
+            "matricula_anterior": 2696.0,
+            "crecimiento_interanual_pct": -0.445104,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2023-2024",
+            "matricula": 2735.0,
+            "matricula_anterior": 2684.0,
+            "crecimiento_interanual_pct": 1.900149,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2024-2025",
+            "matricula": 2810.0,
+            "matricula_anterior": 2735.0,
+            "crecimiento_interanual_pct": 2.74223,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "ciclo_escolar": "2025-2026",
+            "matricula": 2989.0,
+            "matricula_anterior": 2810.0,
+            "crecimiento_interanual_pct": 6.370107,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10,
+        "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+      },
+      {
+        "visual": "resumen_derivado_de_4005",
+        "metricas": [
+          "crecimiento_acumulado_pct",
+          "tcma_pct"
+        ],
+        "registros": [
+          {
+            "periodo_inicial": "2016-2017",
+            "periodo_final": "2025-2026",
+            "crecimiento_acumulado_pct": 17.077948,
+            "tcma_pct": 1.767322,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1,
+        "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "metrica": "Matrícula total",
+          "periodo_inicial": "2016-2017",
+          "valor_inicial": 2553.0,
+          "periodo_final": "2025-2026",
+          "valor_final": 2989.0,
+          "cambio_absoluto": 436.0,
+          "proyectos": [
+            2,
+            3,
+            15
+          ],
+          "fuente": "4005"
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Matrícula 2553 en 2016-2017 y 2989 en 2025-2026; crecimiento acumulado +17.0779 %.",
+      "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 20.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 24.0,
+              "matricula_anterior": 20.0,
+              "crecimiento_interanual_pct": 20.0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 21.0,
+              "matricula_anterior": 24.0,
+              "crecimiento_interanual_pct": -12.5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 31.0,
+              "matricula_anterior": 21.0,
+              "crecimiento_interanual_pct": 47.619048,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 26.0,
+              "matricula_anterior": 31.0,
+              "crecimiento_interanual_pct": -16.129032,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 28.0,
+              "matricula_anterior": 26.0,
+              "crecimiento_interanual_pct": 7.692308,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 21.0,
+              "matricula_anterior": 28.0,
+              "crecimiento_interanual_pct": -25.0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 17.0,
+              "matricula_anterior": 21.0,
+              "crecimiento_interanual_pct": -19.047619,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 11.0,
+              "matricula_anterior": 17.0,
+              "crecimiento_interanual_pct": -35.294118,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 13.0,
+              "matricula_anterior": 11.0,
+              "crecimiento_interanual_pct": 18.181818,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": -35.0,
+              "tcma_pct": -4.673731,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 20.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 13.0,
+            "cambio_absoluto": -7.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 20 en 2016-2017 y 13 en 2025-2026; crecimiento acumulado -35 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias del Agua": {
+      "nombre": "Doctorado en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 22.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 18.0,
+              "matricula_anterior": 22.0,
+              "crecimiento_interanual_pct": -18.181818,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 16.0,
+              "matricula_anterior": 18.0,
+              "crecimiento_interanual_pct": -11.111111,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 3,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2018-2019",
+              "crecimiento_acumulado_pct": -27.272727,
+              "tcma_pct": -14.719713,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 22.0,
+            "periodo_final": "2018-2019",
+            "valor_final": 16.0,
+            "cambio_absoluto": -6.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 22 en 2016-2017 y 16 en 2018-2019; crecimiento acumulado -27.2727 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 7.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 9.0,
+              "matricula_anterior": 7.0,
+              "crecimiento_interanual_pct": 28.571429,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 13.0,
+              "matricula_anterior": 9.0,
+              "crecimiento_interanual_pct": 44.444444,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 3,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2023-2024",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 85.714286,
+              "tcma_pct": 36.277029,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2023-2024",
+            "valor_inicial": 7.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 13.0,
+            "cambio_absoluto": 6.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 7 en 2023-2024 y 13 en 2025-2026; crecimiento acumulado +85.7143 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 680.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 632.0,
+              "matricula_anterior": 680.0,
+              "crecimiento_interanual_pct": -7.058824,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 689.0,
+              "matricula_anterior": 632.0,
+              "crecimiento_interanual_pct": 9.018987,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 690.0,
+              "matricula_anterior": 689.0,
+              "crecimiento_interanual_pct": 0.145138,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 703.0,
+              "matricula_anterior": 690.0,
+              "crecimiento_interanual_pct": 1.884058,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 727.0,
+              "matricula_anterior": 703.0,
+              "crecimiento_interanual_pct": 3.41394,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 707.0,
+              "matricula_anterior": 727.0,
+              "crecimiento_interanual_pct": -2.751032,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 687.0,
+              "matricula_anterior": 707.0,
+              "crecimiento_interanual_pct": -2.828854,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 686.0,
+              "matricula_anterior": 687.0,
+              "crecimiento_interanual_pct": -0.14556,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 758.0,
+              "matricula_anterior": 686.0,
+              "crecimiento_interanual_pct": 10.495627,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 11.470588,
+              "tcma_pct": 1.21387,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 680.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 758.0,
+            "cambio_absoluto": 78.0,
+            "proyectos": [
+              2,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 680 en 2016-2017 y 758 en 2025-2026; crecimiento acumulado +11.4706 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 602.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 576.0,
+              "matricula_anterior": 602.0,
+              "crecimiento_interanual_pct": -4.318937,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 622.0,
+              "matricula_anterior": 576.0,
+              "crecimiento_interanual_pct": 7.986111,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 653.0,
+              "matricula_anterior": 622.0,
+              "crecimiento_interanual_pct": 4.983923,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 693.0,
+              "matricula_anterior": 653.0,
+              "crecimiento_interanual_pct": 6.125574,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 636.0,
+              "matricula_anterior": 693.0,
+              "crecimiento_interanual_pct": -8.225108,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 624.0,
+              "matricula_anterior": 636.0,
+              "crecimiento_interanual_pct": -1.886792,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 621.0,
+              "matricula_anterior": 624.0,
+              "crecimiento_interanual_pct": -0.480769,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 617.0,
+              "matricula_anterior": 621.0,
+              "crecimiento_interanual_pct": -0.644122,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 618.0,
+              "matricula_anterior": 617.0,
+              "crecimiento_interanual_pct": 0.162075,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 2.657807,
+              "tcma_pct": 0.291881,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 602.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 618.0,
+            "cambio_absoluto": 16.0,
+            "proyectos": [
+              2,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 602 en 2016-2017 y 618 en 2025-2026; crecimiento acumulado +2.65781 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 603.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 572.0,
+              "matricula_anterior": 603.0,
+              "crecimiento_interanual_pct": -5.140962,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 580.0,
+              "matricula_anterior": 572.0,
+              "crecimiento_interanual_pct": 1.398601,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 576.0,
+              "matricula_anterior": 580.0,
+              "crecimiento_interanual_pct": -0.689655,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 616.0,
+              "matricula_anterior": 576.0,
+              "crecimiento_interanual_pct": 6.944444,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 589.0,
+              "matricula_anterior": 616.0,
+              "crecimiento_interanual_pct": -4.383117,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 614.0,
+              "matricula_anterior": 589.0,
+              "crecimiento_interanual_pct": 4.244482,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 640.0,
+              "matricula_anterior": 614.0,
+              "crecimiento_interanual_pct": 4.234528,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 636.0,
+              "matricula_anterior": 640.0,
+              "crecimiento_interanual_pct": -0.625,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 656.0,
+              "matricula_anterior": 636.0,
+              "crecimiento_interanual_pct": 3.144654,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 8.789386,
+              "tcma_pct": 0.940434,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 603.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 656.0,
+            "cambio_absoluto": 53.0,
+            "proyectos": [
+              2,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 603 en 2016-2017 y 656 en 2025-2026; crecimiento acumulado +8.78939 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 261.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 287.0,
+              "matricula_anterior": 261.0,
+              "crecimiento_interanual_pct": 9.961686,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 300.0,
+              "matricula_anterior": 287.0,
+              "crecimiento_interanual_pct": 4.529617,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 290.0,
+              "matricula_anterior": 300.0,
+              "crecimiento_interanual_pct": -3.333333,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 290.0,
+              "matricula_anterior": 290.0,
+              "crecimiento_interanual_pct": 0.0,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 272.0,
+              "matricula_anterior": 290.0,
+              "crecimiento_interanual_pct": -6.206897,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 298.0,
+              "matricula_anterior": 272.0,
+              "crecimiento_interanual_pct": 9.558824,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 321.0,
+              "matricula_anterior": 298.0,
+              "crecimiento_interanual_pct": 7.718121,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 337.0,
+              "matricula_anterior": 321.0,
+              "crecimiento_interanual_pct": 4.984424,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 374.0,
+              "matricula_anterior": 337.0,
+              "crecimiento_interanual_pct": 10.979228,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 43.295019,
+              "tcma_pct": 4.078017,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 261.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 374.0,
+            "cambio_absoluto": 113.0,
+            "proyectos": [
+              2,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 261 en 2016-2017 y 374 en 2025-2026; crecimiento acumulado +43.295 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 67.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 139.0,
+              "matricula_anterior": 67.0,
+              "crecimiento_interanual_pct": 107.462687,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2024-2025",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 107.462687,
+              "tcma_pct": 107.462687,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2024-2025",
+            "valor_inicial": 67.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 139.0,
+            "cambio_absoluto": 72.0,
+            "proyectos": [
+              2,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 67 en 2024-2025 y 139 en 2025-2026; crecimiento acumulado +107.463 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 304.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 347.0,
+              "matricula_anterior": 304.0,
+              "crecimiento_interanual_pct": 14.144737,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 390.0,
+              "matricula_anterior": 347.0,
+              "crecimiento_interanual_pct": 12.391931,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 391.0,
+              "matricula_anterior": 390.0,
+              "crecimiento_interanual_pct": 0.25641,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 396.0,
+              "matricula_anterior": 391.0,
+              "crecimiento_interanual_pct": 1.278772,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 405.0,
+              "matricula_anterior": 396.0,
+              "crecimiento_interanual_pct": 2.272727,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 378.0,
+              "matricula_anterior": 405.0,
+              "crecimiento_interanual_pct": -6.666667,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 393.0,
+              "matricula_anterior": 378.0,
+              "crecimiento_interanual_pct": 3.968254,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 395.0,
+              "matricula_anterior": 393.0,
+              "crecimiento_interanual_pct": 0.508906,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 369.0,
+              "matricula_anterior": 395.0,
+              "crecimiento_interanual_pct": -6.582278,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 21.381579,
+              "tcma_pct": 2.176332,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 304.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 369.0,
+            "cambio_absoluto": 65.0,
+            "proyectos": [
+              2,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 304 en 2016-2017 y 369 en 2025-2026; crecimiento acumulado +21.3816 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 27.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 27.0,
+              "matricula_anterior": 27.0,
+              "crecimiento_interanual_pct": 0.0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 22.0,
+              "matricula_anterior": 27.0,
+              "crecimiento_interanual_pct": -18.518519,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 19.0,
+              "matricula_anterior": 22.0,
+              "crecimiento_interanual_pct": -13.636364,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 25.0,
+              "matricula_anterior": 19.0,
+              "crecimiento_interanual_pct": 31.578947,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 19.0,
+              "matricula_anterior": 25.0,
+              "crecimiento_interanual_pct": -24.0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 22.0,
+              "matricula_anterior": 19.0,
+              "crecimiento_interanual_pct": 15.789474,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 13.0,
+              "matricula_anterior": 22.0,
+              "crecimiento_interanual_pct": -40.909091,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 25.0,
+              "matricula_anterior": 13.0,
+              "crecimiento_interanual_pct": 92.307692,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 23.0,
+              "matricula_anterior": 25.0,
+              "crecimiento_interanual_pct": -8.0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": -14.814815,
+              "tcma_pct": -1.765809,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 27.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 23.0,
+            "cambio_absoluto": -4.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 27 en 2016-2017 y 23 en 2025-2026; crecimiento acumulado -14.8148 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias del Agua": {
+      "nombre": "Maestría en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 19.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 12.0,
+              "matricula_anterior": 19.0,
+              "crecimiento_interanual_pct": -36.842105,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 31.0,
+              "matricula_anterior": 12.0,
+              "crecimiento_interanual_pct": 158.333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 3,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2018-2019",
+              "crecimiento_acumulado_pct": 63.157895,
+              "tcma_pct": 27.733275,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 19.0,
+            "periodo_final": "2018-2019",
+            "valor_final": 31.0,
+            "cambio_absoluto": 12.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 19 en 2016-2017 y 31 en 2018-2019; crecimiento acumulado +63.1579 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2016-2017",
+              "matricula": 15.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2017-2018",
+              "matricula": 14.0,
+              "matricula_anterior": 15.0,
+              "crecimiento_interanual_pct": -6.666667,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2018-2019",
+              "matricula": 13.0,
+              "matricula_anterior": 14.0,
+              "crecimiento_interanual_pct": -7.142857,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 22.0,
+              "matricula_anterior": 13.0,
+              "crecimiento_interanual_pct": 69.230769,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 18.0,
+              "matricula_anterior": 22.0,
+              "crecimiento_interanual_pct": -18.181818,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 7.0,
+              "matricula_anterior": 18.0,
+              "crecimiento_interanual_pct": -61.111111,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 8.0,
+              "matricula_anterior": 7.0,
+              "crecimiento_interanual_pct": 14.285714,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 13.0,
+              "matricula_anterior": 8.0,
+              "crecimiento_interanual_pct": 62.5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 11.0,
+              "matricula_anterior": 13.0,
+              "crecimiento_interanual_pct": -15.384615,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 9,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2016-2017",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": -26.666667,
+              "tcma_pct": -3.802745,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 15.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 11.0,
+            "cambio_absoluto": -4.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 15 en 2016-2017 y 11 en 2025-2026; crecimiento acumulado -26.6667 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Inteligencia Artificial Aplicada": {
+      "nombre": "Maestría en Inteligencia Artificial Aplicada",
+      "nivel": "programa",
+      "indicadores": [],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "No hay una serie temporal comparable en los registros publicados de esta categoría y ámbito.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "serie_derivada_de_4005",
+          "metricas": [
+            "ciclo_escolar",
+            "matricula",
+            "matricula_anterior",
+            "crecimiento_interanual_pct"
+          ],
+          "formatos": {
+            "crecimiento_interanual_pct": "0.00 %"
+          },
+          "registros": [
+            {
+              "ciclo_escolar": "2019-2020",
+              "matricula": 9.0,
+              "matricula_anterior": null,
+              "crecimiento_interanual_pct": null,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2020-2021",
+              "matricula": 12.0,
+              "matricula_anterior": 9.0,
+              "crecimiento_interanual_pct": 33.333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2021-2022",
+              "matricula": 8.0,
+              "matricula_anterior": 12.0,
+              "crecimiento_interanual_pct": -33.333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2022-2023",
+              "matricula": 13.0,
+              "matricula_anterior": 8.0,
+              "crecimiento_interanual_pct": 62.5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2023-2024",
+              "matricula": 19.0,
+              "matricula_anterior": 13.0,
+              "crecimiento_interanual_pct": 46.153846,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2024-2025",
+              "matricula": 7.0,
+              "matricula_anterior": 19.0,
+              "crecimiento_interanual_pct": -63.157895,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "ciclo_escolar": "2025-2026",
+              "matricula": 11.0,
+              "matricula_anterior": 7.0,
+              "crecimiento_interanual_pct": 57.142857,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7,
+          "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
+        },
+        {
+          "visual": "resumen_derivado_de_4005",
+          "metricas": [
+            "crecimiento_acumulado_pct",
+            "tcma_pct"
+          ],
+          "registros": [
+            {
+              "periodo_inicial": "2019-2020",
+              "periodo_final": "2025-2026",
+              "crecimiento_acumulado_pct": 22.222222,
+              "tcma_pct": 3.401069,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1,
+          "metodo": "Crecimiento acumulado = (última / primera - 1) × 100; TCMA = ((última / primera)^(1/n) - 1) × 100, con n intervalos anuales."
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "metrica": "Matrícula total",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 9.0,
+            "periodo_final": "2025-2026",
+            "valor_final": 11.0,
+            "cambio_absoluto": 2.0,
+            "proyectos": [
+              3,
+              15
+            ],
+            "fuente": "4005"
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Matrícula 9 en 2019-2020 y 11 en 2025-2026; crecimiento acumulado +22.2222 %.",
+        "criterio": "La serie de matrícula es interna. Los factores externos no se pueden inferir del tablero.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias del Agua",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ciencias del Agua",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Inteligencia Artificial Aplicada",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "metodo": "Serie derivada de los datos publicados en la categoría 4005, que usa el mismo conjunto de matrícula que la categoría 4006.",
+  "limitaciones": [
+    "El tablero 4006 no entregó todas sus consultas de Power BI durante la captura; estas tasas se calcularon de la serie de matrícula del tablero 4005 con fórmulas explícitas."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

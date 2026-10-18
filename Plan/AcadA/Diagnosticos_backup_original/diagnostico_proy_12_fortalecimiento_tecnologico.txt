@@ -1,0 +1,98 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 12: Fortalecimiento tecnológico
+Clave Programática: PROY-12 | Pilar V: Gestión y administración universitaria al servicio de la comunidad
+Área Responsable: Subdirección Académica / Subdirección Administrativa / Centro de Cómputo y Tecnologías de Información FI
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Transformación y capacidades digitales:
+   - Actualización, suficiencia y mantenimiento de recursos tecnológicos (computadoras de escritorio, servidores, periféricos y equipos especializados de laboratorio).
+   - Cobertura, ancho de banda y estabilidad de la conectividad de red institucional (cableado estructurado y WiFi universitario).
+   - Fomento de la cultura digital para estudiantes, docentes y personal administrativo.
+   - Modernización de procesos académicos y administrativos mediante el uso de Tecnologías de la Información y Comunicación (TIC), plataformas digitales y software de código abierto.
+   - Seguridad de la información, protección de bases de datos universitarias, respaldos y resguardo de la privacidad digital.
+   - Plan de sustitución programada y mantenimiento de infraestructura académica y administrativa de TIC.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+En una institución dedicada a la formación ingenieril y científica, la infraestructura tecnológica no constituye un servicio accesorio, sino el entorno mismo donde cobran vida el aprendizaje, la experimentación computacional, la investigación y la gestión moderna. La Facultad de Ingeniería cuenta con un ecosistema tecnológico que integra más de 550 equipos de cómputo en servicio activo, distribuidos en salas generales de docencia (Salas A, B, C, D, sala de sistemas energéticos y centro de cómputo de posgrado), cubículos de profesores y oficinas administrativas. Asimismo, el espacio académico se encuentra conectado a la Red Universitaria a través de un enlace de fibra óptica de alta velocidad y una red inalámbrica institucional (RIU-UAEMEX / Eduroam) que brinda cobertura en pasillos, aulas y áreas verdes. A ello se suma la adopción de plataformas web institucionales para la gestión escolar, bibliotecas digitales y plataformas de aprendizaje virtual (Moodle y Microsoft Teams).
+
+A lo largo de la trayectoria 2016–2025, el parque tecnológico de la Facultad debió atender una demanda en vertiginoso crecimiento. La matrícula estudiantil creció un 17.1% y se crearon licenciaturas de alta intensidad computacional, destacando la apertura en 2024 de la Licenciatura en Ingeniería en Inteligencia Artificial y la Maestría en Inteligencia Artificial Aplicada, las cuales exigen capacidades de cálculo masivo que superan por completo las especificaciones de una computadora de oficina ordinaria. Durante este lapso, la Facultad realizó compras y adecuaciones periódicas que permitieron renovar cerca del 45% de los equipos de las salas de licenciatura; no obstante, el ritmo de obsolescencia tecnológica intrínseco a las tecnologías de información ha superado la velocidad de reemplazo presupuestal, generando que una fracción considerable de los equipos en salas generales cuente con más de siete años de uso intensivo continuo.
+
+[[GRAFICA: graficas/grafica_p12_01_equipos_computo.png | PIE: Gráfica 1. Equipamiento de cómputo y distribución entre docencia, investigación y administración en la Facultad de Ingeniería (2018–2025). Fuente: UAEMEX. Agendas Estadísticas e Inventario de TIC 2018–2025.]]
+
+La lectura sustantiva de esta evolución pone en evidencia que la Facultad ha garantizado la continuidad operativa básica de sus programas curriculares, pero enfrenta una tensión estratégica de primer orden: la brecha entre el equipamiento convencional disponible y las demandas de cálculo de alto desempeño (High Performance Computing - HPC) y software industrial especializado que exigen la ingeniería contemporánea y la inteligencia artificial. En áreas como diseño asistido por computadora (CAD/CAM/CAE), simulación estructural por elementos finitos, dinámica de fluidos computacional (CFD) y entrenamiento de redes neuronales profundas (Deep Learning), los procesadores y tarjetas gráficas existentes en las salas comunes resultan insuficientes, lo que obliga a los estudiantes a trabajar en sus equipos personales o a limitar el alcance de sus proyectos académicos.
+
+La tensión se manifiesta asimismo en la conectividad inalámbrica y la seguridad digital. Aunque la red institucional de fibra óptica posee un ancho de banda considerable a nivel de troncal, la distribución de puntos de acceso WiFi (Access Points) en los edificios de la Facultad presenta zonas de saturación crítica en horas de máxima afluencia escolar (entre 10:00 y 14:00 h), provocando desconexiones frecuentes que entorpecen el desarrollo de exámenes en línea, consultas bibliográficas y prácticas escolares en la nube. En el ámbito de la ciberseguridad, la dispersión de servidores en distintos laboratorios y cubículos de investigación, sin un protocolo unificado de respaldos automatizados y protección contra ataques de ransomware, expone a riesgos de pérdida de datos a investigaciones científicas y archivos institucionales de alto valor.
+
+Al desagregar por áreas de uso, se constata una marcada asimetría entre las distintas licenciaturas. Mientras que la carrera de Ingeniería en Computación ha logrado mantener salas con sistemas operativos Linux y entornos de desarrollo actualizados gracias a convenios y proyectos propios, las áreas de Ingeniería Civil y Mecánica resienten la falta de licencias concurrentes suficientes para software especializado de simulación y topografía digital, obligando a las academias a recurrir a versiones de prueba o software libre que no siempre satisfacen los requerimientos del sector laboral.
+
+En el contexto externo, el Plan Nacional de Desarrollo 2025–2030, la Estrategia Digital Nacional y los estándares de acreditación internacional del CACEI y CONAIC exigen que las facultades de ingeniería garanticen acceso universal a plataformas digitales de vanguardia, enseñen competencias de ciberseguridad y fomenten la soberanía tecnológica. Las encuestas comunitarias (Instrumentos C01, C07, C10 y C16) corroboran que el 79.4% de los alumnos de ingeniería identifican la mejora de la red WiFi en pasillos y la adquisición de tarjetas de procesamiento gráfico (GPU) para laboratorios como las dos demandas tecnológicas más urgentes de la Facultad.
+
+Por consiguiente, el cierre direccional del Proyecto 12 convoca a implementar un Plan Maestro de Transformación Digital y Fortalecimiento Tecnológico en la Facultad de Ingeniería 2026–2030. Esto implicará instituir un programa multianual de sustitución programada de equipos de cómputo, habilitar un Laboratorio de Cómputo de Alto Desempeño (HPC) especializado para Inteligencia Artificial y simulaciones de ingeniería, ampliar y rediseñar la infraestructura WiFi con antenas de última generación (WiFi 6), unificar la política de ciberseguridad y respaldos institucionales, y promover una cultura digital crítica que empodere a estudiantes y docentes en el uso ético y productivo de las tecnologías exponenciales.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2018–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Infraestructura de tecnologías de información y conectividad en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Computadoras totales en servicio (4037) 2018            490             2025            554            +64 equipos     +13.1%
+Equipos de cómputo para docencia      2018              320             2025            365            +45 equipos     +14.1%
+Equipos para investigación y posgrado 2018               85             2025            105            +20 equipos     +23.5%
+Equipos para personal administrativo  2018               85             2025             84             -1 equipo       -1.2%
+Alumnos por computadora de docencia   2018              7.8             2025            8.2           +0.4 al/comput.  +5.1%
+Puntos de acceso WiFi institucional   2018               22              2025             38            +16 puntos      +72.7%
+Salas de cómputo en servicio activo   2018                6              2025              7             +1 sala        +16.7%
+Servidores dedicados en operación     2018                5              2025              8             +3 servidores  +60.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2018–2025; Departamento de Tecnologías de la Información y Cómputo FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C01, C07, C10 Y C16)
+--------------------------------------------------------------------------------
+1. Alumnado de Licenciatura (Instrumentos C01, C07, C10, C16):
+   - El 79.4% manifiesta que la señal de la red inalámbrica universitaria es inestable y de baja velocidad en los edificios de aulas C y D, así como en las áreas de estudio al aire libre.
+   - Los estudiantes de Ingeniería en Inteligencia Artificial y Computación solicitan la instalación de estaciones de trabajo con aceleradores gráficos (GPU) y entornos de desarrollo en la nube para proyectos de visión artificial y ciencia de datos.
+   - Petición de mayor horario de apertura de las salas de cómputo de libre acceso entre semanas y los sábados.
+2. Profesorado y Personal Administrativo (Instrumentos C02 y C04):
+   - Solicitan soporte técnico expedito y mantenimiento correctivo más ágil ante fallas de conectividad en cubículos y oficinas.
+   - Demanda de cursos sobre herramientas de inteligencia artificial aplicada a la docencia y gestión de plataformas virtuales.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Parque tecnológico que supera los 550 equipos de cómputo y siete salas especializadas en servicio continuo.
+- Conectividad central de alta velocidad mediante enlace troncal de fibra óptica de la Red Universitaria UAEMEX.
+- Talento humano especializado en las academias de Computación e Inteligencia Artificial con capacidad para liderar proyectos tecnológicos locales.
+- Adopción generalizada de plataformas institucionales digitales para trámites escolares y gestión educativa.
+
+DEBILIDADES:
+- Obsolescencia tecnológica en más del 40% de los equipos de salas generales de licenciatura, limitando la ejecución de software industrial contemporáneo.
+- Carencia de un clúster o infraestructura formal de Cómputo de Alto Desempeño (HPC/GPU) al servicio de las áreas de posgrado e inteligencia artificial.
+- Cobertura WiFi irregular y saturación de ancho de banda en zonas de alta concentración estudiantil.
+- Ausencia de un protocolo institucional estandarizado de ciberseguridad, control de accesos lógicos y copias de seguridad automatizadas en laboratorios.
+
+OPORTUNIDADES:
+- Convenios institucionales de la UAEMEX con gigantes tecnológicos (Microsoft, Google, Cisco, AWS) para el uso gratuito de licencias educativas y almacenamiento en la nube.
+- Políticas de soberanía tecnológica e impulso a la digitalización del Plan Nacional de Desarrollo y del Gobierno del Estado de México.
+- Donaciones y colaboraciones con empresas del parque tecnológico de Toluca para renovación de equipo especializado.
+
+AMENAZAS:
+- Elevado costo en divisas internacionales de las licencias de software comercial de ingeniería y de los componentes de hardware avanzado (tarjetas GPU).
+- Riesgos crecientes de ciberataques, phishing y vulnerabilidades en redes abiertas que puedan comprometer información sensible de la comunidad.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- CONAIC. (2022). Marco de referencia para la acreditación de programas de educación superior en el área de tecnologías de la información y computación. Consejo Nacional de Acreditación en Informática y Computación, A.C.
+- Gobierno de México. (2021). Estrategia Digital Nacional 2021–2024. Diario Oficial de la Federación.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

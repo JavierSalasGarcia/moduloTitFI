@@ -1,0 +1,46 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 4: INVESTIGACIÓN ABIERTA, INCLUSIVA, EQUITATIVA Y DE CALIDAD
+================================================================================
+
+DIAGNÓSTICO
+
+1. Investigación para la transformación, proyectos con financiamiento y redes académicas
+
+La investigación en la Facultad de Ingeniería se articula en 8 Cuerpos Académicos (5 Consolidados y 3 En Consolidación) y Líneas de Generación y Aplicación del Conocimiento (LGAC) orientadas a recursos hídricos, materiales avanzados, computación y energía sustentable (Subdirección Académica [SA-FI], 2025). Durante 2024–2025 se ejecutaron 18 proyectos formalmente registrados, de los cuales 6 captaron financiamiento externo del Consejo Nacional de Humanidades, Ciencias y Tecnologías (CONAHCYT, 2024) y convenios sectoriales por más de 4.8 millones de pesos (SIEA-UAEMéx, 2025).
+
+[[GRAFICA: grafica_p04_01_investigadores_snii.png | Figura 1. Evolución del número de investigadores adscritos al SNII en la Facultad de Ingeniería (2016–2025).]]
+
+La Facultad participa en redes académicas como la Red del Agua de la Academia Mexicana de Ciencias y la Red Mexicana de Supercómputo, favoreciendo estancias y proyectos conjuntos (SA-FI, 2025).
+
+Tabla 1. Evolución de la planta de investigación, Cuerpos Académicos y SNII (2016–2025)
+| Indicador de Investigación | Periodo 2016–2017 | Periodo 2024–2025 | Variación | Tasa de Cambio |
+|---|---|---|---|---|
+| Investigadores adscritos al SNII | 32 miembros | 46 miembros | +14 investigadores | +43.8% crecimiento |
+| SNII Nivel II y III | 5 miembros | 11 miembros | +6 miembros | +120.0% incremento |
+| Cuerpos Académicos Consolidados (CAC) | 3 cuerpos | 5 cuerpos | +2 CAC | +66.7% consolidación |
+| Proyectos de investigación registrados | 14 proyectos | 18 proyectos | +4 proyectos | +28.6% actividad |
+| Publicaciones indizadas (JCR / Scopus) | 28 artículos/año | 48 artículos/año | +20 artículos | +71.4% producción |
+Fuente: UAEMéx (2025a) y Subdirección Académica de la Facultad de Ingeniería (2025).
+
+2. Ciencia Abierta, ética y pertinencia social de la investigación
+
+Conforme a la Ley General en materia de Humanidades, Ciencias, Tecnologías e Innovación (Cámara de Diputados, 2023), los productos científicos y bases de datos generadas se incorporan al Repositorio Institucional de Acceso Abierto (RI-UAEMéx, 2025). Las investigaciones son dictaminadas por comités de ética, priorizando la retribución social hacia zonas mexiquenses con alta vulnerabilidad técnica e hídrica (SA-FI, 2025).
+
+3. Desarrollo de la planta de investigación y equidad de género en la ciencia
+
+La membresía en el Sistema Nacional de Investigadoras e Investigadores (SNII) creció un 43.8%, transitando de 32 integrantes en 2016 a 46 en 2025, con 11 investigadores en los niveles II y III (SNII, 2025). Las mujeres investigadoras representan el 24% del padrón SNII de la Facultad, por lo que es prioritario instrumentar programas de mentoría científica y apoyos a la corresponsabilidad en el cuidado (Comité de Género [CG-FI], 2024; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- Cámara de Diputados. (2023). *Ley General en materia de Humanidades, Ciencias, Tecnologías e Innovación*. Diario Oficial de la Federación, 8 de mayo de 2023.
+- CG-FI. (2024). *Diagnóstico sobre la participación de las mujeres en las áreas STEM en la Facultad de Ingeniería*. UAEMéx.
+- CONAHCYT. (2024). *Programas y convocatorias de investigación científica y desarrollo tecnológico*. Secretaría de Ciencia, Humanidades, Tecnología e Innovación.
+- RI-UAEMéx. (2025). *Estadísticas de consulta y depósito de producción científica en acceso abierto*. Repositorio Institucional, UAEMéx.
+- SA-FI. (2025). *Informe de Cuerpos Académicos, proyectos de investigación y producción científica 2024–2025*. Subdirección Académica, Facultad de Ingeniería, UAEMéx.
+- SIEA-UAEMéx. (2025). *Informe de financiamiento externo y convenios de investigación*. Secretaría de Investigación y Estudios Avanzados, UAEMéx.
+- SNII. (2025). *Padrón de Investigadoras e Investigadores vigentes*. SECIHTI.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

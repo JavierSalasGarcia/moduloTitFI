@@ -1,0 +1,195 @@
+{
+  "id_categoria": "4022",
+  "categoria": "Volumen y libro por alumno",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4022",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNjc5MDYzN2QtMGQxMS00MzZiLTgyNjItMjc1ZmI5YzY5NTFiIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 11,
+      "nombre": "Gestión administrativa para responder al quehacer universitario"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "003",
+        "metricas": [
+          "Año",
+          "Títulos por alumno",
+          "Volúmenes por alumno"
+        ],
+        "campos_modelo": {
+          "16_Volúmenes y títulos.Año": "Año",
+          "Sum(16_Volúmenes y títulos.Títulos por alumno)": "Títulos por alumno",
+          "Sum(16_Volúmenes y títulos.Volúmenes por alumno)": "Volúmenes por alumno"
+        },
+        "formatos": {
+          "16_Volúmenes y títulos.Año": "0"
+        },
+        "registros": [
+          {
+            "Año": 2014,
+            "Títulos por alumno": 5.725567190226876,
+            "Volúmenes por alumno": 13.264834205933683,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2015,
+            "Títulos por alumno": 5.344758064516129,
+            "Volúmenes por alumno": 12.433064516129033,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2016,
+            "Títulos por alumno": 5.2577359968664314,
+            "Volúmenes por alumno": 12.382687034860949,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2017,
+            "Títulos por alumno": 5.433161443871479,
+            "Volúmenes por alumno": 12.92780642602142,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2018,
+            "Títulos por alumno": 5.18107302533532,
+            "Volúmenes por alumno": 12.480625931445603,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2019,
+            "Títulos por alumno": 5.1355123026074185,
+            "Volúmenes por alumno": 12,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2020,
+            "Títulos por alumno": 5.034904641957539,
+            "Volúmenes por alumno": 12.192875134940627,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2021,
+            "Títulos por alumno": 5.222922848664688,
+            "Volúmenes por alumno": 12.79933234421365,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2022,
+            "Títulos por alumno": 5.045454545454546,
+            "Volúmenes por alumno": 12.741430700447093,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2023,
+            "Títulos por alumno": 4.868007312614259,
+            "Volúmenes por alumno": 12.495429616087751,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          },
+          {
+            "Año": 2024,
+            "Títulos por alumno": 4.751957295373665,
+            "Volúmenes por alumno": 12.24306049822064,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
+          }
+        ],
+        "numero_registros": 11
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Títulos por alumno",
+          "metrica_modelo": "Sum(16_Volúmenes y títulos.Títulos por alumno)",
+          "periodo_inicial": "2014",
+          "valor_inicial": 5.725567,
+          "periodo_final": "2024",
+          "valor_final": 4.751957,
+          "cambio_absoluto": -0.97361,
+          "visual_fuente": "003",
+          "proyectos": [
+            2,
+            3,
+            11
+          ]
+        }
+      ],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Títulos por alumno: 5.72557 en 2014 y 4.75196 en 2024 (cambio -0.97361).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

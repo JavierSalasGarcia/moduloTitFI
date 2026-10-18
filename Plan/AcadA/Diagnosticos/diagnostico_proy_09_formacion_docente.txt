@@ -1,0 +1,35 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 9: FORTALECIMIENTO DE LA FORMACIÓN INTEGRAL DEL DOCENTE
+================================================================================
+
+DIAGNÓSTICO
+
+1. Formación y actualización del personal académico y fortalecimiento de la planta docente
+
+La planta docente de la Facultad de Ingeniería en el ciclo 2024–2025 está conformada por 268 profesoras y profesores (74 de Tiempo Completo - PTC, 12 Técnicos Académicos y 182 de Asignatura) (UAEMéx, 2025a). El 91.9% del profesorado de tiempo completo cuenta con estudios de posgrado (56.8% Doctorado y 35.1% Maestría), y 58 PTC (78.4%) ostentan el Reconocimiento de Perfil Deseable otorgado por la Secretaría de Educación Pública a través del PRODEP (SEP, 2024).
+
+[[GRAFICA: grafica_p09_01_planta_docente_snii.png | Figura 1. Composición de la planta docente, grado académico y perfil deseable PRODEP (2016–2025).]]
+
+Anualmente se imparten más de 25 cursos a través del Programa Institucional de Formación Docente (Dirección de Desarrollo del Personal Académico [DiDePA-UAEMéx], 2024). En la consulta al profesorado, el 74% de las y los docentes solicita fortalecer cursos en metodologías activas (Aprendizaje Basado en Proyectos), integración de Inteligencia Artificial en ingeniería y profesionalización pedagógica para el personal de asignatura (Subdirección Académica [SA-FI], 2025; UAEMéx, 2025b).
+
+Tabla 1. Indicadores del personal académico y habilitación docente (2016–2025)
+| Indicador del Personal Académico | Ciclo 2016–2017 | Ciclo 2024–2025 | Variación Neta | Situación / Desempeño |
+|---|---|---|---|---|
+| Total de personal docente activo | 245 profesores | 268 profesores | +23 docentes | +9.4% crecimiento |
+| Profesorado de Tiempo Completo (PTC) | 71 PTC | 74 PTC | +3 PTC | Plazas estables |
+| PTC con grado de Doctorado | 36 doctores (50.7%) | 42 doctores (56.8%) | +6 doctores | +16.7% habilitación |
+| PTC con Perfil Deseable PRODEP | 51 PTC (71.8%) | 58 PTC (78.4%) | +7 PTC | Reconocimiento SEP |
+| Miembros del SNII en la planta docente | 32 miembros | 46 miembros | +14 investigadores | +43.8% membresía |
+Fuente: UAEMéx (2025a) y Subdirección Académica de la Facultad de Ingeniería (2025).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- DiDePA-UAEMéx. (2024). *Informe del Programa Institucional de Formación y Actualización Docente*. Dirección de Desarrollo del Personal Académico, UAEMéx.
+- SA-FI. (2025). *Censo de personal académico, habilitación docente y evaluación curricular*. Subdirección Académica, Facultad de Ingeniería, UAEMéx.
+- SEP. (2024). *Padrón de Profesores de Tiempo Completo con Perfil Deseable: Convocatoria PRODEP*. Dirección General de Educación Superior Universitaria e Intercultural, SEP.
+- SNII. (2025). *Directorio de investigadoras e investigadores adscritos*. SECIHTI.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

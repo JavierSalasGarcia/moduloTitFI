@@ -1,0 +1,32 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 11: GESTIÓN ADMINISTRATIVA PARA RESPONDER AL QUEHACER UNIVERSITARIO
+================================================================================
+
+DIAGNÓSTICO
+
+1. Mejora del clima laboral, procesos de gestión de calidad y simplificación administrativa
+
+La gestión administrativa opera bajo el Sistema de Gestión de la Calidad institucional certificado bajo la norma ISO 9001:2015 (International Organization for Standardization [ISO], 2015), abarcando procesos de control escolar, compras, laboratorios y titulación, manteniendo cero no conformidades en auditorías externas (Coordinación de Calidad [CC-FI], 2025).
+
+Tabla 1. Indicadores de gestión de calidad y tiempos de respuesta administrativa (2016–2025)
+| Proceso Administrativo Clave | Tiempo Promedio (2016) | Tiempo Actual (2025) | Reducción de Tiempo | Eficiencia Lograda |
+|---|---|---|---|---|
+| Emisión de constancias y certificados | 5 días hábiles | 2 días hábiles | -3 días | -60.0% tiempo de espera |
+| Trámite de registro de titulación | 20 días hábiles | 10 días hábiles | -10 días | -50.0% optimización |
+| Liberación de servicio social | 15 días hábiles | 5 días hábiles | -10 días | -66.7% simplificación |
+| Procesos certificados en ISO 9001 | 4 procesos | 7 procesos | +3 procesos | Cobertura integral SGC |
+| Satisfacción de usuarios (encuestas) | 78.5% satisfacción | 86.2% satisfacción | +7.7 puntos | Percepción favorable |
+Fuente: CC-FI (2025) y Dirección de Organización y Sistemas (2024).
+
+Las áreas de oportunidad radican en la erradicación del uso de papel, la adopción de firma electrónica avanzada institucional y la automatización del control de laboratorios (CC-FI, 2025; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- CC-FI. (2025). *Informe anual de auditoría del Sistema de Gestión de la Calidad ISO 9001:2015*. Coordinación de Calidad, Facultad de Ingeniería, UAEMéx.
+- DOS-UAEMéx. (2024). *Manual institucional de procesos y procedimientos administrativos*. Dirección de Organización y Sistemas, UAEMéx.
+- ISO. (2015). *ISO 9001:2015 Quality management systems — Requirements*. International Organization for Standardization.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

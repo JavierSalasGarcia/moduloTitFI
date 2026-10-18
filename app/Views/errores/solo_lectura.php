@@ -1,0 +1,1 @@
+<section class="card"><h1>Tu cuenta está en modo lectura</h1><p>Verifica tu correo para enviar solicitudes, publicar o modificar información.</p><a class="btn btn-primario" href="<?= url('cuenta/verificar') ?>">Verificar mi correo</a> <a class="btn" href="<?= url('') ?>">Volver al inicio</a></section>

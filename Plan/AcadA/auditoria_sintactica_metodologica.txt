@@ -1,0 +1,500 @@
+
+================================================================================
+PROYECTO 02: Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Fortalecer la formación profesional en Ingeniería mediante programas pertinentes, trayectorias acompañadas y vinculación con personas egresadas y sectores externos, para ampliar las oportunidades de ingreso, desarrollo, egreso y empleabilidad del estudiantado.
+
+[POLÍTICAS] (4)
+  P1: Los comités curriculares de las licenciaturas deberán sustentar las actualizaciones de los planes de estudio en evidencia de pertinencia, resultados de evaluación y criterios transversales del SEAES.
+      Denota obligatoriedad explícita: True
+  P2: El estudiantado tendrá acceso equitativo a experiencias disciplinares, culturales, científicas e internacionales pertinentes para su formación integral.
+      Denota obligatoriedad explícita: False
+  P3: El personal de tutoría deberá priorizar el acompañamiento de quienes presenten mayores riesgos de rezago, abandono o demora en la titulación, sin menoscabo de la atención universal.
+      Denota obligatoriedad explícita: True
+  P4: Las coordinaciones de los programas educativos deberán incorporar la participación de las personas egresadas en la mejora curricular y en la vinculación ética con los sectores social, público y productivo.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (4 OE)
+  OE1: Actualizar los planes de estudio de ingeniería para sostener su pertinencia, excelencia y evaluación externa con criterios transversales del SEAES. (Infinitivo: True)
+    E1.1: Revisar la pertinencia curricular mediante el análisis de resultados educativos, la consulta a grupos de interés y la documentación de los criterios transversales del SEAES [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 4
+        M1.1 [ACT-PRDI-NS-2726 - actividad]: Incorporar contenidos temáticos o actividades académicas sobre los criterios transversales del SEAES, en un plan de estudios reestructurado, de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-2727 - actividad]: Contar con el acervo de 3 unidades de aprendizaje de estudios profesionales apegadas a las referencias documentales básicas de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.3 [IND-NS-210 - indicador]: Lograr que 80% de los programas educativos de estudios profesionales evaluables cuenten con reconocimiento por su excelencia, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.4 [IND-PRDI-351 - indicador]: Lograr que 92.91% de la matrícula en programas educativos de estudios profesionales evaluables, curse en programas educativos reconocidos por su excelencia, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Diversificar la formación disciplinar e integral del estudiantado para fortalecer su desempeño académico, profesional y social. (Infinitivo: True)
+    E2.1: Articular la formación complementaria del estudiantado mediante tutoría, movilidad, certificaciones, educación continua y recursos digitales priorizados según las brechas de acceso y aprendizaje [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 11
+        M2.1 [IND-PRDI-200 - indicador]: Lograr que 71.57% de los sustentantes que presentan el EGEL obtengan testimonios de desempeño sobresaliente o satisfactorio, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.2 [ACT-PRDI-NS-2781 - actividad]: Implementar un programa de preparación para EGEL cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.3 [ACT-PRDI-NS-2785 - actividad]: Lograr que 10 estudiantes de estudios profesionales participen en movilidad intrainstitucional de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.4 [IND-PRDI-353 - indicador]: Elevar la cobertura de tutoría académica del estudiantado en la Facultad de Ingeniería de 97.49% a 100% para 2030, con revisión anual.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.5 [ACT-PRDI-NS-2789 - actividad]: Lograr que 19 estudiantes de estudios profesionales participen en movilidad nacional e internacional de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.6 [ACT-PRDI-NS-2729 - actividad]: Realizar cada año de 2027 a 2030 en la Facultad de Ingeniería un proyecto colaborativo de beneficio social.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.7 [ACT-PRDI-NS-2792 - actividad]: Contar con 2 manuales de prácticas apegados a los indicadores del Sistema para Evaluar la Calidad de Medios Educativos cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.8 [IND-PRDI-357 - indicador]: Lograr que 80% de las GEI disponibles en SEDUCA sean utilizadas, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.9 [ACT-PRDI-NS-2728 - actividad]: Incrementar a 946 el número de estudiantes de estudios profesionales en la renovada plataforma seduca, a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.10 [ACT-PRDI-NS-2805 - actividad]: Desarrollar 9 actividades académicas de educación continua cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.11 [ACT-PRDI-NS-2205 - actividad]: Certificar en una segunda lengua a 14 estudiantes de estudios profesionales cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE3: Mejorar el acceso, la permanencia, el egreso y la titulación del alumnado para reducir las brechas advertidas en las trayectorias escolares. (Infinitivo: True)
+    E3.1: Focalizar los apoyos de ingreso, permanencia, egreso y titulación mediante el seguimiento longitudinal de cohortes y la atención temprana de riesgos académicos [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 10
+        M3.1 [ACT-PRDI-NS-1764 - actividad]: Atender una matrícula de al menos 3,004 estudiantes de estudios profesionales en 2027 y alcanzar 3,049 en 2030, sin reducir la cobertura anual.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.2 [IND-PRDI-40 - indicador]: Elevar la titulación por cohorte en la Facultad de Ingeniería de 2.29% a 5.88% para 2030, con revisión anual.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.3 [ACT-PRDI-NS-2814 - actividad]: Implementar semestralmente 2 programas de fomento a la titulación entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.4 [IND-NS-127 - indicador]: Elevar la eficiencia terminal por cohorte en la Facultad de Ingeniería de 4.2% a 8.21% para 2030, con revisión anual.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.5 [IND-PRDI-34 - indicador]: Reducir el abandono escolar en la Facultad de Ingeniería de 8.1% a 7.81% para 2030, con revisión anual.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.6 [ACT-PRDI-NS-2297 - actividad]: Otorgar cada año de 2027 a 2030 691 becas, apoyos o estímulos institucionales a estudiantes de Estudios Profesionales en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.7 [IND-PRDI-366 - indicador]: Lograr que 97.99% del total de estudiantes activos de Estudios Profesionales cuenten con servicios de salud para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.8 [ACT-PRDI-NS-2285 - actividad]: Lograr la participación de 588 estudiantes y personas egresadas en los sectores gubernamental, productivo y social, mediante las prácticas o estancias profesionales, de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.9 [ACT-PRDI-NS-2826 - actividad]: Lograr la participación de 10 estudiantes de estudios profesionales en cursos, talleres o actividades de capacitación de empleabilidad, realizadas en conjunto con instituciones externas, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.10 [ACT-PRDI-NS-2825 - actividad]: Realizar un evento de promoción y difusión en apoyo al desarrollo profesional para el empleo y la inserción laboral, de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE4: Fortalecer el acompañamiento de egresados y su vinculación con los sectores productivo, público y social para favorecer la empleabilidad y la colaboración. (Infinitivo: True)
+    E4.1: Vincular a las personas egresadas con la vida académica y el entorno laboral mediante mecanismos permanentes de intercambio con programas educativos y organizaciones externas [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M4.1 [ACT-PRDI-NS-2753 - actividad]: Realizar una intervención anual que vincule a personas egresadas y estudiantes de la Facultad de Ingeniería cada año de 2027 a 2030.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 26
+  Total Metas en Referencia Base 2026: 26
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 03: Estudios avanzados de excelencia y pertinencia social
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Consolidar estudios avanzados pertinentes en ingeniería mediante seguimiento de matrícula, becas y trayectorias de investigación, para formar especialistas capaces de atender problemas regionales.
+
+[POLÍTICAS] (2)
+  P1: Las comisiones académicas de los posgrados deberán aplicar criterios de ingreso transparentes, incluyentes y congruentes con la capacidad formativa de cada programa.
+      Denota obligatoriedad explícita: True
+  P2: Los núcleos académicos de los posgrados deberán sostener la calidad de los programas mediante habilitación disciplinar, trayectorias oportunas y proyectos pertinentes para el entorno.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (2 OE)
+  OE1: Ampliar de manera incluyente el acceso a los estudios avanzados de la Facultad para formar capacidades especializadas de impacto regional. (Infinitivo: True)
+    E1.1: Ampliar la incorporación a los estudios avanzados mediante difusión dirigida, procesos de admisión transparentes y apoyos acordes con la capacidad de cada programa [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M1.1 [ACT-PRDI-NS-2838 - actividad]: Contar con 5 estudiantes de estudios avanzados participantes en estancias cortas o movilidad académica, a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-2685 - actividad]: Contar 80 alumnos en estudios avanzados, a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Consolidar la pertinencia y calidad de los estudios avanzados para mejorar la investigación, la graduación y la vinculación con el entorno. (Infinitivo: True)
+    E2.1: Consolidar las trayectorias de posgrado mediante tutoría académica, integración temprana a proyectos de investigación y seguimiento de la graduación [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 5
+        M2.1 [ACT-PRDI-NS-2844 - actividad]: Ofrecer un programa de estudios avanzados o diplomado superior vinculado con una entidad pública o productiva cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.2 [ACT-PRDI-NS-2847 - actividad]: Registrar un protocolo de investigación de alumnos de estudios avanzados con temáticas vinculadas a la Agenda Estratégica de Investigación, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.3 [ACT-PRDI-NS-2848 - actividad]: Aplicar un protocolo anual para mejorar la graduación y la eficiencia terminal de los estudios avanzados de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.4 [ACT-PRDI-NS-2849 - actividad]: Incrementar a 22 graduados de estudios avanzados, a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.5 [IND-PRDI-365 - indicador]: Incrementar a 18.18% la graduación de estudios avanzados por la opción de trabajo terminal de grado, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 7
+  Total Metas en Referencia Base 2026: 7
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 04: Investigación abierta, inclusiva, equitativa y de calidad
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Fortalecer la investigación de la Facultad mediante el acompañamiento a su planta académica y el seguimiento de productos abiertos y pertinentes, para aumentar la capacidad de respuesta a necesidades sociales.
+
+[POLÍTICAS] (2)
+  P1: Las personas investigadoras deberán conducir sus proyectos con integridad, apertura, inclusión y pertinencia social, con respeto a la libertad académica y a los derechos de las personas.
+      Denota obligatoriedad explícita: True
+  P2: Las personas responsables de la gestión de la investigación deberán priorizar el uso compartido de capacidades, la calidad académica y las contribuciones verificables a problemas científicos, tecnológicos o sociales al asignar recursos.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (2 OE)
+  OE1: Fortalecer la investigación abierta, incluyente y socialmente pertinente para elevar la calidad y la colaboración académica de la Facultad. (Infinitivo: True)
+    E1.1: Impulsar la producción científica abierta y pertinente mediante colaboración entre cuerpos académicos, acompañamiento a la habilitación y evaluación de la contribución social de los proyectos [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 4
+        M1.1 [ACT-PRDI-NS-2870 - actividad]: Mantener 3 cuerpos académicos de calidad en la Facultad de Ingeniería en cada medición anual de 2027 a 2030.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [IND-PRDI-221 - indicador]: Mantener en 100% la proporción de cuerpos académicos que realizan investigación con contribución social en la Facultad de Ingeniería durante las mediciones anuales de 2027 a 2030.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.3 [IND-PRDI-368 - indicador]: Mantener el 49.3% de los PTC con participación en redes con pares extranjeros, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.4 [IND-PRDI-370 - indicador]: Mantener 49.3% de los PTC que participan en redes nacionales, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Priorizar recursos, infraestructura y vinculación externa para sostener proyectos de investigación de calidad y con resultados verificables. (Infinitivo: True)
+    E2.1: Orientar los recursos de investigación mediante prioridades colegiadas, uso compartido de infraestructura y colaboración con instituciones y sectores externos [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 4
+        M2.1 [ACT-PRDI-NS-2854 - actividad]: Atender las necesidades prioritarias de mantenimiento, equipamiento y medidas de seguridad de 3 laboratorios de investigación, a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.2 [ACT-PRDI-NS-2858 - actividad]: Promover la participación en una convocatoria externa de proyectos de investigación, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.3 [IND-PRDI-367 - indicador]: Contar con 20% de los proyectos de investigación en DT e innovación que cuenten con un plan de transferencia, innovación o impacto social documentado, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.4 [IND-PRDI-225 - indicador]: Contar con 53.66% de producción científica con sentido social, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 8
+  Total Metas en Referencia Base 2026: 8
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 05: Innovación, desarrollo tecnológico y transferencia sostenible y equitativa
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Impulsar soluciones de ingeniería con potencial de aplicación mediante colaboración con sectores públicos, sociales y productivos, para atender necesidades concretas del entorno.
+
+[POLÍTICAS] (2)
+  P1: Las personas investigadoras deberán someter los resultados susceptibles de protección a evaluación antes de divulgarlos o transferirlos, con respeto a la autoría y a la normatividad aplicable.
+      Denota obligatoriedad explícita: True
+  P2: Las personas responsables de la transferencia tecnológica deberán formalizar los acuerdos bajo condiciones de pertinencia social, distribución equitativa de beneficios y uso responsable del conocimiento.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (1 OE)
+  OE1: Mejorar la gestión de la propiedad intelectual y la transferencia tecnológica para proteger y aprovechar los resultados de la comunidad de Ingeniería. (Infinitivo: True)
+    E1.1: Conducir la protección y transferencia de resultados mediante evaluación de su novedad, pertinencia, titularidad, viabilidad y beneficio social [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M1.1 [ACT-PRDI-NS-2875 - actividad]: Contar con 5 expedientes, registros y patentes ante el IMPI, a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-2881 - actividad]: Capacitar a 2 miembros de la comunidad universitaria en materia de propiedad intelectual y gestión de activos de conocimiento, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 2
+  Total Metas en Referencia Base 2026: 2
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 06: Difusión y divulgación de la ciencia abierta a través de bienes públicos del conocimiento
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Ampliar el acceso público al conocimiento generado en la Facultad mediante comunicación clara y repositorios abiertos, para acercar la ciencia de la ingeniería a la sociedad.
+
+[POLÍTICAS] (2)
+  P1: El personal académico deberá difundir sus productos bajo principios de acceso abierto, rigor científico, accesibilidad y respeto a los derechos de autor.
+      Denota obligatoriedad explícita: True
+  P2: Las personas responsables de la divulgación científica deberán adaptar los lenguajes y formatos a públicos diversos sin menoscabar la precisión del conocimiento comunicado.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (1 OE)
+  OE1: Fortalecer la ciencia abierta y la divulgación científica para ampliar el acceso y la calidad de los productos académicos de la Facultad. (Infinitivo: True)
+    E1.1: Difundir el conocimiento científico mediante productos abiertos, accesibles y revisados académicamente, adecuados a las características de cada público [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 3
+        M1.1 [ACT-PRDI-NS-2890 - actividad]: Aplicar un programa anual de sostenibilidad y fortalecimiento del acceso abierto no comercial a las publicaciones científicas de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-2897 - actividad]: Capacitar a 19 miembros de la comunidad universitaria en Ciencia Abierta, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.3 [ACT-PRDI-NS-2899 - actividad]: Realizar una evaluación de la calidad, criterios y políticas de Acceso Abierto Diamante de las publicaciones periódicas científicas institucionales, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 3
+  Total Metas en Referencia Base 2026: 3
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 09: Fortalecimiento de la formación integral del docente
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Fortalecer la docencia de Ingeniería mediante formación disciplinar, didáctica y digital basada en necesidades verificadas, para mejorar la experiencia de aprendizaje.
+
+[POLÍTICAS] (3)
+  P1: El personal académico tendrá acceso equitativo a oportunidades de formación pertinentes a las necesidades disciplinares, didácticas, digitales y socioemocionales de su práctica.
+      Denota obligatoriedad explícita: False
+  P2: El profesorado tendrá acceso equitativo a formación y certificación lingüística pertinente para la docencia, la movilidad y la colaboración internacional.
+      Denota obligatoriedad explícita: False
+  P3: Las comisiones de evaluación académica deberán valorar la habilitación y el desempeño del profesorado por su contribución a la docencia, la investigación colaborativa y la función social del conocimiento.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (3 OE)
+  OE1: Fortalecer la formación pedagógica y profesional del personal académico para mejorar la experiencia educativa del estudiantado. (Infinitivo: True)
+    E1.1: Atender las necesidades de formación del profesorado mediante rutas de actualización disciplinar, didáctica, digital y socioemocional vinculadas con la práctica educativa [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 5
+        M1.1 [IND-NS-212 - indicador]: Lograr para 2030 que 64.93% del personal académico de nivel superior participe en actividades de formación en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [IND-PRDI-371 - indicador]: Actualizar cada año de 2027 a 2030 a 25% del personal académico del nivel superior en conocimientos propios de la disciplina que enseñan en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.3 [IND-PRDI-373 - indicador]: Lograr que 50% de personal académico de nivel superior se capacite en el desarrollo de competencias didácticas y digitales para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.4 [IND-PRDI-375 - indicador]: Capacitar a 100% del personal académico en el nuevo modelo educativo durante la administración para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.5 [IND-PRDI-376 - indicador]: Brindar capacitación en temas transversales a 25% del personal académico de nivel superior cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Impulsar la certificación del profesorado en una segunda lengua para ampliar sus capacidades docentes y de internacionalización. (Infinitivo: True)
+    E2.1: Fortalecer las capacidades lingüísticas del profesorado mediante formación pertinente y acompañamiento para la certificación en una segunda lengua [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M2.1 [ACT-PRDI-NS-2923 - actividad]: Lograr la certificación internacional en una segunda lengua en nivel C1 de cuatro habilidades de 7 profesores de lengua de estudios profesionales de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE3: Mejorar la habilitación y el reconocimiento científico del personal académico para fortalecer la investigación de la Facultad. (Infinitivo: True)
+    E3.1: Acompañar la habilitación académica del profesorado mediante apoyos para estudios avanzados, reconocimiento de perfiles y participación en redes de investigación [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 4
+        M3.1 [ACT-PRDI-NS-2926 - actividad]: Contar con 13 PTC en el SNII a más tardar en 2029 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.2 [IND-PRDI-47 - indicador]: Alcanzar 74.65% del profesorado de tiempo completo (PTC) con Perfil PRODEP, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.3 [ACT-PRDI-NS-2927 - actividad]: Lograr una persona participante del personal académico de Estudios Avanzados en actividades de internacionalización (seminarios, coil, cátedras), de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.4 [ACT-PRDI-NS-2928 - actividad]: Lograr que 6 académicos e investigadores participen en estancias internacionales o de movilidad de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 10
+  Total Metas en Referencia Base 2026: 10
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 10: Dignificación de las y los trabajadores universitarios
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Dignificar las condiciones de trabajo en la Facultad mediante escucha, formación y mejora de procesos, para favorecer el bienestar del personal académico y administrativo.
+
+[POLÍTICAS] (2)
+  P1: El personal administrativo tendrá acceso equitativo a formación vinculada con sus funciones, su desarrollo profesional y la calidad de los servicios universitarios.
+      Denota obligatoriedad explícita: False
+  P2: Las personas responsables de asignar funciones y oportunidades de desarrollo deberán observar perfiles de puesto actualizados, cargas razonables y trato digno.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (1 OE)
+  OE1: Desarrollar las competencias del personal administrativo para mejorar los servicios, procesos y perfiles de puesto de la Facultad. (Infinitivo: True)
+    E1.1: Desarrollar las competencias del personal administrativo mediante formación vinculada con perfiles de puesto, necesidades de servicio y oportunidades de crecimiento profesional [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 3
+        M1.1 [IND-PRDI-378 - indicador]: Capacitar a 80% de los integrantes del personal administrativo en competencias básicas y técnicas para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [IND-PRDI-380 - indicador]: Capacitar 35% del personal administrativo en competencias transversales, equidad de género, ética y cultura de paz para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.3 [IND-PRDI-382 - indicador]: Capacitar a 20.11% del personal universitario en Tecnologías de la Información y Comunicación, cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 3
+  Total Metas en Referencia Base 2026: 3
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 11: Gestión administrativa para responder al quehacer universitario
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Mejorar los servicios y espacios de Ingeniería mediante mantenimiento planificado y seguimiento de su uso, para sostener las funciones académicas y administrativas.
+
+[POLÍTICAS] (2)
+  P1: Las personas responsables de los procesos administrativos deberán operar con atribuciones, criterios de atención y tiempos comprensibles para la comunidad usuaria.
+      Denota obligatoriedad explícita: True
+  P2: Las personas responsables de los trámites deberán eliminar cargas innecesarias sin debilitar la legalidad, la seguridad de la información ni la rendición de cuentas.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (1 OE)
+  OE1: Actualizar la organización y los procedimientos de la Facultad para hacer más clara, eficiente y verificable su gestión. (Infinitivo: True)
+    E1.1: Simplificar la gestión administrativa mediante la revisión integral de atribuciones, requisitos, tiempos de respuesta y experiencia de la comunidad usuaria [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M1.1 [ACT-PRDI-NS-2743 - actividad]: Armonizar 2 manuales de organización cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-2957 - actividad]: Armonizar un manual de procedimientos cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 2
+  Total Metas en Referencia Base 2026: 2
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 12: Fortalecimiento Tecnológico
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Fortalecer la infraestructura tecnológica de la Facultad mediante inventarios, mantenimiento y accesibilidad digital, para apoyar enseñanza, investigación y gestión.
+
+[POLÍTICAS] (2)
+  P1: La comunidad de Ingeniería deberá utilizar las tecnologías institucionales con criterios de seguridad, accesibilidad, protección de datos y aprovechamiento académico.
+      Denota obligatoriedad explícita: True
+  P2: El personal responsable de la infraestructura tecnológica deberá mantenerla disponible, interoperable y protegida conforme a la criticidad de los servicios que sostiene.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (2 OE)
+  OE1: Fortalecer las habilidades digitales de la comunidad de Ingeniería para aprovechar de forma segura y efectiva las tecnologías institucionales. (Infinitivo: True)
+    E1.1: Fortalecer la cultura digital mediante formación práctica en seguridad, accesibilidad, protección de datos y uso académico de las tecnologías institucionales [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M1.1 [ACT-PRDI-NS-2968 - actividad]: Desarrollar 3 guías de estudio independiente (GEI) cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Mejorar la disponibilidad y el mantenimiento de la infraestructura tecnológica para sostener las actividades académicas y administrativas. (Infinitivo: True)
+    E2.1: Asegurar la continuidad de los servicios tecnológicos mediante inventarios funcionales, mantenimiento preventivo y renovación priorizada por criticidad y obsolescencia [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M2.1 [ACT-PRDI-NS-3242 - actividad]: Dar mantenimiento preventivo cada año de 2027 a 2030 al 100% de los equipos registrados en las salas de cómputo de la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 2
+  Total Metas en Referencia Base 2026: 2
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 13: Gobernanza
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Fortalecer la gobernanza de la Facultad mediante prevención de riesgos, atención de la seguridad con enfoque de derechos y participación en la vida institucional, para consolidar una comunidad segura, informada e identificada con Ingeniería.
+
+[POLÍTICAS] (3)
+  P1: Las personas responsables de instalaciones y actividades deberán observar condiciones de prevención, accesibilidad y respuesta proporcional a los riesgos identificados.
+      Denota obligatoriedad explícita: True
+  P2: El personal responsable de seguridad deberá atender las situaciones de riesgo con protección de la integridad y los derechos de las personas, perspectiva de género, confidencialidad y trato digno.
+      Denota obligatoriedad explícita: True
+  P3: Las personas responsables del patrimonio y la memoria de la Facultad deberán preservarlos y difundirlos con rigor, acceso público y participación de la comunidad.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (3 OE)
+  OE1: Fortalecer la autoprotección y la respuesta ante emergencias para reducir riesgos en las instalaciones de la Facultad. (Infinitivo: True)
+    E1.1: Reducir la exposición a emergencias mediante diagnósticos de riesgo, preparación de brigadas, señalización accesible y protocolos de actuación conocidos por la comunidad [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M1.1 [ACT-PRDI-NS-2980 - actividad]: Realizar cada año de 2027 a 2030 una campaña de protección universitaria en materia de autoprotección y reacción ante emergencias para la comunidad universitaria de nivel superior en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-2982 - actividad]: Realizar cada año de 2027 a 2030 1 simulacro de acuerdo con la convocatoria nacional en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Mejorar la atención de seguridad con perspectiva de derechos humanos y género para proteger oportunamente a la comunidad. (Infinitivo: True)
+    E2.1: Mejorar la atención de seguridad mediante formación del personal, canales accesibles y aplicación de protocolos con enfoque de derechos humanos y género [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 3
+        M2.1 [ACT-PRDI-NS-2748 - actividad]: Efectuar cada año de 2027 a 2030 una campaña del protocolo de atención integral a víctimas en todas las áreas universitarias en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.2 [ACT-PRDI-NS-2983 - actividad]: Difundir cada año de 2027 a 2030 una campaña de los Protocolos de Seguridad y Protección Civil en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.3 [ACT-PRDI-NS-2984 - actividad]: Realizar 1 curso cada año de 2027 a 2030 dirigido al personal de Protección Universitaria sobre Derechos Humanos y perspectiva de Género en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE3: Fortalecer la identidad de la Facultad para consolidar el sentido de pertenencia mediante la recuperación, divulgación y valoración de su historia y vida universitaria. (Infinitivo: True)
+    E3.1: Fortalecer la identidad universitaria mediante recuperación documental, divulgación histórica y participación de la comunidad en la preservación de su patrimonio [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 3
+        M3.1 [ACT-PRDI-NS-2749 - actividad]: Atender cada año de 2027 a 2030 a 273 asistentes a conferencias, foros y charlas, relacionados con la pertenencia universitaria en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.2 [ACT-PRDI-NS-2992 - actividad]: Contar cada año de 2027 a 2030 con 155 asistentes a visitas guiadas en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.3 [ACT-PRDI-NS-3243 - actividad]: Elaborar una nueva crónica sobre la historia de la Facultad de Ingeniería para 2030.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 8
+  Total Metas en Referencia Base 2026: 8
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 18: Reconocimiento de la diversidad social en la Universidad
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Ampliar la inclusión en la Facultad mediante análisis de brechas, apoyos y accesibilidad, para que más personas participen y concluyan estudios de ingeniería.
+
+[POLÍTICAS] (4)
+  P1: La comunidad de Ingeniería deberá participar en condiciones de igualdad, respeto a la diversidad y ausencia de discriminación en la vida académica y laboral.
+      Denota obligatoriedad explícita: True
+  P2: El personal académico y administrativo deberá conducir sus prácticas sin exclusión por género, origen, discapacidad, condición social o identidad.
+      Denota obligatoriedad explícita: True
+  P3: Las personas responsables de los apoyos universitarios deberán brindar atención prioritaria y confidencial a quienes se encuentren en situación de vulnerabilidad, con ajustes razonables que favorezcan su permanencia y desarrollo.
+      Denota obligatoriedad explícita: True
+  P4: Las personas titulares de las unidades académicas y administrativas deberán incorporar la corresponsabilidad de los cuidados, el bienestar y la protección de la integridad personal en la organización del trabajo.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (4 OE)
+  OE1: Fortalecer la igualdad y el reconocimiento de la diversidad para asegurar una participación incluyente en la comunidad de Ingeniería. (Infinitivo: True)
+    E1.1: Transversalizar la igualdad y el reconocimiento de la diversidad mediante criterios de inclusión aplicables a la docencia, la gestión y la participación universitaria [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M1.1 [IND-PRDI-431 - indicador]: Sensibilizar durante la administración a 40.01% de estudiantado de estudios profesionales en temas de inclusión a grupos históricamente vulnerados para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Mejorar las prácticas de prevención de la discriminación para sostener ambientes respetuosos y accesibles en la Facultad. (Infinitivo: True)
+    E2.1: Prevenir la discriminación mediante formación, revisión de prácticas institucionales y mecanismos accesibles de orientación y atención [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M2.1 [ACT-PRDI-NS-3075 - actividad]: Difundir un material de divulgación (guías, cartillas y manuales) orientados a promover el respeto y reconocimiento de las identidades entre la comunidad universitaria cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE3: Ampliar los apoyos a personas en situación de vulnerabilidad para favorecer su inclusión y desarrollo académico o laboral. (Infinitivo: True)
+    E3.1: Focalizar apoyos para personas en situación de vulnerabilidad mediante la identificación confidencial de barreras y la adopción de ajustes razonables [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 3
+        M3.1 [IND-PRDI-407 - indicador]: Incrementar a 5% los proyectos de investigación en materia de cultura de paz y estudios de género respecto al total de proyectos de investigación, para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.2 [ACT-PRDI-NS-3081 - actividad]: Implementar un evento sociocultural con temáticas de inclusión y vulnerabilidad cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M3.3 [ACT-PRDI-NS-3087 - actividad]: Realizar una actividad cada año de 2027 a 2030 sobre equidad social y de género en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE4: Incorporar el cuidado, la corresponsabilidad y el bienestar en los procesos de la Facultad para mantener entornos seguros. (Infinitivo: True)
+    E4.1: Incorporar la perspectiva de cuidados mediante medidas de corresponsabilidad, autocuidado y organización sensible a las necesidades de la comunidad [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 3
+        M4.1 [ACT-PRDI-NS-2767 - actividad]: Implementar un programa de sensibilización en temas de corresponsabilidad y autocuidado cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M4.2 [ACT-PRDI-NS-3097 - actividad]: Realizar cada año de 2027 a 2030 un taller articulado que fortalezca el Programa Universitario de Bienestar Integral en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M4.3 [ACT-POA-NS-2650 - actividad]: Certificar cada año de 2027 a 2030 a 10% del personal académico, administrativo de confianza y directivo en materia de bienestar integral en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 8
+  Total Metas en Referencia Base 2026: 8
+  Consistencia numérica interna: True
+
+================================================================================
+PROYECTO 19: Construcción de una cultura de paz
+================================================================================
+[OBJETIVO GENERAL] (Infinitivo: True)
+  Texto: Fortalecer la convivencia pacífica en Ingeniería mediante prevención, atención y seguimiento oportuno, para sostener un entorno seguro y respetuoso.
+
+[POLÍTICAS] (4)
+  P1: Las personas responsables de mediar conflictos deberán privilegiar el diálogo, la imparcialidad y la reparación del daño cuando la naturaleza del caso lo permita.
+      Denota obligatoriedad explícita: True
+  P2: El personal responsable de prevenir y atender conductas violentas deberá ofrecer mecanismos accesibles, confidenciales y no revictimizantes a la comunidad de la Facultad.
+      Denota obligatoriedad explícita: True
+  P3: Las comisiones responsables de la convivencia deberán valorar sus intervenciones por la reducción de recurrencias, la restitución de derechos y el fortalecimiento de relaciones respetuosas.
+      Denota obligatoriedad explícita: True
+  P4: El personal docente deberá incorporar principios de paz, derechos humanos, igualdad y no violencia en la formación y en los espacios académicos y comunitarios.
+      Denota obligatoriedad explícita: True
+
+[OBJETIVOS ESPECÍFICOS, ESTRATEGIAS Y METAS] (4 OE)
+  OE1: Desarrollar capacidades de mediación y gestión pacífica de conflictos para mejorar la convivencia en la Facultad. (Infinitivo: True)
+    E1.1: Desarrollar capacidades para la gestión pacífica de conflictos mediante formación en diálogo, mediación, escucha y reparación del daño [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M1.1 [ACT-POA-NS-2651 - actividad]: Certificar anualmente a 10.03% del personal académico, administrativo de confianza y directivo, en competencias básicas de mediación, gestión pacífica de conflictos y atención a las violencias entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M1.2 [ACT-PRDI-NS-3188 - actividad]: Involucrar a 8 estudiantes en actividades comunitarias, proyectos de intervención social y programas extracurriculares orientados a la construcción de paz de manera acumulada entre 2027 y 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE2: Prevenir conductas violentas mediante acciones de respeto, igualdad y atención oportuna para proteger a la comunidad. (Infinitivo: True)
+    E2.1: Prevenir y atender conductas violentas mediante canales confidenciales, protocolos no revictimizantes y coordinación con las instancias competentes [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M2.1 [ACT-PRDI-NS-3244 - actividad]: Realizar cada año de 2027 a 2030 una actividad cultural sobre igualdad de género y cultura de paz en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M2.2 [ACT-PRDI-NS-3189 - actividad]: Realizar una campaña anual para difundir los protocolos institucionales de atención y prevención de violencias a toda la comunidad universitaria cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE3: Evaluar los resultados de las acciones de convivencia para orientar mejoras verificables en la construcción de paz. (Infinitivo: True)
+    E3.1: Evaluar las intervenciones de convivencia mediante evidencia sobre recurrencia, restitución de derechos y percepción de seguridad y respeto [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 1
+        M3.1 [IND-PRDI-420 - indicador]: Lograr la participación de 39.99% de la comunidad universitaria en actividades y programas que promuevan la convivencia pacífica, la inclusión y el respeto, durante la administración para 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+  OE4: Fortalecer la educación para la paz, los derechos humanos y la no violencia para favorecer relaciones respetuosas. (Infinitivo: True)
+    E4.1: Integrar la educación para la paz mediante contenidos y experiencias formativas sobre derechos humanos, igualdad, diálogo y no violencia [C, I]
+        Sintaxis (Infinitivo=True, Conector 'cómo'=True) | Metas asociadas: 2
+        M4.1 [ACT-PRDI-NS-2766 - actividad]: Realizar una jornada anual por los 16 días de activismo, con actividades presenciales y virtuales, de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+        M4.2 [ACT-PRDI-NS-3178 - actividad]: Publicar un contenido anual en las redes sociales oficiales sobre temas que promuevan la igualdad sustantiva, la prevención de las violencias, la inclusión, el cuidado y la cultura de paz cada año de 2027 a 2030 en la Facultad de Ingeniería.
+            Sintaxis (Infinitivo=True, Temporalidad=True)
+
+[RECUENTO DE METAS]
+  Total Metas en Estrategias: 7
+  Total Metas en Referencia Base 2026: 7
+  Consistencia numérica interna: True

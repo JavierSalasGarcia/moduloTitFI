@@ -1,0 +1,96 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 10: Dignificación de las y los trabajadores universitarios
+Clave Programática: PROY-10 | Pilar IV: Dignificación del personal académico y administrativo
+Área Responsable: Subdirección Administrativa / Delegación Sindical / Recursos Humanos FI
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Mejora del perfil profesional del personal universitario:
+   - Conformación, estructura y balance del personal universitario (personal académico y personal administrativo).
+   - Capacitación continua, actualización técnica, profesionalización y certificación de competencias laborales para el personal administrativo y de servicios.
+2. Gestión de distintivos institucionales en materia de bienestar laboral:
+   - Acciones de seguridad e higiene laboral, ergonomía en puestos de trabajo e instalaciones adecuadas.
+   - Reconocimientos al desempeño, estímulos institucionales y distintivos laborales otorgados a las y los trabajadores administrativos.
+   - Promoción de un ambiente laboral de respeto, justicia laboral y erradicación de conductas de violencia o acoso.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+El funcionamiento operativo, la seguridad de las instalaciones, la preservación de laboratorios y la gestión escolar y financiera de la Facultad de Ingeniería descansan de manera cotidiana en la entrega y profesionalismo de su personal administrativo, técnico y de servicios generales. Al cierre del año 2025, el espacio académico cuenta con una fuerza de trabajo de 79 trabajadoras y trabajadores universitarios adscritos a las distintas coordinaciones, departamentos, laboratorios, biblioteca y áreas de intendencia y mantenimiento. Este personal hace posible la atención diaria de una comunidad estudiantil cercana a los 3,000 alumnos y más de 280 profesores en un complejo arquitectónico integrado por múltiples edificios, talleres y espacios exteriores.
+
+A lo largo del periodo comprendido entre 2018 y 2025, la plantilla administrativa de la Facultad experimentó un proceso sistemático de contracción neta, pasando de 91 trabajadores en 2018 a 79 en el ejercicio 2025, lo que representó una disminución acumulada del 13.2% (-12 plazas operativas). Esta contracción se originó principalmente por congelamiento de plazas vacantes por jubilación y bajas definitivas en el marco de las políticas institucionales de contención del gasto. Sin embargo, durante este mismo lapso la matrícula atendida en la Facultad creció un 17.1% y los requerimientos de mantenimiento y soporte de tecnologías de información aumentaron considerablemente, lo que incrementó la carga de trabajo individual por cada puesto administrativo en servicio.
+
+[[GRAFICA: graficas/grafica_p10_01_personal_administrativo.png | PIE: Gráfica 1. Evolución del personal administrativo de la Facultad de Ingeniería (2018–2025). Fuente: UAEMEX. Agendas Estadísticas 2018–2025.]]
+
+La interpretación sustantiva de esta evolución refleja que el personal administrativo ha mostrado una alta capacidad de respuesta para sostener la marcha institucional a pesar del déficit progresivo de plazas; no obstante, esta sobrecarga de responsabilidades ha generado tensiones significativas en el clima laboral y en la salud ocupacional de los trabajadores. En términos funcionales, la reducción de personal impacta de forma crítica en los laboratorios especializados y talleres, donde se carece de técnicos laboratoristas con perfiles formativos afines para el mantenimiento preventivo de tornos, circuitos eléctricos, equipos de cómputo y bancos de pruebas hidráulicas, recayendo dichas tareas con frecuencia en los propios docentes o en prestadores de servicio social sin la debida continuidad operativa.
+
+La tensión estratégica central radica en el desfase entre las crecientes exigencias de modernización digital y los perfiles formativos y de capacitación del personal administrativo. Aunque la universidad ha migrado sus procesos a plataformas digitales (sistemas de gestión escolar, compras, nómina, control presupuestal y trámites de titulación), los programas de capacitación ofrecidos no siempre se adecuan a los niveles de partida de los trabajadores ni se imparten en horarios que garanticen la continuidad en las ventanillas de servicio. De igual forma, en el ámbito de la seguridad e higiene y la ergonomía física, persisten áreas de oportunidad en las condiciones de mobiliario, iluminación y ventilación en oficinas de atención escolar y talleres de mantenimiento, lo que exige una intervención formal para prevenir riesgos de trabajo y enfermedades profesionales.
+
+En el análisis desagregado por género y antigüedad, el personal administrativo de la Facultad presenta un balance cercano a la paridad (51.9% mujeres y 48.1% hombres), con una antigüedad promedio superior a los 14 años de servicio, lo que evidencia lealtad y conocimiento acumulado de los procesos institucionales. No obstante, una proporción importante de los trabajadores no cuenta con estudios de licenciatura concluida o certificaciones técnicas oficiales, lo que restringe sus posibilidades de ascender en el tabulador salarial mediante concursos escalafonarios conforme al contrato colectivo del SUTESUAEM.
+
+En el contexto externo, el Plan Nacional de Desarrollo y el Plan de Desarrollo del Estado de México enfatizan la dignificación de la clase trabajadora, el fomento al salario digno, la equidad laboral y la democratización sindical. Por su parte, la consulta comunitaria aplicada (Instrumento C04, Personal Administrativo) muestra que el 68.4% de los trabajadores encuestados señalan como prioridad la renovación de sus equipos de cómputo de oficina, la dotación oportuna de uniformes y herramientas de seguridad para intendencia y talleres, así como el reconocimiento explícito a su trayectoria mediante estímulos y distintivos de bienestar laboral.
+
+En consecuencia, el rumbo estratégico del Proyecto 10 debe priorizar la dignificación integral del personal administrativo de la Facultad de Ingeniería. Esto requerirá estructurar un programa continuo de capacitación laboral y profesionalización técnica acorde a las necesidades de los laboratorios de ingeniería, gestionar ante las instancias centrales la reposición selectiva de plazas técnicas críticas, implementar un programa permanente de ergonomía y seguridad en el trabajo y promover un ambiente de respeto mutuo, reconocimiento al mérito y bienestar laboral entre todos los sectores que dan vida a la comunidad universitaria.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2018–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Comportamiento de variables del personal administrativo en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Personal administrativo total (4033)   2018              91              2025            79            -12 plazas      -13.2%
+Tasa anual de variación admv. (4034)   2018              ---             2025           +2.6%               ---           ---
+Personal administrativo femenino       2018              46 (50.5%)      2025            41 (51.9%)      -5 trabajadoras -10.9%
+Personal administrativo masculino      2018              45 (49.5%)      2025            38 (48.1%)      -7 trabajadores -15.6%
+Alumnos atendidos por trabajador admv. 2018             29.0            2025            39.4          +10.4 al/trabaj. +35.9%
+Cursos de capacitación tomados/año     2018              12              2024            18            +6 cursos       +50.0%
+Trabajadores capacitados anualmente    2018              35              2024            52            +17 personas    +48.6%
+Distintivos y reconocimientos laborales2018               1              2025             2            +1 distintivo   +100.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2018–2025; Departamento de Recursos Humanos FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTA C04)
+--------------------------------------------------------------------------------
+1. Personal Administrativo (Instrumento C04):
+   - El 74.2% expresa un alto sentido de pertenencia y compromiso con el quehacer formativo de la Facultad de Ingeniería.
+   - Petición recurrente de sustituir equipos de cómputo obsoletos e impresoras en las ventanillas de Control Escolar y Coordinaciones de Docencia que ralentizan los trámites estudiantiles.
+   - Demanda de cursos prácticos de primeros auxilios, combate contra incendios y manejo de residuos químicos y biológicos en laboratorios.
+   - Solicitud de espacios de comedor y descanso dignos y salubres para el personal de intendencia y mantenimiento.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Personal administrativo con amplia experiencia acumulada, sentido de identidad universitaria y conocimiento de los procedimientos normativos.
+- Paridad de género consolidada en la plantilla administrativa (51.9% mujeres y 48.1% hombres).
+- Aumento del 48.6% en el número de trabajadores que asisten a cursos de capacitación y actualización institucional.
+- Disposición permanente para atender contingencias operativas, procesos de inscripción masiva y eventos académicos de la Facultad.
+
+DEBILIDADES:
+- Reducción acumulada del 13.2% de la plantilla administrativa en el periodo 2018–2025 frente a una matrícula en crecimiento (+17.1%).
+- Aumento del 35.9% en la carga de atención promedio (de 29 a 39.4 estudiantes por cada trabajador administrativo).
+- Déficit de personal técnico especializado para la operación y mantenimiento de laboratorios y talleres de alta tecnología.
+- Mobiliario ergonómico insuficiente en áreas operativas y rezago en la renovación de equipos de cómputo administrativo.
+
+OPORTUNIDADES:
+- Programas de profesionalización, bachillerato a distancia y licenciaturas en línea impulsados por la Dirección de Recursos Humanos de la UAEMEX para el personal sindicalizado.
+- Convocatorias institucionales de incentivos al desempeño administrativo y fomento al bienestar físico y socioemocional.
+- Digitalización de procesos institucionales que reduce la tramitología en papel y optimiza los tiempos de atención a usuarios.
+
+AMENAZAS:
+- Restricciones institucionales y presupuestales para la cobertura y contratación de nuevas plazas administrativas y técnicas.
+- Sobrecarga laboral y estrés ocupacional derivado de la desproporción entre la magnitud del campus y el número de trabajadores en servicio.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- SUTESUAEM. (2024). Contrato Colectivo de Trabajo del Personal Administrativo de la UAEMEX. Sindicato Único de Trabajadores y Empleados al Servicio de la UAEMEX.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2023). Manual de Organización de la Facultad de Ingeniería. UAEMEX.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

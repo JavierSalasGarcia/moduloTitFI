@@ -1,0 +1,6 @@
+[
+  "app/Core/Database.php",
+  "fila/publico/lib/db.php",
+  "public/assets/js/plan.js",
+  "public/assets/js/plan-encuestas.js"
+]

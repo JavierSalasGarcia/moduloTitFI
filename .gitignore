@@ -1,0 +1,20 @@
+# Material criptográfico local. Nunca versionar llaves, contraseñas ni certificados emitidos.
+/storage/pki/
+/services/pades/.venv/
+/services/pades/__pycache__/
+/.tmp/
+/.codex-docx-qa/
+
+# Configuración privada y credenciales: nunca versionar ni desplegar como código.
+/app/config.local.php
+/cred*.txt
+/api-*.json
+/tools/sync_produccion.json
+
+# Respaldos operativos fuera del árbol versionado.
+/database/production-backups/
+
+
+# Excluidos al subir a GitHub
+node_modules/
+/fila/credenciales.txt

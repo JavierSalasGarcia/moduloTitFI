@@ -1,0 +1,121 @@
+{
+  "criterio": "Las oportunidades y amenazas son inferencias contextuales sustentadas en fuentes oficiales. Ningún factor atribuye a la Facultad un convenio, financiamiento, daño o incumplimiento que no esté documentado.",
+  "consulta": "2026-09-22",
+  "factores": [
+    {
+      "id": "EXT-01",
+      "cuadrante": "oportunidades",
+      "texto": "La agenda estatal de agua, ambiente y empleo ofrece temas de pertinencia para proyectos aplicados, servicio social y colaboración de Ingeniería.",
+      "proyectos": [
+        2,
+        3,
+        5,
+        20,
+        22
+      ],
+      "fuente": "Plan de Desarrollo del Estado de México 2023–2029, ejes 2 y 3, COPLADEM",
+      "url": "https://copladem.edomex.gob.mx/plan-desarrollo-edomex-2023-2029",
+      "limite": "Alineación temática; no implica convenio, recursos concedidos ni demanda medida para la Facultad.",
+      "cita_apa": "(Gobierno del Estado de México, 2024)",
+      "referencia_apa": "Gobierno del Estado de México. (2024). Plan de Desarrollo del Estado de México 2023–2029. https://copladem.edomex.gob.mx/plan-desarrollo-edomex-2023-2029"
+    },
+    {
+      "id": "EXT-02",
+      "cuadrante": "amenazas",
+      "texto": "La brecha estatal entre formación profesional y campo laboral vuelve necesario verificar la pertinencia de los programas con egresados y empleadores.",
+      "proyectos": [
+        2,
+        3,
+        5,
+        15
+      ],
+      "fuente": "Plan de Desarrollo del Estado de México 2023–2029, Gaceta, p. 182",
+      "url": "https://copladem.edomex.gob.mx/sites/copladem.edomex.gob.mx/files/files/pdf/Planes%20y%20programas/23-29/DEF_GACETA_PDEM_2023-2029_V150324_2200hrs.pdf",
+      "limite": "Diagnóstico estatal; no demuestra desempleo de egresados de Ingeniería ni causalidad local.",
+      "cita_apa": "(Gobierno del Estado de México, 2024)",
+      "referencia_apa": "Gobierno del Estado de México. (2024). Plan de Desarrollo del Estado de México 2023–2029. https://copladem.edomex.gob.mx/sites/copladem.edomex.gob.mx/files/files/pdf/Planes%20y%20programas/23-29/DEF_GACETA_PDEM_2023-2029_V150324_2200hrs.pdf"
+    },
+    {
+      "id": "EXT-03",
+      "cuadrante": "oportunidades",
+      "texto": "Las prioridades hídricas estatales sobre infraestructura, alerta temprana y adaptación climática ofrecen líneas de investigación y colaboración aplicada.",
+      "proyectos": [
+        4,
+        5,
+        20,
+        22
+      ],
+      "fuente": "Programa Hídrico Integral del Estado de México 2024–2029, p. 74, tabla 14, CAEM",
+      "url": "https://caem.edomex.gob.mx/sites/caem.edomex.gob.mx/files/files/Documentacion/PH/PHIEM2024-2029.pdf",
+      "limite": "No acredita exposición, afectación o convenio específico de la Facultad.",
+      "cita_apa": "(Comisión del Agua del Estado de México, 2024)",
+      "referencia_apa": "Comisión del Agua del Estado de México. (2024). Programa Hídrico Integral del Estado de México 2024–2029. https://caem.edomex.gob.mx/sites/caem.edomex.gob.mx/files/files/Documentacion/PH/PHIEM2024-2029.pdf"
+    },
+    {
+      "id": "EXT-04",
+      "cuadrante": "amenazas",
+      "texto": "Los plazos de acreditación publicados exigen confirmar el dictamen vigente de Ingeniería Civil y preparar el seguimiento de Ingeniería Mecánica.",
+      "proyectos": [
+        2,
+        9,
+        15
+      ],
+      "fuente": "Anexo Estadístico del Primer Informe UAEMéx 2025, tabla 1.26, p. 46",
+      "url": "https://1erinforme2025.uaemex.mx/wp-content/uploads/2026/03/07-Anexo-Estadistico-Primer-Informe-2025.pdf",
+      "limite": "La tabla registra Civil hasta 31/12/2025 y Mecánica hasta 31/12/2027; confirmar renovación antes de afirmar el estado actual.",
+      "cita_apa": "(Universidad Autónoma del Estado de México, 2026)",
+      "referencia_apa": "Universidad Autónoma del Estado de México. (2026). Anexo estadístico del Primer Informe 2025. https://1erinforme2025.uaemex.mx/wp-content/uploads/2026/03/07-Anexo-Estadistico-Primer-Informe-2025.pdf"
+    },
+    {
+      "id": "EXT-05",
+      "cuadrante": "amenazas",
+      "texto": "El marco CACEI 2025 requiere evidencia de atributos de egreso, grupos de interés, recursos y ciclos documentados de mejora; una brecha de evidencia podría dificultar futuras evaluaciones.",
+      "proyectos": [
+        2,
+        9,
+        11,
+        12,
+        15
+      ],
+      "fuente": "Marco de Referencia CACEI 2025, categorías 4, 6 y 7, pp. 29–54",
+      "url": "https://cacei.org.mx/nv/nvdocs/marco_ing_2025.pdf",
+      "limite": "Requisito de evaluación; no se ha demostrado incumplimiento de la Facultad.",
+      "cita_apa": "(Consejo de Acreditación de la Enseñanza de la Ingeniería, 2025)",
+      "referencia_apa": "Consejo de Acreditación de la Enseñanza de la Ingeniería. (2025). Marco de referencia 2025 para la acreditación de programas de ingeniería. https://cacei.org.mx/nv/nvdocs/marco_ing_2025.pdf"
+    },
+    {
+      "id": "EXT-06",
+      "cuadrante": "oportunidades",
+      "texto": "Los criterios SEAES de responsabilidad social, equidad, inclusión e innovación social ofrecen un marco para orientar mejoras y evaluar su aporte.",
+      "proyectos": [
+        2,
+        15,
+        18,
+        20
+      ],
+      "fuente": "Marco General SEAES, sección 4.2, SEP",
+      "url": "https://educacionsuperior.sep.gob.mx/sites/default/files/2025-01/marco_gral_SEAES.pdf",
+      "limite": "Marco de orientación; no prueba desempeño institucional o resultados de Ingeniería.",
+      "cita_apa": "(Secretaría de Educación Pública, s. f.)",
+      "referencia_apa": "Secretaría de Educación Pública. (s. f.). Marco general del Sistema de Evaluación y Acreditación de la Educación Superior. https://educacionsuperior.sep.gob.mx/sites/default/files/2025-01/marco_gral_SEAES.pdf"
+    },
+    {
+      "id": "EXT-07",
+      "cuadrante": "oportunidades",
+      "texto": "El PRDI alinea investigación para el bien común, vinculación, sostenibilidad, cercanía e inclusión con iniciativas de Ingeniería.",
+      "proyectos": [
+        2,
+        4,
+        5,
+        18,
+        20,
+        22
+      ],
+      "fuente": "PRDI UAEMéx 2025–2029, misión, visión y valores",
+      "url": "https://prdi20252029.uaemex.mx/mision-vision/",
+      "limite": "Alineación estratégica, no resultado observado en la Facultad.",
+      "cita_apa": "(Universidad Autónoma del Estado de México, 2025)",
+      "referencia_apa": "Universidad Autónoma del Estado de México. (2025). Plan Rector de Desarrollo Institucional 2025–2029. https://prdi20252029.uaemex.mx/mision-vision/"
+    }
+  ]
+}
