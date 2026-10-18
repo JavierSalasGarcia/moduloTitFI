@@ -1,0 +1,100 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 3: Estudios avanzados de excelencia y pertinencia social
+Clave Programática: PROY-03 | Pilar I: Estudiantado con oportunidades para su pleno desarrollo personal
+Área Responsable: Subdirección Académica / Coordinación de Estudios Avanzados
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Formación de estudiantes de estudios avanzados con conciencia social y pertinencia:
+   - Personas egresadas de especialidad, maestría y doctorado.
+   - Personas graduadas y tasa de graduación oportuna.
+   - Alumnas y alumnos incorporados formalmente en proyectos de investigación científica y desarrollo tecnológico.
+   - Tesis de posgrado vinculadas con problemáticas prioritarias del entorno productivo, social y ambiental.
+2. Oferta educativa de excelencia en los estudios avanzados:
+   - Programas educativos de especialidad, maestría y doctorado vigentes.
+   - Programas registrados y acreditados en el Sistema Nacional de Posgrados (SNP - CONAHCYT).
+   - Evolución, captación y comportamiento histórico de la matrícula de posgrado.
+   - Becas y apoyos institucionales para la permanencia y dedicación exclusiva.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+La oferta de estudios avanzados de la Facultad de Ingeniería representa el núcleo articulador entre la generación de conocimiento original, la formación de talento de alto nivel y la resolución de problemas técnicos complejos en el entorno regional y nacional. En el ciclo escolar 2025–2026, el espacio académico atiende a una matrícula consolidada en el nivel de posgrado distribuida en programas orientados a la investigación y a la práctica profesional avanzada: Maestría en Ciencias de la Ingeniería, Maestría en Movilidad y Transporte, Maestría en Ingeniería de la Cadena de Suministro, Doctorado en Ciencias de la Ingeniería, Doctorado en Ciencias, Tecnología Biomédica y Control, así como la reciente incorporación de la Maestría en Inteligencia Artificial Aplicada. Esta capacidad formativa se sostiene en una planta académica de excelencia donde la totalidad de los profesores del núcleo básico poseen el grado de doctor y cuentan con reconocimiento del Sistema Nacional de Investigadoras e Investigadores (SNII).
+
+Durante el periodo 2016–2025, la matrícula de posgrado experimentó una tendencia general de consolidación y reestructuración, transitando de 88 estudiantes en 2016 a 124 en el ciclo 2025–2026, lo que representó un incremento acumulado del 40.9%. Paralelamente, las solicitudes de aspirantes registraron variaciones marcadas por las convocatorias institucionales y los calendarios de becas del CONAHCYT, promediando entre 45 y 70 solicitudes anuales para maestrías y doctorados. En el mismo lapso, el número de egresados anuales se estabilizó en un promedio de 22 a 28 personas, de las cuales cerca del 75% culminan mediante la defensa exitosa de su tesis de grado dentro de los plazos reglamentarios.
+
+[[GRAFICA: graficas/grafica_p03_01_matricula_posgrado.png | PIE: Gráfica 1. Evolución de la matrícula total y nuevo ingreso de posgrado en la Facultad de Ingeniería (2016–2025). Fuente: UAEMEX. Agendas Estadísticas 2016–2025.]]
+
+La lectura sustantiva de este comportamiento confirma que la Facultad ha fortalecido su prestigio como sede formadora de posgraduados capaces de integrarse a centros de investigación, al sector industrial de alta tecnología y a la docencia universitaria. No obstante, este desarrollo convive con una tensión estratégica determinante: la dependencia estructural de los programas respecto a los criterios de asignación de becas del Sistema Nacional de Posgrados (SNP) del CONAHCYT. La categorización de los programas en la plataforma nacional ha generado incertidumbre en la asignación de apoyos económicos para aspirantes de programas orientados a la industria (como Cadena de Suministro o Movilidad), contrastando con la estabilidad financiera que mantienen los programas científicos tradicionales. Esta disparidad limita la captación de profesionistas en activo y presiona los tiempos de graduación cuando los estudiantes deben combinar sus estudios con actividades laborales no remuneradas por beca.
+
+Al desagregar la información por nivel de estudios, se aprecian dinámicas diferenciadas entre maestría y doctorado. Mientras que los programas de doctorado (Ciencias de la Ingeniería y Tecnología Biomédica) reportan una eficiencia terminal por cohorte superior al 80%, sustentada en la dedicación de tiempo completo y el trabajo directo en proyectos con financiamiento, las maestrías profesionalizantes enfrentan mayores desafíos en la formalización de convenios empresariales para la liberación de tesis con impacto directo en planta o procesos logísticos. Por su parte, la Maestría en Inteligencia Artificial Aplicada, incorporada formalmente en 2025 con sus primeros 4 estudiantes, presenta una alta expectativa de crecimiento pero requiere consolidar su núcleo académico y garantizar el acceso continuo a servidores de procesamiento gráfico de alto rendimiento.
+
+En el contexto externo, el Plan Nacional de Desarrollo 2025–2030 y el Consejo Nacional de Humanidades, Ciencias y Tecnologías (CONAHCYT) demandan que las investigaciones de posgrado incidan directamente en las Agendas Nacionales Prioritarias (transición energética, movilidad sustentable, soberanía tecnológica y salud). Asimismo, los resultados de la consulta comunitaria (Instrumento C17, aplicado a estudiantes de posgrado) revelan que el 64.7% de los maestrandos y doctorandos consideran indispensable fortalecer los apoyos para estancias de investigación internacionales y agilizar los trámites administrativos ante la Dirección General de Estudios Avanzados para la expedición de votos aprobatorios de tesis.
+
+Por consiguiente, el rumbo estratégico del posgrado en la Facultad debe orientarse a diversificar las fuentes de financiamiento complementarias a las becas federales, articular las temáticas de tesis con los clústeres automotriz, químico y logístico del Estado de México, afianzar la permanencia de los programas en el SNP y consolidar esquemas de cotutela internacional que eleven el impacto y la pertinencia social de las investigaciones de vanguardia.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2016–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Comportamiento de variables del posgrado en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Matrícula total de posgrado (4005)     2016–2017           88           2025–2026         124          +36 alumnos     +40.9%
+Nuevo ingreso a posgrado (4003)        2016–2017           38           2025–2026          46           +8 alumnos     +21.1%
+Solicitudes de ingreso a posgrado(4001)2016–2017           52           2025–2026          68          +16 solicitudes +30.8%
+Egresados de posgrado (4007)           2016–2017           21           2024–2025          26           +5 egresados   +23.8%
+Personas graduadas anuales             2016–2017           17           2024–2025          22           +5 graduados   +29.4%
+Eficiencia terminal de posgrado        2016–2017          72.4%         2024–2025         78.6%        +6.2 puntos pct.   ---
+Alumnos con beca CONAHCYT              2016–2017           68           2024–2025          89          +21 becarios    +30.9%
+Programas en el SNP / PNPC             2016–2017            4           2025–2026           5           +1 programa    +25.0%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2016–2025; Coordinación de Estudios Avanzados FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C03, C12 Y C17)
+--------------------------------------------------------------------------------
+1. Estudiantes de Posgrado (Instrumento C17):
+   - El 70.6% califica como excelente la calidad académica y el rigor de los núcleos docentes de posgrado.
+   - Demanda recurrente de recursos para viáticos a congresos científicos nacionales e internacionales y para la publicación de artículos en revistas de acceso abierto JCR (cargos por procesamiento de artículos - APC).
+   - Necesidad de espacios de trabajo físico (cubículos y laboratorios de cómputo especializados) con acceso ininterrumpido a bases de datos científicas y bibliotecas digitales.
+2. Profesorado de Estudios Avanzados (Instrumento C03):
+   - Advierten la necesidad de flexibilizar los planes curriculares de posgrado mediante asignaturas optativas interinstitucionales.
+   - Solicitan mecanismos más ágiles para la adquisición de reactivos, componentes electrónicos y licencias de software científico requeridos en los proyectos de tesis.
+3. Coordinación de Estudios Avanzados (Instrumento C12):
+   - Señala como prioridad el seguimiento a los nuevos lineamientos del SNP y la consolidación de la Maestría en Inteligencia Artificial Aplicada.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Oferta consolidada de cinco posgrados reconocidos por el Sistema Nacional de Posgrados (SNP), asegurando becas y estándares de calidad académica.
+- Planta académica de posgrado con el 100% de doctores habilitados en el SNII.
+- Elevada eficiencia terminal y graduación oportuna (78.6% en 2024–2025), significativamente superior al promedio de licenciatura.
+- Incorporación de programas pertinentes en áreas estratégicas emergentes (Inteligencia Artificial, Cadena de Suministro y Movilidad).
+
+DEBILIDADES:
+- Dependencia casi exclusiva del esquema de becas CONAHCYT para la manutención estudiantil y captación de nuevo ingreso.
+- Disponibilidad limitada de fondos institucionales para cubrir cuotas de publicación (APC) en revistas indizadas de alto impacto para estudiantes tesistas.
+- Infraestructura de cómputo de alto desempeño compartida y con restricciones de capacidad para procesamiento masivo de datos y simulaciones complejas.
+
+OPORTUNIDADES:
+- Articulación con los sectores productivos e industriales del Estado de México a través de proyectos de desarrollo e innovación tecnológica cofinanciados.
+- Convocatorias de cooperación internacional para movilidad estudiantil y programas de cotutela de doctorado con universidades de Europa y Norteamérica.
+- Creciente demanda en el mercado laboral de maestros y doctores especializados en logística 4.0, electromovilidad e inteligencia artificial.
+
+AMENAZAS:
+- Modificaciones constantes en los criterios de prelación y asignación presupuestal del Sistema Nacional de Posgrados de la federación.
+- Competencia con posgrados no presenciales o privados con esquemas más flexibles de cursamiento ejecutivo para profesionales en activo.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- CONAHCYT. (2023). Lineamientos del Sistema Nacional de Posgrados. Consejo Nacional de Humanidades, Ciencias y Tecnologías.
+- Gobierno de México. (2025). Plan Nacional de Desarrollo 2025–2030. Presidencia de la República.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación Institucional.
+- UAEMEX. (2021). Plan General de Desarrollo 2021–2033. Universidad Autónoma del Estado de México.
+================================================================================

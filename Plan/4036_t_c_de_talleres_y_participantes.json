@@ -1,0 +1,190 @@
+{
+  "id_categoria": "4036",
+  "categoria": "T. C. de Talleres y participantes",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4036",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYjE1OGY1YzUtOWVhMS00ZDk5LWI5YmEtZmRjZGQxZTA4NjQ1IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 7,
+      "nombre": "Cultura para el desarrollo integral de la comunidad universitaria"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio universitario",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Año",
+          "Participantes",
+          "Año Anterior_Participantes"
+        ],
+        "campos_modelo": {
+          "Talleres y participantes.Año": "Año",
+          "Talleres y participantes.Participantes": "Participantes",
+          "Talleres y participantes.Año Anterior_Participantes": "Año Anterior_Participantes"
+        },
+        "formatos": {
+          "Talleres y participantes.Año": "0",
+          "Talleres y participantes.Participantes": "0",
+          "Talleres y participantes.Año Anterior_Participantes": "0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Participantes": 112,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2019,
+            "Participantes": 98,
+            "Año Anterior_Participantes": 112,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2020,
+            "Participantes": 99,
+            "Año Anterior_Participantes": 98,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2021,
+            "Participantes": 103,
+            "Año Anterior_Participantes": 99,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2022,
+            "Participantes": 123,
+            "Año Anterior_Participantes": 103,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2023,
+            "Participantes": 5,
+            "Año Anterior_Participantes": 123,
+            "proyectos": [
+              7
+            ]
+          }
+        ],
+        "numero_registros": 6
+      },
+      {
+        "visual": "004",
+        "metricas": [
+          "Año",
+          "Talleres_Total",
+          "Año Anterior_Talleres"
+        ],
+        "campos_modelo": {
+          "Talleres y participantes.Año": "Año",
+          "Talleres y participantes.Talleres_Total": "Talleres_Total",
+          "Talleres y participantes.Año Anterior_Talleres": "Año Anterior_Talleres"
+        },
+        "formatos": {
+          "Talleres y participantes.Año": "0",
+          "Talleres y participantes.Talleres_Total": "0",
+          "Talleres y participantes.Año Anterior_Talleres": "0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Talleres_Total": 18,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2019,
+            "Talleres_Total": 16,
+            "Año Anterior_Talleres": 18,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2020,
+            "Año Anterior_Talleres": 16,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2021,
+            "Talleres_Total": 14,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2022,
+            "Talleres_Total": 10,
+            "Año Anterior_Talleres": 14,
+            "proyectos": [
+              7
+            ]
+          },
+          {
+            "Año": 2023,
+            "Talleres_Total": 2,
+            "Año Anterior_Talleres": 10,
+            "proyectos": [
+              7
+            ]
+          }
+        ],
+        "numero_registros": 6
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Participantes",
+          "metrica_modelo": "Talleres y participantes.Participantes",
+          "periodo_inicial": "2018",
+          "valor_inicial": 112,
+          "periodo_final": "2023",
+          "valor_final": 5,
+          "cambio_absoluto": -107,
+          "visual_fuente": "001",
+          "proyectos": [
+            7
+          ]
+        }
+      ],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Participantes: 112 en 2018 y 5 en 2023 (cambio -107).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

@@ -1,0 +1,2905 @@
+{
+  "id_categoria": "4008",
+  "categoria": "Tasa de crecimiento Egresados",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4008",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNjZlYWYyMmEtYzNlYi00NTVlLTk1OWQtMDNlNGVhYzBkNmVhIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico ",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias del Agua",
+    "Doctorado en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería Civil",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ciencias del Agua",
+    "Maestría en Informática",
+    "Maestría en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+    "Maestría en Ingeniería con áreas terminales en Estructuras, Mecánica y Transporte",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Ciclo Menor Crecimiento Egresados1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "004",
+        "metricas": [
+          "Ciclo Mayor Crecimiento Egresados1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo Mayor Crecimiento Egresados1": "2019-2020",
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "006",
+        "metricas": [
+          "TCMA Egresados1"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "TCMA Egresados1": 0.012387192992381335,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "008",
+        "metricas": [
+          "Crecimiento Acumulado Total Egresados"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "Crecimiento Acumulado Total Egresados": 0.09,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "010",
+        "metricas": [
+          "Egresados",
+          "Ciclo Escolar Anterior_Egresados",
+          "Ciclo escolar"
+        ],
+        "campos_modelo": {
+          "Egresados_UAEMEX.Egresados": "Egresados",
+          "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+          "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+        },
+        "formatos": {
+          "Egresados_UAEMEX.Egresados": "0",
+          "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2017-2018",
+            "Egresados": 300,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Egresados": 256,
+            "Ciclo Escolar Anterior_Egresados": 300,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Egresados": 293,
+            "Ciclo Escolar Anterior_Egresados": 256,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Egresados": 327,
+            "Ciclo Escolar Anterior_Egresados": 293,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Egresados": 330,
+            "Ciclo Escolar Anterior_Egresados": 327,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Egresados": 323,
+            "Ciclo Escolar Anterior_Egresados": 330,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Egresados": 344,
+            "Ciclo Escolar Anterior_Egresados": 323,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Egresados": 327,
+            "Ciclo Escolar Anterior_Egresados": 344,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 8
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Egresados",
+          "metrica_modelo": "Egresados_UAEMEX.Egresados",
+          "periodo_inicial": "2017-2018",
+          "valor_inicial": 300,
+          "periodo_final": "2024-2025",
+          "valor_final": 327,
+          "cambio_absoluto": 27,
+          "visual_fuente": "010",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Egresados: 300 en 2017-2018 y 327 en 2024-2025 (cambio +27).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2021-2022",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.04195362743720854,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0.3333333333333333,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 2,
+              "Ciclo Escolar Anterior_Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 5,
+              "Ciclo Escolar Anterior_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 7,
+              "Ciclo Escolar Anterior_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 1,
+              "Ciclo Escolar Anterior_Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 5,
+              "Ciclo Escolar Anterior_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 6,
+              "Ciclo Escolar Anterior_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 8,
+              "Ciclo Escolar Anterior_Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 6,
+            "periodo_final": "2024-2025",
+            "valor_final": 8,
+            "cambio_absoluto": 2,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 6 en 2017-2018 y 8 en 2024-2025 (cambio +2).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias del Agua": {
+      "nombre": "Doctorado en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": -0.75,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": -0.75,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 3,
+              "Ciclo Escolar Anterior_Egresados": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 12,
+            "periodo_final": "2018-2019",
+            "valor_final": 3,
+            "cambio_absoluto": -9,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 12 en 2017-2018 y 3 en 2018-2019 (cambio -9).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ingeniería con áreas en Estructuras, Mecánica y Transporte": {
+      "nombre": "Doctorado en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.04195362743720854,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0.3333333333333333,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 54,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 51,
+              "Ciclo Escolar Anterior_Egresados": 54,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 61,
+              "Ciclo Escolar Anterior_Egresados": 51,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 72,
+              "Ciclo Escolar Anterior_Egresados": 61,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 59,
+              "Ciclo Escolar Anterior_Egresados": 72,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 76,
+              "Ciclo Escolar Anterior_Egresados": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 84,
+              "Ciclo Escolar Anterior_Egresados": 76,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 72,
+              "Ciclo Escolar Anterior_Egresados": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 54,
+            "periodo_final": "2024-2025",
+            "valor_final": 72,
+            "cambio_absoluto": 18,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 54 en 2017-2018 y 72 en 2024-2025 (cambio +18).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2019-2020",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.03961211126013997,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0.3125,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 64,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 48,
+              "Ciclo Escolar Anterior_Egresados": 64,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 66,
+              "Ciclo Escolar Anterior_Egresados": 48,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 75,
+              "Ciclo Escolar Anterior_Egresados": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 62,
+              "Ciclo Escolar Anterior_Egresados": 75,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 60,
+              "Ciclo Escolar Anterior_Egresados": 62,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 72,
+              "Ciclo Escolar Anterior_Egresados": 60,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 84,
+              "Ciclo Escolar Anterior_Egresados": 72,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 64,
+            "periodo_final": "2024-2025",
+            "valor_final": 84,
+            "cambio_absoluto": 20,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 64 en 2017-2018 y 84 en 2024-2025 (cambio +20).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2019-2020",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2020-2021",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.019931800330914795,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0.14814814814814814,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 29,
+              "Ciclo Escolar Anterior_Egresados": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 21,
+              "Ciclo Escolar Anterior_Egresados": 29,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 42,
+              "Ciclo Escolar Anterior_Egresados": 21,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 35,
+              "Ciclo Escolar Anterior_Egresados": 42,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 30,
+              "Ciclo Escolar Anterior_Egresados": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 27,
+              "Ciclo Escolar Anterior_Egresados": 30,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 31,
+              "Ciclo Escolar Anterior_Egresados": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 27,
+            "periodo_final": "2024-2025",
+            "valor_final": 31,
+            "cambio_absoluto": 4,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 27 en 2017-2018 y 31 en 2024-2025 (cambio +4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería Civil": {
+      "nombre": "Licenciatura en Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": -0.014745872240717661,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": -0.09876543209876543,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 81,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 64,
+              "Ciclo Escolar Anterior_Egresados": 81,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 83,
+              "Ciclo Escolar Anterior_Egresados": 64,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 73,
+              "Ciclo Escolar Anterior_Egresados": 83,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 99,
+              "Ciclo Escolar Anterior_Egresados": 73,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 104,
+              "Ciclo Escolar Anterior_Egresados": 99,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 92,
+              "Ciclo Escolar Anterior_Egresados": 104,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 73,
+              "Ciclo Escolar Anterior_Egresados": 92,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 81,
+            "periodo_final": "2024-2025",
+            "valor_final": 73,
+            "cambio_absoluto": -8,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 81 en 2017-2018 y 73 en 2024-2025 (cambio -8).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2019-2020",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.05818642439041555,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0.4857142857142857,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 33,
+              "Ciclo Escolar Anterior_Egresados": 35,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 46,
+              "Ciclo Escolar Anterior_Egresados": 33,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 47,
+              "Ciclo Escolar Anterior_Egresados": 46,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 62,
+              "Ciclo Escolar Anterior_Egresados": 47,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 38,
+              "Ciclo Escolar Anterior_Egresados": 62,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 51,
+              "Ciclo Escolar Anterior_Egresados": 38,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 52,
+              "Ciclo Escolar Anterior_Egresados": 51,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 35,
+            "periodo_final": "2024-2025",
+            "valor_final": 52,
+            "cambio_absoluto": 17,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 35 en 2017-2018 y 52 en 2024-2025 (cambio +17).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2021-2022",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": -0.09427633573609329,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": -0.5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 12,
+              "Ciclo Escolar Anterior_Egresados": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 7,
+              "Ciclo Escolar Anterior_Egresados": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 9,
+              "Ciclo Escolar Anterior_Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 5,
+              "Ciclo Escolar Anterior_Egresados": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 8,
+              "Ciclo Escolar Anterior_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 5,
+              "Ciclo Escolar Anterior_Egresados": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ciclo Escolar Anterior_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 10,
+            "periodo_final": "2023-2024",
+            "valor_final": 5,
+            "cambio_absoluto": -5,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 10 en 2017-2018 y 5 en 2023-2024 (cambio -5).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias del Agua": {
+      "nombre": "Maestría en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.1428571428571428,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0.14285714285714285,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 8,
+              "Ciclo Escolar Anterior_Egresados": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 7,
+            "periodo_final": "2018-2019",
+            "valor_final": 8,
+            "cambio_absoluto": 1,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 7 en 2017-2018 y 8 en 2018-2019 (cambio +1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Informática": {
+      "nombre": "Maestría en Informática",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería con áreas en Estructuras, Mecánica y Transporte": {
+      "nombre": "Maestría en Ingeniería con áreas en Estructuras, Mecánica y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2018-2019",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Ciclo Escolar Anterior_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería con áreas terminales en Estructuras, Mecánica y Transporte": {
+      "nombre": "Maestría en Ingeniería con áreas terminales en Estructuras, Mecánica y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2021-2022",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.12246204830937302,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2017-2018",
+              "Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados": 5,
+              "Ciclo Escolar Anterior_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados": 3,
+              "Ciclo Escolar Anterior_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados": 1,
+              "Ciclo Escolar Anterior_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 6,
+              "Ciclo Escolar Anterior_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados": 1,
+              "Ciclo Escolar Anterior_Egresados": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 4,
+              "Ciclo Escolar Anterior_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2017-2018",
+            "valor_inicial": 2,
+            "periodo_final": "2023-2024",
+            "valor_final": 4,
+            "cambio_absoluto": 2,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 2 en 2017-2018 y 4 en 2023-2024 (cambio +2).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Ciclo Menor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Menor Crecimiento Egresados": "Ciclo Menor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Egresados1": "2024-2025",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Ciclo Mayor Crecimiento Egresados": "Ciclo Mayor Crecimiento Egresados1"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Egresados1": "2023-2024",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "TCMA Egresados1"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.TCMA Egresados": "TCMA Egresados1"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.TCMA Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Egresados1": 0.2599210498948732,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Crecimiento Acumulado Total Egresados"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "Crecimiento Acumulado Total Egresados"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Crecimiento Acumulado Total Egresados": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Egresados",
+            "Ciclo Escolar Anterior_Egresados",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "Egresados_UAEMEX.Egresados": "Egresados",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "Ciclo Escolar Anterior_Egresados",
+            "Egresados_UAEMEX.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "Egresados_UAEMEX.Egresados": "0",
+            "Egresados_UAEMEX.Ciclo Escolar Anterior_Egresados": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ciclo Escolar Anterior_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados": 2,
+              "Ciclo Escolar Anterior_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Egresados",
+            "metrica_modelo": "Egresados_UAEMEX.Egresados",
+            "periodo_inicial": "2021-2022",
+            "valor_inicial": 1,
+            "periodo_final": "2024-2025",
+            "valor_final": 2,
+            "cambio_absoluto": 1,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Egresados: 1 en 2021-2022 y 2 en 2024-2025 (cambio +1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

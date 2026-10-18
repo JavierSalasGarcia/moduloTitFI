@@ -1,0 +1,10 @@
+{
+  "host": "servidor.ejemplo.mx",
+  "port": 22,
+  "username": "deploy_plataforma",
+  "ssh_key": "C:/Users/edigi/.ssh/plataforma_fi_deploy",
+  "remote_root": "/home/deploy_plataforma/public_html",
+  "local_root": "D:/Proyectos/plataformaFI",
+  "interval_seconds": 3,
+  "exclude": ["tools/sync_produccion.json", "app/config.local.php"]
+}

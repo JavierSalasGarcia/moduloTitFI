@@ -1,0 +1,1799 @@
+{
+  "version": 2,
+  "corte": "2026-09-30T15:25:17-06:00",
+  "zona_horaria": "America/Mexico_City",
+  "recepcion_posterior": "abierta",
+  "nota": "Fotografía agregada para consulta posterior. Las respuestas recibidas después del corte siguen disponibles en las estadísticas en vivo.",
+  "cuestionarios": {
+    "C01": {
+      "titulo": "Estudiantes de materias propedéuticas",
+      "respondidas": 194,
+      "meta": 700,
+      "segmentos": {
+        "civil": 4,
+        "computacion": 60,
+        "electronica": 42,
+        "inteligencia_artificial": 44,
+        "mecanica": 32,
+        "sistemas_energeticos": 12
+      },
+      "ultima_respuesta_incluida": "2026-09-29T23:43:00-06:00",
+      "preguntas": {
+        "C01-P01": {
+          "texto": "¿En qué semestre cursas actualmente la mayoría de tus unidades de aprendizaje?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Primero": 119,
+            "Segundo": 18,
+            "Tercero": 51,
+            "Otro de los primeros semestres": 6
+          }
+        },
+        "C01-P02": {
+          "texto": "Selecciona hasta cinco asignaturas de tu licenciatura que te han resultado más difíciles y ordénalas de mayor a menor dificultad.",
+          "tipo": "ranking_asignaturas",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Cálculo I": 106,
+            "Geometría analítica": 105,
+            "Álgebra superior": 98,
+            "Programación básica": 64,
+            "Programación I": 52,
+            "Física": 44,
+            "Matemáticas para inteligencia artificial": 36,
+            "El ingeniero y su entorno socioeconómico": 34,
+            "Álgebra lineal": 33,
+            "Ecuaciones diferenciales": 32,
+            "Mecánica de la partícula": 30,
+            "Álgebra superior y geometría analítica": 29,
+            "Cálculo II": 24,
+            "Ética de la confianza como responsabilidad": 20,
+            "Matemáticas para computación": 18,
+            "Cálculo III": 15,
+            "Cálculo de una variable": 14,
+            "Lenguajes formales y autómatas": 12,
+            "Cultura de paz, igualdad de género e inclusión": 9,
+            "Matemáticas discretas": 9,
+            "Probabilidad y estadística": 8,
+            "Programación II": 7,
+            "English 5": 7,
+            "Ciencia de materiales": 6,
+            "Dinámica": 6,
+            "Mecánica de materiales": 6,
+            "Química orgánica y organometálica": 5,
+            "Termodinámica": 5,
+            "Química": 5,
+            "Mecánica clásica": 5,
+            "Paradigmas de programación I": 5,
+            "Inglés 5": 4,
+            "Física de semiconductores": 4,
+            "Bases de datos I": 3,
+            "Lenguaje gráfico": 3,
+            "Mecánica de fluidos": 3,
+            "Cálculo avanzado": 2,
+            "Sistemas lineales y señales": 2,
+            "Máquinas eléctricas": 2,
+            "Metrología": 2,
+            "Epistemología": 2,
+            "Knowledge Representation and Reasoning": 2,
+            "Estática": 2,
+            "English 6": 2,
+            "Cálculo multivariable": 2,
+            "Radiación y propagación electromagnética": 1,
+            "Programación paralela y sistemas operativos": 1,
+            "Inglés 6": 1,
+            "Programación en la nube": 1,
+            "Transmisión de datos": 1,
+            "Ensambladores": 1,
+            "Sistemas embebidos": 1,
+            "Seguridad de la información": 1,
+            "Inglés 7": 1,
+            "Termodinámica y electromagnetismo": 1,
+            "Geomática": 1,
+            "Métodos numéricos": 1,
+            "Geometría solar y solarimetría": 1,
+            "Electricidad y magnetismo": 1,
+            "Electrónica": 1,
+            "Paradigmas de programación": 1,
+            "Estructuras de datos": 1,
+            "Práctica profesional": 1,
+            "Servicio social": 1,
+            "Sistemas geotérmicos": 1,
+            "Electrónica II": 1,
+            "Sistemas digitales": 1,
+            "Control analógico y digital I": 1
+          }
+        },
+        "C01-P03": {
+          "texto": "¿Qué tan probable consideras continuar sin interrupción el próximo semestre?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Muy probable": 80,
+            "Probable": 64,
+            "Incierto": 41,
+            "Poco probable": 9,
+            "No continuaré": 0
+          }
+        },
+        "C01-P04": {
+          "texto": "¿Qué barrera pesa más en tu trayectoria?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Bases académicas": 83,
+            "Recursos económicos": 15,
+            "Horarios o transporte": 53,
+            "Acceso a equipo o software": 9,
+            "Bienestar o integración": 11,
+            "Ninguna": 23
+          }
+        },
+        "C01-P05": {
+          "texto": "¿Cómo valoras el acceso a tutoría o asesoría académica?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Útil y oportuno": 71,
+            "Existe, pero es insuficiente": 54,
+            "No sé cómo acceder": 43,
+            "No está disponible": 2,
+            "No la he necesitado": 24
+          }
+        },
+        "C01-P06": {
+          "texto": "¿Cómo valoras el acceso a laboratorios, software y conectividad para tus materias?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Disponible y suficiente": 36,
+            "Disponible pero insuficiente": 122,
+            "No disponible": 15,
+            "No lo sé": 21
+          }
+        },
+        "C01-P07": {
+          "texto": "¿Qué apoyo tendría mayor efecto en tu permanencia?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Asesorías de materias básicas": 53,
+            "Tutoría personalizada": 46,
+            "Apoyo económico": 31,
+            "Horarios flexibles": 35,
+            "Equipo y software": 27,
+            "Bienestar y pertenencia": 2
+          }
+        },
+        "C01-P08": {
+          "texto": "¿Cómo percibes el ambiente de inclusión y respeto en la Facultad?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Muy favorable": 41,
+            "Favorable": 104,
+            "Regular": 44,
+            "Desfavorable": 0,
+            "Muy desfavorable": 3,
+            "No tengo información": 2
+          }
+        },
+        "C01-P09": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 176,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C01-P10": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades. Si quieres participar en una reunión para comentarlas, puedes proporcionar tu correo en el campo opcional final.",
+          "tipo": "abierta",
+          "respuestas_validas": 122,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C01-P11": {
+          "texto": "¿Perteneces a un capítulo estudiantil de la Facultad?",
+          "tipo": "opcion",
+          "respuestas_validas": 194,
+          "frecuencias": {
+            "Sí": 11,
+            "No": 183
+          }
+        },
+        "C01-P12": {
+          "texto": "Si respondiste sí, especifica el nombre del capítulo estudiantil.",
+          "tipo": "abierta",
+          "respuestas_validas": 18,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C01-P13": {
+          "texto": "Si perteneces a un capítulo, escribe exactamente tres necesidades en orden de importancia (la más importante primero), separadas por punto y coma.",
+          "tipo": "abierta",
+          "respuestas_validas": 20,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C01-P14": {
+          "texto": "Correo electrónico opcional. Escríbelo sólo si deseas que te inviten a una reunión para profundizar en tu propuesta; tu respuesta dejará de ser plenamente anónima para quien gestione esa invitación.",
+          "tipo": "correo",
+          "respuestas_validas": 31,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C02": {
+      "titulo": "Profesorado de licenciatura",
+      "respondidas": 13,
+      "meta": 284,
+      "segmentos": {
+        "civil": 3,
+        "computacion": 5,
+        "electronica": 1,
+        "mecanica": 4
+      },
+      "ultima_respuesta_incluida": "2026-09-30T14:41:39-06:00",
+      "preguntas": {
+        "C02-P01": {
+          "texto": "¿Qué problema afecta más el avance de tu estudiantado?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Bases de primer ingreso": 9,
+            "Reprobación posterior": 0,
+            "Abandono": 1,
+            "Egreso y titulación": 1,
+            "No observo un problema dominante": 2
+          }
+        },
+        "C02-P02": {
+          "texto": "¿Con qué frecuencia se usan datos de trayectoria para activar apoyos?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Cada semestre": 3,
+            "Una vez al año": 0,
+            "Sólo ante casos aislados": 0,
+            "No se usan": 3,
+            "No lo sé": 7
+          }
+        },
+        "C02-P03": {
+          "texto": "¿Qué tan suficientes son laboratorios, software y materiales para tus unidades de aprendizaje?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Disponible y suficiente": 2,
+            "Disponible pero insuficiente": 8,
+            "No disponible": 3,
+            "No lo sé": 0
+          }
+        },
+        "C02-P04": {
+          "texto": "¿Cómo se da seguimiento a recomendaciones de evaluación o acreditación?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Sistemático y documentado": 4,
+            "Ocasional": 4,
+            "No se realiza": 0,
+            "No lo sé": 5
+          }
+        },
+        "C02-P05": {
+          "texto": "¿Cuál es tu principal necesidad de formación docente?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Didáctica de ciencias básicas": 1,
+            "Evaluación del aprendizaje": 1,
+            "Herramientas digitales": 4,
+            "Inglés y colaboración internacional": 0,
+            "Actualización disciplinar": 7,
+            "No identifico una": 0
+          }
+        },
+        "C02-P06": {
+          "texto": "¿Qué limita más el trabajo docente?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Carga y tiempo": 5,
+            "Equipo y espacios": 4,
+            "Coordinación de procesos": 4,
+            "Información del estudiantado": 0,
+            "Ninguna de las anteriores": 0
+          }
+        },
+        "C02-P07": {
+          "texto": "¿Qué tan útiles son los vínculos con egresados y empleadores para actualizar el programa?",
+          "tipo": "opcion",
+          "respuestas_validas": 13,
+          "frecuencias": {
+            "Muy favorable": 3,
+            "Favorable": 1,
+            "Regular": 4,
+            "Desfavorable": 0,
+            "Muy desfavorable": 1,
+            "No tengo información": 4
+          }
+        },
+        "C02-P08": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 13,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C02-P09": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades. Si quieres participar en una reunión para comentarlas, puedes proporcionar tu correo en el campo opcional final.",
+          "tipo": "abierta",
+          "respuestas_validas": 11,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C02-P10": {
+          "texto": "Correo electrónico opcional. Escríbelo sólo si deseas que te inviten a una reunión para profundizar en tu propuesta; tu respuesta dejará de ser plenamente anónima para quien gestione esa invitación.",
+          "tipo": "correo",
+          "respuestas_validas": 4,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C03": {
+      "titulo": "Profesorado de estudios avanzados",
+      "respondidas": 0,
+      "meta": 20,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C03-P01": {
+          "texto": "¿Cuál es la barrera principal para la continuidad del estudiantado de posgrado?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Financiamiento o becas": 0,
+            "Tiempo para investigación": 0,
+            "Dirección de tesis": 0,
+            "Infraestructura": 0,
+            "Pertinencia del tema": 0,
+            "No identifico una": 0
+          }
+        },
+        "C03-P02": {
+          "texto": "¿Cómo valoras la disponibilidad de equipo, software y acervo de investigación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Disponible y suficiente": 0,
+            "Disponible pero insuficiente": 0,
+            "No disponible": 0,
+            "No lo sé": 0
+          }
+        },
+        "C03-P03": {
+          "texto": "¿Cómo se documentan los resultados de proyectos y cuerpos académicos?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Sistemático y documentado": 0,
+            "Ocasional": 0,
+            "No se realiza": 0,
+            "No lo sé": 0
+          }
+        },
+        "C03-P04": {
+          "texto": "¿Qué tan frecuente es el retraso en la obtención del grado?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Muy frecuente": 0,
+            "Frecuente": 0,
+            "Ocasional": 0,
+            "Raro": 0,
+            "No cuento con datos": 0
+          }
+        },
+        "C03-P05": {
+          "texto": "¿Cuál es la vía más viable para ampliar la colaboración externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Sector público": 0,
+            "Sector productivo": 0,
+            "Sector social": 0,
+            "Otras universidades": 0,
+            "Aún debe definirse": 0
+          }
+        },
+        "C03-P06": {
+          "texto": "¿Cómo se usa la opinión de egresados de posgrado para mejorar los programas?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Sistemático y documentado": 0,
+            "Ocasional": 0,
+            "No se realiza": 0,
+            "No lo sé": 0
+          }
+        },
+        "C03-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C03-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades. Si quieres participar en una reunión para comentarlas, puedes proporcionar tu correo en el campo opcional final.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C03-P09": {
+          "texto": "Correo electrónico opcional. Escríbelo sólo si deseas que te inviten a una reunión para profundizar en tu propuesta; tu respuesta dejará de ser plenamente anónima para quien gestione esa invitación.",
+          "tipo": "correo",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C04": {
+      "titulo": "Personal administrativo",
+      "respondidas": 6,
+      "meta": 79,
+      "segmentos": {
+        "facultad": 6
+      },
+      "ultima_respuesta_incluida": "2026-09-30T14:38:37-06:00",
+      "preguntas": {
+        "C04-P01": {
+          "texto": "¿Qué proceso requiere atención más urgente?",
+          "tipo": "opcion",
+          "respuestas_validas": 6,
+          "frecuencias": {
+            "Servicios escolares": 3,
+            "Compras y recursos": 2,
+            "Mantenimiento": 1,
+            "Tecnologías de información": 0,
+            "Atención al público": 0,
+            "Otro proceso": 0
+          }
+        },
+        "C04-P02": {
+          "texto": "¿Cómo valoras los recursos y herramientas para realizar tu trabajo?",
+          "tipo": "opcion",
+          "respuestas_validas": 6,
+          "frecuencias": {
+            "Disponible y suficiente": 1,
+            "Disponible pero insuficiente": 4,
+            "No disponible": 1,
+            "No lo sé": 0
+          }
+        },
+        "C04-P03": {
+          "texto": "¿Cómo afecta la disponibilidad de personal a la continuidad del servicio?",
+          "tipo": "opcion",
+          "respuestas_validas": 6,
+          "frecuencias": {
+            "Sin afectación": 1,
+            "Afectación leve": 0,
+            "Afectación moderada": 0,
+            "Afectación grave": 5,
+            "No lo sé": 0
+          }
+        },
+        "C04-P04": {
+          "texto": "¿Cómo se priorizan y atienden reportes de mantenimiento y seguridad?",
+          "tipo": "opcion",
+          "respuestas_validas": 6,
+          "frecuencias": {
+            "Sistemático y documentado": 2,
+            "Ocasional": 2,
+            "No se realiza": 2,
+            "No lo sé": 0
+          }
+        },
+        "C04-P05": {
+          "texto": "¿Cómo valoras la comunicación entre áreas sobre acuerdos y trámites?",
+          "tipo": "opcion",
+          "respuestas_validas": 6,
+          "frecuencias": {
+            "Muy favorable": 0,
+            "Favorable": 2,
+            "Regular": 1,
+            "Desfavorable": 1,
+            "Muy desfavorable": 2,
+            "No tengo información": 0
+          }
+        },
+        "C04-P06": {
+          "texto": "¿Qué capacitación sería más útil?",
+          "tipo": "opcion",
+          "respuestas_validas": 6,
+          "frecuencias": {
+            "Atención y procesos": 4,
+            "Herramientas digitales": 1,
+            "Seguridad y protección": 0,
+            "Normatividad": 0,
+            "Gestión de datos": 0,
+            "Otra": 1
+          }
+        },
+        "C04-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 6,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C04-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades. Si quieres participar en una reunión para comentarlas, puedes proporcionar tu correo en el campo opcional final.",
+          "tipo": "abierta",
+          "respuestas_validas": 5,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C04-P09": {
+          "texto": "Correo electrónico opcional. Escríbelo sólo si deseas que te inviten a una reunión para profundizar en tu propuesta; tu respuesta dejará de ser plenamente anónima para quien gestione esa invitación.",
+          "tipo": "correo",
+          "respuestas_validas": 2,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C05": {
+      "titulo": "Coordinación de Docencia: Ingeniería Civil",
+      "respondidas": 0,
+      "meta": 1,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C05-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C05-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C05-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C05-P04": {
+          "texto": "¿Qué trayectoria requiere mayor intervención en tu licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Primer año y propedéuticas": 0,
+            "Permanencia posterior": 0,
+            "Egreso": 0,
+            "Titulación": 0,
+            "Ninguna dominante": 0
+          }
+        },
+        "C05-P05": {
+          "texto": "¿En qué estado está el seguimiento de recomendaciones de evaluación externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Plan vigente con evidencias": 0,
+            "Plan parcial": 0,
+            "Pendiente de iniciar o actualizar": 0,
+            "Aún no aplica": 0
+          }
+        },
+        "C05-P06": {
+          "texto": "¿Qué recurso es más urgente para cumplir el plan de estudios?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Docentes": 0,
+            "Laboratorios y seguridad": 0,
+            "Software y conectividad": 0,
+            "Acervo": 0,
+            "Espacios": 0,
+            "Ninguno": 0
+          }
+        },
+        "C05-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C05-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C06": {
+      "titulo": "Coordinación de Docencia: Ingeniería Mecánica",
+      "respondidas": 1,
+      "meta": 1,
+      "segmentos": {
+        "mecanica": 1
+      },
+      "ultima_respuesta_incluida": "2026-09-30T13:10:51-06:00",
+      "preguntas": {
+        "C06-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 1,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C06-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 1,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C06-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Completa y actualizada": 1,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C06-P04": {
+          "texto": "¿Qué trayectoria requiere mayor intervención en tu licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Primer año y propedéuticas": 1,
+            "Permanencia posterior": 0,
+            "Egreso": 0,
+            "Titulación": 0,
+            "Ninguna dominante": 0
+          }
+        },
+        "C06-P05": {
+          "texto": "¿En qué estado está el seguimiento de recomendaciones de evaluación externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Plan vigente con evidencias": 1,
+            "Plan parcial": 0,
+            "Pendiente de iniciar o actualizar": 0,
+            "Aún no aplica": 0
+          }
+        },
+        "C06-P06": {
+          "texto": "¿Qué recurso es más urgente para cumplir el plan de estudios?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Docentes": 0,
+            "Laboratorios y seguridad": 1,
+            "Software y conectividad": 0,
+            "Acervo": 0,
+            "Espacios": 0,
+            "Ninguno": 0
+          }
+        },
+        "C06-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C06-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C07": {
+      "titulo": "Coordinación de Docencia: Ingeniería en Computación",
+      "respondidas": 0,
+      "meta": 1,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C07-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C07-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C07-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C07-P04": {
+          "texto": "¿Qué trayectoria requiere mayor intervención en tu licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Primer año y propedéuticas": 0,
+            "Permanencia posterior": 0,
+            "Egreso": 0,
+            "Titulación": 0,
+            "Ninguna dominante": 0
+          }
+        },
+        "C07-P05": {
+          "texto": "¿En qué estado está el seguimiento de recomendaciones de evaluación externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Plan vigente con evidencias": 0,
+            "Plan parcial": 0,
+            "Pendiente de iniciar o actualizar": 0,
+            "Aún no aplica": 0
+          }
+        },
+        "C07-P06": {
+          "texto": "¿Qué recurso es más urgente para cumplir el plan de estudios?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Docentes": 0,
+            "Laboratorios y seguridad": 0,
+            "Software y conectividad": 0,
+            "Acervo": 0,
+            "Espacios": 0,
+            "Ninguno": 0
+          }
+        },
+        "C07-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C07-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C08": {
+      "titulo": "Coordinación de Docencia: Ingeniería en Electrónica",
+      "respondidas": 0,
+      "meta": 1,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C08-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C08-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C08-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C08-P04": {
+          "texto": "¿Qué trayectoria requiere mayor intervención en tu licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Primer año y propedéuticas": 0,
+            "Permanencia posterior": 0,
+            "Egreso": 0,
+            "Titulación": 0,
+            "Ninguna dominante": 0
+          }
+        },
+        "C08-P05": {
+          "texto": "¿En qué estado está el seguimiento de recomendaciones de evaluación externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Plan vigente con evidencias": 0,
+            "Plan parcial": 0,
+            "Pendiente de iniciar o actualizar": 0,
+            "Aún no aplica": 0
+          }
+        },
+        "C08-P06": {
+          "texto": "¿Qué recurso es más urgente para cumplir el plan de estudios?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Docentes": 0,
+            "Laboratorios y seguridad": 0,
+            "Software y conectividad": 0,
+            "Acervo": 0,
+            "Espacios": 0,
+            "Ninguno": 0
+          }
+        },
+        "C08-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C08-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C09": {
+      "titulo": "Coordinación de Docencia: Ingeniería en Sistemas Energéticos Sustentables",
+      "respondidas": 0,
+      "meta": 1,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C09-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C09-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C09-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C09-P04": {
+          "texto": "¿Qué trayectoria requiere mayor intervención en tu licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Primer año y propedéuticas": 0,
+            "Permanencia posterior": 0,
+            "Egreso": 0,
+            "Titulación": 0,
+            "Ninguna dominante": 0
+          }
+        },
+        "C09-P05": {
+          "texto": "¿En qué estado está el seguimiento de recomendaciones de evaluación externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Plan vigente con evidencias": 0,
+            "Plan parcial": 0,
+            "Pendiente de iniciar o actualizar": 0,
+            "Aún no aplica": 0
+          }
+        },
+        "C09-P06": {
+          "texto": "¿Qué recurso es más urgente para cumplir el plan de estudios?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Docentes": 0,
+            "Laboratorios y seguridad": 0,
+            "Software y conectividad": 0,
+            "Acervo": 0,
+            "Espacios": 0,
+            "Ninguno": 0
+          }
+        },
+        "C09-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C09-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C10": {
+      "titulo": "Coordinación de Docencia: Ingeniería en Inteligencia Artificial",
+      "respondidas": 0,
+      "meta": 1,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C10-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C10-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C10-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C10-P04": {
+          "texto": "¿Qué trayectoria requiere mayor intervención en tu licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Primer año y propedéuticas": 0,
+            "Permanencia posterior": 0,
+            "Egreso": 0,
+            "Titulación": 0,
+            "Ninguna dominante": 0
+          }
+        },
+        "C10-P05": {
+          "texto": "¿En qué estado está el seguimiento de recomendaciones de evaluación externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Plan vigente con evidencias": 0,
+            "Plan parcial": 0,
+            "Pendiente de iniciar o actualizar": 0,
+            "Aún no aplica": 0
+          }
+        },
+        "C10-P06": {
+          "texto": "¿Qué recurso es más urgente para cumplir el plan de estudios?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Docentes": 0,
+            "Laboratorios y seguridad": 0,
+            "Software y conectividad": 0,
+            "Acervo": 0,
+            "Espacios": 0,
+            "Ninguno": 0
+          }
+        },
+        "C10-P07": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C10-P08": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C11": {
+      "titulo": "Coordinación de Investigación",
+      "respondidas": 1,
+      "meta": 1,
+      "segmentos": {
+        "C11": 1
+      },
+      "ultima_respuesta_incluida": "2026-09-30T15:01:35-06:00",
+      "preguntas": {
+        "C11-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 1,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C11-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 1,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C11-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 1,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C11-P04": {
+          "texto": "¿Qué limita más la consolidación de proyectos y cuerpos académicos?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Financiamiento": 0,
+            "Tiempo y carga": 1,
+            "Colaboración externa": 0,
+            "Infraestructura": 0,
+            "Gestión documental": 0,
+            "Ninguno": 0
+          }
+        },
+        "C11-P05": {
+          "texto": "¿Cómo se vincula el reconocimiento SNII/PRODEP con resultados pertinentes?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Sistemático y documentado": 0,
+            "Ocasional": 1,
+            "No se realiza": 0,
+            "No lo sé": 0
+          }
+        },
+        "C11-P06": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C11-P07": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C12": {
+      "titulo": "Coordinación de Estudios Avanzados",
+      "respondidas": 1,
+      "meta": 1,
+      "segmentos": {
+        "C12": 1
+      },
+      "ultima_respuesta_incluida": "2026-09-28T11:44:56-06:00",
+      "preguntas": {
+        "C12-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 1,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C12-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Recursos o equipo": 1,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C12-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 1,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C12-P04": {
+          "texto": "¿Qué etapa de la trayectoria de posgrado requiere más atención?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Ingreso": 0,
+            "Permanencia": 0,
+            "Investigación de tesis": 0,
+            "Obtención del grado": 1,
+            "Seguimiento de egresados": 0
+          }
+        },
+        "C12-P05": {
+          "texto": "¿Cómo se da seguimiento a recomendaciones de evaluadores de posgrado?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Sistemático y documentado": 1,
+            "Ocasional": 0,
+            "No se realiza": 0,
+            "No lo sé": 0
+          }
+        },
+        "C12-P06": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C12-P07": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C13": {
+      "titulo": "Coordinación de Difusión Cultural",
+      "respondidas": 0,
+      "meta": 1,
+      "segmentos": {},
+      "ultima_respuesta_incluida": null,
+      "preguntas": {
+        "C13-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 0,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C13-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C13-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C13-P04": {
+          "texto": "¿Qué limita más la participación cultural y deportiva?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Horarios": 0,
+            "Espacios": 0,
+            "Difusión": 0,
+            "Presupuesto": 0,
+            "Interés no medido": 0,
+            "No lo sé": 0
+          }
+        },
+        "C13-P05": {
+          "texto": "¿Cómo se mide la participación y alcance de las actividades?",
+          "tipo": "opcion",
+          "respuestas_validas": 0,
+          "frecuencias": {
+            "Sistemático y documentado": 0,
+            "Ocasional": 0,
+            "No se realiza": 0,
+            "No lo sé": 0
+          }
+        },
+        "C13-P06": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C13-P07": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 0,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C14": {
+      "titulo": "Coordinación de Extensión y Vinculación",
+      "respondidas": 1,
+      "meta": 1,
+      "segmentos": {
+        "C14": 1
+      },
+      "ultima_respuesta_incluida": "2026-09-25T13:38:45-06:00",
+      "preguntas": {
+        "C14-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 1,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C14-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 1,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 0,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C14-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Completa y actualizada": 0,
+            "Parcial": 1,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C14-P04": {
+          "texto": "¿Qué registro requiere atención prioritaria?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Egresados": 0,
+            "Empleadores": 0,
+            "Convenios": 1,
+            "Prácticas": 0,
+            "Servicio social": 0,
+            "Becas": 0
+          }
+        },
+        "C14-P05": {
+          "texto": "¿Cómo se incorpora la opinión de egresados y empleadores a la mejora académica?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Sistemático y documentado": 0,
+            "Ocasional": 1,
+            "No se realiza": 0,
+            "No lo sé": 0
+          }
+        },
+        "C14-P06": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C14-P07": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C15": {
+      "titulo": "Coordinación de Planeación",
+      "respondidas": 1,
+      "meta": 1,
+      "segmentos": {
+        "C15": 1
+      },
+      "ultima_respuesta_incluida": "2026-09-30T12:41:07-06:00",
+      "preguntas": {
+        "C15-P01": {
+          "texto": "¿Cuál es el estado general de los procesos bajo tu coordinación?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Con evidencia y seguimiento": 1,
+            "Operan con seguimiento parcial": 0,
+            "Operan sin seguimiento suficiente": 0,
+            "Requieren rediseño": 0,
+            "No es posible valorarlo": 0
+          }
+        },
+        "C15-P02": {
+          "texto": "¿Cuál es el obstáculo principal para cumplir las metas del área?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Recursos o equipo": 0,
+            "Personal o carga": 0,
+            "Datos y registros": 0,
+            "Coordinación de procesos": 1,
+            "Vinculación externa": 0,
+            "No hay obstáculo dominante": 0
+          }
+        },
+        "C15-P03": {
+          "texto": "¿Qué calidad tiene la evidencia disponible para evaluar resultados?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Completa y actualizada": 1,
+            "Parcial": 0,
+            "Desactualizada": 0,
+            "No disponible": 0
+          }
+        },
+        "C15-P04": {
+          "texto": "¿Qué dificulta más medir las metas del plan?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Definiciones inconsistentes": 0,
+            "Registros incompletos": 0,
+            "Falta de responsables": 1,
+            "Cortes temporales distintos": 0,
+            "No hay dificultad dominante": 0
+          }
+        },
+        "C15-P05": {
+          "texto": "¿Con qué periodicidad se revisan metas, fuentes y evidencias con las áreas?",
+          "tipo": "opcion",
+          "respuestas_validas": 1,
+          "frecuencias": {
+            "Trimestral": 1,
+            "Semestral": 0,
+            "Anual": 0,
+            "Sólo ante solicitudes": 0,
+            "No se revisan": 0
+          }
+        },
+        "C15-P06": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C15-P07": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades.",
+          "tipo": "abierta",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C16": {
+      "titulo": "Estudiantes de licenciatura de semestres avanzados",
+      "respondidas": 73,
+      "meta": 360,
+      "segmentos": {
+        "civil": 31,
+        "computacion": 7,
+        "electronica": 14,
+        "mecanica": 8,
+        "sistemas_energeticos": 13
+      },
+      "ultima_respuesta_incluida": "2026-09-24T16:28:13-06:00",
+      "preguntas": {
+        "C16-P01": {
+          "texto": "¿En qué tramo de la licenciatura cursas actualmente la mayoría de tus unidades de aprendizaje?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Cuarto o quinto semestre": 29,
+            "Sexto o séptimo semestre": 26,
+            "Octavo semestre o posterior": 12,
+            "Trayectoria irregular o sin semestre definido": 6
+          }
+        },
+        "C16-P02": {
+          "texto": "¿Qué factor dificulta más que avances conforme al tiempo previsto?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Reprobación o repetición de asignaturas": 15,
+            "Horarios, seriación u oferta de grupos": 44,
+            "Trabajo, economía o transporte": 12,
+            "Acceso a laboratorios, software o materiales": 1,
+            "Bienestar, cuidados o salud": 0,
+            "No identifico una dificultad principal": 1
+          }
+        },
+        "C16-P03": {
+          "texto": "¿Cómo valoras el acompañamiento académico para resolver rezago, elegir carga y planear el egreso?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Muy favorable": 2,
+            "Favorable": 10,
+            "Regular": 39,
+            "Desfavorable": 11,
+            "Muy desfavorable": 10,
+            "No tengo información": 1
+          }
+        },
+        "C16-P04": {
+          "texto": "¿Cómo valoras la disponibilidad de laboratorios, software, conectividad y materiales para las asignaturas avanzadas?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Disponible y suficiente": 2,
+            "Disponible pero insuficiente": 47,
+            "No disponible": 22,
+            "No lo sé": 2
+          }
+        },
+        "C16-P05": {
+          "texto": "¿Qué oportunidad formativa necesitas fortalecer antes de egresar?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Prácticas o estancias profesionales": 51,
+            "Proyectos de investigación o innovación": 7,
+            "Movilidad o colaboración externa": 4,
+            "Emprendimiento y vinculación": 5,
+            "Servicio social con aplicación disciplinar": 6,
+            "Ninguna de las anteriores": 0
+          }
+        },
+        "C16-P06": {
+          "texto": "¿Qué tan probable consideras concluir la licenciatura en el tiempo que actualmente tienes previsto?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Muy probable": 12,
+            "Probable": 35,
+            "Incierto": 18,
+            "Poco probable": 8,
+            "No puedo estimarlo": 0
+          }
+        },
+        "C16-P07": {
+          "texto": "¿Cómo valoras la pertinencia de lo aprendido para tu práctica profesional o estudios posteriores?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Muy favorable": 4,
+            "Favorable": 25,
+            "Regular": 34,
+            "Desfavorable": 5,
+            "Muy desfavorable": 2,
+            "No tengo información": 3
+          }
+        },
+        "C16-P08": {
+          "texto": "¿Cómo percibes el ambiente de inclusión, respeto y pertenencia en esta etapa de la licenciatura?",
+          "tipo": "opcion",
+          "respuestas_validas": 73,
+          "frecuencias": {
+            "Muy favorable": 10,
+            "Favorable": 39,
+            "Regular": 17,
+            "Desfavorable": 6,
+            "Muy desfavorable": 1,
+            "No tengo información": 0
+          }
+        },
+        "C16-P09": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 71,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C16-P10": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades. Si quieres participar en una reunión para comentarlas, puedes proporcionar tu correo en el campo opcional final.",
+          "tipo": "abierta",
+          "respuestas_validas": 52,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C16-P11": {
+          "texto": "Correo electrónico opcional. Escríbelo sólo si deseas que te inviten a una reunión para profundizar en tu propuesta; tu respuesta dejará de ser plenamente anónima para quien gestione esa invitación.",
+          "tipo": "correo",
+          "respuestas_validas": 18,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    },
+    "C17": {
+      "titulo": "Estudiantes de posgrado",
+      "respondidas": 14,
+      "meta": 60,
+      "segmentos": {
+        "Maestría en Ciencias de la Ingeniería": 3,
+        "Maestría en Ingeniería de la Cadena de Suministro": 8,
+        "Maestría en Movilidad y Transporte": 3
+      },
+      "ultima_respuesta_incluida": "2026-09-30T14:52:53-06:00",
+      "preguntas": {
+        "C17-P01": {
+          "texto": "¿En qué etapa principal de tu programa te encuentras?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Cursos iniciales": 4,
+            "Cursos avanzados": 4,
+            "Protocolo o proyecto de investigación": 3,
+            "Trabajo de campo, laboratorio o desarrollo": 1,
+            "Redacción de tesis o trabajo terminal": 2,
+            "Trámite de evaluación u obtención del grado": 0
+          }
+        },
+        "C17-P02": {
+          "texto": "¿Cuál es el principal obstáculo para avanzar conforme a tu plan de trabajo?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Tiempo disponible": 5,
+            "Financiamiento o beca": 3,
+            "Dirección o asesoría": 2,
+            "Equipo, software o información": 1,
+            "Trámites y coordinación": 0,
+            "Definición o alcance del proyecto": 0,
+            "No identifico un obstáculo principal": 3
+          }
+        },
+        "C17-P03": {
+          "texto": "¿Cómo valoras la disponibilidad y oportunidad de la dirección, tutoría o comité académico?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Muy favorable": 5,
+            "Favorable": 5,
+            "Regular": 2,
+            "Desfavorable": 0,
+            "Muy desfavorable": 0,
+            "No tengo información": 2
+          }
+        },
+        "C17-P04": {
+          "texto": "¿Cómo valoras la disponibilidad de laboratorios, equipo, software, bases de datos y acervo?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Disponible y suficiente": 4,
+            "Disponible pero insuficiente": 5,
+            "No disponible": 0,
+            "No lo sé": 5
+          }
+        },
+        "C17-P05": {
+          "texto": "¿Qué apoyo tendría mayor efecto para concluir tu programa?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Beca o apoyo económico": 5,
+            "Tiempo protegido para investigación": 1,
+            "Asesoría metodológica o disciplinar": 2,
+            "Acceso a infraestructura e información": 3,
+            "Apoyo para publicación, movilidad o congreso": 3,
+            "Orientación de trámites y obtención del grado": 0
+          }
+        },
+        "C17-P06": {
+          "texto": "¿Cómo valoras las oportunidades de participar en proyectos, publicaciones, movilidad o colaboración externa?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Muy favorable": 4,
+            "Favorable": 8,
+            "Regular": 1,
+            "Desfavorable": 0,
+            "Muy desfavorable": 0,
+            "No tengo información": 1
+          }
+        },
+        "C17-P07": {
+          "texto": "¿Qué tan probable consideras obtener el grado en el plazo que actualmente tienes previsto?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Muy probable": 4,
+            "Probable": 9,
+            "Incierto": 0,
+            "Poco probable": 1,
+            "No puedo estimarlo": 0
+          }
+        },
+        "C17-P08": {
+          "texto": "¿Cómo valoras la pertinencia del programa y el ambiente de inclusión, respeto y colaboración?",
+          "tipo": "opcion",
+          "respuestas_validas": 14,
+          "frecuencias": {
+            "Muy favorable": 6,
+            "Favorable": 6,
+            "Regular": 2,
+            "Desfavorable": 0,
+            "Muy desfavorable": 0,
+            "No tengo información": 0
+          }
+        },
+        "C17-P09": {
+          "texto": "¿Qué necesidades principales percibes en la Facultad de Ingeniería?",
+          "tipo": "abierta",
+          "respuestas_validas": 12,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C17-P10": {
+          "texto": "Escribe propuestas concretas de mejora para atender esas necesidades. Si quieres participar en una reunión para comentarlas, puedes proporcionar tu correo en el campo opcional final.",
+          "tipo": "abierta",
+          "respuestas_validas": 10,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        },
+        "C17-P11": {
+          "texto": "Correo electrónico opcional. Escríbelo sólo si deseas que te inviten a una reunión para profundizar en tu propuesta; tu respuesta dejará de ser plenamente anónima para quien gestione esa invitación.",
+          "tipo": "correo",
+          "respuestas_validas": 1,
+          "detalle_omitido": "Las respuestas textuales y los correos no forman parte del corte agregado."
+        }
+      }
+    }
+  },
+  "analisis_por_proyecto": {
+    "2": "La dificultad de permanencia se concentra en dos momentos conectados: al ingreso, las bases académicas aparecen en 30 de 50 casos con continuidad incierta o baja, frente a 25 de 80 entre quienes consideran muy probable continuar; en semestres avanzados, horarios, seriación u oferta de grupos afectan a 44 de 73, pero la incertidumbre sobre concluir a tiempo es relativamente mayor cuando ya existe reprobación o repetición (7 de 15) que ante la restricción de horarios (12 de 44). La coincidencia con 9 de 13 respuestas docentes que señalan bases de primer ingreso vincula el problema diagnosticado con apoyos tempranos y con una programación académica que evite acumular rezago. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "3": "En posgrado, 13 de 14 estudiantes prevén obtener el grado en el plazo esperado, pero los obstáculos se distribuyen entre tiempo disponible (5), financiamiento o beca (3) y dirección o asesoría (2). Las necesidades de apoyo corresponden al obstáculo declarado —beca cuando falta financiamiento y asesoría cuando falta dirección—, por lo que el riesgo no parece generalizado sino segmentado y requiere rutas de atención distintas. La única respuesta de coordinación sitúa la obtención del grado como etapa prioritaria; debe tratarse como señal de gestión, no como estimación poblacional. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "4": "La disposición estudiantil para integrarse a proyectos, publicaciones, movilidad o colaboración externa es favorable o muy favorable en 12 de 14 respuestas. En contraste, la única respuesta de investigación identifica tiempo y carga como límite, evidencia parcial y una vinculación sólo ocasional entre reconocimientos y resultados pertinentes. La relación sugiere que el cuello de botella no es el interés del estudiantado, sino la capacidad de documentar, acompañar y convertir esa disposición en productos y cuerpos académicos consolidados; la evidencia de coordinación es indicativa por su tamaño. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "5": "Antes del egreso, 51 de 73 estudiantes priorizan prácticas o estancias, muy por encima de investigación, servicio social aplicado, emprendimiento o movilidad. En posgrado, 12 de 14 valoran favorablemente las oportunidades de colaboración externa; sin embargo, la única respuesta de Vinculación señala que los convenios requieren atención y que la opinión de egresados y empleadores se incorpora sólo ocasionalmente. La demanda formativa y la valoración positiva existen, pero necesitan un mecanismo estable que conecte convenios, retroalimentación externa y experiencias profesionales verificables. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "6": "No hay respuestas de Difusión Cultural y sólo existe una respuesta de Investigación, que califica la evidencia como parcial. Por tanto, el problema diagnosticado no puede atribuirse todavía a falta de interés, alcance o canales: el hallazgo defendible es una brecha de medición y trazabilidad que impide relacionar actividades de divulgación con públicos y resultados. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "7": "El ambiente de inclusión y respeto es favorable o muy favorable para 145 de 194 estudiantes de ingreso y para 49 de 73 de semestres avanzados, pero sólo 11 de 194 reportan pertenecer a un capítulo estudiantil. La relación distingue clima de participación: una percepción generalmente positiva de convivencia no implica incorporación a espacios organizados. Sin respuestas del área cultural, falta comprobar si programación, horarios y difusión explican esa baja participación. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "8": "La convivencia se valora positivamente en 145 de 194 respuestas de ingreso y 49 de 73 avanzadas, mientras que los apoyos considerados más útiles para permanecer son académicos, personalizados, de horario o económicos, no deportivos de manera explícita. Sin respuestas de la coordinación responsable ni una variable directa de práctica deportiva, no es válido inferir demanda o impacto; el diagnóstico debe tratar la falta de medición de acceso, frecuencia y permanencia en actividades como la principal brecha. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "9": "La tutoría es útil y oportuna para 71 de 194 estudiantes de ingreso, pero 99 reportan insuficiencia, desconocimiento o ausencia. Entre quienes no saben cómo acceder, 20 de 43 priorizan tutoría personalizada, frente a 7 de 54 entre quienes sí la ubican pero la consideran insuficiente. En semestres avanzados, el acompañamiento es regular o desfavorable para 60 de 73, y el profesorado concentra sus necesidades en actualización disciplinar y herramientas digitales. El problema combina visibilidad del servicio, capacidad de atención y actualización docente; aumentar cobertura sin resolver esas tres capas podría no reducir el rezago. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "10": "En la muestra administrativa, 5 de 6 consideran insuficientes o ausentes las herramientas y 5 reportan afectación grave por disponibilidad de personal. La comunicación entre áreas está polarizada, con 2 valoraciones positivas y 3 negativas. Así, la dignificación laboral se relaciona no sólo con equipamiento, sino con carga, continuidad del servicio y coordinación cotidiana. Son seis respuestas, por lo que orientan temas de revisión y no permiten generalizar. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "11": "La insuficiencia de recursos converge entre poblaciones: 69 de 73 estudiantes avanzados, 10 de 14 de posgrado y 11 de 13 docentes no confirman disponibilidad suficiente. A la vez, el mantenimiento administrativo se reparte por igual entre atención sistemática, ocasional y inexistente (2 de 6 en cada condición). La consistencia entre acceso académico y gestión de reportes vincula el problema con inventario, priorización y tiempos de reposición, no únicamente con comprar equipo. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "12": "La brecha tecnológica es transversal: 137 de 194 estudiantes de ingreso, 69 de 73 avanzados y 11 de 13 docentes reportan insuficiencia o falta de recursos. En posgrado, 5 de 14 ni siquiera identifican la disponibilidad, además de 5 que la consideran insuficiente. La coincidencia sugiere un problema combinado de capacidad, actualización y comunicación de acceso; por eso el fortalecimiento debe medir disponibilidad efectiva por curso y no sólo existencia de infraestructura. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "13": "Sólo 11 de 194 estudiantes de ingreso declaran pertenecer a un capítulo, mientras la comunicación interáreas de la muestra administrativa se divide entre 2 valoraciones positivas y 3 negativas. La gobernanza presenta así dos señales relacionadas: baja participación organizada y circulación desigual de acuerdos. La única respuesta de Planeación reporta evidencia completa, por lo que conviene contrastar la existencia formal de registros con su conocimiento y uso por la comunidad. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "14": "Entre seis respuestas administrativas, los procesos señalados como urgentes son servicios escolares (3), compras y recursos (2) y mantenimiento (1). La única respuesta de Planeación identifica la coordinación de procesos como obstáculo principal. En conjunto, la señal apunta menos a ausencia de normas que a posibles interfaces, responsables y secuencias no resueltas entre áreas; el tamaño de muestra exige validarlo con revisión documental. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "15": "La única respuesta de Planeación declara evidencia completa y revisión trimestral, pero ubica la falta de responsables como principal dificultad para medir metas. Esa percepción contrasta con el profesorado: 10 de 13 no conocen o no usan datos de trayectoria, y el seguimiento de evaluación externa es sistemático sólo en 4 casos. La relación sugiere que producir evidencia no garantiza su apropiación operativa; la planeación requiere responsables, ciclos de retroalimentación y acceso comprensible para quienes ejecutan acciones. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "16": "Los procesos administrativos urgentes se concentran en servicios escolares, compras y recursos y mantenimiento (6 respuestas en total), mientras la única respuesta de Planeación señala coordinación de procesos como obstáculo. La integridad en el manejo de recursos debe examinar, por tanto, la trazabilidad entre solicitud, autorización, compra, entrega y servicio, no sólo la disponibilidad presupuestal. La muestra es insuficiente para afirmar fallas; identifica la ruta que debe auditarse. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "17": "La atención de mantenimiento y seguridad aparece fragmentada: de 6 respuestas administrativas, 2 describen seguimiento sistemático, 2 ocasional y 2 inexistente. La única respuesta de Planeación vuelve a señalar coordinación de procesos. La dispersión interna es consistente con un control preventivo que no se experimenta de la misma manera entre áreas; conviene verificar un folio único, responsables, plazos y cierre de reportes. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "18": "La inclusión y el respeto reciben valoraciones favorables o muy favorables de 145 de 194 estudiantes de ingreso, 49 de 73 avanzados y 12 de 14 de posgrado. Sin embargo, persisten 47 valoraciones no favorables al ingreso y 24 en etapas avanzadas, junto con participación en capítulos de sólo 11 de 194. El promedio positivo puede ocultar grupos con menor pertenencia; la intervención debe localizar por carrera y etapa dónde se concentran esas experiencias. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "19": "La percepción de convivencia es mayoritariamente positiva en ingreso (145 de 194), licenciatura avanzada (49 de 73) y posgrado (12 de 14), pero no es unánime. Las respuestas regulares o desfavorables en las dos etapas de licenciatura muestran que una cultura de paz no puede medirse sólo por el balance global: requiere seguimiento de pertenencia, conflictos y acceso a mecanismos de atención por segmento. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "20": "Existe una base clara para colaboración social: 51 de 73 estudiantes avanzados priorizan prácticas o estancias y 12 de 14 estudiantes de posgrado valoran favorablemente sus oportunidades externas. No obstante, la única respuesta de Vinculación prioriza el registro de convenios y reporta uso sólo ocasional de la opinión de egresados y empleadores. La oportunidad consiste en convertir la demanda estudiantil y los vínculos existentes en proyectos con contraparte, resultados y retroalimentación documentados. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "21": "La comunicación interáreas no tiene una experiencia compartida: en 6 respuestas administrativas hay 2 valoraciones positivas, 1 regular y 3 negativas. Sin respuestas del área cultural sobre medición de alcance, no puede conocerse si los canales llegan a sus públicos o sólo emiten información. El diagnóstico debe vincular modernización con trazabilidad —quién recibió, comprendió y actuó—, además de la publicación de mensajes. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística.",
+    "22": "La encuesta disponible no mide de forma directa prácticas ambientales. Las señales relacionadas son operativas: el mantenimiento se describe como sistemático en sólo 2 de 6 respuestas administrativas y la única respuesta de Investigación identifica tiempo y carga como restricción. Esto no permite concluir desempeño ambiental; muestra que cualquier programa de sostenibilidad necesita responsables, registros de mantenimiento y carga asignada para que sus resultados sean verificables. La lectura usa todas las respuestas válidas incluidas en el corte del 30/09/2026; describe asociaciones y convergencias, no causalidad ni representatividad estadística."
+  }
+}

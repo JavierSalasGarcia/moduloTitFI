@@ -1,0 +1,1991 @@
+{
+  "id_categoria": "4018",
+  "categoria": "Servicio social",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4018",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNjdjZTdiNTgtOTIxYy00NTRiLWE4YzctYWM1YWI2MjMzZjI5IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 20,
+      "nombre": "Retribución social a través de trabajos colaborativos con la sociedad mexiquense"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Superavit Mujeres SS Año Actual"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "Superavit Mujeres SS Año Actual"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "#,0"
+        },
+        "registros": [
+          {
+            "Superavit Mujeres SS Año Actual": -161,
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "002",
+        "metricas": [
+          "Alumnos SS Concluido Toluca"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "Alumnos SS Concluido Toluca"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "Alumnos SS Concluido Toluca": 335,
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Crecimiento % SS Interanual"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "Crecimiento % SS Interanual"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "0.00\\ %;-0.00\\ %;0.00\\ %"
+        },
+        "registros": [
+          {
+            "Crecimiento % SS Interanual": 0.30859375,
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "004",
+        "metricas": [
+          "Año",
+          "Sexo_Ser_Social",
+          "Suma de Total_Ser_Social"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Año": "Año",
+          "20 Serv Social Pro Educativo.Sexo_Ser_Social": "Sexo_Ser_Social",
+          "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "Suma de Total_Ser_Social"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Año": "0",
+          "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "#,0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 229,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2018,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 64,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2019,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 246,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2019,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 83,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 141,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 60,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2021,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 249,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2021,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 72,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2022,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 246,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2022,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 97,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2023,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 266,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2023,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 95,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2024,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 188,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2024,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 68,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2025,
+            "Sexo_Ser_Social": "Hombre",
+            "Suma de Total_Ser_Social": 248,
+            "proyectos": [
+              2,
+              20
+            ]
+          },
+          {
+            "Año": 2025,
+            "Sexo_Ser_Social": "Mujer",
+            "Suma de Total_Ser_Social": 87,
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 16
+      },
+      {
+        "visual": "005",
+        "metricas": [
+          "Alumnos SS Concluido Fuera Toluca"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "Alumnos SS Concluido Fuera Toluca"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "#,0"
+        },
+        "registros": [
+          {
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "006",
+        "metricas": [
+          "IPG Servicio Social"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.IPG Servicio Social": "IPG Servicio Social"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "IPG Servicio Social": 0.35080645161290325,
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "008",
+        "metricas": [
+          "Total SS Año Actual"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Total SS Año Actual": "Total SS Año Actual"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Total SS Año Actual": "#,0"
+        },
+        "registros": [
+          {
+            "Total SS Año Actual": 335,
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "numero_registros": 1
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Total_Ser_Social",
+          "metrica_modelo": "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)",
+          "periodo_inicial": "2018",
+          "valor_inicial": 293,
+          "periodo_final": "2025",
+          "valor_final": 335,
+          "cambio_absoluto": 42,
+          "visual_fuente": "004",
+          "proyectos": [
+            2,
+            20
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Suma de Total_Ser_Social: 293 en 2018 y 335 en 2025 (cambio +42).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Superavit Mujeres SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "Superavit Mujeres SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres SS Año Actual": -37,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Alumnos SS Concluido Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "Alumnos SS Concluido Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Alumnos SS Concluido Toluca": 103,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Crecimiento % SS Interanual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "Crecimiento % SS Interanual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "0.00\\ %;-0.00\\ %;0.00\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento % SS Interanual": 0.2716049382716049,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año",
+            "Sexo_Ser_Social",
+            "Suma de Total_Ser_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Sexo_Ser_Social": "Sexo_Ser_Social",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "Suma de Total_Ser_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 62,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 13,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 74,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 22,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 38,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 19,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 76,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 21,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 75,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 31,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 68,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 22,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 55,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 26,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 70,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 33,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Alumnos SS Concluido Fuera Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "Alumnos SS Concluido Fuera Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "IPG Servicio Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.IPG Servicio Social": "IPG Servicio Social"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "IPG Servicio Social": 0.4714285714285714,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Total SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "Total SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Total SS Año Actual": 103,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ser_Social",
+            "metrica_modelo": "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 75,
+            "periodo_final": "2025",
+            "valor_final": 103,
+            "cambio_absoluto": 28,
+            "visual_fuente": "004",
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ser_Social: 75 en 2018 y 103 en 2025 (cambio +28).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Superavit Mujeres SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "Superavit Mujeres SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres SS Año Actual": -55,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Alumnos SS Concluido Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "Alumnos SS Concluido Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Alumnos SS Concluido Toluca": 77,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Crecimiento % SS Interanual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "Crecimiento % SS Interanual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "0.00\\ %;-0.00\\ %;0.00\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento % SS Interanual": 0.54,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año",
+            "Sexo_Ser_Social",
+            "Suma de Total_Ser_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Sexo_Ser_Social": "Sexo_Ser_Social",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "Suma de Total_Ser_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 78,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 6,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 66,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 6,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 46,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 7,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 62,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 13,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 56,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 6,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 79,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 17,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 45,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 5,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 66,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 11,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Alumnos SS Concluido Fuera Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "Alumnos SS Concluido Fuera Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "IPG Servicio Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.IPG Servicio Social": "IPG Servicio Social"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "IPG Servicio Social": 0.16666666666666666,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Total SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "Total SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Total SS Año Actual": 77,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ser_Social",
+            "metrica_modelo": "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 84,
+            "periodo_final": "2025",
+            "valor_final": 77,
+            "cambio_absoluto": -7,
+            "visual_fuente": "004",
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ser_Social: 84 en 2018 y 77 en 2025 (cambio -7).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Superavit Mujeres SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "Superavit Mujeres SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres SS Año Actual": -43,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Alumnos SS Concluido Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "Alumnos SS Concluido Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Alumnos SS Concluido Toluca": 83,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Crecimiento % SS Interanual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "Crecimiento % SS Interanual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "0.00\\ %;-0.00\\ %;0.00\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento % SS Interanual": 0.296875,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año",
+            "Sexo_Ser_Social",
+            "Suma de Total_Ser_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Sexo_Ser_Social": "Sexo_Ser_Social",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "Suma de Total_Ser_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 42,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 22,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 52,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 17,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 28,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 14,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 56,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 24,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 56,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 17,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 66,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 28,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 46,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 18,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 63,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 20,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Alumnos SS Concluido Fuera Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "Alumnos SS Concluido Fuera Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "IPG Servicio Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.IPG Servicio Social": "IPG Servicio Social"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "IPG Servicio Social": 0.31746031746031744,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Total SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "Total SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Total SS Año Actual": 83,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ser_Social",
+            "metrica_modelo": "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 64,
+            "periodo_final": "2025",
+            "valor_final": 83,
+            "cambio_absoluto": 19,
+            "visual_fuente": "004",
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ser_Social: 64 en 2018 y 83 en 2025 (cambio +19).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Superavit Mujeres SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "Superavit Mujeres SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres SS Año Actual": -26,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Alumnos SS Concluido Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "Alumnos SS Concluido Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Alumnos SS Concluido Toluca": 38,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Crecimiento % SS Interanual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "Crecimiento % SS Interanual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "0.00\\ %;-0.00\\ %;0.00\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento % SS Interanual": 0.52,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año",
+            "Sexo_Ser_Social",
+            "Suma de Total_Ser_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Sexo_Ser_Social": "Sexo_Ser_Social",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "Suma de Total_Ser_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 31,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 2,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 22,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 5,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 12,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 3,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 36,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 4,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 35,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 7,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 24,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 6,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 20,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 5,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 32,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 6,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Alumnos SS Concluido Fuera Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "Alumnos SS Concluido Fuera Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "IPG Servicio Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.IPG Servicio Social": "IPG Servicio Social"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "IPG Servicio Social": 0.1875,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Total SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "Total SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Total SS Año Actual": 38,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ser_Social",
+            "metrica_modelo": "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 33,
+            "periodo_final": "2025",
+            "valor_final": 38,
+            "cambio_absoluto": 5,
+            "visual_fuente": "004",
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ser_Social: 33 en 2018 y 38 en 2025 (cambio +5).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Superavit Mujeres SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "Superavit Mujeres SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Superavit Mujeres SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Superavit Mujeres SS Año Actual": 0,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "002",
+          "metricas": [
+            "Alumnos SS Concluido Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "Alumnos SS Concluido Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "Alumnos SS Concluido Toluca": 34,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Crecimiento % SS Interanual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "Crecimiento % SS Interanual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Crecimiento % SS Interanual": "0.00\\ %;-0.00\\ %;0.00\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento % SS Interanual": -0.05555555555555555,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año",
+            "Sexo_Ser_Social",
+            "Suma de Total_Ser_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Sexo_Ser_Social": "Sexo_Ser_Social",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "Suma de Total_Ser_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 16,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2018,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 21,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 32,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2019,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 33,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 17,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2020,
+              "Sexo_Ser_Social": "Mujer",
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 19,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2021,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 10,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 24,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2022,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 36,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 29,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2023,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 22,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Hombre",
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2024,
+              "Sexo_Ser_Social": "Mujer",
+              "Suma de Total_Ser_Social": 14,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Hombre",
+              "Suma de Total_Ser_Social": 17,
+              "proyectos": [
+                2,
+                20
+              ]
+            },
+            {
+              "Año": 2025,
+              "Sexo_Ser_Social": "Mujer",
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 16
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Alumnos SS Concluido Fuera Toluca"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "Alumnos SS Concluido Fuera Toluca"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Alumnos SS Concluido Fuera Toluca": "#,0"
+          },
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "006",
+          "metricas": [
+            "IPG Servicio Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.IPG Servicio Social": "IPG Servicio Social"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "IPG Servicio Social": 1,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "008",
+          "metricas": [
+            "Total SS Año Actual"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "Total SS Año Actual"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Total SS Año Actual": "#,0"
+          },
+          "registros": [
+            {
+              "Total SS Año Actual": 34,
+              "proyectos": [
+                2,
+                20
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Ser_Social",
+            "metrica_modelo": "Sum(20 Serv Social Pro Educativo.Total_Serv_Social)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 37,
+            "periodo_final": "2025",
+            "valor_final": 17,
+            "cambio_absoluto": -20,
+            "visual_fuente": "004",
+            "proyectos": [
+              2,
+              20
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Ser_Social: 37 en 2018 y 17 en 2025 (cambio -20).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "conciliacion_ultimo_periodo": {
+    "periodo": "2025",
+    "metrica": "Suma de Total_Ser_Social",
+    "total_facultad": 335,
+    "suma_programas_publicados": 318,
+    "diferencia_sin_programa_identificable": 17,
+    "interpretacion": "La diferencia no se asignó a ninguna carrera; puede representar registros sin programa identificable en el modelo público."
+  },
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

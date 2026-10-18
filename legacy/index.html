@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma FI - Facultad de Ingeniería UAEMéx</title>
+  <link rel="stylesheet" href="index.css">
+  <!-- Load Lucide Icons library -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="app-container" id="app">
+    
+    <!-- 1. Left Icon Sidebar (Canvas Main) -->
+    <aside class="sidebar-global">
+      <!-- Brand Logo representing FI -->
+      <div class="brand-container" id="brandBtn" title="Facultad de Ingeniería">
+        <span class="brand-logo-text">FI</span>
+      </div>
+      
+      <!-- Icons Menu Navigation -->
+      <nav class="nav-menu-global">
+        <button class="nav-item-global active" data-tab="portal" data-tooltip="Mi Portal" id="tabBtnPortal">
+          <i data-lucide="layout-dashboard"></i>
+        </button>
+        <button class="nav-item-global" data-tab="funciones" data-tooltip="Mis Funciones" id="tabBtnFunciones">
+          <i data-lucide="briefcase"></i>
+        </button>
+        <button class="nav-item-global" data-tab="relaciones" data-tooltip="Relaciones e Interacciones" id="tabBtnRelaciones">
+          <i data-lucide="git-branch"></i>
+        </button>
+        <button class="nav-item-global" data-tab="directorio" data-tooltip="Directorio Facultad" id="tabBtnDirectorio">
+          <i data-lucide="users"></i>
+        </button>
+      </nav>
+      
+      <!-- Profile Badge at bottom -->
+      <div class="profile-container">
+        <div class="profile-avatar" id="profileBtn" title="Usuario Activo">
+          <span id="profileInitials">CD</span>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- 2. Sliding Context Sidebar (Canvas Secondary Panel) -->
+    <aside class="sidebar-context" id="sidebarContext">
+      <!-- Context Header -->
+      <div class="context-header">
+        <div class="context-title" id="contextTitleText">Navegación</div>
+        <div class="role-badge">
+          <div class="role-badge-dot"></div>
+          <span class="role-badge-text" id="activeRoleName">Coordinador de Docencia</span>
+        </div>
+      </div>
+      
+      <!-- Scrollable Context Links -->
+      <div class="context-content" id="contextNavContent">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </aside>
+    
+    <!-- 3. Main Display Canvas -->
+    <main class="main-canvas">
+      <!-- Header / Top Bar -->
+      <header class="topbar">
+        <div class="page-title-container">
+          <button class="toggle-sidebar-btn" id="toggleContextBtn" title="Contraer/Expandir Menú">
+            <i data-lucide="menu"></i>
+          </button>
+          <h1 class="page-title" id="canvasPageTitle">
+            <i data-lucide="layout-dashboard" class="title-icon"></i>
+            <span id="canvasPageTitleText">Mi Portal</span>
+          </h1>
+        </div>
+        
+        <!-- Simulation Role Switcher -->
+        <div class="demo-selector-container">
+          <span class="demo-selector-label">Rol Simulado (Demo):</span>
+          <select id="roleSelector" class="role-select-dropdown">
+            <!-- Populated dynamically by app.js -->
+          </select>
+        </div>
+      </header>
+      
+      <!-- Dynamic Main Scrollable Canvas Body -->
+      <section class="canvas-body fade-in" id="canvasMainBody">
+        <!-- Rendered dynamically by app.js -->
+      </section>
+    </main>
+    
+  </div>
+
+  <!-- Main JavaScript App -->
+  <script src="mo_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

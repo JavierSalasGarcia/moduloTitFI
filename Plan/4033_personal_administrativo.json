@@ -1,0 +1,166 @@
+{
+  "id_categoria": "4033",
+  "categoria": "Personal administrativo",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4033",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNDU4NDk1NjktODkxYy00ZjI4LWFmMDAtNWZlNGRkOTUyZTA1IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 10,
+      "nombre": "Dignificación de las y los trabajadores universitarios"
+    },
+    {
+      "numero": 11,
+      "nombre": "Gestión administrativa para responder al quehacer universitario"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio universitario",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "003",
+        "metricas": [
+          "Año",
+          "Confianza",
+          "Sindicalizado",
+          "Directivo",
+          "Total"
+        ],
+        "campos_modelo": {
+          "Persona Admvo.Año": "Año",
+          "Sum(Persona Admvo.Confianza)": "Confianza",
+          "Sum(Persona Admvo.Sindicalizado)": "Sindicalizado",
+          "Sum(Persona Admvo.Directivo)": "Directivo",
+          "Sum(Persona Admvo.Total)": "Total"
+        },
+        "formatos": {
+          "Persona Admvo.Año": "0",
+          "Sum(Persona Admvo.Confianza)": "#,0",
+          "Sum(Persona Admvo.Sindicalizado)": "#,0",
+          "Sum(Persona Admvo.Directivo)": "#,0",
+          "Sum(Persona Admvo.Total)": "#,0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Confianza": 27,
+            "Sindicalizado": 64,
+            "Directivo": 0,
+            "Total": 91,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2019,
+            "Confianza": 24,
+            "Sindicalizado": 55,
+            "Directivo": 79,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2020,
+            "Sindicalizado": 57,
+            "Directivo": 0,
+            "Total": 81,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2021,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2022,
+            "Confianza": 23,
+            "Sindicalizado": 55,
+            "Total": 78,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2023,
+            "Confianza": 25,
+            "Sindicalizado": 54,
+            "Total": 79,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2024,
+            "Confianza": 27,
+            "Sindicalizado": 53,
+            "Total": 80,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2025,
+            "Confianza": 28,
+            "Sindicalizado": 51,
+            "Total": 79,
+            "proyectos": [
+              10,
+              11
+            ]
+          }
+        ],
+        "numero_registros": 8
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Sindicalizado",
+          "metrica_modelo": "Sum(Persona Admvo.Sindicalizado)",
+          "periodo_inicial": "2018",
+          "valor_inicial": 64,
+          "periodo_final": "2025",
+          "valor_final": 51,
+          "cambio_absoluto": -13,
+          "visual_fuente": "003",
+          "proyectos": [
+            10,
+            11
+          ]
+        }
+      ],
+      "diagnostico": "Sindicalizado: 64 en 2018 y 51 en 2025 (cambio -13).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

@@ -1,0 +1,284 @@
+{
+  "id_categoria": "4037",
+  "categoria": "Infraestructura",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4037",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZGQ5YTdkZTQtNWUwYS00ZjZjLWFlNzctZTQyMDRiOWFmZjkxIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 5,
+      "nombre": "Innovación, desarrollo tecnológico y transferencia sostenible y equitativa"
+    },
+    {
+      "numero": 11,
+      "nombre": "Gestión administrativa para responder al quehacer universitario"
+    },
+    {
+      "numero": 12,
+      "nombre": "Fortalecimiento tecnológico"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": null,
+  "programas_disponibles": [],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Aulas",
+          "Aulas digitales",
+          "Autoacceso",
+          "Cafeterías",
+          "Canchas",
+          "Cubículos",
+          "Cubículos para PTC",
+          "Laboratorios",
+          "Talleres",
+          "Año",
+          "Auditorios"
+        ],
+        "campos_modelo": {
+          "Sum(17_Infraestructura.Aulas)": "Aulas",
+          "Sum(17_Infraestructura.Aulas digitales)": "Aulas digitales",
+          "Sum(17_Infraestructura.Autoacceso)": "Autoacceso",
+          "Sum(17_Infraestructura.Cafeterías)": "Cafeterías",
+          "Sum(17_Infraestructura.Canchas)": "Canchas",
+          "Sum(17_Infraestructura.Cubículos)": "Cubículos",
+          "Sum(17_Infraestructura.Cubículos para PTC)": "Cubículos para PTC",
+          "Sum(17_Infraestructura.Laboratorios)": "Laboratorios",
+          "Sum(17_Infraestructura.Talleres)": "Talleres",
+          "17_Infraestructura.Año": "Año",
+          "Sum(17_Infraestructura.Auditorios)": "Auditorios"
+        },
+        "formatos": {
+          "Sum(17_Infraestructura.Aulas)": "#,0",
+          "Sum(17_Infraestructura.Aulas digitales)": "0",
+          "Sum(17_Infraestructura.Autoacceso)": "0",
+          "Sum(17_Infraestructura.Cafeterías)": "0",
+          "Sum(17_Infraestructura.Canchas)": "0",
+          "Sum(17_Infraestructura.Cubículos)": "#,0",
+          "Sum(17_Infraestructura.Cubículos para PTC)": "#,0",
+          "Sum(17_Infraestructura.Laboratorios)": "#,0",
+          "Sum(17_Infraestructura.Talleres)": "#,0",
+          "17_Infraestructura.Año": "0",
+          "Sum(17_Infraestructura.Auditorios)": "0"
+        },
+        "registros": [
+          {
+            "Año": 2014,
+            "Aulas": 65,
+            "Aulas digitales": 5,
+            "Autoacceso": 1,
+            "Cafeterías": 2,
+            "Canchas": 1,
+            "Cubículos": 134,
+            "Cubículos para PTC": 121,
+            "Laboratorios": 22,
+            "Talleres": 1,
+            "Auditorios": 6,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2015,
+            "Aulas": 67,
+            "Cubículos": 135,
+            "Cubículos para PTC": 122,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2016,
+            "Cafeterías": 1,
+            "Cubículos": 137,
+            "Laboratorios": 23,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2017,
+            "Aulas": 69,
+            "Cafeterías": 2,
+            "Cubículos": 164,
+            "Cubículos para PTC": 132,
+            "Laboratorios": 21,
+            "Auditorios": 5,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2018,
+            "Aulas": 64,
+            "Cafeterías": 1,
+            "Cubículos": 124,
+            "Cubículos para PTC": 113,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2019,
+            "Aulas": 57,
+            "Aulas digitales": 4,
+            "Canchas": 4,
+            "Cubículos para PTC": 124,
+            "Laboratorios": 18,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2020,
+            "Canchas": 1,
+            "Cubículos para PTC": 26,
+            "Auditorios": 4,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2021,
+            "Aulas": 56,
+            "Laboratorios": 20,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2022,
+            "Aulas": 55,
+            "Laboratorios": 19,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2023,
+            "Aulas": 62,
+            "Laboratorios": 20,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2024,
+            "Laboratorios": 19,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          },
+          {
+            "Año": 2025,
+            "Cubículos": 123,
+            "Cubículos para PTC": 25,
+            "proyectos": [
+              2,
+              3,
+              5,
+              11,
+              12
+            ]
+          }
+        ],
+        "numero_registros": 12
+      }
+    ],
+    "foda": {
+      "fortalezas": [],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Aulas",
+          "metrica_modelo": "Sum(17_Infraestructura.Aulas)",
+          "periodo_inicial": "2014",
+          "valor_inicial": 65,
+          "periodo_final": "2023",
+          "valor_final": 62,
+          "cambio_absoluto": -3,
+          "visual_fuente": "001",
+          "proyectos": [
+            2,
+            3,
+            5,
+            11,
+            12
+          ]
+        }
+      ],
+      "diagnostico": "Aulas: 65 en 2014 y 62 en 2023 (cambio -3).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {},
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

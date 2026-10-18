@@ -1,0 +1,1762 @@
+{
+  "Licenciatura en Ingeniería Civil": [
+    {
+      "semestre": 1,
+      "asignatura": "Cálculo I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Dibujo en ingeniería"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "El ingeniero y su entorno socioeconómico"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Geometría analítica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Mecánica de la partícula"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Programación básica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Álgebra superior"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Cálculo II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Ecuaciones diferenciales"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Epistemología"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Estática"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Inglés 5"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Lenguaje gráfico"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Álgebra lineal"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cálculo III"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Dinámica"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Geomática"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Inglés 6"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Mecánica de materiales"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Probabilidad y estadística"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Topografía"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Geología"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Inglés 7"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Materiales para Ingeniería Civil"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Mecánica del medio continuo"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Métodos estadísticos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Química"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Teoría estructural"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Análisis estructural I"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Economía"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Geotecnia I"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Hidráulica"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Inglés 8"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Procesos constructivos"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Termodinámica y electromagnetismo"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Análisis estructural II"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Geotecnia II"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Habilidades directivas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Hidráulica de canales"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Ingeniería de sistemas I"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Instalaciones"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Métodos numéricos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Diseño de estructuras de concreto"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Evaluación de proyectos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Hidrología"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Ingeniería de sistemas II"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Programación y presupuestación"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Sustentabilidad e impacto ambiental"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Transporte"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Abastecimiento de agua potable y alcantarillado"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Aprovechamientos hidráulicos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Carreteras"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Concreto preforzado"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de estructuras de acero"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Disposición de residuos sólidos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Estrategias competitivas"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Estructuras de mampostería"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Ferrocarriles"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Hidráulica de ríos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Integrativa profesional*"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Legislación en la construcción"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Modelación computacional en hidráulica"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Obras hidráulicas"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Proyecto ejecutivo de carreteras"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Proyecto estructural"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Puentes"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Software de optimización"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Software de transporte"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Supervisión de obra"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Sustainable buildings"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Tratamiento de agua residual municipal"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Vías terrestres"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Administración de la construcción"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Pavimentos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Proyecto de investigación"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Sistemas de tratamiento de aguas residuales"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Software de construcción"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Ética y responsabilidad profesional"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Práctica profesional"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Servicio social"
+    }
+  ],
+  "Ingeniería en Computación": [
+    {
+      "semestre": 1,
+      "asignatura": "Cálculo I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "El ingeniero y su entorno socioeconómico"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Física"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Geometría analítica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Programación I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Álgebra superior"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Cálculo II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Ecuaciones diferenciales"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Epistemología"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Inglés 5"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Programación II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Química"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Álgebra lineal"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Bases de datos I"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Comunicación y relaciones humanas"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cálculo III"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Inglés 6"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Matemáticas discretas"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Paradigmas de programación I"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Probabilidad y estadística"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Arquitectura de computadoras"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Bases de datos II"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Electromagnetismo"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Inglés 7"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Métodos estadísticos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Métodos numéricos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Paradigmas de programación II"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Circuitos eléctricos y electrónicos"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Ensambladores"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Ingeniería de software I"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Inglés 8"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Inteligencia artificial"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Investigación de operaciones"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Transmisión de datos"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Administración de recursos informáticos"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Compiladores"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Ingeniería de software II"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Procesamiento de imágenes digitales"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Protocolos de comunicación de datos"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Sistemas analógicos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Administración de proyectos informáticos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Arquitectura de redes"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Ciencia de los datos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Graficación computacional"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Robótica"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Sistemas digitales"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Sistemas operativos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Análisis y diseño de redes"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Computing in industry"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Gestión de proyectos de investigación"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Gestión de redes"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Integrativa profesional"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Seguridad de la información"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Sistemas embebidos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Tecnologías computacionales I"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Ética profesional y sustentabilidad"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Interacción hombre-máquina"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Proyecto integral de comunicación de datos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Proyecto integral de ingeniería de software"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Reconocimiento de patrones"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Sistemas interactivos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Tecnologías computacionales II"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Tecnologías emergentes"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Tópicos de tecnologías de datos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Visión artificial"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Práctica profesional"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Servicio social"
+    }
+  ],
+  "Ingeniería en Electrónica": [
+    {
+      "semestre": 1,
+      "asignatura": "Cálculo I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "El ingeniero y su entorno socioeconómico"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Geometría analítica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Programación básica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Álgebra superior"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Cálculo II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Ecuaciones diferenciales"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Epistemología"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Inglés 5"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Química"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Álgebra lineal"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cálculo III"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Dinámica"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Física de semiconductores"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Inglés 6"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Metrología"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Probabilidad y estadística"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Termodinámica"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Ciencia, tecnología y sociedad"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Circuitos eléctricos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Cálculo avanzado"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Dibujo electrónico"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Inglés 7"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Métodos numéricos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Teoría electromagnética I"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Administración de la producción"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Electrónica I"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Inglés 8"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Modelado de sistemas dinámicos aplicados"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Máquinas eléctricas"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Sistemas lineales y señales"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Teoría electromagnética II"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Control analógico y digital I"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Electrónica II"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Física de ondas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Instalaciones eléctricas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Radiación y propagación electromagnética"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Sistemas digitales"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Comunicación I"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Control analógico y digital II"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Costos y evaluación de proyectos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Electrónica de potencia I"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Comunicación II"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Electrónica de potencia II"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Instrumentación"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Integrativa profesional*"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Mantenimiento industrial"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Programación paralela y sistemas operativos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Bioelectronics"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Control avanzado"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Control de procesos industriales"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Electrónica de los sistemas de transporte"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Electrónica de potencia en sistemas sustentables"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Filtrado de señales"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Ingeniería de audio"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Redes de comunicación"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Robótica"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Sistemas embebidos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Telefonía"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Práctica profesional"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Servicio social"
+    }
+  ],
+  "Ingeniería en Inteligencia Artificial": [
+    {
+      "semestre": 1,
+      "asignatura": "Cultura de paz, igualdad de género e inclusión"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "English 5"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Matemáticas para computación"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Matemáticas para inteligencia artificial"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Programación I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Álgebra superior y geometría analítica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Ética de la confianza como responsabilidad"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Cálculo de una variable"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "English 6"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Estructuras de datos"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Lenguajes formales y autómatas"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Programación II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Álgebra lineal"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Bases de datos"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Computer networks"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cálculo multivariable"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "English 7"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Paradigmas de programación"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Probabilidad y estadística"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Distributed systems and cloud computing"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Electrónica"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "English 8"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Experimental design and analysis"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Knowledge Representation and Reasoning"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Optimización"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Embedded systems and internet of things"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Machine Learning"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Normatividad de la inteligencia artificial"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Seguridad cibernética"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Software engineering I"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Teoría de la decisión"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Ciencia de los datos"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Digital image processing"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Generative artificial intelligence"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Integrativa profesional*"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Metaheurísticas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Natural Language Processing"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Optional 1"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Pattern recognition"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Reinforcement learning"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Software engineering II"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Wearable computing"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "3D Visualization"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Artificial neural networks and deep learning"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Automatic text processing"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Big Data"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Business management"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Computer vision"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Domotic and smart cities"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Evolutionary computation"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Explainable artificial intelligence"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Gestión de proyectos de investigación"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Human-Computer Interaction"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Optional 2"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Optional 3"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Programación en la nube"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Robot programming"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Ética de la persona y la comunidad"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Artificial intelligence project"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Práctica profesional"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Servicio social"
+    }
+  ],
+  "Ingeniería Mecánica": [
+    {
+      "semestre": 1,
+      "asignatura": "Cálculo I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "El ingeniero y su entorno socioeconómico"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Geometría analítica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Mecánica de la partícula"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Programación básica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Álgebra superior"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Cálculo II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Dibujo mecánico I"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Ecuaciones diferenciales"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Epistemología"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Estática"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Inglés 5"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Álgebra lineal"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cultura y comunicación en ingeniería"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cálculo III"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Dinámica"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Inglés 6"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Mecánica de materiales"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Metrología dimensional"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Probabilidad y estadística"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Química"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Ciencia de materiales I"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Dibujo mecánico II"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Electricidad y magnetismo"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Inglés 7"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Mecánica del medio continuo"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Métodos numéricos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Vibraciones mecánicas"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Análisis de mecanismos"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Ciencia de materiales II"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Circuitos eléctricos"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Inglés 8"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Metrología eléctrica"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Problemas socioeconómicos de México"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Procesos de manufactura"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Termodinámica"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Desarrollo de habilidades directivas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Dinámica de sistemas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Diseño de transmisiones"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Electrónica"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Integrativa profesional*"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Investigación de operaciones"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Máquinas eléctricas"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Administración industrial"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Control clásico"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Instalaciones eléctricas"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Manufactura aplicada"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Mecánica de fluidos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Termoquímica"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Transferencia de calor"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Acondicionamiento de aire"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Administración de la calidad"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Ahorro de energía eléctrica"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Análisis de tolerancias"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Automatización avanzada"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Automatización de procesos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Calibración automotriz"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Calidad y normatividad"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Caracterización de plásticos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Ciclos de potencia avanzados"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Computer aided manufacturing"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Contabilidad administrativa"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Control de sistemas de potencia"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Control digital"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diagnósticos energéticos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Dies and mold design"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de elementos mecánicos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de equipo térmico"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de experimentos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de generadores de vapor"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de mecanismos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de sistemas de manufactura"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de sistemas de transmisión"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño de turbomáquinas"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño mecatrónico"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diseño mecánico especializado"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Engineering in the automotive industry"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Ingeniería de manufactura automotriz"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Instalaciones electromecánicas"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Mantenimiento industrial"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Materiales poliméricos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Máquinas de desplazamiento positivo"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Método del elemento finito"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Procesos de formado de metales"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Producción automatizada"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Proyectos industriales"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Psicología industrial"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Robotics"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Sistemas automotrices"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Tecnologías de procesamiento de plásticos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Tecnologías para el reciclado de plásticos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Thermal engine design"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Tribología"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Turbomaquinaria"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "World class manufacturing"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Control ambiental"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Diseño de herramental"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Gestión empresarial y proyectos de inversión"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Práctica profesional"
+    },
+    {
+      "semestre": 10,
+      "asignatura": "Servicio social"
+    }
+  ],
+  "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables": [
+    {
+      "semestre": 1,
+      "asignatura": "Cultura de paz, igualdad de género e inclusión"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Cálculo I"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Física"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Geometría analítica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Programación básica"
+    },
+    {
+      "semestre": 1,
+      "asignatura": "Álgebra superior"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Cálculo II"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Ecuaciones diferenciales"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Inglés 5"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Probabilidad y estadística"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Química orgánica y organometálica"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Álgebra lineal"
+    },
+    {
+      "semestre": 2,
+      "asignatura": "Ética de la confianza como responsabilidad"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Ciencia de materiales"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Cálculo III"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Dibujo técnico"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Inglés 6"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Mecánica clásica"
+    },
+    {
+      "semestre": 3,
+      "asignatura": "Métodos numéricos"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Electricidad y magnetismo"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Inglés 7"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Mecánica del medio continuo"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Metrología dimensional y eléctrica"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Métodos experimentales"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Termodinámica"
+    },
+    {
+      "semestre": 4,
+      "asignatura": "Termoquímica"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Circuitos eléctricos y electrónicos"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Geometría solar y solarimetría"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Ingeniería térmica"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Inglés 8"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Mecánica de fluidos"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Mecánica de materiales"
+    },
+    {
+      "semestre": 5,
+      "asignatura": "Tecnología del hidrógeno"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Conversión de la energía eólica"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Ingeniería del desarrollo sostenible"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Integrativa profesional*"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Máquinas eléctricas"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Sistemas geotérmicos"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Tecnología ecológica"
+    },
+    {
+      "semestre": 6,
+      "asignatura": "Transferencia de calor"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Biocombustibles"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Bioenergía"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Bioquímica energética"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Biorefineries"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Calor de proceso"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Computational fluid dynamics"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Control e instrumentación"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Desarrollo de parques eólicos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Diseño de aerogeneradores"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Diseño de equipo térmico"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Edificaciones sustentables"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Integridad en aerogeneradores"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Materiales para aplicaciones fototérmicas"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Materiales para aplicaciones optoelectroquímicas"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Mercado fotovoltáico"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Sistemas fotovoltaicos"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Solar thermal energy conversion"
+    },
+    {
+      "semestre": 7,
+      "asignatura": "Turbomaquinaria"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Diagnósticos energéticos"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Electrónica de potencia"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Pequeñas centrales hidroeléctricas"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Redes inteligentes"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Sistemas para el almacenamiento de la energía"
+    },
+    {
+      "semestre": 8,
+      "asignatura": "Ética de la persona y la comunidad"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Instalaciones eléctricas"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Investigación en sistemas energéticos"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Práctica profesional"
+    },
+    {
+      "semestre": 9,
+      "asignatura": "Servicio social"
+    }
+  ]
+}

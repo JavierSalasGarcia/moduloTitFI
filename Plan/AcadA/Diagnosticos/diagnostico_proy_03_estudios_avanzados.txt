@@ -1,0 +1,39 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+PROYECTO 3: ESTUDIOS AVANZADOS DE EXCELENCIA Y PERTINENCIA SOCIAL
+================================================================================
+
+DIAGNÓSTICO
+
+1. Formación de estudiantes de estudios avanzados y pertinencia social
+
+Los estudios avanzados de la Facultad de Ingeniería forman recursos humanos de alta especialización científica y tecnológica (UAEMéx, 2025a). En el ciclo 2024–2025, la matrícula total de posgrado alcanzó 121 estudiantes (69 en maestría, 42 en doctorado y 10 en especialidad), registrando un incremento del 16.7% en la matrícula doctoral respecto a 2016 y atendiendo una demanda anual de 104 solicitudes de ingreso (Coordinación de Estudios Avanzados [CEA-FI], 2025).
+
+[[GRAFICA: grafica_p03_01_matricula_posgrado.png | Figura 1. Evolución de la matrícula y graduación en estudios avanzados de la Facultad de Ingeniería (2016–2025).]]
+
+Durante 2024–2025 egresaron 28 personas graduadas de posgrado, logrando una tasa de graduación oportuna superior al 75% en maestría y 70% en doctorado (CEA-FI, 2025). El 100% de las y los estudiantes inscritos en programas con registro vigente cuenta con beca nacional del Consejo Nacional de Humanidades, Ciencias y Tecnologías (CONAHCYT, 2024). Asimismo, se realizan entre 8 y 12 estancias de investigación anuales en centros de excelencia nacional e internacional, generando productos científicos indizados en JCR y Scopus (Secretaría de Investigación y Estudios Avanzados [SIEA-UAEMéx], 2025).
+
+Tabla 1. Indicadores de matrícula, eficiencia y posgrados en el SNP (2016–2025)
+| Indicador de Posgrado | Periodo 2016–2017 | Periodo 2024–2025 | Variación Neta | Situación / Tendencia |
+|---|---|---|---|---|
+| Matrícula total de posgrado | 126 estudiantes | 121 estudiantes | -5 estudiantes | Estabilidad cualitativa |
+| Matrícula de Doctorado | 36 estudiantes | 42 estudiantes | +6 estudiantes | +16.7% crecimiento |
+| Solicitudes de ingreso anuales | 98 solicitudes | 104 solicitudes | +6 solicitudes | +6.1% demanda |
+| Personas graduadas por año | 24 graduados | 28 graduados | +4 graduados | +16.7% incremento |
+| Programas en el SNP (CONAHCYT) | 4 programas | 5 programas | +1 programa | 100% elegibles en SNP |
+Fuente: UAEMéx (2025a) y Coordinación de Estudios Avanzados de la Facultad de Ingeniería (2025).
+
+2. Oferta educativa de excelencia y diversificación en estudios avanzados
+
+La oferta comprende la Maestría y Doctorado en Ciencias del Agua, la Maestría y Doctorado en Ciencia de Materiales, la Maestría en Ciencias de la Computación y la Especialidad en Valuación de Bienes Inmuebles, programas registrados en el Sistema Nacional de Posgrados (CONAHCYT, 2024). El 85% del claustro docente de posgrado pertenece al Sistema Nacional de Investigadoras e Investigadores (SNII, 2025). Entre los retos prioritarios se ubica la diversificación hacia áreas de Inteligencia Artificial Aplicada, Ciberseguridad y Energías Renovables, así como profundizar proyectos con impacto y retribución comunitaria en la entidad (CEA-FI, 2025; UAEMéx, 2025b).
+
+Fuentes y Referencias (Formato APA 7ma ed.)
+- CEA-FI. (2025). *Informe de gestión académica e indicadores de posgrado 2024–2025*. Coordinación de Estudios Avanzados, Facultad de Ingeniería, UAEMéx.
+- CONAHCYT. (2024). *Padrón del Sistema Nacional de Posgrados (SNP) y lineamientos de becas de posgrado*. Consejo Nacional de Humanidades, Ciencias y Tecnologías.
+- SIEA-UAEMéx. (2025). *Reporte anual de investigación y posgrado*. Secretaría de Investigación y Estudios Avanzados, UAEMéx.
+- SNII. (2025). *Padrón de beneficiarios del Sistema Nacional de Investigadoras e Investigadores*. Secretaría de Ciencia, Humanidades, Tecnología e Innovación.
+- UAEMéx. (2025a). *Agenda Estadística Universitaria 2025*. Dirección de Planeación y Desarrollo Institucional, UAEMéx.
+- UAEMéx. (2025b). *Plan Rector de Desarrollo Institucional 2025–2029*. UAEMéx.
+
+================================================================================
+OBJETIVO GENERAL

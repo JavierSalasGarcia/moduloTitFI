@@ -1,0 +1,9 @@
+[
+  "app/Core/Auth.php",
+  "app/Core/WebAuthn.php",
+  "app/Core/AccessControl.php",
+  "app/Modules/Auth/AuthController.php",
+  "app/Modules/Auth/RegistroController.php",
+  "app/Modules/Auth/views/login.php",
+  "app/Modules/Auth/views/registro.php"
+]

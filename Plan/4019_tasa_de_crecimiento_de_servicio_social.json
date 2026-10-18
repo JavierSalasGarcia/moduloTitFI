@@ -1,0 +1,1252 @@
+{
+  "id_categoria": "4019",
+  "categoria": "Tasa de crecimiento de Servicio Social",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4019",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZTMwYWU0YjgtMzBhOS00ZjNjLWJhNWEtNDNkNDU1ZDBhZmEwIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 20,
+      "nombre": "Retribución social a través de trabajos colaborativos con la sociedad mexiquense"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "TCMA SS 2018-2025"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "TCMA SS 2018-2025"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "TCMA SS 2018-2025": 0.019321129210408294,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "004",
+        "metricas": [
+          "Año Menor Crecimiento SS"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "Año Menor Crecimiento SS"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "0"
+        },
+        "registros": [
+          {
+            "Año Menor Crecimiento SS": 2020,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "005",
+        "metricas": [
+          "Año Mayor Crecimiento SS"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "Año Mayor Crecimiento SS"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "0"
+        },
+        "registros": [
+          {
+            "Año Mayor Crecimiento SS": 2021,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "007",
+        "metricas": [
+          "Año",
+          "Total_Servicio_Social",
+          "Año Anterior_Serv_Social"
+        ],
+        "campos_modelo": {
+          "20 Serv Social Pro Educativo.Año": "Año",
+          "20 Serv Social Pro Educativo.Total_Servicio_Social": "Total_Servicio_Social",
+          "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "Año Anterior_Serv_Social"
+        },
+        "formatos": {
+          "20 Serv Social Pro Educativo.Año": "0",
+          "20 Serv Social Pro Educativo.Total_Servicio_Social": "0",
+          "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Total_Servicio_Social": 293,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2019,
+            "Total_Servicio_Social": 329,
+            "Año Anterior_Serv_Social": 293,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2020,
+            "Total_Servicio_Social": 201,
+            "Año Anterior_Serv_Social": 329,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2021,
+            "Total_Servicio_Social": 321,
+            "Año Anterior_Serv_Social": 201,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2022,
+            "Total_Servicio_Social": 343,
+            "Año Anterior_Serv_Social": 321,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2023,
+            "Total_Servicio_Social": 361,
+            "Año Anterior_Serv_Social": 343,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2024,
+            "Total_Servicio_Social": 256,
+            "Año Anterior_Serv_Social": 361,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          },
+          {
+            "Año": 2025,
+            "Total_Servicio_Social": 335,
+            "Año Anterior_Serv_Social": 256,
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 8
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Total_Servicio_Social",
+          "metrica_modelo": "20 Serv Social Pro Educativo.Total_Servicio_Social",
+          "periodo_inicial": "2018",
+          "valor_inicial": 293,
+          "periodo_final": "2025",
+          "valor_final": 335,
+          "cambio_absoluto": 42,
+          "visual_fuente": "007",
+          "proyectos": [
+            2,
+            20,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Total_Servicio_Social: 293 en 2018 y 335 en 2025 (cambio +42).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "TCMA SS 2018-2025"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "TCMA SS 2018-2025"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA SS 2018-2025": 0.0463627731357239,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año Menor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "Año Menor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Menor Crecimiento SS": 2020,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Año Mayor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "Año Mayor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Mayor Crecimiento SS": 2021,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Año",
+            "Total_Servicio_Social",
+            "Año Anterior_Serv_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "Total_Servicio_Social",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "Año Anterior_Serv_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "0",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_Servicio_Social": 75,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_Servicio_Social": 96,
+              "Año Anterior_Serv_Social": 75,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_Servicio_Social": 57,
+              "Año Anterior_Serv_Social": 96,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_Servicio_Social": 97,
+              "Año Anterior_Serv_Social": 57,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_Servicio_Social": 106,
+              "Año Anterior_Serv_Social": 97,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_Servicio_Social": 90,
+              "Año Anterior_Serv_Social": 106,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_Servicio_Social": 81,
+              "Año Anterior_Serv_Social": 90,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_Servicio_Social": 103,
+              "Año Anterior_Serv_Social": 81,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_Servicio_Social",
+            "metrica_modelo": "20 Serv Social Pro Educativo.Total_Servicio_Social",
+            "periodo_inicial": "2018",
+            "valor_inicial": 75,
+            "periodo_final": "2025",
+            "valor_final": 103,
+            "cambio_absoluto": 28,
+            "visual_fuente": "007",
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_Servicio_Social: 75 en 2018 y 103 en 2025 (cambio +28).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "TCMA SS 2018-2025"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "TCMA SS 2018-2025"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA SS 2018-2025": -0.012353260923240739,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año Menor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "Año Menor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Menor Crecimiento SS": 2024,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Año Mayor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "Año Mayor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Mayor Crecimiento SS": 2023,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Año",
+            "Total_Servicio_Social",
+            "Año Anterior_Serv_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "Total_Servicio_Social",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "Año Anterior_Serv_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "0",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_Servicio_Social": 84,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_Servicio_Social": 72,
+              "Año Anterior_Serv_Social": 84,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_Servicio_Social": 53,
+              "Año Anterior_Serv_Social": 72,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_Servicio_Social": 75,
+              "Año Anterior_Serv_Social": 53,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_Servicio_Social": 62,
+              "Año Anterior_Serv_Social": 75,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_Servicio_Social": 96,
+              "Año Anterior_Serv_Social": 62,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_Servicio_Social": 50,
+              "Año Anterior_Serv_Social": 96,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_Servicio_Social": 77,
+              "Año Anterior_Serv_Social": 50,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_Servicio_Social",
+            "metrica_modelo": "20 Serv Social Pro Educativo.Total_Servicio_Social",
+            "periodo_inicial": "2018",
+            "valor_inicial": 84,
+            "periodo_final": "2025",
+            "valor_final": 77,
+            "cambio_absoluto": -7,
+            "visual_fuente": "007",
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_Servicio_Social: 84 en 2018 y 77 en 2025 (cambio -7).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "TCMA SS 2018-2025"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "TCMA SS 2018-2025"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA SS 2018-2025": 0.037834975750525635,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año Menor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "Año Menor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Menor Crecimiento SS": 2020,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Año Mayor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "Año Mayor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Mayor Crecimiento SS": 2021,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Año",
+            "Total_Servicio_Social",
+            "Año Anterior_Serv_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "Total_Servicio_Social",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "Año Anterior_Serv_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "0",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_Servicio_Social": 64,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_Servicio_Social": 69,
+              "Año Anterior_Serv_Social": 64,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_Servicio_Social": 42,
+              "Año Anterior_Serv_Social": 69,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_Servicio_Social": 80,
+              "Año Anterior_Serv_Social": 42,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_Servicio_Social": 73,
+              "Año Anterior_Serv_Social": 80,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_Servicio_Social": 94,
+              "Año Anterior_Serv_Social": 73,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_Servicio_Social": 64,
+              "Año Anterior_Serv_Social": 94,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_Servicio_Social": 83,
+              "Año Anterior_Serv_Social": 64,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_Servicio_Social",
+            "metrica_modelo": "20 Serv Social Pro Educativo.Total_Servicio_Social",
+            "periodo_inicial": "2018",
+            "valor_inicial": 64,
+            "periodo_final": "2025",
+            "valor_final": 83,
+            "cambio_absoluto": 19,
+            "visual_fuente": "007",
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_Servicio_Social: 64 en 2018 y 83 en 2025 (cambio +19).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "TCMA SS 2018-2025"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "TCMA SS 2018-2025"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA SS 2018-2025": 0.020358550336943226,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año Menor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "Año Menor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Menor Crecimiento SS": 2020,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Año Mayor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "Año Mayor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Mayor Crecimiento SS": 2021,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Año",
+            "Total_Servicio_Social",
+            "Año Anterior_Serv_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "Total_Servicio_Social",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "Año Anterior_Serv_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "0",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_Servicio_Social": 33,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_Servicio_Social": 27,
+              "Año Anterior_Serv_Social": 33,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_Servicio_Social": 15,
+              "Año Anterior_Serv_Social": 27,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_Servicio_Social": 40,
+              "Año Anterior_Serv_Social": 15,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_Servicio_Social": 42,
+              "Año Anterior_Serv_Social": 40,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_Servicio_Social": 30,
+              "Año Anterior_Serv_Social": 42,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_Servicio_Social": 25,
+              "Año Anterior_Serv_Social": 30,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_Servicio_Social": 38,
+              "Año Anterior_Serv_Social": 25,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_Servicio_Social",
+            "metrica_modelo": "20 Serv Social Pro Educativo.Total_Servicio_Social",
+            "periodo_inicial": "2018",
+            "valor_inicial": 33,
+            "periodo_final": "2025",
+            "valor_final": 38,
+            "cambio_absoluto": 5,
+            "visual_fuente": "007",
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_Servicio_Social: 33 en 2018 y 38 en 2025 (cambio +5).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura de Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "TCMA SS 2018-2025"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "TCMA SS 2018-2025"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.TCMA SS 2018-2025": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA SS 2018-2025": -0.01200696105483745,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "Año Menor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "Año Menor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Menor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Menor Crecimiento SS": 2020,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "005",
+          "metricas": [
+            "Año Mayor Crecimiento SS"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "Año Mayor Crecimiento SS"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año Mayor Crecimiento SS": "0"
+          },
+          "registros": [
+            {
+              "Año Mayor Crecimiento SS": 2022,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "007",
+          "metricas": [
+            "Año",
+            "Total_Servicio_Social",
+            "Año Anterior_Serv_Social"
+          ],
+          "campos_modelo": {
+            "20 Serv Social Pro Educativo.Año": "Año",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "Total_Servicio_Social",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "Año Anterior_Serv_Social"
+          },
+          "formatos": {
+            "20 Serv Social Pro Educativo.Año": "0",
+            "20 Serv Social Pro Educativo.Total_Servicio_Social": "0",
+            "20 Serv Social Pro Educativo.Año Anterior_Serv_Social": "0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Total_Servicio_Social": 37,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2019,
+              "Total_Servicio_Social": 65,
+              "Año Anterior_Serv_Social": 37,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2020,
+              "Total_Servicio_Social": 34,
+              "Año Anterior_Serv_Social": 65,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2021,
+              "Total_Servicio_Social": 29,
+              "Año Anterior_Serv_Social": 34,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2022,
+              "Total_Servicio_Social": 60,
+              "Año Anterior_Serv_Social": 29,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2023,
+              "Total_Servicio_Social": 51,
+              "Año Anterior_Serv_Social": 60,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2024,
+              "Total_Servicio_Social": 36,
+              "Año Anterior_Serv_Social": 51,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            },
+            {
+              "Año": 2025,
+              "Total_Servicio_Social": 34,
+              "Año Anterior_Serv_Social": 36,
+              "proyectos": [
+                2,
+                20,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Total_Servicio_Social",
+            "metrica_modelo": "20 Serv Social Pro Educativo.Total_Servicio_Social",
+            "periodo_inicial": "2018",
+            "valor_inicial": 37,
+            "periodo_final": "2025",
+            "valor_final": 34,
+            "cambio_absoluto": -3,
+            "visual_fuente": "007",
+            "proyectos": [
+              2,
+              20,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Total_Servicio_Social: 37 en 2018 y 34 en 2025 (cambio -3).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

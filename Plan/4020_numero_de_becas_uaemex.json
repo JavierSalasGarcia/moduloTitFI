@@ -1,0 +1,2755 @@
+{
+  "id_categoria": "4020",
+  "categoria": "Número de Becas UAEMéx",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4020",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYTVjODY0YzYtYTI4Yi00Mjg2LWIyM2MtY2EyMDE0ZTFjMWI3IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 18,
+      "nombre": "Reconocimiento de la diversidad social en la universidad"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias de la Ingeniería (Computación)",
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Dinámicos)",
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Energéticos)",
+    "Doctorado en Ciencias del Agua",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura en Ingeniería Mecánica",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ciencias del Agua",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Inteligencia Artificial Aplicada",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "002",
+        "metricas": [
+          "Año",
+          "Suma de Total_Becas",
+          "Becas_Sexo"
+        ],
+        "campos_modelo": {
+          "2025_Becas bach lic pe.Año": "Año",
+          "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+          "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+        },
+        "formatos": {
+          "2025_Becas bach lic pe.Año": "0",
+          "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+        },
+        "registros": [
+          {
+            "Año": 2018,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 813,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2018,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 387,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2019,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1291,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2019,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 522,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2020,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1961,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2020,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 739,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2021,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1730,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2021,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 682,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2022,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1664,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2022,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 648,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2023,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1537,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2023,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 607,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2024,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1587,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2024,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 612,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2025,
+            "Becas_Sexo": "Hombre",
+            "Suma de Total_Becas": 1619,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          },
+          {
+            "Año": 2025,
+            "Becas_Sexo": "Mujer",
+            "Suma de Total_Becas": 594,
+            "proyectos": [
+              2,
+              3,
+              18
+            ]
+          }
+        ],
+        "numero_registros": 16
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Suma de Total_Becas",
+          "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+          "periodo_inicial": "2018",
+          "valor_inicial": 1200,
+          "periodo_final": "2025",
+          "valor_final": 2213,
+          "cambio_absoluto": 1013,
+          "visual_fuente": "002",
+          "proyectos": [
+            2,
+            3,
+            18
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Suma de Total_Becas: 1200 en 2018 y 2213 en 2025 (cambio +1013).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 38,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 17,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 27,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 11,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 28,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 8,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 37,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 13,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 23,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 13,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 20,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 10,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 20,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 11,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 14
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2019",
+            "valor_inicial": 55,
+            "periodo_final": "2025",
+            "valor_final": 31,
+            "cambio_absoluto": -24,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 55 en 2019 y 31 en 2025 (cambio -24).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias de la Ingeniería (Computación)": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería (Computación)",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 26,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 8,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 9,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 3,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 22,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 9,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 2,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 34,
+            "periodo_final": "2021",
+            "valor_final": 2,
+            "cambio_absoluto": -32,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 34 en 2018 y 2 en 2021 (cambio -32).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Dinámicos)": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería (Sistemas Dinámicos)",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 12,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 5,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 0,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 7,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 2,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 13,
+            "periodo_final": "2021",
+            "valor_final": 9,
+            "cambio_absoluto": -4,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 13 en 2018 y 9 en 2021 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias de la Ingeniería (Sistemas Energéticos)": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería (Sistemas Energéticos)",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 5,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 0,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 4,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 2,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 8
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 5,
+            "periodo_final": "2021",
+            "valor_final": 6,
+            "cambio_absoluto": 1,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 5 en 2018 y 6 en 2021 (cambio +1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias del Agua": {
+      "nombre": "Doctorado en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 30,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 26,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 11,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 22,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 10,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 23,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 6
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2023",
+            "valor_inicial": 12,
+            "periodo_final": "2025",
+            "valor_final": 33,
+            "cambio_absoluto": 21,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 12 en 2023 y 33 en 2025 (cambio +21).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 172,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 71,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 295,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 128,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 480,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 184,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 399,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 178,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 397,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 170,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 385,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 156,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 393,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 147,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 395,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 154,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 16
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 243,
+            "periodo_final": "2025",
+            "valor_final": 549,
+            "cambio_absoluto": 306,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 243 en 2018 y 549 en 2025 (cambio +306).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 391,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 79,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 382,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 85,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2024",
+            "valor_inicial": 470,
+            "periodo_final": "2025",
+            "valor_final": 467,
+            "cambio_absoluto": -3,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 470 en 2024 y 467 en 2025 (cambio -3).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 126,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 62,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 275,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 112,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 433,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 175,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 420,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 139,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 401,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 141,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 396,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 128,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 403,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 144,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 400,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 133,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 16
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 188,
+            "periodo_final": "2025",
+            "valor_final": 533,
+            "cambio_absoluto": 345,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 188 en 2018 y 533 en 2025 (cambio +345).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 62,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 10,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 122,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 25,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 226,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 47,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 182,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 41,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 205,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 42,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 168,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 47,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 189,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 38,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 195,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 40,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 16
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 72,
+            "periodo_final": "2025",
+            "valor_final": 235,
+            "cambio_absoluto": 163,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 72 en 2018 y 235 en 2025 (cambio +163).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería Mecánica": {
+      "nombre": "Licenciatura en Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 191,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 26,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 342,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 50,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 542,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 84,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 464,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 92,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 428,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 87,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 384,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 76,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 217,
+            "periodo_final": "2023",
+            "valor_final": 460,
+            "cambio_absoluto": 243,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 217 en 2018 y 460 en 2023 (cambio +243).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 3,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 17,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 13,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 4
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2024",
+            "valor_inicial": 4,
+            "periodo_final": "2025",
+            "valor_final": 30,
+            "cambio_absoluto": 26,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 4 en 2024 y 30 en 2025 (cambio +26).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 93,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 102,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 156,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 162,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 179,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 203,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 184,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 195,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 153,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 165,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 137,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 130,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 144,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 120,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 147,
+              "proyectos": [
+                2,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 94,
+              "proyectos": [
+                2,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 16
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 195,
+            "periodo_final": "2025",
+            "valor_final": 241,
+            "cambio_absoluto": 46,
+            "visual_fuente": "002",
+            "proyectos": [
+              2,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 195 en 2018 y 241 en 2025 (cambio +46).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 47,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 24,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 37,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 15,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 36,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 15,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 27,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 13,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 23,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 16,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 24,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 29,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 26,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 30,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 32,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 23,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 16
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 71,
+            "periodo_final": "2025",
+            "valor_final": 55,
+            "cambio_absoluto": -16,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 71 en 2018 y 55 en 2025 (cambio -16).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias del Agua": {
+      "nombre": "Maestría en Ciencias del Agua",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 43,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 37,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 6,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2018,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 15,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 11,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2019,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 10,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 11,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 8,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 9,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 8,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 7,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 4,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 6,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 9,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 8,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 16
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2018",
+            "valor_inicial": 21,
+            "periodo_final": "2025",
+            "valor_final": 17,
+            "cambio_absoluto": -4,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 21 en 2018 y 17 en 2025 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Inteligencia Artificial Aplicada": {
+      "nombre": "Maestría en Inteligencia Artificial Aplicada",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 2,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 2
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "002",
+          "metricas": [
+            "Año",
+            "Suma de Total_Becas",
+            "Becas_Sexo"
+          ],
+          "campos_modelo": {
+            "2025_Becas bach lic pe.Año": "Año",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "Suma de Total_Becas",
+            "2025_Becas bach lic pe.Becas_Sexo": "Becas_Sexo"
+          },
+          "formatos": {
+            "2025_Becas bach lic pe.Año": "0",
+            "Sum(2025_Becas bach lic pe.Total_Becas)": "#,0"
+          },
+          "registros": [
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 5,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2020,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 0,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 5,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2021,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 1,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 12,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2022,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 6,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 12,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2023,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 10,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 13,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2024,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 15,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Hombre",
+              "Suma de Total_Becas": 10,
+              "proyectos": [
+                3,
+                18
+              ]
+            },
+            {
+              "Año": 2025,
+              "Becas_Sexo": "Mujer",
+              "Suma de Total_Becas": 9,
+              "proyectos": [
+                3,
+                18
+              ]
+            }
+          ],
+          "numero_registros": 12
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Suma de Total_Becas",
+            "metrica_modelo": "Sum(2025_Becas bach lic pe.Total_Becas)",
+            "periodo_inicial": "2020",
+            "valor_inicial": 5,
+            "periodo_final": "2025",
+            "valor_final": 19,
+            "cambio_absoluto": 14,
+            "visual_fuente": "002",
+            "proyectos": [
+              3,
+              18
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Suma de Total_Becas: 5 en 2020 y 19 en 2025 (cambio +14).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "conciliacion_ultimo_periodo": {
+    "periodo": "2025",
+    "metrica": "Suma de Total_Becas",
+    "total_facultad": 2213,
+    "suma_programas_publicados": 2213,
+    "diferencia_sin_programa_identificable": 0,
+    "interpretacion": "La suma de programas coincide con el total de Facultad."
+  },
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

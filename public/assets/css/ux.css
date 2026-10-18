@@ -1,0 +1,125 @@
+/* Shared responsive interface. Keep the conversational home deliberately quiet. */
+:root { --ux-ink:#20392b; --ux-muted:#52635a; --ux-line:#dce5de; --ux-accent:#2d563a; }
+.cuenta-franja { display:flex; align-items:center; justify-content:center; gap:8px 16px; flex-wrap:wrap; padding:8px 16px; background:#eef4ee; border-bottom:1px solid var(--ux-line); color:var(--ux-ink); font-size:13px; }
+.cuenta-franja a { font-weight:650; text-decoration:underline; }
+.cuenta-franja form { margin:0; }
+[hidden] { display:none !important; }
+* { box-sizing:border-box; }
+body { line-height:1.55; }
+.ux-app .barra-superior { background:#fff; color:var(--ux-ink); border-bottom:1px solid var(--ux-line); z-index:40; }
+.ux-app .barra-superior a { color:var(--ux-ink); text-decoration:none; }
+.ux-app .btn-menu-movil { display:block; width:44px; height:44px; }
+.ux-app .btn-menu-movil span { background:var(--ux-ink); }
+.ux-app .menu-lateral { z-index:35; background:#fff; }
+.ux-app .contenido { width:100%; max-width:1400px; padding:24px 32px 48px; }
+.ux-app.portal-minimal .contenido { max-width:none; }
+.ux-app.nav-collapsed:not(.portal-minimal) .menu-lateral { display:none; }
+.ux-app h1 { font-size:clamp(23px,3vw,30px); letter-spacing:-.025em; margin:8px 0 24px; }
+.ux-app.portal-minimal .consulta-hero h1 { font-size:clamp(30px,5vw,46px); }
+.ux-app .card,.ux-app .tarjeta { border:1px solid var(--ux-line); border-radius:14px; box-shadow:0 2px 6px #20392b04; }
+.ux-app .btn,.cuerpo-auth .btn { min-height:44px; border-radius:9px; padding:9px 15px; white-space:normal; }
+.ux-app .btn-primario,.ux-app button.btn-primario[style] { background:var(--ux-accent) !important; border-color:var(--ux-accent) !important; color:#fff !important; }
+.ux-app input:not([type=checkbox]):not([type=radio]),.ux-app select,.ux-app textarea { border-radius:8px; min-height:44px; max-width:100%; }
+.ux-app input[type=checkbox],.ux-app input[type=radio] { width:20px; height:20px; flex-shrink:0; accent-color:var(--ux-accent); }
+.ux-app .texto-suave,.ux-app .texto-secundario,.ux-app .ayuda-form { color:var(--ux-muted); }
+.ux-app .ayuda-form { font-size:13px; }
+:focus-visible { outline:3px solid #327547 !important; outline-offset:3px !important; }
+.skip-link { position:fixed; top:4px; left:12px; transform:translateY(-150%); z-index:10001; background:white; padding:12px; }
+.skip-link:focus { transform:none; }
+.breadcrumbs { display:flex; flex-wrap:wrap; gap:8px; font-size:13px; color:var(--ux-muted); }
+.breadcrumbs a { padding:4px 0; }
+.seguridad-resumen { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 16px; padding:10px 14px; background:#faf6e9; border-radius:9px; font-size:13px; margin-bottom:18px; }
+.seguridad-resumen a { font-weight:650; }
+.menu-scrim { position:fixed; inset:48px 0 0; background:#15251b66; border:0; z-index:34; }
+.menu-seccion-titulo { min-height:44px; text-transform:none; letter-spacing:0; }
+.menu-item { min-height:44px; display:flex; align-items:center; }
+.ux-app .pestanas { flex-wrap:wrap; gap:4px; }
+.ux-app .pestana { min-height:44px; }
+.ux-app .pestana.activa { background:#e7f0e9; color:var(--ux-ink); }
+.ux-toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:12px 0; }
+.ux-toolbar label { margin:0; font-size:13px; flex:1; min-width:140px; }
+.ux-toolbar input,.ux-toolbar select { margin:4px 0 0; }
+.ux-toolbar .ux-count { color:var(--ux-muted); font-size:13px; }
+.ux-empty { padding:22px; border:1px dashed var(--ux-line); border-radius:12px; color:var(--ux-muted); }
+.ux-helper { font-size:14px; color:var(--ux-muted); }
+.ux-step { border:0; padding:0; min-width:0; margin:0 0 20px; }
+.ux-step legend { font-size:18px; color:var(--ux-ink); font-weight:700; margin:0 0 14px; }
+.ux-steps { display:flex; gap:6px; flex-wrap:wrap; padding:0; list-style:none; margin:0 0 18px; }
+.ux-steps button { border:1px solid var(--ux-line); color:var(--ux-muted); background:#fff; padding:8px 12px; border-radius:24px; min-height:44px; }
+.ux-steps button[aria-current=step] { background:var(--ux-accent); color:white; }
+.ux-wizard-actions { display:flex; justify-content:space-between; gap:12px; background:#fff; padding:12px 0; }
+.ux-review { background:#f3f7f4; border:1px solid var(--ux-line); padding:16px; border-radius:12px; }
+.ux-review dl { margin:0; }
+.ux-review dt { font-size:13px; font-weight:700; margin-top:10px; }
+.ux-review dd { margin:2px 0 8px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.ux-draft { margin:12px 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center; font-size:13px; }
+.ux-draft label { display:flex; align-items:center; gap:8px; margin:0; }
+.ux-draft-details { font-size:13px; margin:10px 0 18px; color:var(--ux-muted); }
+.ux-draft-details summary { cursor:pointer; min-height:32px; }
+.consulta-ejemplos-ayuda { margin:14px 0; text-align:center; color:var(--ux-muted); font-size:13px; }
+.consulta-ejemplos-ayuda summary { cursor:pointer; padding:8px; }
+.ux-app #calendario-grid button { min-height:44px; font-size:14px !important; }
+.ux-app .suggestion-item[aria-selected=true],.ux-app [role=option][aria-selected=true] { background:#e7f0e9; outline:2px solid #2d563a; }
+.ux-error { color:#9c2424; margin:6px 0; font-size:14px; }
+.ux-file-list { list-style:none; padding:0; margin:8px 0; }
+.ux-file-list li { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px; border-bottom:1px solid var(--ux-line); overflow-wrap:anywhere; }
+.ux-drop { border:2px dashed #8bac91; border-radius:10px; background:#f1f7f2; }
+.ux-file-progress { width:100%; }
+.ux-check-options { max-height:280px; overflow-y:auto; padding:4px; border:1px solid var(--ux-line); border-radius:10px; margin:8px 0; }
+.ux-check-options label { display:flex; align-items:center; gap:10px; padding:10px; margin:0; min-height:44px; }
+.ux-option-row { display:flex; align-items:center; gap:8px; margin:8px 0; }
+.ux-option-row input { flex:1; margin:0; }
+.ux-disclosure { padding:16px; border:1px solid var(--ux-line); border-radius:12px; margin-bottom:18px; background:#fff; }
+.ux-disclosure summary { cursor:pointer; font-weight:650; min-height:32px; }
+.ux-disclosure[open] summary { margin-bottom:18px; }
+.ux-dialog { border:0; padding:24px; border-radius:16px; width:min(600px,calc(100vw - 32px)); max-height:85dvh; overflow:auto; color:var(--ux-ink); }
+.ux-dialog::backdrop { background:#16281c77; }
+.ux-dialog .ux-dialog-close { float:right; }
+.ux-dialog p { white-space:pre-wrap; }
+.ux-notification-panel { position:absolute; right:0; top:100%; margin-top:10px; width:min(320px,calc(100vw - 32px)); z-index:20; background:#fff; padding:20px; border:1px solid var(--ux-line); border-radius:14px; box-shadow:0 10px 35px #20392b22; text-align:left; }
+.consulta-notificaciones { position:relative; }
+button.consulta-notificacion { cursor:pointer; font:inherit; }
+.consulta-ejemplos { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:14px 0; }
+.consulta-ejemplos button { border:1px solid var(--ux-line); border-radius:20px; background:#fff; padding:8px 14px; color:var(--ux-muted); cursor:pointer; min-height:44px; }
+.ux-progress-steps { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; }
+.ux-progress-steps li { padding:7px 12px; border-radius:20px; background:#f1f4f2; color:var(--ux-muted); }
+.ux-progress-steps li[aria-current=step] { background:#dceee0; color:#1e512d; font-weight:700; }
+.ux-app .tabla { font-size:14px; }
+.ux-app .tabla th { white-space:normal; }
+.ux-app .grupo-chips .chip { white-space:normal; overflow-wrap:anywhere; max-width:100%; }
+.ux-app .tabla td { overflow-wrap:anywhere; }
+.ux-app [data-ux-card] h2 { margin:0; }
+.ux-resource-actions { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.ux-resource-list { list-style:none; padding:0; }
+.ux-resource-list a { display:block; padding:10px 0; }
+.ux-app .auth-marca p { max-width:34ch; margin-inline:auto; }
+@media(min-width:900px) {
+ .ux-form-grid { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:24px; align-items:start; }
+ .ux-form-grid>.ux-review { position:sticky; top:72px; }
+}
+@media(max-width:899px) {
+ .ux-app .contenido { padding:18px 16px 36px; }
+ .ux-app .menu-lateral { width:min(300px,85vw); }
+ .ux-app .menu-lateral.abierto { display:flex; }
+ .ux-app input:not([type=checkbox]):not([type=radio]),.ux-app select,.ux-app textarea,.cuerpo-auth input { font-size:16px !important; }
+ .ux-app .barra-acciones { gap:12px; }
+ .ux-app .tabla.ux-card-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+ .ux-app .tabla.ux-card-table,.ux-app .tabla.ux-card-table tbody { display:block; width:100%; }
+ .ux-app .tabla.ux-card-table tr { display:block; padding:12px; border-bottom:1px solid var(--ux-line); background:#fff; }
+ .ux-app .tabla.ux-card-table td,.ux-app .tabla.ux-card-table td.oculta-movil { display:grid; grid-template-columns:minmax(75px,32%) minmax(0,1fr); gap:10px; padding:7px 4px; border:0; white-space:normal; }
+ .ux-app .tabla.ux-card-table td::before { content:attr(data-label); font-weight:600; color:var(--ux-muted); font-size:12px; }
+ .ux-app .tabla.ux-card-table td[colspan] { display:block; }
+ .ux-app .tabla.ux-card-table td[colspan]::before { content:none; }
+ .ux-app .tabla.ux-card-table td>* { min-width:0; }
+ .ux-wizard-actions { position:relative; padding-bottom:max(12px,env(safe-area-inset-bottom)); border-top:1px solid var(--ux-line); }
+ .ux-app .btn-mini,.ux-app button[title],.ux-app .remove-btn { min-width:44px !important; min-height:44px !important; }
+ .ux-app .card,.ux-app .tarjeta { max-width:100% !important; }
+ .ux-app .eventos-carrusel { flex-direction:column; }
+ .ux-app .cal-grid { min-width:0; }
+ .ux-app .seguridad-resumen { font-size:12px; padding:8px 12px; }
+ .ux-app .seguridad-resumen a { min-height:28px; display:flex; align-items:center; }
+ .ux-app .breadcrumbs { font-size:12px; }
+ .ux-app .consulta-ticket-acciones { flex-direction:column; align-items:stretch; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+@media(prefers-contrast:more) { :root { --ux-muted:#263a2b; --ux-line:#63796b; } }

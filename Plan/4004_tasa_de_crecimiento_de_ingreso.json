@@ -1,0 +1,2574 @@
+{
+  "id_categoria": "4004",
+  "categoria": "Tasa de crecimiento de Ingreso",
+  "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4004",
+  "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiMWE0MWZkNjktZDI1MC00N2VhLTljYWEtYTVkYWNjY2Q1NmI2IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
+  "fecha_extraccion": "2026-09-21",
+  "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
+  "proyectos_relacionados": [
+    {
+      "numero": 2,
+      "nombre": "Estudiantado con oportunidades para su pleno desarrollo y pertinencia en los estudios profesionales"
+    },
+    {
+      "numero": 3,
+      "nombre": "Estudios avanzados de excelencia y pertinencia social"
+    },
+    {
+      "numero": 15,
+      "nombre": "Planeación y evaluación que impulsan estratégicamente el desarrollo y fortalecimiento institucional"
+    }
+  ],
+  "regla_asociacion": "Cada registro contiene los números de proyectos aplicables. En programas educativos, el proyecto 2 corresponde a estudios profesionales y el 3 a estudios avanzados; las agregaciones de Facultad pueden servir a ambos.",
+  "filtro_facultad": "Espacio académico",
+  "filtro_programa": "Programa educativo",
+  "programas_disponibles": [
+    "Doctorado en Ciencias de la Ingeniería",
+    "Doctorado en Ciencias, Tecnología Biomédica y Control",
+    "Licenciatura de Ingeniería Civil",
+    "Licenciatura de Ingeniería Mecánica",
+    "Licenciatura de Ingeniería en Computación",
+    "Licenciatura de Ingeniería en Electrónica",
+    "Licenciatura de Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Inteligencia Artificial",
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+    "Maestría en Ciencias de la Ingeniería",
+    "Maestría en Ingeniería de la Cadena de Suministro",
+    "Maestría en Movilidad y Transporte"
+  ],
+  "facultad": {
+    "nombre": "Facultad de Ingeniería",
+    "nivel": "facultad",
+    "indicadores": [
+      {
+        "visual": "001",
+        "metricas": [
+          "Crecimiento Acumulado Total Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "Crecimiento Acumulado Total Ingreso": 0.5560344827586207,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "003",
+        "metricas": [
+          "Ciclo Mayor Crecimiento Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "004",
+        "metricas": [
+          "TCMA Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+        },
+        "registros": [
+          {
+            "TCMA Ingreso": 0.050353455544049686,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "009",
+        "metricas": [
+          "Ciclo Menor Crecimiento Ingreso"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+        },
+        "formatos": {},
+        "registros": [
+          {
+            "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 1
+      },
+      {
+        "visual": "010",
+        "metricas": [
+          "Ingreso",
+          "Ciclo Escolar Anterior_Ingreso_1",
+          "Ciclo escolar"
+        ],
+        "campos_modelo": {
+          "2025_Nvo Ingreso.Ingreso": "Ingreso",
+          "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+          "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+        },
+        "formatos": {
+          "2025_Nvo Ingreso.Ingreso": "0",
+          "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2016-2017",
+            "Ingreso": 464,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2017-2018",
+            "Ingreso": 496,
+            "Ciclo Escolar Anterior_Ingreso_1": 464,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2018-2019",
+            "Ingreso": 559,
+            "Ciclo Escolar Anterior_Ingreso_1": 496,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Ingreso": 575,
+            "Ciclo Escolar Anterior_Ingreso_1": 559,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Ingreso": 552,
+            "Ciclo Escolar Anterior_Ingreso_1": 575,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Ingreso": 412,
+            "Ciclo Escolar Anterior_Ingreso_1": 552,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Ingreso": 618,
+            "Ciclo Escolar Anterior_Ingreso_1": 412,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Ingreso": 683,
+            "Ciclo Escolar Anterior_Ingreso_1": 618,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Ingreso": 770,
+            "Ciclo Escolar Anterior_Ingreso_1": 683,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Ingreso": 722,
+            "Ciclo Escolar Anterior_Ingreso_1": 770,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 10
+      }
+    ],
+    "foda": {
+      "fortalezas": [
+        {
+          "tipo": "inferencia_basada_en_serie",
+          "metrica": "Ingreso",
+          "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+          "periodo_inicial": "2016-2017",
+          "valor_inicial": 464,
+          "periodo_final": "2025-2026",
+          "valor_final": 722,
+          "cambio_absoluto": 258,
+          "visual_fuente": "010",
+          "proyectos": [
+            2,
+            3,
+            15
+          ]
+        }
+      ],
+      "oportunidades": [],
+      "debilidades": [],
+      "amenazas": [],
+      "observaciones_sin_clasificar": [],
+      "diagnostico": "Ingreso: 464 en 2016-2017 y 722 en 2025-2026 (cambio +258).",
+      "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+      "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+    }
+  },
+  "carreras": {
+    "Doctorado en Ciencias de la Ingeniería": {
+      "nombre": "Doctorado en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": -0.7857142857142857,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2021-2022",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": -0.22643133427692697,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 6,
+              "Ciclo Escolar Anterior_Ingreso_1": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 10,
+              "Ciclo Escolar Anterior_Ingreso_1": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 4,
+              "Ciclo Escolar Anterior_Ingreso_1": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 3,
+              "Ciclo Escolar Anterior_Ingreso_1": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ciclo Escolar Anterior_Ingreso_1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 14,
+            "periodo_final": "2023-2024",
+            "valor_final": 3,
+            "cambio_absoluto": -11,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 14 en 2019-2020 y 3 en 2023-2024 (cambio -11).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Doctorado en Ciencias, Tecnología Biomédica y Control": {
+      "nombre": "Doctorado en Ciencias, Tecnología Biomédica y Control",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Civil": {
+      "nombre": "Licenciatura de Ingeniería Civil",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0.34513274336283184,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0.03349228332949017,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Ingreso": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Ingreso": 118,
+              "Ciclo Escolar Anterior_Ingreso_1": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Ingreso": 131,
+              "Ciclo Escolar Anterior_Ingreso_1": 118,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 132,
+              "Ciclo Escolar Anterior_Ingreso_1": 131,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ciclo Escolar Anterior_Ingreso_1": 132,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 97,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 131,
+              "Ciclo Escolar Anterior_Ingreso_1": 97,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 149,
+              "Ciclo Escolar Anterior_Ingreso_1": 131,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 158,
+              "Ciclo Escolar Anterior_Ingreso_1": 149,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 152,
+              "Ciclo Escolar Anterior_Ingreso_1": 158,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 113,
+            "periodo_final": "2025-2026",
+            "valor_final": 152,
+            "cambio_absoluto": 39,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 113 en 2016-2017 y 152 en 2025-2026 (cambio +39).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería Mecánica": {
+      "nombre": "Licenciatura de Ingeniería Mecánica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0.3565217391304348,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0.03446090986350758,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Ingreso": 115,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Ingreso": 117,
+              "Ciclo Escolar Anterior_Ingreso_1": 115,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Ingreso": 134,
+              "Ciclo Escolar Anterior_Ingreso_1": 117,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 127,
+              "Ciclo Escolar Anterior_Ingreso_1": 134,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 139,
+              "Ciclo Escolar Anterior_Ingreso_1": 127,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 92,
+              "Ciclo Escolar Anterior_Ingreso_1": 139,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 138,
+              "Ciclo Escolar Anterior_Ingreso_1": 92,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 144,
+              "Ciclo Escolar Anterior_Ingreso_1": 138,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 155,
+              "Ciclo Escolar Anterior_Ingreso_1": 144,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 156,
+              "Ciclo Escolar Anterior_Ingreso_1": 155,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 115,
+            "periodo_final": "2025-2026",
+            "valor_final": 156,
+            "cambio_absoluto": 41,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 115 en 2016-2017 y 156 en 2025-2026 (cambio +41).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Computación": {
+      "nombre": "Licenciatura de Ingeniería en Computación",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0.2882882882882883,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0.028545890173886646,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Ingreso": 111,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Ingreso": 113,
+              "Ciclo Escolar Anterior_Ingreso_1": 111,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Ingreso": 134,
+              "Ciclo Escolar Anterior_Ingreso_1": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 130,
+              "Ciclo Escolar Anterior_Ingreso_1": 134,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 135,
+              "Ciclo Escolar Anterior_Ingreso_1": 130,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 91,
+              "Ciclo Escolar Anterior_Ingreso_1": 135,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 154,
+              "Ciclo Escolar Anterior_Ingreso_1": 91,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 150,
+              "Ciclo Escolar Anterior_Ingreso_1": 154,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 145,
+              "Ciclo Escolar Anterior_Ingreso_1": 150,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 143,
+              "Ciclo Escolar Anterior_Ingreso_1": 145,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 111,
+            "periodo_final": "2025-2026",
+            "valor_final": 143,
+            "cambio_absoluto": 32,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 111 en 2016-2017 y 143 en 2025-2026 (cambio +32).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Electrónica": {
+      "nombre": "Licenciatura de Ingeniería en Electrónica",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0.7272727272727273,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0.0626088657876307,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Ingreso": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Ingreso": 70,
+              "Ciclo Escolar Anterior_Ingreso_1": 66,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Ingreso": 76,
+              "Ciclo Escolar Anterior_Ingreso_1": 70,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 68,
+              "Ciclo Escolar Anterior_Ingreso_1": 76,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 56,
+              "Ciclo Escolar Anterior_Ingreso_1": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 46,
+              "Ciclo Escolar Anterior_Ingreso_1": 56,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 89,
+              "Ciclo Escolar Anterior_Ingreso_1": 46,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 103,
+              "Ciclo Escolar Anterior_Ingreso_1": 89,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 122,
+              "Ciclo Escolar Anterior_Ingreso_1": 103,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 114,
+              "Ciclo Escolar Anterior_Ingreso_1": 122,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 66,
+            "periodo_final": "2025-2026",
+            "valor_final": 114,
+            "cambio_absoluto": 48,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 66 en 2016-2017 y 114 en 2025-2026 (cambio +48).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura de Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura de Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Inteligencia Artificial": {
+      "nombre": "Licenciatura en Ingeniería en Inteligencia Artificial",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 67,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Hay datos del ámbito, pero falta una serie temporal comparable o una referencia para valorar su dirección.",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables": {
+      "nombre": "Licenciatura en Ingeniería en Sistemas Energéticos Sustentables",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": 0.15254237288135594,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": 0.015899547273536152,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2025-2026",
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2016-2017",
+              "Ingreso": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2017-2018",
+              "Ingreso": 78,
+              "Ciclo Escolar Anterior_Ingreso_1": 59,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2018-2019",
+              "Ingreso": 84,
+              "Ciclo Escolar Anterior_Ingreso_1": 78,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 68,
+              "Ciclo Escolar Anterior_Ingreso_1": 84,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 62,
+              "Ciclo Escolar Anterior_Ingreso_1": 68,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 55,
+              "Ciclo Escolar Anterior_Ingreso_1": 62,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 81,
+              "Ciclo Escolar Anterior_Ingreso_1": 55,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 103,
+              "Ciclo Escolar Anterior_Ingreso_1": 81,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 96,
+              "Ciclo Escolar Anterior_Ingreso_1": 103,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 68,
+              "Ciclo Escolar Anterior_Ingreso_1": 96,
+              "proyectos": [
+                2,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 10
+        }
+      ],
+      "foda": {
+        "fortalezas": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2016-2017",
+            "valor_inicial": 59,
+            "periodo_final": "2025-2026",
+            "valor_final": 68,
+            "cambio_absoluto": 9,
+            "visual_fuente": "010",
+            "proyectos": [
+              2,
+              15
+            ]
+          }
+        ],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 59 en 2016-2017 y 68 en 2025-2026 (cambio +9).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ciencias de la Ingeniería": {
+      "nombre": "Maestría en Ciencias de la Ingeniería",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": -0.09090909090909091,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": -0.015759528290233193,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 14,
+              "Ciclo Escolar Anterior_Ingreso_1": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 8,
+              "Ciclo Escolar Anterior_Ingreso_1": 14,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 13,
+              "Ciclo Escolar Anterior_Ingreso_1": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ciclo Escolar Anterior_Ingreso_1": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 10,
+              "Ciclo Escolar Anterior_Ingreso_1": 12,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 11,
+            "periodo_final": "2025-2026",
+            "valor_final": 10,
+            "cambio_absoluto": -1,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 11 en 2019-2020 y 10 en 2025-2026 (cambio -1).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Ingeniería de la Cadena de Suministro": {
+      "nombre": "Maestría en Ingeniería de la Cadena de Suministro",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": -0.75,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2024-2025",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": -0.2062994740159002,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 3,
+              "Ciclo Escolar Anterior_Ingreso_1": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 7,
+              "Ciclo Escolar Anterior_Ingreso_1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 0,
+              "Ciclo Escolar Anterior_Ingreso_1": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 3,
+              "Ciclo Escolar Anterior_Ingreso_1": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 7,
+              "Ciclo Escolar Anterior_Ingreso_1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ingreso": 4,
+              "Ciclo Escolar Anterior_Ingreso_1": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 16,
+            "periodo_final": "2025-2026",
+            "valor_final": 4,
+            "cambio_absoluto": -12,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 16 en 2019-2020 y 4 en 2025-2026 (cambio -12).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
+    "Maestría en Movilidad y Transporte": {
+      "nombre": "Maestría en Movilidad y Transporte",
+      "nivel": "programa",
+      "indicadores": [
+        {
+          "visual": "001",
+          "metricas": [
+            "Crecimiento Acumulado Total Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "Crecimiento Acumulado Total Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Crecimiento Acumulado Total Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "Crecimiento Acumulado Total Ingreso": -0.4444444444444444,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "003",
+          "metricas": [
+            "Ciclo Mayor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Mayor Crecimiento Ingreso": "Ciclo Mayor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "004",
+          "metricas": [
+            "TCMA Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "TCMA Ingreso"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.TCMA Ingreso": "0.0\\ %;-0.0\\ %;0.0\\ %"
+          },
+          "registros": [
+            {
+              "TCMA Ingreso": -0.09331885900086678,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "009",
+          "metricas": [
+            "Ciclo Menor Crecimiento Ingreso"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ciclo Menor Crecimiento Ingreso": "Ciclo Menor Crecimiento Ingreso"
+          },
+          "formatos": {},
+          "registros": [
+            {
+              "Ciclo Menor Crecimiento Ingreso": "2024-2025",
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 1
+        },
+        {
+          "visual": "010",
+          "metricas": [
+            "Ingreso",
+            "Ciclo Escolar Anterior_Ingreso_1",
+            "Ciclo escolar"
+          ],
+          "campos_modelo": {
+            "2025_Nvo Ingreso.Ingreso": "Ingreso",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "Ciclo Escolar Anterior_Ingreso_1",
+            "2025_Nvo Ingreso.Ciclo escolar": "Ciclo escolar"
+          },
+          "formatos": {
+            "2025_Nvo Ingreso.Ingreso": "0",
+            "2025_Nvo Ingreso.Año Anterior_Ingreso": "0"
+          },
+          "registros": [
+            {
+              "Ciclo escolar": "2019-2020",
+              "Ingreso": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Ingreso": 5,
+              "Ciclo Escolar Anterior_Ingreso_1": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Ingreso": 6,
+              "Ciclo Escolar Anterior_Ingreso_1": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Ingreso": 8,
+              "Ciclo Escolar Anterior_Ingreso_1": 6,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Ingreso": 10,
+              "Ciclo Escolar Anterior_Ingreso_1": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Ingreso": 5,
+              "Ciclo Escolar Anterior_Ingreso_1": 10,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Ciclo Escolar Anterior_Ingreso_1": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 7
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [
+          {
+            "tipo": "inferencia_basada_en_serie",
+            "metrica": "Ingreso",
+            "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
+            "periodo_inicial": "2019-2020",
+            "valor_inicial": 9,
+            "periodo_final": "2024-2025",
+            "valor_final": 5,
+            "cambio_absoluto": -4,
+            "visual_fuente": "010",
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "Ingreso: 9 en 2019-2020 y 5 en 2024-2025 (cambio -4).",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    }
+  },
+  "limitaciones": [
+    "Los datos por carrera sólo se incluyen cuando el tablero publica un filtro de programa educativo para esta categoría.",
+    "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
+  ],
+  "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+}

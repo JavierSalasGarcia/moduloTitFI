@@ -1,0 +1,84 @@
+Número de cuestionario: C01
+Dirigida a: Estudiantes de los primeros semestres de las seis licenciaturas
+Han contestado: 184
+Imagen del código QR: C01_estudiantes_de_materias_propedeuticas.png
+-----------
+Número de cuestionario: C02
+Dirigida a: Profesoras y profesores que imparten docencia en las seis licenciaturas
+Han contestado: 0
+Imagen del código QR: C02_profesorado_de_licenciatura.png
+-----------
+Número de cuestionario: C03
+Dirigida a: Profesoras y profesores de maestría, doctorado y especialidad
+Han contestado: 0
+Imagen del código QR: C03_profesorado_de_estudios_avanzados.png
+-----------
+Número de cuestionario: C04
+Dirigida a: Personal administrativo de todas las áreas de la Facultad
+Han contestado: 0
+Imagen del código QR: C04_personal_administrativo.png
+-----------
+Número de cuestionario: C05
+Dirigida a: Persona responsable de la Coordinación de Docencia de Ingeniería Civil
+Han contestado: 0
+Imagen del código QR: C05_coordinacion_de_docencia_ingenieria_civil.png
+-----------
+Número de cuestionario: C06
+Dirigida a: Persona responsable de la Coordinación de Docencia de Ingeniería Mecánica
+Han contestado: 0
+Imagen del código QR: C06_coordinacion_de_docencia_ingenieria_mecanica.png
+-----------
+Número de cuestionario: C07
+Dirigida a: Persona responsable de la Coordinación de Docencia de Ingeniería en Computación
+Han contestado: 0
+Imagen del código QR: C07_coordinacion_de_docencia_ingenieria_en_computacion.png
+-----------
+Número de cuestionario: C08
+Dirigida a: Persona responsable de la Coordinación de Docencia de Ingeniería en Electrónica
+Han contestado: 0
+Imagen del código QR: C08_coordinacion_de_docencia_ingenieria_en_electronica.png
+-----------
+Número de cuestionario: C09
+Dirigida a: Persona responsable de la Coordinación de Docencia de Ingeniería en Sistemas Energéticos Sustentables
+Han contestado: 0
+Imagen del código QR: C09_coordinacion_de_docencia_ingenieria_en_sistemas_energeticos_sustentables.png
+-----------
+Número de cuestionario: C10
+Dirigida a: Persona responsable de la Coordinación de Docencia de Ingeniería en Inteligencia Artificial
+Han contestado: 0
+Imagen del código QR: C10_coordinacion_de_docencia_ingenieria_en_inteligencia_artificial.png
+-----------
+Número de cuestionario: C11
+Dirigida a: Persona responsable de la Coordinación de Investigación
+Han contestado: 0
+Imagen del código QR: C11_coordinacion_de_investigacion.png
+-----------
+Número de cuestionario: C12
+Dirigida a: Persona responsable de la Coordinación de Estudios Avanzados
+Han contestado: 0
+Imagen del código QR: C12_coordinacion_de_estudios_avanzados.png
+-----------
+Número de cuestionario: C13
+Dirigida a: Persona responsable de la Coordinación de Difusión Cultural
+Han contestado: 0
+Imagen del código QR: C13_coordinacion_de_difusion_cultural.png
+-----------
+Número de cuestionario: C14
+Dirigida a: Persona responsable de la Coordinación de Extensión y Vinculación
+Han contestado: 0
+Imagen del código QR: C14_coordinacion_de_extension_y_vinculacion.png
+-----------
+Número de cuestionario: C15
+Dirigida a: Persona responsable de la Coordinación de Planeación
+Han contestado: 0
+Imagen del código QR: C15_coordinacion_de_planeacion.png
+-----------
+Número de cuestionario: C16
+Dirigida a: Estudiantes de cuarto semestre en adelante de las seis licenciaturas
+Han contestado: 73
+Imagen del código QR: C16_estudiantes_de_licenciatura_de_semestres_avanzados.png
+-----------
+Número de cuestionario: C17
+Dirigida a: Estudiantes inscritos en programas de estudios avanzados
+Han contestado: 0
+Imagen del código QR: C17_estudiantes_de_posgrado.png

@@ -1,0 +1,9 @@
+[
+  "app/Modules/Plan/views/index.php",
+  "app/Modules/Plan/views/estatus.php",
+  "app/Modules/Plan/PlanDraftStore.php",
+  "app/Modules/Plan/PlanStatusService.php",
+  "public/assets/js/plan.js",
+  "public/assets/js/plan-encuestas.js",
+  "public/assets/css/plan.css"
+]

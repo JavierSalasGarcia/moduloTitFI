@@ -1,0 +1,105 @@
+================================================================================
+PLAN DE DESARROLLO DE LA FACULTAD DE INGENIERÍA 2026–2030
+DIAGNÓSTICO ESTRATÉGICO INSTITUCIONAL
+Proyecto 9: Fortalecimiento de la formación integral del docente
+Clave Programática: PROY-09 | Pilar IV: Dignificación del personal académico y administrativo
+Área Responsable: Subdirección Académica / Departamento de Desarrollo Docente / Coordinación de Tutoría
+================================================================================
+
+I. PUNTOS A DESARROLLAR SEGÚN LA GUÍA SDFI (ANEXO 1)
+--------------------------------------------------------------------------------
+1. Formación y evaluación del docente como actor en la Nueva Escuela Mexicana:
+   - Participación en programas de formación, actualización pedagógica, didáctica disciplinar y competencias digitales.
+   - Alineación con los principios éticos, de inclusión y responsabilidad social de la Nueva Escuela Mexicana (NEM).
+   - Certificación de competencias en una segunda lengua (inglés técnico e internacional).
+   - Evaluación integral del desempeño docente y retroalimentación sistemática para la mejora de la enseñanza.
+2. Habilitación y trayectoria de la planta docente:
+   - Conformación de la planta docente por grado académico (doctorado, maestría, especialidad, licenciatura).
+   - Promoción laboral y permanencia (concursos de oposición, juicios de promoción, definitividades).
+   - Participación y reconocimiento en el Programa de Estímulos al Desempeño del Personal Docente (PROED).
+   - Profesores de Tiempo Completo con reconocimiento de Perfil Deseable PRODEP/SEP.
+   - Docentes adscritos al Sistema Nacional de Investigadoras e Investigadores (SNII).
+   - Desempeño de la tutoría académica y relación tutor-estudiante.
+
+
+II. DIAGNÓSTICO INSTITUCIONAL EN PROSA CONTINUA (7 MOMENTOS METODOLÓGICOS)
+--------------------------------------------------------------------------------
+El personal académico de la Facultad de Ingeniería constituye la piedra angular de la calidad formativa, la vitalidad investigativa y la preservación de los valores universitarios. Al ciclo 2025–2026, la planta docente del espacio académico se encuentra integrada por 284 docentes en servicio activo, de los cuales 82 son Profesores de Tiempo Completo (PTC) y el resto labora bajo esquemas de asignatura, técnicos académicos y profesores visitantes. Este claustro exhibe un alto nivel de habilitación formal: el 42.6% ostenta el grado de doctor, el 45.1% cuenta con maestría y el 12.3% cuenta con licenciatura o especialidad, lo que asegura que prácticamente 9 de cada 10 profesores poseen estudios de posgrado directamente afines a las áreas de ingeniería que imparten. A ello se suma que 68 PTC cuentan con el reconocimiento de Perfil Deseable PRODEP y 40 forman parte del Sistema Nacional de Investigadoras e Investigadores (SNII).
+
+A lo largo de la trayectoria histórica analizada entre 2018 y 2025, el volumen global de la planta docente experimentó una reducción gradual y posterior estabilización, pasando de 314 integrantes en 2018 a 284 en 2025, habiendo tocado un mínimo de 269 profesores en el ejercicio 2024. Este comportamiento obedece principalmente a procesos naturales de jubilación de cuadros fundadores y a restricciones normativas para la creación de plazas de tiempo completo definitivas. Sin embargo, en el plano de la habilitación cualitativa se verificó una mejoría sustantiva: el número de docentes en el SNII creció de 17 a 40 integrantes (+135.3%) y los beneficiarios del programa de estímulos PROED promediaron entre 65 y 78 académicos anuales, reflejando un esfuerzo encomiable por mantener vigentes sus constancias de productividad académica y docencia evaluada.
+
+[[GRAFICA: graficas/grafica_p09_01_planta_docente_snii.png | PIE: Gráfica 1. Evolución de la planta docente, profesores con perfil PRODEP e integrantes en el SNII en la Facultad de Ingeniería (2018–2025). Fuente: UAEMEX. Agendas Estadísticas 2018–2025.]]
+
+La interpretación sustantiva de esta evolución confirma que la Facultad cuenta con un núcleo de profesores de alta especialización técnica y reconocimiento formal; no obstante, convive con una tensión estratégica severa en las tareas de acompañamiento tutorial y en la distribución de cargas de trabajo. En el ámbito de la tutoría académica, los registros históricos indican que en el año 2014 la Facultad atendía a 2,221 estudiantes con un total de 123 docentes tutores (proporción promedio de 18 alumnos por tutor). Para el año 2025, la matrícula tutorada se expandió a 2,914 estudiantes pero el padrón de tutores activos se contrajo drásticamente a solo 64 docentes, lo que disparó la relación promedio a más de 45 estudiantes por tutor. Esta sobrecarga desvirtúa la naturaleza formativa de la tutoría, transformándola en un trámite administrativo masivo que imposibilita la detección temprana y el seguimiento personalizado de los alumnos en riesgo de rezago o abandono.
+
+Asimismo, la tensión se acentúa en las disparidades entre el personal de tiempo completo y los profesores de asignatura (que representan cerca del 70% del claustro frente a grupo). Los docentes por horas, muchos de ellos ingenieros en ejercicio en la industria automotriz y de la construcción, aportan una invaluable experiencia práctica a las aulas pero enfrentan limitaciones de tiempo y de reconocimiento económico para participar en los diplomados de actualización pedagógica, cursos de habilidades digitales y certificaciones en una segunda lengua que oferta la Dirección de Desarrollo Docente de la UAEMEX. De igual modo, la transición hacia los principios de la Nueva Escuela Mexicana (NEM) —que demanda contextualizar los aprendizajes técnicos con ética comunitaria, sostenibilidad y resolución de problemáticas locales— requiere una capacitación didáctica que no ha permeado con la debida profundidad en las academias disciplinares de ciencias duras.
+
+Al desagregar por academias y género, se observa que las áreas de matemáticas y física concentran la mayor cantidad de horas-clase impartidas por profesores de asignatura con contratos temporales, lo que genera alta rotación en asignaturas de alto índice de reprobación. En materia de género, persiste una brecha relevante: únicamente el 26.8% de la planta académica son mujeres (76 profesoras frente a 208 profesores en 2025), concentrándose mayoritariamente en asignaturas complementarias y de humanidades, mientras que en las academias de ingeniería mecánica, civil y sistemas energéticos la presencia femenina es minoritaria.
+
+En el contexto externo, el Plan de Desarrollo del Estado de México 2023–2029 y la Ley General de Educación Superior establecen como eje prioritario la revalorización docente, la estabilidad en el empleo y la formación continua de los formadores. Las encuestas comunitarias (Instrumento C02, Profesorado de Licenciatura) revelan que el 73.5% de los docentes consideran indispensable que la Facultad gestione cursos de actualización técnica disciplinar en software industrial de vanguardia y no únicamente cursos pedagógicos genéricos, así como transparentar y agilizar los procedimientos para juicios de promoción de categoría y definitividades en plazas de asignatura.
+
+Por consiguiente, el rumbo estratégico del Proyecto 9 debe dirigirse a dignificar la labor docente mediante un plan integral de formación y retención de talento. Esto implicará desconcentrar la labor tutorial distribuyéndola entre un mayor número de profesores para recuperar una atención cercana y cualitativa, diseñar diplomados especializados en didáctica de las ingenierías bajo el marco de la NEM, incentivar la certificación del idioma inglés técnico en docentes de tiempo completo y asignatura, y establecer mecanismos de promoción y estabilidad laboral con perspectiva de género que aseguren el relevo generacional de la Facultad.
+
+
+III. EVIDENCIA CUANTITATIVA Y TRAYECTORIA HISTÓRICA (SERIES 2018–2025)
+--------------------------------------------------------------------------------
+Tabla 1. Comportamiento de variables del personal académico en la Facultad de Ingeniería
+
+Indicador                             Periodo Inicial   Valor Inicial   Periodo Final   Valor Final   Variación Neta   Tasa Crec.
+---------------------------------------------------------------------------------------------------------------------------------
+Personal académico total (4031)        2018              314             2025            284            -30 docentes     -9.6%
+Tasa anual de variación docente (4032) 2018              ---             2025           +5.6%               ---           ---
+Docentes con grado de doctor           2018              102             2025            121            +19 doctores    +18.6%
+Docentes con grado de maestría         2018              148             2025            128            -20 maestros    -13.5%
+Profesores de Tiempo Completo (4027)   2018               85             2025             82             -3 PTC          -3.5%
+PTC con perfil PRODEP                  2018               62             2025             68             +6 PTC          +9.7%
+Docentes adscritos al SNII (4025)      2018               17             2025             40            +23 miembros    +135.3%
+Docentes beneficiarios PROED (4029)    2018               74             2025             71             -3 beneficiarios -4.1%
+Estudiantes tutorados (4023)           2018            2,480             2025          2,914           +434 tutorados   +17.5%
+Docentes tutores activos (4023)        2018              108             2025             64            -44 tutores     -40.7%
+Relación alumnos por tutor             2018             23:1             2025           45:1            +22 al/tutor    +95.7%
+---------------------------------------------------------------------------------------------------------------------------------
+Fuente: UAEMEX. Agendas Estadísticas 2018–2025; Departamento de Desarrollo Docente FI.
+
+
+IV. EVIDENCIA CUALITATIVA DE LA COMUNIDAD (ENCUESTAS C02 Y C03)
+--------------------------------------------------------------------------------
+1. Profesorado de Licenciatura (Instrumento C02):
+   - Demanda de cursos de capacitación disciplinar avanzada (programación de PLC, modelado BIM en ingeniería civil, analítica de datos e inteligencia artificial, ciberseguridad industrial).
+   - Necesidad de horarios accesibles para que los docentes de asignatura puedan asistir a cursos de habilitación sin empalmarse con sus jornadas de trabajo profesional fuera de la universidad.
+   - Petición de mayor apoyo institucional para el registro y permanencia en el programa PROED.
+2. Coordinación de Tutoría Institucional:
+   - Señala la saturación de los tutores activos y la urgencia de involucrar a docentes de nuevo ingreso y de tiempo parcial en las actividades de tutoría preventiva para primer y segundo semestre.
+
+
+V. SÍNTESIS FODA SUSTENTADA
+--------------------------------------------------------------------------------
+FORTALEZAS:
+- Alta habilitación formal del claustro: 87.7% del profesorado posee estudios de maestría o doctorado.
+- 40 investigadores miembros del SNII y 68 PTC con Perfil Deseable PRODEP reconocido.
+- Amplia trayectoria y arraigo institucional de los cuadros docentes titulares de academias.
+- Compromiso docente evidenciado en la cobertura tutorial que alcanza formalmente a 2,914 alumnos.
+
+DEBILIDADES:
+- Drástica reducción en el padrón de tutores activos (de 108 en 2018 a solo 64 en 2025), elevando la relación a 45 estudiantes por tutor.
+- Disminución del 9.6% en el personal académico total en el periodo 2018–2025 debido a jubilaciones no sustituidas con plazas de tiempo completo equivalentes.
+- Baja proporción de mujeres en la planta académica (26.8%), con marcada subrepresentación en las academias técnicas nucleares.
+- Limitada oferta de diplomados disciplinares técnicos especializados adaptados a los horarios de los profesores de asignatura.
+
+OPORTUNIDADES:
+- Programas institucionales de la Dirección de Desarrollo Docente de la UAEMEX en didáctica contemporánea, inclusión y cultura digital.
+- Alianzas estratégicas con empresas de software de ingeniería (Autodesk, MathWorks, Siemens, Microsoft) para la certificación docente gratuita o a bajo costo.
+- Lineamientos de la Nueva Escuela Mexicana que impulsan la docencia con sentido ético, responsabilidad social y aprendizaje activo.
+
+AMENAZAS:
+- Envejecimiento gradual de la planta de tiempo completo sin esquemas expeditos de relevo generacional y transferencias de cátedra.
+- Restricciones presupuestales para la apertura de nuevas plazas de tiempo completo que reconozcan a docentes jóvenes con doctorado.
+
+
+VI. FUENTES Y REFERENCIAS EN FORMATO APA
+--------------------------------------------------------------------------------
+- SEP. (2022). Marco curricular y lineamientos de la Nueva Escuela Mexicana en el tipo superior. Secretaría de Educación Pública.
+- UAEMEX. (2025). Agenda Estadística Universitaria 2025. Dirección de Planeación.
+- UAEMEX. (2024). Programa de Estímulos al Desempeño del Personal Docente (PROED). Secretaría Académica.
+- UAEMEX. (2025). Plan Rector de Desarrollo Institucional 2025–2029. UAEMEX.
+================================================================================

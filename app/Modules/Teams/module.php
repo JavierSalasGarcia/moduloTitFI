@@ -1,0 +1,42 @@
+<?php
+use App\Modules\Teams\TeamsController;
+
+return [
+    'clave' => 'teams',
+    'menu'  => [
+        ['seccion'=>'MI ESPACIO','titulo'=>'Archivo documental','ruta'=>'documentos','roles'=>['admin','coordinador','titular','operativo','profesor','alumno'],'orden'=>35],
+        ['seccion' => 'MI ESPACIO', 'titulo' => 'Explorar Teams', 'ruta' => 'teams',
+         'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 2],
+    ],
+    'rutas' => [
+        'GET /documentos' => [\App\Modules\Teams\DocumentalController::class,'index'],
+        'POST /documentos/activar' => [\App\Modules\Teams\DocumentalController::class,'activar'],
+        'GET /documentos/nuevo' => [\App\Modules\Teams\DocumentalController::class,'nuevo'],
+        'POST /documentos' => [\App\Modules\Teams\DocumentalController::class,'crear'],
+        'GET /documentos/{id}' => [\App\Modules\Teams\DocumentalController::class,'detalle'],
+        'POST /documentos/{id}' => [\App\Modules\Teams\DocumentalController::class,'guardar'],
+        'POST /documentos/{id}/extraer' => [\App\Modules\Teams\DocumentalController::class,'extraer'],
+        'POST /documentos/{id}/compartir' => [\App\Modules\Teams\DocumentalController::class,'compartir'],
+        'POST /documentos/{id}/revocar' => [\App\Modules\Teams\DocumentalController::class,'revocar'],
+        'POST /documentos/{id}/adjuntar' => [\App\Modules\Teams\DocumentalController::class,'adjuntar'],
+        'POST /documentos/{id}/accion' => [\App\Modules\Teams\DocumentalController::class,'accion'],
+        'POST /documentos/{id}/accion/{accion}/completar' => [\App\Modules\Teams\DocumentalController::class,'completar'],
+        'GET /documentos/{id}/archivo/{archivo}' => [\App\Modules\Teams\DocumentalController::class,'archivo'],
+        'GET /teams'                            => [TeamsController::class, 'index'],
+        'POST /teams/sitio'                     => [TeamsController::class, 'crearSitio'],
+        'GET /teams/sitio/{id}'                 => [TeamsController::class, 'verSitio'],
+        'POST /teams/sitio/{id}/eliminar'       => [TeamsController::class, 'eliminarSitio'],
+        'POST /teams/sitio/{id}/editar'         => [TeamsController::class, 'editarSitio'],
+        'POST /teams/sitio/{id}/indexar-lote'   => [TeamsController::class, 'indexarLote'],
+        'POST /teams/sitio/{id}/desindexar-bulk'=> [TeamsController::class, 'desindexarBulk'],
+        'POST /teams/sitio/{id}/carpeta'        => [TeamsController::class, 'crearCarpeta'],
+        'POST /teams/carpeta/{id}/descripcion'  => [TeamsController::class, 'actualizarDescripcion'],
+        'POST /teams/carpeta/{id}/eliminar'     => [TeamsController::class, 'eliminarCarpeta'],
+        'POST /teams/carpeta/{id}/ticket'       => [TeamsController::class, 'crearTicket'],
+        'POST /teams/ticket/{id}/completar'     => [TeamsController::class, 'completarTicket'],
+        'POST /teams/ticket/{id}/eliminar'      => [TeamsController::class, 'eliminarTicket'],
+        'GET /teams/ticket-archivo/{id}'        => [TeamsController::class, 'descargarEvidencia'],
+        'POST /teams/vincular'                  => [TeamsController::class, 'vincular'],
+        'POST /teams/desvincular'                => [TeamsController::class, 'desvincular'],
+    ],
+];
