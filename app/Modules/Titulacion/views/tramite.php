@@ -207,7 +207,10 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
           <?php endforeach; ?>
           <?php $ent = $etapa['personal']['entrega'] ?? null; $filaEnt = $ent ? ($docs[$etapa['clave'] . '|' . $ent['clave']] ?? null) : null; ?>
           <?php if ($filaEnt): ?><div><a href="<?= url($base . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) && !empty($ent['oficio']) ? ' · esperando la firma' : '' ?></div><?php endif; ?>
-          <?php foreach ($etapa['personal']['extras'] ?? [] as $x): $fx = $docs[$etapa['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url($base . '/archivo/' . (int) $fx['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
+          <?php if (!empty($etapa['personal']['comision_fija'])): $cf = \App\Modules\Titulacion\Services\Autoridades::class; $pr = $cf::director(); $se = $cf::subdirector(); ?>
+          <div>Comisión: <?= e($pr ? \App\Core\Persona::tratamiento($pr) : 'Director') ?> (<?= e(\App\Core\Persona::f($pr ?? [], 'presidente', 'presidenta')) ?>) y <?= e($se ? \App\Core\Persona::tratamiento($se) : 'Subdirector Académico') ?> (<?= e(\App\Core\Persona::f($se ?? [], 'secretario', 'secretaria')) ?>)</div>
+        <?php endif; ?>
+<?php foreach ($etapa['personal']['extras'] ?? [] as $x): $fx = $docs[$etapa['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url($base . '/archivo/' . (int) $fx['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
         </div>
         <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $etapa['clave']); ?>
           <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
