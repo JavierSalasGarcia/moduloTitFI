@@ -56,12 +56,30 @@ $chips = [
     <?php if ($e['situacion'] !== 'bloqueada'): foreach ($e['docs_estado'] as $dc => $info): $d = $info['def']; $fila = $info['fila']; $est = $info['estado']; [$cl, $et] = $chips[$est] ?? ['pend', $est]; ?>
       <div class="tit-doc" id="doc-<?= $fila ? (int) $fila['id'] : e($dc) ?>">
         <div>
-          <h4><?= e($d['nombre']) ?> <span class="tit-chip <?= $cl ?>"><?= e($et) ?></span></h4>
+          <h4><?= e($d['nombre']) ?><?= !empty($d['fisico']) || !empty($d['cotejo']) ? ' *' : '' ?> <span class="tit-chip <?= $cl ?>"><?= e($et) ?></span><?= !empty($d['cotejo']) ? ' <span class="tit-chip na">Cotejo de original</span>' : '' ?></h4>
           <?php if ($d['nota']): ?><p class="nota"><?= e($d['nota']) ?></p><?php endif; ?>
           <?php if ($fila && $fila['ruta']): ?>
             <p class="nota"><a href="<?= url($ver . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener">Abrir PDF</a> · <?= e((string) $fila['nombre_original']) ?> · <?= e(fecha_corta($fila['creado_en'])) ?></p>
           <?php endif; ?>
           <?php if ($fila && $fila['comentario']): ?><div class="<?= $est === 'rechazado' ? 'tit-obs' : 'tit-ok' ?>"><?= e((string) $fila['comentario']) ?><?= $fila['revisor_nombre'] ? ' — ' . e($fila['revisor_nombre']) : '' ?></div><?php endif; ?>
+          <?php if (!empty($d['cotejo']) && $est === 'aprobado' && $fila): ?>
+            <?php if ($fila['cotejo_en']): ?>
+              <div class="tit-ok">Cotejado con el original por <?= e((string) $fila['cotejo_nombre']) ?> · <?= e(fecha_corta($fila['cotejo_en'])) ?> · <?= $fila['cotejo_tipo'] === 'pades' ? 'firma PAdES' : 'sello de cotejo' ?>
+                <br><small>Huella SHA-256: <code><?= e(substr((string) $fila['cotejo_hash'], 0, 24)) ?>…</code><?= $fila['cotejo_ruta'] ? ' · <a href="' . e(url($ver . '/archivo/' . (int) $fila['id'] . '?cotejo=1')) . '" target="_blank" rel="noopener">PDF con sello</a>' : '' ?></small></div>
+              <form method="post" action="<?= url($base . '/cotejo/' . (int) $fila['id']) ?>" style="margin-top:4px" onsubmit="return confirm('¿Retirar el cotejo?')"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="accion" value="quitar"><button class="btn btn-mini" type="submit">Retirar cotejo</button></form>
+            <?php else: ?>
+              <form class="formulario" method="post" action="<?= url($base . '/cotejo/' . (int) $fila['id']) ?>" style="margin-top:8px">
+                <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+                <span class="tit-chip rev">Pendiente: original para cotejo</span>
+                <?php if (($d['firma_cotejo'] ?? 'sello') === 'pades'): ?>
+                  <input type="text" name="codigo_2fa" inputmode="numeric" maxlength="6" placeholder="Código de 6 dígitos (TOTP)" required style="max-width:200px">
+                  <button class="btn btn-mini btn-primario" type="submit">Cotejar y firmar (PAdES)</button>
+                <?php else: ?>
+                  <button class="btn btn-mini btn-primario" type="submit">Cotejado con el original · sellar</button>
+                <?php endif; ?>
+              </form>
+            <?php endif; ?>
+          <?php endif; ?>
           <?php if ($fila && in_array($est, ['en_revision', 'aprobado', 'no_aplica', 'rechazado'], true) && $t['estado'] === 'abierto'): ?>
             <form class="formulario" method="post" action="<?= url($base . '/documento/' . (int) $fila['id']) ?>" style="margin-top:8px">
               <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">

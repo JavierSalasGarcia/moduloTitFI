@@ -117,10 +117,11 @@ final class TitulacionRepository
     public static function documentosVigentes(int $tramiteId): array
     {
         $filas = Database::todas(
-            "SELECT d.*, u.nombre AS subido_nombre, r.nombre AS revisor_nombre
+            "SELECT d.*, u.nombre AS subido_nombre, r.nombre AS revisor_nombre, c.nombre AS cotejo_nombre
              FROM tit_documentos d
              JOIN usuarios u ON u.id = d.subido_por
              LEFT JOIN usuarios r ON r.id = d.revisado_por
+             LEFT JOIN usuarios c ON c.id = d.cotejo_por
              WHERE d.tramite_id = ? AND d.estado <> 'reemplazado'
              ORDER BY d.id",
             [$tramiteId]
@@ -165,6 +166,22 @@ final class TitulacionRepository
         Database::ejecutar(
             'UPDATE tit_documentos SET estado = ?, comentario = ?, revisado_por = ?, revisado_en = NOW() WHERE id = ?',
             [$estado, $comentario, $revisorId, $id]
+        );
+    }
+
+    public static function registrarCotejo(int $docId, string $tipo, int $usuarioId, string $hash, ?string $ruta): void
+    {
+        Database::ejecutar(
+            'UPDATE tit_documentos SET cotejo_tipo = ?, cotejo_por = ?, cotejo_en = NOW(), cotejo_hash = ?, cotejo_ruta = ? WHERE id = ?',
+            [$tipo, $usuarioId, $hash, $ruta, $docId]
+        );
+    }
+
+    public static function quitarCotejo(int $docId): void
+    {
+        Database::ejecutar(
+            'UPDATE tit_documentos SET cotejo_tipo = NULL, cotejo_por = NULL, cotejo_en = NULL, cotejo_hash = NULL, cotejo_ruta = NULL WHERE id = ?',
+            [$docId]
         );
     }
 

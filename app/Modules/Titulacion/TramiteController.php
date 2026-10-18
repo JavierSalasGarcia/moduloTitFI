@@ -380,6 +380,12 @@ final class TramiteController extends TitulacionBase
             $this->noEncontrado();
         }
         Audit::record('titulacion::archivo', 'atendido', 'Documento ' . (int) $d['id']);
+        if (isset($_GET['cotejo'])) {
+            if (empty($d['cotejo_ruta'])) {
+                $this->noEncontrado();
+            }
+            $this->enviarArchivo((string) $d['cotejo_ruta'], $t['folio'] . '_' . $d['clave'] . '_cotejo.pdf', true);
+        }
         $this->enviarArchivo((string) $d['ruta'], $t['folio'] . '_' . $d['clave'] . '.pdf', isset($_GET['ver']));
     }
 

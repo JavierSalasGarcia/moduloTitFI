@@ -95,6 +95,49 @@ final class GestionController extends TitulacionBase
         redirigir($volver);
     }
 
+    public function cotejo(string $id, string $docId): void
+    {
+        $t = $this->tramite($id, true);
+        $d = ctype_digit($docId) ? TitulacionRepository::documento((int) $docId) : null;
+        if ($d === null || (int) $d['tramite_id'] !== (int) $t['id'] || $d['origen'] !== 'alumno' || $d['estado'] !== 'aprobado' || empty($d['ruta'])) {
+            $this->noEncontrado();
+        }
+        $volver = 'titulacion/gestion/' . $t['id'] . '#doc-' . $d['id'];
+        $etapa = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, (string) $d['etapa']);
+        $def = $etapa ? Catalogo::documentoDeEtapa($etapa, (string) $d['clave']) : null;
+        if ($def === null || empty($def['cotejo'])) {
+            flash('error', 'Este documento no requiere cotejo del original.');
+            redirigir($volver);
+        }
+        if ($this->post('accion') === 'quitar') {
+            TitulacionRepository::quitarCotejo((int) $d['id']);
+            TitulacionRepository::evento((int) $t['id'], Auth::id(), 'cotejo', 'Cotejo retirado: ' . $def['nombre']);
+            $this->sincronizar((int) $t['id']);
+            flash('exito', 'Cotejo retirado.');
+            redirigir($volver);
+        }
+        $tipo = ($def['firma_cotejo'] ?? 'sello') === 'pades' ? 'pades' : 'sello';
+        try {
+            if ($tipo === 'pades') {
+                [$hash, $ruta] = Services\Cotejo::pades($t, $d, Auth::id(), $this->post('codigo_2fa'));
+            } else {
+                [$hash, $ruta] = Services\Cotejo::sello($t, $d, Auth::usuario());
+            }
+        } catch (Throwable $e) {
+            if (!$e instanceof \RuntimeException) {
+                error_log('Titulación: error de cotejo: ' . $e->getMessage());
+            }
+            flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo registrar el cotejo.');
+            redirigir($volver);
+        }
+        TitulacionRepository::registrarCotejo((int) $d['id'], $tipo, Auth::id(), $hash, $ruta);
+        TitulacionRepository::evento((int) $t['id'], Auth::id(), 'cotejo', 'Original cotejado: ' . $def['nombre'] . ' (' . ($tipo === 'pades' ? 'firma PAdES' : 'sello de cotejo') . ')');
+        Audit::record('titulacion::cotejo', 'correcto', 'Documento ' . (int) $d['id'] . ' ' . $tipo);
+        $this->sincronizar((int) $t['id']);
+        flash('exito', 'Cotejo registrado con tu ' . ($tipo === 'pades' ? 'firma electrónica PAdES.' : 'sello de cotejo.'));
+        redirigir($volver);
+    }
+
     private function nombreDocumento(array $t, string $etapa, string $clave): string
     {
         $e = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, $etapa);

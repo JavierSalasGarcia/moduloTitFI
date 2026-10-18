@@ -47,22 +47,41 @@ final class PdfFormato
         return self::$specs;
     }
 
+    /** Páginas y tamaño de un PDF, o null si FPDI no puede importarlo. @return array{paginas:int,ancho:float,alto:float}|null */
+    public static function inspeccionar(string $ruta): ?array
+    {
+        self::cargarLibs();
+        try {
+            $pdf = new \setasign\Fpdi\Fpdi('P', 'pt');
+            $n = $pdf->setSourceFile($ruta);
+            $tam = $pdf->getTemplateSize($pdf->importPage(1));
+            return ['paginas' => $n, 'ancho' => round((float) $tam['width'], 1), 'alto' => round((float) $tam['height'], 1)];
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
     public static function existe(string $clave): bool
     {
         return isset(self::specs()[$clave]);
     }
 
-    /** Devuelve el PDF llenado como cadena binaria. */
+    /** Devuelve el PDF llenado como cadena binaria con la especificación que acompaña al módulo. */
     public static function generar(string $clave, array $valores): string
     {
-        self::cargarLibs();
         $spec = self::specs()[$clave] ?? null;
         if ($spec === null) {
             throw new RuntimeException('Formato PDF desconocido: ' . $clave);
         }
-        $plantilla = self::dirModulo() . '/plantillas/' . $spec['plantilla'];
+        return self::generarCon($spec, self::dirModulo() . '/plantillas/' . $spec['plantilla'], $valores);
+    }
+
+    /** Llena cualquier plantilla PDF con una especificación dada (la guardada o un borrador del visor). */
+    public static function generarCon(array $spec, string $plantilla, array $valores): string
+    {
+        self::cargarLibs();
         if (!is_file($plantilla)) {
-            throw new RuntimeException('Falta la plantilla ' . $spec['plantilla']);
+            throw new RuntimeException('Falta la plantilla del formato.');
         }
 
         $pdf = new \setasign\Fpdi\Fpdi('P', 'pt');

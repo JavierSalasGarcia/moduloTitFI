@@ -80,12 +80,15 @@ final class Flujo
             $clave = $e['clave'];
             $e['captura_ok'] = self::capturaCompleta($e, $tramite['datos']);
             $e['docs_estado'] = [];
-            $porValidar = $rechazados = $faltan = 0;
+            $porValidar = $rechazados = $faltan = $porCotejar = 0;
             foreach ($e['documentos'] ?? [] as $d) {
                 $fila = $docs[$clave . '|' . $d['clave']] ?? null;
                 $estado = $fila['estado'] ?? 'pendiente';
-                $ok = $estado === 'aprobado' || ($estado === 'no_aplica' && $d['condicion'] !== null);
-                if ($estado === 'en_revision') {
+                $cotejado = empty($d['cotejo']) || !empty($fila['cotejo_en']);
+                $ok = ($estado === 'aprobado' && $cotejado) || ($estado === 'no_aplica' && $d['condicion'] !== null);
+                if ($estado === 'aprobado' && !$cotejado) {
+                    $porCotejar++;
+                } elseif ($estado === 'en_revision') {
                     $porValidar++;
                 } elseif ($estado === 'rechazado') {
                     $rechazados++;
@@ -95,6 +98,7 @@ final class Flujo
                 $e['docs_estado'][$d['clave']] = ['def' => $d, 'fila' => $fila, 'estado' => $estado, 'ok' => $ok];
             }
             $e['por_validar'] = $porValidar;
+            $e['por_cotejar'] = $porCotejar;
             $e['rechazados'] = $rechazados;
             $e['faltan'] = $faltan;
             $e['docs_ok'] = array_reduce($e['docs_estado'], static fn(bool $c, array $x): bool => $c && $x['ok'], true);
@@ -146,6 +150,9 @@ final class Flujo
         }
         if ($e['por_validar'] > 0) {
             return ['turno' => 'personal', 'texto' => 'Personal de Titulación está validando ' . $e['por_validar'] . ' documento(s).'];
+        }
+        if ($e['por_cotejar'] > 0) {
+            return ['turno' => 'personal', 'texto' => 'Lleva a Apoyo a Titulación el original de ' . $e['por_cotejar'] . ' documento(s) para su cotejo.'];
         }
         if (!$e['personal_ok']) {
             return ['turno' => 'personal', 'texto' => 'Pendiente: ' . ($e['personal']['titulo'] ?? 'trámite del departamento') . '.'];

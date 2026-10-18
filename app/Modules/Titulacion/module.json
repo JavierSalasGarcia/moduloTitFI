@@ -5,32 +5,204 @@
   "descripcion": "Trámite de titulación en línea: asistente por opción de titulación, formatos llenados automáticamente, carga de documentos en PDF y validación por el Departamento de Evaluación Profesional.",
   "roles": [],
   "menu": [
-    {"seccion": "TITULACIÓN", "titulo": "Licenciatura", "ruta": "titulacion/licenciatura", "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"], "orden": 20},
-    {"seccion": "TITULACIÓN", "titulo": "Posgrado", "ruta": "titulacion/posgrado", "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"], "orden": 21},
-    {"seccion": "TITULACIÓN", "titulo": "Validar trámites", "ruta": "titulacion/gestion", "roles": ["admin", "titular", "operativo", "coordinador"], "orden": 22}
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Licenciatura",
+      "ruta": "titulacion/licenciatura",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 20
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Posgrado",
+      "ruta": "titulacion/posgrado",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 21
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Validar trámites",
+      "ruta": "titulacion/gestion",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador"
+      ],
+      "orden": 22
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Configurar formatos",
+      "ruta": "titulacion/configuracion",
+      "roles": [
+        "admin"
+      ],
+      "orden": 23
+    }
   ],
   "rutas": {
-    "GET /titulacion": ["App\\Modules\\Titulacion\\TramiteController", "inicio"],
-    "GET /titulacion/licenciatura": ["App\\Modules\\Titulacion\\TramiteController", "licenciatura"],
-    "GET /titulacion/posgrado": ["App\\Modules\\Titulacion\\TramiteController", "posgrado"],
-    "GET /titulacion/licenciatura/modalidad/{clave}": ["App\\Modules\\Titulacion\\TramiteController", "modalidad"],
-    "POST /titulacion/licenciatura/modalidad/{clave}": ["App\\Modules\\Titulacion\\TramiteController", "crear"],
-    "GET /titulacion/licenciatura/blanco/{clave}": ["App\\Modules\\Titulacion\\TramiteController", "blanco"],
-    "GET /titulacion/licenciatura/tramite/{id}": ["App\\Modules\\Titulacion\\TramiteController", "ver"],
-    "POST /titulacion/licenciatura/tramite/{id}/captura/{etapa}": ["App\\Modules\\Titulacion\\TramiteController", "capturar"],
-    "GET /titulacion/licenciatura/tramite/{id}/formato/{formato}": ["App\\Modules\\Titulacion\\TramiteController", "formato"],
-    "POST /titulacion/licenciatura/tramite/{id}/art5": ["App\\Modules\\Titulacion\\TramiteController", "art5"],
-    "POST /titulacion/licenciatura/tramite/{id}/documento/{etapa}/{doc}": ["App\\Modules\\Titulacion\\TramiteController", "subir"],
-    "POST /titulacion/licenciatura/tramite/{id}/noaplica/{etapa}/{doc}": ["App\\Modules\\Titulacion\\TramiteController", "noAplica"],
-    "POST /titulacion/licenciatura/tramite/{id}/confirmar/{etapa}": ["App\\Modules\\Titulacion\\TramiteController", "confirmar"],
-    "GET /titulacion/licenciatura/tramite/{id}/archivo/{doc}": ["App\\Modules\\Titulacion\\TramiteController", "archivo"],
-    "POST /titulacion/licenciatura/tramite/{id}/cancelar": ["App\\Modules\\Titulacion\\TramiteController", "cancelar"],
-    "GET /titulacion/gestion": ["App\\Modules\\Titulacion\\GestionController", "bandeja"],
-    "GET /titulacion/gestion/{id}": ["App\\Modules\\Titulacion\\GestionController", "ver"],
-    "POST /titulacion/gestion/{id}/documento/{doc}": ["App\\Modules\\Titulacion\\GestionController", "revisar"],
-    "POST /titulacion/gestion/{id}/hito/{etapa}": ["App\\Modules\\Titulacion\\GestionController", "hito"],
-    "POST /titulacion/gestion/{id}/reabrir/{etapa}": ["App\\Modules\\Titulacion\\GestionController", "reabrir"],
-    "POST /titulacion/gestion/{id}/mensaje": ["App\\Modules\\Titulacion\\GestionController", "mensaje"],
-    "POST /titulacion/gestion/{id}/tomar": ["App\\Modules\\Titulacion\\GestionController", "tomar"]
+    "GET /titulacion": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "inicio"
+    ],
+    "GET /titulacion/licenciatura": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "licenciatura"
+    ],
+    "GET /titulacion/posgrado": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "posgrado"
+    ],
+    "GET /titulacion/licenciatura/modalidad/{clave}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "modalidad"
+    ],
+    "POST /titulacion/licenciatura/modalidad/{clave}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "crear"
+    ],
+    "GET /titulacion/licenciatura/blanco/{clave}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "blanco"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "ver"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/captura/{etapa}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "capturar"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/formato/{formato}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "formato"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/art5": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "art5"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/documento/{etapa}/{doc}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "subir"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/noaplica/{etapa}/{doc}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "noAplica"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/confirmar/{etapa}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "confirmar"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/archivo/{doc}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "archivo"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/cancelar": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "cancelar"
+    ],
+    "GET /titulacion/gestion": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "bandeja"
+    ],
+    "GET /titulacion/gestion/{id}": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "ver"
+    ],
+    "POST /titulacion/gestion/{id}/documento/{doc}": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "revisar"
+    ],
+    "POST /titulacion/gestion/{id}/hito/{etapa}": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "hito"
+    ],
+    "POST /titulacion/gestion/{id}/reabrir/{etapa}": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "reabrir"
+    ],
+    "POST /titulacion/gestion/{id}/mensaje": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "mensaje"
+    ],
+    "POST /titulacion/gestion/{id}/tomar": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "tomar"
+    ],
+    "POST /titulacion/gestion/{id}/cotejo/{doc}": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "cotejo"
+    ],
+    "GET /titulacion/configuracion": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "index"
+    ],
+    "GET /titulacion/configuracion/documentos": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "documentos"
+    ],
+    "POST /titulacion/configuracion/documentos": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "guardarDocumentos"
+    ],
+    "POST /titulacion/configuracion/documentos/nuevo": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "nuevoDocumento"
+    ],
+    "POST /titulacion/configuracion/documentos/{id}/eliminar": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "eliminarDocumento"
+    ],
+    "POST /titulacion/configuracion/formatos/nuevo": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "nuevoFormato"
+    ],
+    "GET /titulacion/configuracion/formatos/{clave}": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "visor"
+    ],
+    "GET /titulacion/configuracion/formatos/{clave}/plantilla": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "plantilla"
+    ],
+    "POST /titulacion/configuracion/formatos/{clave}/spec": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "guardarSpec"
+    ],
+    "POST /titulacion/configuracion/formatos/{clave}/probar": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "probar"
+    ],
+    "POST /titulacion/configuracion/formatos/{clave}/reemplazar": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "reemplazar"
+    ],
+    "POST /titulacion/configuracion/formatos/{clave}/datos": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "datosFormato"
+    ],
+    "POST /titulacion/configuracion/formatos/{clave}/restablecer": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "restablecer"
+    ],
+    "POST /titulacion/configuracion/formatos/{clave}/eliminar": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "eliminarFormato"
+    ]
   }
 }

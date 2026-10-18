@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Modules\Titulacion\Services;
 
 use App\Modules\Titulacion\Catalogo;
+use App\Modules\Titulacion\Configuracion;
 use App\Modules\Titulacion\Flujo;
 use RuntimeException;
 
@@ -28,8 +29,12 @@ final class Formatos
     /** Mensaje de por qué todavía no se puede generar, o null si ya se puede. */
     public static function impedimento(string $formato, array $tramite): ?string
     {
-        if (!isset(Catalogo::formatos()[$formato])) {
+        $def = Catalogo::formatos()[$formato] ?? null;
+        if ($def === null) {
             return 'Formato desconocido.';
+        }
+        if (!$def['activo']) {
+            return 'Este formato ya no se utiliza.';
         }
         $etapas = Catalogo::etapas((string) $tramite['modalidad'], $tramite['variante'] ?: null);
         $claves = array_column($etapas, 'clave');
@@ -70,6 +75,65 @@ final class Formatos
             }
         }
         return null;
+    }
+
+    /**
+     * Campos de datos que un formato puede imprimir (los usa el visor de coordenadas).
+     * 'marca' pone una X en la casilla de la opción elegida; 'texto' imprime el valor.
+     *
+     * @return array<string,array{label:string,tipo:string,opciones?:array<string,string>}>
+     */
+    public static function variables(): array
+    {
+        $carreras = array_map(static fn(array $c): string => $c['nombre'], Catalogo::carreras());
+        $modalidades = array_map(static fn(array $m): string => $m['nombre'], Catalogo::modalidades());
+        $t = static fn(string $l): array => ['label' => $l, 'tipo' => 'texto'];
+        $v = [
+            'nombre' => $t('Nombre del pasante'), 'cuenta' => $t('Número de cuenta'),
+            'licenciatura' => $t('Licenciatura (nombre completo)'), 'sistema_nombre' => $t('Sistema (FI-UAEMéx, UI-CUI…)'),
+            'anio_ingreso' => $t('Año de ingreso'), 'anio_egreso' => $t('Año de egreso'),
+            'telefono' => $t('Teléfono'), 'correo_inst' => $t('Correo institucional'), 'correo_pers' => $t('Correo personal'),
+            'ocupacion' => $t('Ocupación actual'), 'fecha_nacimiento' => $t('Fecha de nacimiento'), 'acentos' => $t('Nombre lleva acentos (Sí/No)'),
+            'modalidad_nombre' => $t('Opción de titulación (nombre)'), 'titulo' => $t('Título del trabajo / tema'),
+            'asesor' => $t('Asesor'), 'coasesor' => $t('Coasesor'), 'area' => $t('Área académica'),
+            'folio' => $t('Folio del trámite'), 'subdirector' => $t('Nombre del Subdirector Académico'),
+            'fecha_dia' => $t('Fecha de hoy: día'), 'fecha_mes' => $t('Fecha de hoy: mes'), 'fecha_anio' => $t('Fecha de hoy: año (2 dígitos)'),
+            'fecha_anio4' => $t('Fecha de hoy: año (4 dígitos)'), 'fecha_larga' => $t('Fecha de hoy completa'),
+            'prot_dia' => $t('Aprobación del protocolo: día'), 'prot_mes' => $t('Aprobación del protocolo: mes'), 'prot_anio' => $t('Aprobación del protocolo: año'),
+            'voto_dia' => $t('Voto aprobatorio: día'), 'voto_mes' => $t('Voto aprobatorio: mes'), 'voto_anio' => $t('Voto aprobatorio: año'),
+            'voto2_dia' => $t('Fecha del voto (hoja 2): día'), 'voto2_mes' => $t('Fecha del voto (hoja 2): mes'), 'voto2_anio' => $t('Fecha del voto (hoja 2): año'),
+            'motivos' => $t('Motivos (Art. 5)'), 'nombre_v' => $t('Nombre (voto aprobatorio)'), 'cuenta_v' => $t('Cuenta (voto aprobatorio)'), 'titulo_v' => $t('Título (voto aprobatorio)'),
+            'carrera' => ['label' => 'Casilla: licenciatura', 'tipo' => 'marca', 'opciones' => $carreras],
+            'carrera_v' => ['label' => 'Casilla: licenciatura (voto)', 'tipo' => 'marca', 'opciones' => $carreras],
+            'sistema' => ['label' => 'Casilla: sistema', 'tipo' => 'marca', 'opciones' => Catalogo::sistemas()],
+            'sistema_v' => ['label' => 'Casilla: sistema (voto)', 'tipo' => 'marca', 'opciones' => Catalogo::sistemas()],
+            'modalidad' => ['label' => 'Casilla: opción de titulación', 'tipo' => 'marca', 'opciones' => $modalidades],
+            'modalidad_v' => ['label' => 'Casilla: opción (voto)', 'tipo' => 'marca', 'opciones' => $modalidades],
+            'vez' => ['label' => 'Casilla: primera / segunda vez', 'tipo' => 'marca', 'opciones' => ['primera' => 'Primera vez', 'segunda' => 'Segunda vez']],
+        ];
+        return $v;
+    }
+
+    /** Datos de ejemplo para la vista previa del visor. */
+    public static function ejemplo(): array
+    {
+        $hoy = self::fechaHoy();
+        return [
+            'fecha_dia' => $hoy['dia'], 'fecha_mes' => $hoy['mes'], 'fecha_anio' => $hoy['anio2'], 'fecha_anio4' => $hoy['anio'],
+            'fecha_larga' => $hoy['dia'] . ' de ' . $hoy['mes'] . ' de ' . $hoy['anio'],
+            'nombre' => 'María José Hernández Peña', 'cuenta' => '1912345', 'carrera' => 'computacion', 'sistema' => 'fi',
+            'licenciatura' => 'Ingeniería en Computación', 'sistema_nombre' => 'FI-UAEMéx', 'anio_ingreso' => '2019', 'anio_egreso' => '2024',
+            'telefono' => '722 123 4567', 'correo_inst' => 'mjhernandezp@alumno.uaemex.mx', 'correo_pers' => 'maria@example.com',
+            'ocupacion' => 'Desarrolladora de software', 'fecha_nacimiento' => '17 de mayo de 1999', 'acentos' => 'Sí', 'vez' => 'primera',
+            'modalidad' => 'tesis', 'modalidad_nombre' => 'Tesis',
+            'titulo' => 'Diseño e implementación de un sistema distribuido para la validación en línea de trámites de titulación en instituciones públicas',
+            'asesor' => 'Dr. Juan Pérez Gómez', 'coasesor' => 'No aplica', 'area' => 'Computación', 'folio' => 'TIT-2026-00001',
+            'subdirector' => mb_strtoupper(self::subdirector()), 'motivos' => 'Motivos laborales y familiares que impidieron concluir el trámite en el plazo.',
+            'prot_dia' => '3', 'prot_mes' => 'marzo', 'prot_anio' => '26', 'voto_dia' => '5', 'voto_mes' => 'septiembre', 'voto_anio' => '26',
+            'voto2_dia' => '5', 'voto2_mes' => 'septiembre', 'voto2_anio' => '26',
+            'carrera_v' => 'computacion', 'sistema_v' => 'fi', 'modalidad_v' => 'tesis', 'nombre_v' => 'María José Hernández Peña',
+            'cuenta_v' => '1912345', 'titulo_v' => 'Diseño e implementación de un sistema distribuido', '_subdirector' => self::subdirector(),
+        ];
     }
 
     /** Nombre del Subdirector Académico tal como debe aparecer; se captura una vez en Ajustes. */
@@ -125,6 +189,12 @@ final class Formatos
             'voto2_dia' => $vd ?: $hoy['dia'], 'voto2_mes' => $vm ?: $hoy['mes'], 'voto2_anio' => $va ?: $hoy['anio2'],
             'motivos' => $d['art5']['motivos'] ?? '',
             '_subdirector' => self::subdirector(),
+            'fecha_anio4' => $hoy['anio'], 'fecha_larga' => $hoy['dia'] . ' de ' . $hoy['mes'] . ' de ' . $hoy['anio'],
+            'sistema_nombre' => Catalogo::sistemas()[$p['sistema'] ?? ''] ?? '',
+            'modalidad_nombre' => Catalogo::modalidad((string) $t['modalidad'])['nombre'] ?? '',
+            'fecha_nacimiento' => !empty($p['fecha_nacimiento']) ? ProtocoloMembretado::fechaLarga((string) $p['fecha_nacimiento']) : '',
+            'asesor' => $d['protocolo']['asesor'] ?? '', 'coasesor' => $d['protocolo']['coasesor'] ?? '', 'area' => $d['protocolo']['area'] ?? '',
+            'folio' => (string) $t['folio'], 'subdirector' => mb_strtoupper(self::subdirector()),
         ];
         foreach (['carrera', 'sistema', 'modalidad', 'nombre', 'cuenta', 'titulo'] as $k) {
             $v[$k . '_v'] = $v[$k];
@@ -144,7 +214,11 @@ final class Formatos
         if ($def['tipo'] === 'docx') {
             return [self::protocolo($tramite), 'Protocolo-' . $tramite['modalidad'] . '_' . $folio . '.docx', self::MIME_DOCX];
         }
-        return [PdfFormato::generar($formato, self::valoresPdf($tramite)), ucfirst($formato) . '_' . $folio . '.pdf', 'application/pdf'];
+        $r = Configuracion::resolverPdf($formato);
+        if ($r === null) {
+            throw new RuntimeException('El formato no tiene plantilla disponible.');
+        }
+        return [PdfFormato::generarCon($r['spec'], $r['plantilla'], self::valoresPdf($tramite)), ucfirst($formato) . '_' . $folio . '.pdf', 'application/pdf'];
     }
 
     private static function protocolo(array $t): string
