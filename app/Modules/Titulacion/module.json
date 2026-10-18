@@ -7,6 +7,20 @@
   "menu": [
     {
       "seccion": "TITULACIÓN",
+      "titulo": "Seguimiento",
+      "ruta": "titulacion/seguimiento",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 19
+    },
+    {
+      "seccion": "TITULACIÓN",
       "titulo": "Licenciatura",
       "ruta": "titulacion/licenciatura",
       "roles": [
@@ -112,6 +126,21 @@
         "admin"
       ],
       "orden": 27
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Firmas de Subdirección",
+      "ruta": "titulacion/firmas",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 28,
+      "condicion": "App\\Modules\\Titulacion\\Services\\SubdireccionFirma::puedeFirmar"
     }
   ],
   "rutas": {
@@ -370,6 +399,42 @@
     "POST /titulacion/configuracion/parametros": [
       "App\\Modules\\Titulacion\\ConfiguracionController",
       "parametros"
+    ],
+    "GET /titulacion/seguimiento": [
+      "App\\Modules\\Titulacion\\SeguimientoController",
+      "index"
+    ],
+    "GET /titulacion/firmas": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "index"
+    ],
+    "POST /titulacion/firmas/firmar": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "firmar"
+    ],
+    "GET /titulacion/firmas/archivo/{id}": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "descargar"
+    ],
+    "GET /titulacion/firmas/previa/{id}": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "vistaPrevia"
+    ],
+    "POST /titulacion/firmas/asistentes": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "agregarAsistente"
+    ],
+    "POST /titulacion/firmas/asistentes/{id}/alternar": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "quitarAsistente"
+    ],
+    "POST /titulacion/firmas/piloto": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "guardarPiloto"
+    ],
+    "POST /titulacion/firmas/piloto/apagar": [
+      "App\\Modules\\Titulacion\\FirmasController",
+      "apagarPiloto"
     ]
   }
 }
