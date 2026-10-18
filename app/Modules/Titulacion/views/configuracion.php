@@ -19,7 +19,7 @@ $csrf = e(Auth::csrfToken());
     <?php foreach ($formatos as $clave => $f): ?>
       <tr id="f-<?= e($clave) ?>">
         <td><strong><?= e($f['nombre']) ?></strong><br><span class="texto-secundario"><?= $f['tipo'] === 'pdf' ? 'PDF · ' . (int) $f['campos'] . ' campos' : 'Word sobre hoja membretada' ?> · firma: <?= e($f['firma']) ?></span></td>
-        <td style="max-width:260px"><?= $f['uso'] ? e(implode(', ', array_slice($f['uso'], 0, 4))) . (count($f['uso']) > 4 ? '…' : '') : '<span class="texto-secundario">Sin uso</span>' ?></td>
+        <td style="max-width:260px"><?= !empty($f['interno']) ? 'Lo genera la revisión de protocolos' : ($f['uso'] ? e(implode(', ', array_slice($f['uso'], 0, 4))) . (count($f['uso']) > 4 ? '…' : '') : '<span class="texto-secundario">Sin uso</span>') ?></td>
         <td>
           <span class="tit-chip <?= $f['activo'] ? 'ok' : 'na' ?>"><?= $f['activo'] ? 'Activo' : 'Retirado' ?></span>
           <?php if ($f['personalizado']): ?><span class="tit-chip rev">Añadido</span><?php elseif ($f['modificado']): ?><span class="tit-chip pend">Modificado</span><?php endif; ?>
@@ -77,6 +77,24 @@ $csrf = e(Auth::csrfToken());
         <select name="modalidades[]" multiple size="5"><?php foreach ($modalidades as $mc => $m): ?><option value="<?= e($mc) ?>"><?= e($m['nombre']) ?></option><?php endforeach; ?></select></label>
     </div>
     <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Subir y abrir el visor</button></div>
+  </form>
+</section>
+
+<section class="tarjeta" id="parametros" style="margin-bottom:18px">
+  <h2>Parámetros de revisión de protocolos</h2>
+  <form class="formulario" method="post" action="<?= url('titulacion/configuracion/parametros') ?>">
+    <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+    <div class="tit-campos">
+      <label>Plazo de cada evaluador (días hábiles) <input type="number" name="dias" min="1" max="30" value="<?= (int) $param['dias'] ?>" required></label>
+      <label>Semáforo ámbar cuando falten (días hábiles) <input type="number" name="aviso" min="0" max="10" value="<?= (int) $param['aviso'] ?>" required></label>
+      <label>Firma de las revisiones y del dictamen
+        <select name="firma"><option value="sello" <?= $param['firma'] === 'sello' ? 'selected' : '' ?>>Sello electrónico (nombre, fecha y huella)</option>
+          <option value="pades" <?= $param['firma'] === 'pades' ? 'selected' : '' ?> <?= $param['pki'] ? '' : 'disabled' ?>>Firma PAdES con segundo factor<?= $param['pki'] ? '' : ' (PKI inactiva)' ?></option></select></label>
+      <label>Vigencia extra del enlace del correo (días tras la fecha límite) <input type="number" name="gracia" min="1" max="60" value="<?= (int) $param['gracia'] ?>" required></label>
+      <label class="ancho" style="grid-column:1/-1">Días no laborables (AAAA-MM-DD, uno por línea; no cuentan como hábiles)
+        <textarea name="inhabiles" rows="4" placeholder="2026-11-02&#10;2026-11-16"><?= e($param['inhabiles']) ?></textarea></label>
+    </div>
+    <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar parámetros</button></div>
   </form>
 </section>
 

@@ -165,7 +165,7 @@ final class Auth
     /** Conserva únicamente destinos internos reconocidos después del login. */
     public static function recordarDestino(string $ruta): void
     {
-        if (preg_match('#^fila/[a-z0-9_-]{2,30}/reg\.php\?[A-Z][A-Z0-9]{1,5}-[A-Z2-9-]{30,40}$#', $ruta)) {
+        if (self::destinoPermitido($ruta)) {
             $_SESSION['_destino_login'] = $ruta;
         }
     }
@@ -175,6 +175,13 @@ final class Auth
     {
         $ruta = (string) ($_SESSION['_destino_login'] ?? '');
         unset($_SESSION['_destino_login']);
-        return preg_match('#^fila/[a-z0-9_-]{2,30}/reg\.php\?[A-Z][A-Z0-9]{1,5}-[A-Z2-9-]{30,40}$#', $ruta) ? $ruta : '';
+        return self::destinoPermitido($ruta) ? $ruta : '';
+    }
+
+    /** Destinos internos que pueden retomarse tras iniciar sesión (folios de la fila y revisión de protocolos). */
+    private static function destinoPermitido(string $ruta): bool
+    {
+        return (bool) preg_match('#^fila/[a-z0-9_-]{2,30}/reg\.php\?[A-Z][A-Z0-9]{1,5}-[A-Z2-9-]{30,40}$#', $ruta)
+            || (bool) preg_match('#^titulacion/revision/t/[A-Za-z0-9_-]{40,50}$#', $ruta);
     }
 }

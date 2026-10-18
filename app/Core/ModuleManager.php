@@ -73,6 +73,7 @@ final class ModuleManager
         foreach (self::descubrir() as $m) {
             foreach ($m['menu'] as $item) {
                 if ($rol === null || !in_array($rol, $item['roles'], true)) continue;
+                if (!empty($item['condicion']) && !self::cumple((string) $item['condicion'])) continue;
                 $item['clave'] = $m['clave'];
                 $sec = $item['seccion'];
                 if (!isset($secciones[$sec])) $secciones[$sec] = ['orden' => $item['orden'], 'items' => []];
@@ -84,6 +85,13 @@ final class ModuleManager
         foreach ($secciones as &$seccion) usort($seccion['items'], fn($a, $b) => $a['orden'] <=> $b['orden']);
         unset($seccion);
         return $secciones;
+    }
+
+    /** Condición opcional de una entrada de menú: «Clase::metodo» de un módulo que devuelve bool. */
+    private static function cumple(string $condicion): bool
+    {
+        if (!preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $condicion) || !is_callable($condicion)) return false;
+        try { return (bool) $condicion(); } catch (Throwable $e) { error_log('Condición de menú fallida (' . $condicion . '): ' . $e->getMessage()); return false; }
     }
 
     private static function validar(array $config, string $dir, string $formato, array $claves, array $rutas): array
@@ -122,6 +130,9 @@ final class ModuleManager
                 }
             }
             if (str_starts_with($item['ruta'], '/') || str_contains($item['ruta'], '..')) throw new RuntimeException("Ruta de menú insegura en {$i}.");
+            if (isset($item['condicion']) && (!is_string($item['condicion']) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $item['condicion']))) {
+                throw new RuntimeException("Condición de menú inválida en {$i}.");
+            }
             self::validarRoles($item['roles'] ?? [], "roles del menú {$i}");
             $item['roles'] = array_values($item['roles'] ?? []);
             $item['orden'] = isset($item['orden']) ? (int) $item['orden'] : 999;

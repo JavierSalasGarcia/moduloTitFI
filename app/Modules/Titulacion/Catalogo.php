@@ -27,6 +27,7 @@ final class Catalogo
             'computacion' => ['nombre' => 'Ingeniería en Computación', 'siglas' => ['ICO']],
             'electronica' => ['nombre' => 'Ingeniería en Electrónica', 'siglas' => ['IEL']],
             'sistemas' => ['nombre' => 'Ingeniería en Sistemas Energéticos Sustentables', 'siglas' => ['ISES']],
+            'ia' => ['nombre' => 'Ingeniería en Inteligencia Artificial', 'siglas' => ['IIA', 'IA']],
         ];
     }
 
@@ -206,6 +207,7 @@ final class Catalogo
             'revision' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de revisión del trabajo escrito', 'firma' => 'el pasante y el asesor (Vo. Bo.)'],
             'sustentacion' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de sustentación y Voto aprobatorio', 'firma' => 'el pasante y el asesor; el voto lo firman asesor y revisores'],
             'trabajo_eval' => ['tipo' => 'pdf', 'nombre' => 'Solicitud para presentar la evaluación profesional mediante trabajo escrito', 'firma' => 'el pasante'],
+            'revision_protocolo' => ['tipo' => 'pdf', 'nombre' => 'Revisión de protocolo (dictamen de la comisión)', 'firma' => 'quien evalúa; el dictamen consolidado lo firma el encargado de la comisión', 'interno' => true],
             'art5' => ['tipo' => 'pdf', 'nombre' => 'Solicitud para continuar el trámite fuera de plazo (Art. 5, REP)', 'firma' => 'el pasante (y asesor si hay trabajo escrito)'],
         ];
     }
@@ -533,7 +535,7 @@ final class Catalogo
             'campos' => $proto['campos'] ?? [],
             'formatos' => ['protocolo'],
             'documentos' => [
-                self::doc('protocolo_firmado', 'Solicitud y protocolo firmados (pasante y asesor)', 'En PDF, completo y legible.', null, 'protocolo'),
+                ['validacion' => 'comision'] + self::doc('protocolo_firmado', 'Solicitud y protocolo firmados (pasante y asesor)', 'En PDF, completo y legible. Lo revisa la comisión de evaluación de tu licenciatura.', null, 'protocolo'),
                 self::doc('carta_presentacion', 'Carta de presentación del pasante y asesor', 'Descárgala en blanco desde «Formatos en blanco».', 'Solo para instituciones incorporadas.'),
             ],
             'personal' => [

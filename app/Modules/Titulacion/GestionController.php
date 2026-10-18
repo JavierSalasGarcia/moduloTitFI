@@ -78,6 +78,12 @@ final class GestionController extends TitulacionBase
             flash('error', 'El comentario excede 900 caracteres.');
             redirigir($volver);
         }
+        $etapaDef = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, (string) $d['etapa']);
+        $defDoc = $etapaDef ? Catalogo::documentoDeEtapa($etapaDef, (string) $d['clave']) : null;
+        if (($defDoc['validacion'] ?? '') === 'comision' && RevisionRepository::comisionConfigurada((string) ($t['datos']['datos']['carrera'] ?? ''))) {
+            flash('error', 'Este documento lo valida la comisión de revisión de protocolos.');
+            redirigir($volver);
+        }
         $nombre = $this->nombreDocumento($t, (string) $d['etapa'], (string) $d['clave']);
         TitulacionRepository::revisarDocumento((int) $d['id'], $estado, $comentario !== '' ? $comentario : null, Auth::id());
         TitulacionRepository::evento(

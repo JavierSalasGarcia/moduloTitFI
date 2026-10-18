@@ -18,12 +18,19 @@ final class TramiteController extends TitulacionBase
     public function inicio(): void
     {
         $this->privado();
-        $this->vista('inicio', ['titulo' => 'Titulación', 'esPersonal' => TitulacionAccess::esPersonal()]);
+        $this->vista('inicio', [
+            'titulo' => 'Titulación', 'esPersonal' => TitulacionAccess::esPersonal(),
+            'veLicenciatura' => TitulacionAccess::veLicenciatura(), 'vePosgrado' => TitulacionAccess::vePosgrado(),
+            'esEvaluador' => TitulacionAccess::esEvaluador(), 'esEncargado' => TitulacionAccess::esEncargado(),
+        ]);
     }
 
     public function licenciatura(): void
     {
         $this->privado();
+        if (!TitulacionAccess::veLicenciatura()) {
+            redirigir('titulacion/posgrado');
+        }
         $mis = TitulacionAccess::puedeIniciar() ? TitulacionRepository::delAlumno(Auth::id()) : [];
         foreach ($mis as &$t) {
             $t['datos'] = json_decode((string) $t['datos'], true) ?: [];
@@ -45,6 +52,9 @@ final class TramiteController extends TitulacionBase
     public function posgrado(): void
     {
         $this->privado();
+        if (!TitulacionAccess::vePosgrado()) {
+            redirigir('titulacion/licenciatura');
+        }
         $this->vista('posgrado', ['titulo' => 'Titulación · Posgrado']);
     }
 
@@ -133,6 +143,8 @@ final class TramiteController extends TitulacionBase
             }
         }
         $this->vista('tramite', [
+            'linea' => $etapa['clave'] === 'protocolo' ? $this->lineaRevision($t) : null,
+            'protocoloEnRevision' => (($ab = RevisionRepository::rondaAbierta((int) $t['id'])) !== null && $ab['estado'] !== 'recibida'),
             'titulo' => 'Trámite ' . $t['folio'],
             't' => $t,
             'modalidad' => Catalogo::modalidad((string) $t['modalidad']),
@@ -146,6 +158,49 @@ final class TramiteController extends TitulacionBase
             'eventos' => TitulacionRepository::eventos((int) $t['id'], !TitulacionAccess::esPersonal()),
             'blanco' => Catalogo::archivosBlanco(),
         ]);
+    }
+
+    /**
+     * Línea de tiempo de la revisión del protocolo, sin revelar quiénes evalúan.
+     *
+     * @return array{pasos: array<int,array{texto:string,clase:string}>, ronda: ?array}|null
+     */
+    private function lineaRevision(array $t): ?array
+    {
+        $rondas = RevisionRepository::rondasDeTramite((int) $t['id']);
+        $r = $rondas[0] ?? null;
+        $carrera = $r ? (Catalogo::carreras()[$r['carrera']]['siglas'][0] ?? '') : '';
+        $orden = ['recibida' => 1, 'en_comision' => 2, 'en_evaluacion' => 3, 'por_dictaminar' => 3, 'dictaminada' => 4, 'cancelada' => 0];
+        $n = $r ? ($orden[$r['estado']] ?? 0) : -1;
+        $firmadas = '';
+        if ($r && in_array($r['estado'], ['en_evaluacion', 'por_dictaminar'], true)) {
+            $asig = array_filter(RevisionRepository::asignaciones((int) $r['id']), static fn(array $a): bool => $a['estado'] !== 'cancelada');
+            $firmadas = ' (' . count(array_filter($asig, static fn(array $a): bool => $a['estado'] === 'firmada')) . ' de ' . count($asig) . ' revisiones listas)';
+        }
+        $marca = static fn(int $paso): string => $n > $paso ? 'hecho' : ($n === $paso ? 'ahora' : '');
+        $pasos = [
+            ['texto' => 'Sube tu protocolo', 'clase' => $n >= 0 ? 'hecho' : 'ahora'],
+            ['texto' => 'Recibido por Titulación', 'clase' => $n < 0 ? '' : $marca(1)],
+            ['texto' => 'En la comisión' . ($carrera ? ' de ' . $carrera : ''), 'clase' => $n < 0 ? '' : $marca(2)],
+            ['texto' => 'En evaluación' . $firmadas, 'clase' => $n < 0 ? '' : $marca(3)],
+        ];
+        $fin = ['texto' => 'Dictamen', 'clase' => ''];
+        if ($r && $r['estado'] === 'dictaminada') {
+            $fin = $r['dictamen'] === 'aprobado' ? ['texto' => 'Protocolo aprobado', 'clase' => 'hecho'] : ['texto' => 'Con observaciones: corrige y vuelve a subir', 'clase' => 'mal'];
+        }
+        $pasos[] = $fin;
+        return ['pasos' => $pasos, 'ronda' => $r && $r['estado'] === 'dictaminada' ? $r : null, 'numero' => $r ? (int) $r['numero'] : 0];
+    }
+
+    public function dictamen(string $id, string $ronda): void
+    {
+        $t = $this->tramite($id);
+        $r = ctype_digit($ronda) ? RevisionRepository::ronda((int) $ronda) : null;
+        if ($r === null || (int) $r['tramite_id'] !== (int) $t['id'] || $r['estado'] !== 'dictaminada' || empty($r['dictamen_ruta'])) {
+            $this->noEncontrado();
+        }
+        Audit::record('titulacion::dictamen_descarga', 'atendido', 'Ronda ' . (int) $r['id']);
+        $this->enviarArchivo((string) $r['dictamen_ruta'], $t['folio'] . '_dictamen_protocolo.pdf', true);
     }
 
     public function capturar(string $id, string $etapaClave): void
@@ -290,6 +345,14 @@ final class TramiteController extends TitulacionBase
             flash('error', 'Ese documento ya fue validado.');
             redirigir($volver);
         }
+        $esProtocolo = $etapaClave === 'protocolo' && $docClave === 'protocolo_firmado';
+        if ($esProtocolo) {
+            $abierta = RevisionRepository::rondaAbierta((int) $t['id']);
+            if ($abierta && $abierta['estado'] !== 'recibida') {
+                flash('error', 'Tu protocolo ya está en revisión de la comisión; no puedes reemplazarlo hasta recibir el dictamen.');
+                redirigir($volver);
+            }
+        }
         try {
             $ruta = guardar_archivo('archivo', 'titulacion/' . (int) $t['id'], ['pdf']);
         } catch (InvalidArgumentException $e) {
@@ -305,7 +368,14 @@ final class TramiteController extends TitulacionBase
             redirigir($volver);
         }
         $nombre = (string) ($_FILES['archivo']['name'] ?? 'documento.pdf');
-        TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, mb_substr($nombre, 0, 255), Auth::id());
+        $docId = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, mb_substr($nombre, 0, 255), Auth::id());
+        if ($esProtocolo) {
+            try {
+                Services\RevisionProtocolo::nuevaRonda($t, $docId);
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo abrir la revisión del protocolo: ' . $e->getMessage());
+            }
+        }
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'documento', 'Documento enviado a validación: ' . $def['nombre']);
         Audit::record('titulacion::subir', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $docClave);
         $this->sincronizar((int) $t['id']);
