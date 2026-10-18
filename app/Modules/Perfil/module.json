@@ -9,11 +9,25 @@
       "seccion": "MI ESPACIO",
       "titulo": "Mi perfil",
       "ruta": "perfil",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
       "orden": 89
     }
   ],
   "rutas": {
-    "GET /perfil": ["App\\Modules\\Perfil\\PerfilController", "index"]
+    "GET /perfil": [
+      "App\\Modules\\Perfil\\PerfilController",
+      "index"
+    ],
+    "POST /perfil/tratamiento": [
+      "App\\Modules\\Perfil\\PerfilController",
+      "tratamiento"
+    ]
   }
 }

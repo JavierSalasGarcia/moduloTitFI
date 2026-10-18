@@ -13,7 +13,7 @@ final class Autoridades
     {
         $marcas = implode(',', array_fill(0, count($claves), '?'));
         $f = Database::una(
-            "SELECT u.id, u.nombre, u.email
+            "SELECT u.id, u.nombre, u.grado, u.genero, u.email
              FROM departamento_responsables r
              JOIN departamentos d ON d.id = r.departamento_id
              JOIN usuarios u ON u.id = r.usuario_id AND u.activo = 1
@@ -22,7 +22,7 @@ final class Autoridades
              ORDER BY r.fecha_inicio DESC, r.id DESC LIMIT 1",
             $claves
         );
-        return $f ? ['id' => (int) $f['id'], 'nombre' => (string) $f['nombre'], 'email' => strtolower((string) $f['email'])] : null;
+        return $f ? ['id' => (int) $f['id'], 'nombre' => (string) $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero'], 'email' => strtolower((string) $f['email'])] : null;
     }
 
     public static function director(): ?array
@@ -46,7 +46,7 @@ final class Autoridades
         }
         $marcas = implode(',', array_fill(0, count($siglas), '?'));
         $f = Database::una(
-            "SELECT u.id, u.nombre, u.email
+            "SELECT u.id, u.nombre, u.grado, u.genero, u.email
              FROM programa_responsables r
              JOIN programas p ON p.id = r.programa_id
              JOIN usuarios u ON u.id = r.usuario_id AND u.activo = 1
@@ -55,6 +55,6 @@ final class Autoridades
              ORDER BY r.fecha_inicio DESC, r.id DESC LIMIT 1",
             array_values($siglas)
         );
-        return $f ? ['id' => (int) $f['id'], 'nombre' => (string) $f['nombre'], 'email' => strtolower((string) $f['email'])] : null;
+        return $f ? ['id' => (int) $f['id'], 'nombre' => (string) $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero'], 'email' => strtolower((string) $f['email'])] : null;
     }
 }

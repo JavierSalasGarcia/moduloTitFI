@@ -128,6 +128,13 @@
         <input type="text" name="nombre" required placeholder="Ej. Dr. Javier Salas">
       </label>
 
+      <label>Grado académico (como se antepone al nombre)
+        <input type="text" name="grado" maxlength="30" list="grados-lista" placeholder="Ej. Dr., Mtra., Ing.">
+      </label>
+      <label>Género
+        <select name="genero"><option value="">Sin indicar</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option></select>
+      </label>
+
       <label>Correo Electrónico <span class="req">*</span>
         <input type="email" name="email" required pattern=".*[uU][aA][eE][mM][eE][xX]\.[mM][xX].*" title="El correo debe contener uaemex.mx" placeholder="Ej. jsalasg@uaemex.mx">
         <small>Debe contener uaemex.mx en alguna parte.</small>
@@ -214,6 +221,13 @@
       
       <label>Nombre Completo <span class="req">*</span>
         <input type="text" id="edit-nombre" name="nombre" required>
+      </label>
+
+      <label>Grado académico (como se antepone al nombre)
+        <input type="text" id="edit-grado" name="grado" maxlength="30" list="grados-lista" placeholder="Ej. Dr., Mtra., Ing.">
+      </label>
+      <label>Género
+        <select id="edit-genero" name="genero"><option value="">Sin indicar</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option></select>
       </label>
 
       <label>Correo Electrónico <span class="req">*</span>
@@ -399,6 +413,8 @@ function cerrarModalCrear() {
 function abrirModalEditar(usr) {
   document.getElementById('edit-nombre').value = usr.nombre;
   document.getElementById('edit-email').value = usr.email;
+  document.getElementById('edit-grado').value = usr.grado || '';
+  document.getElementById('edit-genero').value = usr.genero || '';
   document.getElementById('edit-rol').value = usr.rol;
   document.getElementById('edit-depto').value = usr.departamento_id || '';
   document.getElementById('edit-contratacion').value = usr.tipo_contratacion || '';
@@ -437,4 +453,4 @@ document.querySelectorAll('.modal-fondo').forEach(modal => {
   });
 });
 </script>
-
+<datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>

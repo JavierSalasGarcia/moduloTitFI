@@ -148,8 +148,15 @@ final class Formatos
     /** Nombre del Subdirector Académico tal como debe aparecer; se captura una vez en Ajustes. */
     public static function subdirector(): string
     {
-        $nombre = trim((string) (Autoridades::subdirector()['nombre'] ?? 'DR. JAVIER SALAS GARCÍA'));
+        $a = Autoridades::subdirector();
+        $nombre = $a ? trim(\App\Core\Persona::tratamiento($a)) : '';
         return $nombre !== '' ? $nombre : 'DR. JAVIER SALAS GARCÍA';
+    }
+
+    /** Cargo del Subdirector en la forma que corresponde a su género. */
+    public static function cargoSubdirector(): string
+    {
+        return \App\Core\Persona::f(Autoridades::subdirector() ?? [], 'SUBDIRECTOR ACADÉMICO', 'SUBDIRECTORA ACADÉMICA');
     }
 
     public static function fechaHoy(): array

@@ -17,19 +17,22 @@ final class Correo
         return rtrim((string) App::config('app.url_publica', ''), '/') . url($ruta);
     }
 
-    public static function enviar(string $para, string $nombre, string $asunto, string $parrafos, ?string $boton, ?string $urlBoton, string $tipo, ?int $tramiteId = null): bool
+    /** @param string|array $nombre nombre, o persona con 'nombre', 'grado' y 'genero' (se completa con los datos de su cuenta si la tiene) */
+    public static function enviar(string $para, string|array $nombre, string $asunto, string $parrafos, ?string $boton, ?string $urlBoton, string $tipo, ?int $tramiteId = null): bool
     {
+        $persona = \App\Core\Persona::completar(is_array($nombre) ? $nombre : ['nombre' => $nombre], $para);
+        $saludo = \App\Core\Persona::saludo($persona);
         $esc = static fn(string $t): string => htmlspecialchars($t, ENT_QUOTES, 'UTF-8');
         $html = "<div style='font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px;border:1px solid #e2e8f0;border-radius:8px'>"
             . "<h2 style='color:#2C5234;margin-top:0'>Titulación · Facultad de Ingeniería</h2>"
-            . "<p style='color:#334155;font-size:14px'>Hola <strong>" . $esc($nombre) . "</strong>,</p>"
+            . "<p style='color:#334155;font-size:14px'><strong>" . $esc($saludo) . "</strong>,</p>"
             . "<div style='color:#334155;font-size:14px;line-height:1.5'>" . nl2br($esc($parrafos)) . "</div>";
         if ($boton !== null && $urlBoton !== null) {
             $html .= "<p style='margin:22px 0'><a href='" . $esc($urlBoton) . "' style='background:#2C5234;color:#fff;padding:11px 18px;border-radius:6px;text-decoration:none;font-weight:bold'>" . $esc($boton) . "</a></p>"
                 . "<p style='color:#64748b;font-size:12px'>Si el botón no funciona, copia este enlace en tu navegador:<br>" . $esc($urlBoton) . "</p>";
         }
         $html .= "<hr style='border:0;border-top:1px solid #e2e8f0;margin:20px 0'><p style='color:#94a3b8;font-size:11px;text-align:center'>Traza FI · Departamento de Evaluación Profesional · UAEMéx</p></div>";
-        $texto = "Hola $nombre,\n\n$parrafos\n" . ($urlBoton !== null ? "\n$boton: $urlBoton\n" : '') . "\nTraza FI · Facultad de Ingeniería UAEMéx";
+        $texto = "$saludo,\n\n$parrafos\n" . ($urlBoton !== null ? "\n$boton: $urlBoton\n" : '') . "\nTraza FI · Facultad de Ingeniería UAEMéx";
 
         $configurado = (string) App::config('correo.api_token', '') !== '';
         $ok = false;

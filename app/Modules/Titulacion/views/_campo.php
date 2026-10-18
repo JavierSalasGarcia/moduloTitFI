@@ -31,7 +31,7 @@ $req = !empty($campo['req']);
   <?php if ($tipo === 'area'): ?>
     <textarea id="<?= e($id) ?>" name="<?= e($nombre) ?>" rows="<?= (int) ($campo['filas'] ?? 4) ?>" maxlength="<?= (int) ($campo['max'] ?? 1500) ?>" <?= $req ? 'required' : '' ?>><?= e((string) $valor) ?></textarea>
   <?php elseif ($tipo === 'select'): ?>
-    <select id="<?= e($id) ?>" name="<?= e($nombre) ?>" <?= $req ? 'required' : '' ?>>
+    <select id="<?= e($id) ?>" name="<?= e($nombre) ?>" <?= $req ? 'required' : '' ?> <?= !empty($campo['prof_genero']) ? 'data-prof-genero="' . e($campo['prof_genero']) . '"' : '' ?>>
       <option value="">Elige…</option>
       <?php foreach ($campo['opciones'] as $v => $et): ?>
         <option value="<?= e((string) $v) ?>" <?= (string) $valor === (string) $v ? 'selected' : '' ?>><?= e($et) ?></option>
@@ -41,6 +41,7 @@ $req = !empty($campo['req']);
     <?php $htmlTipo = ['fecha' => 'date', 'hora' => 'time', 'email' => 'email', 'tel' => 'tel'][$tipo] ?? 'text'; ?>
     <input id="<?= e($id) ?>" type="<?= $htmlTipo ?>" name="<?= e($nombre) ?>" value="<?= e((string) $valor) ?>"
       <?= !empty($campo['prof']) ? 'data-prof="' . e($campo['prof']) . '" list="dl-prof-' . e($campo['prof']) . '" autocomplete="off"' : '' ?>
+      <?= !empty($campo['prof_grado']) ? 'data-prof-grado="' . e($campo['prof_grado']) . '" list="grados-lista"' : '' ?>
       <?= !empty($campo['prof_correo']) ? 'data-prof-correo="' . e($campo['prof_correo']) . '" list="dl-prof-' . e($campo['prof_correo']) . '-c" autocomplete="off"' : '' ?>
       <?= isset($campo['max']) ? 'maxlength="' . (int) $campo['max'] . '"' : '' ?>
       <?= !empty($campo['patron']) ? 'pattern="' . e((string) $campo['patron']) . '"' : '' ?> <?= $req ? 'required' : '' ?>>
@@ -50,3 +51,4 @@ $req = !empty($campo['req']);
   <?php if (!empty($campo['ayuda'])): ?><span class="ayuda-form"><?= e($campo['ayuda']) ?></span><?php endif; ?>
 <?php endif; ?>
 </div>
+<?php if (!empty($campo['prof_grado']) && empty($GLOBALS['_grados_lista'])): $GLOBALS['_grados_lista'] = true; ?><datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist><?php endif; ?>

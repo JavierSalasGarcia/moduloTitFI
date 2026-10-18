@@ -22,4 +22,17 @@ final class PerfilController extends Controller
             'dependencias' => Database::todas('SELECT dr.*,d.nombre AS dependencia FROM departamento_responsables dr JOIN departamentos d ON d.id=dr.departamento_id WHERE dr.usuario_id=? ORDER BY dr.activo DESC,dr.fecha_inicio DESC', [$id]),
         ]);
     }
+
+    /** La persona corrige su grado y género, que se usan para tratarla correctamente en toda la plataforma. */
+    public function tratamiento(): void
+    {
+        $grado = mb_substr(trim((string) ($_POST['grado'] ?? '')), 0, 30);
+        $genero = (string) ($_POST['genero'] ?? '');
+        Database::ejecutar(
+            'UPDATE usuarios SET grado = ?, genero = ? WHERE id = ?',
+            [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino'], true) ? $genero : null, Auth::id()]
+        );
+        flash('exito', 'Tu tratamiento se actualizó.');
+        redirigir('perfil');
+    }
 }

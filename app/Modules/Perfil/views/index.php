@@ -7,6 +7,17 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   <div class="perfil-cabecera"><div class="perfil-avatar"><?= e(mb_strtoupper(mb_substr($usuarioPerfil['nombre'],0,1))) ?></div><div><h2 style="margin:0"><?= e($usuarioPerfil['nombre']) ?></h2><p class="texto-suave" style="margin:4px 0 0"><?= e($usuarioPerfil['email']) ?> · <?= e($rolEtiquetas[$usuarioPerfil['rol']]??$usuarioPerfil['rol']) ?></p></div></div>
   <div class="perfil-grid"><div><strong>Departamento o adscripción</strong><p><?= e($usuarioPerfil['departamento']?:'Sin adscripción registrada') ?></p></div><div><strong>Programa principal</strong><p><?= e($usuarioPerfil['programa']?:'Sin programa principal') ?></p></div></div>
 </section>
+<section class="card" style="padding:20px;margin-bottom:18px">
+  <h3 style="margin-top:0">Cómo dirigirnos a ti</h3>
+  <p class="texto-suave">Se usa en oficios, formatos y correos de toda la plataforma (por ejemplo «Estimada Dra. …»).</p>
+  <form method="post" action="<?= url('perfil/tratamiento') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+    <label>Grado académico<input type="text" name="grado" maxlength="30" list="grados-lista" value="<?= e((string) ($usuarioPerfil['grado'] ?? '')) ?>" placeholder="Ej. Dr., Mtra., Ing."></label>
+    <label>Género<select name="genero"><option value="">Sin indicar</option><option value="masculino" <?= ($usuarioPerfil['genero'] ?? '') === 'masculino' ? 'selected' : '' ?>>Masculino</option><option value="femenino" <?= ($usuarioPerfil['genero'] ?? '') === 'femenino' ? 'selected' : '' ?>>Femenino</option></select></label>
+    <button class="btn btn-primario" type="submit">Guardar</button>
+    <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
+  </form>
+</section>
 <div class="perfil-grid">
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Programas y carreras donde participo</h3><?php if(!$adscripciones):?><p class="texto-suave">No tienes programas docentes registrados.</p><?php else:?><ul class="perfil-lista"><?php foreach($adscripciones as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['tipo_vinculo'])) ?> · <?= e($r['nivel']) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Responsabilidades en programas</h3><?php if(!$responsabilidades):?><p class="texto-suave">No tienes responsabilidades registradas.</p><?php else:?><ul class="perfil-lista"><?php foreach($responsabilidades as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['cargo'])) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>

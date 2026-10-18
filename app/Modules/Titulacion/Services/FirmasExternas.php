@@ -41,24 +41,26 @@ final class FirmasExternas
                 continue;
             }
             $token = self::token();
+            $grado = mb_substr(trim((string) ($r[$rol . '_grado'] ?? '')), 0, 30);
+            $genero = in_array(($r[$rol . '_genero'] ?? ''), ['masculino', 'femenino'], true) ? $r[$rol . '_genero'] : null;
             Database::ejecutar(
-                'INSERT INTO tit_firmas_externas (tramite_id, documento_id, rol, nombre, email, token_hash, vence, caja) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                [(int) $tramite['id'], $docId, $rol, mb_substr($nombre, 0, 160), $email, hash('sha256', $token), self::vence(), json_encode($cajas['asesor'])]
+                'INSERT INTO tit_firmas_externas (tramite_id, documento_id, rol, nombre, grado, genero, email, token_hash, vence, caja) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [(int) $tramite['id'], $docId, $rol, mb_substr($nombre, 0, 160), $grado !== '' ? $grado : null, $genero, $email, hash('sha256', $token), self::vence(), json_encode($cajas['asesor'])]
             );
-            self::correo($tramite, $nombre, $email, $token, false);
+            self::correo($tramite, ['nombre' => $nombre, 'grado' => $grado !== '' ? $grado : null, 'genero' => $genero], $email, $token, false, $rol);
         }
         Database::ejecutar('UPDATE tit_documentos SET pendiente_firmas = 1 WHERE id = ?', [$docId]);
         TitulacionRepository::evento((int) $tramite['id'], (int) $tramite['alumno_id'], 'firma', 'Protocolo firmado por el pasante; se pidió la firma de su asesor por correo.', true);
     }
 
-    private static function correo(array $tramite, string $nombre, string $email, string $token, bool $recordatorio): void
+    private static function correo(array $tramite, array $nombre, string $email, string $token, bool $recordatorio, string $rol = 'asesor'): void
     {
         $alumno = (string) ($tramite['datos']['datos']['nombre'] ?? '');
         $titulo = (string) ($tramite['datos']['protocolo']['titulo'] ?? '');
         Correo::enviar(
             $email, $nombre,
             ($recordatorio ? 'Recordatorio · ' : '') . 'Firma de protocolo · ' . $tramite['folio'],
-            ($recordatorio ? 'Recordatorio: ' : '') . "$alumno, pasante de la Facultad de Ingeniería, te pide firmar como asesor su protocolo «{$titulo}».\n\nQué debes hacer: abre el enlace, lee el protocolo y pulsa «Firmar». No necesitas descargar ni subir nada. Para firmar se requiere una cuenta verificada con este mismo correo ($email); si aún no tienes cuenta, el enlace te lleva a crearla.\n\nEl enlace es personal; no lo compartas.",
+            ($recordatorio ? 'Recordatorio: ' : '') . "$alumno, pasante de la Facultad de Ingeniería, te pide firmar como " . \App\Core\Persona::f(\App\Core\Persona::completar($nombre, $email), $rol, $rol . 'a') . " su protocolo «{$titulo}».\n\nQué debes hacer: abre el enlace, lee el protocolo y pulsa «Firmar». No necesitas descargar ni subir nada. Para firmar se requiere una cuenta verificada con este mismo correo ($email); si aún no tienes cuenta, el enlace te lleva a crearla.\n\nEl enlace es personal; no lo compartas.",
             'Revisar y firmar el protocolo', self::url($token), $recordatorio ? 'recordatorio_firma' : 'firma_asesor', (int) $tramite['id']
         );
     }
@@ -91,7 +93,7 @@ final class FirmasExternas
             }
             $token = self::token();
             Database::ejecutar('UPDATE tit_firmas_externas SET token_hash = ?, vence = ? WHERE id = ?', [hash('sha256', $token), self::vence(), (int) $f['id']]);
-            self::correo($t, (string) $f['nombre'], (string) $f['email'], $token, true);
+            self::correo($t, ['nombre' => $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero']], (string) $f['email'], $token, true, (string) $f['rol']);
             $n++;
         }
         return $n;
@@ -124,7 +126,7 @@ final class FirmasExternas
         SelloPdf::estampar(
             $origen, FirmaElectronica::almacen() . '/' . $relativa, (int) $caja['p'], $centro, (float) $caja['y'] * $mm - 1.0,
             'FIRMA ELECTRÓNICA · ' . mb_strtoupper(self::ROLES[$f['rol']]),
-            [mb_strtoupper((string) $f['nombre']), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $t['folio']]
+            [mb_strtoupper(\App\Core\Persona::tratamiento(\App\Core\Persona::completar(['nombre' => $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero']], (string) $f['email']))), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $t['folio']]
         );
         $hash = hash_file('sha256', FirmaElectronica::almacen() . '/' . $relativa) ?: '';
         Database::ejecutar('UPDATE tit_documentos SET ruta = ? WHERE id = ?', [$relativa, (int) $doc['id']]);

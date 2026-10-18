@@ -16,15 +16,15 @@ final class RegistroController extends Controller
     {
         $this->ready(); if (Auth::id()) redirigir('');
         if (AccessControl::limited('registro:'.($_SERVER['REMOTE_ADDR']??''),5,3600)) { flash('error','Se alcanzó el límite de registros. Intenta más tarde.'); redirigir('registro'); }
-        $nombre=trim($this->post('nombre')); $email=Auth::normalizarCorreoInstitucional((string)($_POST['email']??''))??''; $password=(string)($_POST['clave']??'');
-        if ($nombre==='' || mb_strlen($nombre)>120 || strlen($email)>120 || !AccessControl::isUaemexEmail($email) || strlen($password)<10 || strlen($password)>72 || $password!==($_POST['confirmacion']??'')) {
+        $nombre=trim($this->post('nombre')); $email=Auth::normalizarCorreoInstitucional((string)($_POST['email']??''))??''; $password=(string)($_POST['clave']??''); $grado=mb_substr(trim((string)($_POST['grado']??'')),0,30)?:null; $genero=in_array(($_POST['genero']??''),['masculino','femenino'],true)?$_POST['genero']:null;
+        if ($nombre==='' || mb_strlen($nombre)>120 || strlen($email)>120 || !AccessControl::isUaemexEmail($email) || $genero===null || strlen($password)<10 || strlen($password)>72 || $password!==($_POST['confirmacion']??'')) {
             flash('error','Revisa tu nombre, correo UAEMEX y las contraseñas: se admite uaemex.mx y cualquiera de sus subdominios; las contraseñas deben coincidir y tener entre 10 y 72 caracteres.'); redirigir('registro');
         }
         try {
-            $id=AccessControl::internal(function() use($nombre,$email,$password): int {
+            $id=AccessControl::internal(function() use($nombre,$email,$password,$genero,$grado): int {
                 $pdo=Database::pdo(); $pdo->beginTransaction();
                 try {
-                    $id=Database::ejecutar("INSERT INTO usuarios (nombre,email,password_hash,rol,activo,permite_contrasena,logins_contrasena_restantes) VALUES (?,?,?,'alumno',1,1,20)",[$nombre,$email,password_hash($password,PASSWORD_DEFAULT)]);
+                    $id=Database::ejecutar("INSERT INTO usuarios (nombre,grado,genero,email,password_hash,rol,activo,permite_contrasena,logins_contrasena_restantes) VALUES (?,?,?,?,?,'alumno',1,1,20)",[$nombre,$grado,$genero,$email,password_hash($password,PASSWORD_DEFAULT)]);
                     Database::ejecutar('INSERT INTO cuenta_verificacion (usuario_id,creado_en) VALUES (?,?)',[$id,date('Y-m-d H:i:s')]);
                     $pdo->commit(); return $id;
                 } catch(\Throwable $e) { $pdo->rollBack(); throw $e; }
