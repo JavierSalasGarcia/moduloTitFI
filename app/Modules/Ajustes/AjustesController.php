@@ -37,20 +37,9 @@ final class AjustesController extends Controller
 
     public function guardar(): void
     {
-        $rechazado = null;
         foreach ((array) ($_POST['valor'] ?? []) as $clave => $valor) {
             // Dedicated assistant settings have their own validated, admin-only endpoint.
             if (str_starts_with((string)$clave,'ia_') && !in_array($clave,['ia_nvidia_api_key','ia_nvidia_modelo','ia_nvidia_url','ia_api_key','ia_modelo_embeddings','ia_url_embeddings'],true)) continue;
-            if (in_array((string) $clave, ['institucion_director_email', 'institucion_subdirector_email'], true)) {
-                $valor = strtolower(trim((string) $valor));
-                if ($valor !== '' && filter_var($valor, FILTER_VALIDATE_EMAIL) === false) {
-                    $rechazado = 'Revisa el correo de ' . ($clave === 'institucion_director_email' ? 'la Dirección' : 'la Subdirección') . ': no es válido y no se guardó.';
-                    continue;
-                }
-            }
-            if (in_array((string) $clave, ['institucion_director_nombre', 'institucion_subdirector_nombre'], true) && mb_strlen(trim((string) $valor)) < 5) {
-                continue;
-            }
             if (str_contains((string) $clave, 'api_key') && trim((string) $valor) === '') {
                 continue;
             }
@@ -59,7 +48,7 @@ final class AjustesController extends Controller
                 [trim((string) $valor), (string) $clave]
             );
         }
-        $rechazado === null ? flash('exito', 'Ajustes guardados.') : flash('error', 'Ajustes guardados, salvo un dato: ' . $rechazado);
+        flash('exito', 'Ajustes guardados.');
         redirigir('ajustes');
     }
 
