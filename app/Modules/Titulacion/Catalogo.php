@@ -320,7 +320,14 @@ final class Catalogo
     private static function doc(string $clave, string $nombre, string $nota = '', ?string $condicion = null, ?string $formato = null): array
     {
         return ['clave' => $clave, 'nombre' => $nombre, 'nota' => $nota, 'condicion' => $condicion, 'formato' => $formato,
-            'activo' => true, 'fisico' => false, 'cotejo' => false, 'firma_cotejo' => 'sello'];
+            'activo' => true, 'fisico' => false, 'cotejo' => false, 'firma_cotejo' => 'sello',
+            'generado' => $formato !== null && $formato !== 'protocolo'];
+    }
+
+    /** Oficio que genera la plataforma con los datos del trámite y firma la Subdirección. */
+    private static function oficio(string $clave, string $nombre): array
+    {
+        return ['oficio' => true, 'generado' => true] + self::doc($clave, $nombre);
     }
 
     private static function docsIdentidad(bool $ingles, bool $dictamen): array
@@ -339,7 +346,7 @@ final class Catalogo
         $d[] = self::doc('contra_recibo_donacion', 'Contra-recibo de la donación de libros a la Biblioteca de la Facultad');
         $d[] = self::doc('no_adeudo_control_escolar', 'Constancia de no adeudo a la Dirección de Control Escolar de la UAEM', 'Se solicita en el Portal de alumnos: controlescolar.uaemex.mx.');
         $d[] = self::doc('recibo_no_adeudo_uaem', 'Recibo de no adeudo a la UAEM', 'Se solicita en el Portal de alumnos de Control Escolar.');
-        $d[] = self::doc('datos_titulo', 'Formato de datos personales (para el título)', 'Descárgalo llenado desde este sistema, imprímelo, escribe tu nombre a mano y fírmalo.', null, 'datos_titulo');
+        $d[] = self::doc('datos_titulo', 'Formato de datos personales (para el título)', 'La plataforma lo llena con tus datos; lo firmas electrónicamente.', null, 'datos_titulo');
         $d[] = self::doc('comprobante_egresados', 'Comprobante del sistema de Seguimiento de Egresados', 'Se obtiene en alumniversitario.uaemex.mx/1dae.php.');
         if ($dictamen) {
             $d[] = self::doc('dictamen_consejos', 'Dictamen de autorización de los HH. Consejos', 'Se solicita en la Subdirección Académica con el formato del Art. 5.', 'Solo si excediste el plazo de 10 años para presentar la evaluación profesional (Art. 5, REP).', 'art5');
@@ -401,16 +408,10 @@ final class Catalogo
                 'campos' => [],
                 'formatos' => ['aprovechamiento'],
                 'documentos' => [
-                    self::doc('solicitud_firmada', 'Solicitud firmada por el pasante', 'Imprime el formato llenado, fírmalo y escanéalo.', null, 'aprovechamiento'),
+                    self::doc('solicitud_firmada', 'Solicitud firmada por el pasante', 'La plataforma lo genera con tus datos; lo firmas electrónicamente.', null, 'aprovechamiento'),
                     self::doc('cert_licenciatura', 'Certificado de estudios de licenciatura', 'Descargado del Portal de alumnos.'),
                     self::doc('historial_academico', 'Historial académico (trayectoria)', 'Firmado y sellado por el Jefe del Departamento de Control Escolar.'),
                     self::doc('cert_servicio_social', 'Certificado de servicio social'),
-                ],
-                'personal' => [
-                    'titulo' => 'Autorización de la Subdirección Académica',
-                    'descripcion' => 'Apoyo a Titulación verifica tus datos y recaba la firma y sello de la Subdirección.',
-                    'campos' => [['k' => 'fecha', 'label' => 'Fecha de autorización', 'tipo' => 'fecha', 'req' => true]],
-                    'entrega' => self::doc('solicitud_autorizada', 'Solicitud autorizada (firma y sello)'),
                 ],
             ];
         } elseif ($modalidad === 'egel') {
@@ -426,11 +427,6 @@ final class Catalogo
                     self::doc('cert_servicio_social', 'Certificado de servicio social'),
                 ],
                 'presencial' => ['Tres fotografías tamaño óvalo miñón, papel mate, de frente y ropa clara; los hombres con corbata (solo sistema dependiente FI-UAEMéx).'],
-                'personal' => [
-                    'titulo' => 'Autorización de la Subdirección Académica',
-                    'campos' => [['k' => 'fecha', 'label' => 'Fecha de autorización', 'tipo' => 'fecha', 'req' => true]],
-                    'entrega' => self::doc('solicitud_autorizada', 'Solicitud autorizada (firma y sello)'),
-                ],
             ];
             $etapas[] = [
                 'clave' => 'ceneval', 'titulo' => 'Registro y resultado del EGEL', 'tipo' => 'captura',
@@ -458,7 +454,7 @@ final class Catalogo
                     'titulo' => 'Dictamen de afinidad y autorización',
                     'descripcion' => 'La Coordinación de Docencia dictamina la afinidad y la Subdirección Académica autoriza.',
                     'campos' => [['k' => 'fecha', 'label' => 'Fecha de autorización', 'tipo' => 'fecha', 'req' => true]],
-                    'entrega' => self::doc('carta_afinidad', 'Carta de afinidad y solicitud autorizada (firma y sello)'),
+                    'entrega' => self::oficio('carta_afinidad', 'Carta de afinidad'),
                 ],
             ];
             $etapas[] = [
@@ -531,7 +527,7 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'protocolo', 'titulo' => 'Protocolo y aprobación del tema', 'tipo' => 'captura',
-            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; imprímelo, fírmalo con tu asesor y súbelo para su revisión por la Comisión Revisora de Protocolos.',
+            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; descárgalo, fírmalo con tu asesor y súbelo para su revisión por la Comisión Revisora de Protocolos.',
             'campos' => $proto['campos'] ?? [],
             'formatos' => ['protocolo'],
             'documentos' => [
@@ -540,9 +536,9 @@ final class Catalogo
             ],
             'personal' => [
                 'titulo' => 'Dictamen de la Comisión Revisora de Protocolos',
-                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, sube el oficio de aprobación de tema y modalidad.',
+                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, la plataforma genera el oficio de aprobación de tema y modalidad.',
                 'campos' => [['k' => 'fecha', 'label' => 'Fecha de aprobación del protocolo', 'tipo' => 'fecha', 'req' => true]],
-                'entrega' => self::doc('oficio_aprobacion_tema', 'Oficio de aprobación de tema y modalidad'),
+                'entrega' => self::oficio('oficio_aprobacion_tema', 'Oficio de aprobación de tema y modalidad'),
             ],
             'blanco' => ['rep'],
         ];
@@ -575,7 +571,7 @@ final class Catalogo
                     ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
                     ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
                 ],
-                'entrega' => self::doc('oficio_revisores', 'Oficios de asignación de revisores'),
+                'entrega' => self::oficio('oficio_revisores', 'Oficios de asignación de revisores'),
             ],
         ];
 
@@ -592,13 +588,13 @@ final class Catalogo
             'personal' => [
                 'titulo' => 'Autorización de impresión',
                 'campos' => [['k' => 'fecha', 'label' => 'Fecha de autorización', 'tipo' => 'fecha', 'req' => true]],
-                'entrega' => self::doc('oficio_impresion', 'Oficio de autorización de impresión'),
+                'entrega' => self::oficio('oficio_impresion', 'Oficio de autorización de impresión'),
             ],
         ];
 
         $evidencias = self::evidenciasModalidad($modalidad);
         $docsFinal = [
-            self::doc('solicitud_eval', 'Solicitud para presentar la evaluación profesional (trabajo escrito)', 'Con firma del pasante; Apoyo a Titulación recaba firma y sello de la Subdirección.', null, 'trabajo_eval'),
+            self::doc('solicitud_eval', 'Solicitud para presentar la evaluación profesional (trabajo escrito)', 'La plataforma lo genera con tus datos; lo firmas electrónicamente y la Subdirección lo autoriza.', null, 'trabajo_eval'),
             self::doc('trabajo_final', 'Trabajo escrito final en PDF', 'Con oficio de autorización de impresión, resumen y carta de autorización para el Repositorio Institucional.'),
             self::doc('similitud_final', 'Reporte de porcentaje de similitud (iThenticate)', 'No mayor al ' . $limite . ' %.'),
             ...$evidencias,
@@ -629,7 +625,7 @@ final class Catalogo
                     ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
                     ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
                 ],
-                'entrega' => self::doc('oficio_jurado', 'Oficios de asignación de jurado'),
+                'entrega' => self::oficio('oficio_jurado', 'Oficios de asignación de jurado'),
             ],
         ];
         $etapas[] = self::etapaResultado(true);

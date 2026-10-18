@@ -21,6 +21,7 @@ $chips = [
     <span class="estado estado-<?= e($t['estado']) ?>"><?= e(Catalogo::estadosTramite()[$t['estado']] ?? $t['estado']) ?></span>
     <?php if ($t['resultado']): ?><div class="texto-secundario">Resultado: <strong><?= e($t['resultado']) ?></strong></div><?php endif; ?>
     <div class="texto-secundario">Responsable: <?= e((string) ($t['responsable_nombre'] ?? 'sin asignar')) ?></div>
+    <div style="margin-top:4px"><a class="btn btn-mini" href="<?= url($base . '/expediente') ?>">Descargar expediente (ZIP)</a></div>
     <form method="post" action="<?= url($base . '/tomar') ?>" style="margin-top:4px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Asignarme</button></form>
   </div>
 </div>
@@ -106,7 +107,7 @@ $chips = [
           <?php foreach ($e['personal']['campos'] ?? [] as $c): $v = (string) ($hito['datos'][$c['k']] ?? ''); if ($v === '') continue; if (($c['tipo'] ?? '') === 'select') { $v = $c['opciones'][$v] ?? $v; } ?>
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
-          <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a></div><?php endif; ?>
+          <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : ' · firmado' ?></div><?php endif; ?>
           <div class="texto-secundario">Registrado por <?= e($hito['completado_nombre']) ?> · <?= e(fecha_corta($hito['completado_en'])) ?></div>
         </div>
         <form method="post" action="<?= url($base . '/reabrir/' . $e['clave']) ?>" onsubmit="return confirm('¿Reabrir esta etapa?')" style="margin-top:8px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reabrir etapa</button></form>
@@ -114,14 +115,13 @@ $chips = [
         <?php if (!$e['propia_ok'] || !$e['docs_ok']): ?>
           <p class="tit-aviso">Podrás completar esto cuando el pasante termine su captura y todos sus documentos estén validados.</p>
         <?php else: ?>
-          <form class="formulario" method="post" enctype="multipart/form-data" action="<?= url($base . '/hito/' . $e['clave']) ?>">
+          <form class="formulario" method="post" action="<?= url($base . '/hito/' . $e['clave']) ?>">
             <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
             <div class="tit-campos">
               <?php foreach ($e['personal']['campos'] ?? [] as $campo): $valor = ''; $nombre = 'h[' . $campo['k'] . ']'; include __DIR__ . '/_campo.php'; endforeach; ?>
             </div>
             <?php if ($ent): ?>
-              <label>Adjuntar: <?= e($ent['nombre']) ?> (PDF) <span class="req">*</span>
-                <input type="file" name="entrega" accept="application/pdf,.pdf" required></label>
+              <p class="texto-secundario">Al registrar, la plataforma genera «<?= e($ent['nombre']) ?>» con estos datos y lo envía a la firma electrónica de la Subdirección.</p>
             <?php endif; ?>
             <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Registrar y completar etapa</button></div>
           </form>

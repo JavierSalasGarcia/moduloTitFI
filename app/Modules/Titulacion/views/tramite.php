@@ -88,13 +88,13 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php endif; ?>
 
     <?php if (!$bloqueada && $formatos): ?>
-      <h3>Formatos para firmar</h3>
-      <p class="texto-secundario">Se llenan con los datos que capturaste. Imprímelos, fírmalos (<?= e('firma de quien indica cada formato') ?>), escanéalos en PDF y súbelos en la sección de documentos.</p>
+      <h3>Formatos de esta etapa</h3>
+      <p class="texto-secundario">Se llenan con los datos que capturaste. Puedes descargar una copia de consulta; la plataforma los firma y los envía por ti en la sección de documentos.</p>
       <?php foreach ($formatos as $clave => $f): ?>
         <div class="tit-doc" <?= $clave === 'art5' ? 'id="art5"' : '' ?>>
           <div>
             <h4><?= e($f['def']['nombre']) ?></h4>
-            <p class="nota">Firma: <?= e($f['def']['firma']) ?>. Formato <?= $f['def']['tipo'] === 'docx' ? 'Word (.docx)' : 'PDF' ?>.</p>
+            <p class="nota">Formato <?= $f['def']['tipo'] === 'docx' ? 'Word (.docx)' : 'PDF' ?>.</p>
             <?php if ($clave === 'art5' && $editaCaptura): ?>
               <form class="formulario" method="post" action="<?= url($base . '/art5') ?>" style="margin-top:8px">
                 <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
@@ -107,7 +107,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
           </div>
           <div>
             <?php if (!$f['impedimento']): ?>
-              <a class="btn btn-primario btn-mini" href="<?= url($base . '/formato/' . $clave) ?>"><?= icono('lista', 14) ?> Descargar llenado</a>
+              <a class="btn btn-primario btn-mini" href="<?= url($base . '/formato/' . $clave) ?>"><?= icono('lista', 14) ?> Descargar copia</a>
             <?php endif; ?>
           </div>
         </div>
@@ -132,10 +132,20 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
             <?php if ($est === 'rechazado' && $fila): ?><div class="tit-obs"><strong>Observaciones<?= $fila['revisor_nombre'] ? ' de ' . e($fila['revisor_nombre']) : '' ?>:</strong> <?= e((string) $fila['comentario']) ?></div><?php endif; ?>
             <?php if ($est === 'aprobado' && $fila && $fila['comentario']): ?><div class="tit-ok"><?= e((string) $fila['comentario']) ?></div><?php endif; ?>
             <?php if ($fila && $fila['ruta']): ?>
-              <p class="nota"><a href="<?= url($base . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener">Ver PDF enviado</a> · <?= e((string) $fila['nombre_original']) ?></p>
+              <p class="nota"><a href="<?= url($base . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= !empty($d['generado']) ? 'Ver PDF firmado' : 'Ver PDF enviado' ?></a><?= empty($d['generado']) ? ' · ' . e((string) $fila['nombre_original']) : '' ?><?= !empty($fila['subdir_en']) ? ' · firmado por la Subdirección el ' . e(fecha_corta($fila['subdir_en'])) : ($est === 'aprobado' && \App\Modules\Titulacion\Services\SubdireccionFirma::tipoDeDocumento($d) !== null ? ' · esperando la firma de la Subdirección' : '') ?></p>
             <?php endif; ?>
             <?php if (($d['validacion'] ?? '') === 'comision' && $protocoloEnRevision): ?>
               <p class="nota">Tu protocolo está en revisión de la comisión; recibirás el dictamen aquí y por correo.</p>
+            <?php elseif (!empty($d['generado']) && $editable && $etapa['propia_ok'] && !in_array($est, ['aprobado', 'en_revision'], true)): ?>
+              <?php if (isset($formatos[$d['formato']]) && $formatos[$d['formato']]['impedimento']): ?>
+                <p class="nota" style="color:var(--alerta)"><?= e($formatos[$d['formato']]['impedimento']) ?></p>
+              <?php else: ?>
+                <form method="post" action="<?= url($base . '/generar/' . $etapa['clave'] . '/' . $dc) ?>">
+                  <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+                  <button class="btn btn-mini btn-primario" type="submit">Firmar electrónicamente y enviar</button>
+                </form>
+              <?php endif; ?>
+            <?php elseif (!empty($d['generado'])): ?>
             <?php elseif ($editable && $etapa['propia_ok'] && $est !== 'aprobado'): ?>
               <form method="post" enctype="multipart/form-data" action="<?= url($base . '/documento/' . $etapa['clave'] . '/' . $dc) ?>">
                 <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
@@ -190,7 +200,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
           <?php $ent = $etapa['personal']['entrega'] ?? null; $filaEnt = $ent ? ($docs[$etapa['clave'] . '|' . $ent['clave']] ?? null) : null; ?>
-          <?php if ($filaEnt): ?><div><a href="<?= url($base . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a></div><?php endif; ?>
+          <?php if ($filaEnt): ?><div><a href="<?= url($base . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : '' ?></div><?php endif; ?>
         </div>
       <?php else: ?>
         <p class="texto-secundario"><?= e($etapa['personal']['descripcion'] ?? 'Esta parte la realiza el Departamento de Evaluación Profesional; te avisaremos aquí cuando esté lista.') ?></p>

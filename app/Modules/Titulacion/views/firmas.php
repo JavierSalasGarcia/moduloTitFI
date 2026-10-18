@@ -6,7 +6,7 @@ $csrf = e(Auth::csrfToken());
 $rotulo = ['personal' => 'Subdirector', 'delegada' => 'Asistente (por delegación)', 'automatica' => 'Piloto automático'];
 ?>
 <div class="tit-cabecera"><div>
-  <p class="texto-secundario">Formatos de titulación que llevan el nombre del Subdirector Académico con espacio para firma. Al firmar se estampa un sello electrónico con su nombre y cargo, el folio y la huella del documento. Cuando firma el asistente o el piloto, el sello añade una leyenda discreta y la bitácora conserva quién firmó realmente.</p>
+  <p class="texto-secundario">Documentos de titulación (formatos de solicitud y oficios) que ya fueron firmados por el pasante o generados por el departamento y llevan el nombre del Subdirector Académico. Al firmar se estampa un sello electrónico con su nombre y cargo, el folio y la huella del documento. Cuando firma el asistente o el piloto, el sello añade una leyenda discreta y la bitácora conserva quién firmó realmente.</p>
 </div></div>
 
 <section class="tarjeta" style="margin-bottom:18px">

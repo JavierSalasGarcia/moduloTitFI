@@ -6,9 +6,8 @@ namespace App\Modules\Titulacion;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
-use App\Modules\Titulacion\Services\FirmaElectronica;
+use App\Modules\Titulacion\Services\DocumentosGenerados;
 use App\Modules\Titulacion\Services\Formatos;
-use App\Modules\Titulacion\Services\SubdireccionFirma;
 use InvalidArgumentException;
 use Throwable;
 
@@ -294,14 +293,6 @@ final class TramiteController extends TitulacionBase
         }
         try {
             [$bytes, $nombre, $mime] = Formatos::generar($formato, $t);
-            if (SubdireccionFirma::firmable($formato)) {
-                SubdireccionFirma::solicitar($t, $formato);
-                SubdireccionFirma::procesarPiloto();
-                $firmado = SubdireccionFirma::firmado((int) $t['id'], $formato);
-                if ($firmado && is_file(FirmaElectronica::almacen() . '/' . $firmado['ruta_firmado'])) {
-                    $this->enviarArchivo((string) $firmado['ruta_firmado'], ucfirst($formato) . '_' . $t['folio'] . '_firmado.pdf', false);
-                }
-            }
         } catch (Throwable $e) {
             if (!$e instanceof \RuntimeException) {
                 error_log('Titulación: no se pudo generar ' . $formato . ': ' . $e->getMessage());
@@ -343,7 +334,7 @@ final class TramiteController extends TitulacionBase
         [$flujo, $docs] = $this->evaluar($t);
         $etapa = $this->actual($flujo, $etapaClave, (int) $t['id']);
         $def = Catalogo::documentoDeEtapa($etapa, $docClave);
-        if ($def === null || $def['origen'] !== 'alumno') {
+        if ($def === null || $def['origen'] !== 'alumno' || !empty($def['generado'])) {
             $this->noEncontrado();
         }
         if (!$etapa['propia_ok']) {
@@ -390,6 +381,46 @@ final class TramiteController extends TitulacionBase
         Audit::record('titulacion::subir', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $docClave);
         $this->sincronizar((int) $t['id']);
         flash('exito', 'Documento recibido. Personal de Titulación lo validará.');
+        redirigir($volver);
+    }
+
+    /** Firma electrónicamente el formato generado con los datos del pasante y lo envía a validación (sin descargar ni subir nada). */
+    public function generar(string $id, string $etapaClave, string $docClave): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::puedeEditar($t)) {
+            $this->prohibido('Firma en trámite ajeno o cerrado');
+        }
+        $volver = 'titulacion/licenciatura/tramite/' . $t['id'] . '?etapa=' . $etapaClave;
+        [$flujo, $docs] = $this->evaluar($t);
+        $etapa = $this->actual($flujo, $etapaClave, (int) $t['id']);
+        $def = Catalogo::documentoDeEtapa($etapa, $docClave);
+        if ($def === null || $def['origen'] !== 'alumno' || empty($def['generado']) || empty($def['formato'])) {
+            $this->noEncontrado();
+        }
+        if (!$etapa['propia_ok']) {
+            flash('error', 'Completa primero los datos de esta etapa.');
+            redirigir($volver);
+        }
+        $actual = $docs[$etapaClave . '|' . $docClave] ?? null;
+        if ($actual && in_array($actual['estado'], ['aprobado', 'en_revision'], true)) {
+            flash('error', 'Ese documento ya fue enviado.');
+            redirigir($volver);
+        }
+        try {
+            $ruta = DocumentosGenerados::firmarPorPasante($t, (string) $def['formato'], (string) ($t['datos']['datos']['nombre'] ?? Auth::usuario()['nombre'] ?? ''));
+        } catch (Throwable $e) {
+            if (!$e instanceof \RuntimeException) {
+                error_log('Titulación: no se pudo firmar ' . $docClave . ': ' . $e->getMessage());
+            }
+            flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo generar el documento. Intenta de nuevo.');
+            redirigir($volver);
+        }
+        TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, $def['formato'] . '_' . $t['folio'] . '.pdf', Auth::id());
+        TitulacionRepository::evento((int) $t['id'], Auth::id(), 'documento', 'Documento firmado por el pasante y enviado a validación: ' . $def['nombre']);
+        Audit::record('titulacion::firma_pasante', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $docClave);
+        $this->sincronizar((int) $t['id']);
+        flash('exito', 'Documento firmado y enviado. Personal de Titulación lo validará.');
         redirigir($volver);
     }
 
@@ -466,7 +497,7 @@ final class TramiteController extends TitulacionBase
             }
             $this->enviarArchivo((string) $d['cotejo_ruta'], $t['folio'] . '_' . $d['clave'] . '_cotejo.pdf', true);
         }
-        $this->enviarArchivo((string) $d['ruta'], $t['folio'] . '_' . $d['clave'] . '.pdf', isset($_GET['ver']));
+        $this->enviarArchivo((string) ($d['subdir_ruta'] ?: $d['ruta']), $t['folio'] . '_' . $d['clave'] . '.pdf', isset($_GET['ver']));
     }
 
     public function blanco(string $clave): void
