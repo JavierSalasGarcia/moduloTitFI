@@ -28,40 +28,8 @@ final class EstructuraController extends TitulacionBase
             'titulo' => 'Titulación · Estructura de comisiones',
             'carreras' => Catalogo::carreras(),
             'miembros' => $por,
-            'coordinadores' => array_column(Database::todas('SELECT * FROM tit_coordinadores WHERE activo = 1 ORDER BY id'), null, 'carrera'),
             'dias' => (int) \ajuste('titulacion_dias_revision', '7'),
         ]);
-    }
-
-    public function coordinador(): void
-    {
-        $this->admin();
-        $carrera = $this->post('carrera');
-        $nombre = mb_substr($this->post('nombre'), 0, 160);
-        $email = strtolower(trim($this->post('email')));
-        if (!isset(Catalogo::carreras()[$carrera]) || mb_strlen($nombre) < 3 || filter_var($email, FILTER_VALIDATE_EMAIL) === false || strlen($email) > 120) {
-            flash('error', 'Indica la licenciatura, el nombre y un correo válido.');
-            redirigir('titulacion/estructura');
-        }
-        Database::ejecutar('UPDATE tit_coordinadores SET activo = 0 WHERE carrera = ?', [$carrera]);
-        Database::ejecutar(
-            'INSERT INTO tit_coordinadores (carrera, nombre, email, activo, creado_por) VALUES (?, ?, ?, 1, ?)
-             ON DUPLICATE KEY UPDATE nombre = VALUES(nombre), activo = 1',
-            [$carrera, $nombre, $email, Auth::id()]
-        );
-        Configuracion::bitacora(Auth::id(), 'estructura', 'Coordinador de Docencia ' . $email . ' en ' . $carrera);
-        flash('exito', 'Coordinador de Docencia guardado.');
-        redirigir('titulacion/estructura#c-' . $carrera);
-    }
-
-    public function quitarCoordinador(string $id): void
-    {
-        $this->admin();
-        if (ctype_digit($id)) {
-            Database::ejecutar('UPDATE tit_coordinadores SET activo = 0 WHERE id = ?', [(int) $id]);
-        }
-        flash('exito', 'Coordinador retirado.');
-        redirigir('titulacion/estructura');
     }
 
     public function agregar(): void

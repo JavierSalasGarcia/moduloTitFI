@@ -32,7 +32,7 @@ final class Jurado
 
     public static function coordinador(string $carrera): ?array
     {
-        return Database::una('SELECT * FROM tit_coordinadores WHERE carrera = ? AND activo = 1 ORDER BY id DESC LIMIT 1', [$carrera]);
+        return Autoridades::coordinadorDocencia($carrera);
     }
 
     public static function vigente(int $tramiteId, string $etapa): ?array
@@ -52,7 +52,7 @@ final class Jurado
         $carrera = (string) ($tramite['datos']['datos']['carrera'] ?? '');
         $c = self::coordinador($carrera);
         if (!$c) {
-            throw new RuntimeException('No hay Coordinador de Docencia registrado para esta licenciatura. Pide al administrador darlo de alta en Estructura.');
+            throw new RuntimeException('No hay Coordinador de Docencia vigente para esta licenciatura en Organización (cargo «coordinador» del programa). Pide al administrador registrarlo allí.');
         }
         Database::ejecutar("UPDATE tit_asignaciones_jurado SET estado = 'cancelada' WHERE tramite_id = ? AND etapa = ? AND estado = 'solicitada'", [(int) $tramite['id'], $etapa]);
         $token = self::token();

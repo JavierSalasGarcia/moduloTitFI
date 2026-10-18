@@ -45,7 +45,7 @@ final class Oficios
 
     public static function director(): string
     {
-        return mb_strtoupper((string) \ajuste('institucion_director_nombre', 'DR. MARCELO ROMERO HUERTAS'));
+        return mb_strtoupper((string) (Autoridades::director()['nombre'] ?? 'DR. MARCELO ROMERO HUERTAS'));
     }
 
     /** Hoja membretada como fondo de cada página. */

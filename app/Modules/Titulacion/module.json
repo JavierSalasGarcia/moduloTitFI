@@ -502,14 +502,6 @@
       "firmarSinodal",
       "publico"
     ],
-    "POST /titulacion/estructura/coordinador": [
-      "App\\Modules\\Titulacion\\EstructuraController",
-      "coordinador"
-    ],
-    "POST /titulacion/estructura/coordinador/{id}/quitar": [
-      "App\\Modules\\Titulacion\\EstructuraController",
-      "quitarCoordinador"
-    ],
     "POST /titulacion/licenciatura/tramite/{id}/sinodal/{sid}/recordar": [
       "App\\Modules\\Titulacion\\TramiteController",
       "recordarSinodal"

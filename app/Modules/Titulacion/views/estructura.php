@@ -14,20 +14,10 @@ $csrf = e(Auth::csrfToken());
     <h2><?= e($c['nombre']) ?> <small class="texto-secundario">(<?= e(implode('/', $c['siglas'])) ?>)</small></h2>
     <span class="tit-chip <?= $tieneEnc ? 'ok' : 'mal' ?>"><?= $tieneEnc ? 'Con encargado' : 'Sin encargado: no podrá recibir protocolos' ?></span>
   </div>
-  <?php $co = $coordinadores[$clave] ?? null; ?>
-  <div style="margin:8px 0 14px;padding:10px;border:1px solid var(--borde,#e2e8f0);border-radius:8px">
-    <strong>Coordinador de Docencia</strong>
-    <?php if ($co): ?>
-      <span> · <?= e($co['nombre']) ?> (<?= e($co['email']) ?>)</span>
-      <form method="post" action="<?= url('titulacion/estructura/coordinador/' . (int) $co['id'] . '/quitar') ?>" style="display:inline"><input type="hidden" name="_csrf" value="<?= $csrf ?>"><button class="btn btn-mini btn-peligro" type="submit">Retirar</button></form>
-    <?php else: ?><span class="tit-chip mal">Sin coordinador: no se podrán asignar sinodales</span><?php endif; ?>
-    <form method="post" action="<?= url('titulacion/estructura/coordinador') ?>" style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-top:8px">
-      <input type="hidden" name="_csrf" value="<?= $csrf ?>"><input type="hidden" name="carrera" value="<?= e($clave) ?>">
-      <label>Nombre <input type="text" name="nombre" maxlength="160" required></label>
-      <label>Correo <input type="email" name="email" maxlength="120" required></label>
-      <button class="btn btn-mini btn-primario" type="submit"><?= $co ? 'Reemplazar' : 'Registrar' ?></button>
-    </form>
-  </div>
+  <?php $co = \App\Modules\Titulacion\Services\Autoridades::coordinadorDocencia($clave); ?>
+  <p class="texto-secundario" style="margin:8px 0">Coordinador de Docencia (firma la asignación de sinodales):
+    <?php if ($co): ?><strong><?= e($co['nombre']) ?></strong> (<?= e($co['email']) ?>)<?php else: ?><span class="tit-chip mal">No hay uno vigente: regístralo en Organización</span><?php endif; ?>
+    · <a href="<?= url('ajustes/organizacion') ?>">Organización</a></p>
   <?php if ($lista): ?>
   <div class="tabla-contenedor"><table class="tabla">
     <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Activo</th><th></th></tr></thead>
