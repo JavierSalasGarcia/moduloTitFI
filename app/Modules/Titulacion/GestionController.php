@@ -6,6 +6,8 @@ namespace App\Modules\Titulacion;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
+use App\Modules\Titulacion\Services\DocumentosGenerados;
+use App\Modules\Titulacion\Services\SubdireccionFirma;
 use InvalidArgumentException;
 use Throwable;
 
@@ -92,6 +94,13 @@ final class GestionController extends TitulacionBase
             $estado === 'aprobado' ? 'validacion' : 'observacion',
             ($estado === 'aprobado' ? 'Documento validado: ' : 'Documento con observaciones: ') . $nombre . ($comentario !== '' ? ' — ' . $comentario : '')
         );
+        $tipoFirma = $estado === 'aprobado' && $defDoc ? SubdireccionFirma::tipoDeDocumento($defDoc) : null;
+        if ($tipoFirma !== null) {
+            $caja = !empty($defDoc['formato']) ? SubdireccionFirma::cajaDeFormato((string) $defDoc['formato']) : null;
+            if ($caja !== null) {
+                SubdireccionFirma::solicitar($t, (int) $d['id'], $tipoFirma, (string) $defDoc['nombre'], $caja);
+            }
+        }
         Audit::record('titulacion::revisar', 'correcto', 'Documento ' . (int) $d['id'] . ' ' . $estado);
         if (!$t['responsable_id']) {
             Database::ejecutar('UPDATE tit_tramites SET responsable_id = ? WHERE id = ?', [Auth::id(), (int) $t['id']]);
@@ -195,29 +204,20 @@ final class GestionController extends TitulacionBase
             $datos[$campo['k']] = $valor;
         }
         $entrega = $etapa['personal']['entrega'] ?? null;
-        $ruta = null;
-        if ($entrega !== null) {
-            try {
-                $ruta = guardar_archivo('entrega', 'titulacion/' . (int) $t['id'], ['pdf']);
-            } catch (InvalidArgumentException $e) {
-                $errores[] = $e->getMessage();
-            } catch (Throwable $e) {
-                error_log('Titulación: error al guardar entrega: ' . $e->getMessage());
-                $errores[] = 'No se pudo guardar el archivo.';
-            }
-            if ($ruta === null && !$etapa['entrega_ok']) {
-                $errores[] = 'Sube el documento «' . $entrega['nombre'] . '» en PDF.';
-            }
-        }
         if ($errores) {
             flash('error', implode(' ', array_slice($errores, 0, 3)));
             redirigir($volver);
         }
-        if ($entrega !== null && $ruta !== null) {
-            TitulacionRepository::registrarDocumento(
-                (int) $t['id'], $etapaClave, $entrega['clave'], 'personal', 'aprobado', $ruta,
-                mb_substr((string) ($_FILES['entrega']['name'] ?? 'oficio.pdf'), 0, 255), Auth::id()
-            );
+        if ($entrega !== null && !empty($entrega['oficio'])) {
+            try {
+                [$ruta, $caja] = DocumentosGenerados::guardarOficio($t, (string) $entrega['clave'], $datos);
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo generar el oficio: ' . $e->getMessage());
+                flash('error', 'No se pudo generar el oficio. Intenta de nuevo.');
+                redirigir($volver);
+            }
+            $docId = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $entrega['clave'], 'personal', 'aprobado', $ruta, $entrega['clave'] . '_' . $t['folio'] . '.pdf', Auth::id());
+            SubdireccionFirma::solicitar($t, $docId, (string) $entrega['clave'], (string) $entrega['nombre'], $caja);
         }
         TitulacionRepository::guardarHito((int) $t['id'], $etapaClave, $datos, Auth::id());
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'hito', 'Etapa completada por el departamento: ' . ($etapa['personal']['titulo'] ?? $etapa['titulo']) . $this->resumenHito($datos, $etapa));
@@ -246,6 +246,58 @@ final class GestionController extends TitulacionBase
         return $partes ? ' (' . implode('; ', $partes) . ')' : '';
     }
 
+    /** Expediente completo para auditoría: todos los PDF vigentes del trámite, en orden, con índice y huellas. */
+    public function expediente(string $id): void
+    {
+        $t = $this->tramite($id, true);
+        $base = rtrim((string) \App\Core\App::config('archivos.storage'), '/\\');
+        $zip = new \ZipArchive();
+        $tmp = tempnam(sys_get_temp_dir(), 'exp');
+        if ($tmp === false || $zip->open($tmp, \ZipArchive::OVERWRITE) !== true) {
+            flash('error', 'No se pudo armar el expediente.');
+            redirigir('titulacion/gestion/' . $t['id']);
+        }
+        $orden = array_flip(array_column(Catalogo::etapas((string) $t['modalidad'], $t['variante'] ?: null), 'clave'));
+        $docs = array_values(TitulacionRepository::documentosVigentes((int) $t['id']));
+        usort($docs, static fn(array $a, array $b): int => [$orden[$a['etapa']] ?? 99, (int) $a['id']] <=> [$orden[$b['etapa']] ?? 99, (int) $b['id']]);
+        $indice = "Expediente de titulación {$t['folio']}\nGenerado el " . date('d/m/Y H:i') . "\n\n";
+        $n = 0;
+        $agregar = static function (string $ruta, string $nombre, string $detalle) use ($base, $zip, &$indice, &$n): void {
+            $abs = realpath($base . '/' . $ruta);
+            if ($abs === false || !is_file($abs) || !str_starts_with($abs, realpath($base) . DIRECTORY_SEPARATOR)) {
+                return;
+            }
+            $n++;
+            $archivo = sprintf('%02d_%s.pdf', $n, preg_replace('/[^A-Za-z0-9_-]+/', '_', $nombre));
+            $zip->addFile($abs, $archivo);
+            $indice .= $archivo . "\n  " . $detalle . "\n  SHA-256: " . hash_file('sha256', $abs) . "\n\n";
+        };
+        foreach ($docs as $d) {
+            if (empty($d['ruta']) || $d['estado'] === 'no_aplica') {
+                continue;
+            }
+            $detalle = 'Estado: ' . $d['estado'] . ' · subido ' . $d['creado_en'] . ' por ' . $d['subido_nombre']
+                . ($d['revisor_nombre'] ? ' · validado por ' . $d['revisor_nombre'] : '')
+                . ($d['subdir_en'] ? ' · firmado por la Subdirección el ' . $d['subdir_en'] . ' (' . $d['subdir_capacidad'] . ')' : '')
+                . ($d['cotejo_en'] ? ' · original cotejado el ' . $d['cotejo_en'] : '');
+            $agregar((string) ($d['subdir_ruta'] ?: $d['ruta']), $d['etapa'] . '_' . $d['clave'], $detalle);
+            if (!empty($d['cotejo_ruta'])) {
+                $agregar((string) $d['cotejo_ruta'], $d['etapa'] . '_' . $d['clave'] . '_cotejo', 'Copia con sello de cotejo');
+            }
+        }
+        foreach (RevisionRepository::rondasDeTramite((int) $t['id']) as $r) {
+            if (!empty($r['dictamen_ruta'])) {
+                $agregar((string) $r['dictamen_ruta'], 'dictamen_protocolo_ronda' . $r['numero'], 'Dictamen consolidado de la comisión · ' . ($r['dictaminado_en'] ?? ''));
+            }
+        }
+        $zip->addFromString('00_indice.txt', $indice);
+        $zip->close();
+        Audit::record('titulacion::expediente', 'atendido', 'Trámite ' . $t['id']);
+        $bytes = (string) file_get_contents($tmp);
+        @unlink($tmp);
+        $this->enviarBytes($bytes, 'Expediente_' . $t['folio'] . '.zip', 'application/zip');
+    }
+
     public function reabrir(string $id, string $etapaClave): void
     {
         $t = $this->tramite($id, true);
@@ -254,6 +306,10 @@ final class GestionController extends TitulacionBase
             $this->noEncontrado();
         }
         TitulacionRepository::borrarHito((int) $t['id'], $etapaClave);
+        $etapaDef = Catalogo::etapa((string) $t['modalidad'], $t['variante'] ?: null, $etapaClave);
+        if (!empty($etapaDef['personal']['entrega']['oficio'])) {
+            Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [(int) $t['id'], $etapaDef['personal']['entrega']['clave']]);
+        }
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'hito', 'Etapa reabierta por el departamento: ' . $etapaClave);
         Audit::record('titulacion::reabrir', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $etapaClave);
         $this->sincronizar((int) $t['id']);

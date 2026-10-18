@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Modules\Titulacion;
 
+use App\Modules\Titulacion\Services\SubdireccionFirma;
+
 /**
  * Evalúa en qué punto va un trámite: qué etapas están completas, cuál es la actual
  * y qué falta en ella. No toca la base de datos; recibe filas ya cargadas.
@@ -80,13 +82,16 @@ final class Flujo
             $clave = $e['clave'];
             $e['captura_ok'] = self::capturaCompleta($e, $tramite['datos']);
             $e['docs_estado'] = [];
-            $porValidar = $rechazados = $faltan = $porCotejar = 0;
+            $porValidar = $rechazados = $faltan = $porCotejar = $porFirmar = 0;
             foreach ($e['documentos'] ?? [] as $d) {
                 $fila = $docs[$clave . '|' . $d['clave']] ?? null;
                 $estado = $fila['estado'] ?? 'pendiente';
                 $cotejado = empty($d['cotejo']) || !empty($fila['cotejo_en']);
-                $ok = ($estado === 'aprobado' && $cotejado) || ($estado === 'no_aplica' && $d['condicion'] !== null);
-                if ($estado === 'aprobado' && !$cotejado) {
+                $firmado = SubdireccionFirma::tipoDeDocumento($d) === null || !empty($fila['subdir_en']);
+                $ok = ($estado === 'aprobado' && $cotejado && $firmado) || ($estado === 'no_aplica' && $d['condicion'] !== null);
+                if ($estado === 'aprobado' && !$firmado) {
+                    $porFirmar++;
+                } elseif ($estado === 'aprobado' && !$cotejado) {
                     $porCotejar++;
                 } elseif ($estado === 'en_revision') {
                     $porValidar++;
@@ -99,6 +104,7 @@ final class Flujo
             }
             $e['por_validar'] = $porValidar;
             $e['por_cotejar'] = $porCotejar;
+            $e['por_firmar'] = $porFirmar;
             $e['rechazados'] = $rechazados;
             $e['faltan'] = $faltan;
             $e['docs_ok'] = array_reduce($e['docs_estado'], static fn(bool $c, array $x): bool => $c && $x['ok'], true);
@@ -106,8 +112,11 @@ final class Flujo
             $hito = $hitos[$clave] ?? null;
             $e['hito'] = $hito;
             $entrega = $e['personal']['entrega'] ?? null;
+            $filaEntrega = $entrega ? ($docs[$clave . '|' . $entrega['clave']] ?? null) : null;
             $entregaOk = $entrega === null
-                || (($docs[$clave . '|' . $entrega['clave']]['estado'] ?? '') === 'aprobado');
+                || (($filaEntrega['estado'] ?? '') === 'aprobado'
+                    && (SubdireccionFirma::tipoDeDocumento($entrega) === null || !empty($filaEntrega['subdir_en'])));
+            $e['entrega_por_firmar'] = $entrega !== null && ($filaEntrega['estado'] ?? '') === 'aprobado' && !$entregaOk;
             $e['entrega_ok'] = $entregaOk;
             $e['personal_ok'] = !isset($e['personal']) || ($hito !== null && $entregaOk);
 
@@ -151,8 +160,14 @@ final class Flujo
         if ($e['por_validar'] > 0) {
             return ['turno' => 'personal', 'texto' => 'Personal de Titulación está validando ' . $e['por_validar'] . ' documento(s).'];
         }
+        if ($e['por_firmar'] > 0) {
+            return ['turno' => 'personal', 'texto' => 'Documento validado: esperando la firma electrónica de la Subdirección Académica.'];
+        }
         if ($e['por_cotejar'] > 0) {
             return ['turno' => 'personal', 'texto' => 'Lleva a Apoyo a Titulación el original de ' . $e['por_cotejar'] . ' documento(s) para su cotejo.'];
+        }
+        if (!$e['personal_ok'] && !empty($e['entrega_por_firmar'])) {
+            return ['turno' => 'personal', 'texto' => 'Oficio generado: esperando la firma electrónica de la Subdirección Académica.'];
         }
         if (!$e['personal_ok']) {
             return ['turno' => 'personal', 'texto' => 'Pendiente: ' . ($e['personal']['titulo'] ?? 'trámite del departamento') . '.'];

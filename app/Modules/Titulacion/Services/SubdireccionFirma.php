@@ -8,6 +8,7 @@ use App\Core\Auth;
 use App\Core\Database;
 use App\Modules\Titulacion\Catalogo;
 use App\Modules\Titulacion\Configuracion;
+use App\Modules\Titulacion\Flujo;
 use App\Modules\Titulacion\TitulacionRepository;
 use RuntimeException;
 use Throwable;
@@ -53,57 +54,69 @@ final class SubdireccionFirma
         return self::esSubdirector() || self::esAsistente();
     }
 
-    // ----------------------------------------------------------------- formatos que se firman
+    // ----------------------------------------------------------------- qué se firma
 
-    /** @return array<string,array> formatos cuyo diseño incluye el bloque de firma del Subdirector */
+    /** @return array<string,string> tipos de documento que firma la Subdirección: formatos (por clave de formato) y oficios */
     public static function formatosFirmables(): array
     {
+        static $memo = null;
+        if ($memo !== null) {
+            return $memo;
+        }
         $salida = [];
         foreach (Catalogo::formatos() as $clave => $def) {
-            if (($def['tipo'] ?? '') === 'docx') {
+            if (($def['tipo'] ?? '') === 'docx' || !empty($def['interno'])) {
                 continue;
             }
             $r = Configuracion::resolverPdf($clave);
-            if ($r !== null && self::cajaFirma($r['spec']) !== null) {
-                $salida[$clave] = $def;
+            if ($r !== null && self::cajaFormato($r['spec']) !== null) {
+                $salida[$clave] = ['nombre' => $def['nombre']];
             }
         }
-        return $salida;
+        foreach (Oficios::TIPOS as $clave => $nombre) {
+            $salida[$clave] = ['nombre' => $nombre];
+        }
+        return $memo = $salida;
     }
 
     /** Última caja del nombre impreso del Subdirector: es la del bloque de firma. */
-    private static function cajaFirma(array $spec): ?array
+    private static function cajaFormato(array $spec): ?array
     {
         $cajas = $spec['subdirector'] ?? [];
         return $cajas ? end($cajas) : null;
     }
 
-    public static function firmable(string $formato): bool
+    /** Tipo de firma de Subdirección que requiere un documento del catálogo, o null si no la requiere. */
+    public static function tipoDeDocumento(array $def): ?string
     {
-        return isset(self::formatosFirmables()[$formato]);
+        if (!empty($def['oficio']) && isset(Oficios::TIPOS[$def['clave']])) {
+            return $def['clave'];
+        }
+        if (!empty($def['generado']) && !empty($def['formato']) && isset(self::formatosFirmables()[$def['formato']]) && !isset(Oficios::TIPOS[$def['formato']])) {
+            return (string) $def['formato'];
+        }
+        return null;
+    }
+
+    /** Caja de firma {p,x,y,w} (puntos) del bloque de la Subdirección en un formato. */
+    public static function cajaDeFormato(string $formato): ?array
+    {
+        $r = Configuracion::resolverPdf($formato);
+        return $r ? self::cajaFormato($r['spec']) : null;
     }
 
     // ----------------------------------------------------------------- cola
 
-    /** Registra (una sola vez) la solicitud de firma de un formato del trámite. @return array la fila vigente */
-    public static function solicitar(array $tramite, string $formato): array
+    /** Pone un documento ya generado en la cola de la Subdirección (sustituye una solicitud pendiente anterior del mismo tipo). */
+    public static function solicitar(array $tramite, int $documentoId, string $tipo, string $descripcion, ?array $caja): void
     {
         $tid = (int) $tramite['id'];
-        $fila = Database::una("SELECT * FROM tit_firmas_subdireccion WHERE tramite_id = ? AND formato = ? AND estado <> 'cancelado' ORDER BY id DESC LIMIT 1", [$tid, $formato]);
-        if ($fila) {
-            return $fila;
-        }
-        $id = Database::ejecutar(
-            "INSERT INTO tit_firmas_subdireccion (tramite_id, tipo, formato, descripcion, creado_en) VALUES (?, 'documento', ?, ?, ?)",
-            [$tid, $formato, Catalogo::formatos()[$formato]['nombre'] . ' · ' . $tramite['folio'], date('Y-m-d H:i:s')]
+        Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [$tid, $tipo]);
+        Database::ejecutar(
+            "INSERT INTO tit_firmas_subdireccion (tramite_id, tipo, documento_id, formato, descripcion, caja, creado_en) VALUES (?, 'documento', ?, ?, ?, ?, ?)",
+            [$tid, $documentoId, $tipo, $descripcion . ' · ' . $tramite['folio'], $caja ? json_encode($caja) : null, date('Y-m-d H:i:s')]
         );
-        TitulacionRepository::evento($tid, Auth::id(), 'firma', 'Formato en espera de la firma de la Subdirección: ' . Catalogo::formatos()[$formato]['nombre'], true);
-        return Database::una('SELECT * FROM tit_firmas_subdireccion WHERE id = ?', [$id]) ?? [];
-    }
-
-    public static function firmado(int $tramiteId, string $formato): ?array
-    {
-        return Database::una("SELECT * FROM tit_firmas_subdireccion WHERE tramite_id = ? AND formato = ? AND estado = 'firmado' ORDER BY id DESC LIMIT 1", [$tramiteId, $formato]);
+        TitulacionRepository::evento($tid, Auth::id(), 'firma', 'En espera de la firma de la Subdirección: ' . $descripcion, true);
     }
 
     public static function pendientes(): array
@@ -133,94 +146,61 @@ final class SubdireccionFirma
         if (!$s) {
             throw new RuntimeException('La solicitud ya no está pendiente.');
         }
+        $doc = $s['documento_id'] ? TitulacionRepository::documento((int) $s['documento_id']) : null;
+        $origen = $doc && $doc['estado'] !== 'reemplazado' && !empty($doc['ruta']) ? FirmaElectronica::almacen() . '/' . $doc['ruta'] : null;
         $t = TitulacionRepository::obtener((int) $s['tramite_id']);
-        if (!$t) {
-            throw new RuntimeException('El trámite ya no existe.');
+        $caja = $s['caja'] ? json_decode((string) $s['caja'], true) : null;
+        if (!$doc || !$t || !$origen || !is_file($origen) || !is_array($caja)) {
+            Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE id = ?", [$solicitudId]);
+            throw new RuntimeException('El documento ya no está vigente.');
         }
-        $formato = (string) $s['formato'];
-        $r = Configuracion::resolverPdf($formato);
-        $caja = $r ? self::cajaFirma($r['spec']) : null;
-        if (!$r || !$caja) {
-            throw new RuntimeException('El formato no tiene bloque de firma de la Subdirección.');
-        }
-        [$bytes] = Formatos::generar($formato, $t);
-        $dir = FirmaElectronica::almacen() . '/titulacion/' . (int) $t['id'] . '/subdireccion';
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-        $origen = $dir . '/_origen_' . bin2hex(random_bytes(4)) . '.pdf';
-        file_put_contents($origen, $bytes);
-        $relativa = 'titulacion/' . (int) $t['id'] . '/subdireccion/' . $formato . '_' . bin2hex(random_bytes(6)) . '.pdf';
+        $relativa = 'titulacion/' . (int) $t['id'] . '/subdireccion/' . $s['formato'] . '_' . bin2hex(random_bytes(6)) . '.pdf';
         $destino = FirmaElectronica::almacen() . '/' . $relativa;
-        try {
-            self::estampar($origen, $destino, $caja, $capacidad, (string) $t['folio']);
-        } finally {
-            @unlink($origen);
-        }
+        self::estampar($origen, $destino, $caja, $capacidad, (string) $t['folio']);
         $hash = hash_file('sha256', $destino) ?: '';
+        $ahora = date('Y-m-d H:i:s');
         $st = Database::pdo()->prepare(
             "UPDATE tit_firmas_subdireccion SET estado = 'firmado', firmado_en = ?, capacidad = ?, firmante_id = ?, piloto_id = ?, ruta_firmado = ?, hash_firmado = ?
              WHERE id = ? AND estado = 'pendiente'"
         );
-        $st->execute([date('Y-m-d H:i:s'), $capacidad, $usuarioId, $pilotoId, $relativa, $hash, $solicitudId]);
+        $st->execute([$ahora, $capacidad, $usuarioId, $pilotoId, $relativa, $hash, $solicitudId]);
         if ($st->rowCount() === 0) {
             @unlink($destino);
             return;
         }
-        TitulacionRepository::evento((int) $t['id'], (int) ($usuarioId ?? 0), 'firma', 'Firmado por la Subdirección: ' . Catalogo::formatos()[$formato]['nombre'], true);
-        Audit::record('titulacion::subdireccion', 'firma', $capacidad . ' · ' . $formato . ' · ' . $t['folio'] . ' · ' . substr($hash, 0, 12));
+        Database::ejecutar('UPDATE tit_documentos SET subdir_en = ?, subdir_capacidad = ?, subdir_ruta = ? WHERE id = ?', [$ahora, $capacidad, $relativa, (int) $doc['id']]);
+        $autor = $usuarioId ?? (int) Database::valor('SELECT creado_por FROM tit_piloto WHERE id = ?', [(int) $pilotoId]);
+        TitulacionRepository::evento((int) $t['id'], $autor, 'firma', 'Firmado por la Subdirección: ' . $s['descripcion'], true);
+        Audit::record('titulacion::subdireccion', 'firma', $capacidad . ' · ' . $s['formato'] . ' · ' . $t['folio'] . ' · ' . substr($hash, 0, 12));
+        self::sincronizar((int) $t['id']);
+    }
+
+    /** Recalcula etapa y estado del trámite tras una firma. */
+    private static function sincronizar(int $id): void
+    {
+        $t = TitulacionRepository::obtener($id);
+        if (!$t || $t['estado'] === 'cancelado') {
+            return;
+        }
+        $flujo = Flujo::evaluar($t, TitulacionRepository::documentosVigentes($id), TitulacionRepository::hitos($id));
+        $etapas = $flujo['etapas'];
+        $actual = $flujo['actual'] ?? ($etapas ? $etapas[array_key_last($etapas)]['clave'] : 'datos');
+        $resultado = $flujo['completo'] ? (TitulacionRepository::hitos($id)['resultado']['datos']['resultado'] ?? null) : null;
+        TitulacionRepository::actualizarAvance($id, $actual, $flujo['completo'] ? 'concluido' : 'abierto', $resultado);
     }
 
     /** Sello visible sobre el nombre impreso: nombre y cargo del Subdirector, folio y huella; leyenda solo si no firmó él. */
     private static function estampar(string $origenAbs, string $salidaAbs, array $caja, string $capacidad, string $folio): void
     {
-        $lib = dirname(APP_RAIZ) . '/lib';
-        if (!defined('FPDF_FONTPATH')) {
-            define('FPDF_FONTPATH', $lib . '/fpdf/font/');
-        }
-        require_once $lib . '/fpdf/fpdf.php';
-        require_once $lib . '/fpdi/autoload.php';
-        $huella = substr(hash_file('sha256', $origenAbs) ?: '', 0, 8);
-        $nombre = mb_strtoupper(Formatos::subdirector());
-        $leyenda = self::LEYENDAS[$capacidad] ?? '';
         $mm = 25.4 / 72;
-        $pdf = new \setasign\Fpdi\Fpdi();
-        $pdf->SetAutoPageBreak(false);
-        $total = $pdf->setSourceFile($origenAbs);
-        for ($i = 1; $i <= $total; $i++) {
-            $tpl = $pdf->importPage($i);
-            $dim = $pdf->getTemplateSize($tpl);
-            $pdf->AddPage($dim['orientation'], [$dim['width'], $dim['height']]);
-            $pdf->useTemplate($tpl);
-            if ($i - 1 !== (int) ($caja['p'] ?? 0)) {
-                continue;
-            }
-            $w = 62.0;
-            $cx = ((float) $caja['x'] + (float) $caja['w'] / 2) * $mm;
-            $x = max(8.0, min($dim['width'] - $w - 8.0, $cx - $w / 2));
-            $y = max(8.0, (float) $caja['y'] * $mm - 17.0);
-            $pdf->SetDrawColor(44, 82, 52);
-            $pdf->SetLineWidth(0.3);
-            $pdf->Rect($x, $y, $w, 15.0);
-            $pdf->SetTextColor(44, 82, 52);
-            $pdf->SetFont('Helvetica', 'B', 6.5);
-            $pdf->SetXY($x, $y + 1.2);
-            $pdf->Cell($w, 3, self::l1('FIRMA ELECTRÓNICA · SUBDIRECCIÓN ACADÉMICA'), 0, 2, 'C');
-            $pdf->SetFont('Helvetica', '', 6.5);
-            $pdf->SetTextColor(25, 25, 25);
-            $pdf->Cell($w, 3, self::l1($nombre), 0, 2, 'C');
-            $pdf->Cell($w, 3, self::l1('Firmado el ' . date('d/m/Y H:i') . ' · ' . $folio . ' ' . $huella), 0, 2, 'C');
-            if ($leyenda !== '') {
-                $pdf->SetFont('Helvetica', 'I', 6);
-                $pdf->Cell($w, 3, self::l1($leyenda), 0, 2, 'C');
-            }
-        }
-        $pdf->Output('F', $salidaAbs);
-    }
-
-    private static function l1(string $s): string
-    {
-        return iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $s) ?: $s;
+        $huella = substr(hash_file('sha256', $origenAbs) ?: '', 0, 8);
+        SelloPdf::estampar(
+            $origenAbs, $salidaAbs, (int) ($caja['p'] ?? 0),
+            ((float) $caja['x'] + (float) $caja['w'] / 2) * $mm, (float) $caja['y'] * $mm - 1.5,
+            'FIRMA ELECTRÓNICA · SUBDIRECCIÓN ACADÉMICA',
+            [mb_strtoupper(Formatos::subdirector()), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $folio . ' ' . $huella],
+            self::LEYENDAS[$capacidad] ?? ''
+        );
     }
 
     // ----------------------------------------------------------------- piloto automático

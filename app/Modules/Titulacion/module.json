@@ -435,6 +435,14 @@
     "POST /titulacion/firmas/piloto/apagar": [
       "App\\Modules\\Titulacion\\FirmasController",
       "apagarPiloto"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/generar/{etapa}/{doc}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "generar"
+    ],
+    "GET /titulacion/gestion/{id}/expediente": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "expediente"
     ]
   }
 }
