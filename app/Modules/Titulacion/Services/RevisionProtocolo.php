@@ -232,7 +232,7 @@ final class RevisionProtocolo
     }
 
     /** Genera el PDF, lo firma y devuelve [ruta relativa, huella, tipo]. */
-    private static function firmarPdf(array $ronda, string $prefijo, array $valores, string $nombreFirmante, string $etiqueta, ?int $usuarioId, string $codigo, string $nivel): array
+    private static function firmarPdf(array $ronda, string $prefijo, array $valores, string $nombreFirmante, string $etiqueta, ?int $usuarioId, string $codigo, string $nivel, ?int $asignacionId = null): array
     {
         $dir = 'titulacion/' . (int) $ronda['tramite_id'];
         $sufijo = bin2hex(random_bytes(4));
@@ -241,7 +241,8 @@ final class RevisionProtocolo
         if (!is_dir(dirname($sinFirma))) {
             mkdir(dirname($sinFirma), 0755, true);
         }
-        file_put_contents($sinFirma, self::generarPdf($valores));
+        $bytes = self::generarPdf($valores);
+        file_put_contents($sinFirma, $bytes);
         try {
             $folio = $ronda['folio'] . ' R' . (int) $ronda['numero'];
             if ($nivel === 'pades') {
@@ -253,6 +254,7 @@ final class RevisionProtocolo
         } finally {
             @unlink($sinFirma);
         }
+        Verificacion::guardado($bytes, $relFinal, $asignacionId === null ? (int) $ronda['id'] : null, $asignacionId);
         return [$relFinal, $hash, $nivel];
     }
 
@@ -274,7 +276,7 @@ final class RevisionProtocolo
             'observaciones' => $obs, 'firmante' => mb_strtoupper((string) $asig['miembro_nombre']),
         ];
         $nivel = FirmaElectronica::nivelRevisores();
-        [$ruta, $hash, $tipo] = self::firmarPdf($ronda, 'revision-' . (int) $ronda['id'] . '-a' . (int) $asig['id'], $v, (string) $usuario['nombre'], 'Firma', (int) $usuario['id'], $codigo, $nivel);
+        [$ruta, $hash, $tipo] = self::firmarPdf($ronda, 'revision-' . (int) $ronda['id'] . '-a' . (int) $asig['id'], $v, (string) $usuario['nombre'], 'Firma', (int) $usuario['id'], $codigo, $nivel, (int) $asig['id']);
         RevisionRepository::marcarFirmada((int) $asig['id'], $tipo, (int) $usuario['id'], $ruta, $hash);
         TitulacionRepository::evento((int) $ronda['tramite_id'], (int) $usuario['id'], 'revision', 'Revisión firmada por ' . $asig['miembro_nombre'] . ' (' . ($asig['propuesta'] === 'aprobado' ? 'propone aprobar' : 'propone no aprobar') . ').', false);
         Audit::record('titulacion::revision_firma', 'correcto', 'Asignación ' . (int) $asig['id']);

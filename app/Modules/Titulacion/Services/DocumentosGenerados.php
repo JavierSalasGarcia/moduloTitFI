@@ -9,7 +9,7 @@ use App\Modules\Titulacion\Catalogo;
 final class DocumentosGenerados
 {
     /** Guarda un PDF generado en el expediente del trámite. @return string ruta relativa */
-    public static function guardar(array $tramite, string $prefijo, string $bytes): string
+    public static function guardar(array $tramite, string $prefijo, string $bytes, ?string $formatoDescargado = null): string
     {
         $relativa = 'titulacion/' . (int) $tramite['id'] . '/' . $prefijo . '_' . bin2hex(random_bytes(8)) . '.pdf';
         $abs = FirmaElectronica::almacen() . '/' . $relativa;
@@ -17,6 +17,7 @@ final class DocumentosGenerados
             mkdir(dirname($abs), 0755, true);
         }
         file_put_contents($abs, $bytes);
+        Verificacion::guardado($bytes, $relativa, null, null, $formatoDescargado);
         return $relativa;
     }
 
@@ -58,6 +59,7 @@ final class DocumentosGenerados
         } finally {
             @unlink($origen);
         }
+        Verificacion::guardado($bytes, $relativa);
         return [$relativa, $cajas];
     }
 
@@ -86,6 +88,7 @@ final class DocumentosGenerados
         } finally {
             @unlink($origen);
         }
+        Verificacion::guardado($bytes, $relativa);
         return [$relativa, $cajas];
     }
 
@@ -99,6 +102,7 @@ final class DocumentosGenerados
             mkdir(dirname($abs), 0755, true);
         }
         file_put_contents($abs, $bytes);
+        Verificacion::guardado($bytes, $relativa);
         return [$relativa, $caja];
     }
 

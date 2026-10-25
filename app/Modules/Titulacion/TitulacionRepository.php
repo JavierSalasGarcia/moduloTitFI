@@ -153,12 +153,14 @@ final class TitulacionRepository
             "UPDATE tit_documentos SET estado = 'reemplazado' WHERE tramite_id = ? AND etapa = ? AND clave = ? AND estado <> 'reemplazado'",
             [$tramiteId, $etapa, $clave]
         );
-        return Database::ejecutar(
+        $id = Database::ejecutar(
             'INSERT INTO tit_documentos (tramite_id, etapa, clave, origen, estado, ruta, nombre_original, subido_por, revisado_por, revisado_en)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [$tramiteId, $etapa, $clave, $origen, $estado, $ruta, $nombreOriginal, $usuarioId,
                 $origen === 'personal' ? $usuarioId : null, $origen === 'personal' ? date('Y-m-d H:i:s') : null]
         );
+        Services\Verificacion::documento($ruta, $id);
+        return $id;
     }
 
     public static function revisarDocumento(int $id, string $estado, ?string $comentario, int $revisorId): void

@@ -164,6 +164,7 @@ final class Jurado
         } finally {
             @unlink($origen);
         }
+        Verificacion::guardado($bytes, $relativa);
         $docId = TitulacionRepository::registrarDocumento((int) $t['id'], (string) $a['etapa'], self::DOC_ASIGNACION[$a['tipo']], 'personal', 'aprobado', $relativa, 'asignacion_' . $a['tipo'] . '_' . $t['folio'] . '.pdf', (int) $usuario['id']);
         $st = Database::pdo()->prepare("UPDATE tit_asignaciones_jurado SET estado = 'firmada', firmada_en = ?, firmante_id = ?, documento_id = ? WHERE id = ? AND estado = 'solicitada'");
         $st->execute([date('Y-m-d H:i:s'), (int) $usuario['id'], $docId, (int) $a['id']]);

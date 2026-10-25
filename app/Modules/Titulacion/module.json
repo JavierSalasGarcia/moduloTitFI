@@ -635,6 +635,16 @@
     "POST /titulacion/licenciatura/tramite/{id}/estatus": [
       "App\\Modules\\Titulacion\\TramiteController",
       "estatus"
+    ],
+    "GET /verificar": [
+      "App\\Modules\\Titulacion\\VerificacionController",
+      "inicio",
+      "publico"
+    ],
+    "GET /verificar/{codigo}": [
+      "App\\Modules\\Titulacion\\VerificacionController",
+      "ver",
+      "publico"
     ]
   }
 }
