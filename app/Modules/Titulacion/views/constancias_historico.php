@@ -22,6 +22,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 .hist-tabla td.editando input,.hist-tabla td.editando select{border-color:var(--borde,#999);background:var(--superficie,#fff);cursor:text}
 .hist-tabla td.ancho input{min-width:220px}
 .hist-tabla td.falta{background:#FDE2E2;box-shadow:inset 0 0 0 2px #DC2626;animation:hist-parpadeo 1.1s steps(2,start) infinite}
+.hist-tabla td.fuera{background:#FEF3C7;box-shadow:inset 0 0 0 2px #D97706}
 .hist-tabla td.guardando{opacity:.6}
 .hist-tabla td.error{box-shadow:inset 0 0 0 2px #B45309}
 @keyframes hist-parpadeo{50%{background:transparent;box-shadow:inset 0 0 0 2px transparent}}
@@ -30,7 +31,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 </style>
 
 <div class="tit-cabecera"><div>
-  <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
+  <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En ámbar, las fechas fuera de rango (antes de 2000 o posteriores a hoy), que suelen ser errores de captura del libro. En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
 </div></div>
 
 <section class="tarjeta" style="margin-bottom:14px">
@@ -52,6 +53,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
       <option value="">Todos los registros</option>
       <option value="cualquiera" <?= $f['faltantes'] === 'cualquiera' ? 'selected' : '' ?>>Con algún dato faltante</option>
       <option value="completos" <?= $f['faltantes'] === 'completos' ? 'selected' : '' ?>>Completos</option>
+      <option value="fuera_rango" <?= $f['faltantes'] === 'fuera_rango' ? 'selected' : '' ?>>Fechas fuera de rango (antes de 2000 o posteriores a hoy)</option>
       <?php foreach (Historico::CAMPOS as $k => [$et]): ?><option value="<?= e($k) ?>" <?= $f['faltantes'] === $k ? 'selected' : '' ?>>Falta: <?= e($et) ?></option><?php endforeach; ?>
     </select></label>
     <label>Constancias <select name="estado"><option value="">Todas</option><option value="pendientes" <?= $f['estado'] === 'pendientes' ? 'selected' : '' ?>>Sin generar</option><option value="generadas" <?= $f['estado'] === 'generadas' ? 'selected' : '' ?>>Generadas</option></select></label>
@@ -71,7 +73,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
     <?php foreach ($filas as $h): ?>
       <tr data-id="<?= (int) $h['id'] ?>" data-trabajo="<?= Historico::conTrabajo($h['modalidad']) ? '1' : '0' ?>">
         <?php foreach ($columnas as $c): $tipo = Historico::CAMPOS[$c][1]; $v = (string) ($h[$c] ?? ''); ?>
-          <td class="<?= in_array($c, $h['faltan'], true) ? 'falta' : '' ?><?= in_array($c, ['alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'], true) || str_ends_with($c, '_email') ? ' ancho' : '' ?>" data-campo="<?= e($c) ?>"
+          <td class="<?= in_array($c, $h['faltan'], true) ? 'falta' : (in_array($c, $h['fuera'], true) ? 'fuera' : '') ?><?= in_array($c, ['alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'], true) || str_ends_with($c, '_email') ? ' ancho' : '' ?>" data-campo="<?= e($c) ?>"
             <?php if ($c === 'modalidad' && $h['modalidad_origen'] !== ''): ?>title="En el libro: <?= e($h['modalidad_origen']) ?>"<?php elseif (str_ends_with($c, '_email') && $h['correos'] !== ''): ?>title="Correos en el libro: <?= e($h['correos']) ?>"<?php endif; ?>>
             <?php if (isset($opciones[$tipo])): ?>
               <select disabled aria-label="<?= e(Historico::CAMPOS[$c][0]) ?>"><?php foreach ($opciones[$tipo] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
@@ -108,7 +110,11 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
     return fetch(url, { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json(); });
   }
   function pintar(tr, fila) {
-    tr.querySelectorAll('td[data-campo]').forEach(function (td) { td.classList.toggle('falta', fila.faltan.indexOf(td.dataset.campo) >= 0); });
+    tr.querySelectorAll('td[data-campo]').forEach(function (td) {
+      var falta = fila.faltan.indexOf(td.dataset.campo) >= 0;
+      td.classList.toggle('falta', falta);
+      td.classList.toggle('fuera', !falta && (fila.fuera || []).indexOf(td.dataset.campo) >= 0);
+    });
     var trabajo = ['articulo', 'ensayo', 'memoria', 'aplicacion', 'autoempleo', 'residencia', 'tesina', 'tesis'].indexOf(fila.modalidad || '') >= 0;
     var b = tr.querySelector('[data-generar]'); b.hidden = !trabajo || fila.faltan.length > 0;
     tr.querySelector('[data-nota]').textContent = !trabajo && fila.modalidad ? 'Sin trabajo escrito' : '';
