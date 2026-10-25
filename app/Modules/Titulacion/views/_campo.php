@@ -1,7 +1,7 @@
 <?php
 /** Renderiza un campo de captura. Variables: $campo (definición), $valor (guardado), $nombre (atributo name). */
 $k = $campo['k'];
-$id = 'c-' . $k;
+$id = ($prefijoId ?? 'c') . '-' . $k;
 $tipo = $campo['tipo'] ?? 'texto';
 $ancho = in_array($tipo, ['area', 'cronograma'], true) ? ' ancho' : '';
 $req = !empty($campo['req']);

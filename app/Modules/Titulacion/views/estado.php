@@ -45,7 +45,8 @@ $cargos = ['jefe_titulacion' => 'Vo. Bo. de la Jefatura de Evaluación Profesion
   <?php endif; ?>
   <p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
     <a class="btn btn-mini btn-primario" href="<?= url('titulacion/licenciatura/tramite/' . (int) $t['id']) ?>">Abrir mi trámite</a>
-    <a class="btn btn-mini" href="<?= url('titulacion/mensajes') ?>">Mensajes<?= $x['noLeidos'] ? ' (' . (int) $x['noLeidos'] . ' sin leer)' : '' ?></a>
+    <a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Ver la ruta</a>
+    <a class="btn btn-mini" href="<?= url('notificaciones') ?>">Notificaciones<?= $x['noLeidos'] ? ' (' . (int) $x['noLeidos'] . ' sin leer)' : '' ?></a>
   </p>
 </section>
 <?php endforeach; ?>

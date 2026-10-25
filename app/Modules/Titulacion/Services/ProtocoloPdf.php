@@ -18,12 +18,6 @@ final class ProtocoloPdf
      */
     public static function generar(array $t): array
     {
-        $lib = dirname(APP_RAIZ) . '/lib';
-        if (!defined('FPDF_FONTPATH')) {
-            define('FPDF_FONTPATH', $lib . '/fpdf/font/');
-        }
-        require_once $lib . '/fpdf/fpdf.php';
-
         $modalidad = Catalogo::modalidad((string) $t['modalidad']);
         $proto = Catalogo::protocolo((string) $t['modalidad']);
         if ($modalidad === null || $proto === null) {
@@ -41,10 +35,9 @@ final class ProtocoloPdf
             }
         }
 
-        $pdf = new \FPDF('P', 'mm', 'Letter');
+        $pdf = Hoja::nueva((string) ($t['folio'] ?? ''), false);
         $pdf->SetMargins(22, 18, 22);
         $pdf->SetAutoPageBreak(true, 22);
-        $pdf->AddPage();
         $img = dirname(__DIR__) . '/plantillas/img';
         if (is_file($img . '/uaem.jpg')) {
             $pdf->Image($img . '/uaem.jpg', 22, 12, 24);
@@ -105,7 +98,7 @@ final class ProtocoloPdf
             $etiqueta = $c['h'] ?? $c['label'];
             if (($c['tipo'] ?? '') === 'fecha') {
                 $pdf->SetFont('Helvetica', 'B', 10);
-                $pdf->Cell(0, 5.5, self::l1($etiqueta . ': ' . ($v !== '' ? ProtocoloMembretado::fechaLarga((string) $v) : '—')), 0, 1);
+                $pdf->Cell(0, 5.5, self::l1($etiqueta . ': ' . ($v !== '' ? Hoja::fecha((string) $v) : '—')), 0, 1);
                 continue;
             }
             $pdf->SetFont('Helvetica', 'B', 10);

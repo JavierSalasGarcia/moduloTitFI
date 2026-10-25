@@ -7,7 +7,6 @@ use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
 use App\Modules\Titulacion\Catalogo;
-use App\Modules\Titulacion\Configuracion;
 use App\Modules\Titulacion\Flujo;
 use App\Modules\Titulacion\TitulacionRepository;
 use RuntimeException;
@@ -92,37 +91,19 @@ final class SubdireccionFirma
 
     // ----------------------------------------------------------------- qué se firma
 
-    /** @return array<string,string> tipos de documento que firma la Subdirección: formatos (por clave de formato) y oficios */
+    /** @return array<string,array{nombre:string}> tipos de documento que firma la Subdirección: formatos y oficios */
     public static function formatosFirmables(): array
     {
-        static $memo = null;
-        if ($memo !== null) {
-            return $memo;
-        }
         $salida = [];
-        foreach (Catalogo::formatos() as $clave => $def) {
-            if (($def['tipo'] ?? '') === 'docx' || !empty($def['interno'])) {
-                continue;
-            }
-            $r = Configuracion::resolverPdf($clave);
-            if ($r !== null && self::cajaFormato($r['spec']) !== null) {
-                $salida[$clave] = ['nombre' => $def['nombre']];
-            }
+        foreach (FormatosOficiales::CON_SUBDIRECCION as $clave) {
+            $salida[$clave] = ['nombre' => Catalogo::formatos()[$clave]['nombre'] ?? $clave];
         }
         foreach (Oficios::TIPOS as $clave => $nombre) {
-            if (in_array($clave, Oficios::DIRECCION, true)) {
-                continue;
+            if (!in_array($clave, Oficios::DIRECCION, true)) {
+                $salida[$clave] = ['nombre' => $nombre];
             }
-            $salida[$clave] = ['nombre' => $nombre];
         }
-        return $memo = $salida;
-    }
-
-    /** Última caja del nombre impreso del Subdirector: es la del bloque de firma. */
-    private static function cajaFormato(array $spec): ?array
-    {
-        $cajas = $spec['subdirector'] ?? [];
-        return $cajas ? end($cajas) : null;
+        return $salida;
     }
 
     /** Tipo de firma de Subdirección que requiere un documento del catálogo, o null si no la requiere. */
@@ -140,19 +121,12 @@ final class SubdireccionFirma
         return null;
     }
 
-    /** Caja de firma {p,x,y,w} (puntos) del bloque de la Subdirección en un formato. */
-    public static function cajaDeFormato(string $formato): ?array
-    {
-        $r = Configuracion::resolverPdf($formato);
-        return $r ? self::cajaFormato($r['spec']) : null;
-    }
-
     // ----------------------------------------------------------------- cola
 
     /** Tipos con un documento por persona en el mismo trámite: no se sustituyen entre sí. */
-    private const VARIOS = ['oficio_sinodal', 'constancia_revision'];
+    private const VARIOS = ['oficio_sinodal', 'constancia'];
 
-    public const CARGOS = ['subdirector' => 'la Subdirección Académica', 'director' => 'la Dirección', 'jefe_titulacion' => 'la Jefatura de Evaluación Profesional (Vo. Bo.)'];
+    public const CARGOS = ['subdirector' => 'la Subdirección Académica', 'director' => 'la Dirección', 'jefe_titulacion' => 'la Jefatura de Evaluación Profesional'];
 
     /**
      * Pone un documento ya generado en la cola de firmas (sustituye una solicitud pendiente anterior del mismo tipo y cargo).
@@ -169,7 +143,7 @@ final class SubdireccionFirma
             "INSERT INTO tit_firmas_subdireccion (tramite_id, tipo, documento_id, formato, rol_firma, descripcion, caja, creado_en) VALUES (?, 'documento', ?, ?, ?, ?, ?, ?)",
             [$tid, $documentoId, $tipo, $rol, $descripcion . ' · ' . $tramite['folio'], $caja ? json_encode($caja) : null, date('Y-m-d H:i:s')]
         );
-        if ($tipo !== 'constancia_revision') {
+        if ($tipo !== 'constancia') {
             TitulacionRepository::evento($tid, Auth::id() ?: (int) $tramite['alumno_id'], 'firma', 'En espera de la firma de ' . self::CARGOS[$rol] . ': ' . $descripcion, true);
         }
     }
@@ -222,7 +196,7 @@ final class SubdireccionFirma
         }
         $relativa = 'titulacion/' . (int) $t['id'] . '/subdireccion/' . $s['formato'] . ($rol === 'jefe_titulacion' ? '_vobo' : '') . '_' . bin2hex(random_bytes(6)) . '.pdf';
         $destino = FirmaElectronica::almacen() . '/' . $relativa;
-        self::estampar($origen, $destino, $caja, $capacidad, (string) $t['folio'], $rol);
+        self::estampar($origen, $destino, $caja, $capacidad, (string) $t['folio'], $rol, (string) $s['formato']);
         $hash = hash_file('sha256', $destino) ?: '';
         $ahora = date('Y-m-d H:i:s');
         $st = Database::pdo()->prepare(
@@ -234,14 +208,14 @@ final class SubdireccionFirma
             @unlink($destino);
             return;
         }
-        if ($rol === 'jefe_titulacion') {
+        if ($rol === 'jefe_titulacion' && $s['formato'] === 'oficio_aprobacion_tema') {
             // El Vo. Bo. no concluye el documento: la firma de la Subdirección se estampa sobre esta versión.
             Database::ejecutar('UPDATE tit_documentos SET ruta = ? WHERE id = ?', [$relativa, (int) $doc['id']]);
         } else {
             Database::ejecutar('UPDATE tit_documentos SET subdir_en = ?, subdir_capacidad = ?, subdir_ruta = ? WHERE id = ?', [$ahora, $capacidad, $relativa, (int) $doc['id']]);
         }
         $autor = $usuarioId ?? (int) Database::valor('SELECT creado_por FROM tit_piloto WHERE id = ?', [(int) $pilotoId]);
-        if ($s['formato'] !== 'constancia_revision') {
+        if ($s['formato'] !== 'constancia') {
             TitulacionRepository::evento((int) $t['id'], $autor, 'firma', 'Firmado por ' . self::CARGOS[$rol] . ': ' . $s['descripcion'], true);
         }
         Audit::record('titulacion::subdireccion', 'firma', $capacidad . ' · ' . $s['formato'] . ' · ' . $t['folio'] . ' · ' . substr($hash, 0, 12));
@@ -249,8 +223,8 @@ final class SubdireccionFirma
         if ($s['formato'] === 'oficio_sinodal') {
             Jurado::oficioFirmado((int) $doc['id']);
         }
-        if ($s['formato'] === 'constancia_revision') {
-            AprobacionTema::constanciaFirmada((int) $doc['id']);
+        if ($s['formato'] === 'constancia') {
+            Constancias::firmada((int) $doc['id']);
         }
         if ($s['formato'] === 'oficio_aprobacion_tema' && $rol === 'subdirector') {
             AprobacionTema::oficioFirmado($t);
@@ -272,14 +246,14 @@ final class SubdireccionFirma
     }
 
     /** Sello visible sobre el nombre impreso: nombre y cargo de quien firma, folio y huella; leyenda solo si no firmó en persona. */
-    private static function estampar(string $origenAbs, string $salidaAbs, array $caja, string $capacidad, string $folio, string $rol): void
+    private static function estampar(string $origenAbs, string $salidaAbs, array $caja, string $capacidad, string $folio, string $rol, string $formato = ''): void
     {
         $mm = 25.4 / 72;
         $huella = substr(hash_file('sha256', $origenAbs) ?: '', 0, 8);
         $jefe = Autoridades::jefeTitulacion();
         [$etiqueta, $nombre] = match ($rol) {
             'director' => ['FIRMA ELECTRÓNICA · DIRECCIÓN', Oficios::director()],
-            'jefe_titulacion' => ['VO. BO. · EVALUACIÓN PROFESIONAL Y GRADO', $jefe ? mb_strtoupper(\App\Core\Persona::tratamiento($jefe)) : 'JEFATURA DE EVALUACIÓN PROFESIONAL'],
+            'jefe_titulacion' => [$formato === 'oficio_aprobacion_tema' ? 'VO. BO. · EVAL. PROFESIONAL Y GRADO' : 'FIRMA ELECTRÓNICA · EVAL. PROFESIONAL', $jefe ? mb_strtoupper(\App\Core\Persona::tratamiento($jefe)) : 'JEFATURA DE EVALUACIÓN PROFESIONAL'],
             default => ['FIRMA ELECTRÓNICA · SUBDIRECCIÓN ACADÉMICA', mb_strtoupper(Formatos::subdirector())],
         };
         SelloPdf::estampar(

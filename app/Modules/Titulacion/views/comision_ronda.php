@@ -28,7 +28,7 @@ $vuelta = Mensajes::ordinal((int) $r['numero']);
 
 <?php if ($correccion && $r['estado'] === 'en_comision'): ?>
   <p class="tit-aviso">Es la versión corregida del protocolo. Si atiende las observaciones de la vuelta anterior, resuélvela abajo sin enviarla a revisión; si no, envíala a una nueva vuelta (los revisores tendrán de nuevo <?= (int) $dias ?> días hábiles).</p>
-  <?php if ($mensajes): ?><details style="margin-bottom:14px"><summary>Observaciones de la vuelta anterior</summary><div class="tit-obs" style="white-space:pre-wrap"><?= e((string) $mensajes[0]['cuerpo']) ?></div></details><?php endif; ?>
+  <?php if ($anterior): ?><details style="margin-bottom:14px"><summary>Observaciones de la vuelta anterior</summary><div class="tit-obs" style="white-space:pre-wrap"><?= e((string) $anterior) ?></div></details><?php endif; ?>
 <?php endif; ?>
 
 <?php if ($puedeAsignar || $activas): ?>
@@ -108,7 +108,7 @@ $vuelta = Mensajes::ordinal((int) $r['numero']);
 
     <div data-si="no_aprobado">
       <label>Asunto <input type="text" name="asunto" maxlength="200" data-asunto value="<?= e(Mensajes::aplicar($plantilla['asunto'], $marcas)) ?>"></label>
-      <label>Mensaje al pasante (le llega a «Titulación → Mensajes» y un aviso por correo)
+      <label>Mensaje al pasante (le llega a sus Notificaciones y un aviso por correo)
         <textarea name="mensaje" rows="16" data-mensaje></textarea></label>
       <p style="margin:4px 0 12px"><button class="btn btn-mini" type="button" data-rearmar>Volver a armar el mensaje con la plantilla</button></p>
     </div>

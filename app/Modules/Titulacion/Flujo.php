@@ -178,11 +178,11 @@ final class Flujo
         }
         if ($e['rechazados'] > 0) {
             return $e['clave'] === 'protocolo'
-                ? ['turno' => 'alumno', 'texto' => 'Atiende las observaciones del comité (Titulación → Mensajes), corrige tu protocolo y vuelve a enviarlo.']
+                ? ['turno' => 'alumno', 'texto' => 'Atiende las observaciones del comité (ver Notificaciones), corrige tu protocolo y vuelve a enviarlo.']
                 : ['turno' => 'alumno', 'texto' => 'Corrige y vuelve a subir ' . $e['rechazados'] . ' documento(s) observado(s).'];
         }
         if ($e['por_firmas_ext'] > 0) {
-            return ['turno' => 'alumno', 'texto' => 'Esperando la firma de tu asesor: le llegó un correo con su enlace. Puedes reenviárselo.'];
+            return ['turno' => 'alumno', 'texto' => 'Esperando firmas por correo (asesor o revisores): a cada quien le llegó su enlace. Puedes reenviárselo.'];
         }
         if ($e['faltan'] > 0) {
             return ['turno' => 'alumno', 'texto' => 'Sube ' . $e['faltan'] . ' documento(s) pendiente(s).'];

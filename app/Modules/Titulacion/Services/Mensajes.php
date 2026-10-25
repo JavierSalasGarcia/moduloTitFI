@@ -65,40 +65,16 @@ final class Mensajes
         return strtr($texto, $valores);
     }
 
-    // ------------------------------------------------------------------ bandeja del pasante
+    // ------------------------------------------------------------------ al pasante
 
+    /** Deja el mensaje completo en la bandeja de Notificaciones del pasante. @return int id de la notificación */
     public static function enviar(int $tramiteId, ?int $revisionId, ?int $remitenteId, string $remitente, string $asunto, string $cuerpo): int
     {
-        return Database::ejecutar(
-            'INSERT INTO tit_mensajes (tramite_id, revision_id, remitente_id, remitente, asunto, cuerpo) VALUES (?, ?, ?, ?, ?, ?)',
-            [$tramiteId, $revisionId, $remitenteId, mb_substr($remitente, 0, 200), mb_substr($asunto, 0, 200), mb_substr($cuerpo, 0, 20000)]
-        );
-    }
-
-    public static function delAlumno(int $alumnoId): array
-    {
-        return Database::todas(
-            'SELECT m.*, t.folio FROM tit_mensajes m JOIN tit_tramites t ON t.id = m.tramite_id WHERE t.alumno_id = ? ORDER BY m.id DESC LIMIT 200',
-            [$alumnoId]
-        );
-    }
-
-    public static function noLeidos(int $alumnoId): int
-    {
-        try {
-            return (int) Database::valor('SELECT COUNT(*) FROM tit_mensajes m JOIN tit_tramites t ON t.id = m.tramite_id WHERE t.alumno_id = ? AND m.leido_en IS NULL', [$alumnoId]);
-        } catch (\Throwable) {
+        $t = Database::una('SELECT u.email FROM tit_tramites t JOIN usuarios u ON u.id = t.alumno_id WHERE t.id = ?', [$tramiteId]);
+        if (!$t) {
             return 0;
         }
-    }
-
-    public static function mensaje(int $id): ?array
-    {
-        return Database::una('SELECT m.*, t.folio, t.alumno_id FROM tit_mensajes m JOIN tit_tramites t ON t.id = m.tramite_id WHERE m.id = ?', [$id]);
-    }
-
-    public static function marcarLeido(int $id): void
-    {
-        Database::ejecutar('UPDATE tit_mensajes SET leido_en = NOW() WHERE id = ? AND leido_en IS NULL', [$id]);
+        return \App\Modules\Notificaciones\Notificaciones::crear((string) $t['email'], $asunto, 'De: ' . $remitente . "\n\n" . $cuerpo,
+            Correo::enlace('titulacion/licenciatura/tramite/' . $tramiteId), 'titulacion', $tramiteId);
     }
 }

@@ -5,79 +5,28 @@ $csrf = e(Auth::csrfToken());
 ?>
 <div class="tit-cabecera">
   <div>
-    <p class="texto-secundario">Edita las plantillas y coordenadas de cada formato, retira los que ya no hagan falta y define qué documentos se piden, cuáles se entregan en físico y cuáles requieren cotejo del original. Los cambios aplican desde ya a todos los trámites.</p>
+    <p class="texto-secundario">La plataforma genera cada formato oficial con los datos del trámite; ya no hay plantillas ni coordenadas que ajustar. Los nombres y cargos de quien firma o a quien se dirige cada formato (Director, Subdirector Académico, Jefatura de Evaluación Profesional y Coordinadores de Docencia) se editan en Organización. Aquí defines qué documentos se piden y los parámetros del módulo.</p>
   </div>
   <a class="btn btn-primario" href="<?= url('titulacion/configuracion/documentos') ?>">Requisitos documentales</a>
 </div>
 
 <section class="tarjeta" style="margin-bottom:18px">
-  <h2>Formatos</h2>
+  <h2>Formatos que genera la plataforma</h2>
   <div class="tabla-contenedor">
   <table class="tabla">
-    <thead><tr><th>Formato</th><th>Se usa en</th><th>Estado</th><th>Acciones</th></tr></thead>
+    <thead><tr><th>Formato</th><th>Firma</th><th>Se usa en</th><th></th></tr></thead>
     <tbody>
     <?php foreach ($formatos as $clave => $f): ?>
-      <tr id="f-<?= e($clave) ?>">
-        <td><strong><?= e($f['nombre']) ?></strong><br><span class="texto-secundario"><?= $f['tipo'] === 'pdf' ? 'PDF · ' . (int) $f['campos'] . ' campos' : 'Word sobre hoja membretada' ?> · firma: <?= e($f['firma']) ?></span></td>
-        <td style="max-width:260px"><?= !empty($f['interno']) ? 'Lo genera la revisión de protocolos' : ($f['uso'] ? e(implode(', ', array_slice($f['uso'], 0, 4))) . (count($f['uso']) > 4 ? '…' : '') : '<span class="texto-secundario">Sin uso</span>') ?></td>
-        <td>
-          <span class="tit-chip <?= $f['activo'] ? 'ok' : 'na' ?>"><?= $f['activo'] ? 'Activo' : 'Retirado' ?></span>
-          <?php if ($f['personalizado']): ?><span class="tit-chip rev">Añadido</span><?php elseif ($f['modificado']): ?><span class="tit-chip pend">Modificado</span><?php endif; ?>
-        </td>
-        <td>
-          <?php if ($f['tipo'] === 'pdf'): ?><a class="btn btn-mini btn-primario" href="<?= url('titulacion/configuracion/formatos/' . $clave) ?>">Visor de coordenadas</a><?php endif; ?>
-          <details style="margin-top:6px"><summary>Plantilla y datos</summary>
-            <form class="formulario" method="post" enctype="multipart/form-data" action="<?= url('titulacion/configuracion/formatos/' . $clave . '/reemplazar') ?>" style="margin:8px 0">
-              <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-              <label>Reemplazar <?= $f['tipo'] === 'pdf' ? 'plantilla (PDF)' : 'hoja membretada (.docx)' ?>
-                <input type="file" name="plantilla" accept="<?= $f['tipo'] === 'pdf' ? 'application/pdf,.pdf' : '.docx' ?>" required></label>
-              <button class="btn btn-mini" type="submit">Reemplazar</button>
-            </form>
-            <form class="formulario" method="post" action="<?= url('titulacion/configuracion/formatos/' . $clave . '/datos') ?>" style="margin:8px 0">
-              <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-              <label>Nombre <input type="text" name="nombre" maxlength="200" value="<?= e($f['nombre']) ?>"></label>
-              <label>Quién firma <input type="text" name="firma" maxlength="200" value="<?= e($f['firma']) ?>"></label>
-              <?php if ($f['personalizado']): ?>
-                <label>Etapa
-                  <select name="etapa"><?php foreach ($etapas as $ec => $et): ?><option value="<?= e($ec) ?>" <?= $f['etapa'] === $ec ? 'selected' : '' ?>><?= e($et) ?></option><?php endforeach; ?></select></label>
-                <label style="display:flex;gap:6px"><input type="checkbox" name="todas" value="1" <?= $f['modalidades'] === '*' ? 'checked' : '' ?>> En todas las opciones de esa etapa</label>
-                <label>…o solo en
-                  <select name="modalidades[]" multiple size="5"><?php foreach ($modalidades as $mc => $m): ?><option value="<?= e($mc) ?>" <?= in_array($mc, explode(',', (string) $f['modalidades']), true) ? 'selected' : '' ?>><?= e($m['nombre']) ?></option><?php endforeach; ?></select></label>
-              <?php endif; ?>
-              <label style="display:flex;gap:6px"><input type="checkbox" name="activo" value="1" <?= $f['activo'] ? 'checked' : '' ?>> Activo (si lo desmarcas, deja de generarse y pedirse)</label>
-              <button class="btn btn-mini btn-primario" type="submit">Guardar</button>
-            </form>
-            <?php if ($f['personalizado']): ?>
-              <form method="post" action="<?= url('titulacion/configuracion/formatos/' . $clave . '/eliminar') ?>" onsubmit="return confirm('¿Eliminar este formato añadido?')"><input type="hidden" name="_csrf" value="<?= $csrf ?>"><button class="btn btn-mini btn-peligro" type="submit">Eliminar formato</button></form>
-            <?php elseif ($f['modificado']): ?>
-              <form method="post" action="<?= url('titulacion/configuracion/formatos/' . $clave . '/restablecer') ?>" onsubmit="return confirm('¿Volver a la plantilla y coordenadas originales?')"><input type="hidden" name="_csrf" value="<?= $csrf ?>"><button class="btn btn-mini" type="submit">Restablecer al original</button></form>
-            <?php endif; ?>
-          </details>
-        </td>
+      <tr>
+        <td><strong><?= e($f['nombre']) ?></strong></td>
+        <td><?= e($f['firma']) ?></td>
+        <td style="max-width:260px"><?= !empty($f['interno']) ? 'Flujo de revisión' : ($f['uso'] ? e(implode(', ', array_slice($f['uso'], 0, 4))) . (count($f['uso']) > 4 ? '…' : '') : 'Solicitudes adicionales del pasante') ?></td>
+        <td><?php if ($clave !== 'protocolo'): ?><a class="btn btn-mini" href="<?= url('titulacion/configuracion/formatos/' . $clave . '/muestra') ?>" target="_blank" rel="noopener">Vista previa</a><?php endif; ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
   </table>
   </div>
-</section>
-
-<section class="tarjeta" style="margin-bottom:18px">
-  <h2>Añadir un formato</h2>
-  <p class="texto-secundario">Sube la plantilla en PDF; después colocarás sobre ella los campos de datos (nombre, cuenta, carrera, fechas…) en el visor.</p>
-  <form class="formulario" method="post" enctype="multipart/form-data" action="<?= url('titulacion/configuracion/formatos/nuevo') ?>">
-    <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-    <div class="tit-campos">
-      <label>Nombre del formato <input type="text" name="nombre" maxlength="200" required></label>
-      <label>Quién firma <input type="text" name="firma" maxlength="200" placeholder="el pasante"></label>
-      <label>Etapa donde se genera
-        <select name="etapa" required><?php foreach ($etapas as $ec => $et): ?><option value="<?= e($ec) ?>"><?= e($et) ?></option><?php endforeach; ?></select></label>
-      <label>Plantilla (PDF) <input type="file" name="plantilla" accept="application/pdf,.pdf" required></label>
-      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" name="todas" value="1" checked> En todas las opciones que tengan esa etapa</label>
-      <label>…o solo en estas opciones
-        <select name="modalidades[]" multiple size="5"><?php foreach ($modalidades as $mc => $m): ?><option value="<?= e($mc) ?>"><?= e($m['nombre']) ?></option><?php endforeach; ?></select></label>
-    </div>
-    <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Subir y abrir el visor</button></div>
-  </form>
 </section>
 
 <section class="tarjeta" id="parametros" style="margin-bottom:18px">

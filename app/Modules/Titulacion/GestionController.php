@@ -99,9 +99,16 @@ final class GestionController extends TitulacionBase
             $estado === 'aprobado' ? 'validacion' : 'observacion',
             ($estado === 'aprobado' ? 'Documento validado: ' : 'Documento con observaciones: ') . $nombre . ($comentario !== '' ? ' — ' . $comentario : '')
         );
+        if ($estado === 'aprobado' && $d['clave'] === 'solicitud_prorroga') {
+            try {
+                Services\Prorroga::aprobar($t, Auth::id());
+            } catch (Throwable $e) {
+                error_log('Titulación: no se generó el oficio de prórroga: ' . $e->getMessage());
+            }
+        }
         $tipoFirma = $estado === 'aprobado' && $defDoc ? SubdireccionFirma::tipoDeDocumento($defDoc) : null;
         if ($tipoFirma !== null) {
-            $caja = !empty($defDoc['formato']) ? SubdireccionFirma::cajaDeFormato((string) $defDoc['formato']) : null;
+            $caja = DocumentosGenerados::caja($d, 'subdirector');
             if ($caja !== null) {
                 SubdireccionFirma::solicitar($t, (int) $d['id'], $tipoFirma, (string) $defDoc['nombre'], $caja);
             }
@@ -265,6 +272,13 @@ final class GestionController extends TitulacionBase
             SubdireccionFirma::solicitar($t, $idX, (string) $extra['clave'], (string) $extra['nombre'], $cajaX);
         }
         TitulacionRepository::guardarHito((int) $t['id'], $etapaClave, $datos, Auth::id());
+        if ($etapaClave === 'resultado' && $t['tipo'] === 'con_trabajo' && ($datos['resultado'] ?? '') !== 'aplazado' && ($datos['fecha'] ?? '') !== '') {
+            try {
+                Services\Constancias::asesoria($t, (string) $datos['fecha'], Auth::id());
+            } catch (Throwable $e) {
+                error_log('Titulación: no se generaron las constancias de asesoría: ' . $e->getMessage());
+            }
+        }
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'hito', 'Etapa completada por el departamento: ' . ($etapa['personal']['titulo'] ?? $etapa['titulo']) . $this->resumenHito($datos, $etapa));
         Audit::record('titulacion::hito', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $etapaClave);
         if (!$t['responsable_id']) {
@@ -397,7 +411,7 @@ final class GestionController extends TitulacionBase
         if ($visible) {
             $id = Services\Mensajes::enviar((int) $t['id'], null, Auth::id(), (string) (Auth::usuario()['nombre'] ?? 'Titulación') . ' · Evaluación Profesional', 'Mensaje del Departamento de Evaluación Profesional', $texto);
             Services\Correo::enviar((string) $t['alumno_email'], (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre']), 'Nuevo mensaje de Titulación · ' . $t['folio'],
-                'Tienes un mensaje nuevo del Departamento de Evaluación Profesional en «Titulación → Mensajes».', 'Leer el mensaje', Services\Correo::enlace('titulacion/mensajes/' . $id), 'mensaje', (int) $t['id']);
+                'Tienes un mensaje nuevo del Departamento de Evaluación Profesional en tus Notificaciones.', 'Leer el mensaje', Services\Correo::enlace('notificaciones/' . $id), 'mensaje', (int) $t['id'], false);
         }
         flash('exito', $visible ? 'Mensaje enviado al pasante.' : 'Nota interna guardada.');
         redirigir('titulacion/gestion/' . $t['id']);

@@ -1,4 +1,4 @@
--- Titulación (licenciatura) y Auditorios/Salas: migración única de todo lo posterior a 016.
+-- Titulación (licenciatura), Auditorios/Salas y Notificaciones: migración única de todo lo posterior a 016.
 -- Es repetible: puede ejecutarse completa las veces que haga falta, aunque una parte ya esté aplicada
 -- (tablas con IF NOT EXISTS, columnas e índices solo si faltan, ajustes con INSERT IGNORE).
 -- Se aplica a mano en pruebas y producción; copiar las carpetas de los módulos no ejecuta SQL.
@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS tit_documentos (
   subdir_capacidad ENUM('personal','delegada','automatica') NULL,
   subdir_ruta VARCHAR(500) NULL,
   pendiente_firmas TINYINT(1) NOT NULL DEFAULT 0,
+  cajas TEXT NULL,
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   KEY idx_tit_doc_tramite (tramite_id, etapa, clave, estado),
@@ -88,40 +89,28 @@ CREATE TABLE IF NOT EXISTS tit_eventos (
   CONSTRAINT fk_tit_evento_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Mensajes al pasante (dictámenes de cada vuelta y avisos del departamento): «Titulación → Mensajes».
-CREATE TABLE IF NOT EXISTS tit_mensajes (
+-- Bandeja única de notificaciones de la plataforma (por correo de la persona); el correo electrónico solo la alerta.
+CREATE TABLE IF NOT EXISTS notificaciones (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  tramite_id BIGINT UNSIGNED NOT NULL,
-  revision_id BIGINT UNSIGNED NULL,
-  remitente_id INT UNSIGNED NULL,
-  remitente VARCHAR(200) NOT NULL,
-  asunto VARCHAR(200) NOT NULL,
+  email VARCHAR(120) NOT NULL,
+  titulo VARCHAR(200) NOT NULL,
   cuerpo TEXT NOT NULL,
-  leido_en DATETIME NULL,
+  enlace VARCHAR(500) NULL,
+  origen VARCHAR(40) NOT NULL DEFAULT 'plataforma',
+  tramite_id BIGINT UNSIGNED NULL,
+  leida_en DATETIME NULL,
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  KEY idx_tit_msj_tramite (tramite_id, creado_en),
-  CONSTRAINT fk_tit_msj_tramite FOREIGN KEY (tramite_id) REFERENCES tit_tramites(id) ON DELETE CASCADE,
-  CONSTRAINT fk_tit_msj_remitente FOREIGN KEY (remitente_id) REFERENCES usuarios(id)
+  KEY idx_notif_email (email, leida_en),
+  KEY idx_notif_tramite (tramite_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Los mensajes al pasante y las plantillas/coordenadas de formatos ya no existen: todo llega a «notificaciones»
+-- y la plataforma genera los formatos por código.
+DROP TABLE IF EXISTS tit_mensajes;
+DROP TABLE IF EXISTS tit_formatos_cfg;
 
 -- ================================================================ Configuración de formatos y documentos
-CREATE TABLE IF NOT EXISTS tit_formatos_cfg (
-  clave VARCHAR(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  personalizado TINYINT(1) NOT NULL DEFAULT 0,
-  activo TINYINT(1) NOT NULL DEFAULT 1,
-  nombre VARCHAR(200) NULL,
-  firma VARCHAR(200) NULL,
-  etapa VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NULL,
-  modalidades VARCHAR(200) CHARACTER SET ascii COLLATE ascii_bin NULL,
-  plantilla_ruta VARCHAR(300) NULL,
-  spec MEDIUMTEXT NULL,
-  actualizado_por INT UNSIGNED NULL,
-  actualizado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (clave),
-  CONSTRAINT fk_tit_fmt_usuario FOREIGN KEY (actualizado_por) REFERENCES usuarios(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- modalidad '*' vale para todas las opciones; NULL en una columna hereda del catálogo.
 CREATE TABLE IF NOT EXISTS tit_docs_cfg (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -256,17 +245,20 @@ CREATE TABLE IF NOT EXISTS tit_plantillas_mensaje (
   PRIMARY KEY (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Constancia de revisión por revisor y protocolo; la firma la Subdirección cuando el protocolo se aprueba.
+-- Constancias para profesores (revisor de protocolo, revisor de trabajo escrito, asesor, cumplimiento y nombramiento
+-- como director). Se generan solas cuando se cumple lo que avalan; las firma la Subdirección o la Jefatura (emisor).
 CREATE TABLE IF NOT EXISTS tit_constancias (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   tramite_id BIGINT UNSIGNED NOT NULL,
   email VARCHAR(120) NOT NULL,
   nombre VARCHAR(160) NOT NULL,
-  vueltas VARCHAR(40) NOT NULL,
+  tipo VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'revisor_protocolo',
+  emisor ENUM('subdirector','jefe_titulacion') NOT NULL DEFAULT 'subdirector',
+  vueltas VARCHAR(40) NOT NULL DEFAULT '',
   documento_id BIGINT UNSIGNED NULL,
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_tit_constancia (tramite_id, email),
+  UNIQUE KEY uq_tit_constancia_tipo (tramite_id, email, tipo),
   KEY idx_tit_constancia_email (email),
   CONSTRAINT fk_tit_const_tramite FOREIGN KEY (tramite_id) REFERENCES tit_tramites(id) ON DELETE CASCADE,
   CONSTRAINT fk_tit_const_doc FOREIGN KEY (documento_id) REFERENCES tit_documentos(id) ON DELETE SET NULL
@@ -346,7 +338,7 @@ CREATE TABLE IF NOT EXISTS tit_firmas_externas (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   tramite_id BIGINT UNSIGNED NOT NULL,
   documento_id BIGINT UNSIGNED NOT NULL,
-  rol ENUM('asesor','coasesor') NOT NULL,
+  rol VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   nombre VARCHAR(160) NOT NULL,
   grado VARCHAR(30) NULL,
   genero ENUM('masculino','femenino') NULL,
@@ -577,6 +569,30 @@ SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_asignaciones_jurado ADD COLUM
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_asignaciones_jurado' AND COLUMN_NAME = 'propuesta');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_documentos ADD COLUMN cajas TEXT NULL AFTER pendiente_firmas', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_documentos' AND COLUMN_NAME = 'cajas');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- Firmantes por enlace: además de asesor y coasesor, los revisores (voto aprobatorio).
+SET @s = (SELECT IF(COUNT(*) = 1, 'ALTER TABLE tit_firmas_externas MODIFY rol VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_firmas_externas' AND COLUMN_NAME = 'rol' AND DATA_TYPE = 'enum');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_constancias ADD COLUMN tipo VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT ''revisor_protocolo'' AFTER nombre, ADD COLUMN emisor ENUM(''subdirector'',''jefe_titulacion'') NOT NULL DEFAULT ''subdirector'' AFTER tipo', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND COLUMN_NAME = 'tipo');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- Primero el índice nuevo (lo usa la llave foránea del trámite) y después se retira el anterior.
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_constancias ADD UNIQUE KEY uq_tit_constancia_tipo (tramite_id, email, tipo)', 'DO 0')
+          FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND INDEX_NAME = 'uq_tit_constancia_tipo');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) > 0, 'ALTER TABLE tit_constancias DROP INDEX uq_tit_constancia', 'DO 0')
+          FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND INDEX_NAME = 'uq_tit_constancia');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+UPDATE tit_firmas_subdireccion SET formato = 'constancia' WHERE formato = 'constancia_revision';
+
 -- ================================================================ Grado y género (comunes a toda la plataforma)
 SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE usuarios ADD COLUMN grado VARCHAR(30) NULL AFTER nombre', 'DO 0')
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'grado');
@@ -595,6 +611,7 @@ INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
 ('titulacion_token_gracia', '14', 'Titulación: días extra tras la fecha límite en que sigue vigente el enlace del correo.'),
 ('titulacion_max_mb', '5', 'Titulación: tamaño máximo en MB de cada PDF que sube el pasante.'),
 ('titulacion_vigencia_protocolo', '2', 'Titulación: años de vigencia del protocolo aprobado; vencidos, el examen previo pide el oficio de prórroga.'),
+('titulacion_prorroga_anios', '1', 'Titulación: años que concede el oficio de aprobación de prórroga del tema.'),
 ('titulacion_examen_dias_min', '10', 'Titulación: días hábiles mínimos entre la solicitud y la fecha del examen que elige el pasante.'),
 ('titulacion_examen_hora_inicio', '09:00', 'Titulación: primera hora en que puede iniciar un examen.'),
 ('titulacion_examen_hora_fin', '15:00', 'Titulación: hora a la que debe haber terminado un examen.'),

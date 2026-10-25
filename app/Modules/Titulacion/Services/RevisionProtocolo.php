@@ -7,7 +7,6 @@ use App\Core\App;
 use App\Core\Audit;
 use App\Core\Persona;
 use App\Modules\Titulacion\Catalogo;
-use App\Modules\Titulacion\Configuracion;
 use App\Modules\Titulacion\RevisionRepository;
 use App\Modules\Titulacion\TitulacionRepository;
 use DateTimeImmutable;
@@ -57,7 +56,7 @@ final class RevisionProtocolo
         $titulo = (string) ($tramite['datos']['protocolo']['titulo'] ?? $tramite['titulo'] ?? '');
         $texto = 'El protocolo «' . $titulo . '» ya tiene todas las firmas (pasante y asesoría) y se envió al Comité de Revisión de Protocolos de la licenciatura para su ' . Mensajes::ordinal($n) . ' vuelta de revisión.';
         Correo::enviar((string) $tramite['alumno_email'], (string) ($tramite['datos']['datos']['nombre'] ?? $tramite['alumno_nombre'] ?? ''), 'Protocolo enviado al comité · ' . $tramite['folio'],
-            $texto . ' Te avisaremos por correo y en «Titulación → Mensajes» cuando concluya la revisión.', 'Ver mi protocolo',
+            $texto . ' Te avisaremos en tus Notificaciones (y por correo) cuando concluya la revisión.', 'Ver mi protocolo',
             Correo::enlace('titulacion/licenciatura/tramite/' . (int) $tramite['id'] . '?etapa=protocolo'), 'protocolo_enviado', (int) $tramite['id']);
         foreach (FirmasExternas::pendientesDe($docId) as $f) {
             if ($f['estado'] === 'firmada') {
@@ -211,7 +210,7 @@ final class RevisionProtocolo
             'nombre' => (string) ($p['nombre'] ?? $ronda['alumno_nombre']), 'cuenta' => (string) ($p['cuenta'] ?? ''),
             'titulo' => (string) ($ronda['titulo'] ?? ''), 'modalidad_nombre' => Catalogo::modalidad((string) $ronda['modalidad'])['nombre'] ?? '',
             'fecha_recepcion' => date('d-m-Y', strtotime((string) $ronda['fecha_recepcion'])),
-            'fecha_entrega' => date('d-m-Y'), 'revision' => (int) $ronda['numero'] >= 2 ? '2' : '1',
+            'fecha_entrega' => date('d-m-Y'), 'revision' => (string) (int) $ronda['numero'], 'folio' => (string) $ronda['folio'],
         ];
     }
 
@@ -229,11 +228,7 @@ final class RevisionProtocolo
 
     private static function generarPdf(array $valores): string
     {
-        $r = Configuracion::resolverPdf('revision_protocolo');
-        if ($r === null) {
-            throw new RuntimeException('Falta la plantilla «Revisión de protocolo».');
-        }
-        return PdfFormato::generarCon($r['spec'], $r['plantilla'], $valores);
+        return FormatosOficiales::revisionProtocolo(['folio' => $valores['folio'] ?? ''], $valores)[0];
     }
 
     /** Genera el PDF, lo firma y devuelve [ruta relativa, huella, tipo]. */
@@ -378,7 +373,7 @@ final class RevisionProtocolo
         $obsPdf = mb_strlen($obs) > 1900 ? mb_substr($obs, 0, 1850) . '… (texto completo en Traza FI)' : $obs;
         $v = self::valores($ronda) + [
             'dictamen' => $dictamen, 'requiere_coord' => $coord, 'observaciones' => $obsPdf,
-            'firmante' => mb_strtoupper(Formatos::subdirector()),
+            'firmante' => mb_strtoupper(Persona::tratamiento($usuario)),
         ];
         $nivel = FirmaElectronica::nivelRevisores();
         [$ruta, $hash, $tipo] = self::firmarPdf($ronda, 'dictamen-' . (int) $ronda['id'], $v, (string) $usuario['nombre'], 'Firma electrónica', (int) $usuario['id'], $codigo, $nivel);
@@ -400,14 +395,14 @@ final class RevisionProtocolo
         if (!empty($ronda['documento_id'])) {
             TitulacionRepository::revisarDocumento(
                 (int) $ronda['documento_id'], $dictamen === 'aprobado' ? 'aprobado' : 'rechazado',
-                $dictamen === 'aprobado' ? 'Aprobado por el Comité de Revisión de Protocolos.' : 'Atiende las observaciones de la ' . $vuelta . ' vuelta (Titulación → Mensajes) y envía la versión corregida.',
+                $dictamen === 'aprobado' ? 'Aprobado por el Comité de Revisión de Protocolos.' : 'Atiende las observaciones de la ' . $vuelta . ' vuelta (ver Notificaciones) y envía la versión corregida.',
                 (int) $usuario['id']
             );
         }
         $msjId = Mensajes::enviar((int) $ronda['tramite_id'], (int) $ronda['id'], (int) $usuario['id'], Persona::tratamiento($usuario) . ' · Comité de Revisión de Protocolos', $asunto, $mensaje);
         TitulacionRepository::evento((int) $ronda['tramite_id'], (int) $usuario['id'], 'revision', $dictamen === 'aprobado'
             ? 'El comité aprobó tu protocolo. El oficio de aprobación del tema está en proceso de firmas.'
-            : 'Concluyó la ' . $vuelta . ' vuelta de revisión: atiende las observaciones (Titulación → Mensajes) y envía tu protocolo corregido.');
+            : 'Concluyó la ' . $vuelta . ' vuelta de revisión: atiende las observaciones (ver Notificaciones) y envía tu protocolo corregido.');
         if ($coord === 'si') {
             TitulacionRepository::evento((int) $ronda['tramite_id'], (int) $usuario['id'], 'revision', 'El dictamen indica que requiere revisión del coordinador de la carrera.', false);
         }
@@ -415,8 +410,8 @@ final class RevisionProtocolo
         Correo::enviar((string) $ronda['alumno_email'], (string) $ronda['alumno_nombre'], ($dictamen === 'aprobado' ? 'Protocolo aprobado · ' : 'Revisión de tu protocolo · ') . $ronda['folio'],
             $dictamen === 'aprobado'
                 ? 'El Comité de Revisión de Protocolos aprobó tu protocolo. El oficio de aprobación del tema está en proceso de firmas; puedes seguirlo en «Titulación → Estado».'
-                : 'Concluyó la ' . $vuelta . ' vuelta de revisión de tu protocolo. Inicia sesión en Traza FI para leer las observaciones del comité en «Titulación → Mensajes»; después corrige tu protocolo y vuelve a enviarlo.',
-            'Ver la revisión', Correo::enlace('titulacion/mensajes/' . $msjId), 'dictamen', (int) $ronda['tramite_id']);
+                : 'Concluyó la ' . $vuelta . ' vuelta de revisión de tu protocolo. Inicia sesión en Traza FI para leer las observaciones del comité en tus Notificaciones; después corrige tu protocolo y vuelve a enviarlo.',
+            'Ver la revisión', Correo::enlace('notificaciones/' . $msjId), 'dictamen', (int) $ronda['tramite_id'], false);
         if ($coord === 'si') {
             foreach (RevisionRepository::correosPersonal((array) App::config('titulacion.departamentos', []), (array) App::config('titulacion.gestores', [])) as $email => $nombre) {
                 Correo::enviar($email, $nombre, 'Dictamen que requiere al coordinador · ' . $ronda['folio'], 'El dictamen del protocolo de ' . $ronda['alumno_nombre'] . ' indica que requiere revisión del coordinador de la carrera.', 'Ver protocolos', Correo::enlace('titulacion/protocolos'), 'requiere_coord', (int) $ronda['tramite_id']);
