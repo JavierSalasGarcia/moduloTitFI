@@ -174,6 +174,12 @@ function guardar_archivo_datos(array $f, string $subcarpeta, ?array $extPermitid
     return trim($subcarpeta, '/\\') . '/' . $nombre;
 }
 
+/** Enlace de descarga con token (archivo/{token}) para una ruta de descarga marcada «token» en su módulo. */
+function url_archivo(string $ruta): string
+{
+    return url(\App\Core\Descargas::url($ruta));
+}
+
 /** Envía al navegador un archivo de storage/ (descarga controlada con permisos). */
 function descargar_archivo(string $rutaRelativa): never
 {

@@ -7,6 +7,7 @@ namespace App\Core;
  * Router con patrones tipo "GET /solicitudes/{id}".
  * Funciona con Apache (.htaccess) y con el servidor embebido de PHP.
  * Aplica sesión, roles de módulo y CSRF (todo POST) de forma central.
+ * Las rutas de descarga marcadas «token» (o «publico_token») solo se atienden por /archivo/{token} (ver Descargas).
  */
 final class Router
 {
@@ -31,7 +32,8 @@ final class Router
                 'metodo'  => strtoupper($metodo),
                 'regex'   => $regex,
                 'destino' => [$destino[0], $destino[1]],
-                'publico' => !empty($modulo['publico']) || (($destino[2] ?? '') === 'publico'),
+                'publico' => !empty($modulo['publico']) || in_array($destino[2] ?? '', ['publico', 'publico_token'], true),
+                'token'   => in_array($destino[2] ?? '', ['token', 'publico_token'], true),
                 'roles'   => $modulo['roles'] ?? null,
                 'modulo'  => $modulo['clave'],
             ];
@@ -56,9 +58,18 @@ final class Router
         if ($ruta === '/index.php') {
             $ruta = '/';
         }
+        // Descarga por token: se atiende la ruta original que guarda el token, con todas sus reglas de acceso.
+        $porToken = false;
+        if ($metodo === 'GET' && preg_match('#^/archivo/([0-9a-f]{32})$#D', $ruta, $t)) {
+            $original = Descargas::ruta($t[1]);
+            if ($original !== null) {
+                $ruta = $original;
+                $porToken = true;
+            }
+        }
 
         foreach ($this->rutas as $r) {
-            if ($r['metodo'] === $metodo && preg_match($r['regex'], $ruta, $m)) {
+            if ($r['metodo'] === $metodo && $r['token'] === $porToken && preg_match($r['regex'], $ruta, $m)) {
                 $usuario = Auth::usuario();
                 if (!$r['publico']) {
                     if (!$usuario) {

@@ -18,5 +18,5 @@ return [
         'POST /fila/expediente/{clave}/modalidad'=>[ExpedienteController::class,'modalidad'],
         'POST /fila/expediente/{clave}/minuta'=>[ExpedienteController::class,'guardar'],
         'POST /fila/expediente/{clave}/minuta/reenviar'=>[ExpedienteController::class,'reenviar'],
-        'GET /fila/expediente/{clave}/archivo/{origen}/{id}'=>[ExpedienteController::class,'descargar']],
+        'GET /fila/expediente/{clave}/archivo/{origen}/{id}'=>[ExpedienteController::class,'descargar', 'token']],
 ];

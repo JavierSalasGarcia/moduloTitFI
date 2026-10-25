@@ -61,7 +61,7 @@
         </button>
       </form>
 
-      <a href="<?= url('eventos/' . $ev['id'] . '/exportar-ics') ?>" class="btn" style="display: inline-flex; align-items: center; gap: 6px; border-color: var(--gris-200); background: #fafafa; color: var(--gris-700);">
+      <a href="<?= url_archivo('eventos/' . $ev['id'] . '/exportar-ics') ?>" class="btn" style="display: inline-flex; align-items: center; gap: 6px; border-color: var(--gris-200); background: #fafafa; color: var(--gris-700);">
         📅 Exportar a Teams / Outlook (.ics)
       </a>
     </div>

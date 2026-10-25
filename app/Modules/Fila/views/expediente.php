@@ -33,7 +33,7 @@
 <?php if (!$registros): ?><p>Aún no tiene minutas.</p><?php endif; ?>
 <?php foreach ($registros as $r): ?>
 <article><p><?= e($r['creado']) ?></p><p style="white-space:pre-wrap;overflow-wrap:anywhere"><?= e($r['resumen']) ?></p>
-<?php if ($r['archivo']): ?><p><a href="<?= e(url($base.'/archivo/registro/'.$r['id'])) ?>">Descargar <?= e($r['nombre_archivo']) ?></a></p><?php endif; ?>
+<?php if ($r['archivo']): ?><p><a href="<?= e(url_archivo($base.'/archivo/registro/'.$r['id'])) ?>">Descargar <?= e($r['nombre_archivo']) ?></a></p><?php endif; ?>
 <form method="post" action="<?= e(url($base.'/minuta/reenviar')) ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="registro_id" value="<?= (int)$r['id'] ?>"><button class="btn" type="submit"><?= icono('enviar') ?> Reenviar por correo</button></form></article>
 <?php endforeach; ?>
 </section>
@@ -59,5 +59,5 @@
 </tbody></table></div><?php endif; ?></section>
 <section class="card"><h2>Minutas ya guardadas en el servidor</h2>
 <?php if (!$guardadas): ?><p>No hay minutas previas<?= $turno||$email?' para este correo':'' ?>.</p><?php endif; ?>
-<?php foreach ($guardadas as $r): ?><p><?= e($r['fecha']??$r['creado']) ?> · <?= e($r['persona']) ?> · <?= e($r['asunto']) ?> · <a href="<?= e(url($base.'/archivo/servidor/'.$r['id'])) ?>">Descargar <?= e($r['nombre']) ?></a></p><?php endforeach; ?></section>
+<?php foreach ($guardadas as $r): ?><p><?= e($r['fecha']??$r['creado']) ?> · <?= e($r['persona']) ?> · <?= e($r['asunto']) ?> · <a href="<?= e(url_archivo($base.'/archivo/servidor/'.$r['id'])) ?>">Descargar <?= e($r['nombre']) ?></a></p><?php endforeach; ?></section>
 <script src="<?= e(ruta('estatico/identidad.js')) ?>?v=<?= filemtime(dirname(APP_RAIZ).'/fila/publico/estatico/identidad.js') ?>"></script>

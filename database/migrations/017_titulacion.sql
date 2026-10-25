@@ -1,4 +1,4 @@
--- Titulación (licenciatura), Auditorios/Salas y Notificaciones: migración única de todo lo posterior a 016.
+-- Titulación (licenciatura), Auditorios/Salas, Notificaciones y enlaces de descarga: migración única de todo lo posterior a 016.
 -- Es repetible: puede ejecutarse completa las veces que haga falta, aunque una parte ya esté aplicada
 -- (tablas con IF NOT EXISTS, columnas e índices solo si faltan, ajustes con INSERT IGNORE).
 -- Se aplica a mano en pruebas y producción; copiar las carpetas de los módulos no ejecuta SQL.
@@ -233,6 +233,15 @@ CREATE TABLE IF NOT EXISTS tit_archivo_tokens (
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (token),
   UNIQUE KEY uq_tit_archivo_accion (accion, params)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Enlaces de descarga de toda la plataforma (Core\Descargas): token aleatorio => ruta de descarga original.
+CREATE TABLE IF NOT EXISTS descarga_tokens (
+  token CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  ruta VARCHAR(255) NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (token),
+  UNIQUE KEY uq_descarga_ruta (ruta)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Los mensajes al pasante y las plantillas/coordenadas de formatos ya no existen: todo llega a «notificaciones»
