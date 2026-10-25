@@ -40,6 +40,7 @@ plataformaFI/
 │       ├── Eventos/         ← avisos suscribibles + buscador + biblioteca de concluidos
 │       ├── Calendario/      ← calendario personal con los eventos suscritos
 │       ├── Titulacion/      ← trámite de titulación en línea (licenciatura; posgrado próximamente)
+│       ├── Espacios/        ← Auditorios y salas: horarios, personas autorizadas y ocupación (Titulación aparta aquí los exámenes)
 │       ├── Directorio/      ← organigrama navegable
 │       └── Ajustes/         ← parámetros configurables (solo admin)
 ├── database/                ← schema.sql, schema_fase2.sql y seeds

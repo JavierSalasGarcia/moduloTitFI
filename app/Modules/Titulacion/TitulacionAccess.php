@@ -102,4 +102,31 @@ final class TitulacionAccess
     {
         return array_values(array_map(static fn(array $m): string => $m['carrera'], array_filter(self::pertenencias(), static fn(array $m): bool => $m['rol'] === 'encargado')));
     }
+
+    /** Pasante con al menos un trámite: ve «Mensajes» y «Estado». */
+    public static function tieneTramites(): bool
+    {
+        if (Auth::id() <= 0 || Auth::rol() !== 'alumno') {
+            return false;
+        }
+        try {
+            return (bool) \App\Core\Database::valor('SELECT 1 FROM tit_tramites WHERE alumno_id = ? LIMIT 1', [Auth::id()]);
+        } catch (\Throwable) {
+            return false;
+        }
+    }
+
+    /** Quien revisa protocolos o ya tiene constancias ve «Constancias → Protocolos». */
+    public static function tieneConstancias(): bool
+    {
+        if (self::esEvaluador()) {
+            return true;
+        }
+        $email = self::correoSesion();
+        try {
+            return $email !== '' && (bool) \App\Core\Database::valor('SELECT 1 FROM tit_constancias WHERE email = ? LIMIT 1', [$email]);
+        } catch (\Throwable) {
+            return false;
+        }
+    }
 }

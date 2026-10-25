@@ -57,6 +57,8 @@ final class JuradoController extends TitulacionBase
             'a' => $a, 't' => $t, 'token' => $token, 'banner' => $banner,
             'puedeFirmar' => $propia && $banner === null && $a['estado'] === 'solicitada',
             'sinodales' => $a['estado'] === 'firmada' ? Jurado::sinodales((int) $a['id']) : [],
+            'propuesta' => Jurado::propuesta($a),
+            'integrantes' => Jurado::integrantes($a),
             'examen' => Oficios::EXAMEN[$a['tipo']] ?? 'examen',
             'trabajo' => Jurado::trabajo($a) !== null,
         ], Auth::usuario() ? 'app' : 'publico');
@@ -67,7 +69,8 @@ final class JuradoController extends TitulacionBase
         $this->privado();
         $a = Jurado::porToken($token) ?? $this->invalido();
         $elegidos = [];
-        foreach ([0, 1, 2, 3] as $i) {
+        [$prop, $sup] = Jurado::integrantes($a);
+        for ($i = 0; $i < $prop + $sup; $i++) {
             $elegidos[$i] = ['nombre' => (string) ($_POST['s'][$i]['nombre'] ?? ''), 'email' => (string) ($_POST['s'][$i]['email'] ?? ''), 'grado' => (string) ($_POST['s'][$i]['grado'] ?? ''), 'genero' => (string) ($_POST['s'][$i]['genero'] ?? '')];
         }
         $_SESSION['_jurado_borrador'][$a['id']] = $elegidos;

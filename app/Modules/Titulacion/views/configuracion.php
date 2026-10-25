@@ -81,19 +81,32 @@ $csrf = e(Auth::csrfToken());
 </section>
 
 <section class="tarjeta" id="parametros" style="margin-bottom:18px">
-  <h2>Parámetros de revisión de protocolos</h2>
+  <h2>Parámetros del módulo</h2>
   <form class="formulario" method="post" action="<?= url('titulacion/configuracion/parametros') ?>">
     <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+    <h3>Revisión de protocolos</h3>
     <div class="tit-campos">
-      <label>Plazo de cada evaluador (días hábiles) <input type="number" name="dias" min="1" max="30" value="<?= (int) $param['dias'] ?>" required></label>
-      <label>Semáforo ámbar cuando falten (días hábiles) <input type="number" name="aviso" min="0" max="10" value="<?= (int) $param['aviso'] ?>" required></label>
+      <label>Revisores por protocolo <input type="number" name="revisores" min="1" max="9" value="<?= (int) $param['revisores'] ?>" required></label>
+      <label>Plazo de cada revisor (días hábiles; después el semáforo pasa a rojo) <input type="number" name="dias" min="1" max="30" value="<?= (int) $param['dias'] ?>" required></label>
       <label>Firma de las revisiones y del dictamen
         <select name="firma"><option value="sello" <?= $param['firma'] === 'sello' ? 'selected' : '' ?>>Sello electrónico (nombre, fecha y huella)</option>
           <option value="pades" <?= $param['firma'] === 'pades' ? 'selected' : '' ?> <?= $param['pki'] ? '' : 'disabled' ?>>Firma PAdES con segundo factor<?= $param['pki'] ? '' : ' (PKI inactiva)' ?></option></select></label>
       <label>Vigencia extra del enlace del correo (días tras la fecha límite) <input type="number" name="gracia" min="1" max="60" value="<?= (int) $param['gracia'] ?>" required></label>
-      <label class="ancho" style="grid-column:1/-1">Días no laborables (AAAA-MM-DD, uno por línea; no cuentan como hábiles)
-        <textarea name="inhabiles" rows="4" placeholder="2026-11-02&#10;2026-11-16"><?= e($param['inhabiles']) ?></textarea></label>
+      <label>Vigencia del protocolo aprobado (años; después se pide oficio de prórroga) <input type="number" name="vigencia" min="1" max="10" value="<?= (int) $param['vigencia'] ?>" required></label>
     </div>
+    <h3>Exámenes previo y definitivo</h3>
+    <div class="tit-campos">
+      <label>Anticipación mínima al elegir fecha (días hábiles) <input type="number" name="examen_dias" min="0" max="60" value="<?= (int) $param['examen']['dias'] ?>" required></label>
+      <label>Hora más temprana de inicio <input type="time" name="examen_inicio" value="<?= e($param['examen']['inicio']) ?>" required></label>
+      <label>Hora límite de término <input type="time" name="examen_fin" value="<?= e($param['examen']['fin']) ?>" required></label>
+      <label>Duración que se aparta el espacio (minutos) <input type="number" name="examen_duracion" min="30" max="480" step="15" value="<?= (int) $param['examen']['duracion'] ?>" required></label>
+      <label>Lugar de los exámenes (módulo Auditorios y salas)
+        <select name="examen_espacio"><?php foreach ($param['espacios'] as $esp): ?><option value="<?= (int) $esp['id'] ?>" <?= (int) $esp['id'] === (int) $param['examen']['espacio'] ? 'selected' : '' ?>><?= e($esp['nombre']) ?></option><?php endforeach; ?></select></label>
+      <label>Sinodales propietarios <input type="number" name="propietarios" min="1" max="5" value="<?= (int) $param['examen']['propietarios'] ?>" required></label>
+      <label>Sinodales suplentes <input type="number" name="suplentes" min="0" max="5" value="<?= (int) $param['examen']['suplentes'] ?>" required></label>
+    </div>
+    <label style="display:block;margin-top:14px">Días no laborables (AAAA-MM-DD, uno por línea; no cuentan como hábiles)
+      <textarea name="inhabiles" rows="4" placeholder="2026-11-02&#10;2026-11-16"><?= e($param['inhabiles']) ?></textarea></label>
     <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar parámetros</button></div>
   </form>
 </section>

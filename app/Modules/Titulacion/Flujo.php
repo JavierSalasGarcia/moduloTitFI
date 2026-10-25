@@ -53,6 +53,17 @@ final class Flujo
         return null;
     }
 
+    /** ¿Venció la exclusividad del tema? (fecha de aprobación del protocolo más los años de vigencia de Ajustes) */
+    public static function protocoloVencido(array $hitos, ?\DateTimeImmutable $hoy = null): bool
+    {
+        $f = \DateTimeImmutable::createFromFormat('!Y-m-d', (string) ($hitos['protocolo']['datos']['fecha'] ?? ''));
+        if (!$f) {
+            return false;
+        }
+        $anios = max(1, (int) (function_exists('ajuste') ? \ajuste('titulacion_vigencia_protocolo', '2') : 2));
+        return $f->modify('+' . $anios . ' years') < ($hoy ?? new \DateTimeImmutable('today'));
+    }
+
     /** ¿Todos los campos obligatorios de la etapa están capturados y son válidos? */
     public static function capturaCompleta(array $etapa, array $datos): bool
     {
@@ -83,7 +94,11 @@ final class Flujo
             $e['captura_ok'] = self::capturaCompleta($e, $tramite['datos']);
             $e['docs_estado'] = [];
             $porValidar = $rechazados = $faltan = $porCotejar = $porFirmar = $porFirmasExt = 0;
+            $vencido = self::protocoloVencido($hitos);
             foreach ($e['documentos'] ?? [] as $d) {
+                if (($d['solo_si'] ?? '') === 'protocolo_vencido' && !$vencido) {
+                    continue;
+                }
                 $fila = $docs[$clave . '|' . $d['clave']] ?? null;
                 $estado = !empty($fila['pendiente_firmas']) ? 'firmas' : ($fila['estado'] ?? 'pendiente');
                 $cotejado = empty($d['cotejo']) || !empty($fila['cotejo_en']);
@@ -125,6 +140,7 @@ final class Flujo
                 $entregaOk = $entregaOk && $okx;
             }
             $e['entrega_asignacion'] = !empty($entrega['asignacion']);
+            $e['protocolo_vencido'] = $vencido;
             $e['entrega_por_firmar'] = $entrega !== null && !$entregaOk && $hito !== null;
             $e['entrega_ok'] = $entregaOk;
             $e['personal_ok'] = !isset($e['personal']) || ($hito !== null && $entregaOk);
@@ -161,7 +177,9 @@ final class Flujo
                 : ['turno' => 'alumno', 'texto' => 'Completa los datos de esta etapa.'];
         }
         if ($e['rechazados'] > 0) {
-            return ['turno' => 'alumno', 'texto' => 'Corrige y vuelve a subir ' . $e['rechazados'] . ' documento(s) observado(s).'];
+            return $e['clave'] === 'protocolo'
+                ? ['turno' => 'alumno', 'texto' => 'Atiende las observaciones del comité (Titulación → Mensajes), corrige tu protocolo y vuelve a enviarlo.']
+                : ['turno' => 'alumno', 'texto' => 'Corrige y vuelve a subir ' . $e['rechazados'] . ' documento(s) observado(s).'];
         }
         if ($e['por_firmas_ext'] > 0) {
             return ['turno' => 'alumno', 'texto' => 'Esperando la firma de tu asesor: le llegó un correo con su enlace. Puedes reenviárselo.'];
@@ -169,8 +187,13 @@ final class Flujo
         if ($e['faltan'] > 0) {
             return ['turno' => 'alumno', 'texto' => 'Sube ' . $e['faltan'] . ' documento(s) pendiente(s).'];
         }
+        if (!empty($e['agenda']) && empty($e['hito'])) {
+            return ['turno' => 'alumno', 'texto' => 'Elige la fecha y hora de tu ' . ($e['agenda'] === 'previo' ? 'examen previo' : 'examen definitivo') . ', propón a tu sínodo y envía la solicitud al Coordinador de Docencia.'];
+        }
         if ($e['por_validar'] > 0) {
-            return ['turno' => 'personal', 'texto' => 'Personal de Titulación está validando ' . $e['por_validar'] . ' documento(s).'];
+            return $e['clave'] === 'protocolo'
+                ? ['turno' => 'personal', 'texto' => 'Tu protocolo está en revisión del Comité de Revisión de Protocolos de tu licenciatura.']
+                : ['turno' => 'personal', 'texto' => 'Personal de Titulación está validando ' . $e['por_validar'] . ' documento(s).'];
         }
         if ($e['por_firmar'] > 0) {
             return ['turno' => 'personal', 'texto' => 'Documento validado: esperando la firma electrónica de la Subdirección Académica.'];
@@ -179,10 +202,12 @@ final class Flujo
             return ['turno' => 'personal', 'texto' => 'Lleva a Apoyo a Titulación el original de ' . $e['por_cotejar'] . ' documento(s) para su cotejo.'];
         }
         if (!$e['personal_ok'] && !empty($e['hito']) && !empty($e['entrega_asignacion'])) {
-            return ['turno' => 'personal', 'texto' => 'Fecha fijada: esperando que el Coordinador de Docencia asigne y firme a los sinodales (le llegó un correo con su enlace).'];
+            return ['turno' => 'personal', 'texto' => 'Solicitud enviada: esperando que el Coordinador de Docencia ratifique o modifique tu sínodo y firme (le llegó un correo con su enlace).'];
         }
         if (!$e['personal_ok'] && !empty($e['entrega_por_firmar'])) {
-            return ['turno' => 'personal', 'texto' => 'Oficio generado: esperando la firma electrónica de la Subdirección Académica.'];
+            return $e['clave'] === 'protocolo'
+                ? ['turno' => 'personal', 'texto' => 'Protocolo aprobado: el oficio de aprobación del tema está en proceso de firmas (Vo. Bo. de la Jefatura de Evaluación Profesional y firma de la Subdirección Académica).']
+                : ['turno' => 'personal', 'texto' => 'Oficio generado: esperando la firma electrónica de la Subdirección Académica.'];
         }
         if (!$e['personal_ok']) {
             return ['turno' => 'personal', 'texto' => 'Pendiente: ' . ($e['personal']['titulo'] ?? 'trámite del departamento') . '.'];

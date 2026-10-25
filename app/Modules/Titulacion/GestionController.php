@@ -187,6 +187,10 @@ final class GestionController extends TitulacionBase
             flash('error', 'Esa etapa no está en turno: debe estar al corriente la etapa anterior.');
             redirigir($volver);
         }
+        if (!empty($etapa['agenda'])) {
+            flash('error', 'Esta solicitud la envía el pasante al elegir fecha, hora y sínodo.');
+            redirigir($volver);
+        }
         if (!$etapa['propia_ok'] || !$etapa['docs_ok']) {
             flash('error', 'Antes de completar esta etapa, el pasante debe terminar su captura y todos sus documentos deben estar validados.');
             redirigir($volver);
@@ -225,7 +229,17 @@ final class GestionController extends TitulacionBase
                 redirigir($volver);
             }
         }
-        if ($entrega !== null && !empty($entrega['oficio'])) {
+        if ($entrega !== null && $entrega['clave'] === 'oficio_aprobacion_tema') {
+            // Respaldo manual (licenciatura sin comité en la plataforma): mismo oficio y firmas que al aprobar el comité.
+            $datos['observaciones'] = $datos['observaciones'] !== '' ? $datos['observaciones'] : Services\Oficios::observacionesAprobacion($t);
+            try {
+                Services\AprobacionTema::emitir($t, $datos['fecha'], $datos['observaciones'], Auth::id());
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo emitir el oficio de aprobación: ' . $e->getMessage());
+                flash('error', 'No se pudo generar el oficio. Intenta de nuevo.');
+                redirigir($volver);
+            }
+        } elseif ($entrega !== null && !empty($entrega['oficio'])) {
             try {
                 [$ruta, $caja] = DocumentosGenerados::guardarOficio($t, (string) $entrega['clave'], $datos);
             } catch (Throwable $e) {
@@ -353,6 +367,10 @@ final class GestionController extends TitulacionBase
         if (!empty($etapaDef['personal']['entrega']['asignacion'])) {
             Database::ejecutar("UPDATE tit_asignaciones_jurado SET estado = 'cancelada' WHERE tramite_id = ? AND etapa = ? AND estado = 'solicitada'", [(int) $t['id'], $etapaClave]);
         }
+        if (!empty($etapaDef['agenda'])) {
+            // Se libera el auditorio apartado: el pasante podrá elegir otra fecha.
+            \App\Modules\Espacios\Agenda::cancelarExamen((int) $t['id'], (string) $etapaDef['agenda'], Auth::id());
+        }
         foreach ($etapaDef['personal']['extras'] ?? [] as $x) {
             Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND estado = 'pendiente'", [(int) $t['id'], $x['clave']]);
         }
@@ -376,6 +394,11 @@ final class GestionController extends TitulacionBase
             redirigir('titulacion/gestion/' . $t['id']);
         }
         TitulacionRepository::evento((int) $t['id'], Auth::id(), $visible ? 'mensaje' : 'nota', $texto, $visible);
+        if ($visible) {
+            $id = Services\Mensajes::enviar((int) $t['id'], null, Auth::id(), (string) (Auth::usuario()['nombre'] ?? 'Titulación') . ' · Evaluación Profesional', 'Mensaje del Departamento de Evaluación Profesional', $texto);
+            Services\Correo::enviar((string) $t['alumno_email'], (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre']), 'Nuevo mensaje de Titulación · ' . $t['folio'],
+                'Tienes un mensaje nuevo del Departamento de Evaluación Profesional en «Titulación → Mensajes».', 'Leer el mensaje', Services\Correo::enlace('titulacion/mensajes/' . $id), 'mensaje', (int) $t['id']);
+        }
         flash('exito', $visible ? 'Mensaje enviado al pasante.' : 'Nota interna guardada.');
         redirigir('titulacion/gestion/' . $t['id']);
     }

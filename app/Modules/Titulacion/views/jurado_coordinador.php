@@ -2,15 +2,18 @@
 use App\Core\Auth;
 include __DIR__ . '/_estilos.php';
 $base = 'titulacion/jurado/t/' . $token;
-$borrador = $_SESSION['_jurado_borrador'][$a['id']] ?? [];
+$borrador = $_SESSION['_jurado_borrador'][$a['id']] ?? $propuesta;
 $alumno = (string) ($t['datos']['datos']['nombre'] ?? '');
-$etq = ['Propietario 1', 'Propietario 2', 'Propietario 3', 'Suplente'];
+[$numProp, $numSup] = $integrantes;
+$etq = [];
+for ($i = 1; $i <= $numProp; $i++) { $etq[] = 'Propietario ' . $i; }
+for ($i = 1; $i <= $numSup; $i++) { $etq[] = 'Suplente' . ($numSup > 1 ? ' ' . $i : ''); }
 include __DIR__ . '/_banner_enlace.php';
 ?>
 <section class="tarjeta" style="max-width:760px;margin:20px auto">
   <h2>Asignación de sinodales · <?= e($t['folio']) ?></h2>
   <p><strong><?= e($alumno) ?></strong> · <?= e(\App\Modules\Titulacion\Catalogo::modalidad((string) $t['modalidad'])['nombre'] ?? '') ?><?php if ($t['titulo']): ?> · «<?= e($t['titulo']) ?>»<?php endif; ?></p>
-  <p>Titulación fijó el <strong><?= e($examen) ?></strong>: <strong><?= e(\App\Modules\Titulacion\Services\Oficios::fecha($a['fecha'])) ?></strong>, <?= e($a['hora']) ?> h, en <?= e($a['lugar']) ?>.</p>
+  <p>El pasante solicitó su <strong><?= e($examen) ?></strong> para el <strong><?= e(\App\Modules\Titulacion\Services\Oficios::fecha($a['fecha'])) ?></strong>, <?= e($a['hora']) ?> h, en <?= e($a['lugar']) ?> (el espacio ya está apartado).</p>
   <?php if ($trabajo): ?><p><a class="btn btn-mini" href="<?= url($base . '/trabajo') ?>" target="_blank" rel="noopener">Ver el trabajo escrito (PDF)</a></p><?php endif; ?>
 
   <?php if ($a['estado'] === 'firmada'): ?>
@@ -19,7 +22,7 @@ include __DIR__ . '/_banner_enlace.php';
   <?php else: ?>
     <form method="post" action="<?= url($base . '/firmar') ?>" class="formulario">
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-      <p class="texto-secundario">Busca por nombre o por correo: si el profesor está registrado se completan los dos datos. Si no, escríbelos.</p>
+      <p class="texto-secundario"><?= $propuesta ? 'Este es el sínodo que propuso el pasante. Ratifícalo o cambia a quien consideres; ' : '' ?>Busca por nombre o por correo: si el profesor está registrado se completan los datos. Si no, escríbelos.</p>
       <?php foreach ($etq as $i => $et): ?>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px">
           <label style="flex:1 1 240px"><?= e($et) ?> · nombre

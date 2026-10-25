@@ -3,9 +3,8 @@
 $s = $a['semaforo'];
 $txt = match ($s) {
     'listo' => 'Firmada ' . ($a['firmada_en'] ? date('d/m', strtotime((string) $a['firmada_en'])) : ''),
-    'verde' => 'A tiempo · ' . (int) $a['restan'] . ' d. hábiles',
-    'ambar' => 'Por vencer · ' . (int) $a['restan'] . ' d. hábiles',
-    'rojo' => 'Vencida · ' . abs((int) $a['restan']) . ' d. hábiles',
+    'verde' => 'Día hábil ' . max(0, (int) ($a['transcurridos'] ?? 0)) . ' de ' . \App\Modules\Titulacion\Services\Calendario::diasPlazo(),
+    'rojo' => 'Día hábil ' . (int) ($a['transcurridos'] ?? 0) . ' · plazo vencido',
     default => 'Cancelada',
 };
 ?>

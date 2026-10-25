@@ -115,6 +115,7 @@ abstract class TitulacionBase extends Controller
         foreach ($asigs as &$a) {
             $a['semaforo'] = Services\Calendario::semaforo((string) $a['estado'], (string) $a['fecha_limite'], $hoy);
             $a['restan'] = Services\Calendario::restantes($hoy, new \DateTimeImmutable((string) $a['fecha_limite']));
+            $a['transcurridos'] = Services\Calendario::restantes(new \DateTimeImmutable(substr((string) $a['asignada_en'], 0, 10)), $hoy);
         }
         return $asigs;
     }

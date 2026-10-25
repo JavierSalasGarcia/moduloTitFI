@@ -68,7 +68,10 @@ final class Calendario
         return $signo * $n;
     }
 
-    /** verde / ambar / rojo / listo. */
+    /**
+     * Semáforo de una revisión: verde mientras no pasen los días hábiles del plazo (0 a 7 por omisión),
+     * rojo a partir del día hábil siguiente; «listo» si ya se firmó.
+     */
     public static function semaforo(string $estadoAsignacion, string $fechaLimite, ?DateTimeImmutable $hoy = null): string
     {
         if ($estadoAsignacion === 'firmada') {
@@ -78,9 +81,7 @@ final class Calendario
             return 'cancelada';
         }
         $hoy ??= new DateTimeImmutable('today');
-        $restan = self::restantes($hoy, new DateTimeImmutable($fechaLimite));
-        $aviso = max(0, (int) (function_exists('ajuste') ? \ajuste('titulacion_dias_aviso', '2') : 2));
-        return $restan < 0 ? 'rojo' : ($restan <= $aviso ? 'ambar' : 'verde');
+        return self::restantes($hoy, new DateTimeImmutable($fechaLimite)) < 0 ? 'rojo' : 'verde';
     }
 
     public static function diasPlazo(): int

@@ -174,7 +174,7 @@ final class TramiteController extends TitulacionBase
         $rondas = RevisionRepository::rondasDeTramite((int) $t['id']);
         $r = $rondas[0] ?? null;
         $carrera = $r ? (Catalogo::carreras()[$r['carrera']]['siglas'][0] ?? '') : '';
-        $orden = ['recibida' => 1, 'en_comision' => 2, 'en_evaluacion' => 3, 'por_dictaminar' => 3, 'dictaminada' => 4, 'cancelada' => 0];
+        $orden = ['recibida' => 1, 'en_comision' => 1, 'en_evaluacion' => 2, 'por_dictaminar' => 2, 'dictaminada' => 3, 'cancelada' => 0];
         $n = $r ? ($orden[$r['estado']] ?? 0) : -1;
         $firmadas = '';
         if ($r && in_array($r['estado'], ['en_evaluacion', 'por_dictaminar'], true)) {
@@ -183,14 +183,13 @@ final class TramiteController extends TitulacionBase
         }
         $marca = static fn(int $paso): string => $n > $paso ? 'hecho' : ($n === $paso ? 'ahora' : '');
         $pasos = [
-            ['texto' => 'Sube tu protocolo', 'clase' => $n >= 0 ? 'hecho' : 'ahora'],
-            ['texto' => 'Recibido por Titulación', 'clase' => $n < 0 ? '' : $marca(1)],
-            ['texto' => 'En la comisión' . ($carrera ? ' de ' . $carrera : ''), 'clase' => $n < 0 ? '' : $marca(2)],
-            ['texto' => 'En evaluación' . $firmadas, 'clase' => $n < 0 ? '' : $marca(3)],
+            ['texto' => 'Envía tu protocolo firmado por tu asesor', 'clase' => $n >= 0 ? 'hecho' : 'ahora'],
+            ['texto' => 'Con el responsable del comité' . ($carrera ? ' de ' . $carrera : ''), 'clase' => $n < 0 ? '' : $marca(1)],
+            ['texto' => 'En revisión' . $firmadas, 'clase' => $n < 0 ? '' : $marca(2)],
         ];
-        $fin = ['texto' => 'Dictamen', 'clase' => ''];
+        $fin = ['texto' => 'Resultado', 'clase' => ''];
         if ($r && $r['estado'] === 'dictaminada') {
-            $fin = $r['dictamen'] === 'aprobado' ? ['texto' => 'Protocolo aprobado', 'clase' => 'hecho'] : ['texto' => 'Con observaciones: corrige y vuelve a subir', 'clase' => 'mal'];
+            $fin = $r['dictamen'] === 'aprobado' ? ['texto' => 'Protocolo aprobado', 'clase' => 'hecho'] : ['texto' => 'Con observaciones: corrige y vuelve a enviarlo', 'clase' => 'mal'];
         }
         $pasos[] = $fin;
         return ['pasos' => $pasos, 'ronda' => $r && $r['estado'] === 'dictaminada' ? $r : null, 'numero' => $r ? (int) $r['numero'] : 0];
@@ -496,6 +495,56 @@ final class TramiteController extends TitulacionBase
             flash('error', 'Ese oficio ya no está pendiente.');
         }
         redirigir('titulacion/licenciatura/tramite/' . $t['id']);
+    }
+
+    /** Horas libres del espacio de exámenes en una fecha (JSON para el calendario del pasante). */
+    public function horarios(string $id, string $etapaClave): void
+    {
+        $t = $this->tramite($id);
+        $fecha = (string) ($_GET['fecha'] ?? '');
+        $error = Services\AgendaExamen::errorFecha($fecha);
+        header('Content-Type: application/json; charset=UTF-8');
+        header('Cache-Control: no-store');
+        echo json_encode(['error' => $error, 'horas' => $error === null ? Services\AgendaExamen::horarios($fecha) : []], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    /** El pasante elige fecha y hora, propone su sínodo y envía la solicitud al Coordinador de Docencia. */
+    public function agenda(string $id, string $etapaClave): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::puedeEditar($t)) {
+            $this->prohibido('Solicitud de examen en trámite ajeno o cerrado');
+        }
+        $volver = 'titulacion/licenciatura/tramite/' . $t['id'] . '?etapa=' . $etapaClave . '#agenda';
+        [$flujo] = $this->evaluar($t);
+        $etapa = $this->actual($flujo, $etapaClave, (int) $t['id']);
+        if (empty($etapa['agenda'])) {
+            $this->noEncontrado();
+        }
+        $sinodo = is_array($_POST['s'] ?? null) ? array_values($_POST['s']) : [];
+        $_SESSION['_agenda_borrador'][$t['id']] = $sinodo;
+        if (!$etapa['propia_ok'] || $etapa['faltan'] > 0 || $etapa['rechazados'] > 0 || $etapa['por_firmas_ext'] > 0) {
+            flash('error', 'Antes de elegir la fecha, completa los datos y sube todos los documentos de esta etapa.');
+            redirigir($volver);
+        }
+        if (!empty($etapa['hito'])) {
+            flash('error', 'Ya enviaste tu solicitud.');
+            redirigir($volver);
+        }
+        try {
+            Services\AgendaExamen::solicitar($t, $etapaClave, (string) $etapa['agenda'], $this->post('fecha'), $this->post('hora'), $sinodo, Auth::id());
+            unset($_SESSION['_agenda_borrador'][$t['id']]);
+            Audit::record('titulacion::agenda', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $etapaClave);
+            flash('exito', 'Solicitud enviada. Se apartó el espacio y el Coordinador de Docencia recibió tu propuesta de sínodo.');
+        } catch (\RuntimeException $e) {
+            flash('error', $e->getMessage());
+        } catch (Throwable $e) {
+            error_log('Titulación: no se pudo enviar la solicitud del examen: ' . $e->getMessage());
+            flash('error', 'No se pudo enviar la solicitud. Intenta de nuevo.');
+        }
+        $this->sincronizar((int) $t['id']);
+        redirigir($volver);
     }
 
     /** Sugerencias de profesores (por nombre o correo) para capturar asesor y coasesor. */
