@@ -585,9 +585,9 @@
       "App\\Modules\\Titulacion\\PanelController",
       "personas"
     ],
-    "GET /titulacion/constancias/zip": [
+    "POST /titulacion/constancias/seleccion": [
       "App\\Modules\\Titulacion\\PanelController",
-      "zip"
+      "seleccion"
     ],
     "GET /titulacion/constancias/textos": [
       "App\\Modules\\Titulacion\\ConstanciasController",
