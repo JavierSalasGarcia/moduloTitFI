@@ -9,10 +9,31 @@ use App\Modules\Titulacion\Catalogo;
 use App\Modules\Titulacion\TitulacionRepository;
 use RuntimeException;
 
-/** Firma electrónica de asesores desde el enlace personal que reciben por correo. */
+/**
+ * Firma electrónica de asesores, coasesores y revisores desde el enlace personal que reciben por correo (o desde
+ * «Mis pendientes» con sesión): protocolo, solicitudes con Vo. Bo. del asesor y voto aprobatorio.
+ */
 final class FirmasExternas
 {
-    private const ROLES = ['asesor' => 'Asesor', 'coasesor' => 'Coasesor'];
+    private const ROLES = ['asesor' => 'Asesor', 'coasesor' => 'Coasesor', 'revisor' => 'Revisor'];
+
+    /** Qué se firma, según la clave del documento del expediente. */
+    public const DOCUMENTOS = [
+        'protocolo_firmado' => ['el protocolo', 'Firma de protocolo'],
+        'revision_firmada' => ['la solicitud de revisión del trabajo escrito', 'Vo. Bo. de la solicitud de revisión'],
+        'sustentacion_firmada' => ['la solicitud de sustentación del trabajo escrito', 'Vo. Bo. de la solicitud de sustentación'],
+        'voto_aprobatorio' => ['el voto aprobatorio del trabajo escrito', 'Firma del voto aprobatorio'],
+    ];
+
+    public static function queSeFirma(string $clave): array
+    {
+        return self::DOCUMENTOS[$clave] ?? ['el documento', 'Firma de documento'];
+    }
+
+    public static function etiquetaRol(string $rol): string
+    {
+        return self::ROLES[preg_replace('/_\d+$/', '', $rol)] ?? 'Firmante';
+    }
 
     private static function token(): string
     {
@@ -29,39 +50,65 @@ final class FirmasExternas
         return date('Y-m-d', strtotime('+' . max(1, (int) \ajuste('titulacion_token_gracia', '14')) . ' days'));
     }
 
-    /** Pide la firma de asesor (y coasesor, si lo hay) sobre el protocolo ya firmado por el pasante. */
-    public static function solicitarProtocolo(array $tramite, int $docId, array $cajas): void
+    /** Asesor y, si lo hay, coasesor del protocolo, como firmantes. @return array<int,array<string,mixed>> */
+    public static function asesores(array $tramite, bool $conCoasesor = true): array
     {
         $r = $tramite['datos']['protocolo'] ?? [];
-        Database::ejecutar("UPDATE tit_firmas_externas SET estado = 'cancelada' WHERE tramite_id = ? AND estado = 'pendiente'", [(int) $tramite['id']]);
-        foreach (['asesor', 'coasesor'] as $rol) {
+        $salida = [];
+        foreach ($conCoasesor ? ['asesor', 'coasesor'] : ['asesor'] as $rol) {
             $email = strtolower(trim((string) ($r[$rol . '_correo'] ?? '')));
             $nombre = trim((string) ($r[$rol] ?? ''));
-            if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || ($rol === 'coasesor' && ($nombre === '' || mb_strtolower($nombre) === 'no aplica'))) {
+            if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $nombre === '' || mb_strtolower($nombre) === 'no aplica') {
+                continue;
+            }
+            $grado = mb_substr(trim((string) ($r[$rol . '_grado'] ?? '')), 0, 30);
+            $salida[] = ['rol' => $rol, 'nombre' => $nombre, 'grado' => $grado !== '' ? $grado : null,
+                'genero' => in_array(($r[$rol . '_genero'] ?? ''), ['masculino', 'femenino'], true) ? $r[$rol . '_genero'] : null, 'email' => $email];
+        }
+        return $salida;
+    }
+
+    /**
+     * Pide por correo la firma de cada persona sobre un documento ya generado.
+     * @param array<int,array{rol:string,nombre:string,grado?:?string,genero?:?string,email:string,caja:?array}> $firmantes
+     */
+    public static function solicitar(array $tramite, int $docId, array $firmantes): void
+    {
+        Database::ejecutar("UPDATE tit_firmas_externas SET estado = 'cancelada' WHERE documento_id = ? AND estado = 'pendiente'", [$docId]);
+        $doc = TitulacionRepository::documento($docId);
+        foreach ($firmantes as $f) {
+            if (!filter_var($f['email'], FILTER_VALIDATE_EMAIL) || empty($f['caja'])) {
                 continue;
             }
             $token = self::token();
-            $grado = mb_substr(trim((string) ($r[$rol . '_grado'] ?? '')), 0, 30);
-            $genero = in_array(($r[$rol . '_genero'] ?? ''), ['masculino', 'femenino'], true) ? $r[$rol . '_genero'] : null;
             Database::ejecutar(
                 'INSERT INTO tit_firmas_externas (tramite_id, documento_id, rol, nombre, grado, genero, email, token_hash, vence, caja) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [(int) $tramite['id'], $docId, $rol, mb_substr($nombre, 0, 160), $grado !== '' ? $grado : null, $genero, $email, hash('sha256', $token), self::vence(), json_encode($cajas['asesor'])]
+                [(int) $tramite['id'], $docId, $f['rol'], mb_substr($f['nombre'], 0, 160), $f['grado'] ?? null, $f['genero'] ?? null, strtolower($f['email']), hash('sha256', $token), self::vence(), json_encode($f['caja'])]
             );
-            self::correo($tramite, ['nombre' => $nombre, 'grado' => $grado !== '' ? $grado : null, 'genero' => $genero], $email, $token, false, $rol);
+            self::correo($tramite, $f, strtolower($f['email']), $token, false, (string) $f['rol'], (string) ($doc['clave'] ?? ''));
         }
         Database::ejecutar('UPDATE tit_documentos SET pendiente_firmas = 1 WHERE id = ?', [$docId]);
-        TitulacionRepository::evento((int) $tramite['id'], (int) $tramite['alumno_id'], 'firma', 'Protocolo firmado por el pasante; se pidió la firma de su asesor por correo.', true);
+        TitulacionRepository::evento((int) $tramite['id'], (int) $tramite['alumno_id'], 'firma', 'Se pidió por correo la firma de ' . self::queSeFirma((string) ($doc['clave'] ?? ''))[0] . ' a: ' . implode(', ', array_map(static fn(array $f): string => $f['nombre'], $firmantes)) . '.', true);
     }
 
-    private static function correo(array $tramite, array $nombre, string $email, string $token, bool $recordatorio, string $rol = 'asesor'): void
+    /** Pide la firma de asesor (y coasesor, si lo hay) sobre el protocolo ya firmado por el pasante. */
+    public static function solicitarProtocolo(array $tramite, int $docId, array $cajas): void
+    {
+        $firmantes = array_map(static fn(array $f): array => $f + ['caja' => $cajas['asesor'] ?? null], self::asesores($tramite));
+        self::solicitar($tramite, $docId, $firmantes);
+    }
+
+    private static function correo(array $tramite, array $persona, string $email, string $token, bool $recordatorio, string $rol, string $docClave): void
     {
         $alumno = (string) ($tramite['datos']['datos']['nombre'] ?? '');
-        $titulo = (string) ($tramite['datos']['protocolo']['titulo'] ?? '');
+        $titulo = (string) ($tramite['titulo'] ?: ($tramite['datos']['protocolo']['titulo'] ?? ''));
+        [$que, $asunto] = self::queSeFirma($docClave);
+        $comoRol = \App\Core\Persona::f(\App\Core\Persona::completar($persona, $email), mb_strtolower(self::etiquetaRol($rol)), mb_strtolower(self::etiquetaRol($rol)) . 'a');
         Correo::enviar(
-            $email, $nombre,
-            ($recordatorio ? 'Recordatorio · ' : '') . 'Firma de protocolo · ' . $tramite['folio'],
-            ($recordatorio ? 'Recordatorio: ' : '') . "$alumno, pasante de la Facultad de Ingeniería, te pide firmar como " . \App\Core\Persona::f(\App\Core\Persona::completar($nombre, $email), $rol, $rol . 'a') . " su protocolo «{$titulo}».\n\nQué debes hacer: abre el enlace, lee el protocolo y pulsa «Firmar». No necesitas descargar ni subir nada. Para firmar se requiere una cuenta verificada con este mismo correo ($email); si aún no tienes cuenta, el enlace te lleva a crearla.\n\nEl enlace es personal; no lo compartas.",
-            'Revisar y firmar el protocolo', self::url($token), $recordatorio ? 'recordatorio_firma' : 'firma_asesor', (int) $tramite['id']
+            $email, ['nombre' => $persona['nombre'], 'grado' => $persona['grado'] ?? null, 'genero' => $persona['genero'] ?? null],
+            ($recordatorio ? 'Recordatorio · ' : '') . $asunto . ' · ' . $tramite['folio'],
+            ($recordatorio ? 'Recordatorio: ' : '') . "Se le pide firmar, como $comoRol, $que de $alumno (trabajo «{$titulo}»).\n\nQué debe hacer: abra el enlace, lea el documento y pulse «Firmar». No necesita descargar ni subir nada. Para firmar se requiere una cuenta verificada con este mismo correo ($email); si aún no tiene cuenta, el enlace le lleva a crearla. También lo encontrará en Traza FI, en «Mis pendientes».\n\nEl enlace es personal; no lo comparta.",
+            'Revisar y firmar', self::url($token), $recordatorio ? 'recordatorio_firma' : 'firma_externa', (int) $tramite['id']
         );
     }
 
@@ -93,7 +140,8 @@ final class FirmasExternas
             }
             $token = self::token();
             Database::ejecutar('UPDATE tit_firmas_externas SET token_hash = ?, vence = ? WHERE id = ?', [hash('sha256', $token), self::vence(), (int) $f['id']]);
-            self::correo($t, ['nombre' => $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero']], (string) $f['email'], $token, true, (string) $f['rol']);
+            $doc = TitulacionRepository::documento((int) $f['documento_id']);
+            self::correo($t, ['nombre' => $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero']], (string) $f['email'], $token, true, (string) $f['rol'], (string) ($doc['clave'] ?? ''));
             $n++;
         }
         return $n;
@@ -121,22 +169,27 @@ final class FirmasExternas
         $relativa = 'titulacion/' . (int) $t['id'] . '/protocolo_' . bin2hex(random_bytes(8)) . '.pdf';
         $mm = 25.4 / 72;
         $x = (float) $caja['x'] + (float) $caja['w'] / 2;
-        // El coasesor firma debajo del asesor, a su misma altura: se corre a la izquierda para no encimarse.
-        $centro = $f['rol'] === 'coasesor' ? $x - 70 * $mm : $x * $mm;
+        // En el protocolo el coasesor comparte la caja del asesor: se corre a la izquierda para no encimarse.
+        $centro = $f['rol'] === 'coasesor' && $doc['clave'] === 'protocolo_firmado' ? $x - 70 * $mm : $x * $mm;
         SelloPdf::estampar(
             $origen, FirmaElectronica::almacen() . '/' . $relativa, (int) $caja['p'], $centro, (float) $caja['y'] * $mm - 1.0,
-            'FIRMA ELECTRÓNICA · ' . mb_strtoupper(self::ROLES[$f['rol']]),
+            'FIRMA ELECTRÓNICA · ' . mb_strtoupper(self::etiquetaRol((string) $f['rol'])),
             [mb_strtoupper(\App\Core\Persona::tratamiento(\App\Core\Persona::completar(['nombre' => $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero']], (string) $f['email']))), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $t['folio']]
         );
         $hash = hash_file('sha256', FirmaElectronica::almacen() . '/' . $relativa) ?: '';
         Database::ejecutar('UPDATE tit_documentos SET ruta = ? WHERE id = ?', [$relativa, (int) $doc['id']]);
         Database::ejecutar("UPDATE tit_firmas_externas SET estado = 'firmada', firmada_en = ?, firmante_id = ?, hash_firmado = ? WHERE id = ?", [date('Y-m-d H:i:s'), (int) $usuario['id'], $hash, (int) $f['id']]);
-        TitulacionRepository::evento((int) $t['id'], (int) $usuario['id'], 'firma', 'Protocolo firmado por ' . strtolower(self::ROLES[$f['rol']]) . ': ' . $f['nombre'], true);
+        TitulacionRepository::evento((int) $t['id'], (int) $usuario['id'], 'firma', ucfirst(self::queSeFirma((string) $doc['clave'])[0]) . ': firmó ' . mb_strtolower(self::etiquetaRol((string) $f['rol'])) . ' ' . $f['nombre'], true);
         Audit::record('titulacion::firma_externa', 'correcto', $f['rol'] . ' · ' . $t['folio'] . ' · ' . substr($hash, 0, 12));
         $quedan = (int) Database::valor("SELECT COUNT(*) FROM tit_firmas_externas WHERE documento_id = ? AND estado = 'pendiente'", [(int) $doc['id']]);
         if ($quedan === 0) {
             Database::ejecutar('UPDATE tit_documentos SET pendiente_firmas = 0 WHERE id = ?', [(int) $doc['id']]);
-            RevisionProtocolo::nuevaRonda($t, (int) $doc['id']);
+            if ($doc['clave'] === 'protocolo_firmado') {
+                RevisionProtocolo::nuevaRonda($t, (int) $doc['id']);
+            } else {
+                TitulacionRepository::evento((int) $t['id'], (int) $usuario['id'], 'firma', 'Ya firmaron todos ' . self::queSeFirma((string) $doc['clave'])[0] . '; pasa a validación del Departamento de Evaluación Profesional.', true);
+                SubdireccionFirma::sincronizar((int) $t['id']);
+            }
         }
     }
 }

@@ -1,0 +1,37 @@
+{
+  "clave": "espacios",
+  "nombre": "Auditorios y salas",
+  "version": "1.0.0",
+  "descripcion": "Horario de uso y ocupación del Auditorio 120-A y las salas de la Facultad. Cada espacio tiene personas autorizadas para registrar su ocupación; Titulación aparta aquí los exámenes.",
+  "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+  "menu": [
+    {
+      "seccion": "AUDITORIOS Y SALAS",
+      "titulo": "Calendario",
+      "ruta": "espacios",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+      "orden": 40
+    },
+    {
+      "seccion": "AUDITORIOS Y SALAS",
+      "titulo": "Administrar",
+      "ruta": "espacios/admin",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+      "orden": 41,
+      "condicion": "App\\Modules\\Espacios\\EspaciosAccess::esAdmin"
+    }
+  ],
+  "rutas": {
+    "GET /espacios": ["App\\Modules\\Espacios\\EspaciosController", "calendario"],
+    "POST /espacios/registrar": ["App\\Modules\\Espacios\\EspaciosController", "registrar"],
+    "POST /espacios/reservas/{id}/cancelar": ["App\\Modules\\Espacios\\EspaciosController", "cancelar"],
+    "GET /espacios/personas": ["App\\Modules\\Espacios\\EspaciosController", "personas"],
+    "GET /espacios/admin": ["App\\Modules\\Espacios\\AdminController", "index"],
+    "POST /espacios/admin/espacio": ["App\\Modules\\Espacios\\AdminController", "guardarEspacio"],
+    "POST /espacios/admin/espacio/{id}/horario": ["App\\Modules\\Espacios\\AdminController", "horario"],
+    "POST /espacios/admin/espacio/{id}/autorizados": ["App\\Modules\\Espacios\\AdminController", "autorizar"],
+    "POST /espacios/admin/espacio/{id}/autorizados/{usuario}/quitar": ["App\\Modules\\Espacios\\AdminController", "quitarAutorizado"],
+    "POST /espacios/admin/administradores": ["App\\Modules\\Espacios\\AdminController", "agregarAdministrador"],
+    "POST /espacios/admin/administradores/{usuario}/quitar": ["App\\Modules\\Espacios\\AdminController", "quitarAdministrador"]
+  }
+}

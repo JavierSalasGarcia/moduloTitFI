@@ -104,7 +104,7 @@ $rotulo = ['personal' => 'Subdirector', 'delegada' => 'Asistente (por delegació
         <td><?= e($b['descripcion']) ?></td>
         <td><?= e($rotulo[$b['capacidad']] ?? '') ?><?= $b['firmante_nombre'] ? ' · ' . e($b['firmante_nombre']) : '' ?></td>
         <td><code><?= e(substr((string) $b['hash_firmado'], 0, 12)) ?></code></td>
-        <td><a class="btn btn-mini" target="_blank" rel="noopener" href="<?= url('titulacion/firmas/archivo/' . (int) $b['id']) ?>">PDF</a></td>
+        <td><a class="btn btn-mini" target="_blank" rel="noopener" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('firma', (int) $b['id'])) ?>">PDF</a></td>
       </tr>
     <?php endforeach; ?>
     </tbody>

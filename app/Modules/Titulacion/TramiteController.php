@@ -147,6 +147,8 @@ final class TramiteController extends TitulacionBase
             }
         }
         $this->vista('tramite', [
+            'pasos' => Services\Ruta::pasos($t, $flujo, $docs),
+            'adicionales' => Catalogo::formatosAdicionales((string) $t['tipo']),
             'linea' => $etapa['clave'] === 'protocolo' ? $this->lineaRevision($t) : null,
             'protocoloEnRevision' => (($ab = RevisionRepository::rondaAbierta((int) $t['id'])) !== null && $ab['estado'] !== 'recibida'),
             'titulo' => 'Trámite ' . $t['folio'],
@@ -174,7 +176,7 @@ final class TramiteController extends TitulacionBase
         $rondas = RevisionRepository::rondasDeTramite((int) $t['id']);
         $r = $rondas[0] ?? null;
         $carrera = $r ? (Catalogo::carreras()[$r['carrera']]['siglas'][0] ?? '') : '';
-        $orden = ['recibida' => 1, 'en_comision' => 2, 'en_evaluacion' => 3, 'por_dictaminar' => 3, 'dictaminada' => 4, 'cancelada' => 0];
+        $orden = ['recibida' => 1, 'en_comision' => 1, 'en_evaluacion' => 2, 'por_dictaminar' => 2, 'dictaminada' => 3, 'cancelada' => 0];
         $n = $r ? ($orden[$r['estado']] ?? 0) : -1;
         $firmadas = '';
         if ($r && in_array($r['estado'], ['en_evaluacion', 'por_dictaminar'], true)) {
@@ -183,14 +185,13 @@ final class TramiteController extends TitulacionBase
         }
         $marca = static fn(int $paso): string => $n > $paso ? 'hecho' : ($n === $paso ? 'ahora' : '');
         $pasos = [
-            ['texto' => 'Sube tu protocolo', 'clase' => $n >= 0 ? 'hecho' : 'ahora'],
-            ['texto' => 'Recibido por Titulación', 'clase' => $n < 0 ? '' : $marca(1)],
-            ['texto' => 'En la comisión' . ($carrera ? ' de ' . $carrera : ''), 'clase' => $n < 0 ? '' : $marca(2)],
-            ['texto' => 'En evaluación' . $firmadas, 'clase' => $n < 0 ? '' : $marca(3)],
+            ['texto' => 'Envía tu protocolo firmado por tu asesor', 'clase' => $n >= 0 ? 'hecho' : 'ahora'],
+            ['texto' => 'Con el responsable del comité' . ($carrera ? ' de ' . $carrera : ''), 'clase' => $n < 0 ? '' : $marca(1)],
+            ['texto' => 'En revisión' . $firmadas, 'clase' => $n < 0 ? '' : $marca(2)],
         ];
-        $fin = ['texto' => 'Dictamen', 'clase' => ''];
+        $fin = ['texto' => 'Resultado', 'clase' => ''];
         if ($r && $r['estado'] === 'dictaminada') {
-            $fin = $r['dictamen'] === 'aprobado' ? ['texto' => 'Protocolo aprobado', 'clase' => 'hecho'] : ['texto' => 'Con observaciones: corrige y vuelve a subir', 'clase' => 'mal'];
+            $fin = $r['dictamen'] === 'aprobado' ? ['texto' => 'Protocolo aprobado', 'clase' => 'hecho'] : ['texto' => 'Con observaciones: corrige y vuelve a enviarlo', 'clase' => 'mal'];
         }
         $pasos[] = $fin;
         return ['pasos' => $pasos, 'ronda' => $r && $r['estado'] === 'dictaminada' ? $r : null, 'numero' => $r ? (int) $r['numero'] : 0];
@@ -303,6 +304,8 @@ final class TramiteController extends TitulacionBase
             flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo generar el formato. Intenta de nuevo.');
             redirigir('titulacion/licenciatura/tramite/' . $t['id']);
         }
+        // Se guarda lo descargado para que el QR del formato impreso se pueda verificar.
+        DocumentosGenerados::guardar($t, 'descarga_' . $formato, $bytes, $formato);
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'formato', 'Formato generado: ' . Catalogo::formatos()[$formato]['nombre'], false);
         $this->enviarBytes($bytes, $nombre, $mime);
     }
@@ -376,6 +379,8 @@ final class TramiteController extends TitulacionBase
             flash('error', 'Selecciona un archivo PDF.');
             redirigir($volver);
         }
+        // ID del proceso en la esquina inferior derecha de cada página (control y auditoría).
+        Services\FolioPdf::estampar(rtrim((string) \App\Core\App::config('archivos.storage'), '/\\') . '/' . $ruta, (string) $t['folio']);
         $nombre = (string) ($_FILES['archivo']['name'] ?? 'documento.pdf');
         $docId = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, mb_substr($nombre, 0, 255), Auth::id());
         if ($esProtocolo) {
@@ -435,8 +440,24 @@ final class TramiteController extends TitulacionBase
             flash('exito', 'Protocolo firmado. Enviamos a tu asesor un correo para que lo firme; cuando lo haga pasa a la comisión.');
             redirigir($volver);
         }
+        if ($docClave === 'voto_aprobatorio') {
+            try {
+                Services\VotoAprobatorio::solicitar($t, Auth::id());
+            } catch (\RuntimeException $e) {
+                flash('error', $e->getMessage());
+                redirigir($volver);
+            } catch (Throwable $e) {
+                error_log('Titulación: no se pudo generar el voto aprobatorio: ' . $e->getMessage());
+                flash('error', 'No se pudo generar el voto aprobatorio. Intenta de nuevo.');
+                redirigir($volver);
+            }
+            Audit::record('titulacion::voto', 'correcto', 'Trámite ' . $t['id']);
+            $this->sincronizar((int) $t['id']);
+            flash('exito', 'Se generó el voto aprobatorio y se pidió por correo la firma de tu asesor y tus revisores.');
+            redirigir($volver);
+        }
         try {
-            $ruta = DocumentosGenerados::firmarPorPasante($t, (string) $def['formato'], (string) ($t['datos']['datos']['nombre'] ?? Auth::usuario()['nombre'] ?? ''));
+            [$ruta, $cajas] = DocumentosGenerados::firmarPorPasante($t, (string) $def['formato'], (string) ($t['datos']['datos']['nombre'] ?? Auth::usuario()['nombre'] ?? ''));
         } catch (Throwable $e) {
             if (!$e instanceof \RuntimeException) {
                 error_log('Titulación: no se pudo firmar ' . $docClave . ': ' . $e->getMessage());
@@ -444,10 +465,19 @@ final class TramiteController extends TitulacionBase
             flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo generar el documento. Intenta de nuevo.');
             redirigir($volver);
         }
-        TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, $def['formato'] . '_' . $t['folio'] . '.pdf', Auth::id());
-        TitulacionRepository::evento((int) $t['id'], Auth::id(), 'documento', 'Documento firmado por el pasante y enviado a validación: ' . $def['nombre']);
+        $docId = TitulacionRepository::registrarDocumento((int) $t['id'], $etapaClave, $docClave, 'alumno', 'en_revision', $ruta, $def['formato'] . '_' . $t['folio'] . '.pdf', Auth::id());
+        DocumentosGenerados::guardarCajas($docId, $cajas);
+        $conAsesor = in_array($def['formato'], Services\FormatosOficiales::CON_ASESOR, true) && isset($cajas['asesor']);
+        if ($conAsesor) {
+            FirmasExternas::solicitar($t, $docId, array_map(static fn(array $f): array => $f + ['caja' => $cajas['asesor']], FirmasExternas::asesores($t, false)));
+        }
+        TitulacionRepository::evento((int) $t['id'], Auth::id(), 'documento', 'Documento firmado por el pasante' . ($conAsesor ? '; se pidió el Vo. Bo. de tu asesor' : ' y enviado a validación') . ': ' . $def['nombre']);
         Audit::record('titulacion::firma_pasante', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $docClave);
         $this->sincronizar((int) $t['id']);
+        if ($conAsesor) {
+            flash('exito', 'Documento firmado. Enviamos a tu asesor un correo para su Vo. Bo.; después lo valida Titulación.');
+            redirigir($volver);
+        }
         flash('exito', 'Documento firmado y enviado. Personal de Titulación lo validará.');
         redirigir($volver);
     }
@@ -496,6 +526,115 @@ final class TramiteController extends TitulacionBase
             flash('error', 'Ese oficio ya no está pendiente.');
         }
         redirigir('titulacion/licenciatura/tramite/' . $t['id']);
+    }
+
+    /** El pasante pide el informe de estatus de su protocolo en revisión; lo firma la Jefatura de Evaluación Profesional. */
+    public function estatus(string $id): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::puedeEditar($t)) {
+            $this->prohibido('Constancia de trámite ajeno o cerrado');
+        }
+        $ronda = RevisionRepository::rondaAbierta((int) $t['id']);
+        $volver = 'titulacion/licenciatura/tramite/' . $t['id'] . '?etapa=protocolo';
+        if ($ronda === null) {
+            flash('error', 'Tu protocolo no está en revisión en este momento.');
+            redirigir($volver);
+        }
+        if ((int) Database::valor("SELECT COUNT(*) FROM tit_firmas_subdireccion WHERE tramite_id = ? AND formato = 'constancia_estatus' AND estado = 'pendiente'", [(int) $t['id']]) > 0) {
+            flash('error', 'Ya pediste el informe de estatus; está en firma de la Jefatura de Evaluación Profesional.');
+            redirigir($volver);
+        }
+        [$bytes, $caja] = Services\Oficios::estatusProtocolo($t, substr((string) ($ronda['enviada_en'] ?: $ronda['fecha_recepcion']), 0, 10));
+        $ruta = DocumentosGenerados::guardar($t, 'constancia_estatus', $bytes);
+        $docId = TitulacionRepository::registrarDocumento((int) $t['id'], 'protocolo', 'constancia_estatus', 'personal', 'aprobado', $ruta, 'estatus_protocolo_' . $t['folio'] . '.pdf', Auth::id());
+        Services\SubdireccionFirma::solicitar($t, $docId, 'constancia_estatus', Services\Oficios::TIPOS['constancia_estatus'], $caja, 'jefe_titulacion');
+        flash('exito', 'Solicitaste el informe de estatus de tu protocolo; aparecerá en la ruta de tu trámite cuando lo firme la Jefatura de Evaluación Profesional.');
+        redirigir($volver);
+    }
+
+    /** Captura los datos de una solicitud adicional (prórroga, cambio de asesor…); el formato se genera ya llenado. */
+    public function adicional(string $id, string $formato): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::puedeEditar($t)) {
+            $this->prohibido('Edición de trámite ajeno o cerrado');
+        }
+        $campos = Catalogo::formatosAdicionales((string) $t['tipo'])[$formato] ?? null;
+        if ($campos === null) {
+            $this->noEncontrado();
+        }
+        $entrada = is_array($_POST['a'] ?? null) ? $_POST['a'] : [];
+        $datos = $t['datos'];
+        $errores = [];
+        foreach ($campos as $campo) {
+            $bruto = $entrada[$campo['k']] ?? '';
+            $valor = is_string($bruto) ? trim(preg_replace('/\r\n?/', "\n", $bruto) ?? '') : '';
+            $valor = mb_substr($valor, 0, (int) ($campo['max'] ?? 900));
+            if (($campo['tipo'] ?? '') === 'select' && !array_key_exists($valor, $campo['opciones'] ?? [])) {
+                $valor = '';
+            }
+            if (($e = Flujo::errorCampo($campo, $valor)) !== null) {
+                $errores[] = $e;
+            }
+            $datos['adicional'][$formato][$campo['k']] = $valor;
+        }
+        if ($formato === 'art5') {
+            $datos['art5']['motivos'] = $datos['adicional']['art5']['motivos'] ?? '';
+        }
+        TitulacionRepository::guardarDatos((int) $t['id'], $datos);
+        flash($errores ? 'error' : 'exito', $errores ? 'Guardamos tus datos, pero falta: ' . implode(' ', array_slice($errores, 0, 3)) : 'Datos guardados. Ya puedes descargar el formato llenado.');
+        redirigir('titulacion/licenciatura/tramite/' . $t['id'] . '#adicionales');
+    }
+
+    /** Horas libres del espacio de exámenes en una fecha (JSON para el calendario del pasante). */
+    public function horarios(string $id, string $etapaClave): void
+    {
+        $t = $this->tramite($id);
+        $fecha = (string) ($_GET['fecha'] ?? '');
+        $error = Services\AgendaExamen::errorFecha($fecha);
+        header('Content-Type: application/json; charset=UTF-8');
+        header('Cache-Control: no-store');
+        echo json_encode(['error' => $error, 'horas' => $error === null ? Services\AgendaExamen::horarios($fecha) : []], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    /** El pasante elige fecha y hora, propone su sínodo y envía la solicitud al Coordinador de Docencia. */
+    public function agenda(string $id, string $etapaClave): void
+    {
+        $t = $this->tramite($id);
+        if (!TitulacionAccess::puedeEditar($t)) {
+            $this->prohibido('Solicitud de examen en trámite ajeno o cerrado');
+        }
+        $volver = 'titulacion/licenciatura/tramite/' . $t['id'] . '?etapa=' . $etapaClave . '#agenda';
+        [$flujo] = $this->evaluar($t);
+        $etapa = $this->actual($flujo, $etapaClave, (int) $t['id']);
+        if (empty($etapa['agenda'])) {
+            $this->noEncontrado();
+        }
+        $sinodo = is_array($_POST['s'] ?? null) ? array_values($_POST['s']) : [];
+        $_SESSION['_agenda_borrador'][$t['id']] = $sinodo;
+        if (!$etapa['propia_ok'] || $etapa['faltan'] > 0 || $etapa['rechazados'] > 0 || $etapa['por_firmas_ext'] > 0) {
+            flash('error', 'Antes de elegir la fecha, completa los datos y sube todos los documentos de esta etapa.');
+            redirigir($volver);
+        }
+        if (!empty($etapa['hito'])) {
+            flash('error', 'Ya enviaste tu solicitud.');
+            redirigir($volver);
+        }
+        try {
+            Services\AgendaExamen::solicitar($t, $etapaClave, (string) $etapa['agenda'], $this->post('fecha'), $this->post('hora'), $sinodo, Auth::id());
+            unset($_SESSION['_agenda_borrador'][$t['id']]);
+            Audit::record('titulacion::agenda', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $etapaClave);
+            flash('exito', 'Solicitud enviada. Se apartó el espacio y el Coordinador de Docencia recibió tu propuesta de sínodo.');
+        } catch (\RuntimeException $e) {
+            flash('error', $e->getMessage());
+        } catch (Throwable $e) {
+            error_log('Titulación: no se pudo enviar la solicitud del examen: ' . $e->getMessage());
+            flash('error', 'No se pudo enviar la solicitud. Intenta de nuevo.');
+        }
+        $this->sincronizar((int) $t['id']);
+        redirigir($volver);
     }
 
     /** Sugerencias de profesores (por nombre o correo) para capturar asesor y coasesor. */

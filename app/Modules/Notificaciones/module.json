@@ -1,0 +1,21 @@
+{
+  "clave": "notificaciones",
+  "nombre": "Notificaciones",
+  "version": "1.0.0",
+  "descripcion": "Bandeja única de avisos de la plataforma para cada persona; los correos solo alertan y llevan aquí.",
+  "roles": [],
+  "menu": [
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Notificaciones",
+      "ruta": "notificaciones",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 1
+    }
+  ],
+  "rutas": {
+    "GET /notificaciones": ["App\\Modules\\Notificaciones\\NotificacionesController", "index"],
+    "GET /notificaciones/{id}": ["App\\Modules\\Notificaciones\\NotificacionesController", "ver"],
+    "POST /notificaciones/leidas": ["App\\Modules\\Notificaciones\\NotificacionesController", "leidas"]
+  }
+}

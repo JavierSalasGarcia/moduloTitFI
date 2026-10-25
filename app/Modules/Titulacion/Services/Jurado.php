@@ -11,9 +11,9 @@ use App\Modules\Titulacion\TitulacionRepository;
 use RuntimeException;
 
 /**
- * Asignación de sinodales: Titulación fija la fecha del examen, el Coordinador de Docencia de la licenciatura
- * asigna y firma desde el enlace de su correo, se generan los oficios individuales (los firma la Subdirección)
- * y cada profesor firma de acuse de recibido desde su propio enlace.
+ * Asignación de sinodales: el pasante elige fecha y hora y propone su sínodo; el Coordinador de Docencia de la
+ * licenciatura lo ratifica o modifica y firma desde el enlace de su correo; se generan los oficios individuales
+ * (los firma la Subdirección) y cada profesor firma de acuse de recibido desde su propio enlace.
  */
 final class Jurado
 {
@@ -58,12 +58,14 @@ final class Jurado
         Database::ejecutar("UPDATE tit_asignaciones_jurado SET estado = 'cancelada' WHERE tramite_id = ? AND etapa = ? AND estado = 'solicitada'", [(int) $tramite['id'], $etapa]);
         $token = self::token();
         Database::ejecutar(
-            'INSERT INTO tit_asignaciones_jurado (tramite_id, tipo, etapa, carrera, fecha, hora, lugar, coord_nombre, coord_genero, coord_email, token_hash, vence, creado_por) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            [(int) $tramite['id'], $tipo, $etapa, $carrera, $datos['fecha'], $datos['hora'], mb_substr((string) $datos['lugar'], 0, 200), Persona::tratamiento($c), Persona::genero($c), strtolower($c['email']), hash('sha256', $token), self::vence((string) $datos['fecha']), $usuarioId]
+            'INSERT INTO tit_asignaciones_jurado (tramite_id, tipo, etapa, carrera, fecha, hora, lugar, reserva_id, propuesta, coord_nombre, coord_genero, coord_email, token_hash, vence, creado_por) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [(int) $tramite['id'], $tipo, $etapa, $carrera, $datos['fecha'], $datos['hora'], mb_substr((string) $datos['lugar'], 0, 200), $datos['reserva_id'] ?? null,
+                isset($datos['propuesta']) ? json_encode($datos['propuesta'], JSON_UNESCAPED_UNICODE) : null,
+                Persona::tratamiento($c), Persona::genero($c), strtolower($c['email']), hash('sha256', $token), self::vence((string) $datos['fecha']), $usuarioId]
         );
         $a = Database::una('SELECT * FROM tit_asignaciones_jurado WHERE token_hash = ?', [hash('sha256', $token)]);
         self::correoCoordinador($tramite, $a, $token, false);
-        TitulacionRepository::evento((int) $tramite['id'], $usuarioId, 'jurado', 'Se pidió al Coordinador de Docencia asignar sinodales para el ' . (Oficios::EXAMEN[$tipo] ?? 'examen') . ' del ' . Oficios::fecha($datos['fecha']) . '.', true);
+        TitulacionRepository::evento((int) $tramite['id'], $usuarioId, 'jurado', 'Se pidió al Coordinador de Docencia ratificar o modificar el sínodo del ' . (Oficios::EXAMEN[$tipo] ?? 'examen') . ' del ' . Oficios::fecha($datos['fecha']) . '.', true);
     }
 
     public static function urlCoordinador(string $token): string
@@ -78,8 +80,8 @@ final class Jurado
         Correo::enviar(
             $a['coord_email'], ['nombre' => $a['coord_nombre'], 'genero' => $a['coord_genero'] ?? null],
             ($recordatorio ? 'Recordatorio · ' : '') . 'Asignar sinodales · ' . $t['folio'],
-            ($recordatorio ? 'Recordatorio: ' : '') . "El Departamento de Evaluación Profesional fijó el $examen de $alumno para el " . Oficios::fecha($a['fecha']) . ' a las ' . $a['hora'] . ' horas, en ' . $a['lugar'] . ".\n\nQué debes hacer: abre el enlace, elige a los tres sinodales propietarios y al suplente (puedes buscarlos por nombre o por correo) y pulsa «Firmar asignación». Al firmar se generan los oficios para cada profesor. No necesitas descargar ni subir nada. Para firmar se requiere una cuenta verificada con este mismo correo ({$a['coord_email']}).\n\nEl enlace es personal; no lo compartas.",
-            'Asignar sinodales', self::urlCoordinador($token), $recordatorio ? 'recordatorio_jurado' : 'solicitud_jurado', (int) $t['id']
+            ($recordatorio ? 'Recordatorio: ' : '') . "$alumno solicitó su $examen para el " . Oficios::fecha($a['fecha']) . ' a las ' . $a['hora'] . ' horas, en ' . $a['lugar'] . ", y propuso a los integrantes de su sínodo.\n\nQué debe hacer: abra el enlace, revise el sínodo propuesto, ratifíquelo o cambie a quien considere (puede buscar por nombre o por correo) y pulse «Firmar asignación». Al firmar se generan los oficios para cada profesor. No necesita descargar ni subir nada. Para firmar se requiere una cuenta verificada con este mismo correo ({$a['coord_email']}).\n\nEl enlace es personal; no lo comparta.",
+            'Revisar y firmar el sínodo', self::urlCoordinador($token), $recordatorio ? 'recordatorio_jurado' : 'solicitud_jurado', (int) $t['id']
         );
     }
 
@@ -107,7 +109,26 @@ final class Jurado
 
     // ----------------------------------------------------------------- firma del Coordinador
 
-    /** @param array<int,array{nombre:string,email:string}> $elegidos 4 personas: tres propietarios y el suplente */
+    /** Sínodo que propuso el pasante (vacío en solicitudes anteriores a la propuesta). */
+    public static function propuesta(array $a): array
+    {
+        $p = json_decode((string) ($a['propuesta'] ?? ''), true);
+        return is_array($p) ? array_values($p) : [];
+    }
+
+    /** @return array{0:int,1:int} propietarios y suplentes de esta asignación */
+    public static function integrantes(array $a): array
+    {
+        $p = self::propuesta($a);
+        if ($p) {
+            $prop = count(array_filter($p, static fn(array $x): bool => ($x['calidad'] ?? '') === 'propietario'));
+            return [$prop, count($p) - $prop];
+        }
+        $c = AgendaExamen::config();
+        return [$c['propietarios'], $c['suplentes']];
+    }
+
+    /** El Coordinador ratifica o modifica el sínodo propuesto y firma. @param array<int,array{nombre:string,email:string}> $elegidos */
     public static function firmarAsignacion(array $a, array $usuario, array $elegidos): void
     {
         if ($a['estado'] !== 'solicitada') {
@@ -116,22 +137,10 @@ final class Jurado
         if (strtolower((string) $usuario['email']) !== strtolower((string) $a['coord_email'])) {
             throw new RuntimeException('Tu sesión no corresponde al correo del Coordinador.');
         }
-        $sin = [];
-        $vistos = [];
-        foreach ([0, 1, 2, 3] as $i) {
-            $n = trim((string) ($elegidos[$i]['nombre'] ?? ''));
-            $gr = mb_substr(trim((string) ($elegidos[$i]['grado'] ?? '')), 0, 30);
-            $ge = in_array(($elegidos[$i]['genero'] ?? ''), ['masculino', 'femenino'], true) ? $elegidos[$i]['genero'] : null;
-            $e = strtolower(trim((string) ($elegidos[$i]['email'] ?? '')));
-            if (mb_strlen($n) < 3 || !filter_var($e, FILTER_VALIDATE_EMAIL) || strlen($e) > 120 || $ge === null) {
-                throw new RuntimeException('Indica nombre, correo válido y género de los tres propietarios y el suplente.');
-            }
-            if (isset($vistos[$e])) {
-                throw new RuntimeException('Un mismo profesor no puede repetirse en el jurado.');
-            }
-            $vistos[$e] = true;
-            $sin[] = ['calidad' => $i < 3 ? 'propietario' : 'suplente', 'nombre' => mb_substr($n, 0, 160), 'grado' => $gr !== '' ? $gr : null, 'genero' => $ge, 'email' => $e, 'orden' => $i + 1];
-        }
+        [$prop, $sup] = self::integrantes($a);
+        $sin = AgendaExamen::sinodo($elegidos, $prop, $sup);
+        $propuestos = array_column(self::propuesta($a), 'email');
+        $cambios = array_diff(array_column($sin, 'email'), $propuestos);
         $t = TitulacionRepository::obtener((int) $a['tramite_id']);
         if (!$t || $t['estado'] !== 'abierto') {
             throw new RuntimeException('El trámite ya no está abierto.');
@@ -155,6 +164,7 @@ final class Jurado
         } finally {
             @unlink($origen);
         }
+        Verificacion::guardado($bytes, $relativa);
         $docId = TitulacionRepository::registrarDocumento((int) $t['id'], (string) $a['etapa'], self::DOC_ASIGNACION[$a['tipo']], 'personal', 'aprobado', $relativa, 'asignacion_' . $a['tipo'] . '_' . $t['folio'] . '.pdf', (int) $usuario['id']);
         $st = Database::pdo()->prepare("UPDATE tit_asignaciones_jurado SET estado = 'firmada', firmada_en = ?, firmante_id = ?, documento_id = ? WHERE id = ? AND estado = 'solicitada'");
         $st->execute([date('Y-m-d H:i:s'), (int) $usuario['id'], $docId, (int) $a['id']]);
@@ -164,15 +174,15 @@ final class Jurado
         // Oficios individuales: pasan a la firma de la Subdirección.
         foreach ($sin as $s) {
             $s['id'] = Database::ejecutar(
-                'INSERT INTO tit_sinodales (asignacion_id, tramite_id, calidad, orden, nombre, grado, genero, email) VALUES (?,?,?,?,?,?,?,?)',
-                [(int) $a['id'], (int) $t['id'], $s['calidad'], $s['orden'], $s['nombre'], $s['grado'], $s['genero'], $s['email']]
+                'INSERT INTO tit_sinodales (asignacion_id, tramite_id, calidad, funcion, orden, nombre, grado, genero, email) VALUES (?,?,?,?,?,?,?,?,?)',
+                [(int) $a['id'], (int) $t['id'], $s['calidad'], $s['funcion'] ?? null, $s['orden'], $s['nombre'], $s['grado'], $s['genero'], $s['email']]
             );
             [$ruta, $cajaOf] = DocumentosGenerados::guardarOficio($t, 'oficio_sinodal', [], ['sinodal' => $s, 'asig' => $a]);
             $oficioId = TitulacionRepository::registrarDocumento((int) $t['id'], (string) $a['etapa'], 'oficio_sinodal_' . $s['orden'], 'personal', 'aprobado', $ruta, 'oficio_sinodal_' . $s['orden'] . '_' . $t['folio'] . '.pdf', (int) $usuario['id']);
             Database::ejecutar('UPDATE tit_sinodales SET oficio_doc_id = ? WHERE id = ?', [$oficioId, (int) $s['id']]);
             SubdireccionFirma::solicitar($t, $oficioId, 'oficio_sinodal', 'Oficio a sinodal: ' . $s['nombre'], $cajaOf);
         }
-        TitulacionRepository::evento((int) $t['id'], (int) $usuario['id'], 'jurado', 'El Coordinador de Docencia asignó y firmó a los sinodales del ' . (Oficios::EXAMEN[$a['tipo']] ?? 'examen') . '; los oficios pasan a la firma de la Subdirección.', true);
+        TitulacionRepository::evento((int) $t['id'], (int) $usuario['id'], 'jurado', 'El Coordinador de Docencia ' . ($propuestos && !$cambios ? 'ratificó' : 'aprobó, con cambios,') . ' el sínodo del ' . (Oficios::EXAMEN[$a['tipo']] ?? 'examen') . '; los oficios pasan a la firma de la Subdirección.', true);
         Audit::record('titulacion::jurado', 'firma', $a['tipo'] . ' · ' . $t['folio']);
         SubdireccionFirma::sincronizar((int) $t['id']);
     }
@@ -258,7 +268,8 @@ final class Jurado
         SelloPdf::estampar(
             FirmaElectronica::almacen() . '/' . $origenRel, FirmaElectronica::almacen() . '/' . $relativa, (int) $caja['p'], 38.0, (float) $caja['y'] * $mm - 1.0,
             'ACUSE DE RECIBIDO · SINODAL',
-            [mb_strtoupper((string) $s['nombre']), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $t['folio']]
+            // Vale la fecha en que se le notificó, no la del clic: el plazo del pasante no depende de cuándo abra el correo.
+            [mb_strtoupper((string) $s['nombre']), 'Notificado el ' . date('d/m/Y', strtotime((string) ($s['enviado_en'] ?: 'now'))) . ' · ' . $t['folio']]
         );
         $hash = hash_file('sha256', FirmaElectronica::almacen() . '/' . $relativa) ?: '';
         Database::ejecutar("UPDATE tit_sinodales SET estado = 'acuse', acuse_en = ?, firmante_id = ?, ruta_acuse = ?, hash_acuse = ? WHERE id = ?", [date('Y-m-d H:i:s'), (int) $usuario['id'], $relativa, $hash, (int) $s['id']]);

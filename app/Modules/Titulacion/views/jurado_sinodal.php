@@ -1,7 +1,7 @@
 <?php
 use App\Core\Auth;
 include __DIR__ . '/_estilos.php';
-$base = 'titulacion/sinodal/t/' . $token;
+$base ??= 'titulacion/sinodal/t/' . $token;
 include __DIR__ . '/_banner_enlace.php';
 ?>
 <section class="tarjeta" style="max-width:720px;margin:20px auto">
@@ -9,8 +9,8 @@ include __DIR__ . '/_banner_enlace.php';
   <p>Fuiste <?= e(\App\Core\Persona::f(\App\Core\Persona::completar(['nombre' => $s['nombre'], 'genero' => $s['genero']], (string) $s['email']), 'designado', 'designada')) ?> sinodal <strong><?= e($s['calidad'] === 'suplente' ? 'suplente' : \App\Core\Persona::f($s, 'propietario', 'propietaria')) ?></strong> para el <?= e($examen) ?> de <strong><?= e($alumno) ?></strong>.</p>
   <p><strong><?= e(\App\Modules\Titulacion\Services\Oficios::fecha($a['fecha'])) ?></strong>, <?= e($a['hora']) ?> h · <?= e($a['lugar']) ?></p>
   <p style="display:flex;gap:10px;flex-wrap:wrap">
-    <a class="btn btn-primario" href="<?= url($base . '/oficio') ?>" target="_blank" rel="noopener">Ver mi oficio (PDF)</a>
-    <?php if ($trabajo): ?><a class="btn" href="<?= url($base . '/trabajo') ?>" target="_blank" rel="noopener">Descargar el trabajo escrito (PDF)</a><?php endif; ?>
+    <a class="btn btn-primario" href="<?= url(str_contains($base, '/t/') ? $base . '/oficio' : \App\Modules\Titulacion\Services\Archivos::url('oficio_mio', (int) $s['id'])) ?>" target="_blank" rel="noopener">Ver mi oficio (PDF)</a>
+    <?php if ($trabajo): ?><a class="btn" href="<?= url(str_contains($base, '/t/') ? $base . '/trabajo' : \App\Modules\Titulacion\Services\Archivos::url('trabajo_sinodal', (int) $s['id'])) ?>" target="_blank" rel="noopener">Descargar el trabajo escrito (PDF)</a><?php endif; ?>
   </p>
   <?php if ($s['estado'] === 'acuse'): ?>
     <p class="tit-ok">Firmaste de recibido el <?= e(fecha_corta((string) $s['acuse_en'])) ?>. El examen aparece en tu calendario de Traza FI.</p>

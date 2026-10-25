@@ -22,11 +22,11 @@ final class TitulacionRepository
     public static function obtener(int $id): ?array
     {
         $t = Database::una(
-            'SELECT t.*, u.nombre AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre
+            "SELECT t.*, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre
              FROM tit_tramites t
-             JOIN usuarios u ON u.id = t.alumno_id
+             LEFT JOIN usuarios u ON u.id = t.alumno_id
              LEFT JOIN usuarios r ON r.id = t.responsable_id
-             WHERE t.id = ?',
+             WHERE t.id = ?",
             [$id]
         );
         if ($t === null) {
@@ -107,7 +107,7 @@ final class TitulacionRepository
         return [
             'abiertos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'abierto'"),
             'por_validar' => (int) Database::valor("SELECT COUNT(*) FROM tit_documentos WHERE estado = 'en_revision' AND origen = 'alumno'"),
-            'concluidos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'concluido'"),
+            'concluidos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'concluido' AND historico = 0"),
         ];
     }
 
@@ -153,12 +153,14 @@ final class TitulacionRepository
             "UPDATE tit_documentos SET estado = 'reemplazado' WHERE tramite_id = ? AND etapa = ? AND clave = ? AND estado <> 'reemplazado'",
             [$tramiteId, $etapa, $clave]
         );
-        return Database::ejecutar(
+        $id = Database::ejecutar(
             'INSERT INTO tit_documentos (tramite_id, etapa, clave, origen, estado, ruta, nombre_original, subido_por, revisado_por, revisado_en)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [$tramiteId, $etapa, $clave, $origen, $estado, $ruta, $nombreOriginal, $usuarioId,
                 $origen === 'personal' ? $usuarioId : null, $origen === 'personal' ? date('Y-m-d H:i:s') : null]
         );
+        Services\Verificacion::documento($ruta, $id);
+        return $id;
     }
 
     public static function revisarDocumento(int $id, string $estado, ?string $comentario, int $revisorId): void

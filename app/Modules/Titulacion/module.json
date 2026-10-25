@@ -7,6 +7,30 @@
   "menu": [
     {
       "seccion": "TITULACIÓN",
+      "titulo": "Mis pendientes",
+      "ruta": "titulacion/pendientes",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 16
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Estado",
+      "ruta": "titulacion/estado",
+      "roles": [
+        "alumno"
+      ],
+      "orden": 17,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneTramites"
+    },
+    {
+      "seccion": "TITULACIÓN",
       "titulo": "Seguimiento",
       "ruta": "titulacion/seguimiento",
       "roles": [
@@ -51,7 +75,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Protocolos por evaluar",
+      "titulo": "Protocolos por revisar",
       "ruta": "titulacion/revision",
       "roles": [
         "admin",
@@ -66,7 +90,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Mi comisión",
+      "titulo": "Mi comité de revisión",
       "ruta": "titulacion/comision",
       "roles": [
         "admin",
@@ -120,7 +144,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Configurar formatos",
+      "titulo": "Configuración",
       "ruta": "titulacion/configuracion",
       "roles": [
         "admin"
@@ -129,7 +153,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Firmas de Subdirección",
+      "titulo": "Firmas pendientes",
       "ruta": "titulacion/firmas",
       "roles": [
         "admin",
@@ -141,6 +165,81 @@
       ],
       "orden": 28,
       "condicion": "App\\Modules\\Titulacion\\Services\\SubdireccionFirma::puedeFirmar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Titulación Lic",
+      "ruta": "titulacion/constancias",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 29,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneConstancias"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Búsqueda",
+      "ruta": "titulacion/constancias/busqueda",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 30,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Oficios",
+      "ruta": "titulacion/oficios",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 28,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Historial",
+      "ruta": "titulacion/constancias/historial",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 31,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Textos",
+      "ruta": "titulacion/constancias/textos",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 32,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeEditarTextos"
     }
   ],
   "rutas": {
@@ -195,10 +294,6 @@
     "POST /titulacion/licenciatura/tramite/{id}/confirmar/{etapa}": [
       "App\\Modules\\Titulacion\\TramiteController",
       "confirmar"
-    ],
-    "GET /titulacion/licenciatura/tramite/{id}/archivo/{doc}": [
-      "App\\Modules\\Titulacion\\TramiteController",
-      "archivo"
     ],
     "POST /titulacion/licenciatura/tramite/{id}/cancelar": [
       "App\\Modules\\Titulacion\\TramiteController",
@@ -256,46 +351,6 @@
       "App\\Modules\\Titulacion\\ConfiguracionController",
       "eliminarDocumento"
     ],
-    "POST /titulacion/configuracion/formatos/nuevo": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "nuevoFormato"
-    ],
-    "GET /titulacion/configuracion/formatos/{clave}": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "visor"
-    ],
-    "GET /titulacion/configuracion/formatos/{clave}/plantilla": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "plantilla"
-    ],
-    "POST /titulacion/configuracion/formatos/{clave}/spec": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "guardarSpec"
-    ],
-    "POST /titulacion/configuracion/formatos/{clave}/probar": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "probar"
-    ],
-    "POST /titulacion/configuracion/formatos/{clave}/reemplazar": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "reemplazar"
-    ],
-    "POST /titulacion/configuracion/formatos/{clave}/datos": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "datosFormato"
-    ],
-    "POST /titulacion/configuracion/formatos/{clave}/restablecer": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "restablecer"
-    ],
-    "POST /titulacion/configuracion/formatos/{clave}/eliminar": [
-      "App\\Modules\\Titulacion\\ConfiguracionController",
-      "eliminarFormato"
-    ],
-    "GET /titulacion/licenciatura/tramite/{id}/dictamen/{ronda}": [
-      "App\\Modules\\Titulacion\\TramiteController",
-      "dictamen"
-    ],
     "GET /titulacion/estructura": [
       "App\\Modules\\Titulacion\\EstructuraController",
       "index"
@@ -324,10 +379,6 @@
       "App\\Modules\\Titulacion\\ProtocolosController",
       "recordatorio"
     ],
-    "GET /titulacion/protocolos/{id}/documento": [
-      "App\\Modules\\Titulacion\\ProtocolosController",
-      "documento"
-    ],
     "GET /titulacion/comision": [
       "App\\Modules\\Titulacion\\ComisionController",
       "index"
@@ -352,10 +403,6 @@
       "App\\Modules\\Titulacion\\ComisionController",
       "dictaminar"
     ],
-    "GET /titulacion/comision/{id}/revision/{asig}": [
-      "App\\Modules\\Titulacion\\ComisionController",
-      "revisionPdf"
-    ],
     "GET /titulacion/revision": [
       "App\\Modules\\Titulacion\\RevisionController",
       "lista"
@@ -371,10 +418,6 @@
     "POST /titulacion/revision/{id}/firmar": [
       "App\\Modules\\Titulacion\\RevisionController",
       "firmar"
-    ],
-    "GET /titulacion/revision/{id}/documento": [
-      "App\\Modules\\Titulacion\\RevisionController",
-      "documento"
     ],
     "GET /titulacion/revision/t/{token}": [
       "App\\Modules\\Titulacion\\RevisionController",
@@ -412,10 +455,6 @@
       "App\\Modules\\Titulacion\\FirmasController",
       "firmar"
     ],
-    "GET /titulacion/firmas/archivo/{id}": [
-      "App\\Modules\\Titulacion\\FirmasController",
-      "descargar"
-    ],
     "GET /titulacion/firmas/previa/{id}": [
       "App\\Modules\\Titulacion\\FirmasController",
       "vistaPrevia"
@@ -439,10 +478,6 @@
     "POST /titulacion/licenciatura/tramite/{id}/generar/{etapa}/{doc}": [
       "App\\Modules\\Titulacion\\TramiteController",
       "generar"
-    ],
-    "GET /titulacion/gestion/{id}/expediente": [
-      "App\\Modules\\Titulacion\\GestionController",
-      "expediente"
     ],
     "GET /titulacion/firma/t/{token}": [
       "App\\Modules\\Titulacion\\FirmaExternaController",
@@ -509,6 +544,148 @@
     "POST /titulacion/gestion/{id}/jurado/{asig}/reenviar": [
       "App\\Modules\\Titulacion\\GestionController",
       "reenviarCoordinador"
+    ],
+    "GET /titulacion/mensajes": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "mensajes"
+    ],
+    "GET /titulacion/estado": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "estado"
+    ],
+    "GET /titulacion/constancias": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "constancias"
+    ],
+    "POST /titulacion/comision/plantilla": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "plantilla"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/agenda/{etapa}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "horarios"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/agenda/{etapa}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "agenda"
+    ],
+    "GET /titulacion/configuracion/formatos/{clave}/muestra": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "muestra"
+    ],
+    "GET /titulacion/pendientes": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "pendientes"
+    ],
+    "GET /titulacion/constancias/busqueda": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "buscar"
+    ],
+    "GET /titulacion/constancias/personas": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "personas"
+    ],
+    "POST /titulacion/constancias/seleccion": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "seleccion"
+    ],
+    "GET /titulacion/constancias/textos": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "textos"
+    ],
+    "POST /titulacion/constancias/textos/{tipo}": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "guardarTexto"
+    ],
+    "POST /titulacion/constancias/textos/{tipo}/restaurar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "restaurarTexto"
+    ],
+    "POST /titulacion/constancias/textos/{tipo}/muestra": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "muestra"
+    ],
+    "GET /titulacion/constancias/historial": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "historico"
+    ],
+    "POST /titulacion/constancias/historial/nuevo": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "nuevo"
+    ],
+    "POST /titulacion/constancias/historial/generar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "generarTodas"
+    ],
+    "POST /titulacion/constancias/historial/{id}/campo": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "campo"
+    ],
+    "POST /titulacion/constancias/historial/{id}/eliminar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "eliminar"
+    ],
+    "POST /titulacion/constancias/historial/{id}/generar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "generar"
+    ],
+    "GET /titulacion/ruta/{id}": [
+      "App\\Modules\\Titulacion\\RutaController",
+      "ver"
+    ],
+    "GET /titulacion/firma/mia/{id}": [
+      "App\\Modules\\Titulacion\\FirmaExternaController",
+      "verPropia"
+    ],
+    "POST /titulacion/firma/mia/{id}/firmar": [
+      "App\\Modules\\Titulacion\\FirmaExternaController",
+      "firmarPropia"
+    ],
+    "GET /titulacion/jurado/mia/{id}": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "coordinadorMio"
+    ],
+    "POST /titulacion/jurado/mia/{id}/firmar": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "firmarCoordinadorMio"
+    ],
+    "GET /titulacion/sinodal/mio/{id}": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "sinodalMio"
+    ],
+    "POST /titulacion/sinodal/mio/{id}/firmar": [
+      "App\\Modules\\Titulacion\\JuradoController",
+      "firmarSinodalMio"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/adicional/{formato}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "adicional"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/estatus": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "estatus"
+    ],
+    "GET /verificar": [
+      "App\\Modules\\Titulacion\\VerificacionController",
+      "inicio",
+      "publico"
+    ],
+    "GET /verificar/{codigo}": [
+      "App\\Modules\\Titulacion\\VerificacionController",
+      "ver",
+      "publico"
+    ],
+    "GET /titulacion/oficios": [
+      "App\\Modules\\Titulacion\\OficiosController",
+      "index"
+    ],
+    "POST /titulacion/configuracion/oficios": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "oficios"
+    ],
+    "GET /titulacion/archivo/{token}": [
+      "App\\Modules\\Titulacion\\ArchivoController",
+      "descargar"
     ]
   }
 }

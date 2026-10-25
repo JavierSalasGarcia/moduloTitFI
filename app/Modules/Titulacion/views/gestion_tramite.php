@@ -7,7 +7,7 @@ $base = 'titulacion/gestion/' . (int) $t['id'];
 $ver = 'titulacion/licenciatura/tramite/' . (int) $t['id'];
 $p = $t['datos']['datos'] ?? [];
 $chips = [
-  'firmas' => ['rev', 'Esperando firma del asesor'],
+  'firmas' => ['rev', 'Esperando firmas'],
     'pendiente' => ['pend', 'Pendiente'], 'en_revision' => ['rev', 'Por validar'], 'aprobado' => ['ok', 'Validado'],
     'rechazado' => ['mal', 'Devuelto'], 'no_aplica' => ['na', 'No le aplica'],
 ];
@@ -22,7 +22,7 @@ $chips = [
     <span class="estado estado-<?= e($t['estado']) ?>"><?= e(Catalogo::estadosTramite()[$t['estado']] ?? $t['estado']) ?></span>
     <?php if ($t['resultado']): ?><div class="texto-secundario">Resultado: <strong><?= e($t['resultado']) ?></strong></div><?php endif; ?>
     <div class="texto-secundario">Responsable: <?= e((string) ($t['responsable_nombre'] ?? 'sin asignar')) ?></div>
-    <div style="margin-top:4px"><a class="btn btn-mini" href="<?= url($base . '/expediente') ?>">Descargar expediente (ZIP)</a></div>
+    <div style="margin-top:4px"><a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Ruta del trámite</a> <a class="btn btn-mini btn-primario" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('expediente', (int) $t['id'])) ?>">Descargar todo el expediente (ZIP)</a></div>
     <form method="post" action="<?= url($base . '/tomar') ?>" style="margin-top:4px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Asignarme</button></form>
   </div>
 </div>
@@ -61,13 +61,13 @@ $chips = [
           <h4><?= e($d['nombre']) ?><?= !empty($d['fisico']) || !empty($d['cotejo']) ? ' *' : '' ?> <span class="tit-chip <?= $cl ?>"><?= e($et) ?></span><?= !empty($d['cotejo']) ? ' <span class="tit-chip na">Cotejo de original</span>' : '' ?></h4>
           <?php if ($d['nota']): ?><p class="nota"><?= e($d['nota']) ?></p><?php endif; ?>
           <?php if ($fila && $fila['ruta']): ?>
-            <p class="nota"><a href="<?= url($ver . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener">Abrir PDF</a> · <?= e((string) $fila['nombre_original']) ?> · <?= e(fecha_corta($fila['creado_en'])) ?></p>
+            <p class="nota"><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $fila['id']) . '?ver=1') ?>" target="_blank" rel="noopener">Abrir PDF</a> · <?= e((string) $fila['nombre_original']) ?> · <?= e(fecha_corta($fila['creado_en'])) ?></p>
           <?php endif; ?>
           <?php if ($fila && $fila['comentario']): ?><div class="<?= $est === 'rechazado' ? 'tit-obs' : 'tit-ok' ?>"><?= e((string) $fila['comentario']) ?><?= $fila['revisor_nombre'] ? ' — ' . e($fila['revisor_nombre']) : '' ?></div><?php endif; ?>
           <?php if (!empty($d['cotejo']) && $est === 'aprobado' && $fila): ?>
             <?php if ($fila['cotejo_en']): ?>
               <div class="tit-ok">Cotejado con el original por <?= e((string) $fila['cotejo_nombre']) ?> · <?= e(fecha_corta($fila['cotejo_en'])) ?> · <?= $fila['cotejo_tipo'] === 'pades' ? 'firma PAdES' : 'sello de cotejo' ?>
-                <br><small>Huella SHA-256: <code><?= e(substr((string) $fila['cotejo_hash'], 0, 24)) ?>…</code><?= $fila['cotejo_ruta'] ? ' · <a href="' . e(url($ver . '/archivo/' . (int) $fila['id'] . '?cotejo=1')) . '" target="_blank" rel="noopener">PDF con sello</a>' : '' ?></small></div>
+                <br><small>Huella SHA-256: <code><?= e(substr((string) $fila['cotejo_hash'], 0, 24)) ?>…</code><?= $fila['cotejo_ruta'] ? ' · <a href="' . e(url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $fila['id']) . '?cotejo=1')) . '" target="_blank" rel="noopener">PDF con sello</a>' : '' ?></small></div>
               <form method="post" action="<?= url($base . '/cotejo/' . (int) $fila['id']) ?>" style="margin-top:4px" onsubmit="return confirm('¿Retirar el cotejo?')"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="accion" value="quitar"><button class="btn btn-mini" type="submit">Retirar cotejo</button></form>
             <?php else: ?>
               <form class="formulario" method="post" action="<?= url($base . '/cotejo/' . (int) $fila['id']) ?>" style="margin-top:8px">
@@ -108,11 +108,12 @@ $chips = [
           <?php foreach ($e['personal']['campos'] ?? [] as $c): $v = (string) ($hito['datos'][$c['k']] ?? ''); if ($v === '') continue; if (($c['tipo'] ?? '') === 'select') { $v = $c['opciones'][$v] ?? $v; } ?>
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
-          <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : ' · firmado' ?></div><?php endif; ?>
+          <?php if (!empty($e['agenda'])): ?><div><strong>Examen solicitado por el pasante:</strong> <?= e(\App\Modules\Titulacion\Services\Oficios::fecha((string) ($hito['datos']['fecha'] ?? ''))) ?>, <?= e((string) ($hito['datos']['hora'] ?? '')) ?> h, <?= e((string) ($hito['datos']['lugar'] ?? '')) ?></div><?php endif; ?>
+          <?php if ($filaEnt): ?><div><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $filaEnt['id']) . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) && empty($ent['asignacion']) ? ' · esperando firmas' : '' ?></div><?php endif; ?>
           <?php if (!empty($e['personal']['comision_fija'])): $cf = \App\Modules\Titulacion\Services\Autoridades::class; $pr = $cf::director(); $se = $cf::subdirector(); ?>
           <div>Comisión: <?= e($pr ? \App\Core\Persona::tratamiento($pr) : 'Director') ?> (<?= e(\App\Core\Persona::f($pr ?? [], 'presidente', 'presidenta')) ?>) y <?= e($se ? \App\Core\Persona::tratamiento($se) : 'Subdirector Académico') ?> (<?= e(\App\Core\Persona::f($se ?? [], 'secretario', 'secretaria')) ?>)</div>
         <?php endif; ?>
-<?php foreach ($e['personal']['extras'] ?? [] as $x): $fx = $docs[$e['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url($ver . '/archivo/' . (int) $fx['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
+<?php foreach ($e['personal']['extras'] ?? [] as $x): $fx = $docs[$e['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $fx['id']) . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
           <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $e['clave']); ?>
             <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
               <div class="tit-aviso">Esperando al Coordinador de Docencia: <?= e($asig['coord_nombre']) ?> (<?= e($asig['coord_email']) ?>).
@@ -123,9 +124,11 @@ $chips = [
           <?php endif; ?>
           <div class="texto-secundario">Registrado por <?= e($hito['completado_nombre']) ?> · <?= e(fecha_corta($hito['completado_en'])) ?></div>
         </div>
-        <form method="post" action="<?= url($base . '/reabrir/' . $e['clave']) ?>" onsubmit="return confirm('¿Reabrir esta etapa?')" style="margin-top:8px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reabrir etapa</button></form>
+        <form method="post" action="<?= url($base . '/reabrir/' . $e['clave']) ?>" onsubmit="return confirm('<?= !empty($e['agenda']) ? '¿Reabrir esta etapa? Se libera el espacio apartado y el pasante podrá elegir otra fecha.' : '¿Reabrir esta etapa?' ?>')" style="margin-top:8px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reabrir etapa</button></form>
       <?php elseif ($e['situacion'] === 'actual' && $t['estado'] === 'abierto'): ?>
-        <?php if (!$e['propia_ok'] || !$e['docs_ok']): ?>
+        <?php if (!empty($e['agenda'])): ?>
+          <p class="tit-aviso">El pasante elige la fecha y hora del examen y propone su sínodo; al enviarlo, la solicitud llega al Coordinador de Docencia.</p>
+        <?php elseif (!$e['propia_ok'] || !$e['docs_ok']): ?>
           <p class="tit-aviso">Podrás completar esto cuando el pasante termine su captura y todos sus documentos estén validados.</p>
         <?php else: ?>
           <form class="formulario" method="post" action="<?= url($base . '/hito/' . $e['clave']) ?>">

@@ -35,7 +35,7 @@ return [
         'POST /recursos/{id}/actualizar' => [RecursosController::class, 'actualizar'],
         'POST /recursos/{id}/eliminar'   => [RecursosController::class, 'eliminar'],
         // Ficha y notas personales (las rutas literales van antes de {id})
-        'GET /recursos/archivo/{id}'     => [RecursosController::class, 'archivo'],
+        'GET /recursos/archivo/{id}'     => [RecursosController::class, 'archivo', 'token'],
         'GET /recursos/{id}'             => [RecursosController::class, 'ficha'],
         'POST /recursos/{id}/notas'      => [RecursosController::class, 'agregarNota'],
         'POST /recursos/notas/{id}/editar'   => [RecursosController::class, 'editarNota'],

@@ -11,7 +11,7 @@
       <?php if ($r['tipo'] === 'enlace'): ?>
         <a class="btn btn-primario" href="<?= e($r['url']) ?>" target="_blank" rel="noopener">Abrir sitio ↗</a>
       <?php elseif ($r['archivo']): ?>
-        <a class="btn btn-primario" href="<?= url('recursos/archivo/' . $r['id']) ?>"><?= icono('entrada', 15) ?> Descargar archivo</a>
+        <a class="btn btn-primario" href="<?= url_archivo('recursos/archivo/' . $r['id']) ?>"><?= icono('entrada', 15) ?> Descargar archivo</a>
       <?php else: ?>
         <span class="badge badge-ambar">Archivo pendiente de publicar</span>
       <?php endif; ?>
