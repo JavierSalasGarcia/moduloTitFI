@@ -195,6 +195,51 @@
       ],
       "orden": 30,
       "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Oficios",
+      "ruta": "titulacion/oficios",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 28,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Historial",
+      "ruta": "titulacion/constancias/historial",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 31,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Textos",
+      "ruta": "titulacion/constancias/textos",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 32,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeEditarTextos"
     }
   ],
   "rutas": {
@@ -572,6 +617,42 @@
       "App\\Modules\\Titulacion\\PanelController",
       "zip"
     ],
+    "GET /titulacion/constancias/textos": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "textos"
+    ],
+    "POST /titulacion/constancias/textos/{tipo}": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "guardarTexto"
+    ],
+    "POST /titulacion/constancias/textos/{tipo}/restaurar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "restaurarTexto"
+    ],
+    "POST /titulacion/constancias/textos/{tipo}/muestra": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "muestra"
+    ],
+    "GET /titulacion/constancias/historial": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "historico"
+    ],
+    "POST /titulacion/constancias/historial/importar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "importar"
+    ],
+    "POST /titulacion/constancias/historial/generar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "generarTodas"
+    ],
+    "POST /titulacion/constancias/historial/{id}/campo": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "campo"
+    ],
+    "POST /titulacion/constancias/historial/{id}/generar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "generar"
+    ],
     "GET /titulacion/constancias/{id}": [
       "App\\Modules\\Titulacion\\PanelController",
       "constancia"
@@ -645,6 +726,14 @@
       "App\\Modules\\Titulacion\\VerificacionController",
       "ver",
       "publico"
+    ],
+    "GET /titulacion/oficios": [
+      "App\\Modules\\Titulacion\\OficiosController",
+      "index"
+    ],
+    "POST /titulacion/configuracion/oficios": [
+      "App\\Modules\\Titulacion\\ConfiguracionController",
+      "oficios"
     ]
   }
 }

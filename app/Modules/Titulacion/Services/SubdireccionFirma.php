@@ -160,8 +160,8 @@ final class SubdireccionFirma
         }
         $marcas = implode(',', array_fill(0, count($roles), '?'));
         return Database::todas(
-            "SELECT f.*, t.folio, t.modalidad, u.nombre AS alumno_nombre
-             FROM tit_firmas_subdireccion f JOIN tit_tramites t ON t.id = f.tramite_id JOIN usuarios u ON u.id = t.alumno_id
+            "SELECT f.*, t.folio, t.modalidad, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre
+             FROM tit_firmas_subdireccion f JOIN tit_tramites t ON t.id = f.tramite_id LEFT JOIN usuarios u ON u.id = t.alumno_id
              WHERE f.estado = 'pendiente' AND f.rol_firma IN ($marcas) AND " . self::SIN_VOBO . ' ORDER BY f.creado_en',
             $roles
         );
@@ -235,8 +235,8 @@ final class SubdireccionFirma
     public static function sincronizar(int $id): void
     {
         $t = TitulacionRepository::obtener($id);
-        if (!$t || $t['estado'] === 'cancelado') {
-            return;
+        if (!$t || $t['estado'] === 'cancelado' || !empty($t['historico'])) {
+            return;   // los trámites históricos (importados del libro de actas) no siguen el flujo
         }
         $flujo = Flujo::evaluar($t, TitulacionRepository::documentosVigentes($id), TitulacionRepository::hitos($id));
         $etapas = $flujo['etapas'];

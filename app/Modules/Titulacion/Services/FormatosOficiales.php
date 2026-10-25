@@ -62,7 +62,9 @@ final class FormatosOficiales
             'coasesor' => $co !== '' && mb_strtolower($co) !== 'no aplica' ? Persona::tratamiento(['nombre' => $co, 'grado' => $pr['coasesor_grado'] ?? null]) : '',
             'fecha_protocolo' => (string) ($hitos['protocolo']['datos']['fecha'] ?? ''),
             'vez' => (string) ($d['solicitud']['vez'] ?? ''),
-            'incorporada' => ($p['sistema'] ?? 'fi') !== 'fi',
+            'plan' => mb_strtoupper((string) ($p['plan'] ?? '')),
+            'escuela' => trim((string) ($p['incorporada'] ?? '')),
+            'incorporada' => ($p['sistema'] ?? 'fi') !== 'fi' || trim((string) ($p['incorporada'] ?? '')) !== '',
         ];
     }
 
@@ -336,6 +338,9 @@ final class FormatosOficiales
         $pdf->lugarFecha();
         $pdf->destinatario([$s['nombre'], $s['secretario'] . ' DEL H. CONSEJO ACADÉMICO', 'DE LA FACULTAD DE INGENIERÍA DE LA UAEM']);
         self::encabezadoPasante($pdf, $x);
+        if ($x['plan'] !== '') {
+            $pdf->datos([['Plan de estudios:', $x['plan']]], 38);
+        }
         $pdf->texto('Solicita a los HH. Consejos Académico y de Gobierno le permitan continuar con sus trámites de titulación, debido a que por el Título Primero, Artículo 5 del Reglamento de Evaluación Profesional de la Universidad Autónoma del Estado de México, excedí el tiempo para realizar dicho trámite.', '', 10);
         $pdf->Ln(2);
         $pdf->recuadro('Los motivos por los que excedí el tiempo son:', (string) ($t['datos']['art5']['motivos'] ?? $e['motivos'] ?? ''), 22);

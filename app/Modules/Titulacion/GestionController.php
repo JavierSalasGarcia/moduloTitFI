@@ -220,6 +220,9 @@ final class GestionController extends TitulacionBase
             $datos[$campo['k']] = $valor;
         }
         $entrega = $etapa['personal']['entrega'] ?? null;
+        if ($etapaClave === 'resultado' && ($datos['acta'] ?? '') !== '' && ($otro = Services\Actas::ocupada($t, (string) $datos['acta'], ($datos['resultado'] ?? '') === 'aplazado'))) {
+            $errores[] = 'El acta ' . $datos['acta'] . ' ya está registrada para ' . $otro . '.';
+        }
         if ($errores) {
             flash('error', implode(' ', array_slice($errores, 0, 3)));
             redirigir($volver);
@@ -272,11 +275,14 @@ final class GestionController extends TitulacionBase
             SubdireccionFirma::solicitar($t, $idX, (string) $extra['clave'], (string) $extra['nombre'], $cajaX);
         }
         TitulacionRepository::guardarHito((int) $t['id'], $etapaClave, $datos, Auth::id());
+        if ($etapaClave === 'resultado') {
+            Services\Actas::registrar($t, (string) ($datos['acta'] ?? ''), ($datos['resultado'] ?? '') === 'aplazado', (string) ($datos['fecha'] ?? ''));
+        }
         if ($etapaClave === 'resultado' && $t['tipo'] === 'con_trabajo' && ($datos['resultado'] ?? '') !== 'aplazado' && ($datos['fecha'] ?? '') !== '') {
             try {
-                Services\Constancias::asesoria($t, (string) $datos['fecha'], Auth::id());
+                Services\Constancias::resultado($t, (string) $datos['fecha'], Auth::id());
             } catch (Throwable $e) {
-                error_log('Titulación: no se generaron las constancias de asesoría: ' . $e->getMessage());
+                error_log('Titulación: no se generaron las constancias del resultado: ' . $e->getMessage());
             }
         }
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'hito', 'Etapa completada por el departamento: ' . ($etapa['personal']['titulo'] ?? $etapa['titulo']) . $this->resumenHito($datos, $etapa));

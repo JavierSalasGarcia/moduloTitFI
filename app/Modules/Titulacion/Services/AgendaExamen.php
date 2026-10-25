@@ -81,6 +81,14 @@ final class AgendaExamen
      * @param array<int,array{nombre?:string,email?:string,grado?:string,genero?:string}> $entrada
      * @return array<int,array{calidad:string,orden:int,nombre:string,grado:?string,genero:string,email:string}>
      */
+    public const FUNCIONES = ['presidente' => 'Presidente', 'secretario' => 'Secretario', 'vocal' => 'Vocal'];
+
+    /** Función en el jurado según el lugar del propietario: 1.º presidente, 2.º secretario, los demás vocales. */
+    public static function funcion(int $orden, int $propietarios): string
+    {
+        return $orden <= 1 ? 'presidente' : ($orden === 2 ? 'secretario' : 'vocal');
+    }
+
     public static function sinodo(array $entrada, ?int $propietarios = null, ?int $suplentes = null): array
     {
         $c = self::config();
@@ -101,7 +109,8 @@ final class AgendaExamen
                 throw new RuntimeException('Una misma persona no puede repetirse en el sínodo.');
             }
             $vistos[$e] = true;
-            $salida[] = ['calidad' => $i < $propietarios ? 'propietario' : 'suplente', 'orden' => $i + 1, 'nombre' => mb_substr($n, 0, 160), 'grado' => $gr !== '' ? $gr : null, 'genero' => $ge, 'email' => $e];
+            $salida[] = ['calidad' => $i < $propietarios ? 'propietario' : 'suplente', 'orden' => $i + 1,
+                'funcion' => $i < $propietarios ? self::funcion($i + 1, $propietarios) : null, 'nombre' => mb_substr($n, 0, 160), 'grado' => $gr !== '' ? $gr : null, 'genero' => $ge, 'email' => $e];
         }
         return $salida;
     }

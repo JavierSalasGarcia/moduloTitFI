@@ -41,6 +41,8 @@ final class ConfiguracionController extends TitulacionBase
                 'firma' => \ajuste('titulacion_firma_revisores', 'sello'), 'inhabiles' => \ajuste('titulacion_dias_inhabiles', ''),
                 'gracia' => (int) \ajuste('titulacion_token_gracia', '14'), 'pki' => \App\Modules\Firmas\PadesSigner::habilitado(),
             ],
+            'oficios' => array_map(static fn(string $s): array => ['formato' => Services\NumeroOficio::formato($s), 'siguiente' => Services\NumeroOficio::siguiente($s)],
+                array_combine(array_keys(Services\NumeroOficio::SERIES), array_keys(Services\NumeroOficio::SERIES))),
             'bitacora' => Database::todas('SELECT b.*, u.nombre FROM tit_config_bitacora b JOIN usuarios u ON u.id = b.usuario_id ORDER BY b.id DESC LIMIT 15'),
         ]);
     }
@@ -101,6 +103,38 @@ final class ConfiguracionController extends TitulacionBase
         Configuracion::bitacora(Auth::id(), 'parametros', 'Revisión: ' . $dias . ' días hábiles, ' . $revisores . ' revisores; exámenes: ' . $diasMin . ' días hábiles, ' . $hIni . '–' . $hFin . ', ' . $duracion . ' min, sínodo ' . $prop . '+' . $sup);
         flash('exito', 'Parámetros guardados.');
         redirigir('titulacion/configuracion#parametros');
+    }
+
+    /** Formato del número de oficio de cada serie y el siguiente número del año en curso. */
+    public function oficios(): void
+    {
+        $this->admin();
+        $anio = (int) date('Y');
+        $cambios = [];
+        foreach (array_keys(Services\NumeroOficio::SERIES) as $serie) {
+            $formato = trim($this->post('formato_' . $serie));
+            $siguiente = (int) ($_POST['siguiente_' . $serie] ?? 0);
+            if (!str_contains($formato, '{n}') || mb_strlen($formato) > 40 || $siguiente < 1 || $siguiente > 99999) {
+                flash('error', 'Cada formato debe incluir {n} (y puede incluir {AAAA}), y el siguiente número debe ser mayor que cero.');
+                redirigir('titulacion/configuracion#oficios');
+            }
+            $usado = (int) Database::valor('SELECT MAX(numero) FROM tit_oficios WHERE serie = ? AND anio = ?', [$serie, $anio]);
+            if ($siguiente !== Services\NumeroOficio::siguiente($serie, $anio) && $siguiente <= $usado) {
+                flash('error', 'El ' . $siguiente . ' ya se usó en la serie ' . Services\NumeroOficio::SERIES[$serie] . ' este año; el siguiente debe ser mayor que ' . $usado . '.');
+                redirigir('titulacion/configuracion#oficios');
+            }
+            $cambios[$serie] = [$formato, $siguiente];
+        }
+        foreach ($cambios as $serie => [$formato, $siguiente]) {
+            Database::ejecutar('INSERT INTO ajustes (clave, valor, descripcion) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE valor = VALUES(valor)',
+                ['titulacion_oficio_formato_' . $serie, $formato, 'Titulación: número de oficio de la serie ' . Services\NumeroOficio::SERIES[$serie] . ' ({n} consecutivo, {AAAA} año).']);
+            if ($siguiente !== Services\NumeroOficio::siguiente($serie, $anio)) {
+                Services\NumeroOficio::fijarUltimo($serie, $anio, $siguiente - 1);
+            }
+        }
+        Configuracion::bitacora(Auth::id(), 'parametros', 'Numeración de oficios: ' . implode('; ', array_map(static fn(string $s): string => Services\NumeroOficio::texto($s, Services\NumeroOficio::siguiente($s), $anio), array_keys(Services\NumeroOficio::SERIES))));
+        flash('exito', 'Numeración de oficios guardada.');
+        redirigir('titulacion/configuracion#oficios');
     }
 
     /** @return array<string,string> clave de etapa => título (la primera definición). */

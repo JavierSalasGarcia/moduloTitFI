@@ -174,8 +174,8 @@ final class Jurado
         // Oficios individuales: pasan a la firma de la Subdirección.
         foreach ($sin as $s) {
             $s['id'] = Database::ejecutar(
-                'INSERT INTO tit_sinodales (asignacion_id, tramite_id, calidad, orden, nombre, grado, genero, email) VALUES (?,?,?,?,?,?,?,?)',
-                [(int) $a['id'], (int) $t['id'], $s['calidad'], $s['orden'], $s['nombre'], $s['grado'], $s['genero'], $s['email']]
+                'INSERT INTO tit_sinodales (asignacion_id, tramite_id, calidad, funcion, orden, nombre, grado, genero, email) VALUES (?,?,?,?,?,?,?,?,?)',
+                [(int) $a['id'], (int) $t['id'], $s['calidad'], $s['funcion'] ?? null, $s['orden'], $s['nombre'], $s['grado'], $s['genero'], $s['email']]
             );
             [$ruta, $cajaOf] = DocumentosGenerados::guardarOficio($t, 'oficio_sinodal', [], ['sinodal' => $s, 'asig' => $a]);
             $oficioId = TitulacionRepository::registrarDocumento((int) $t['id'], (string) $a['etapa'], 'oficio_sinodal_' . $s['orden'], 'personal', 'aprobado', $ruta, 'oficio_sinodal_' . $s['orden'] . '_' . $t['folio'] . '.pdf', (int) $usuario['id']);
