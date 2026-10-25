@@ -9,7 +9,7 @@ $borradorAg = $_SESSION['_agenda_borrador'][$t['id']] ?? [];
 $listo = $etapa['propia_ok'] && $etapa['faltan'] === 0 && $etapa['rechazados'] === 0 && $etapa['por_firmas_ext'] === 0;
 $examen = $etapa['agenda'] === 'previo' ? 'examen previo' : 'examen definitivo';
 $etqs = [];
-for ($i = 1; $i <= $cfg['propietarios']; $i++) { $etqs[] = 'Propietario ' . $i; }
+for ($i = 1; $i <= $cfg['propietarios']; $i++) { $etqs[] = 'Propietario · ' . \App\Modules\Titulacion\Services\AgendaExamen::FUNCIONES[\App\Modules\Titulacion\Services\AgendaExamen::funcion($i, (int) $cfg['propietarios'])]; }
 for ($i = 1; $i <= $cfg['suplentes']; $i++) { $etqs[] = 'Suplente' . ($cfg['suplentes'] > 1 ? ' ' . $i : ''); }
 ?>
 <h3 id="agenda">Fecha, hora y sínodo de tu <?= e($examen) ?></h3>

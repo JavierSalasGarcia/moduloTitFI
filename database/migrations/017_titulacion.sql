@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS tit_tramites (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   folio VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT '',
   nivel ENUM('licenciatura','posgrado') NOT NULL DEFAULT 'licenciatura',
-  alumno_id INT UNSIGNED NOT NULL,
+  alumno_id INT UNSIGNED NULL,
   tipo ENUM('sin_trabajo','con_trabajo') NOT NULL,
   modalidad VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   variante VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NULL,
@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS tit_tramites (
   datos MEDIUMTEXT NOT NULL,
   resultado VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NULL,
   responsable_id INT UNSIGNED NULL,
+  historico TINYINT(1) NOT NULL DEFAULT 0,
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   actualizado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
@@ -123,6 +124,102 @@ CREATE TABLE IF NOT EXISTS tit_verificaciones (
   KEY idx_tit_verif_ruta (ruta(191)),
   KEY idx_tit_verif_doc (documento_id),
   KEY idx_tit_verif_clave (tramite_id, clave)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Numeración de oficios: consecutivo anual por serie (subdireccion = ACAD/FI/###/AAAA; jefatura = Evaluación
+-- Profesional y Grado) y bitácora de cada número con su destinatario y asunto (sustituye los controles en Excel).
+CREATE TABLE IF NOT EXISTS tit_oficio_series (
+  serie VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  anio SMALLINT UNSIGNED NOT NULL,
+  ultimo INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (serie, anio)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- La numeración en la plataforma empieza en el 100 del año en que se instala (los anteriores se dieron en Excel).
+INSERT IGNORE INTO tit_oficio_series (serie, anio, ultimo) VALUES ('subdireccion', YEAR(CURDATE()), 99), ('jefatura', YEAR(CURDATE()), 99);
+
+CREATE TABLE IF NOT EXISTS tit_oficios (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  serie VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  anio SMALLINT UNSIGNED NOT NULL,
+  numero INT UNSIGNED NOT NULL,
+  texto VARCHAR(60) NOT NULL,
+  tramite_id BIGINT UNSIGNED NOT NULL,
+  asunto VARCHAR(250) NOT NULL,
+  dirigido_a VARCHAR(250) NOT NULL DEFAULT '',
+  verificacion CHAR(16) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  generado_por INT UNSIGNED NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_oficio_numero (serie, anio, numero),
+  KEY idx_tit_oficio_tramite (tramite_id),
+  KEY idx_tit_oficio_verif (verificacion)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Números de acta de evaluación profesional y de aplazamiento (por licenciatura; no se repiten).
+CREATE TABLE IF NOT EXISTS tit_actas (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  tramite_id BIGINT UNSIGNED NOT NULL,
+  carrera VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  tipo ENUM('evaluacion','aplazamiento') NOT NULL,
+  numero INT UNSIGNED NOT NULL,
+  fecha DATE NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_acta_tramite (tramite_id, tipo),
+  UNIQUE KEY uq_tit_acta_numero (carrera, tipo, numero)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Textos editables de las constancias (si un tipo no tiene fila, se usa el texto de fábrica del código).
+CREATE TABLE IF NOT EXISTS tit_constancia_textos (
+  tipo VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  asunto VARCHAR(80) NOT NULL DEFAULT '',
+  intro TEXT NOT NULL,
+  cuerpo TEXT NOT NULL,
+  cierre TEXT NOT NULL,
+  tabla TINYINT(1) NOT NULL DEFAULT 0,
+  actualizado_por INT UNSIGNED NULL,
+  actualizado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (tipo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Historial del libro de actas (importado de Excel y corregible en la plataforma) para generar constancias anteriores.
+CREATE TABLE IF NOT EXISTS tit_historico (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  hoja VARCHAR(60) NOT NULL,
+  fila INT UNSIGNED NOT NULL,
+  carrera VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  acta INT UNSIGNED NULL,
+  alumno VARCHAR(160) NOT NULL DEFAULT '',
+  cuenta VARCHAR(12) NOT NULL DEFAULT '',
+  modalidad VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  modalidad_origen VARCHAR(60) NOT NULL DEFAULT '',
+  vez VARCHAR(10) NOT NULL DEFAULT '',
+  testimonio VARCHAR(20) NOT NULL DEFAULT '',
+  fecha_aut_egel DATE NULL,
+  fecha_examen DATE NULL,
+  fecha_afinidad DATE NULL,
+  titulo VARCHAR(500) NOT NULL DEFAULT '',
+  director VARCHAR(160) NOT NULL DEFAULT '',
+  director_email VARCHAR(120) NOT NULL DEFAULT '',
+  codirector VARCHAR(160) NOT NULL DEFAULT '',
+  codirector_email VARCHAR(120) NOT NULL DEFAULT '',
+  presidente VARCHAR(160) NOT NULL DEFAULT '',
+  presidente_email VARCHAR(120) NOT NULL DEFAULT '',
+  secretario VARCHAR(160) NOT NULL DEFAULT '',
+  secretario_email VARCHAR(120) NOT NULL DEFAULT '',
+  vocal VARCHAR(160) NOT NULL DEFAULT '',
+  vocal_email VARCHAR(120) NOT NULL DEFAULT '',
+  correos VARCHAR(500) NOT NULL DEFAULT '',
+  tramite_id BIGINT UNSIGNED NULL,
+  generado_en DATETIME NULL,
+  actualizado_por INT UNSIGNED NULL,
+  actualizado_en DATETIME NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_hist_fila (hoja, fila),
+  KEY idx_tit_hist_acta (carrera, acta),
+  KEY idx_tit_hist_tramite (tramite_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Los mensajes al pasante y las plantillas/coordenadas de formatos ya no existen: todo llega a «notificaciones»
@@ -512,6 +609,7 @@ CREATE TABLE IF NOT EXISTS tit_sinodales (
   asignacion_id BIGINT UNSIGNED NOT NULL,
   tramite_id BIGINT UNSIGNED NOT NULL,
   calidad ENUM('propietario','suplente') NOT NULL,
+  funcion ENUM('presidente','secretario','vocal') NULL,
   orden TINYINT UNSIGNED NOT NULL,
   nombre VARCHAR(160) NOT NULL,
   grado VARCHAR(30) NULL,
@@ -593,6 +691,20 @@ SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_documentos ADD COLUMN cajas T
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_documentos' AND COLUMN_NAME = 'cajas');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
+-- Trámites históricos (importados del libro de actas, sin cuenta de alumno en la plataforma) para sus constancias.
+SET @s = (SELECT IF(COUNT(*) = 1, 'ALTER TABLE tit_tramites MODIFY alumno_id INT UNSIGNED NULL', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_tramites' AND COLUMN_NAME = 'alumno_id' AND IS_NULLABLE = 'NO');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_tramites ADD COLUMN historico TINYINT(1) NOT NULL DEFAULT 0 AFTER responsable_id', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_tramites' AND COLUMN_NAME = 'historico');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- Función de cada sinodal propietario en el jurado.
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_sinodales ADD COLUMN funcion ENUM(''presidente'',''secretario'',''vocal'') NULL AFTER calidad', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_sinodales' AND COLUMN_NAME = 'funcion');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+UPDATE tit_sinodales SET funcion = IF(orden = 1, 'presidente', IF(orden = 2, 'secretario', 'vocal')) WHERE funcion IS NULL AND calidad = 'propietario';
+
 -- Firmantes por enlace: además de asesor y coasesor, los revisores (voto aprobatorio).
 SET @s = (SELECT IF(COUNT(*) = 1, 'ALTER TABLE tit_firmas_externas MODIFY rol VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL', 'DO 0')
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_firmas_externas' AND COLUMN_NAME = 'rol' AND DATA_TYPE = 'enum');
@@ -637,7 +749,9 @@ INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
 ('titulacion_examen_hora_fin', '15:00', 'Titulación: hora a la que debe haber terminado un examen.'),
 ('titulacion_examen_duracion', '120', 'Titulación: minutos que se aparta el auditorio o sala para cada examen.'),
 ('titulacion_sinodales_propietarios', '3', 'Titulación: sinodales propietarios que propone el pasante.'),
-('titulacion_sinodales_suplentes', '2', 'Titulación: sinodales suplentes que propone el pasante.');
+('titulacion_sinodales_suplentes', '2', 'Titulación: sinodales suplentes que propone el pasante.'),
+('titulacion_oficio_formato_subdireccion', 'ACAD/FI/{n}/{AAAA}', 'Titulación: número de los oficios que firma la Subdirección o la Dirección ({n} consecutivo, {AAAA} año).'),
+('titulacion_oficio_formato_jefatura', 'FI/DEPyG/{n}/{AAAA}', 'Titulación: número de los oficios que firma la Jefatura de Evaluación Profesional y Grado ({n} consecutivo, {AAAA} año).');
 
 INSERT IGNORE INTO ajustes (clave, valor, descripcion)
 SELECT 'titulacion_examen_espacio', CAST(id AS CHAR), 'Titulación: auditorio o sala (módulo Auditorios/Salas) donde se realizan los exámenes.'

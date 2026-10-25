@@ -187,9 +187,6 @@ final class FirmasExternas
             if ($doc['clave'] === 'protocolo_firmado') {
                 RevisionProtocolo::nuevaRonda($t, (int) $doc['id']);
             } else {
-                if ($doc['clave'] === 'voto_aprobatorio') {
-                    Constancias::revisoresTrabajo($t, (int) $doc['id'], (int) $usuario['id']);
-                }
                 TitulacionRepository::evento((int) $t['id'], (int) $usuario['id'], 'firma', 'Ya firmaron todos ' . self::queSeFirma((string) $doc['clave'])[0] . '; pasa a validación del Departamento de Evaluación Profesional.', true);
                 SubdireccionFirma::sincronizar((int) $t['id']);
             }

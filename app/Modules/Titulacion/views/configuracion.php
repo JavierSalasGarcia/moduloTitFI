@@ -60,6 +60,21 @@ $csrf = e(Auth::csrfToken());
   </form>
 </section>
 
+<section class="tarjeta" id="oficios" style="margin-bottom:18px">
+  <h2>Numeración de oficios</h2>
+  <p class="texto-secundario">Cada oficio toma el consecutivo anual de quien lo firma: la Subdirección (o la Dirección) o la Jefatura de Evaluación Profesional y Grado. En el formato, {n} es el consecutivo (tres dígitos) y {AAAA} el año; cada 1 de enero la numeración vuelve a 1. La bitácora está en <a href="<?= url('titulacion/oficios') ?>">Titulación → Oficios</a>.</p>
+  <form class="formulario" method="post" action="<?= url('titulacion/configuracion/oficios') ?>">
+    <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+    <div class="tit-campos">
+      <?php foreach (\App\Modules\Titulacion\Services\NumeroOficio::SERIES as $s => $nombre): ?>
+        <label>Formato · <?= e($nombre) ?> <input name="formato_<?= e($s) ?>" maxlength="40" value="<?= e($oficios[$s]['formato']) ?>" required></label>
+        <label>Siguiente número de <?= date('Y') ?> · <?= e($nombre) ?> <input type="number" name="siguiente_<?= e($s) ?>" min="1" max="99999" value="<?= (int) $oficios[$s]['siguiente'] ?>" required></label>
+      <?php endforeach; ?>
+    </div>
+    <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar numeración</button></div>
+  </form>
+</section>
+
 <section class="tarjeta">
   <h2>Últimos cambios</h2>
   <?php if (!$bitacora): ?><p class="texto-secundario">Sin cambios registrados.</p><?php endif; ?>

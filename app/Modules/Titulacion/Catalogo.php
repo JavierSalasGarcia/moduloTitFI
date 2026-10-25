@@ -248,6 +248,8 @@ final class Catalogo
             ['k' => 'cuenta', 'label' => 'Número de cuenta', 'tipo' => 'texto', 'max' => 12, 'req' => true, 'patron' => '^[0-9]{6,10}$', 'ayuda' => 'Solo dígitos.'],
             ['k' => 'carrera', 'label' => 'Licenciatura', 'tipo' => 'select', 'opciones' => $carreras, 'req' => true],
             ['k' => 'sistema', 'label' => 'Sistema', 'tipo' => 'select', 'opciones' => self::sistemas(), 'req' => true, 'ayuda' => 'Facultad (FI-UAEMéx), unidad incorporada o centro universitario.'],
+            ['k' => 'plan', 'label' => 'Plan de estudios (clave y versión)', 'tipo' => 'texto', 'max' => 12, 'req' => true, 'patron' => '^[A-Za-z]{2,5}-?[A-Za-z0-9]{1,4}$', 'ayuda' => 'Como aparece en tu historial académico, por ejemplo ICO-F2.'],
+            ['k' => 'incorporada', 'label' => 'Escuela incorporada a la UAEM donde cursaste la licenciatura', 'tipo' => 'texto', 'max' => 160, 'req' => false, 'ayuda' => 'Déjalo vacío si estudiaste en la Facultad o en un centro universitario de la UAEM.'],
             ['k' => 'anio_ingreso', 'label' => 'Año de ingreso', 'tipo' => 'texto', 'max' => 4, 'req' => true, 'patron' => '^(19|20)[0-9]{2}$'],
             ['k' => 'anio_egreso', 'label' => 'Año de egreso', 'tipo' => 'texto', 'max' => 4, 'req' => true, 'patron' => '^(19|20)[0-9]{2}$'],
             ['k' => 'telefono', 'label' => 'Teléfono', 'tipo' => 'tel', 'max' => 20, 'req' => true],
@@ -465,7 +467,10 @@ final class Catalogo
             $etapas[] = [
                 'clave' => 'ceneval', 'titulo' => 'Registro y resultado del EGEL', 'tipo' => 'captura',
                 'descripcion' => 'Registra tu examen en sede UAEM, preséntalo y sube tu resultado. Un resultado «Aún no satisfactorio» cuenta como evaluación aplazada.',
-                'campos' => [['k' => 'fecha_examen', 'label' => 'Fecha en que presentaste el EGEL', 'tipo' => 'fecha', 'req' => true]],
+                'campos' => [
+                    ['k' => 'fecha_examen', 'label' => 'Fecha en que presentaste el EGEL', 'tipo' => 'fecha', 'req' => true],
+                    ['k' => 'testimonio', 'label' => 'Testimonio de desempeño obtenido', 'tipo' => 'select', 'opciones' => ['satisfactorio' => 'Desempeño Satisfactorio (DS)', 'sobresaliente' => 'Desempeño Sobresaliente (DSS)', 'aun_no' => 'Aún no satisfactorio'], 'req' => true],
+                ],
                 'documentos' => [
                     self::doc('comprobante_registro_egel', 'Comprobante de registro y pago del EGEL'),
                     self::doc('reporte_ceneval', 'Reporte individual de resultados y Testimonio de Desempeño Satisfactorio o Sobresaliente', 'Emitido por el CENEVAL. El Vo. Bo. y sello de la Subdirección los gestiona Apoyo a Titulación.'),
@@ -547,6 +552,7 @@ final class Catalogo
                 'campos' => [
                     ['k' => 'resultado', 'label' => 'Resultado', 'tipo' => 'select', 'opciones' => $opciones, 'req' => true],
                     ['k' => 'fecha', 'label' => 'Fecha de la evaluación', 'tipo' => 'fecha', 'req' => true],
+                    ['k' => 'acta', 'label' => 'Número de acta (de evaluación profesional; si se aplaza, de aplazamiento)', 'tipo' => 'texto', 'max' => 12, 'req' => true, 'patron' => '^[0-9]{1,8}$', 'ayuda' => 'El que asigna el sistema de actas; no se puede repetir en la licenciatura.'],
                 ],
                 'final' => true,
             ],

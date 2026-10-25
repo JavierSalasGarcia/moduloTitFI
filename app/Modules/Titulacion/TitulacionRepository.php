@@ -22,11 +22,11 @@ final class TitulacionRepository
     public static function obtener(int $id): ?array
     {
         $t = Database::una(
-            'SELECT t.*, u.nombre AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre
+            "SELECT t.*, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre
              FROM tit_tramites t
-             JOIN usuarios u ON u.id = t.alumno_id
+             LEFT JOIN usuarios u ON u.id = t.alumno_id
              LEFT JOIN usuarios r ON r.id = t.responsable_id
-             WHERE t.id = ?',
+             WHERE t.id = ?",
             [$id]
         );
         if ($t === null) {
@@ -107,7 +107,7 @@ final class TitulacionRepository
         return [
             'abiertos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'abierto'"),
             'por_validar' => (int) Database::valor("SELECT COUNT(*) FROM tit_documentos WHERE estado = 'en_revision' AND origen = 'alumno'"),
-            'concluidos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'concluido'"),
+            'concluidos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'concluido' AND historico = 0"),
         ];
     }
 
