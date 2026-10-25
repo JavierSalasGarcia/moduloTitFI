@@ -35,7 +35,7 @@ $firmada = $a['estado'] === 'firmada';
     <dt><strong>Título</strong></dt><dd style="margin:0"><?= e((string) $r['titulo']) ?></dd>
     <dt><strong>Recibido</strong></dt><dd style="margin:0"><?= e(fecha_corta((string) $r['fecha_recepcion'])) ?></dd>
   </dl>
-  <p style="margin:12px 0 0"><a class="btn btn-primario" href="<?= url($base . '/documento') ?>" target="_blank" rel="noopener">Abrir el protocolo (PDF)</a></p>
+  <p style="margin:12px 0 0"><a class="btn btn-primario" href="<?= url(str_contains($base, '/t/') ? $base . '/documento' : \App\Modules\Titulacion\Services\Archivos::url('revision', (int) $a['id'])) ?>" target="_blank" rel="noopener">Abrir el protocolo (PDF)</a></p>
 </section>
 
 <section class="tarjeta">

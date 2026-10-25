@@ -6,12 +6,14 @@ namespace App\Modules\Titulacion;
 use App\Core\Auth;
 use App\Modules\Titulacion\Services\Calendario;
 use App\Modules\Titulacion\Services\FirmaElectronica;
+use App\Modules\Titulacion\Services\Mensajes;
+use App\Modules\Titulacion\Services\Oficios;
 use App\Modules\Titulacion\Services\RevisionProtocolo;
 use InvalidArgumentException;
 use RuntimeException;
 use Throwable;
 
-/** Encargado de comisión: elige a los evaluadores, vigila los plazos y firma el dictamen consolidado. */
+/** Responsable del comité de revisión: envía cada protocolo a los revisores, vigila los plazos y resuelve cada vuelta. */
 final class ComisionController extends TitulacionBase
 {
     private function encargado(): array
@@ -43,14 +45,42 @@ final class ComisionController extends TitulacionBase
             $r['asignaciones'] = $this->decorarAsignaciones(RevisionRepository::asignaciones((int) $r['id']));
         }
         unset($r);
-        $this->vista('comision', ['titulo' => 'Titulación · Mi comisión', 'rondas' => $rondas, 'carreras' => Catalogo::carreras(), 'misCarreras' => $carreras]);
+        // Tablero tipo OJS: revisiones pendientes por color del semáforo.
+        $estado = ['verde' => 0, 'rojo' => 0, 'listo' => 0];
+        foreach ($rondas as $r) {
+            if (in_array($r['estado'], ['en_evaluacion', 'por_dictaminar'], true)) {
+                foreach ($r['asignaciones'] as $a) {
+                    if (isset($estado[$a['semaforo']])) {
+                        $estado[$a['semaforo']]++;
+                    }
+                }
+            }
+        }
+        $this->vista('comision', [
+            'titulo' => 'Titulación · Mi comité de revisión', 'rondas' => $rondas, 'carreras' => Catalogo::carreras(), 'misCarreras' => $carreras,
+            'resumen' => $estado + [
+                'por_enviar' => count(array_filter($rondas, static fn(array $r): bool => $r['estado'] === 'en_comision')),
+                'por_dictaminar' => count(array_filter($rondas, static fn(array $r): bool => $r['estado'] === 'por_dictaminar')),
+            ],
+        ]);
     }
 
     public function ver(string $id): void
     {
         $r = $this->ronda($id);
         $asigs = $this->decorarAsignaciones(RevisionRepository::asignaciones((int) $r['id']));
+        $u = Auth::usuario();
+        $plantilla = Mensajes::plantilla(TitulacionAccess::correoSesion());
+        $tramite = TitulacionRepository::obtener((int) $r['tramite_id']);
         $this->vista('comision_ronda', [
+            'puedeDictaminar' => RevisionProtocolo::puedeDictaminar($r),
+            'revisiones' => RevisionProtocolo::revisiones((int) $r['id']),
+            'plantilla' => $plantilla,
+            'marcas' => Mensajes::valores($r, $u ?? []),
+            'obsOficio' => $tramite ? Oficios::observacionesAprobacion($tramite) : 'Ninguna.',
+            'anteriores' => (int) $r['numero'] > 1 ? RevisionRepository::revisoresAnteriores((int) $r['tramite_id'], (int) $r['numero']) : [],
+            'maxRevisores' => RevisionProtocolo::revisoresPorProtocolo(),
+            'anterior' => (int) $r['numero'] > 1 ? \App\Core\Database::valor('SELECT mensaje FROM tit_revisiones WHERE tramite_id = ? AND numero = ?', [(int) $r['tramite_id'], (int) $r['numero'] - 1]) : null,
             'titulo' => 'Protocolo ' . $r['folio'],
             'r' => $r,
             'asignaciones' => $asigs,
@@ -58,7 +88,6 @@ final class ComisionController extends TitulacionBase
             'asignados' => array_column(array_filter($asigs, static fn(array $a): bool => $a['estado'] !== 'cancelada'), 'miembro_id'),
             'dias' => Calendario::diasPlazo(),
             'limite' => Calendario::agregarHabiles(new \DateTimeImmutable('today'), Calendario::diasPlazo())->format('d/m/Y'),
-            'sugeridas' => $r['estado'] === 'por_dictaminar' ? RevisionProtocolo::observacionesSugeridas((int) $r['id']) : '',
             'nivelFirma' => FirmaElectronica::nivelRevisores(),
             'carreras' => Catalogo::carreras(),
         ]);
@@ -130,10 +159,15 @@ final class ComisionController extends TitulacionBase
                 throw new RuntimeException('Verifica tu correo para poder firmar.');
             }
             RevisionProtocolo::dictaminar($r, [
-                'dictamen' => $this->post('dictamen'), 'requiere_coord' => $this->post('requiere_coord'), 'observaciones' => $this->post('observaciones'),
+                'dictamen' => $this->post('dictamen'), 'requiere_coord' => $this->post('requiere_coord', 'no'),
+                'revisores' => is_array($_POST['revisor'] ?? null) ? array_map('strval', $_POST['revisor']) : [],
+                'propias' => $this->post('propias'), 'asunto' => $this->post('asunto'), 'mensaje' => (string) ($_POST['mensaje'] ?? ''),
+                'obs_oficio' => (string) ($_POST['obs_oficio'] ?? ''),
             ], $u, $this->post('codigo_2fa'));
             $this->sincronizar((int) $r['tramite_id']);
-            flash('exito', 'Dictamen firmado y enviado al pasante.');
+            flash('exito', $this->post('dictamen') === 'aprobado'
+                ? 'Protocolo aprobado. Se avisó al pasante y el oficio de aprobación pasó a firmas (Vo. Bo. de la Jefatura y Subdirección).'
+                : 'Dictamen enviado al pasante; lo verá en sus Notificaciones y podrá subir su versión corregida.');
         } catch (InvalidArgumentException | RuntimeException $e) {
             flash('error', $e->getMessage());
         } catch (Throwable $e) {
@@ -151,5 +185,27 @@ final class ComisionController extends TitulacionBase
             $this->noEncontrado();
         }
         $this->enviarArchivo((string) $a['pdf_ruta'], $r['folio'] . '_revision.pdf', true);
+    }
+
+    /** Guarda o restablece la plantilla del mensaje de cada vuelta de quien tiene la sesión. */
+    public function plantilla(): void
+    {
+        $this->encargado();
+        $volver = (string) ($_POST['volver'] ?? '');
+        $volver = preg_match('#^titulacion/comision/\d+$#D', $volver) ? $volver : 'titulacion/comision';
+        if ($this->post('accion') === 'restablecer') {
+            Mensajes::restablecerPlantilla(TitulacionAccess::correoSesion());
+            flash('exito', 'Se restableció la plantilla original.');
+        } else {
+            $asunto = $this->post('asunto');
+            $cuerpo = trim(str_replace("\r", '', (string) ($_POST['cuerpo'] ?? '')));
+            if ($asunto === '' || mb_strlen($cuerpo) < 20 || !str_contains($cuerpo, '{observaciones}')) {
+                flash('error', 'La plantilla necesita asunto y cuerpo, y debe incluir {observaciones} donde van las observaciones de los revisores.');
+            } else {
+                Mensajes::guardarPlantilla(TitulacionAccess::correoSesion(), $asunto, $cuerpo);
+                flash('exito', 'Plantilla guardada; se usará en tus próximos mensajes.');
+            }
+        }
+        redirigir($volver . '#mensaje');
     }
 }

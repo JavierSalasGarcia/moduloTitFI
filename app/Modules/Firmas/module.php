@@ -37,7 +37,7 @@ return [
         'GET /firmas/mi-firma-imagen'       => [FirmasController::class, 'miFirmaImagen'],
         'GET /firmas/ayuda'                 => [FirmasController::class, 'ayuda'],
         'GET /firmas/certificado'           => [FirmasController::class, 'descargarCertificado'],
-        'GET /firmas/documento/{id}'        => [FirmasController::class, 'descargarDocumento'],
+        'GET /firmas/documento/{id}'        => [FirmasController::class, 'descargarDocumento', 'token'],
         'GET /firmas/grupos'                => [GruposController::class, 'index'],
         'POST /firmas/grupos'               => [GruposController::class, 'crear'],
         'POST /firmas/grupos/{id}/miembros' => [GruposController::class, 'agregarMiembro'],

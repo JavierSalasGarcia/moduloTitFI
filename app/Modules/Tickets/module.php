@@ -18,6 +18,6 @@ return [
         'POST /tickets/{id}/clasificar' => [TicketsController::class, 'clasificar'],
         'POST /tickets/{id}/rechazar'   => [TicketsController::class, 'rechazar'],
         'POST /tickets/{id}/redirigir'  => [TicketsController::class, 'redirigir'],
-        'GET /tickets/archivo/{id}'     => [TicketsController::class, 'descargarArchivo'],
+        'GET /tickets/archivo/{id}'     => [TicketsController::class, 'descargarArchivo', 'token'],
     ],
 ];

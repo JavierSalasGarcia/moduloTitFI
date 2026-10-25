@@ -42,9 +42,9 @@
               </td>
               <td class="oculta-movil texto-suave"><?= e(str_replace('_', ' ', $d['tipo'])) ?> · subió <?= e($d['subido_por']) ?></td>
               <td>
-                <a class="enlace" href="<?= url('firmas/documento/' . $d['id']) ?>">original</a>
+                <a class="enlace" href="<?= url_archivo('firmas/documento/' . $d['id']) ?>">original</a>
                 <?php if ($d['archivo_firmado']): ?>
-                  · <a class="enlace" href="<?= url('firmas/documento/' . $d['id'] . '?v=firmado') ?>"><strong>firmado</strong></a>
+                  · <a class="enlace" href="<?= url_archivo('firmas/documento/' . $d['id']) . '?v=firmado' ?>"><strong>firmado</strong></a>
                 <?php endif; ?>
               </td>
             </tr>
@@ -97,7 +97,7 @@
       <p class="texto-suave">Revisa los documentos y su huella del Algoritmo de Hash Seguro de 256 bits (SHA-256), que permite detectar cambios, antes de autorizar la firma.</p>
       <?php foreach ($documentos as $vd): if ($vd['tipo'] !== 'hoja_firmas'): ?>
         <div style="position:relative;height:240px;margin:10px 0;border:1px solid var(--gris-200);overflow:hidden;background:#f3f4f6">
-          <iframe src="<?= url('firmas/documento/' . $vd['id']) ?>#toolbar=0" title="Visor PDF" style="width:100%;height:100%;border:0"></iframe>
+          <iframe src="<?= url_archivo('firmas/documento/' . $vd['id']) ?>#toolbar=0" title="Visor PDF" style="width:100%;height:100%;border:0"></iframe>
           <div class="zona-firma" style="position:absolute;right:12%;bottom:12%;width:150px;height:55px;border:2px dashed #b08b1e;background:rgba(255,248,210,.65);cursor:move"></div>
         </div>
       <?php endif; endforeach; ?>

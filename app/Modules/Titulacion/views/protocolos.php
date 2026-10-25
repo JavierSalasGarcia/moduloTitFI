@@ -28,13 +28,13 @@ $estados = ['recibida' => 'Por turnar', 'en_comision' => 'En la comisión', 'en_
         <select name="carrera" required>
           <?php foreach ($carreras as $k => $cc): ?><option value="<?= e($k) ?>" <?= $r['carrera'] === $k ? 'selected' : '' ?>><?= e(implode('/', $cc['siglas'])) ?> · <?= e($cc['nombre']) ?></option><?php endforeach; ?>
         </select></label>
-      <a class="btn btn-mini" href="<?= url('titulacion/protocolos/' . (int) $r['id'] . '/documento') ?>" target="_blank" rel="noopener">Ver protocolo (PDF)</a>
+      <a class="btn btn-mini" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('protocolo', (int) $r['id'])) ?>" target="_blank" rel="noopener">Ver protocolo (PDF)</a>
       <button class="btn btn-primario" type="submit">Turnar a la comisión</button>
     </form>
   <?php else: ?>
     <p class="texto-secundario" style="margin:4px 0">Comisión: <strong><?= e($c ? implode('/', $c['siglas']) : '—') ?></strong>
       <?php if ($r['total'] > 0): ?> · <?= (int) $r['firmadas'] ?> de <?= (int) $r['total'] ?> revisiones firmadas<?php endif; ?>
-      <a href="<?= url('titulacion/protocolos/' . (int) $r['id'] . '/documento') ?>" target="_blank" rel="noopener" style="margin-left:8px">Ver protocolo</a></p>
+      <a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('protocolo', (int) $r['id'])) ?>" target="_blank" rel="noopener" style="margin-left:8px">Ver protocolo</a></p>
     <?php if (!empty($r['asignaciones'])): ?>
     <div class="tabla-contenedor"><table class="tabla">
       <thead><tr><th>Evaluador</th><th>Límite</th><th>Semáforo</th><th></th></tr></thead>

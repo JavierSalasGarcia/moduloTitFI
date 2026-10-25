@@ -65,6 +65,16 @@ final class RevisionRepository
         return Database::todas('SELECT * FROM tit_revisiones WHERE tramite_id = ? ORDER BY numero DESC', [$tramiteId]);
     }
 
+    /** Integrantes que firmaron la vuelta anterior del mismo trámite (para proponerlos en una nueva vuelta). @return int[] */
+    public static function revisoresAnteriores(int $tramiteId, int $numero): array
+    {
+        return array_map('intval', array_column(Database::todas(
+            "SELECT a.miembro_id FROM tit_revision_asignaciones a JOIN tit_revisiones r ON r.id = a.revision_id
+             WHERE r.tramite_id = ? AND r.numero = ? AND a.estado = 'firmada'",
+            [$tramiteId, $numero - 1]
+        ), 'miembro_id'));
+    }
+
     public static function rondaAbierta(int $tramiteId): ?array
     {
         return Database::una(
@@ -115,7 +125,7 @@ final class RevisionRepository
         $sets = [];
         $p = [];
         foreach ($campos as $col => $v) {
-            if (!in_array($col, ['estado', 'enviada_por', 'enviada_en', 'evaluacion_en', 'dictamen', 'requiere_coord', 'observaciones', 'dictaminado_por', 'dictaminado_en', 'firma_tipo', 'dictamen_ruta', 'dictamen_hash', 'documento_id', 'carrera'], true)) {
+            if (!in_array($col, ['estado', 'enviada_por', 'enviada_en', 'evaluacion_en', 'dictamen', 'requiere_coord', 'observaciones', 'mensaje', 'obs_oficio', 'dictaminado_por', 'dictaminado_en', 'firma_tipo', 'dictamen_ruta', 'dictamen_hash', 'documento_id', 'carrera'], true)) {
                 continue;
             }
             $sets[] = $col . ' = ?';

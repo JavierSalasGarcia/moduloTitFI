@@ -17,9 +17,18 @@ final class Correo
         return rtrim((string) App::config('app.url_publica', ''), '/') . url($ruta);
     }
 
-    /** @param string|array $nombre nombre, o persona con 'nombre', 'grado' y 'genero' (se completa con los datos de su cuenta si la tiene) */
-    public static function enviar(string $para, string|array $nombre, string $asunto, string $parrafos, ?string $boton, ?string $urlBoton, string $tipo, ?int $tramiteId = null): bool
+    /**
+     * Deja el aviso en la bandeja de Notificaciones de la persona y le manda un correo que lo alerta.
+     * Los enlaces con token no se guardan en la bandeja: ahí el aviso lleva a «Mis pendientes», donde se atiende con sesión.
+     * @param string|array $nombre nombre, o persona con 'nombre', 'grado' y 'genero' (se completa con los datos de su cuenta si la tiene)
+     * @param bool $notificar false cuando quien llama ya dejó el aviso completo en la bandeja
+     */
+    public static function enviar(string $para, string|array $nombre, string $asunto, string $parrafos, ?string $boton, ?string $urlBoton, string $tipo, ?int $tramiteId = null, bool $notificar = true): bool
     {
+        if ($notificar) {
+            $enlace = $urlBoton === null ? null : (str_contains($urlBoton, '/t/') ? self::enlace('titulacion/pendientes') : $urlBoton);
+            \App\Modules\Notificaciones\Notificaciones::crear($para, $asunto, $parrafos, $enlace, 'titulacion', $tramiteId);
+        }
         $persona = \App\Core\Persona::completar(is_array($nombre) ? $nombre : ['nombre' => $nombre], $para);
         $saludo = \App\Core\Persona::saludo($persona);
         $esc = static fn(string $t): string => htmlspecialchars($t, ENT_QUOTES, 'UTF-8');

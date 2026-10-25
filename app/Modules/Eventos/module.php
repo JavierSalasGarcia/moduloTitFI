@@ -16,6 +16,6 @@ return [
         'POST /eventos'                => [EventosController::class, 'crear'],
         'GET /eventos/{id}'            => [EventosController::class, 'detalle'],
         'POST /eventos/{id}/suscribir' => [EventosController::class, 'suscribir'],
-        'GET /eventos/{id}/exportar-ics'=> [EventosController::class, 'exportarIcs'],
+        'GET /eventos/{id}/exportar-ics'=> [EventosController::class, 'exportarIcs', 'token'],
     ],
 ];

@@ -3,15 +3,13 @@ declare(strict_types=1);
 
 namespace App\Modules\Titulacion;
 
-use App\Core\App;
 use App\Core\Database;
-use InvalidArgumentException;
 use Throwable;
 
 /**
- * Capa de configuración editable por la administración: formatos (plantilla y coordenadas),
- * requisitos documentales (activo, entrega física, cotejo) y documentos añadidos. Se superpone
- * al catálogo base; sin base de datos disponible el catálogo funciona tal como está en código.
+ * Capa de configuración editable por la administración: requisitos documentales (activo, entrega física,
+ * cotejo) y documentos añadidos. Se superpone al catálogo base; sin base de datos disponible el catálogo
+ * funciona tal como está en código. Los formatos los genera la plataforma (Services\FormatosOficiales).
  */
 final class Configuracion
 {
@@ -27,102 +25,20 @@ final class Configuracion
         if (self::$cache !== null) {
             return self::$cache;
         }
-        $vacio = ['formatos' => [], 'docs' => [], 'extras' => []];
+        $vacio = ['docs' => [], 'extras' => []];
         if (!class_exists(Database::class)) {
             return self::$cache = $vacio;
         }
         try {
-            foreach (Database::todas('SELECT * FROM tit_formatos_cfg') as $f) {
-                $vacio['formatos'][$f['clave']] = $f;
-            }
             foreach (Database::todas('SELECT * FROM tit_docs_cfg') as $d) {
                 $vacio['docs'][$d['modalidad'] . '|' . $d['clave']] = $d;
             }
             $vacio['extras'] = Database::todas('SELECT * FROM tit_docs_extra ORDER BY id');
         } catch (Throwable $e) {
             error_log('Titulación: configuración no disponible: ' . $e->getMessage());
-            $vacio = ['formatos' => [], 'docs' => [], 'extras' => []];
+            $vacio = ['docs' => [], 'extras' => []];
         }
         return self::$cache = $vacio;
-    }
-
-    // ------------------------------------------------------------------ formatos
-
-    public static function formatoCfg(string $clave): ?array
-    {
-        return self::datos()['formatos'][$clave] ?? null;
-    }
-
-    /** @return array<string,array<string,mixed>> */
-    public static function formatosCfg(): array
-    {
-        return self::datos()['formatos'];
-    }
-
-    public static function aplicarFormatos(array $base): array
-    {
-        $cfg = self::datos()['formatos'];
-        foreach ($base as $clave => &$f) {
-            $f += ['activo' => true, 'personalizado' => false, 'etapa' => null, 'modalidades' => null];
-            if (isset($cfg[$clave])) {
-                $f['activo'] = (bool) $cfg[$clave]['activo'];
-                $f['nombre'] = $cfg[$clave]['nombre'] ?: $f['nombre'];
-                $f['firma'] = $cfg[$clave]['firma'] ?: $f['firma'];
-            }
-        }
-        unset($f);
-        foreach ($cfg as $clave => $c) {
-            if ((int) $c['personalizado'] === 1 && !isset($base[$clave])) {
-                $base[$clave] = [
-                    'tipo' => 'pdf', 'nombre' => (string) $c['nombre'], 'firma' => (string) ($c['firma'] ?: 'el pasante'),
-                    'activo' => (bool) $c['activo'], 'personalizado' => true,
-                    'etapa' => $c['etapa'], 'modalidades' => $c['modalidades'] ?: '*',
-                ];
-            }
-        }
-        return $base;
-    }
-
-    private static function dirStorage(): string
-    {
-        return rtrim((string) App::config('archivos.storage'), '/\\');
-    }
-
-    /**
-     * Especificación y plantilla vigentes de un formato PDF: lo guardado por la administración
-     * o, si no hay cambios, los valores originales que acompañan al módulo.
-     *
-     * @return array{spec: array, plantilla: string}|null
-     */
-    public static function resolverPdf(string $clave): ?array
-    {
-        $cfg = self::formatoCfg($clave);
-        $original = \App\Modules\Titulacion\Services\PdfFormato::specs()[$clave] ?? null;
-        $spec = null;
-        if ($cfg && !empty($cfg['spec'])) {
-            $json = json_decode((string) $cfg['spec'], true);
-            $spec = is_array($json) ? $json : null;
-        }
-        $spec ??= $original;
-        if ($spec === null) {
-            return null;
-        }
-        if ($cfg && !empty($cfg['plantilla_ruta'])) {
-            $ruta = self::dirStorage() . '/' . $cfg['plantilla_ruta'];
-        } else {
-            $ruta = dirname(__FILE__) . '/plantillas/' . ($original['plantilla'] ?? $spec['plantilla'] ?? '');
-        }
-        return is_file($ruta) ? ['spec' => $spec, 'plantilla' => $ruta] : null;
-    }
-
-    /** Hoja membretada del protocolo: la reemplazada por la administración o la que trae el módulo. */
-    public static function rutaProtocolo(): string
-    {
-        $cfg = self::formatoCfg('protocolo');
-        if ($cfg && !empty($cfg['plantilla_ruta']) && is_file(self::dirStorage() . '/' . $cfg['plantilla_ruta'])) {
-            return self::dirStorage() . '/' . $cfg['plantilla_ruta'];
-        }
-        return __DIR__ . '/plantillas/docx/Membretada.docx';
     }
 
     // ----------------------------------------------------------------- documentos
@@ -177,15 +93,6 @@ final class Configuracion
         $formatos = Catalogo::formatos();
         $extras = self::extras($modalidad);
         foreach ($etapas as &$e) {
-            if (!empty($e['formatos'])) {
-                $e['formatos'] = array_values(array_filter($e['formatos'], static fn(string $f): bool => ($formatos[$f]['activo'] ?? true)));
-            }
-            foreach ($formatos as $clave => $f) {
-                if (!empty($f['personalizado']) && $f['activo'] && $f['etapa'] === $e['clave']
-                    && ($f['modalidades'] === '*' || in_array($modalidad, explode(',', (string) $f['modalidades']), true))) {
-                    $e['formatos'][] = $clave;
-                }
-            }
             $docs = [];
             foreach ($e['documentos'] ?? [] as $d) {
                 $docs[] = $d;
@@ -212,7 +119,7 @@ final class Configuracion
                 if (!$d['activo']) {
                     continue;
                 }
-                if (!empty($d['formato']) && !($formatos[$d['formato']]['activo'] ?? true)) {
+                if (!empty($d['formato']) && !isset($formatos[$d['formato']])) {
                     $d['formato'] = null;
                 }
                 $resultado[] = $d;
@@ -263,81 +170,5 @@ final class Configuracion
             );
         }
         self::reiniciar();
-    }
-
-    // ------------------------------------------------------------------ validación
-
-    /**
-     * Valida y normaliza una especificación enviada desde el visor.
-     *
-     * @param array<string,array> $variables Formatos::variables()
-     */
-    public static function validarSpec(array $in, array $variables, array $base): array
-    {
-        $paginas = max(1, (int) ($base['paginas'] ?? 1));
-        $num = static function (mixed $v, float $min, float $max, string $que): float {
-            if (!is_numeric($v) || (float) $v < $min || (float) $v > $max) {
-                throw new InvalidArgumentException('Valor fuera de rango en ' . $que . '.');
-            }
-            return round((float) $v, 1);
-        };
-        $ancho = (float) $base['ancho'];
-        $alto = (float) $base['alto'];
-        $campos = [];
-        if (!isset($in['campos']) || !is_array($in['campos']) || count($in['campos']) > 120) {
-            throw new InvalidArgumentException('La lista de campos no es válida (máximo 120).');
-        }
-        foreach ($in['campos'] as $c) {
-            $k = (string) ($c['k'] ?? '');
-            if (!isset($variables[$k]) || !is_array($c)) {
-                throw new InvalidArgumentException('Campo desconocido: ' . $k . '.');
-            }
-            $tipo = (string) ($c['tipo'] ?? '');
-            $p = (int) $num($c['p'] ?? 0, 0, $paginas - 1, 'la página de ' . $k);
-            $var = $variables[$k];
-            if ($tipo === 'marca') {
-                if ($var['tipo'] !== 'marca') {
-                    throw new InvalidArgumentException('«' . $k . '» no es un campo de casillas.');
-                }
-                $m = [];
-                foreach ((array) ($c['m'] ?? []) as $opcion => $xy) {
-                    if (!isset($var['opciones'][$opcion]) || !is_array($xy) || count($xy) < 2) {
-                        continue;
-                    }
-                    $m[(string) $opcion] = [$num($xy[0], 0, $ancho, $k), $num($xy[1], 0, $alto, $k)];
-                }
-                $campos[] = ['k' => $k, 'tipo' => 'marca', 'p' => $p, 'm' => $m];
-            } elseif ($tipo === 'parrafo') {
-                $cajas = [];
-                foreach (array_slice((array) ($c['cajas'] ?? []), 0, 12) as $b) {
-                    $cajas[] = [$num($b[0] ?? null, 0, $ancho, $k), $num($b[1] ?? null, 0, $alto, $k), $num($b[2] ?? null, 4, $ancho, $k), $num($b[3] ?? null, 4, 200, $k)];
-                }
-                if (!$cajas) {
-                    throw new InvalidArgumentException('El párrafo «' . $k . '» necesita al menos un renglón.');
-                }
-                $campos[] = ['k' => $k, 'tipo' => 'parrafo', 'p' => $p, 'cajas' => $cajas, 's' => $num($c['s'] ?? 10, 5, 24, 'el tamaño de ' . $k)];
-            } elseif ($tipo === 'texto') {
-                if ($var['tipo'] === 'marca') {
-                    throw new InvalidArgumentException('«' . $k . '» se coloca con casillas.');
-                }
-                $a = in_array($c['a'] ?? 'L', ['L', 'C', 'R'], true) ? $c['a'] : 'L';
-                $campos[] = ['k' => $k, 'tipo' => 'texto', 'p' => $p, 'x' => $num($c['x'] ?? null, 0, $ancho, $k), 'y' => $num($c['y'] ?? null, 0, $alto, $k),
-                    'w' => $num($c['w'] ?? null, 4, $ancho, $k), 'h' => $num($c['h'] ?? null, 4, 200, $k), 's' => $num($c['s'] ?? 10, 5, 24, 'el tamaño de ' . $k), 'a' => $a];
-            } else {
-                throw new InvalidArgumentException('Tipo de campo no válido en ' . $k . '.');
-            }
-        }
-        $sub = [];
-        foreach (array_slice((array) ($in['subdirector'] ?? []), 0, 8) as $b) {
-            $sub[] = [
-                'p' => (int) $num($b['p'] ?? 0, 0, $paginas - 1, 'el nombre del subdirector'),
-                'x' => $num($b['x'] ?? null, 0, $ancho, 'subdirector'), 'y' => $num($b['y'] ?? null, 0, $alto, 'subdirector'),
-                'w' => $num($b['w'] ?? null, 10, $ancho, 'subdirector'), 'h' => $num($b['h'] ?? null, 4, 60, 'subdirector'),
-                's' => $num($b['s'] ?? 11, 5, 24, 'subdirector'), 'negrita' => !empty($b['negrita']),
-                'fondo' => array_map(static fn($v): int => max(0, min(255, (int) $v)), array_slice((array) ($b['fondo'] ?? [255, 255, 255]), 0, 3)) + [255, 255, 255],
-            ];
-        }
-        return ['plantilla' => $base['plantilla'], 'ancho' => $ancho, 'alto' => $alto, 'campos' => $campos,
-            'subdirector' => $sub, 'subdirector_impreso' => (string) ($base['subdirector_impreso'] ?? 'DR. JAVIER SALAS GARCÍA')];
     }
 }
