@@ -30,7 +30,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 </style>
 
 <div class="tit-cabecera"><div>
-  <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor.</p>
+  <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
 </div></div>
 
 <section class="tarjeta" style="margin-bottom:14px">
@@ -140,6 +140,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
         td.classList.remove('guardando');
         if (!r.ok) { td.classList.add('error'); td.title = r.error; alert(r.error); el.value = previo; return; }
         previo = el.value; pintar(tr, r.fila);
+        if (r.fila.regeneradas > 0) { tr.querySelector('[data-nota]').textContent = r.fila.regeneradas + ' constancia(s) corregida(s); vuelven a firma'; }
       }).catch(function () { td.classList.remove('guardando'); td.classList.add('error'); el.value = previo; });
     });
   });

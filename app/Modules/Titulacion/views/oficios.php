@@ -26,7 +26,7 @@ include __DIR__ . '/_estilos.php';
         <td><?= e($o['asunto']) ?></td>
         <td><a href="<?= url('titulacion/ruta/' . (int) $o['tramite_id']) ?>"><?= e($o['folio']) ?></a></td>
         <td><?= e((string) ($o['generado_nombre'] ?? 'Plataforma')) ?></td>
-        <td><?php if ($o['documento_id']): ?><a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $o['tramite_id'] . '/documento/' . (int) $o['documento_id']) ?>" target="_blank" rel="noopener">PDF</a>
+        <td><?php if ($o['documento_id']): ?><a class="btn btn-mini" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('ruta_doc', (int) $o['tramite_id'], (int) $o['documento_id'])) ?>" target="_blank" rel="noopener">PDF</a>
           <?php elseif ($o['verificacion'] && $o['guardado']): ?><a class="btn btn-mini" href="<?= url('verificar/' . $o['verificacion']) ?>" target="_blank" rel="noopener">Verificar</a>
           <?php else: ?><span class="tit-chip rev">No emitido</span><?php endif; ?></td>
       </tr>

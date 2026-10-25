@@ -15,13 +15,13 @@ $vuelta = Mensajes::ordinal((int) $r['numero']);
   <h2 style="margin:4px 0"><?= e($r['alumno_nombre']) ?> · <?= e($r['folio']) ?> <small class="texto-secundario">(<?= e($vuelta) ?> vuelta<?= $correccion ? ', versión corregida' : '' ?>)</small></h2>
   <p class="texto-secundario">«<?= e((string) $r['titulo']) ?>» · <?= e(\App\Modules\Titulacion\Catalogo::modalidad((string) $r['modalidad'])['nombre'] ?? '') ?></p>
 </div>
-<div><a class="btn btn-primario" href="<?= url('titulacion/protocolos/' . (int) $r['id'] . '/documento') ?>" target="_blank" rel="noopener">Ver protocolo (PDF)</a></div></div>
+<div><a class="btn btn-primario" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('protocolo', (int) $r['id'])) ?>" target="_blank" rel="noopener">Ver protocolo (PDF)</a></div></div>
 
 <?php if ($r['estado'] === 'dictaminada'): ?>
   <section class="tarjeta" style="margin-bottom:16px">
     <h2>Vuelta resuelta</h2>
     <p><span class="tit-chip <?= $r['dictamen'] === 'aprobado' ? 'ok' : 'mal' ?>"><?= $r['dictamen'] === 'aprobado' ? 'Aprobado' : 'Con observaciones' ?></span>
-      · <?= e(fecha_corta((string) $r['dictaminado_en'])) ?> · <a href="<?= url('titulacion/licenciatura/tramite/' . (int) $r['tramite_id'] . '/dictamen/' . (int) $r['id']) ?>" target="_blank" rel="noopener">Ver dictamen firmado (PDF)</a></p>
+      · <?= e(fecha_corta((string) $r['dictaminado_en'])) ?> · <a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_dictamen', (int) $r['tramite_id'], (int) $r['id'])) ?>" target="_blank" rel="noopener">Ver dictamen firmado (PDF)</a></p>
     <?php if ($r['mensaje']): ?><details><summary>Mensaje enviado al pasante</summary><div class="tit-ok" style="white-space:pre-wrap"><?= e((string) $r['mensaje']) ?></div></details><?php endif; ?>
   </section>
 <?php endif; ?>
@@ -43,7 +43,7 @@ $vuelta = Mensajes::ordinal((int) $r['numero']);
         <td><?= e($a['miembro_nombre']) ?><br><span class="texto-secundario"><?= e($a['miembro_email']) ?></span></td>
         <td><?= e(date('d/m/Y', strtotime((string) $a['asignada_en']))) ?><?= (int) $a['recordatorios'] ? '<br><small class="texto-secundario">' . (int) $a['recordatorios'] . ' recordatorio(s)</small>' : '' ?></td>
         <td><?php include __DIR__ . '/_semaforo.php'; ?></td>
-        <td><?php if ($a['estado'] === 'firmada'): ?><?= e($etiquetas[$a['propuesta']] ?? '') ?> · <a href="<?= url($base . '/revision/' . (int) $a['id']) ?>" target="_blank" rel="noopener">Ver PDF</a><?php else: ?>—<?php endif; ?></td>
+        <td><?php if ($a['estado'] === 'firmada'): ?><?= e($etiquetas[$a['propuesta']] ?? '') ?> · <a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('comision_revision', (int) $r['id'], (int) $a['id'])) ?>" target="_blank" rel="noopener">Ver PDF</a><?php else: ?>—<?php endif; ?></td>
         <td style="white-space:nowrap">
           <?php if (in_array($a['estado'], ['pendiente', 'borrador'], true)): ?>
             <?php if ($a['semaforo'] === 'rojo'): ?>

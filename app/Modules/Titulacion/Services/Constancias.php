@@ -131,30 +131,95 @@ final class Constancias
         return (count($o) > 1 ? implode(', ', array_slice($o, 0, -1)) . ' y ' . end($o) . ' vueltas' : $o[0] . ' vuelta') . ' de revisión';
     }
 
+    /** Huella de lo que dice la constancia (persona, trámite y detalle); si cambia, la constancia se regenera. */
+    private static function huella(array $tramite, string $tipo, array $p, array $detalle): string
+    {
+        $x = FormatosOficiales::datos($tramite);
+        ksort($detalle);
+        return hash('sha256', json_encode([
+            $tipo, mb_strtolower(trim((string) $p['nombre'])), (string) ($p['grado'] ?? ''), (string) ($p['genero'] ?? ''), strtolower((string) $p['email']),
+            $x['nombre'], $x['cuenta'], $x['carrera'], $x['modalidad'], $x['titulo'], array_map('strval', $detalle),
+        ], JSON_UNESCAPED_UNICODE));
+    }
+
     /**
-     * Genera la constancia si aún no existe para esa persona, trámite y tipo, y la pone en la cola de firmas.
+     * Genera la constancia y la pone en la cola de firmas. Si ya existe (mismo trámite, tipo y rol) y sus datos
+     * cambiaron, se regenera sobre el mismo archivo, con el mismo número de oficio y el mismo QR, se anula la firma
+     * anterior y vuelve a la cola de firmas. Devuelve si generó o regeneró.
      * @param array $persona ['nombre','email', y si se conocen 'grado','genero']
      * @param array $detalle desde, hasta (fecha que avala), vueltas, funcion, acta
+     * @param string $rol quién es en el trámite (director, codirector, presidente…); vacío = la persona por su correo
      */
-    public static function emitir(array $tramite, string $tipo, array $persona, array $detalle, int $usuarioId): bool
+    public static function emitir(array $tramite, string $tipo, array $persona, array $detalle, int $usuarioId, string $rol = ''): bool
     {
         $tid = (int) $tramite['id'];
         $email = strtolower(trim((string) $persona['email']));
-        if (!isset(self::TIPOS[$tipo]) || $email === '' || Database::valor('SELECT id FROM tit_constancias WHERE tramite_id = ? AND email = ? AND tipo = ?', [$tid, $email, $tipo])) {
+        if (!isset(self::TIPOS[$tipo]) || $email === '') {
             return false;
         }
+        $rol = $rol !== '' ? $rol : $email;
         $p = Persona::completar($persona, $email);
+        $huella = self::huella($tramite, $tipo, $p, $detalle);
+        $previa = Database::una('SELECT * FROM tit_constancias WHERE tramite_id = ? AND tipo = ? AND (rol = ? OR (rol = \'\' AND email = ?))', [$tid, $tipo, $rol, $email]);
+        if ($previa && $previa['huella'] === $huella) {
+            return false;
+        }
         $emisor = self::TIPOS[$tipo][2];
-        [$bytes, $caja] = Oficios::constancia($tramite, $tipo, $p, $detalle, self::texto($tipo));
+        $doc = $previa && $previa['documento_id'] ? TitulacionRepository::documento((int) $previa['documento_id']) : null;
+        $reuso = null;
+        if ($doc) {
+            $codigo = Database::valor('SELECT codigo FROM tit_verificaciones WHERE documento_id = ?', [(int) $doc['id']]);
+            $reuso = ['codigo' => $codigo ?: null, 'oficio' => $codigo ? Database::valor('SELECT texto FROM tit_oficios WHERE verificacion = ?', [$codigo]) : null];
+        }
+        [$bytes, $caja] = Oficios::constancia($tramite, $tipo, $p, $detalle, self::texto($tipo), $reuso);
+        if ($doc && !empty($doc['ruta'])) {
+            // Corrección: mismo archivo, sin la firma anterior (el contenido cambió), y de vuelta a la cola de firmas.
+            DocumentosGenerados::sobrescribir((string) $doc['ruta'], $bytes);
+            self::anularFirma($doc);
+            Database::ejecutar('UPDATE tit_constancias SET email = ?, nombre = ?, rol = ?, huella = ?, detalle = ? WHERE id = ?',
+                [$email, mb_substr((string) $p['nombre'], 0, 160), $rol, $huella, json_encode($detalle, JSON_UNESCAPED_UNICODE), (int) $previa['id']]);
+            SubdireccionFirma::solicitar($tramite, (int) $doc['id'], 'constancia', self::TIPOS[$tipo][0] . ' (corregida): ' . $p['nombre'], $caja, $emisor);
+            return true;
+        }
         $ruta = DocumentosGenerados::guardar($tramite, 'constancia_' . $tipo, $bytes);
-        $clave = 'constancia_' . substr(hash('sha256', $tipo . '|' . $email), 0, 16);
+        $clave = 'constancia_' . substr(hash('sha256', $tipo . '|' . $rol), 0, 16);
         $docId = TitulacionRepository::registrarDocumento($tid, 'constancias', $clave, 'personal', 'aprobado', $ruta, 'constancia_' . $tipo . '_' . $tramite['folio'] . '.pdf', $usuarioId);
         Database::ejecutar(
-            'INSERT INTO tit_constancias (tramite_id, email, nombre, tipo, emisor, vueltas, documento_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [$tid, $email, mb_substr((string) $p['nombre'], 0, 160), $tipo, $emisor, mb_substr((string) ($detalle['vueltas'] ?? ''), 0, 40), $docId]
+            'INSERT INTO tit_constancias (tramite_id, email, nombre, tipo, rol, emisor, vueltas, huella, detalle, documento_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [$tid, $email, mb_substr((string) $p['nombre'], 0, 160), $tipo, $rol, $emisor, mb_substr((string) ($detalle['vueltas'] ?? ''), 0, 40), $huella, json_encode($detalle, JSON_UNESCAPED_UNICODE), $docId]
         );
         SubdireccionFirma::solicitar($tramite, $docId, 'constancia', self::TIPOS[$tipo][0] . ': ' . $p['nombre'], $caja, $emisor);
         return true;
+    }
+
+    /** Quita la firma de un documento cuyo contenido cambió: borra el PDF firmado y cancela las solicitudes. */
+    private static function anularFirma(array $doc): void
+    {
+        $almacen = FirmaElectronica::almacen();
+        foreach (Database::todas('SELECT ruta_firmado FROM tit_firmas_subdireccion WHERE documento_id = ? AND ruta_firmado IS NOT NULL', [(int) $doc['id']]) as $f) {
+            if ($f['ruta_firmado'] !== $doc['ruta']) {
+                @unlink($almacen . '/' . $f['ruta_firmado']);
+            }
+        }
+        if (!empty($doc['subdir_ruta']) && $doc['subdir_ruta'] !== $doc['ruta']) {
+            @unlink($almacen . '/' . $doc['subdir_ruta']);
+        }
+        Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado', ruta_firmado = NULL WHERE documento_id = ? AND estado IN ('pendiente', 'firmado')", [(int) $doc['id']]);
+        Database::ejecutar('UPDATE tit_documentos SET subdir_en = NULL, subdir_capacidad = NULL, subdir_ruta = NULL WHERE id = ?', [(int) $doc['id']]);
+    }
+
+    /** Anula una constancia que ya no corresponde (por ejemplo, se quitó al codirector): borra sus archivos y la retira de la cuenta del profesor. */
+    public static function anular(array $c): void
+    {
+        $doc = $c['documento_id'] ? TitulacionRepository::documento((int) $c['documento_id']) : null;
+        if ($doc) {
+            self::anularFirma($doc);
+            if (!empty($doc['ruta'])) {
+                @unlink(FirmaElectronica::almacen() . '/' . $doc['ruta']);
+            }
+            Database::ejecutar("UPDATE tit_documentos SET estado = 'no_aplica', ruta = NULL WHERE id = ?", [(int) $doc['id']]);
+        }
+        Database::ejecutar('DELETE FROM tit_constancias WHERE id = ?', [(int) $c['id']]);
     }
 
     /** Protocolo aprobado: una constancia por revisor que firmó al menos una vuelta. */
@@ -188,14 +253,14 @@ final class Constancias
         foreach (FirmasExternas::asesores($tramite, true) as $a) {
             $tipos = $a['rol'] === 'asesor' ? ['asesor_trabajo', 'cumplimiento_director', 'nombramiento_director'] : ['coasesor_trabajo'];
             foreach ($tipos as $tipo) {
-                self::emitir($tramite, $tipo, $a, ['desde' => $desde, 'hasta' => $fechaExamen, 'acta' => $acta], $usuarioId);
+                self::emitir($tramite, $tipo, $a, ['desde' => $desde, 'hasta' => $fechaExamen, 'acta' => $acta], $usuarioId, $a['rol'] === 'asesor' ? 'director' : 'codirector');
             }
         }
         $asig = Database::una("SELECT * FROM tit_asignaciones_jurado WHERE tramite_id = ? AND tipo = 'definitivo' AND estado = 'firmada' ORDER BY id DESC LIMIT 1", [(int) $tramite['id']]);
         if ($asig) {
             foreach (Jurado::sinodales((int) $asig['id']) as $s) {
                 if ($s['calidad'] === 'propietario') {
-                    self::emitir($tramite, 'sinodal', $s, ['hasta' => $fechaExamen, 'funcion' => (string) ($s['funcion'] ?? ''), 'acta' => $acta], $usuarioId);
+                    self::emitir($tramite, 'sinodal', $s, ['hasta' => $fechaExamen, 'funcion' => (string) ($s['funcion'] ?? ''), 'acta' => $acta], $usuarioId, (string) ($s['funcion'] ?: 'propietario_' . $s['orden']));
                 }
             }
         }

@@ -19,10 +19,9 @@ final class Ruta
     public static function pasos(array $t, array $flujo, array $docs): array
     {
         $tid = (int) $t['id'];
-        $base = 'titulacion/ruta/' . $tid;
         $pasos = [];
-        $archivo = static function (?array $fila, string $nombre) use ($base): array {
-            return $fila && !empty($fila['ruta']) ? [['nombre' => $nombre, 'url' => $base . '/documento/' . (int) $fila['id']]] : [];
+        $archivo = static function (?array $fila, string $nombre) use ($tid): array {
+            return $fila && !empty($fila['ruta']) ? [['nombre' => $nombre, 'url' => Archivos::url('ruta_doc', $tid, (int) $fila['id'])]] : [];
         };
         $add = static function (array $e, string $titulo, bool $hecho, array $archivos = [], ?string $nota = null) use (&$pasos): void {
             $pasos[] = ['etapa' => $e['titulo'], 'titulo' => $titulo, 'hecho' => $hecho || $e['situacion'] === 'completa', 'nota' => $nota, 'archivos' => $archivos];
@@ -47,7 +46,7 @@ final class Ruta
                             continue;
                         }
                         $add($e, 'Revisión del comité · ' . Mensajes::ordinal((int) $r['numero']) . ' vuelta', $r['estado'] === 'dictaminada',
-                            $r['dictamen_ruta'] ? [['nombre' => 'Dictamen firmado', 'url' => $base . '/dictamen/' . (int) $r['id']]] : [],
+                            $r['dictamen_ruta'] ? [['nombre' => 'Dictamen firmado', 'url' => Archivos::url('ruta_dictamen', $tid, (int) $r['id'])]] : [],
                             $r['estado'] === 'dictaminada' ? ($r['dictamen'] === 'aprobado' ? 'aprobado' : 'con observaciones') : 'en curso');
                     }
                 }
@@ -81,7 +80,7 @@ final class Ruta
                             foreach ($sins as $s) {
                                 $of = $docs[$e['clave'] . '|oficio_sinodal_' . $s['orden']] ?? null;
                                 if ($of) {
-                                    $arch[] = ['nombre' => 'Oficio · ' . $s['nombre'], 'url' => $base . '/documento/' . (int) $of['id']];
+                                    $arch[] = ['nombre' => 'Oficio · ' . $s['nombre'], 'url' => Archivos::url('ruta_doc', $tid, (int) $of['id'])];
                                 }
                             }
                             $acuses = count(array_filter($sins, static fn(array $s): bool => $s['estado'] === 'acuse'));
@@ -103,7 +102,7 @@ final class Ruta
             $constancias[(int) $c['documento_id']] = Constancias::titulo((string) $c['tipo']) . ': ' . $c['nombre'];
         }
         foreach ($docs as $d) {
-            $url = $base . '/documento/' . (int) $d['id'];
+            $url = Archivos::url('ruta_doc', $tid, (int) $d['id']);
             if (empty($d['ruta']) || isset($usados[$url]) || str_starts_with((string) $d['clave'], 'oficio_sinodal_')) {
                 continue;
             }

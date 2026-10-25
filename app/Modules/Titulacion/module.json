@@ -295,10 +295,6 @@
       "App\\Modules\\Titulacion\\TramiteController",
       "confirmar"
     ],
-    "GET /titulacion/licenciatura/tramite/{id}/archivo/{doc}": [
-      "App\\Modules\\Titulacion\\TramiteController",
-      "archivo"
-    ],
     "POST /titulacion/licenciatura/tramite/{id}/cancelar": [
       "App\\Modules\\Titulacion\\TramiteController",
       "cancelar"
@@ -355,10 +351,6 @@
       "App\\Modules\\Titulacion\\ConfiguracionController",
       "eliminarDocumento"
     ],
-    "GET /titulacion/licenciatura/tramite/{id}/dictamen/{ronda}": [
-      "App\\Modules\\Titulacion\\TramiteController",
-      "dictamen"
-    ],
     "GET /titulacion/estructura": [
       "App\\Modules\\Titulacion\\EstructuraController",
       "index"
@@ -387,10 +379,6 @@
       "App\\Modules\\Titulacion\\ProtocolosController",
       "recordatorio"
     ],
-    "GET /titulacion/protocolos/{id}/documento": [
-      "App\\Modules\\Titulacion\\ProtocolosController",
-      "documento"
-    ],
     "GET /titulacion/comision": [
       "App\\Modules\\Titulacion\\ComisionController",
       "index"
@@ -415,10 +403,6 @@
       "App\\Modules\\Titulacion\\ComisionController",
       "dictaminar"
     ],
-    "GET /titulacion/comision/{id}/revision/{asig}": [
-      "App\\Modules\\Titulacion\\ComisionController",
-      "revisionPdf"
-    ],
     "GET /titulacion/revision": [
       "App\\Modules\\Titulacion\\RevisionController",
       "lista"
@@ -434,10 +418,6 @@
     "POST /titulacion/revision/{id}/firmar": [
       "App\\Modules\\Titulacion\\RevisionController",
       "firmar"
-    ],
-    "GET /titulacion/revision/{id}/documento": [
-      "App\\Modules\\Titulacion\\RevisionController",
-      "documento"
     ],
     "GET /titulacion/revision/t/{token}": [
       "App\\Modules\\Titulacion\\RevisionController",
@@ -475,10 +455,6 @@
       "App\\Modules\\Titulacion\\FirmasController",
       "firmar"
     ],
-    "GET /titulacion/firmas/archivo/{id}": [
-      "App\\Modules\\Titulacion\\FirmasController",
-      "descargar"
-    ],
     "GET /titulacion/firmas/previa/{id}": [
       "App\\Modules\\Titulacion\\FirmasController",
       "vistaPrevia"
@@ -502,10 +478,6 @@
     "POST /titulacion/licenciatura/tramite/{id}/generar/{etapa}/{doc}": [
       "App\\Modules\\Titulacion\\TramiteController",
       "generar"
-    ],
-    "GET /titulacion/gestion/{id}/expediente": [
-      "App\\Modules\\Titulacion\\GestionController",
-      "expediente"
     ],
     "GET /titulacion/firma/t/{token}": [
       "App\\Modules\\Titulacion\\FirmaExternaController",
@@ -657,29 +629,13 @@
       "App\\Modules\\Titulacion\\ConstanciasController",
       "generar"
     ],
-    "GET /titulacion/constancias/{id}": [
-      "App\\Modules\\Titulacion\\PanelController",
-      "constancia"
-    ],
     "GET /titulacion/ruta/{id}": [
       "App\\Modules\\Titulacion\\RutaController",
       "ver"
     ],
-    "GET /titulacion/ruta/{id}/documento/{doc}": [
-      "App\\Modules\\Titulacion\\RutaController",
-      "documento"
-    ],
-    "GET /titulacion/ruta/{id}/dictamen/{ronda}": [
-      "App\\Modules\\Titulacion\\RutaController",
-      "dictamen"
-    ],
     "GET /titulacion/firma/mia/{id}": [
       "App\\Modules\\Titulacion\\FirmaExternaController",
       "verPropia"
-    ],
-    "GET /titulacion/firma/mia/{id}/documento": [
-      "App\\Modules\\Titulacion\\FirmaExternaController",
-      "documentoPropio"
     ],
     "POST /titulacion/firma/mia/{id}/firmar": [
       "App\\Modules\\Titulacion\\FirmaExternaController",
@@ -693,21 +649,9 @@
       "App\\Modules\\Titulacion\\JuradoController",
       "firmarCoordinadorMio"
     ],
-    "GET /titulacion/jurado/mia/{id}/trabajo": [
-      "App\\Modules\\Titulacion\\JuradoController",
-      "trabajoCoordinadorMio"
-    ],
     "GET /titulacion/sinodal/mio/{id}": [
       "App\\Modules\\Titulacion\\JuradoController",
       "sinodalMio"
-    ],
-    "GET /titulacion/sinodal/mio/{id}/oficio": [
-      "App\\Modules\\Titulacion\\JuradoController",
-      "oficioSinodalMio"
-    ],
-    "GET /titulacion/sinodal/mio/{id}/trabajo": [
-      "App\\Modules\\Titulacion\\JuradoController",
-      "trabajoSinodalMio"
     ],
     "POST /titulacion/sinodal/mio/{id}/firmar": [
       "App\\Modules\\Titulacion\\JuradoController",
@@ -738,6 +682,10 @@
     "POST /titulacion/configuracion/oficios": [
       "App\\Modules\\Titulacion\\ConfiguracionController",
       "oficios"
+    ],
+    "GET /titulacion/archivo/{token}": [
+      "App\\Modules\\Titulacion\\ArchivoController",
+      "descargar"
     ]
   }
 }

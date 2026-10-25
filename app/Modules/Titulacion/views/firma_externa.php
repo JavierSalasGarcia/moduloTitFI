@@ -23,7 +23,7 @@ include __DIR__ . '/_estilos.php';
   <h2><?= e($asunto) ?> · <?= e($folio) ?></h2>
   <p>Se te pide firmar, como <?= e(\App\Core\Persona::f(\App\Core\Persona::completar(['nombre' => $f['nombre'], 'genero' => $f['genero']], (string) $f['email']), $rol, $rol . 'a')) ?>, <?= e($que) ?> de <strong><?= e($alumno) ?></strong>:</p>
   <p style="font-style:italic">«<?= e($tema) ?>»</p>
-  <p><a class="btn btn-primario" href="<?= url($base . '/documento') ?>" target="_blank" rel="noopener">Leer el documento (PDF)</a>
+  <p><a class="btn btn-primario" href="<?= url(str_contains($base, '/t/') ? $base . '/documento' : \App\Modules\Titulacion\Services\Archivos::url('firma_mia', (int) $f['id'])) ?>" target="_blank" rel="noopener">Leer el documento (PDF)</a>
     <?php if (\App\Core\Auth::usuario()): ?><a class="btn" href="<?= url('titulacion/ruta/' . (int) $tramiteId) ?>">Ver la ruta del trámite</a><?php endif; ?></p>
   <?php if ($f['estado'] === 'firmada'): ?>
     <p class="tit-ok">Firmaste este documento el <?= e(fecha_corta((string) $f['firmada_en'])) ?>. No hay nada más que hacer.</p>

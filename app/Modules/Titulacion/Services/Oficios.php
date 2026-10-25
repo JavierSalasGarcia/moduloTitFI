@@ -76,7 +76,7 @@ final class Oficios
 
     /**
      * Fecha y, si se indica la serie, el número de oficio (consecutivo anual de quien firma; ver NumeroOficio).
-     * @param ?array{0:string,1:string,2:string} $oficio [serie, asunto, dirigido a]
+     * @param ?array{0:string,1:string,2:string,3?:?string} $oficio [serie, asunto, dirigido a, número ya asignado (al regenerar)]
      */
     private static function cabecera(Hoja $pdf, string $fechaLinea, ?array $oficio = null): void
     {
@@ -85,7 +85,8 @@ final class Oficios
         $pdf->Cell(0, 5, self::l1($fechaLinea), 0, 1, 'R');
         if ($oficio !== null) {
             $pdf->SetFont('Helvetica', 'B', 10.5);
-            $pdf->Cell(0, 5, self::l1('Oficio No. ' . NumeroOficio::apartar($oficio[0], $pdf->folio, $oficio[1], $oficio[2], $pdf->codigo)), 0, 1, 'R');
+            $numero = ($oficio[3] ?? null) ?: NumeroOficio::apartar($oficio[0], $pdf->folio, $oficio[1], $oficio[2], $pdf->codigo);
+            $pdf->Cell(0, 5, self::l1('Oficio No. ' . $numero), 0, 1, 'R');
             $pdf->SetFont('Helvetica', '', 10.5);
         }
         $pdf->Ln(6);
@@ -397,9 +398,10 @@ final class Oficios
      * del profesor, cuerpo, tabla del trabajo (opcional) y cierre. La firma la Subdirección o la Jefatura según el tipo.
      * @param array $d detalle: desde, hasta (fecha que avala), vueltas, funcion, acta
      * @param array $texto ['asunto','intro','cuerpo','cierre','tabla']
+     * @param ?array $reuso al regenerar: ['codigo' => QR de verificación, 'oficio' => número de oficio] de la versión anterior
      * @return array{0:string,1:array}
      */
-    public static function constancia(array $tramite, string $tipo, array $profesor, array $d, array $texto): array
+    public static function constancia(array $tramite, string $tipo, array $profesor, array $d, array $texto, ?array $reuso = null): array
     {
         $x = FormatosOficiales::datos($tramite);
         $x['carrera'] = $x['licenciatura'];
@@ -415,7 +417,10 @@ final class Oficios
         }
         $v = Constancias::valores($tipo, $x, $profesor, $pasante, $d, $firmante, $cargo);
         $pdf = self::nuevo((string) $tramite['folio']);
-        self::cabecera($pdf, 'Ciudad Universitaria, Toluca, Méx., ' . self::fecha(date('Y-m-d')), [$jefatura ? 'jefatura' : 'subdireccion', Constancias::TIPOS[$tipo][0], Persona::tratamiento($profesor)]);
+        if (!empty($reuso['codigo'])) {
+            $pdf->codigo = (string) $reuso['codigo'];
+        }
+        self::cabecera($pdf, 'Ciudad Universitaria, Toluca, Méx., ' . self::fecha(date('Y-m-d')), [$jefatura ? 'jefatura' : 'subdireccion', Constancias::TIPOS[$tipo][0], Persona::tratamiento($profesor), $reuso['oficio'] ?? null]);
         $pdf->SetFont('Helvetica', 'B', 10.5);
         if (trim($texto['asunto']) !== '') {
             $pdf->Cell(0, 5, self::l1('ASUNTO: ' . Constancias::sustituir(trim($texto['asunto']), $v)), 0, 1, 'R');

@@ -56,7 +56,8 @@ final class Verificacion
             return;
         }
         Database::ejecutar(
-            'INSERT IGNORE INTO tit_verificaciones (codigo, tramite_id, ruta, revision_id, revision_asignacion_id, clave, contenido) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO tit_verificaciones (codigo, tramite_id, ruta, revision_id, revision_asignacion_id, clave, contenido) VALUES (?, ?, ?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE ruta = VALUES(ruta), contenido = VALUES(contenido)',
             [$codigo, (int) $tid, $ruta, $revisionId, $asignacionId, $clave, json_encode($contenido, JSON_UNESCAPED_UNICODE)]
         );
     }
@@ -107,6 +108,10 @@ final class Verificacion
                 $r['vigente'] = false;
                 $r['estado'] = 'No vigente';
                 $r['aviso'] = 'Este documento fue devuelto con observaciones' . ($doc['revisado_en'] ? ' el ' . self::fechaHora((string) $doc['revisado_en']) : '') . ' y no tiene validez.';
+            } elseif ($doc['estado'] === 'no_aplica') {
+                $r['vigente'] = false;
+                $r['estado'] = 'Anulado';
+                $r['aviso'] = 'Este documento fue anulado y no tiene validez.';
             } elseif ($doc['estado'] === 'en_revision') {
                 $r['estado'] = 'En trámite';
                 $r['aviso'] = 'Documento registrado en el expediente, pendiente de validación por el Departamento de Evaluación Profesional y Grado.';
