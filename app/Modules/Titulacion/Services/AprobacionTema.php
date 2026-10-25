@@ -25,6 +25,7 @@ final class AprobacionTema
             mkdir(dirname($abs), 0755, true);
         }
         file_put_contents($abs, $bytes);
+        Verificacion::guardado($bytes, $relativa);
         $docId = TitulacionRepository::registrarDocumento($tid, 'protocolo', 'oficio_aprobacion_tema', 'personal', 'aprobado', $relativa, 'oficio_aprobacion_tema_' . $tramite['folio'] . '.pdf', $usuarioId);
         TitulacionRepository::guardarHito($tid, 'protocolo', ['fecha' => $fecha, 'observaciones' => $observaciones], $usuarioId);
         $nombre = Oficios::TIPOS['oficio_aprobacion_tema'];

@@ -14,7 +14,8 @@ require_once dirname(APP_RAIZ) . '/lib/fpdi/autoload.php';
 
 /**
  * Hoja de los formatos y oficios que genera la plataforma: hoja membretada de fondo, y en la esquina inferior
- * derecha de cada página el ID del proceso de titulación (control, seguimiento y auditoría).
+ * derecha de cada página el ID del proceso de titulación (control, seguimiento y auditoría) y el QR que lleva a la
+ * página pública de verificación del documento, que muestra el mismo contenido que se imprime (ver Verificacion).
  * Ofrece los bloques que se repiten en los formatos oficiales: título, destinatario, casillas, datos y firmas.
  */
 final class Hoja extends \setasign\Fpdi\Fpdi
@@ -29,6 +30,7 @@ final class Hoja extends \setasign\Fpdi\Fpdi
         $pdf = new self('P', 'mm', 'Letter');
         $pdf->folio = $folio;
         $pdf->version = $version;
+        $pdf->codigo = $folio !== '' ? Verificacion::nuevoCodigo() : null;
         if ($membretada) {
             $pdf->setSourceFile(dirname(__DIR__) . '/plantillas/pdf/Membretada.pdf');
             $pdf->fondo = $pdf->importPage(1);
@@ -42,7 +44,14 @@ final class Hoja extends \setasign\Fpdi\Fpdi
 
     public string $folio = '';
     public string $version = '';
+    /** Código de verificación del documento (QR); null en los PDF importados. */
+    public ?string $codigo = null;
     private bool $pie = true;
+    private bool $enPie = false;
+    /** Contenido impreso, para la página de verificación: ['t'|'p'|'l', texto] o ['d', etiqueta, valor]. */
+    private array $registro = [];
+    private string $renglon = '';
+    private int $anidado = 0;
 
     /** Sin pie: para PDF importados, donde el ID se estampa aparte. */
     public function setPrintFooter(bool $pie): void
@@ -62,17 +71,102 @@ final class Hoja extends \setasign\Fpdi\Fpdi
         if (!$this->pie) {
             return;
         }
+        $this->enPie = true;
         $this->SetFont('Helvetica', '', 7);
         $this->SetTextColor(90, 90, 90);
-        if ($this->version !== '') {
-            $this->SetXY(-85, -13);
-            $this->Cell(78, 4, $this->version, 0, 0, 'R');
+        $lado = 17.0;
+        $finTexto = $this->codigo !== null ? $this->w - 8 - $lado - 1 : $this->w - 7;
+        if ($this->codigo !== null) {
+            Qr::dibujar($this, Verificacion::url($this->codigo), $this->w - 8 - $lado, $this->h - 5 - $lado, $lado);
+            $this->SetXY($finTexto - 90, -13);
+            $this->Cell(90, 4, self::l1('Verifique este documento con el código QR'), 0, 0, 'R');
         }
         if ($this->folio !== '') {
-            $this->SetXY(-85, -9);
-            $this->Cell(78, 4, self::l1('ID del proceso de titulación: ' . $this->folio), 0, 0, 'R');
+            $this->SetXY($finTexto - 90, -9);
+            $this->Cell(90, 4, self::l1('ID del proceso de titulación: ' . $this->folio), 0, 0, 'R');
+        }
+        if ($this->version !== '') {
+            $this->SetXY($finTexto - 90, -17);
+            $this->Cell(90, 4, $this->version, 0, 0, 'R');
         }
         $this->SetTextColor(25, 25, 25);
+        $this->enPie = false;
+    }
+
+    // --------------------------------------------- registro del contenido impreso (verificación)
+
+    private static function utf8(string $s): string
+    {
+        $r = iconv('Windows-1252', 'UTF-8', $s);
+        return trim(preg_replace('/\s+/u', ' ', $r === false ? $s : $r) ?? '');
+    }
+
+    private function cerrarRenglon(): void
+    {
+        if ($this->renglon !== '') {
+            $this->registro[] = ['l', $this->renglon];
+            $this->renglon = '';
+        }
+    }
+
+    private function anotar(string $txt, bool $salto): void
+    {
+        if ($this->enPie || $this->anidado > 0) {
+            return;
+        }
+        $t = self::utf8($txt);
+        if ($t !== '') {
+            $this->renglon .= ($this->renglon !== '' ? ' ' : '') . $t;
+        }
+        if ($salto) {
+            $this->cerrarRenglon();
+        }
+    }
+
+    public function Cell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = false, $link = '')
+    {
+        $this->anotar((string) $txt, $ln > 0);
+        parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
+    }
+
+    public function MultiCell($w, $h, $txt, $border = 0, $align = 'J', $fill = false)
+    {
+        if (!$this->enPie && $this->anidado === 0) {
+            $this->cerrarRenglon();
+            $t = self::utf8((string) $txt);
+            if ($t !== '') {
+                $this->registro[] = [$fill ? 't' : 'p', $t];
+            }
+        }
+        $this->anidado++;
+        parent::MultiCell($w, $h, $txt, $border, $align, $fill);
+        $this->anidado--;
+    }
+
+    public function Write($h, $txt, $link = '')
+    {
+        $this->anotar((string) $txt, false);
+        $this->anidado++;
+        parent::Write($h, $txt, $link);
+        $this->anidado--;
+    }
+
+    public function Ln($h = null)
+    {
+        if ($this->anidado === 0 && !$this->enPie) {
+            $this->cerrarRenglon();
+        }
+        parent::Ln($h);
+    }
+
+    public function Output($dest = '', $name = '', $isUTF8 = false)
+    {
+        $r = parent::Output($dest, $name, $isUTF8);
+        if ($this->codigo !== null && $dest === 'S') {
+            $this->cerrarRenglon();
+            Verificacion::generado((string) $r, $this->codigo, $this->folio, $this->registro);
+        }
+        return $r;
     }
 
     /** UTF-8 a la codificación de las fuentes de FPDF; la viñeta «•» se conserva. */
@@ -131,7 +225,12 @@ final class Hoja extends \setasign\Fpdi\Fpdi
     /** Tabla de dos columnas «etiqueta | valor» con bordes; ambas columnas pueden ocupar varios renglones. @param array<int,array{0:string,1:string}> $filas */
     public function datos(array $filas, float $ancho = 45.0): void
     {
+        $this->cerrarRenglon();
         foreach ($filas as [$etiqueta, $valor]) {
+            if ($this->anidado === 0) {
+                $this->registro[] = ['d', self::utf8(self::l1($etiqueta)), self::utf8(self::l1($valor))];
+            }
+            $this->anidado++;
             if ($this->GetY() > 279.4 - 26 - 12) {
                 $this->AddPage();
             }
@@ -148,6 +247,7 @@ final class Hoja extends \setasign\Fpdi\Fpdi
             $this->Rect($x, $y, $ancho, $alto);
             $this->Rect($x + $ancho, $y, 166 - $ancho, $alto);
             $this->SetXY($x, $y + $alto);
+            $this->anidado--;
         }
         $this->Ln(2);
     }

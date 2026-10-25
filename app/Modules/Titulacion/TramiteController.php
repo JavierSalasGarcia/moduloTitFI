@@ -304,6 +304,8 @@ final class TramiteController extends TitulacionBase
             flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo generar el formato. Intenta de nuevo.');
             redirigir('titulacion/licenciatura/tramite/' . $t['id']);
         }
+        // Se guarda lo descargado para que el QR del formato impreso se pueda verificar.
+        DocumentosGenerados::guardar($t, 'descarga_' . $formato, $bytes, $formato);
         TitulacionRepository::evento((int) $t['id'], Auth::id(), 'formato', 'Formato generado: ' . Catalogo::formatos()[$formato]['nombre'], false);
         $this->enviarBytes($bytes, $nombre, $mime);
     }

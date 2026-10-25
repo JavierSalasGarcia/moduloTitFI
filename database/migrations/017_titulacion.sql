@@ -105,6 +105,26 @@ CREATE TABLE IF NOT EXISTS notificaciones (
   KEY idx_notif_tramite (tramite_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Verificación pública (QR) de los documentos que genera la plataforma: código del QR, documento del expediente
+-- (o revisión/dictamen del comité, o formato descargado por el pasante) y el contenido impreso que se muestra.
+CREATE TABLE IF NOT EXISTS tit_verificaciones (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  codigo CHAR(16) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  tramite_id BIGINT UNSIGNED NOT NULL,
+  documento_id BIGINT UNSIGNED NULL,
+  revision_id BIGINT UNSIGNED NULL,
+  revision_asignacion_id BIGINT UNSIGNED NULL,
+  clave VARCHAR(60) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  ruta VARCHAR(500) NULL,
+  contenido MEDIUMTEXT NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tit_verif_codigo (codigo),
+  KEY idx_tit_verif_ruta (ruta(191)),
+  KEY idx_tit_verif_doc (documento_id),
+  KEY idx_tit_verif_clave (tramite_id, clave)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Los mensajes al pasante y las plantillas/coordenadas de formatos ya no existen: todo llega a «notificaciones»
 -- y la plataforma genera los formatos por código.
 DROP TABLE IF EXISTS tit_mensajes;
