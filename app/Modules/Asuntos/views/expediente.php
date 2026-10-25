@@ -65,7 +65,7 @@
       <?php if (!$archivos): ?><p class="texto-secundario">Todavía no hay archivos.</p><?php endif; ?>
       <ul style="padding-left:18px;margin-bottom:0">
         <?php foreach ($archivos as $archivo): ?>
-          <li><a href="<?= url('fila/' . $oficina['ruta'] . '/archivo/' . (int) $archivo['id']) ?>"><?= e($archivo['nombre_original']) ?></a><br><span class="texto-secundario"><?= e($archivo['autor']) ?> · <?= e(fecha_corta($archivo['creado_en'])) ?></span></li>
+          <li><a href="<?= url_archivo('fila/' . $oficina['ruta'] . '/archivo/' . (int) $archivo['id']) ?>"><?= e($archivo['nombre_original']) ?></a><br><span class="texto-secundario"><?= e($archivo['autor']) ?> · <?= e(fecha_corta($archivo['creado_en'])) ?></span></li>
         <?php endforeach; ?>
       </ul>
     </section>

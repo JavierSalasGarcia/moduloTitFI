@@ -8,11 +8,11 @@
   <!-- Barra de acciones destacada -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; padding: 12px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; align-items: center;">
     <?php if ($reunion['fecha_confirmada']): ?>
-      <a class="btn btn-oro" href="<?= url('reuniones/' . $reunion['id'] . '/calendario.ics') ?>" style="background: #856e0d; color: #ffffff; border-color: #6e5d0d;">📅 Descargar calendario ICS</a>
+      <a class="btn btn-oro" href="<?= url_archivo('reuniones/' . $reunion['id'] . '/calendario.ics') ?>" style="background: #856e0d; color: #ffffff; border-color: #6e5d0d;">📅 Descargar calendario ICS</a>
     <?php endif; ?>
     
     <?php if ($reunion['estado'] === 'finalizada'): ?>
-      <a class="btn btn-primario" href="<?= url('reuniones/' . $reunion['id'] . '/respaldo') ?>">📦 Descargar expediente ZIP</a>
+      <a class="btn btn-primario" href="<?= url_archivo('reuniones/' . $reunion['id'] . '/respaldo') ?>">📦 Descargar expediente ZIP</a>
     <?php endif; ?>
     
     <?php if ((int) $reunion['organizador_id'] === \App\Core\Auth::id() && !in_array($reunion['estado'], ['finalizada', 'cancelada'], true)): ?>
@@ -194,7 +194,7 @@
   })();
   </script>
   <h3>Chat</h3>
-  <?php if ($reunion['archivos']): ?><h3>Archivos</h3><?php foreach ($reunion['archivos'] as $archivo): ?><p><a href="<?= url('reuniones/' . $reunion['id'] . '/archivo/' . $archivo['id']) ?>"><?= e($archivo['nombre_original']) ?></a> · <?= e($archivo['tipo']) ?></p><?php endforeach; ?><?php endif; ?>
+  <?php if ($reunion['archivos']): ?><h3>Archivos</h3><?php foreach ($reunion['archivos'] as $archivo): ?><p><a href="<?= url_archivo('reuniones/' . $reunion['id'] . '/archivo/' . $archivo['id']) ?>"><?= e($archivo['nombre_original']) ?></a> · <?= e($archivo['tipo']) ?></p><?php endforeach; ?><?php endif; ?>
   <?php foreach ($reunion['mensajes'] as $mensaje): ?><p><strong><?= e($mensaje['nombre'] ?: $mensaje['correo']) ?>:</strong> <?= nl2br(e($mensaje['contenido'])) ?> <?php if ($mensaje['tipo'] === 'urgente'): ?><span class="chip">URGENTE</span><?php endif; ?></p><?php endforeach; ?>
   <?php if (!in_array($reunion['estado'], ['finalizada', 'cancelada'], true)): ?>
     <form method="post" action="<?= url('reuniones/' . $reunion['id'] . '/mensaje') ?>"><input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>"><textarea name="contenido" required rows="3" placeholder="Escribe un mensaje"></textarea><label style="font-weight: 500; font-size: 13px; color: #475569; display: flex; align-items: center; gap: 6px; margin: 8px 0;"><input type="checkbox" name="tipo" value="urgente"> Enviar como urgente (Notifica por email a los participantes con un enlace seguro de acceso; el texto del mensaje no va en el correo)</label><button class="btn btn-primario" type="submit">Enviar mensaje</button></form>

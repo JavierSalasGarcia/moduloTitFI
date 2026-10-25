@@ -115,7 +115,7 @@ final class ModuleManager
             if (!preg_match('/^App\\\\[A-Za-z0-9_\\\\]+Controller$/D', $destino[0]) || !preg_match('/^[a-z][A-Za-z0-9_]*$/D', $destino[1])) {
                 throw new RuntimeException("Controlador o acción inválidos para {$patron}.");
             }
-            if (isset($destino[2]) && $destino[2] !== 'publico') throw new RuntimeException("Marca de acceso inválida para {$patron}.");
+            if (isset($destino[2]) && !in_array($destino[2], ['publico', 'token', 'publico_token'], true)) throw new RuntimeException("Marca de acceso inválida para {$patron}.");
             $archivoClase = APP_RAIZ . '/' . str_replace('\\', '/', substr($destino[0], 4)) . '.php';
             if (!is_file($archivoClase)) throw new RuntimeException("No existe el controlador de {$patron}.");
         }

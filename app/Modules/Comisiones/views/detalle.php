@@ -65,7 +65,7 @@
               </p>
               <p><?= nl2br(e($b['contenido'])) ?></p>
               <?php if ($b['archivo']): ?>
-                <p><a class="enlace" href="<?= url('comisiones/archivo/' . $b['id']) ?>">📎 Descargar evidencia adjunta</a></p>
+                <p><a class="enlace" href="<?= url_archivo('comisiones/archivo/' . $b['id']) ?>">📎 Descargar evidencia adjunta</a></p>
               <?php endif; ?>
             </div>
           </li>

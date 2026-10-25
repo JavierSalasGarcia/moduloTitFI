@@ -13,7 +13,7 @@ return [
         'GET /comisiones'                 => [ComisionesController::class, 'index'],
         'GET /comisiones/nueva'           => [ComisionesController::class, 'nueva'],
         'POST /comisiones'                => [ComisionesController::class, 'crear'],
-        'GET /comisiones/archivo/{id}'    => [ComisionesController::class, 'archivo'],
+        'GET /comisiones/archivo/{id}'    => [ComisionesController::class, 'archivo', 'token'],
         'GET /comisiones/{id}'            => [ComisionesController::class, 'detalle'],
         'POST /comisiones/{id}/responder' => [ComisionesController::class, 'responder'],
         'POST /comisiones/{id}/postular'  => [ComisionesController::class, 'postular'],
