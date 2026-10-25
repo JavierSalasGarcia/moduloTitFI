@@ -78,6 +78,14 @@ final class Historico
     // ------------------------------------------------------------------ visor
 
     /** @param array{q?:string,carrera?:string,faltantes?:string,estado?:string} $f */
+    /** Fechas del registro que no pueden ser correctas: anteriores a 2000 o posteriores a hoy (errores de captura del libro). @return string[] */
+    public static function fueraDeRango(array $h): array
+    {
+        $hoy = date('Y-m-d');
+        return array_values(array_filter(['fecha_examen', 'fecha_aut_egel', 'fecha_afinidad'],
+            static fn(string $k): bool => !empty($h[$k]) && ((string) $h[$k] < '2000-01-01' || (string) $h[$k] > $hoy)));
+    }
+
     public static function listar(array $f, int $limite = 200, int $desde = 0): array
     {
         $donde = ['1 = 1'];
@@ -101,6 +109,10 @@ final class Historico
         $salida = [];
         foreach ($filas as $h) {
             $h['faltan'] = self::faltantes($h);
+            $h['fuera'] = self::fueraDeRango($h);
+            if ($campo === 'fuera_rango' && !$h['fuera']) {
+                continue;
+            }
             if ($campo === 'cualquiera' && !$h['faltan']) {
                 continue;
             }
@@ -174,6 +186,7 @@ final class Historico
         Database::ejecutar("UPDATE tit_historico SET `$campo` = ?, actualizado_por = ?, actualizado_en = NOW() WHERE id = ?", [$valor, $usuarioId, $id]);
         $fila = Database::una('SELECT * FROM tit_historico WHERE id = ?', [$id]) ?? throw new \InvalidArgumentException('Registro inexistente.');
         $fila['faltan'] = self::faltantes($fila);
+        $fila['fuera'] = self::fueraDeRango($fila);
         $fila['regeneradas'] = 0;
         // Con constancias ya generadas y el registro completo, la corrección se aplica a esas constancias (mismo archivo).
         if ($fila['tramite_id'] && !$fila['faltan'] && self::conTrabajo($fila['modalidad'])) {
