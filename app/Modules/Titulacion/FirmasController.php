@@ -47,18 +47,20 @@ final class FirmasController extends TitulacionBase
     public function firmar(): void
     {
         $this->soloFirmantes();
-        $propios = array_map(static fn(array $f): int => (int) $f['id'], SubdireccionFirma::pendientes());
-        $ids = !empty($_POST['todas']) ? $propios : array_values(array_intersect(array_map('intval', (array) ($_POST['ids'] ?? [])), $propios));
+        $propios = [];
+        foreach (SubdireccionFirma::pendientes() as $f) {
+            $propios[(int) $f['id']] = SubdireccionFirma::capacidadPara($f);
+        }
+        $ids = !empty($_POST['todas']) ? array_keys($propios) : array_values(array_intersect(array_map('intval', (array) ($_POST['ids'] ?? [])), array_keys($propios)));
         if (!$ids) {
             flash('error', 'Selecciona al menos un documento.');
             redirigir('titulacion/firmas');
         }
-        $capacidad = SubdireccionFirma::esSubdirector() || (SubdireccionFirma::esDirector() && !SubdireccionFirma::esAsistente()) ? 'personal' : 'delegada';
         $ok = 0;
         $fallos = 0;
         foreach ($ids as $id) {
             try {
-                SubdireccionFirma::firmar($id, $capacidad, Auth::id());
+                SubdireccionFirma::firmar($id, $propios[$id], Auth::id());
                 $ok++;
             } catch (Throwable $e) {
                 $fallos++;

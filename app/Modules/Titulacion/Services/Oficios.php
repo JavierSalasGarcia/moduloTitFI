@@ -16,6 +16,7 @@ final class Oficios
         'oficio_impresion' => 'Oficio de autorización de impresión',
         'carta_afinidad' => 'Carta de afinidad',
         'oficio_sinodal' => 'Oficio de citación a sinodal',
+        'constancia_revision' => 'Constancia de revisión de protocolo',
     ];
 
     /** Oficios que firma el Director (el resto, el Subdirector). */
@@ -146,8 +147,8 @@ final class Oficios
      */
     public static function generar(string $clave, array $tramite, array $datosHito, array $extra = []): array
     {
-        if (!isset(self::TIPOS[$clave])) {
-            throw new \RuntimeException('Oficio desconocido.');
+        if (!isset(self::TIPOS[$clave]) || in_array($clave, ['oficio_aprobacion_tema', 'constancia_revision'], true)) {
+            throw new \RuntimeException('Oficio desconocido.');   // estos dos tienen su propio generador
         }
         $x = self::datos($tramite);
         $hoy = self::fecha(date('Y-m-d'));
@@ -216,7 +217,6 @@ final class Oficios
         }
 
         $cuerpo = match ($clave) {
-            'oficio_aprobacion_tema' => "Por este medio le informo que, con base en el dictamen de la Comisión Revisora de Protocolos de la Licenciatura en {$x['carrera']}, el $fecha fue aprobado el tema «{$x['titulo']}» con la opción de evaluación profesional «{$x['modalidad']}»" . ($x['asesor'] !== '' ? ", bajo la dirección de {$x['asesor']}" : '') . ".\n\nCon ello queda registrado el tema y la modalidad. Cuenta con exclusividad sobre el tema por dos años, de conformidad con el Reglamento de Evaluación Profesional de la UAEM.",
             'oficio_impresion' => "Una vez atendidas las observaciones de los revisores y contando con el voto aprobatorio, se autoriza la impresión del trabajo escrito «{$x['titulo']}», presentado por {$x['nombre']} (Licenciatura en {$x['carrera']}), con fecha de autorización $fecha.\n\nSe le recuerda cargar el PDF final del trabajo en la plataforma, con una copia de este oficio, y completar los documentos requeridos para la evaluación profesional.",
             'carta_afinidad' => "Por este medio se hace constar que, tras el dictamen de la Coordinación de Docencia, los estudios avanzados que {$x['nombre']} (Licenciatura en {$x['carrera']}) pretende cursar para la opción «{$x['modalidad']}» son afines a la licenciatura, con fecha de autorización $fecha.",
         };
@@ -226,6 +226,147 @@ final class Oficios
         $pdf->Ln(4);
         $pdf->SetFont('Helvetica', '', 11);
         $pdf->MultiCell(0, 5.8, self::l1($cuerpo), 0, 'J');
+        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA'], true);
+        return [$pdf->Output('S'), $caja];
+    }
+
+    /** Línea con etiqueta en negritas seguida de texto normal. */
+    private static function etiqueta(\FPDF $pdf, string $etiqueta, string $texto, float $alto = 5.8): void
+    {
+        $pdf->SetFont('Helvetica', 'B', 11);
+        $pdf->Write($alto, self::l1($etiqueta . ' '));
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->Write($alto, self::l1($texto));
+        $pdf->Ln($alto);
+    }
+
+    /** «Atentamente», lema y leyenda del año, centrados. */
+    private static function atentamente(\FPDF $pdf): void
+    {
+        $pdf->Ln(6);
+        $pdf->SetFont('Helvetica', 'B', 10.5);
+        $pdf->Cell(0, 5, 'A T E N T A M E N T E', 0, 1, 'C');
+        $pdf->Cell(0, 5, self::l1('PATRIA, CIENCIA Y TRABAJO'), 0, 1, 'C');
+        $texto = trim((string) \ajuste('institucion_lema_anual', ''));
+        if ($texto !== '') {
+            $pdf->SetFont('Helvetica', 'I', 8.5);
+            $pdf->Cell(0, 4.5, self::l1('"' . date('Y') . ', ' . $texto . '"'), 0, 1, 'C');
+        }
+    }
+
+    /** Texto por omisión de las observaciones del oficio: la leyenda del coasesor, si lo hay. */
+    public static function observacionesAprobacion(array $tramite): string
+    {
+        $p = $tramite['datos']['protocolo'] ?? [];
+        $nombre = trim((string) ($p['coasesor'] ?? ''));
+        if ($nombre === '' || mb_strtolower($nombre) === 'no aplica') {
+            return 'Ninguna.';
+        }
+        $c = Persona::completar(['nombre' => $nombre, 'grado' => $p['coasesor_grado'] ?? null, 'genero' => $p['coasesor_genero'] ?? null], (string) ($p['coasesor_correo'] ?? ''));
+        return 'La solicitud de participación ' . Persona::f($c, 'del', 'de la') . ' ' . Persona::tratamiento($c) . ' como ' . Persona::f($c, 'coasesor', 'coasesora')
+            . ' deberá tramitarse ante el H. Consejo Académico. De ser aprobada, con base en el acuerdo de los HH. Consejos Académico y de Gobierno del 08 de febrero del 2013, '
+            . Persona::f($c, 'el coasesor', 'la coasesora') . ' no deberá formar parte del jurado.';
+    }
+
+    /**
+     * Oficio de aprobación del tema: lo firman el Subdirector Académico y, con Vo. Bo., la Jefatura de Titulación.
+     * @return array{0:string,1:array,2:array} [PDF, caja de firma del Subdirector, caja del Vo. Bo.]
+     */
+    public static function aprobacionTema(array $tramite, string $fechaIso, string $observaciones): array
+    {
+        $x = self::datos($tramite);
+        $p = $tramite['datos']['protocolo'] ?? [];
+        $asesor = Persona::completar(['nombre' => trim((string) ($p['asesor'] ?? '')), 'grado' => $p['asesor_grado'] ?? null, 'genero' => $p['asesor_genero'] ?? null], (string) ($p['asesor_correo'] ?? ''));
+        $pdf = self::nuevo();
+        self::cabecera($pdf, 'Ciudad Universitaria, Toluca, Méx., ' . self::fecha($fechaIso));
+        self::etiqueta($pdf, 'Pasante de licenciatura:', $x['nombre'] . ' (No. Cuenta ' . $x['cuenta'] . ')');
+        $pdf->Ln(5);
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->MultiCell(0, 5.8, self::l1('Habiendo estudiado la Comisión de Evaluación Profesional de la Coordinación de ' . $x['carrera'] . ', el tema propuesto por USTED, titulado:'), 0, 'J');
+        $pdf->Ln(3);
+        self::etiqueta($pdf, 'Título:', $x['titulo']);
+        $pdf->Ln(3);
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->MultiCell(0, 5.8, self::l1('Para que sea desarrollado con la asesoría ' . Persona::f($asesor, 'del', 'de la') . ' ' . Persona::tratamiento($asesor) . ', la Comisión de Evaluación Profesional determinó lo siguiente:'), 0, 'J');
+        $pdf->Ln(3);
+        $vineta = chr(149) . '  ';
+        $pdf->SetLeftMargin(32);
+        $pdf->SetX(32);
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->Write(5.8, $vineta . 'Se ');
+        $pdf->SetFont('Helvetica', 'B', 11);
+        $pdf->Write(5.8, 'APRUEBA');
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->Write(5.8, self::l1(' el tema como ' . $x['modalidad'] . '.'));
+        $pdf->Ln(7);
+        $pdf->SetFont('Helvetica', 'B', 11);
+        $pdf->Write(5.8, $vineta . 'Observaciones: ');
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->Write(5.8, self::l1(trim($observaciones) !== '' ? trim($observaciones) : 'Ninguna.'));
+        $pdf->SetLeftMargin(25);
+        $pdf->Ln(9);
+        $pdf->MultiCell(0, 5.8, self::l1('Con base en el artículo 86 del Reglamento de Evaluación Profesional, usted tendrá exclusividad sobre el tema durante dos años contados a partir de esta fecha; a su término, podrá renovarla mediante la solicitud de una prórroga hasta por un año, tiempo que incluye la sustentación hasta el jurado. Vencido el plazo, el tema quedará libre para ser presentado por otro pasante.'), 0, 'J');
+        if ($pdf->GetY() > 185) {
+            $pdf->AddPage('P', 'Letter');
+            $pdf->SetY(40);
+        }
+        self::atentamente($pdf);
+        $sub = Autoridades::subdirector() ?? [];
+        $jefe = Autoridades::jefeTitulacion();
+        $pdf->Ln(5);
+        $pdf->SetFont('Helvetica', 'B', 10.5);
+        $pdf->SetX(115);
+        $pdf->Cell(75, 5, 'Vo. Bo.', 0, 1, 'C');
+        $pdf->Ln(18);
+        $y = $pdf->GetY();
+        $pdf->SetDrawColor(70, 70, 70);
+        $pdf->SetLineWidth(0.2);
+        $pdf->Line(30, $y - 1, 95, $y - 1);
+        $pdf->Line(120, $y - 1, 185, $y - 1);
+        $pdf->SetFont('Helvetica', 'B', 10);
+        $pdf->SetXY(25, $y);
+        $pdf->MultiCell(75, 4.8, self::l1(mb_strtoupper(Formatos::subdirector())), 0, 'C');
+        $yIzq = $pdf->GetY();
+        $pdf->SetXY(115, $y);
+        $pdf->MultiCell(75, 4.8, self::l1($jefe ? mb_strtoupper(Persona::tratamiento($jefe)) : 'JEFATURA DEL DEPARTAMENTO DE EVALUACIÓN PROFESIONAL Y GRADO'), 0, 'C');
+        $pdf->SetXY(25, $yIzq);
+        $pdf->Cell(75, 4.8, self::l1(Persona::f($sub, 'SUBDIRECTOR ACADÉMICO', 'SUBDIRECTORA ACADÉMICA')), 0, 1, 'C');
+        $mm = 72 / 25.4;
+        $pagina = $pdf->PageNo() - 1;
+        $cajaSub = ['p' => $pagina, 'x' => 25 * $mm, 'y' => $y * $mm, 'w' => 75 * $mm, 'h' => 11.0];
+        $cajaJefe = ['p' => $pagina, 'x' => 115 * $mm, 'y' => $y * $mm, 'w' => 75 * $mm, 'h' => 11.0];
+        return [$pdf->Output('S'), $cajaSub, $cajaJefe];
+    }
+
+    /**
+     * Constancia para quien revisó un protocolo aprobado; la firma la Subdirección.
+     * @param array $revisor ['nombre','email', y si se conocen 'grado','genero']; $vueltas números de vuelta en que revisó
+     * @return array{0:string,1:array} [PDF, caja de firma]
+     */
+    public static function constanciaRevision(array $tramite, array $revisor, array $vueltas, string $fechaAprobacion): array
+    {
+        $x = self::datos($tramite);
+        $r = Persona::completar($revisor, (string) ($revisor['email'] ?? ''));
+        $ordinales = array_map(static fn(int $n): string => Mensajes::ordinal($n), $vueltas);
+        $enVueltas = count($ordinales) > 1
+            ? 'las vueltas ' . implode(', ', array_slice($ordinales, 0, -1)) . ' y ' . end($ordinales)
+            : 'la ' . ($ordinales[0] ?? 'primera') . ' vuelta';
+        $pdf = self::nuevo();
+        self::cabecera($pdf, 'Ciudad Universitaria, Toluca, Méx., ' . self::fecha(date('Y-m-d')));
+        $pdf->Ln(4);
+        $pdf->SetFont('Helvetica', 'B', 13);
+        $pdf->Cell(0, 7, 'C O N S T A N C I A', 0, 1, 'C');
+        $pdf->Ln(6);
+        $pdf->SetFont('Helvetica', 'B', 11);
+        $pdf->Cell(0, 5.5, 'A QUIEN CORRESPONDA:', 0, 1);
+        $pdf->Ln(5);
+        $pdf->SetFont('Helvetica', '', 11);
+        $pdf->MultiCell(0, 5.8, self::l1('La Subdirección Académica de la Facultad de Ingeniería hace constar que ' . Persona::f($r, 'el', 'la') . ' ' . Persona::tratamiento($r)
+            . ' participó como ' . Persona::f($r, 'revisor', 'revisora') . ' del protocolo de evaluación profesional titulado «' . $x['titulo'] . '», presentado por ' . $x['nombre']
+            . ' (No. Cuenta ' . $x['cuenta'] . '), pasante de la Licenciatura en ' . $x['carrera'] . ', en la opción «' . $x['modalidad'] . '», como integrante del Comité de Revisión de Protocolos de la licenciatura, en '
+            . $enVueltas . ' de revisión. El protocolo fue aprobado el ' . self::fecha($fechaAprobacion) . '.'), 0, 'J');
+        $pdf->Ln(4);
+        $pdf->MultiCell(0, 5.8, self::l1('Se extiende la presente para los fines que ' . Persona::f($r, 'al interesado', 'a la interesada') . ' convengan.'), 0, 'J');
         $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA'], true);
         return [$pdf->Output('S'), $caja];
     }

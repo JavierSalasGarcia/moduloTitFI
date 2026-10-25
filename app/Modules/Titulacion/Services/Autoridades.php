@@ -37,6 +37,13 @@ final class Autoridades
         return $c === false ? $c = self::deDepartamento(['subdireccion_academica', 'titular_de_la_subdireccion_academica']) : $c;
     }
 
+    /** Jefatura del Departamento de Evaluación Profesional y Grado (Vo. Bo. del oficio de aprobación de tema). */
+    public static function jefeTitulacion(): ?array
+    {
+        static $c = false;
+        return $c === false ? $c = self::deDepartamento(['departamento_de_evaluacion_profesional_y_grado']) : $c;
+    }
+
     /** Coordinador de Docencia vigente de la licenciatura (clave de Catalogo::carreras()). */
     public static function coordinadorDocencia(string $carrera): ?array
     {

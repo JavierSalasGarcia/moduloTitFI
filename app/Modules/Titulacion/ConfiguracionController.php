@@ -61,7 +61,9 @@ final class ConfiguracionController extends TitulacionBase
             'etapas' => $this->etapasDisponibles(),
             'modalidades' => Catalogo::modalidades(),
             'param' => [
-                'dias' => (int) \ajuste('titulacion_dias_revision', '7'), 'aviso' => (int) \ajuste('titulacion_dias_aviso', '2'),
+                'dias' => (int) \ajuste('titulacion_dias_revision', '7'), 'revisores' => Services\RevisionProtocolo::revisoresPorProtocolo(),
+                'vigencia' => (int) \ajuste('titulacion_vigencia_protocolo', '2'), 'examen' => Services\AgendaExamen::config(),
+                'espacios' => (static function (): array { try { return \App\Modules\Espacios\Agenda::espacios(); } catch (\Throwable) { return []; } })(),
                 'firma' => \ajuste('titulacion_firma_revisores', 'sello'), 'inhabiles' => \ajuste('titulacion_dias_inhabiles', ''),
                 'gracia' => (int) \ajuste('titulacion_token_gracia', '14'), 'pki' => \App\Modules\Firmas\PadesSigner::habilitado(),
             ],
@@ -72,9 +74,18 @@ final class ConfiguracionController extends TitulacionBase
     public function parametros(): void
     {
         $this->admin();
-        $dias = (int) $this->post('dias');
-        $aviso = (int) $this->post('aviso');
-        $gracia = (int) $this->post('gracia');
+        $n = static fn(string $k): int => (int) ($_POST[$k] ?? 0);
+        $dias = $n('dias');
+        $revisores = $n('revisores');
+        $gracia = $n('gracia');
+        $vigencia = $n('vigencia');
+        $diasMin = $n('examen_dias');
+        $duracion = $n('examen_duracion');
+        $prop = $n('propietarios');
+        $sup = $n('suplentes');
+        $espacio = $n('examen_espacio');
+        $hIni = $this->post('examen_inicio');
+        $hFin = $this->post('examen_fin');
         $firma = $this->post('firma') === 'pades' ? 'pades' : 'sello';
         $inhabiles = [];
         foreach (preg_split('/[\s,;]+/', $this->post('inhabiles'), -1, PREG_SPLIT_NO_EMPTY) ?: [] as $f) {
@@ -87,23 +98,34 @@ final class ConfiguracionController extends TitulacionBase
             flash('error', 'Hay demasiadas fechas no laborables (máximo 25 en total). Captura solo las del periodo en curso.');
             redirigir('titulacion/configuracion#parametros');
         }
-        if ($dias < 1 || $dias > 30 || $aviso < 0 || $aviso > 10 || $gracia < 1 || $gracia > 60) {
-            flash('error', 'Revisa los valores: plazo de 1 a 30 días hábiles, aviso de 0 a 10 y gracia del enlace de 1 a 60 días.');
+        $hora = '/^([01]\d|2[0-3]):[0-5]\d$/D';
+        if ($dias < 1 || $dias > 30 || $revisores < 1 || $revisores > 9 || $gracia < 1 || $gracia > 60 || $vigencia < 1 || $vigencia > 10
+            || $diasMin < 0 || $diasMin > 60 || $duracion < 30 || $duracion > 480 || $prop < 1 || $prop > 5 || $sup < 0 || $sup > 5
+            || !preg_match($hora, $hIni) || !preg_match($hora, $hFin) || $hIni >= $hFin) {
+            flash('error', 'Revisa los valores: plazo de 1 a 30 días hábiles, 1 a 9 revisores, gracia de 1 a 60 días, vigencia de 1 a 10 años, anticipación de 0 a 60 días hábiles, duración de 30 a 480 minutos, 1 a 5 propietarios, 0 a 5 suplentes y un horario válido.');
             redirigir('titulacion/configuracion#parametros');
         }
         ksort($inhabiles);
         foreach ([
-            'titulacion_dias_revision' => [(string) $dias, 'Titulación: días hábiles que tiene cada evaluador para revisar un protocolo.'],
-            'titulacion_dias_aviso' => [(string) $aviso, 'Titulación: faltando estos días hábiles el semáforo de la revisión pasa a ámbar.'],
+            'titulacion_dias_revision' => [(string) $dias, 'Titulación: días hábiles que tiene cada revisor de protocolo; a partir del siguiente el semáforo pasa a rojo.'],
+            'titulacion_revisores_protocolo' => [(string) $revisores, 'Titulación: número de revisores al que el responsable del comité envía cada protocolo.'],
             'titulacion_firma_revisores' => [$firma, 'Titulación: firma de las revisiones de protocolo (sello o pades).'],
             'titulacion_dias_inhabiles' => [implode("\n", $inhabiles), 'Titulación: fechas no laborables (AAAA-MM-DD, una por línea) que no cuentan como días hábiles.'],
             'titulacion_token_gracia' => [(string) $gracia, 'Titulación: días extra tras la fecha límite en que sigue vigente el enlace del correo.'],
+            'titulacion_vigencia_protocolo' => [(string) $vigencia, 'Titulación: años de vigencia del protocolo aprobado; vencidos, el examen previo pide el oficio de prórroga.'],
+            'titulacion_examen_dias_min' => [(string) $diasMin, 'Titulación: días hábiles mínimos entre la solicitud y la fecha del examen que elige el pasante.'],
+            'titulacion_examen_hora_inicio' => [$hIni, 'Titulación: primera hora en que puede iniciar un examen.'],
+            'titulacion_examen_hora_fin' => [$hFin, 'Titulación: hora a la que debe haber terminado un examen.'],
+            'titulacion_examen_duracion' => [(string) $duracion, 'Titulación: minutos que se aparta el auditorio o sala para cada examen.'],
+            'titulacion_examen_espacio' => [(string) $espacio, 'Titulación: auditorio o sala (módulo Auditorios/Salas) donde se realizan los exámenes.'],
+            'titulacion_sinodales_propietarios' => [(string) $prop, 'Titulación: sinodales propietarios que propone el pasante.'],
+            'titulacion_sinodales_suplentes' => [(string) $sup, 'Titulación: sinodales suplentes que propone el pasante.'],
         ] as $clave => [$valor, $desc]) {
             Database::ejecutar('INSERT INTO ajustes (clave, valor, descripcion) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE valor = VALUES(valor)', [$clave, $valor, $desc]);
         }
         Services\Calendario::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'parametros', 'Revisión de protocolos: ' . $dias . ' días hábiles, firma ' . $firma);
-        flash('exito', 'Parámetros de revisión guardados.');
+        Configuracion::bitacora(Auth::id(), 'parametros', 'Revisión: ' . $dias . ' días hábiles, ' . $revisores . ' revisores; exámenes: ' . $diasMin . ' días hábiles, ' . $hIni . '–' . $hFin . ', ' . $duracion . ' min, sínodo ' . $prop . '+' . $sup);
+        flash('exito', 'Parámetros guardados.');
         redirigir('titulacion/configuracion#parametros');
     }
 

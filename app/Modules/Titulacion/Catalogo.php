@@ -540,17 +540,20 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'protocolo', 'titulo' => 'Protocolo y aprobación del tema', 'tipo' => 'captura',
-            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; escribe aquí todo el protocolo; la plataforma lo firma por ti, le pide la firma a tu asesor por correo y lo turna a la Comisión Revisora de Protocolos.',
+            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; escribe aquí todo el protocolo; la plataforma lo firma por ti, le pide la firma a tu asesor por correo y lo envía al responsable del Comité de Revisión de Protocolos de tu licenciatura. Si el comité te pide correcciones, las verás en «Titulación → Mensajes»: corrige aquí y vuelve a enviarlo.',
             'campos' => $proto['campos'] ?? [],
             'formatos' => ['protocolo'],
             'documentos' => [
-                ['validacion' => 'comision'] + self::doc('protocolo_firmado', 'Solicitud y protocolo firmados (pasante y asesor)', 'La plataforma lo genera con lo que escribiste; tu asesor lo firma por correo. Después lo revisa la comisión de tu licenciatura.', null, 'protocolo'),
+                ['validacion' => 'comision'] + self::doc('protocolo_firmado', 'Solicitud y protocolo firmados (pasante y asesor)', 'La plataforma lo genera con lo que escribiste; tu asesor lo firma por correo. Después lo revisa el comité de tu licenciatura.', null, 'protocolo'),
                 self::doc('carta_presentacion', 'Carta de presentación del pasante y asesor', 'Descárgala en blanco desde «Formatos en blanco».', 'Solo para instituciones incorporadas.'),
             ],
             'personal' => [
-                'titulo' => 'Dictamen de la Comisión Revisora de Protocolos',
-                'descripcion' => 'Si el protocolo requiere correcciones, rechaza el documento con las indicaciones; cuando se apruebe, la plataforma genera el oficio de aprobación de tema y modalidad.',
-                'campos' => [['k' => 'fecha', 'label' => 'Fecha de aprobación del protocolo', 'tipo' => 'fecha', 'req' => true]],
+                'titulo' => 'Aprobación del protocolo y oficio de aprobación del tema',
+                'descripcion' => 'Cuando el comité aprueba el protocolo, la plataforma genera el oficio de aprobación del tema; lo firman la Jefatura de Evaluación Profesional (Vo. Bo.) y la Subdirección Académica.',
+                'campos' => [
+                    ['k' => 'fecha', 'label' => 'Fecha de aprobación del protocolo', 'tipo' => 'fecha', 'req' => true],
+                    ['k' => 'observaciones', 'label' => 'Observaciones del oficio (vacío: la leyenda del coasesor, si lo hay, o «Ninguna.»)', 'tipo' => 'area', 'max' => 1500],
+                ],
                 'entrega' => self::oficio('oficio_aprobacion_tema', 'Oficio de aprobación de tema y modalidad'),
             ],
             'blanco' => ['rep'],
@@ -558,33 +561,30 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'desarrollo', 'titulo' => 'Desarrollo del trabajo escrito', 'tipo' => 'confirmacion',
-            'descripcion' => 'Tienes exclusividad sobre el tema por dos años, renovable hasta por dos años más (Art. 86, REP). Desarróllalo con tu asesor; cuando cuente con su visto bueno, confirma aquí para continuar.',
+            'descripcion' => 'Tienes exclusividad sobre el tema durante dos años a partir de la aprobación; puedes renovarla con una prórroga hasta por un año, que incluye la sustentación (Art. 86, REP). Desarróllalo con tu asesor; cuando cuente con su visto bueno, confirma aquí para continuar.',
             'confirmar' => 'Concluí el trabajo escrito y mi asesor lo avala para revisión',
             'blanco' => ['prorroga', 'cambio_asesor', 'baja', 'cambios', 'coasesoria'],
         ];
 
         $etapas[] = [
-            'clave' => 'revision', 'titulo' => 'Solicitud de revisión (examen previo)', 'tipo' => 'captura',
-            'descripcion' => 'Solicita fecha y asignación de revisores. Entrega el reporte de similitud de iThenticate (máximo ' . $limite . ' %) y tu trabajo en PDF.',
+            'clave' => 'revision', 'titulo' => 'Solicitud de revisión del trabajo escrito (examen previo)', 'tipo' => 'captura',
+            'descripcion' => 'Llena la solicitud de revisión del trabajo escrito y sube los documentos probatorios: el reporte de similitud de iThenticate (máximo ' . $limite . ' %) y tu trabajo en PDF. Después elige la fecha y hora de tu examen previo y propone a tu sínodo; tu solicitud llega al Coordinador de Docencia de tu licenciatura.',
             'campos' => [
                 ['k' => 'titulo', 'label' => 'Título del trabajo escrito', 'tipo' => 'area', 'filas' => 3, 'max' => 400, 'req' => true],
-                ['k' => 'fecha_protocolo', 'label' => 'Fecha del oficio de aprobación del protocolo', 'tipo' => 'fecha', 'req' => true],
             ],
             'formatos' => ['revision'],
             'documentos' => [
                 self::doc('revision_firmada', 'Solicitud de revisión firmada (pasante y asesor)', '', null, 'revision'),
                 self::doc('similitud_previo', 'Reporte de porcentaje de similitud (iThenticate)', 'No mayor al ' . $limite . ' %.'),
                 self::doc('trabajo_previo', 'Trabajo escrito en PDF para revisión', 'Con copia del oficio de aprobación de tema al inicio.'),
+                ['solo_si' => 'protocolo_vencido'] + self::doc('oficio_prorroga', 'Oficio de prórroga del tema', 'Tu protocolo se aprobó hace más del plazo de exclusividad (Art. 86, REP): sube el oficio de prórroga que te otorgaron.'),
             ],
+            'agenda' => 'previo',
             'personal' => [
-                'titulo' => 'Fecha del examen previo y asignación de revisores',
-                'descripcion' => 'Titulación fija la fecha; la Coordinación de Docencia de la licenciatura asigna a los revisores y firma desde el enlace que le llega por correo. Después se generan los oficios individuales.',
-                'campos' => [
-                    ['k' => 'fecha', 'label' => 'Fecha del examen previo', 'tipo' => 'fecha', 'req' => true],
-                    ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
-                    ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
-                ],
-                'entrega' => self::asignacion('asignacion_revisores', 'Asignación de revisores (Coordinación de Docencia)', 'previo'),
+                'titulo' => 'Fecha del examen previo y sínodo',
+                'descripcion' => 'Eliges fecha y hora y propones tu sínodo; el Coordinador de Docencia de tu licenciatura lo ratifica o modifica y firma desde el enlace de su correo. Después se generan los oficios individuales.',
+                'campos' => [],
+                'entrega' => self::asignacion('asignacion_revisores', 'Asignación de sínodo (Coordinación de Docencia)', 'previo'),
             ],
         ];
 
@@ -632,16 +632,14 @@ final class Catalogo
             'blanco' => ['carta_ri', 'carta_ri_2', 'carta_excepcion_ri', 'carta_excepcion_ri_2'],
         ];
         $etapas[] = [
-            'clave' => 'fecha', 'titulo' => 'Fecha, hora y lugar de la evaluación', 'tipo' => 'personal',
-            'descripcion' => 'Apoyo a Titulación define fecha, hora y lugar con la Coordinación de Docencia, que asigna al jurado.',
+            'clave' => 'fecha', 'titulo' => 'Solicitud del examen definitivo', 'tipo' => 'captura',
+            'descripcion' => 'Elige la fecha y hora de tu examen definitivo y propone a tu jurado; tu solicitud llega al Coordinador de Docencia de tu licenciatura, que lo ratifica o modifica.',
+            'campos' => [],
+            'agenda' => 'definitivo',
             'personal' => [
-                'titulo' => 'Fecha del examen definitivo y asignación de jurado',
-                'descripcion' => 'Titulación fija la fecha; la Coordinación de Docencia asigna al jurado y firma desde el enlace de su correo. Después se generan los oficios individuales.',
-                'campos' => [
-                    ['k' => 'fecha', 'label' => 'Fecha', 'tipo' => 'fecha', 'req' => true],
-                    ['k' => 'hora', 'label' => 'Hora', 'tipo' => 'hora', 'req' => true],
-                    ['k' => 'lugar', 'label' => 'Lugar', 'tipo' => 'texto', 'req' => true],
-                ],
+                'titulo' => 'Fecha del examen definitivo y jurado',
+                'descripcion' => 'Eliges fecha y hora y propones tu jurado; el Coordinador de Docencia lo ratifica o modifica y firma desde el enlace de su correo. Después se generan los oficios individuales.',
+                'campos' => [],
                 'entrega' => self::asignacion('asignacion_jurado', 'Asignación de jurado (Coordinación de Docencia)', 'definitivo'),
             ],
         ];

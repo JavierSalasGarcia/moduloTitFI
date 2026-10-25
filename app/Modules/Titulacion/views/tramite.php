@@ -51,14 +51,14 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php if (!empty($etapa['descripcion'])): ?><p><?= e($etapa['descripcion']) ?></p><?php endif; ?>
 
     <?php if (!$bloqueada && !empty($linea)): ?>
-      <h3>Revisión de tu protocolo<?= $linea['numero'] > 0 ? ' · ' . (int) $linea['numero'] . 'ª revisión' : '' ?></h3>
+      <h3>Revisión de tu protocolo<?= $linea['numero'] > 0 ? ' · ' . e(\App\Modules\Titulacion\Services\Mensajes::ordinal((int) $linea['numero'])) . ' vuelta' : '' ?></h3>
       <ol class="tit-linea" aria-label="Avance de la revisión del protocolo">
         <?php foreach ($linea['pasos'] as $p): ?><li class="<?= e($p['clase']) ?>"><?= e($p['texto']) ?></li><?php endforeach; ?>
       </ol>
       <?php if (!empty($linea['ronda'])): $rr = $linea['ronda']; ?>
         <div class="<?= $rr['dictamen'] === 'aprobado' ? 'tit-ok' : 'tit-obs' ?>" style="margin-top:12px">
-          <strong>Dictamen de la comisión: <?= $rr['dictamen'] === 'aprobado' ? 'se aprueba' : 'no se aprueba' ?></strong>
-          <?php if ($rr['observaciones']): ?><div style="white-space:pre-wrap;margin-top:4px"><?= e((string) $rr['observaciones']) ?></div><?php endif; ?>
+          <strong><?= $rr['dictamen'] === 'aprobado' ? 'El comité aprobó tu protocolo.' : 'El comité te pide atender observaciones.' ?></strong>
+          <?php if ($rr['dictamen'] !== 'aprobado'): ?><div style="margin-top:4px">Léelas en <a href="<?= url('titulacion/mensajes') ?>">Titulación → Mensajes</a>; corrige aquí tu protocolo y vuelve a firmarlo para enviarlo.</div><?php endif; ?>
           <div style="margin-top:4px"><a href="<?= url($base . '/dictamen/' . (int) $rr['id']) ?>" target="_blank" rel="noopener">Ver el dictamen firmado (PDF)</a></div>
         </div>
       <?php endif; ?>
@@ -115,6 +115,10 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
       <?php endforeach; ?>
     <?php endif; ?>
 
+    <?php if (!$bloqueada && !empty($etapa['protocolo_vencido']) && isset($etapa['docs_estado']['oficio_prorroga'])): ?>
+      <p class="tit-aviso">Tu protocolo se aprobó hace más del plazo de exclusividad del tema (Art. 86, REP). Para solicitar tu examen debes subir el oficio de prórroga.</p>
+    <?php endif; ?>
+
     <?php if (!$bloqueada && !empty($etapa['documentos'])): ?>
       <h3>Documentos <span class="texto-secundario" style="font-weight:400;font-size:13px">(solo PDF escaneado, no fotografías; legible y a color; máximo 5 MB)</span></h3>
       <?php foreach ($etapa['docs_estado'] as $dc => $info): $d = $info['def']; $fila = $info['fila']; $est = $info['estado']; [$cl, $et] = $chips[$est] ?? ['pend', $est]; ?>
@@ -141,14 +145,14 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
                 <form method="post" action="<?= url($base . '/reenviar/' . $dc) ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reenviar correo al asesor</button></form>
               <?php endif; ?>
             <?php elseif (($d['validacion'] ?? '') === 'comision' && $protocoloEnRevision): ?>
-              <p class="nota">Tu protocolo está en revisión de la comisión; recibirás el dictamen aquí y por correo.</p>
+              <p class="nota">Tu protocolo está con el comité de revisión; recibirás el resultado en «Titulación → Mensajes» y por correo.</p>
             <?php elseif (!empty($d['generado']) && $editable && $etapa['propia_ok'] && !in_array($est, ['aprobado', 'en_revision'], true)): ?>
               <?php if (isset($formatos[$d['formato']]) && $formatos[$d['formato']]['impedimento']): ?>
                 <p class="nota" style="color:var(--alerta)"><?= e($formatos[$d['formato']]['impedimento']) ?></p>
               <?php else: ?>
                 <form method="post" action="<?= url($base . '/generar/' . $etapa['clave'] . '/' . $dc) ?>">
                   <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-                  <button class="btn btn-mini btn-primario" type="submit"><?= $dc === 'protocolo_firmado' ? 'Firmar y enviar a mi asesor' : 'Firmar electrónicamente y enviar' ?></button>
+                  <button class="btn btn-mini btn-primario" type="submit"><?= $dc === 'protocolo_firmado' ? ($est === 'rechazado' ? 'Firmar la versión corregida y enviarla a mi asesor' : 'Firmar y enviar a mi asesor') : 'Firmar electrónicamente y enviar' ?></button>
                 </form>
               <?php endif; ?>
             <?php elseif (!empty($d['generado'])): ?>
@@ -197,10 +201,13 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
       <?php endif; ?>
     <?php endif; ?>
 
+    <?php if (!$bloqueada && !empty($etapa['agenda']) && empty($etapa['hito'])): include __DIR__ . '/_agenda.php'; endif; ?>
+
     <?php if (!$bloqueada && isset($etapa['personal'])): $hito = $etapa['hito']; ?>
       <h3><?= e($etapa['personal']['titulo']) ?></h3>
       <?php if ($hito): ?>
         <div class="tit-ok">
+          <?php if (!empty($etapa['agenda'])): ?><div><strong>Examen:</strong> <?= e(\App\Modules\Titulacion\Services\Oficios::fecha((string) ($hito['datos']['fecha'] ?? ''))) ?>, <?= e((string) ($hito['datos']['hora'] ?? '')) ?> h, en <?= e((string) ($hito['datos']['lugar'] ?? '')) ?></div><?php endif; ?>
           <?php foreach ($etapa['personal']['campos'] ?? [] as $c): $v = (string) ($hito['datos'][$c['k']] ?? ''); if ($v === '') continue;
             if (($c['tipo'] ?? '') === 'select') { $v = $c['opciones'][$v] ?? $v; } ?>
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
@@ -214,7 +221,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
         </div>
         <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $etapa['clave']); ?>
           <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
-            <p class="texto-secundario">El Coordinador de Docencia (<?= e($asig['coord_nombre']) ?>) está asignando a los sinodales; le llegó un correo con su enlace.</p>
+            <p class="texto-secundario">El Coordinador de Docencia (<?= e($asig['coord_nombre']) ?>) está revisando el sínodo que propusiste; le llegó un correo con su enlace.</p>
           <?php elseif ($asig): $sins = \App\Modules\Titulacion\Services\Jurado::sinodales((int) $asig['id']); ?>
             <h4 style="margin-top:12px">Oficios a tus sinodales</h4>
             <p class="texto-secundario">Tú das seguimiento: cada profesor debe firmar de recibido su oficio. Si tarda, mándale un recordatorio por aquí o visítalo para asegurarte de que revise su correo.</p>

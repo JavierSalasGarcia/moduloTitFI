@@ -7,6 +7,26 @@
   "menu": [
     {
       "seccion": "TITULACIÓN",
+      "titulo": "Estado",
+      "ruta": "titulacion/estado",
+      "roles": [
+        "alumno"
+      ],
+      "orden": 17,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneTramites"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Mensajes",
+      "ruta": "titulacion/mensajes",
+      "roles": [
+        "alumno"
+      ],
+      "orden": 18,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneTramites"
+    },
+    {
+      "seccion": "TITULACIÓN",
       "titulo": "Seguimiento",
       "ruta": "titulacion/seguimiento",
       "roles": [
@@ -51,7 +71,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Protocolos por evaluar",
+      "titulo": "Protocolos por revisar",
       "ruta": "titulacion/revision",
       "roles": [
         "admin",
@@ -66,7 +86,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Mi comisión",
+      "titulo": "Mi comité de revisión",
       "ruta": "titulacion/comision",
       "roles": [
         "admin",
@@ -129,7 +149,7 @@
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Firmas de Subdirección",
+      "titulo": "Firmas pendientes",
       "ruta": "titulacion/firmas",
       "roles": [
         "admin",
@@ -141,6 +161,21 @@
       ],
       "orden": 28,
       "condicion": "App\\Modules\\Titulacion\\Services\\SubdireccionFirma::puedeFirmar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Protocolos",
+      "ruta": "titulacion/constancias",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 29,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneConstancias"
     }
   ],
   "rutas": {
@@ -509,6 +544,38 @@
     "POST /titulacion/gestion/{id}/jurado/{asig}/reenviar": [
       "App\\Modules\\Titulacion\\GestionController",
       "reenviarCoordinador"
+    ],
+    "GET /titulacion/mensajes": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "mensajes"
+    ],
+    "GET /titulacion/mensajes/{id}": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "mensaje"
+    ],
+    "GET /titulacion/estado": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "estado"
+    ],
+    "GET /titulacion/constancias": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "constancias"
+    ],
+    "GET /titulacion/constancias/{id}": [
+      "App\\Modules\\Titulacion\\PanelController",
+      "constancia"
+    ],
+    "POST /titulacion/comision/plantilla": [
+      "App\\Modules\\Titulacion\\ComisionController",
+      "plantilla"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/agenda/{etapa}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "horarios"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/agenda/{etapa}": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "agenda"
     ]
   }
 }

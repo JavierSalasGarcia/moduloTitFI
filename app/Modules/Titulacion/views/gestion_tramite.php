@@ -108,7 +108,8 @@ $chips = [
           <?php foreach ($e['personal']['campos'] ?? [] as $c): $v = (string) ($hito['datos'][$c['k']] ?? ''); if ($v === '') continue; if (($c['tipo'] ?? '') === 'select') { $v = $c['opciones'][$v] ?? $v; } ?>
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
-          <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) ? ' · esperando la firma de la Subdirección' : ' · firmado' ?></div><?php endif; ?>
+          <?php if (!empty($e['agenda'])): ?><div><strong>Examen solicitado por el pasante:</strong> <?= e(\App\Modules\Titulacion\Services\Oficios::fecha((string) ($hito['datos']['fecha'] ?? ''))) ?>, <?= e((string) ($hito['datos']['hora'] ?? '')) ?> h, <?= e((string) ($hito['datos']['lugar'] ?? '')) ?></div><?php endif; ?>
+          <?php if ($filaEnt): ?><div><a href="<?= url($ver . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) && empty($ent['asignacion']) ? ' · esperando firmas' : '' ?></div><?php endif; ?>
           <?php if (!empty($e['personal']['comision_fija'])): $cf = \App\Modules\Titulacion\Services\Autoridades::class; $pr = $cf::director(); $se = $cf::subdirector(); ?>
           <div>Comisión: <?= e($pr ? \App\Core\Persona::tratamiento($pr) : 'Director') ?> (<?= e(\App\Core\Persona::f($pr ?? [], 'presidente', 'presidenta')) ?>) y <?= e($se ? \App\Core\Persona::tratamiento($se) : 'Subdirector Académico') ?> (<?= e(\App\Core\Persona::f($se ?? [], 'secretario', 'secretaria')) ?>)</div>
         <?php endif; ?>
@@ -123,9 +124,11 @@ $chips = [
           <?php endif; ?>
           <div class="texto-secundario">Registrado por <?= e($hito['completado_nombre']) ?> · <?= e(fecha_corta($hito['completado_en'])) ?></div>
         </div>
-        <form method="post" action="<?= url($base . '/reabrir/' . $e['clave']) ?>" onsubmit="return confirm('¿Reabrir esta etapa?')" style="margin-top:8px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reabrir etapa</button></form>
+        <form method="post" action="<?= url($base . '/reabrir/' . $e['clave']) ?>" onsubmit="return confirm('<?= !empty($e['agenda']) ? '¿Reabrir esta etapa? Se libera el espacio apartado y el pasante podrá elegir otra fecha.' : '¿Reabrir esta etapa?' ?>')" style="margin-top:8px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reabrir etapa</button></form>
       <?php elseif ($e['situacion'] === 'actual' && $t['estado'] === 'abierto'): ?>
-        <?php if (!$e['propia_ok'] || !$e['docs_ok']): ?>
+        <?php if (!empty($e['agenda'])): ?>
+          <p class="tit-aviso">El pasante elige la fecha y hora del examen y propone su sínodo; al enviarlo, la solicitud llega al Coordinador de Docencia.</p>
+        <?php elseif (!$e['propia_ok'] || !$e['docs_ok']): ?>
           <p class="tit-aviso">Podrás completar esto cuando el pasante termine su captura y todos sus documentos estén validados.</p>
         <?php else: ?>
           <form class="formulario" method="post" action="<?= url($base . '/hito/' . $e['clave']) ?>">

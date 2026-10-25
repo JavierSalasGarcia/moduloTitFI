@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Modules\Titulacion\Services;
 
 use App\Modules\Titulacion\Catalogo;
+use App\Modules\Titulacion\TitulacionRepository;
 use App\Modules\Titulacion\Configuracion;
 use App\Modules\Titulacion\Flujo;
 use RuntimeException;
@@ -187,7 +188,9 @@ final class Formatos
         $hoy = self::fechaHoy();
         $titulo = (string) ($d['revision']['titulo'] ?? $t['titulo'] ?? '');
         $carreras = Catalogo::carreras();
-        [$pd, $pm, $pa] = self::partesFecha($d['revision']['fecha_protocolo'] ?? null);
+        // La fecha de aprobación del protocolo la conoce la plataforma (oficio de aprobación del tema).
+        $fechaProtocolo = $d['revision']['fecha_protocolo'] ?? (!empty($t['id']) ? (TitulacionRepository::hitos((int) $t['id'])['protocolo']['datos']['fecha'] ?? null) : null);
+        [$pd, $pm, $pa] = self::partesFecha($fechaProtocolo);
         [$vd, $vm, $va] = self::partesFecha($d['sustentacion']['fecha_voto'] ?? null);
         $v = [
             'fecha_dia' => $hoy['dia'], 'fecha_mes' => $hoy['mes'], 'fecha_anio' => $hoy['anio2'],
