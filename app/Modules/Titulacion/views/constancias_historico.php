@@ -16,8 +16,10 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 ?>
 <style>
 .hist-tabla td{padding:2px 3px;vertical-align:top}
-.hist-tabla input,.hist-tabla select{width:100%;min-width:90px;font-size:13px;padding:3px 4px;border:1px solid transparent;background:transparent}
-.hist-tabla input:focus,.hist-tabla select:focus{border-color:var(--borde,#999);background:var(--superficie,#fff)}
+.hist-tabla input,.hist-tabla select{width:100%;min-width:90px;font-size:13px;padding:3px 4px;border:1px solid transparent;background:transparent;color:inherit}
+.hist-tabla input[readonly]{cursor:default}
+.hist-tabla select:disabled{pointer-events:none;opacity:1;appearance:none;-webkit-appearance:none}
+.hist-tabla td.editando input,.hist-tabla td.editando select{border-color:var(--borde,#999);background:var(--superficie,#fff);cursor:text}
 .hist-tabla td.ancho input{min-width:220px}
 .hist-tabla td.falta{background:#FDE2E2;box-shadow:inset 0 0 0 2px #DC2626;animation:hist-parpadeo 1.1s steps(2,start) infinite}
 .hist-tabla td.guardando{opacity:.6}
@@ -28,16 +30,18 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 </style>
 
 <div class="tit-cabecera"><div>
-  <p class="texto-secundario">Registros del libro de actas importados de Excel. Corrige cualquier dato escribiendo en la celda: se guarda al salir de ella. En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor.</p>
+  <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor.</p>
 </div></div>
 
 <section class="tarjeta" style="margin-bottom:14px">
-  <form method="post" action="<?= url('titulacion/constancias/historial/importar') ?>" enctype="multipart/form-data" style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
+  <form method="post" action="<?= url('titulacion/constancias/historial/nuevo') ?>" style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
     <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-    <label style="flex:1 1 280px">Importar libro de actas (.xlsx, una hoja por licenciatura) <input type="file" name="libro" accept=".xlsx" required></label>
-    <button class="btn" type="submit">Importar</button>
+    <label style="flex:0 1 220px">Licenciatura <select name="carrera" required><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>"><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <label style="flex:1 1 260px">Alumno <input name="alumno" maxlength="160" required placeholder="Nombre completo"></label>
+    <label style="flex:0 1 120px">Acta <input name="acta" inputmode="numeric" pattern="[0-9]*" maxlength="8"></label>
+    <button class="btn" type="submit">Agregar registro</button>
   </form>
-  <p class="texto-secundario" style="margin-top:6px">Solo se agregan filas nuevas; lo ya importado y corregido no se modifica.</p>
+  <p class="texto-secundario" style="margin-top:6px">Para un registro anterior a la plataforma que no esté en la lista. Los trámites nuevos no se capturan aquí: sus constancias se generan solas.</p>
 </section>
 
 <section class="tarjeta">
@@ -60,7 +64,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
       <button class="btn btn-primario" type="submit">Generar constancias de todos los completos</button>
     </form>
   </div>
-  <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '; importa el libro de actas' ?>.</div><?php else: ?>
+  <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '' ?>.</div><?php else: ?>
   <div class="tabla-contenedor"><table class="tabla hist-tabla">
     <thead><tr><?php foreach ($columnas as $c): ?><th><?= e(Historico::CAMPOS[$c][0]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
     <tbody>
@@ -70,15 +74,16 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
           <td class="<?= in_array($c, $h['faltan'], true) ? 'falta' : '' ?><?= in_array($c, ['alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'], true) || str_ends_with($c, '_email') ? ' ancho' : '' ?>" data-campo="<?= e($c) ?>"
             <?php if ($c === 'modalidad' && $h['modalidad_origen'] !== ''): ?>title="En el libro: <?= e($h['modalidad_origen']) ?>"<?php elseif (str_ends_with($c, '_email') && $h['correos'] !== ''): ?>title="Correos en el libro: <?= e($h['correos']) ?>"<?php endif; ?>>
             <?php if (isset($opciones[$tipo])): ?>
-              <select aria-label="<?= e(Historico::CAMPOS[$c][0]) ?>"><?php foreach ($opciones[$tipo] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
+              <select disabled aria-label="<?= e(Historico::CAMPOS[$c][0]) ?>"><?php foreach ($opciones[$tipo] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
             <?php else: ?>
-              <input aria-label="<?= e(Historico::CAMPOS[$c][0]) ?>" type="<?= $tipo === 'fecha' ? 'date' : ($tipo === 'email' ? 'email' : 'text') ?>" value="<?= e($v) ?>" <?= $tipo === 'numero' ? 'inputmode="numeric"' : '' ?>>
+              <input readonly aria-label="<?= e(Historico::CAMPOS[$c][0]) ?>" type="<?= $tipo === 'fecha' ? 'date' : ($tipo === 'email' ? 'email' : 'text') ?>" value="<?= e($v) ?>" <?= $tipo === 'numero' ? 'inputmode="numeric"' : '' ?>>
             <?php endif; ?>
           </td>
         <?php endforeach; ?>
         <td class="hist-estado">
           <?php if ($h['generado_en']): ?><span class="tit-chip ok">Generadas</span><?php endif; ?>
           <button type="button" class="btn btn-mini btn-primario" data-generar <?= !Historico::conTrabajo($h['modalidad']) || $h['faltan'] ? 'hidden' : '' ?>><?= $h['generado_en'] ? 'Completar' : 'Generar' ?></button>
+          <?php if (!$h['tramite_id']): ?><button type="button" class="btn btn-mini" data-eliminar title="Eliminar registro">Eliminar</button><?php endif; ?>
           <span data-nota class="texto-secundario"><?= !Historico::conTrabajo($h['modalidad']) && $h['modalidad'] ? 'Sin trabajo escrito' : '' ?></span>
         </td>
       </tr>
@@ -108,17 +113,44 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
     var b = tr.querySelector('[data-generar]'); b.hidden = !trabajo || fila.faltan.length > 0;
     tr.querySelector('[data-nota]').textContent = !trabajo && fila.modalidad ? 'Sin trabajo escrito' : '';
   }
+  function bloquear(td, el) {
+    td.classList.remove('editando');
+    if (el.tagName === 'SELECT') { el.disabled = true; } else { el.readOnly = true; }
+  }
   document.querySelectorAll('.hist-tabla td[data-campo]').forEach(function (td) {
     var el = td.querySelector('input,select'), previo = el.value;
-    el.addEventListener('change', function () {
+    td.addEventListener('dblclick', function () {
+      if (td.classList.contains('editando')) { return; }
+      td.classList.add('editando');
+      if (el.tagName === 'SELECT') { el.disabled = false; } else { el.readOnly = false; }
+      el.focus();
+      if (el.select && el.type === 'text') { el.select(); }
+    });
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { el.value = previo; bloquear(td, el); el.blur(); }
+      if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+    });
+    el.addEventListener('blur', function () {
+      if (!td.classList.contains('editando')) { return; }
+      bloquear(td, el);
       if (el.value === previo) { return; }
       var tr = td.closest('tr');
-      td.classList.add('guardando'); td.classList.remove('error'); td.removeAttribute('data-error');
+      td.classList.add('guardando'); td.classList.remove('error');
       enviar(base + tr.dataset.id + '/campo', { campo: td.dataset.campo, valor: el.value }).then(function (r) {
         td.classList.remove('guardando');
         if (!r.ok) { td.classList.add('error'); td.title = r.error; alert(r.error); el.value = previo; return; }
         previo = el.value; pintar(tr, r.fila);
       }).catch(function () { td.classList.remove('guardando'); td.classList.add('error'); el.value = previo; });
+    });
+  });
+  document.querySelectorAll('[data-eliminar]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var tr = b.closest('tr');
+      if (!confirm('¿Eliminar este registro del historial? Solo se permite mientras no tenga constancias generadas.')) { return; }
+      enviar(base + tr.dataset.id + '/eliminar', {}).then(function (r) {
+        if (!r.ok) { alert(r.error); return; }
+        tr.remove();
+      }).catch(function () { alert('No se pudo eliminar.'); });
     });
   });
   document.querySelectorAll('[data-generar]').forEach(function (b) {
@@ -129,6 +161,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
         if (!r.ok) { alert(r.error); return; }
         tr.querySelector('[data-nota]').textContent = r.generadas + ' generada(s); en firma';
         b.textContent = 'Completar';
+        var x = tr.querySelector('[data-eliminar]'); if (x) { x.remove(); }
       }).catch(function () { b.disabled = false; alert('No se pudo generar.'); });
     });
   });

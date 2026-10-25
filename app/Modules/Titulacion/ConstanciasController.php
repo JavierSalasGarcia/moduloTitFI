@@ -10,7 +10,7 @@ use App\Modules\Titulacion\Services\Historico;
 use App\Modules\Titulacion\Services\Oficios;
 use Throwable;
 
-/** «Constancias → Textos» (redacción editable de cada constancia) e «Constancias → Historial» (libro de actas importado). */
+/** «Constancias → Textos» (redacción editable de cada constancia) e «Constancias → Historial» (registros anteriores del libro de actas). */
 final class ConstanciasController extends TitulacionBase
 {
     private function soloTextos(): void
@@ -122,24 +122,20 @@ final class ConstanciasController extends TitulacionBase
         $this->vista('constancias_historico', ['titulo' => 'Constancias · Historial', 'f' => $f, 'filas' => $r['filas'], 'total' => $r['total'], 'pagina' => $pagina]);
     }
 
-    public function importar(): void
+    /** Alta manual de un registro histórico que no venía en el libro. */
+    public function nuevo(): void
     {
         $this->soloHistorial();
-        $a = $_FILES['libro'] ?? null;
-        if (!is_array($a) || ($a['error'] ?? 1) !== UPLOAD_ERR_OK || !is_uploaded_file((string) $a['tmp_name']) || ($a['size'] ?? 0) > 30 * 1024 * 1024) {
-            flash('error', 'Elige el libro de Excel (.xlsx, hasta 30 MB).');
-            redirigir('titulacion/constancias/historial');
-        }
+        $acta = trim($this->post('acta'));
         try {
-            $r = Historico::importar((string) $a['tmp_name'], Auth::id());
-        } catch (Throwable $e) {
-            error_log('Titulación: importación del historial: ' . $e->getMessage());
-            flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo leer el libro.');
+            $id = Historico::crear($this->post('carrera'), $this->post('alumno'), ctype_digit($acta) ? (int) $acta : null, Auth::id());
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
             redirigir('titulacion/constancias/historial');
         }
-        Audit::record('titulacion::historial', 'correcto', 'Importados ' . $r['nuevos'] . ' (' . implode(', ', $r['hojas']) . ')');
-        flash('exito', 'Importados ' . $r['nuevos'] . ' registros nuevos de ' . count($r['hojas']) . ' hojas' . ($r['existentes'] ? '; ' . $r['existentes'] . ' ya estaban y no se modificaron' : '') . '.');
-        redirigir('titulacion/constancias/historial?faltantes=cualquiera');
+        Audit::record('titulacion::historial', 'correcto', 'Registro histórico agregado ' . $id);
+        flash('exito', 'Registro agregado. Completa sus datos con doble clic en cada celda.');
+        redirigir('titulacion/constancias/historial?q=' . rawurlencode($this->post('alumno')));
     }
 
     private function json(array $d, int $codigo = 200): never
@@ -161,6 +157,19 @@ final class ConstanciasController extends TitulacionBase
             $this->json(['ok' => false, 'error' => $e->getMessage()], 422);
         }
         $this->json(['ok' => true, 'fila' => $fila]);
+    }
+
+    /** Elimina un registro sin constancias generadas (JSON). */
+    public function eliminar(string $id): void
+    {
+        $this->soloHistorial();
+        try {
+            $h = Historico::eliminar((int) $id);
+        } catch (\InvalidArgumentException $e) {
+            $this->json(['ok' => false, 'error' => $e->getMessage()], 422);
+        }
+        Audit::record('titulacion::historial', 'correcto', 'Registro histórico eliminado ' . (int) $id . ': ' . $h['alumno'] . ' (acta ' . ($h['acta'] ?? '—') . ', ' . $h['carrera'] . ')');
+        $this->json(['ok' => true]);
     }
 
     /** Genera las constancias de un registro completo (JSON). */

@@ -637,9 +637,9 @@
       "App\\Modules\\Titulacion\\ConstanciasController",
       "historico"
     ],
-    "POST /titulacion/constancias/historial/importar": [
+    "POST /titulacion/constancias/historial/nuevo": [
       "App\\Modules\\Titulacion\\ConstanciasController",
-      "importar"
+      "nuevo"
     ],
     "POST /titulacion/constancias/historial/generar": [
       "App\\Modules\\Titulacion\\ConstanciasController",
@@ -648,6 +648,10 @@
     "POST /titulacion/constancias/historial/{id}/campo": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "campo"
+    ],
+    "POST /titulacion/constancias/historial/{id}/eliminar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "eliminar"
     ],
     "POST /titulacion/constancias/historial/{id}/generar": [
       "App\\Modules\\Titulacion\\ConstanciasController",
