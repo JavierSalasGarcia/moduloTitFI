@@ -3,17 +3,12 @@ declare(strict_types=1);
 
 namespace App\Modules\Titulacion;
 
-use App\Core\App;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
-use App\Modules\Titulacion\Services\Formatos;
-use App\Modules\Titulacion\Services\PdfFormato;
-use InvalidArgumentException;
-use RuntimeException;
 use Throwable;
 
-/** Configuración de formatos y requisitos documentales (solo administración). */
+/** Configuración del módulo: requisitos documentales, parámetros y vista previa de los formatos (solo administración). */
 final class ConfiguracionController extends TitulacionBase
 {
     private function admin(): void
@@ -24,19 +19,6 @@ final class ConfiguracionController extends TitulacionBase
         $this->privado();
     }
 
-    private function claveValida(string $clave): string
-    {
-        if (!preg_match('/^[a-z][a-z0-9_]{0,39}$/D', $clave)) {
-            $this->noEncontrado();
-        }
-        return $clave;
-    }
-
-    private function storage(): string
-    {
-        return rtrim((string) App::config('archivos.storage'), '/\\');
-    }
-
     // --------------------------------------------------------------------- inicio
 
     public function index(): void
@@ -45,18 +27,10 @@ final class ConfiguracionController extends TitulacionBase
         $formatos = [];
         $uso = $this->usoDeFormatos();
         foreach (Catalogo::formatos() as $clave => $f) {
-            $cfg = Configuracion::formatoCfg($clave);
-            $r = $f['tipo'] === 'pdf' ? Configuracion::resolverPdf($clave) : null;
-            $formatos[$clave] = $f + [
-                'clave' => $clave,
-                'modificado' => $cfg !== null && ($cfg['spec'] !== null || $cfg['plantilla_ruta'] !== null),
-                'plantilla_nueva' => $cfg !== null && $cfg['plantilla_ruta'] !== null,
-                'campos' => $r ? count($r['spec']['campos']) : null,
-                'uso' => $uso[$clave] ?? [],
-            ];
+            $formatos[$clave] = $f + ['clave' => $clave, 'uso' => $uso[$clave] ?? []];
         }
         $this->vista('configuracion', [
-            'titulo' => 'Titulación · Configurar formatos',
+            'titulo' => 'Titulación · Configuración',
             'formatos' => $formatos,
             'etapas' => $this->etapasDisponibles(),
             'modalidades' => Catalogo::modalidades(),
@@ -291,305 +265,38 @@ final class ConfiguracionController extends TitulacionBase
 
     // -------------------------------------------------------------------- formatos
 
-    private function formatoDef(string $clave): array
-    {
-        $f = Catalogo::formatos()[$this->claveValida($clave)] ?? null;
-        if ($f === null) {
-            $this->noEncontrado();
-        }
-        return $f;
-    }
+    // ------------------------------------------------------------------ formatos
 
-    public function visor(string $clave): void
+    /** Vista previa de un formato con datos de ejemplo (la plataforma los genera; no hay plantillas que editar). */
+    public function muestra(string $clave): void
     {
         $this->admin();
-        $f = $this->formatoDef($clave);
-        if ($f['tipo'] !== 'pdf') {
-            flash('error', 'Este formato es un documento Word generado sobre la hoja membretada; se reemplaza la hoja, no se editan coordenadas.');
-            redirigir('titulacion/configuracion');
-        }
-        $r = Configuracion::resolverPdf($clave);
-        if ($r === null) {
-            flash('error', 'No se encontró la plantilla de este formato. Reemplázala.');
-            redirigir('titulacion/configuracion');
-        }
-        $info = PdfFormato::inspeccionar($r['plantilla']);
-        $spec = $r['spec'];
-        $spec['paginas'] = $info['paginas'] ?? 1;
-        $spec['ancho'] = $info['ancho'] ?? $spec['ancho'];
-        $spec['alto'] = $info['alto'] ?? $spec['alto'];
-        $this->vista('configuracion_visor', [
-            'titulo' => 'Visor de coordenadas · ' . $f['nombre'],
-            'clave' => $clave,
-            'f' => $f,
-            'spec' => $spec,
-            'variables' => Formatos::variables(),
-        ]);
-    }
-
-    public function plantilla(string $clave): void
-    {
-        $this->admin();
-        $this->formatoDef($clave);
-        $r = Configuracion::resolverPdf($clave);
-        if ($r === null) {
+        if (!isset(Services\FormatosOficiales::generadores()[$clave]) && $clave !== 'protocolo') {
             $this->noEncontrado();
         }
-        $this->privado();
-        header('Content-Type: application/pdf');
-        header('X-Content-Type-Options: nosniff');
-        header('Content-Disposition: inline; filename="plantilla.pdf"');
-        header('Content-Length: ' . filesize($r['plantilla']));
-        readfile($r['plantilla']);
-        exit;
-    }
-
-    /** @return array{0:array,1:array} [spec validada, resultado de resolverPdf] */
-    private function specRecibida(string $clave): array
-    {
-        $r = Configuracion::resolverPdf($clave);
-        if ($r === null) {
-            $this->noEncontrado();
-        }
-        $json = json_decode((string) ($_POST['spec'] ?? ''), true);
-        if (!is_array($json)) {
-            throw new InvalidArgumentException('La especificación recibida no es válida.');
-        }
-        $info = PdfFormato::inspeccionar($r['plantilla']);
-        if ($info === null) {
-            throw new RuntimeException('La plantilla no se puede leer.');
-        }
-        $spec = Configuracion::validarSpec($json, Formatos::variables(), $info + $r['spec']);
-        return [$spec, $r];
-    }
-
-    public function guardarSpec(string $clave): void
-    {
-        $this->admin();
-        $this->formatoDef($clave);
+        $modalidad = in_array($clave, ['aprovechamiento', 'creditos'], true) ? $clave : (str_starts_with($clave, 'egel') ? 'egel' : 'tesis');
+        $t = [
+            'id' => 0, 'folio' => 'TIT-' . date('Y') . '-00000', 'modalidad' => $modalidad, 'variante' => null, 'tipo' => $modalidad === 'tesis' ? 'con_trabajo' : 'sin_trabajo',
+            'titulo' => 'Diseño e implementación de un sistema para la validación en línea de trámites de titulación', 'alumno_id' => 0,
+            'datos' => [
+                'datos' => ['nombre' => 'María José Hernández Peña', 'cuenta' => '1912345', 'carrera' => 'computacion', 'sistema' => 'fi', 'anio_ingreso' => '2019', 'anio_egreso' => '2024',
+                    'telefono' => '722 123 4567', 'correo_inst' => 'mjhernandezp@alumno.uaemex.mx', 'correo_pers' => 'maria@example.com', 'ocupacion' => 'Desarrolladora', 'acentos' => 'Sí'],
+                'protocolo' => ['asesor' => 'Juan Pérez Gómez', 'asesor_grado' => 'Dr.', 'asesor_genero' => 'masculino'],
+                'solicitud' => ['vez' => 'primera'], 'art5' => ['motivos' => 'Motivos de ejemplo.'],
+            ],
+        ];
+        $extra = ['fecha_voto' => date('Y-m-d'), 'fecha_observaciones' => date('Y-m-d'), 'firmantes' => [['rol' => 'asesor', 'nombre' => 'Dr. Juan Pérez Gómez'], ['rol' => 'revisor_1', 'nombre' => 'Dra. Ana López'], ['rol' => 'revisor_2', 'nombre' => 'M. en C. Luis Ruiz']],
+            'nombre' => 'María José Hernández Peña', 'cuenta' => '1912345', 'titulo' => $t['titulo'], 'modalidad_nombre' => 'Tesis', 'revision' => '1', 'dictamen' => 'aprobado', 'requiere_coord' => 'no', 'observaciones' => 'Observaciones de ejemplo.', 'firmante' => 'RESPONSABLE DEL COMITÉ'];
         try {
-            [$spec] = $this->specRecibida($clave);
-        } catch (InvalidArgumentException | RuntimeException $e) {
-            $this->json(['ok' => false, 'mensaje' => $e->getMessage()], 422);
-        }
-        Database::ejecutar(
-            'INSERT INTO tit_formatos_cfg (clave, spec, actualizado_por) VALUES (?, ?, ?)
-             ON DUPLICATE KEY UPDATE spec = VALUES(spec), actualizado_por = VALUES(actualizado_por)',
-            [$clave, json_encode($spec, JSON_UNESCAPED_UNICODE), Auth::id()]
-        );
-        Configuracion::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'formato_coordenadas', 'Coordenadas guardadas: ' . $clave . ' (' . count($spec['campos']) . ' campos)');
-        Audit::record('titulacion::config', 'correcto', 'Coordenadas ' . $clave);
-        $this->json(['ok' => true, 'mensaje' => 'Coordenadas guardadas. Los formatos nuevos ya salen con este ajuste.']);
-    }
-
-    public function probar(string $clave): void
-    {
-        $this->admin();
-        $this->formatoDef($clave);
-        try {
-            [$spec, $r] = $this->specRecibida($clave);
-            $pdf = PdfFormato::generarCon($spec, $r['plantilla'], Formatos::ejemplo());
+            [$bytes] = $clave === 'protocolo' ? [''] : Services\FormatosOficiales::generar($clave, $t, $extra);
         } catch (Throwable $e) {
-            http_response_code(422);
-            exit('No se pudo generar la vista previa: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+            error_log('Titulación: vista previa de ' . $clave . ': ' . $e->getMessage());
+            $this->noEncontrado();
         }
         $this->privado();
         header('Content-Type: application/pdf');
-        header('X-Content-Type-Options: nosniff');
-        header('Content-Disposition: inline; filename="vista-previa.pdf"');
-        header('Content-Length: ' . strlen($pdf));
-        echo $pdf;
+        header('Content-Disposition: inline; filename="muestra_' . $clave . '.pdf"');
+        echo $bytes;
         exit;
-    }
-
-    private function json(array $payload, int $status = 200): never
-    {
-        http_response_code($status);
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($payload, JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-
-    /** Guarda un PDF subido y lo deja en formato que FPDI pueda importar. @return array{0:string,1:array} [ruta relativa, información] */
-    private function guardarPlantillaPdf(): array
-    {
-        try {
-            $rel = guardar_archivo('plantilla', 'titulacion_formatos', ['pdf']);
-        } catch (InvalidArgumentException $e) {
-            throw new RuntimeException($e->getMessage());
-        }
-        if ($rel === null) {
-            throw new RuntimeException('Selecciona el archivo PDF de la plantilla.');
-        }
-        $abs = $this->storage() . '/' . $rel;
-        $info = PdfFormato::inspeccionar($abs);
-        if ($info === null) {
-            $info = $this->normalizarConGhostscript($abs);
-        }
-        if ($info === null) {
-            @unlink($abs);
-            throw new RuntimeException('El PDF usa una compresión que el sistema no puede leer. Guárdalo como «PDF compatible con Acrobat 5 / PDF 1.4» (o impórtalo con «Imprimir a PDF») y súbelo de nuevo.');
-        }
-        return [$rel, $info];
-    }
-
-    private function normalizarConGhostscript(string $abs): ?array
-    {
-        if (!function_exists('shell_exec') || in_array('shell_exec', array_map('trim', explode(',', (string) ini_get('disable_functions'))), true)) {
-            return null;
-        }
-        $tmp = $abs . '.tmp.pdf';
-        @shell_exec('gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -sOutputFile=' . escapeshellarg($tmp) . ' ' . escapeshellarg($abs) . ' 2>/dev/null');
-        if (is_file($tmp) && filesize($tmp) > 0 && PdfFormato::inspeccionar($tmp) !== null) {
-            rename($tmp, $abs);
-            return PdfFormato::inspeccionar($abs);
-        }
-        @unlink($tmp);
-        return null;
-    }
-
-    public function reemplazar(string $clave): void
-    {
-        $this->admin();
-        $f = $this->formatoDef($clave);
-        $volver = 'titulacion/configuracion';
-        try {
-            if ($f['tipo'] === 'docx') {
-                $rel = guardar_archivo('plantilla', 'titulacion_formatos', ['docx']);
-                if ($rel === null) {
-                    throw new RuntimeException('Selecciona el archivo .docx de la hoja membretada.');
-                }
-                $zip = new \ZipArchive();
-                $ok = $zip->open($this->storage() . '/' . $rel) === true && $zip->getFromName('word/document.xml') !== false;
-                if ($ok) {
-                    $zip->close();
-                }
-                if (!$ok) {
-                    @unlink($this->storage() . '/' . $rel);
-                    throw new RuntimeException('El archivo no es un documento de Word válido.');
-                }
-                $info = null;
-            } else {
-                [$rel, $info] = $this->guardarPlantillaPdf();
-            }
-        } catch (RuntimeException | InvalidArgumentException $e) {
-            flash('error', $e->getMessage());
-            redirigir($volver);
-        }
-        $anterior = Configuracion::formatoCfg($clave);
-        Database::ejecutar(
-            'INSERT INTO tit_formatos_cfg (clave, plantilla_ruta, actualizado_por) VALUES (?, ?, ?)
-             ON DUPLICATE KEY UPDATE plantilla_ruta = VALUES(plantilla_ruta), actualizado_por = VALUES(actualizado_por)',
-            [$clave, $rel, Auth::id()]
-        );
-        if ($anterior && !empty($anterior['plantilla_ruta']) && $anterior['plantilla_ruta'] !== $rel) {
-            @unlink($this->storage() . '/' . $anterior['plantilla_ruta']);
-        }
-        Configuracion::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'formato_plantilla', 'Plantilla reemplazada: ' . $clave);
-        Audit::record('titulacion::config', 'correcto', 'Plantilla ' . $clave);
-        if ($f['tipo'] === 'pdf') {
-            flash('exito', 'Plantilla reemplazada (' . $info['paginas'] . ' pág.). Revisa las coordenadas en el visor por si el diseño cambió.');
-            redirigir('titulacion/configuracion/formatos/' . $clave);
-        }
-        flash('exito', 'Hoja membretada reemplazada. Los protocolos nuevos la usarán.');
-        redirigir($volver);
-    }
-
-    public function datosFormato(string $clave): void
-    {
-        $this->admin();
-        $f = $this->formatoDef($clave);
-        $nombre = mb_substr($this->post('nombre'), 0, 200);
-        $firma = mb_substr($this->post('firma'), 0, 200);
-        $activo = $this->post('activo') === '1' ? 1 : 0;
-        $etapa = null;
-        $mods = null;
-        if (!empty($f['personalizado'])) {
-            $etapa = isset($this->etapasDisponibles()[$this->post('etapa')]) ? $this->post('etapa') : null;
-            $sel = array_filter((array) ($_POST['modalidades'] ?? []), static fn($m): bool => is_string($m) && Catalogo::modalidad($m) !== null);
-            $mods = $this->post('todas') === '1' || !$sel ? '*' : implode(',', $sel);
-        }
-        Database::ejecutar(
-            'INSERT INTO tit_formatos_cfg (clave, activo, nombre, firma, etapa, modalidades, actualizado_por) VALUES (?, ?, ?, ?, ?, ?, ?)
-             ON DUPLICATE KEY UPDATE activo = VALUES(activo), nombre = VALUES(nombre), firma = VALUES(firma),
-               etapa = IF(personalizado = 1, VALUES(etapa), etapa), modalidades = IF(personalizado = 1, VALUES(modalidades), modalidades),
-               actualizado_por = VALUES(actualizado_por)',
-            [$clave, $activo, $nombre ?: null, $firma ?: null, $etapa, $mods, Auth::id()]
-        );
-        Configuracion::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'formato_datos', ($activo ? 'Formato activo: ' : 'Formato retirado: ') . $clave);
-        flash('exito', $activo ? 'Formato actualizado.' : 'Formato retirado: ya no se genera ni se pide en los trámites.');
-        redirigir('titulacion/configuracion');
-    }
-
-    public function restablecer(string $clave): void
-    {
-        $this->admin();
-        $f = $this->formatoDef($clave);
-        if (!empty($f['personalizado'])) {
-            $this->noEncontrado();
-        }
-        $cfg = Configuracion::formatoCfg($clave);
-        if ($cfg && !empty($cfg['plantilla_ruta'])) {
-            @unlink($this->storage() . '/' . $cfg['plantilla_ruta']);
-        }
-        Database::ejecutar('DELETE FROM tit_formatos_cfg WHERE clave = ?', [$clave]);
-        Configuracion::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'formato_restablecido', 'Formato restablecido al original: ' . $clave);
-        flash('exito', 'Formato restablecido a la versión que acompaña al módulo.');
-        redirigir('titulacion/configuracion');
-    }
-
-    public function nuevoFormato(): void
-    {
-        $this->admin();
-        $nombre = mb_substr($this->post('nombre'), 0, 200);
-        $etapa = $this->post('etapa');
-        if (mb_strlen($nombre) < 3 || !isset($this->etapasDisponibles()[$etapa])) {
-            flash('error', 'Indica un nombre y la etapa donde se usará el formato.');
-            redirigir('titulacion/configuracion');
-        }
-        try {
-            [$rel, $info] = $this->guardarPlantillaPdf();
-        } catch (RuntimeException $e) {
-            flash('error', $e->getMessage());
-            redirigir('titulacion/configuracion');
-        }
-        $slug = trim(preg_replace('/[^a-z0-9]+/', '_', strtolower((string) iconv('UTF-8', 'ASCII//TRANSLIT', $nombre))) ?? '', '_');
-        $clave = 'f_' . substr($slug, 0, 24) . '_' . bin2hex(random_bytes(2));
-        $sel = array_filter((array) ($_POST['modalidades'] ?? []), static fn($m): bool => is_string($m) && Catalogo::modalidad($m) !== null);
-        $mods = $this->post('todas') === '1' || !$sel ? '*' : implode(',', $sel);
-        $spec = ['plantilla' => '', 'ancho' => $info['ancho'], 'alto' => $info['alto'], 'campos' => [], 'subdirector' => [], 'subdirector_impreso' => 'DR. JAVIER SALAS GARCÍA'];
-        Database::ejecutar(
-            'INSERT INTO tit_formatos_cfg (clave, personalizado, activo, nombre, firma, etapa, modalidades, plantilla_ruta, spec, actualizado_por)
-             VALUES (?, 1, 1, ?, ?, ?, ?, ?, ?, ?)',
-            [$clave, $nombre, mb_substr($this->post('firma'), 0, 200) ?: 'el pasante', $etapa, $mods, $rel, json_encode($spec), Auth::id()]
-        );
-        Configuracion::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'formato_nuevo', 'Formato añadido: ' . $nombre);
-        flash('exito', 'Formato añadido. Coloca ahora los campos de datos sobre la plantilla.');
-        redirigir('titulacion/configuracion/formatos/' . $clave);
-    }
-
-    public function eliminarFormato(string $clave): void
-    {
-        $this->admin();
-        $f = $this->formatoDef($clave);
-        if (empty($f['personalizado'])) {
-            flash('error', 'Los formatos oficiales no se eliminan; puedes retirarlos para que dejen de usarse.');
-            redirigir('titulacion/configuracion');
-        }
-        $cfg = Configuracion::formatoCfg($clave);
-        if ($cfg && !empty($cfg['plantilla_ruta'])) {
-            @unlink($this->storage() . '/' . $cfg['plantilla_ruta']);
-        }
-        Database::ejecutar('UPDATE tit_docs_extra SET formato = NULL WHERE formato = ?', [$clave]);
-        Database::ejecutar('DELETE FROM tit_formatos_cfg WHERE clave = ?', [$clave]);
-        Configuracion::reiniciar();
-        Configuracion::bitacora(Auth::id(), 'formato_eliminado', 'Formato eliminado: ' . $f['nombre']);
-        flash('exito', 'Formato eliminado.');
-        redirigir('titulacion/configuracion');
     }
 }

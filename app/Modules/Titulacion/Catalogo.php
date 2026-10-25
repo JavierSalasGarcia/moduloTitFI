@@ -168,48 +168,70 @@ final class Catalogo
         return self::modalidades()[$clave] ?? null;
     }
 
-    /** Documentos descargables en blanco (Word/PDF oficiales) que acompañan a una etapa. */
+    /** Documentos de consulta que acompañan a una etapa (los formatos ya los genera la plataforma). */
     public static function archivosBlanco(): array
     {
         return [
-            'prorroga' => ['Solicitud de prórroga del tema', 'SolicitudProrrogaTrabEscrito.pdf'],
-            'cambio_asesor' => ['Cambio de asesor', 'ProtocoloCambioAsesor.docx'],
-            'baja' => ['Baja de tema y/o sustentante, o cambio de sustentante', 'ProtocoloBajaTemaSustentante.docx'],
-            'cambios' => ['Cambios al protocolo aprobado', 'ProtocoloCambios.docx'],
-            'coasesoria' => ['Solicitud de coasesoría', 'SolicitudCoasesoria.pdf'],
-            'carta_presentacion' => ['Carta de presentación (solo instituciones incorporadas)', 'CartaPresentacion_v082025.docx'],
-            'carta_ri' => ['Carta de autorización para publicar en el Repositorio Institucional', 'CartaDeAutorizacionRI.pdf'],
-            'carta_ri_2' => ['Carta de autorización para publicar en el Repositorio (2 tesistas)', 'CartaDeAutorizacionRI2Tesistas.pdf'],
-            'carta_excepcion_ri' => ['Carta de excepción para publicación en el Repositorio', 'CartaDeExcepcionRI.pdf'],
-            'carta_excepcion_ri_2' => ['Carta de excepción para publicación (2 tesistas)', 'CartaDeExcepcionRI2Tesistas.pdf'],
             'rep' => ['Reglamento de Evaluación Profesional', 'REP.pdf'],
             'privacidad' => ['Aviso de privacidad', 'avisoDePrivacidadFI.pdf'],
         ];
     }
 
-    // ------------------------------------------------------------------ formatos
-
-    /** Formatos que el sistema llena. 'pdf' usa formatos/pdf_specs.json; 'docx' se arma por modalidad. */
+    /** Formatos que genera la plataforma (Services\FormatosOficiales) con los datos del trámite. */
     public static function formatos(): array
     {
-        return Configuracion::aplicarFormatos(self::formatosBase());
+        $f = static fn(string $nombre, string $firma, array $extra = []): array => ['tipo' => 'pdf', 'nombre' => $nombre, 'firma' => $firma, 'activo' => true] + $extra;
+        return [
+            'aprovechamiento' => $f('Solicitud de evaluación profesional por Aprovechamiento académico', 'el pasante; autoriza la Subdirección Académica'),
+            'egel_50' => $f('Solicitud de EGEL (convocatoria «Pagando menos»)', 'el pasante; autoriza la Subdirección Académica'),
+            'egel_nacional' => $f('Solicitud de EGEL (convocatoria nacional)', 'el pasante; autoriza la Subdirección Académica'),
+            'creditos' => $f('Solicitud de Créditos en estudios avanzados', 'el pasante; autoriza la Subdirección Académica'),
+            'datos_titulo' => $f('Formato de datos del interesado para expedición de título profesional', 'el pasante'),
+            'protocolo' => $f('Solicitud de aprobación de tema y protocolo', 'el pasante y el asesor (Vo. Bo.)'),
+            'revision' => $f('Solicitud de revisión de trabajo escrito (examen previo)', 'el pasante y el asesor (Vo. Bo.)'),
+            'voto' => $f('Voto aprobatorio', 'el asesor y los revisores', ['interno' => true]),
+            'sustentacion' => $f('Solicitud de sustentación del trabajo escrito (examen definitivo)', 'el pasante y el asesor (Vo. Bo.)'),
+            'trabajo_eval' => $f('Solicitud para presentar la evaluación profesional mediante trabajo escrito', 'el pasante; autoriza la Subdirección Académica'),
+            'requisitos' => $f('Requisitos para la evaluación profesional (con el estado de cada documento)', 'informativo'),
+            'carta_ri' => $f('Carta de autorización para publicación en el Repositorio Institucional', 'el pasante (y coautor, si lo hay)'),
+            'carta_excepcion_ri' => $f('Carta de excepción para publicación en el Repositorio Institucional', 'el pasante (y coautor, si lo hay)'),
+            'art5' => $f('Solicitud para continuar con la evaluación profesional (Art. 5, REP)', 'el pasante (y asesor si hay trabajo escrito)'),
+            'prorroga' => $f('Solicitud de prórroga del tema', 'el pasante y el asesor (Vo. Bo.)'),
+            'cambio_asesor' => $f('Solicitud de cambio de asesor', 'el pasante, el asesor actual y el propuesto'),
+            'baja' => $f('Solicitud de baja de tema y/o sustentante, o cambio de sustentante', 'el pasante, el asesor y, en su caso, el sustentante propuesto'),
+            'cambios' => $f('Solicitud de cambios al protocolo aprobado', 'el pasante y el asesor (Vo. Bo.)'),
+            'coasesoria' => $f('Solicitud para coasesorar el trabajo escrito', 'el asesor y el coasesor propuesto'),
+            'carta_presentacion' => $f('Carta de presentación (solo instituciones incorporadas)', 'la escuela incorporada'),
+            'autoriz_eval' => $f('Solicitud de autorización de evaluación profesional (solo instituciones incorporadas)', 'el pasante y el área de titulación de la escuela'),
+            'revision_protocolo' => $f('Revisión de protocolo (dictamen del comité)', 'cada revisor; el dictamen, el responsable del comité', ['interno' => true]),
+        ];
     }
 
-    private static function formatosBase(): array
+    /**
+     * Solicitudes que el pasante puede necesitar en algún momento del trámite: capturan algunos datos más y
+     * la plataforma genera el formato ya llenado. clave => [etapas donde aplica ('*' todas), campos].
+     */
+    public static function formatosAdicionales(string $tipo): array
     {
-        return [
-            'aprovechamiento' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de evaluación profesional por Aprovechamiento académico', 'firma' => 'el pasante'],
-            'egel_50' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de evaluación profesional por EGEL (convocatoria «Pagando menos»)', 'firma' => 'el pasante'],
-            'egel_nacional' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de evaluación profesional por EGEL (convocatoria nacional)', 'firma' => 'el pasante'],
-            'creditos' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de evaluación profesional por Créditos en estudios avanzados', 'firma' => 'el pasante'],
-            'datos_titulo' => ['tipo' => 'pdf', 'nombre' => 'Formato de datos del interesado para expedición de título', 'firma' => 'el pasante, de su puño y letra'],
-            'protocolo' => ['tipo' => 'docx', 'nombre' => 'Solicitud de aprobación de tema y protocolo', 'firma' => 'el pasante y el asesor (Vo. Bo.)'],
-            'revision' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de revisión del trabajo escrito', 'firma' => 'el pasante y el asesor (Vo. Bo.)'],
-            'sustentacion' => ['tipo' => 'pdf', 'nombre' => 'Solicitud de sustentación y Voto aprobatorio', 'firma' => 'el pasante y el asesor; el voto lo firman asesor y revisores'],
-            'trabajo_eval' => ['tipo' => 'pdf', 'nombre' => 'Solicitud para presentar la evaluación profesional mediante trabajo escrito', 'firma' => 'el pasante'],
-            'revision_protocolo' => ['tipo' => 'pdf', 'nombre' => 'Revisión de protocolo (dictamen de la comisión)', 'firma' => 'quien evalúa; el dictamen consolidado lo firma el encargado de la comisión', 'interno' => true],
-            'art5' => ['tipo' => 'pdf', 'nombre' => 'Solicitud para continuar el trámite fuera de plazo (Art. 5, REP)', 'firma' => 'el pasante (y asesor si hay trabajo escrito)'],
+        $area = static fn(string $k, string $l, int $max = 900): array => ['k' => $k, 'label' => $l, 'tipo' => 'area', 'filas' => 3, 'max' => $max, 'req' => true];
+        $txt = static fn(string $k, string $l, bool $req = true): array => ['k' => $k, 'label' => $l, 'tipo' => 'texto', 'max' => 160, 'req' => $req];
+        $comunes = [
+            'art5' => [$area('motivos', 'Motivos por los que excediste el plazo')],
+            'autoriz_eval' => [$txt('institucion', 'Nombre de la institución incorporada')],
         ];
+        if ($tipo !== 'con_trabajo') {
+            return $comunes;
+        }
+        return [
+            'prorroga' => [['k' => 'avance', 'label' => 'Porcentaje aproximado de avance', 'tipo' => 'texto', 'max' => 3, 'req' => true, 'patron' => '^[0-9]{1,3}$'], $area('motivos', 'Motivos de la prórroga')],
+            'cambio_asesor' => [$txt('propuesto', 'Grado y nombre del asesor propuesto'), $area('motivos', 'Motivos del cambio')],
+            'baja' => [['k' => 'tipo', 'label' => 'Solicitud', 'tipo' => 'select', 'opciones' => ['baja_tema' => 'Baja de tema', 'baja_sustentante' => 'Baja de sustentante', 'cambio_sustentante' => 'Cambio de sustentante'], 'req' => true], $txt('sustentante', 'Sustentante propuesto (nombre y número de cuenta)', false), $area('motivos', 'Motivos')],
+            'cambios' => [$area('actual', 'Situación actual'), $area('propuestos', 'Cambios propuestos'), $area('motivos', 'Motivos del cambio')],
+            'coasesoria' => [$txt('coasesor', 'Grado y nombre del coasesor propuesto'), $area('razones', 'Razones por las que se requiere la coasesoría')],
+            'carta_presentacion' => [],
+            'carta_ri' => [$txt('coautor', 'Coautor (solo si son dos tesistas)', false), $txt('coautor_cuenta', 'Número de cuenta del coautor', false)],
+            'carta_excepcion_ri' => [$txt('medio', 'Publicación o medio donde está en dictaminación o embargo'), $txt('folio_medio', 'Número de folio (si lo hay)', false), ['k' => 'fecha_libre', 'label' => 'Fecha en que termina el embargo', 'tipo' => 'fecha', 'req' => true], $txt('coautor', 'Coautor (solo si son dos tesistas)', false), $txt('coautor_cuenta', 'Número de cuenta del coautor', false)],
+        ] + $comunes;
     }
 
     // -------------------------------------------------------------- captura base
@@ -453,7 +475,7 @@ final class Catalogo
             $etapas[] = [
                 'clave' => 'solicitud', 'titulo' => 'Solicitud de la opción', 'tipo' => 'captura',
                 'descripcion' => 'Presenta la solicitud antes de inscribirte a los estudios avanzados. La Coordinación de Docencia dictamina la afinidad y la Subdirección Académica autoriza.',
-                'campos' => [$vez],
+                'campos' => [$vez, ['k' => 'programa', 'label' => 'Estudios avanzados que cursarás (programa, institución y, si aplica, RVOE)', 'tipo' => 'texto', 'max' => 250, 'req' => true]],
                 'formatos' => ['creditos'],
                 'documentos' => [
                     self::doc('solicitud_firmada', 'Solicitud firmada por el pasante', 'Debe estar fechada antes de iniciar los estudios avanzados.', null, 'creditos'),
@@ -490,7 +512,7 @@ final class Catalogo
             'clave' => 'protesta', 'titulo' => 'Documentación para la toma de protesta', 'tipo' => 'captura',
             'descripcion' => 'Sube cada documento en PDF, legible y a color. Cuando todo esté validado, Apoyo a Titulación te citará para entregar originales y copias y fijar la fecha.',
             'campos' => [],
-            'formatos' => ['datos_titulo'],
+            'formatos' => ['datos_titulo', 'requisitos'],
             'documentos' => [...$documentos, $derechos, $titulo],
             'presencial' => self::presencialBase(false),
         ];
@@ -540,7 +562,7 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'protocolo', 'titulo' => 'Protocolo y aprobación del tema', 'tipo' => 'captura',
-            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; escribe aquí todo el protocolo; la plataforma lo firma por ti, le pide la firma a tu asesor por correo y lo envía al responsable del Comité de Revisión de Protocolos de tu licenciatura. Si el comité te pide correcciones, las verás en «Titulación → Mensajes»: corrige aquí y vuelve a enviarlo.',
+            'descripcion' => 'Captura la propuesta de tu trabajo. El sistema llena el formato oficial de solicitud y protocolo; escribe aquí todo el protocolo; la plataforma lo firma por ti, le pide la firma a tu asesor por correo y lo envía al responsable del Comité de Revisión de Protocolos de tu licenciatura. Si el comité te pide correcciones, las verás en tus Notificaciones: corrige aquí y vuelve a enviarlo.',
             'campos' => $proto['campos'] ?? [],
             'formatos' => ['protocolo'],
             'documentos' => [
@@ -563,7 +585,6 @@ final class Catalogo
             'clave' => 'desarrollo', 'titulo' => 'Desarrollo del trabajo escrito', 'tipo' => 'confirmacion',
             'descripcion' => 'Tienes exclusividad sobre el tema durante dos años a partir de la aprobación; puedes renovarla con una prórroga hasta por un año, que incluye la sustentación (Art. 86, REP). Desarróllalo con tu asesor; cuando cuente con su visto bueno, confirma aquí para continuar.',
             'confirmar' => 'Concluí el trabajo escrito y mi asesor lo avala para revisión',
-            'blanco' => ['prorroga', 'cambio_asesor', 'baja', 'cambios', 'coasesoria'],
         ];
 
         $etapas[] = [
@@ -574,10 +595,10 @@ final class Catalogo
             ],
             'formatos' => ['revision'],
             'documentos' => [
-                self::doc('revision_firmada', 'Solicitud de revisión firmada (pasante y asesor)', '', null, 'revision'),
+                self::doc('revision_firmada', 'Solicitud de revisión firmada (pasante y asesor)', 'La firmas tú y tu asesor da su Vo. Bo. desde su correo.', null, 'revision'),
                 self::doc('similitud_previo', 'Reporte de porcentaje de similitud (iThenticate)', 'No mayor al ' . $limite . ' %.'),
                 self::doc('trabajo_previo', 'Trabajo escrito en PDF para revisión', 'Con copia del oficio de aprobación de tema al inicio.'),
-                ['solo_si' => 'protocolo_vencido'] + self::doc('oficio_prorroga', 'Oficio de prórroga del tema', 'Tu protocolo se aprobó hace más del plazo de exclusividad (Art. 86, REP): sube el oficio de prórroga que te otorgaron.'),
+                ['solo_si' => 'protocolo_vencido'] + self::doc('solicitud_prorroga', 'Solicitud de prórroga del tema (pasante y asesor)', 'Tu protocolo se aprobó hace más del plazo de exclusividad (Art. 86, REP). Captura avance y motivos en «Solicitudes y formatos adicionales», firma aquí y tu asesor da su Vo. Bo.; al validarla, la plataforma genera el oficio de aprobación de prórroga que firma la Subdirección.', null, 'prorroga'),
             ],
             'agenda' => 'previo',
             'personal' => [
@@ -590,16 +611,15 @@ final class Catalogo
 
         $etapas[] = [
             'clave' => 'sustentacion', 'titulo' => 'Solicitud de sustentación y voto aprobatorio', 'tipo' => 'captura',
-            'descripcion' => 'Con las correcciones atendidas y el voto aprobatorio del asesor y revisores, solicita la autorización de impresión y la asignación del jurado. Escribe aquí el título y la estructura capitular de tu trabajo: Titulación los valida con tu solicitud y, con ellos, la plataforma genera el oficio de estructura capitular que firma el Director, para que lo incluyas en tu trabajo después de la portada.',
+            'descripcion' => 'Cuando hayas atendido las correcciones del examen previo, genera el voto aprobatorio: la plataforma lo envía a tu asesor y a tus revisores para que lo firmen desde su correo. Con el voto firmado, firma tu solicitud de sustentación (tu asesor da su Vo. Bo.) para obtener la autorización de impresión y la asignación del jurado. Escribe aquí la estructura capitular: con ella la plataforma genera el oficio de estructura capitular que firma el Director.',
             'campos' => [
-                ['k' => 'fecha_voto', 'label' => 'Fecha del voto aprobatorio', 'tipo' => 'fecha', 'req' => true],
                 ['k' => 'capitulado', 'label' => 'Estructura capitular (un capítulo por línea, sin numerar)', 'tipo' => 'area', 'filas' => 8, 'max' => 2000, 'req' => true,
                     'ayuda' => 'Por ejemplo: «Introducción». El oficio los numerará como Capítulo 1, 2… Titulación valida que correspondan a tu trabajo.'],
             ],
             'formatos' => ['sustentacion'],
             'documentos' => [
-                self::doc('sustentacion_firmada', 'Solicitud de sustentación firmada (pasante y asesor)', '', null, 'sustentacion'),
-                self::doc('voto_aprobatorio', 'Voto aprobatorio firmado por el asesor y los revisores', 'Es la segunda hoja del formato de sustentación.'),
+                self::doc('voto_aprobatorio', 'Voto aprobatorio (lo firman tu asesor y tus revisores)', 'La plataforma lo genera y pide las firmas por correo.', null, 'voto'),
+                self::doc('sustentacion_firmada', 'Solicitud de sustentación firmada (pasante y asesor)', 'Se habilita cuando el voto aprobatorio está firmado.', null, 'sustentacion'),
             ],
             'personal' => [
                 'titulo' => 'Autorización de impresión',
@@ -626,10 +646,10 @@ final class Catalogo
             'clave' => 'final', 'titulo' => 'Documentación para la evaluación profesional', 'tipo' => 'captura',
             'descripcion' => 'Reúne y sube cada documento en PDF. Cuando todos estén validados, Apoyo a Titulación te cita para entregar originales, copias y ejemplares, y fijar el jurado.',
             'campos' => [],
-            'formatos' => ['trabajo_eval', 'datos_titulo'],
+            'formatos' => ['trabajo_eval', 'datos_titulo', 'requisitos'],
+            'blanco' => ['rep'],
             'documentos' => $docsFinal,
             'presencial' => self::presencialBase(true),
-            'blanco' => ['carta_ri', 'carta_ri_2', 'carta_excepcion_ri', 'carta_excepcion_ri_2'],
         ];
         $etapas[] = [
             'clave' => 'fecha', 'titulo' => 'Solicitud del examen definitivo', 'tipo' => 'captura',

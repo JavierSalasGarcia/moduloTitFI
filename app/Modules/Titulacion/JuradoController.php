@@ -43,10 +43,70 @@ final class JuradoController extends TitulacionBase
 
     // ----------------------------------------------------------------- Coordinador
 
+    /** Asignación del Coordinador con sesión (sin token), desde «Mis pendientes». */
+    private function asignacionPropia(string $id): array
+    {
+        $a = ctype_digit($id) ? Database::una("SELECT * FROM tit_asignaciones_jurado WHERE id = ? AND estado <> 'cancelada'", [(int) $id]) : null;
+        if ($a === null || strtolower((string) $a['coord_email']) !== TitulacionAccess::correoSesion()) {
+            $this->noEncontrado();
+        }
+        return $a;
+    }
+
+    private function sinodalPropio(string $id): array
+    {
+        $s = ctype_digit($id) ? Database::una("SELECT * FROM tit_sinodales WHERE id = ? AND estado <> 'cancelado'", [(int) $id]) : null;
+        if ($s === null || strtolower((string) $s['email']) !== TitulacionAccess::correoSesion()) {
+            $this->noEncontrado();
+        }
+        return $s;
+    }
+
+    public function coordinadorMio(string $id): void
+    {
+        $this->verCoordinador($this->asignacionPropia($id), '', 'titulacion/jurado/mia/' . (int) $id);
+    }
+
+    public function firmarCoordinadorMio(string $id): void
+    {
+        $this->firmarAsignacion($this->asignacionPropia($id), 'titulacion/jurado/mia/' . (int) $id);
+    }
+
+    public function trabajoCoordinadorMio(string $id): void
+    {
+        $this->entregarTrabajo($this->asignacionPropia($id));
+    }
+
+    public function sinodalMio(string $id): void
+    {
+        $this->verSinodal($this->sinodalPropio($id), '', 'titulacion/sinodal/mio/' . (int) $id);
+    }
+
+    public function oficioSinodalMio(string $id): void
+    {
+        $this->entregarOficio($this->sinodalPropio($id));
+    }
+
+    public function trabajoSinodalMio(string $id): void
+    {
+        $s = $this->sinodalPropio($id);
+        $this->entregarTrabajo(Database::una('SELECT * FROM tit_asignaciones_jurado WHERE id = ?', [(int) $s['asignacion_id']]) ?? []);
+    }
+
+    public function firmarSinodalMio(string $id): void
+    {
+        $this->acuse($this->sinodalPropio($id), 'titulacion/sinodal/mio/' . (int) $id);
+    }
+
     public function coordinador(string $token): void
     {
-        $this->privado();
         $a = Jurado::porToken($token) ?? $this->invalido();
+        $this->verCoordinador($a, $token, 'titulacion/jurado/t/' . $token);
+    }
+
+    private function verCoordinador(array $a, string $token, string $base): void
+    {
+        $this->privado();
         $t = TitulacionRepository::obtener((int) $a['tramite_id']);
         if (!$t) {
             $this->noEncontrado();
@@ -54,7 +114,7 @@ final class JuradoController extends TitulacionBase
         [$propia, $banner] = $this->banner((string) $a['coord_email']);
         $this->vista('jurado_coordinador', [
             'titulo' => 'Asignar sinodales · ' . $t['folio'],
-            'a' => $a, 't' => $t, 'token' => $token, 'banner' => $banner,
+            'a' => $a, 't' => $t, 'token' => $token, 'base' => $base, 'banner' => $banner,
             'puedeFirmar' => $propia && $banner === null && $a['estado'] === 'solicitada',
             'sinodales' => $a['estado'] === 'firmada' ? Jurado::sinodales((int) $a['id']) : [],
             'propuesta' => Jurado::propuesta($a),
@@ -66,8 +126,12 @@ final class JuradoController extends TitulacionBase
 
     public function firmarCoordinador(string $token): void
     {
+        $this->firmarAsignacion(Jurado::porToken($token) ?? $this->invalido(), 'titulacion/jurado/t/' . $token);
+    }
+
+    private function firmarAsignacion(array $a, string $volver): never
+    {
         $this->privado();
-        $a = Jurado::porToken($token) ?? $this->invalido();
         $elegidos = [];
         [$prop, $sup] = Jurado::integrantes($a);
         for ($i = 0; $i < $prop + $sup; $i++) {
@@ -76,9 +140,9 @@ final class JuradoController extends TitulacionBase
         $_SESSION['_jurado_borrador'][$a['id']] = $elegidos;
         $usuario = Auth::usuario();
         if (!$usuario || strtolower((string) $usuario['email']) !== strtolower((string) $a['coord_email'])) {
-            Auth::recordarDestino('titulacion/jurado/t/' . $token);
+            Auth::recordarDestino($volver);
             flash('error', 'Para firmar necesitas una cuenta verificada con ' . $a['coord_email'] . '.');
-            redirigir('titulacion/jurado/t/' . $token);
+            redirigir($volver);
         }
         try {
             if (AccessControl::pending()) {
@@ -93,13 +157,17 @@ final class JuradoController extends TitulacionBase
             error_log('Titulación: error al firmar asignación de jurado: ' . $e->getMessage());
             flash('error', 'No se pudo firmar. Intenta de nuevo.');
         }
-        redirigir('titulacion/jurado/t/' . $token);
+        redirigir($volver);
     }
 
     public function trabajoCoordinador(string $token): void
     {
-        $a = Jurado::porToken($token) ?? $this->invalido();
-        $d = Jurado::trabajo($a);
+        $this->entregarTrabajo(Jurado::porToken($token) ?? $this->invalido());
+    }
+
+    private function entregarTrabajo(array $a): never
+    {
+        $d = $a ? Jurado::trabajo($a) : null;
         if ($d === null) {
             $this->noEncontrado();
         }
@@ -111,8 +179,12 @@ final class JuradoController extends TitulacionBase
 
     public function sinodal(string $token): void
     {
+        $this->verSinodal(Jurado::sinodalPorToken($token) ?? $this->invalido(), $token, 'titulacion/sinodal/t/' . $token);
+    }
+
+    private function verSinodal(array $s, string $token, string $base): void
+    {
         $this->privado();
-        $s = Jurado::sinodalPorToken($token) ?? $this->invalido();
         $a = Database::una('SELECT * FROM tit_asignaciones_jurado WHERE id = ?', [(int) $s['asignacion_id']]);
         $t = $a ? TitulacionRepository::obtener((int) $a['tramite_id']) : null;
         if (!$t) {
@@ -121,7 +193,7 @@ final class JuradoController extends TitulacionBase
         [$propia, $banner] = $this->banner((string) $s['email']);
         $this->vista('jurado_sinodal', [
             'titulo' => 'Oficio de citación · ' . $t['folio'],
-            's' => $s, 'a' => $a, 'token' => $token, 'banner' => $banner,
+            's' => $s, 'a' => $a, 'token' => $token, 'base' => $base, 'banner' => $banner,
             'puedeFirmar' => $propia && $banner === null && $s['estado'] === 'pendiente',
             'alumno' => (string) ($t['datos']['datos']['nombre'] ?? ''),
             'examen' => Oficios::EXAMEN[$a['tipo']] ?? 'examen',
@@ -131,7 +203,11 @@ final class JuradoController extends TitulacionBase
 
     public function oficioSinodal(string $token): void
     {
-        $s = Jurado::sinodalPorToken($token) ?? $this->invalido();
+        $this->entregarOficio(Jurado::sinodalPorToken($token) ?? $this->invalido());
+    }
+
+    private function entregarOficio(array $s): never
+    {
         $d = TitulacionRepository::documento((int) $s['oficio_doc_id']);
         if (!$d) {
             $this->noEncontrado();
@@ -153,13 +229,17 @@ final class JuradoController extends TitulacionBase
 
     public function firmarSinodal(string $token): void
     {
+        $this->acuse(Jurado::sinodalPorToken($token) ?? $this->invalido(), 'titulacion/sinodal/t/' . $token);
+    }
+
+    private function acuse(array $s, string $volver): never
+    {
         $this->privado();
-        $s = Jurado::sinodalPorToken($token) ?? $this->invalido();
         $usuario = Auth::usuario();
         if (!$usuario || strtolower((string) $usuario['email']) !== strtolower((string) $s['email'])) {
-            Auth::recordarDestino('titulacion/sinodal/t/' . $token);
+            Auth::recordarDestino($volver);
             flash('error', 'Para firmar necesitas una cuenta verificada con ' . $s['email'] . '.');
-            redirigir('titulacion/sinodal/t/' . $token);
+            redirigir($volver);
         }
         try {
             if (AccessControl::pending()) {
@@ -173,6 +253,6 @@ final class JuradoController extends TitulacionBase
             error_log('Titulación: error en acuse de sinodal: ' . $e->getMessage());
             flash('error', 'No se pudo firmar. Intenta de nuevo.');
         }
-        redirigir('titulacion/sinodal/t/' . $token);
+        redirigir($volver);
     }
 }

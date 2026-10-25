@@ -8,13 +8,37 @@ use App\Modules\Titulacion\Catalogo;
 /** Documentos que la plataforma genera con los datos capturados y guarda en el expediente. */
 final class DocumentosGenerados
 {
-    /**
-     * Genera el formato, lo firma electrónicamente a nombre del pasante y lo guarda en el almacén.
-     * @return string ruta relativa del PDF firmado
-     */
-    public static function firmarPorPasante(array $tramite, string $formato, string $firmante): string
+    /** Guarda un PDF generado en el expediente del trámite. @return string ruta relativa */
+    public static function guardar(array $tramite, string $prefijo, string $bytes): string
     {
-        [$bytes] = Formatos::generar($formato, $tramite);
+        $relativa = 'titulacion/' . (int) $tramite['id'] . '/' . $prefijo . '_' . bin2hex(random_bytes(8)) . '.pdf';
+        $abs = FirmaElectronica::almacen() . '/' . $relativa;
+        if (!is_dir(dirname($abs))) {
+            mkdir(dirname($abs), 0755, true);
+        }
+        file_put_contents($abs, $bytes);
+        return $relativa;
+    }
+
+    /** Posiciones de firma del documento, para estampar después las firmas que faltan. */
+    public static function guardarCajas(int $docId, array $cajas): void
+    {
+        \App\Core\Database::ejecutar('UPDATE tit_documentos SET cajas = ? WHERE id = ?', [$cajas ? json_encode($cajas) : null, $docId]);
+    }
+
+    public static function caja(array $doc, string $rol): ?array
+    {
+        $c = json_decode((string) ($doc['cajas'] ?? ''), true);
+        return is_array($c) && isset($c[$rol]) ? $c[$rol] : null;
+    }
+
+    /**
+     * Genera el formato con los datos del trámite y lo firma electrónicamente a nombre del pasante.
+     * @return array{0:string,1:array} [ruta relativa del PDF firmado, cajas de firma]
+     */
+    public static function firmarPorPasante(array $tramite, string $formato, string $firmante): array
+    {
+        [$bytes, , , $cajas] = Formatos::generar($formato, $tramite);
         $dir = FirmaElectronica::almacen() . '/titulacion/' . (int) $tramite['id'];
         if (!is_dir($dir)) {
             mkdir($dir, 0755, true);
@@ -23,18 +47,18 @@ final class DocumentosGenerados
         file_put_contents($origen, $bytes);
         $relativa = 'titulacion/' . (int) $tramite['id'] . '/' . $formato . '_' . bin2hex(random_bytes(8)) . '.pdf';
         $mm = 25.4 / 72;
-        $caja = SubdireccionFirma::cajaDeFormato($formato);
+        $caja = $cajas['pasante'] ?? null;
         try {
             SelloPdf::estampar(
-                $origen, FirmaElectronica::almacen() . '/' . $relativa, $caja ? (int) ($caja['p'] ?? 0) : null,
-                $caja ? 67.0 : -1.0, $caja ? (float) $caja['y'] * $mm - 1.5 : -1.0,
+                $origen, FirmaElectronica::almacen() . '/' . $relativa, $caja ? (int) $caja['p'] : null,
+                $caja ? ((float) $caja['x'] + (float) $caja['w'] / 2) * $mm : -1.0, $caja ? (float) $caja['y'] * $mm - 1.0 : -1.0,
                 'FIRMA ELECTRÓNICA · PASANTE',
                 [mb_strtoupper($firmante), 'Firmado el ' . date('d/m/Y H:i') . ' · ' . $tramite['folio'] . ' ' . substr(hash('sha256', $bytes), 0, 8)]
             );
         } finally {
             @unlink($origen);
         }
-        return $relativa;
+        return [$relativa, $cajas];
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 use App\Core\Auth;
 include __DIR__ . '/_estilos.php';
-$base = 'titulacion/jurado/t/' . $token;
+$base ??= 'titulacion/jurado/t/' . $token;
 $borrador = $_SESSION['_jurado_borrador'][$a['id']] ?? $propuesta;
 $alumno = (string) ($t['datos']['datos']['nombre'] ?? '');
 [$numProp, $numSup] = $integrantes;

@@ -1,7 +1,7 @@
 <?php
 use App\Core\Auth;
 include __DIR__ . '/_estilos.php';
-$base = 'titulacion/sinodal/t/' . $token;
+$base ??= 'titulacion/sinodal/t/' . $token;
 include __DIR__ . '/_banner_enlace.php';
 ?>
 <section class="tarjeta" style="max-width:720px;margin:20px auto">

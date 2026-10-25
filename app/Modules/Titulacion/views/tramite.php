@@ -7,7 +7,7 @@ $base = 'titulacion/licenciatura/tramite/' . (int) $t['id'];
 $total = count($flujo['etapas']);
 $hechas = count(array_filter($flujo['etapas'], static fn(array $e): bool => $e['situacion'] === 'completa'));
 $chips = [
-  'firmas' => ['rev', 'Esperando firma del asesor'],
+  'firmas' => ['rev', 'Esperando firmas'],
     'pendiente' => ['pend', 'Pendiente'], 'en_revision' => ['rev', 'En validación'], 'aprobado' => ['ok', 'Validado'],
     'rechazado' => ['mal', 'Con observaciones'], 'no_aplica' => ['na', 'No me aplica'],
 ];
@@ -58,7 +58,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
       <?php if (!empty($linea['ronda'])): $rr = $linea['ronda']; ?>
         <div class="<?= $rr['dictamen'] === 'aprobado' ? 'tit-ok' : 'tit-obs' ?>" style="margin-top:12px">
           <strong><?= $rr['dictamen'] === 'aprobado' ? 'El comité aprobó tu protocolo.' : 'El comité te pide atender observaciones.' ?></strong>
-          <?php if ($rr['dictamen'] !== 'aprobado'): ?><div style="margin-top:4px">Léelas en <a href="<?= url('titulacion/mensajes') ?>">Titulación → Mensajes</a>; corrige aquí tu protocolo y vuelve a firmarlo para enviarlo.</div><?php endif; ?>
+          <?php if ($rr['dictamen'] !== 'aprobado'): ?><div style="margin-top:4px">Léelas en tus <a href="<?= url('notificaciones') ?>">Notificaciones</a>; corrige aquí tu protocolo y vuelve a firmarlo para enviarlo.</div><?php endif; ?>
           <div style="margin-top:4px"><a href="<?= url($base . '/dictamen/' . (int) $rr['id']) ?>" target="_blank" rel="noopener">Ver el dictamen firmado (PDF)</a></div>
         </div>
       <?php endif; ?>
@@ -140,19 +140,20 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
               <p class="nota"><a href="<?= url($base . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= !empty($d['generado']) ? 'Ver PDF firmado' : 'Ver PDF enviado' ?></a><?= empty($d['generado']) ? ' · ' . e((string) $fila['nombre_original']) : '' ?><?= !empty($fila['subdir_en']) ? ' · firmado por la Subdirección el ' . e(fecha_corta($fila['subdir_en'])) : ($est === 'aprobado' && \App\Modules\Titulacion\Services\SubdireccionFirma::tipoDeDocumento($d) !== null ? ' · esperando la firma de la Subdirección' : '') ?></p>
             <?php endif; ?>
             <?php if ($fila && !empty($fila['pendiente_firmas'])): ?>
-              <p class="nota">Firmaste el documento. Falta la firma de: <?= e(implode(', ', array_map(static fn(array $x): string => $x['nombre'] . ' (' . $x['rol'] . ')', array_filter(\App\Modules\Titulacion\Services\FirmasExternas::pendientesDe((int) $fila['id']), static fn(array $x): bool => $x['estado'] === 'pendiente')))) ?>. Les llegó un correo con su enlace.</p>
+              <p class="nota">Falta la firma de: <?= e(implode(', ', array_map(static fn(array $x): string => $x['nombre'] . ' (' . $x['rol'] . ')', array_filter(\App\Modules\Titulacion\Services\FirmasExternas::pendientesDe((int) $fila['id']), static fn(array $x): bool => $x['estado'] === 'pendiente')))) ?>. Les llegó un correo con su enlace.</p>
               <?php if ($editable): ?>
-                <form method="post" action="<?= url($base . '/reenviar/' . $dc) ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reenviar correo al asesor</button></form>
+                <form method="post" action="<?= url($base . '/reenviar/' . $dc) ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Reenviar el correo a quienes faltan</button></form>
               <?php endif; ?>
             <?php elseif (($d['validacion'] ?? '') === 'comision' && $protocoloEnRevision): ?>
-              <p class="nota">Tu protocolo está con el comité de revisión; recibirás el resultado en «Titulación → Mensajes» y por correo.</p>
+              <p class="nota">Tu protocolo está con el comité de revisión; recibirás el resultado en tus Notificaciones y por correo.</p>
+              <?php if ($editable): ?><form method="post" action="<?= url($base . '/estatus') ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Pedir informe de estatus del protocolo (firmado)</button></form><?php endif; ?>
             <?php elseif (!empty($d['generado']) && $editable && $etapa['propia_ok'] && !in_array($est, ['aprobado', 'en_revision'], true)): ?>
               <?php if (isset($formatos[$d['formato']]) && $formatos[$d['formato']]['impedimento']): ?>
                 <p class="nota" style="color:var(--alerta)"><?= e($formatos[$d['formato']]['impedimento']) ?></p>
               <?php else: ?>
                 <form method="post" action="<?= url($base . '/generar/' . $etapa['clave'] . '/' . $dc) ?>">
                   <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-                  <button class="btn btn-mini btn-primario" type="submit"><?= $dc === 'protocolo_firmado' ? ($est === 'rechazado' ? 'Firmar la versión corregida y enviarla a mi asesor' : 'Firmar y enviar a mi asesor') : 'Firmar electrónicamente y enviar' ?></button>
+                  <button class="btn btn-mini btn-primario" type="submit"><?= $dc === 'protocolo_firmado' ? ($est === 'rechazado' ? 'Firmar la versión corregida y enviarla a mi asesor' : 'Firmar y enviar a mi asesor') : ($dc === 'voto_aprobatorio' ? 'Generar el voto y pedir las firmas' : 'Firmar electrónicamente y enviar') ?></button>
                 </form>
               <?php endif; ?>
             <?php elseif (!empty($d['generado'])): ?>
@@ -257,6 +258,29 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php endif; ?>
   </section>
 
+  <?php if ($adicionales): ?>
+  <section class="tarjeta" id="adicionales">
+    <h2 style="font-size:16px">Solicitudes y formatos adicionales</h2>
+    <p class="texto-secundario" style="font-size:13px">Si necesitas alguno de estos trámites, captura lo que se pide y descarga el formato oficial ya llenado con tus datos (lleva el ID de tu proceso).</p>
+    <?php foreach ($adicionales as $fa => $camposA): $defA = \App\Modules\Titulacion\Catalogo::formatos()[$fa] ?? null; if (!$defA) continue;
+      $imp = \App\Modules\Titulacion\Services\Formatos::impedimento($fa, $t); $valA = $t['datos']['adicional'][$fa] ?? ($fa === 'art5' ? ($t['datos']['art5'] ?? []) : []); ?>
+      <details style="border-bottom:1px solid var(--gris-100);padding:6px 0">
+        <summary><strong><?= e($defA['nombre']) ?></strong> <span class="texto-secundario" style="font-size:12px">· firma <?= e($defA['firma']) ?></span></summary>
+        <?php if ($camposA && $puedeEditar): ?>
+          <form class="formulario" method="post" action="<?= url($base . '/adicional/' . $fa) ?>" style="margin-top:8px">
+            <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+            <div class="tit-campos">
+              <?php $prefijoId = 'a-' . $fa; foreach ($camposA as $campo): $valor = (string) ($valA[$campo['k']] ?? ''); $nombre = 'a[' . $campo['k'] . ']'; include __DIR__ . '/_campo.php'; endforeach; $prefijoId = null; ?>
+            </div>
+            <div class="acciones-formulario"><button class="btn btn-mini" type="submit">Guardar datos</button></div>
+          </form>
+        <?php endif; ?>
+        <p style="margin:6px 0"><?php if ($imp): ?><span class="texto-secundario" style="font-size:13px"><?= e($imp) ?></span><?php else: ?><a class="btn btn-mini btn-primario" href="<?= url($base . '/formato/' . $fa) ?>">Descargar formato llenado (PDF)</a><?php endif; ?></p>
+      </details>
+    <?php endforeach; ?>
+  </section>
+  <?php endif; ?>
+
   <?php if ($puedeEditar): ?>
   <section class="tarjeta">
     <details>
@@ -286,6 +310,11 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
         </li>
       <?php endforeach; ?>
     </ol>
+  </section>
+
+  <section class="tarjeta">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="font-size:16px;margin:0">Ruta del trámite</h2><a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Ver completa</a></div>
+    <?php $compacta = true; include __DIR__ . '/_ruta.php'; ?>
   </section>
 
   <section class="tarjeta">

@@ -7,7 +7,7 @@ $base = 'titulacion/gestion/' . (int) $t['id'];
 $ver = 'titulacion/licenciatura/tramite/' . (int) $t['id'];
 $p = $t['datos']['datos'] ?? [];
 $chips = [
-  'firmas' => ['rev', 'Esperando firma del asesor'],
+  'firmas' => ['rev', 'Esperando firmas'],
     'pendiente' => ['pend', 'Pendiente'], 'en_revision' => ['rev', 'Por validar'], 'aprobado' => ['ok', 'Validado'],
     'rechazado' => ['mal', 'Devuelto'], 'no_aplica' => ['na', 'No le aplica'],
 ];
@@ -22,7 +22,7 @@ $chips = [
     <span class="estado estado-<?= e($t['estado']) ?>"><?= e(Catalogo::estadosTramite()[$t['estado']] ?? $t['estado']) ?></span>
     <?php if ($t['resultado']): ?><div class="texto-secundario">Resultado: <strong><?= e($t['resultado']) ?></strong></div><?php endif; ?>
     <div class="texto-secundario">Responsable: <?= e((string) ($t['responsable_nombre'] ?? 'sin asignar')) ?></div>
-    <div style="margin-top:4px"><a class="btn btn-mini" href="<?= url($base . '/expediente') ?>">Descargar expediente (ZIP)</a></div>
+    <div style="margin-top:4px"><a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Ruta del trámite</a> <a class="btn btn-mini btn-primario" href="<?= url($base . '/expediente') ?>">Descargar todo el expediente (ZIP)</a></div>
     <form method="post" action="<?= url($base . '/tomar') ?>" style="margin-top:4px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Asignarme</button></form>
   </div>
 </div>

@@ -80,7 +80,7 @@ final class ComisionController extends TitulacionBase
             'obsOficio' => $tramite ? Oficios::observacionesAprobacion($tramite) : 'Ninguna.',
             'anteriores' => (int) $r['numero'] > 1 ? RevisionRepository::revisoresAnteriores((int) $r['tramite_id'], (int) $r['numero']) : [],
             'maxRevisores' => RevisionProtocolo::revisoresPorProtocolo(),
-            'mensajes' => \App\Core\Database::todas('SELECT * FROM tit_mensajes WHERE revision_id IN (SELECT id FROM tit_revisiones WHERE tramite_id = ?) ORDER BY id DESC', [(int) $r['tramite_id']]),
+            'anterior' => (int) $r['numero'] > 1 ? \App\Core\Database::valor('SELECT mensaje FROM tit_revisiones WHERE tramite_id = ? AND numero = ?', [(int) $r['tramite_id'], (int) $r['numero'] - 1]) : null,
             'titulo' => 'Protocolo ' . $r['folio'],
             'r' => $r,
             'asignaciones' => $asigs,
@@ -167,7 +167,7 @@ final class ComisionController extends TitulacionBase
             $this->sincronizar((int) $r['tramite_id']);
             flash('exito', $this->post('dictamen') === 'aprobado'
                 ? 'Protocolo aprobado. Se avisó al pasante y el oficio de aprobación pasó a firmas (Vo. Bo. de la Jefatura y Subdirección).'
-                : 'Dictamen enviado al pasante; lo verá en Titulación → Mensajes y podrá subir su versión corregida.');
+                : 'Dictamen enviado al pasante; lo verá en sus Notificaciones y podrá subir su versión corregida.');
         } catch (InvalidArgumentException | RuntimeException $e) {
             flash('error', $e->getMessage());
         } catch (Throwable $e) {
