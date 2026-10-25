@@ -11,7 +11,8 @@ final class DocumentosGenerados
     /** Guarda un PDF generado en el expediente del trámite. @return string ruta relativa */
     public static function guardar(array $tramite, string $prefijo, string $bytes, ?string $formatoDescargado = null): string
     {
-        $relativa = 'titulacion/' . (int) $tramite['id'] . '/' . $prefijo . '_' . bin2hex(random_bytes(8)) . '.pdf';
+        // Un formato descargado ocupa siempre el mismo archivo (se sobrescribe en cada descarga); lo demás, uno nuevo.
+        $relativa = 'titulacion/' . (int) $tramite['id'] . '/' . $prefijo . ($formatoDescargado !== null ? '' : '_' . bin2hex(random_bytes(8))) . '.pdf';
         $abs = FirmaElectronica::almacen() . '/' . $relativa;
         if (!is_dir(dirname($abs))) {
             mkdir(dirname($abs), 0755, true);
@@ -19,6 +20,19 @@ final class DocumentosGenerados
         file_put_contents($abs, $bytes);
         Verificacion::guardado($bytes, $relativa, null, null, $formatoDescargado);
         return $relativa;
+    }
+
+    /** Reemplaza el contenido de un PDF ya guardado (corrección), sin crear otro archivo. */
+    public static function sobrescribir(string $relativa, string $bytes): void
+    {
+        $abs = FirmaElectronica::almacen() . '/' . $relativa;
+        if (!is_dir(dirname($abs))) {
+            mkdir(dirname($abs), 0755, true);
+        }
+        $tmp = $abs . '.tmp';
+        file_put_contents($tmp, $bytes);
+        rename($tmp, $abs);
+        Verificacion::guardado($bytes, $relativa);
     }
 
     /** Posiciones de firma del documento, para estampar después las firmas que faltan. */

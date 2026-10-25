@@ -14,7 +14,7 @@ include __DIR__ . '/_banner_enlace.php';
   <h2>Asignación de sinodales · <?= e($t['folio']) ?></h2>
   <p><strong><?= e($alumno) ?></strong> · <?= e(\App\Modules\Titulacion\Catalogo::modalidad((string) $t['modalidad'])['nombre'] ?? '') ?><?php if ($t['titulo']): ?> · «<?= e($t['titulo']) ?>»<?php endif; ?></p>
   <p>El pasante solicitó su <strong><?= e($examen) ?></strong> para el <strong><?= e(\App\Modules\Titulacion\Services\Oficios::fecha($a['fecha'])) ?></strong>, <?= e($a['hora']) ?> h, en <?= e($a['lugar']) ?> (el espacio ya está apartado).</p>
-  <?php if ($trabajo): ?><p><a class="btn btn-mini" href="<?= url($base . '/trabajo') ?>" target="_blank" rel="noopener">Ver el trabajo escrito (PDF)</a></p><?php endif; ?>
+  <?php if ($trabajo): ?><p><a class="btn btn-mini" href="<?= url(str_contains($base, '/t/') ? $base . '/trabajo' : \App\Modules\Titulacion\Services\Archivos::url('trabajo_coordinador', (int) $a['id'])) ?>" target="_blank" rel="noopener">Ver el trabajo escrito (PDF)</a></p><?php endif; ?>
 
   <?php if ($a['estado'] === 'firmada'): ?>
     <p class="tit-ok">Firmaste esta asignación el <?= e(fecha_corta((string) $a['firmada_en'])) ?>. Los oficios ya se generaron.</p>

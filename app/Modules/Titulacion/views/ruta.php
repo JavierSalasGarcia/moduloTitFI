@@ -10,7 +10,7 @@ include __DIR__ . '/_estilos.php';
     <?php if ($esDueno): ?><a class="btn" href="<?= url('titulacion/licenciatura/tramite/' . (int) $t['id']) ?>">Ir a mi trámite</a><?php endif; ?>
     <?php if ($esPersonal): ?>
       <a class="btn" href="<?= url('titulacion/gestion/' . (int) $t['id']) ?>">Abrir en validación</a>
-      <a class="btn btn-primario" href="<?= url('titulacion/gestion/' . (int) $t['id'] . '/expediente') ?>">Descargar todo el expediente (ZIP)</a>
+      <a class="btn btn-primario" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('expediente', (int) $t['id'])) ?>">Descargar todo el expediente (ZIP)</a>
     <?php endif; ?>
   </div>
 </div>

@@ -62,7 +62,7 @@ include __DIR__ . '/_estilos.php';
         <td><?= e($c['alumno_nombre']) ?> · <?= e(Constancias::nombreModalidad((string) $c['modalidad'])) ?> · <?= e($c['folio']) ?><br><span class="texto-secundario">«<?= e(mb_strimwidth((string) $c['titulo'], 0, 90, '…')) ?>»</span></td>
         <td><?= e(Constancias::EMISORES[$c['emisor']] ?? '') ?></td>
         <td><?= e(fecha_corta((string) $c['creado_en'])) ?></td>
-        <td><?php if ($c['subdir_ruta']): ?><a class="btn btn-mini btn-primario" href="<?= url('titulacion/constancias/' . (int) $c['id']) ?>" target="_blank" rel="noopener">Descargar</a><?php else: ?><span class="tit-chip rev">En firma</span><?php endif; ?></td>
+        <td><?php if ($c['subdir_ruta']): ?><a class="btn btn-mini btn-primario" href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('constancia', (int) $c['id'])) ?>" target="_blank" rel="noopener">Descargar</a><?php else: ?><span class="tit-chip rev">En firma</span><?php endif; ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>

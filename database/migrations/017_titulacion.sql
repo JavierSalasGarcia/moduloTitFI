@@ -225,6 +225,16 @@ CREATE TABLE IF NOT EXISTS tit_historico (
   KEY idx_tit_hist_tramite (tramite_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Enlaces de descarga: un token aleatorio por archivo (acción y parámetros) en lugar de números consecutivos.
+CREATE TABLE IF NOT EXISTS tit_archivo_tokens (
+  token CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  accion VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  params VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (token),
+  UNIQUE KEY uq_tit_archivo_accion (accion, params)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Los mensajes al pasante y las plantillas/coordenadas de formatos ya no existen: todo llega a «notificaciones»
 -- y la plataforma genera los formatos por código.
 DROP TABLE IF EXISTS tit_mensajes;
@@ -375,10 +385,13 @@ CREATE TABLE IF NOT EXISTS tit_constancias (
   tipo VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'revisor_protocolo',
   emisor ENUM('subdirector','jefe_titulacion') NOT NULL DEFAULT 'subdirector',
   vueltas VARCHAR(40) NOT NULL DEFAULT '',
+  rol VARCHAR(120) NOT NULL DEFAULT '',
+  huella CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  detalle TEXT NULL,
   documento_id BIGINT UNSIGNED NULL,
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_tit_constancia_tipo (tramite_id, email, tipo),
+  UNIQUE KEY uq_tit_constancia_rol (tramite_id, tipo, rol),
   KEY idx_tit_constancia_email (email),
   CONSTRAINT fk_tit_const_tramite FOREIGN KEY (tramite_id) REFERENCES tit_tramites(id) ON DELETE CASCADE,
   CONSTRAINT fk_tit_const_doc FOREIGN KEY (documento_id) REFERENCES tit_documentos(id) ON DELETE SET NULL
@@ -717,8 +730,19 @@ SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_constancias ADD COLUMN tipo V
           FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND COLUMN_NAME = 'tipo');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
--- Primero el índice nuevo (lo usa la llave foránea del trámite) y después se retira el anterior.
-SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_constancias ADD UNIQUE KEY uq_tit_constancia_tipo (tramite_id, email, tipo)', 'DO 0')
+-- Cada constancia es de un rol en el trámite (director, codirector, presidente… o el correo del revisor); con su
+-- huella se detecta si una corrección cambió su contenido y hay que regenerarla sobre el mismo archivo.
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_constancias ADD COLUMN rol VARCHAR(120) NOT NULL DEFAULT '''' AFTER tipo, ADD COLUMN huella CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NULL AFTER vueltas, ADD COLUMN detalle TEXT NULL AFTER huella', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND COLUMN_NAME = 'rol');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+UPDATE tit_constancias SET rol = email WHERE rol = '';
+
+-- Primero el índice nuevo (lo usa la llave foránea del trámite) y después se retiran los anteriores.
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE tit_constancias ADD UNIQUE KEY uq_tit_constancia_rol (tramite_id, tipo, rol)', 'DO 0')
+          FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND INDEX_NAME = 'uq_tit_constancia_rol');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) > 0, 'ALTER TABLE tit_constancias DROP INDEX uq_tit_constancia_tipo', 'DO 0')
           FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tit_constancias' AND INDEX_NAME = 'uq_tit_constancia_tipo');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 

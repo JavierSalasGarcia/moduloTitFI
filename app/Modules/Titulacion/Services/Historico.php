@@ -174,6 +174,11 @@ final class Historico
         Database::ejecutar("UPDATE tit_historico SET `$campo` = ?, actualizado_por = ?, actualizado_en = NOW() WHERE id = ?", [$valor, $usuarioId, $id]);
         $fila = Database::una('SELECT * FROM tit_historico WHERE id = ?', [$id]) ?? throw new \InvalidArgumentException('Registro inexistente.');
         $fila['faltan'] = self::faltantes($fila);
+        $fila['regeneradas'] = 0;
+        // Con constancias ya generadas y el registro completo, la corrección se aplica a esas constancias (mismo archivo).
+        if ($fila['tramite_id'] && !$fila['faltan'] && self::conTrabajo($fila['modalidad'])) {
+            $fila['regeneradas'] = self::generar($id, $usuarioId);
+        }
         return $fila;
     }
 
@@ -208,13 +213,18 @@ final class Historico
         $detalle = ['desde' => $fecha, 'hasta' => $fecha, 'acta' => (string) $h['acta']];
         $n = 0;
         foreach (['asesor_trabajo', 'cumplimiento_director', 'nombramiento_director'] as $tipo) {
-            $n += (int) Constancias::emitir($tramite, $tipo, self::persona($h['director'], $h['director_email']), $detalle, $usuarioId);
+            $n += (int) Constancias::emitir($tramite, $tipo, self::persona($h['director'], $h['director_email']), $detalle, $usuarioId, 'director');
         }
         if (trim($h['codirector']) !== '') {
-            $n += (int) Constancias::emitir($tramite, 'coasesor_trabajo', self::persona($h['codirector'], $h['codirector_email']), $detalle, $usuarioId);
+            $n += (int) Constancias::emitir($tramite, 'coasesor_trabajo', self::persona($h['codirector'], $h['codirector_email']), $detalle, $usuarioId, 'codirector');
         }
         foreach (['presidente', 'secretario', 'vocal'] as $rol) {
-            $n += (int) Constancias::emitir($tramite, 'sinodal', self::persona($h[$rol], $h[$rol . '_email']), $detalle + ['funcion' => $rol], $usuarioId);
+            $n += (int) Constancias::emitir($tramite, 'sinodal', self::persona($h[$rol], $h[$rol . '_email']), $detalle + ['funcion' => $rol], $usuarioId, $rol);
+        }
+        if (trim($h['codirector']) === '') {
+            foreach (Database::todas("SELECT * FROM tit_constancias WHERE tramite_id = ? AND rol = 'codirector'", [(int) $tramite['id']]) as $c) {
+                Constancias::anular($c);   // se quitó al codirector: su constancia ya no corresponde
+            }
         }
         Database::ejecutar('UPDATE tit_historico SET generado_en = NOW() WHERE id = ?', [$id]);
         return $n;

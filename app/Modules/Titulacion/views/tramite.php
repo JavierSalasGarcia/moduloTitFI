@@ -59,7 +59,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
         <div class="<?= $rr['dictamen'] === 'aprobado' ? 'tit-ok' : 'tit-obs' ?>" style="margin-top:12px">
           <strong><?= $rr['dictamen'] === 'aprobado' ? 'El comité aprobó tu protocolo.' : 'El comité te pide atender observaciones.' ?></strong>
           <?php if ($rr['dictamen'] !== 'aprobado'): ?><div style="margin-top:4px">Léelas en tus <a href="<?= url('notificaciones') ?>">Notificaciones</a>; corrige aquí tu protocolo y vuelve a firmarlo para enviarlo.</div><?php endif; ?>
-          <div style="margin-top:4px"><a href="<?= url($base . '/dictamen/' . (int) $rr['id']) ?>" target="_blank" rel="noopener">Ver el dictamen firmado (PDF)</a></div>
+          <div style="margin-top:4px"><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_dictamen', (int) $t['id'], (int) $rr['id'])) ?>" target="_blank" rel="noopener">Ver el dictamen firmado (PDF)</a></div>
         </div>
       <?php endif; ?>
     <?php endif; ?>
@@ -130,14 +130,14 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
                 <?php else: ?><span class="tit-chip rev">Llevar original para cotejo</span><?php endif; ?>
               <?php endif; ?></h4>
             <?php if (!empty($d['cotejo']) && $fila && $fila['cotejo_en']): ?>
-              <p class="nota">Cotejado por <?= e((string) $fila['cotejo_nombre']) ?> el <?= e(fecha_corta($fila['cotejo_en'])) ?><?= $fila['cotejo_ruta'] ? ' · <a href="' . e(url($base . '/archivo/' . (int) $fila['id'] . '?cotejo=1')) . '" target="_blank" rel="noopener">PDF con sello de cotejo</a>' : '' ?></p>
+              <p class="nota">Cotejado por <?= e((string) $fila['cotejo_nombre']) ?> el <?= e(fecha_corta($fila['cotejo_en'])) ?><?= $fila['cotejo_ruta'] ? ' · <a href="' . e(url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $fila['id']) . '?cotejo=1')) . '" target="_blank" rel="noopener">PDF con sello de cotejo</a>' : '' ?></p>
             <?php endif; ?>
             <?php if ($d['nota']): ?><p class="nota"><?= e($d['nota']) ?></p><?php endif; ?>
             <?php if ($d['condicion']): ?><p class="nota"><em><?= e($d['condicion']) ?></em></p><?php endif; ?>
             <?php if ($est === 'rechazado' && $fila): ?><div class="tit-obs"><strong>Observaciones<?= $fila['revisor_nombre'] ? ' de ' . e($fila['revisor_nombre']) : '' ?>:</strong> <?= e((string) $fila['comentario']) ?></div><?php endif; ?>
             <?php if ($est === 'aprobado' && $fila && $fila['comentario']): ?><div class="tit-ok"><?= e((string) $fila['comentario']) ?></div><?php endif; ?>
             <?php if ($fila && $fila['ruta']): ?>
-              <p class="nota"><a href="<?= url($base . '/archivo/' . (int) $fila['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= !empty($d['generado']) ? 'Ver PDF firmado' : 'Ver PDF enviado' ?></a><?= empty($d['generado']) ? ' · ' . e((string) $fila['nombre_original']) : '' ?><?= !empty($fila['subdir_en']) ? ' · firmado por la Subdirección el ' . e(fecha_corta($fila['subdir_en'])) : ($est === 'aprobado' && \App\Modules\Titulacion\Services\SubdireccionFirma::tipoDeDocumento($d) !== null ? ' · esperando la firma de la Subdirección' : '') ?></p>
+              <p class="nota"><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $fila['id']) . '?ver=1') ?>" target="_blank" rel="noopener"><?= !empty($d['generado']) ? 'Ver PDF firmado' : 'Ver PDF enviado' ?></a><?= empty($d['generado']) ? ' · ' . e((string) $fila['nombre_original']) : '' ?><?= !empty($fila['subdir_en']) ? ' · firmado por la Subdirección el ' . e(fecha_corta($fila['subdir_en'])) : ($est === 'aprobado' && \App\Modules\Titulacion\Services\SubdireccionFirma::tipoDeDocumento($d) !== null ? ' · esperando la firma de la Subdirección' : '') ?></p>
             <?php endif; ?>
             <?php if ($fila && !empty($fila['pendiente_firmas'])): ?>
               <p class="nota">Falta la firma de: <?= e(implode(', ', array_map(static fn(array $x): string => $x['nombre'] . ' (' . $x['rol'] . ')', array_filter(\App\Modules\Titulacion\Services\FirmasExternas::pendientesDe((int) $fila['id']), static fn(array $x): bool => $x['estado'] === 'pendiente')))) ?>. Les llegó un correo con su enlace.</p>
@@ -214,11 +214,11 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
             <div><strong><?= e($c['label']) ?>:</strong> <span style="white-space:pre-wrap"><?= e($v) ?></span></div>
           <?php endforeach; ?>
           <?php $ent = $etapa['personal']['entrega'] ?? null; $filaEnt = $ent ? ($docs[$etapa['clave'] . '|' . $ent['clave']] ?? null) : null; ?>
-          <?php if ($filaEnt): ?><div><a href="<?= url($base . '/archivo/' . (int) $filaEnt['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) && !empty($ent['oficio']) ? ' · esperando la firma' : '' ?></div><?php endif; ?>
+          <?php if ($filaEnt): ?><div><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $filaEnt['id']) . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($ent['nombre']) ?></a><?= empty($filaEnt['subdir_en']) && !empty($ent['oficio']) ? ' · esperando la firma' : '' ?></div><?php endif; ?>
           <?php if (!empty($etapa['personal']['comision_fija'])): $cf = \App\Modules\Titulacion\Services\Autoridades::class; $pr = $cf::director(); $se = $cf::subdirector(); ?>
           <div>Comisión: <?= e($pr ? \App\Core\Persona::tratamiento($pr) : 'Director') ?> (<?= e(\App\Core\Persona::f($pr ?? [], 'presidente', 'presidenta')) ?>) y <?= e($se ? \App\Core\Persona::tratamiento($se) : 'Subdirector Académico') ?> (<?= e(\App\Core\Persona::f($se ?? [], 'secretario', 'secretaria')) ?>)</div>
         <?php endif; ?>
-<?php foreach ($etapa['personal']['extras'] ?? [] as $x): $fx = $docs[$etapa['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url($base . '/archivo/' . (int) $fx['id'] . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
+<?php foreach ($etapa['personal']['extras'] ?? [] as $x): $fx = $docs[$etapa['clave'] . '|' . $x['clave']] ?? null; if ($fx): ?><div><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $fx['id']) . '?ver=1') ?>" target="_blank" rel="noopener"><?= e($x['nombre']) ?></a><?= empty($fx['subdir_en']) ? ' · esperando la firma' : ' · firmado' ?></div><?php endif; endforeach; ?>
         </div>
         <?php if (!empty($ent['asignacion'])): $asig = \App\Modules\Titulacion\Services\Jurado::vigente((int) $t['id'], $etapa['clave']); ?>
           <?php if ($asig && $asig['estado'] === 'solicitada'): ?>
@@ -233,7 +233,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
                 <tr>
                   <td><?= e($sn['calidad'] === 'suplente' ? 'Suplente' : 'Propietario') ?></td>
                   <td><?= e($sn['nombre']) ?><br><small><?= e($sn['email']) ?></small></td>
-                  <td><?php if ($of && !empty($of['subdir_en'])): ?><a href="<?= url($base . '/archivo/' . (int) $of['id'] . '?ver=1') ?>" target="_blank" rel="noopener">Ver / descargar</a><?php else: ?><span class="texto-secundario">Esperando firma de la Subdirección</span><?php endif; ?></td>
+                  <td><?php if ($of && !empty($of['subdir_en'])): ?><a href="<?= url(\App\Modules\Titulacion\Services\Archivos::url('tramite_doc', (int) $t['id'], (int) $of['id']) . '?ver=1') ?>" target="_blank" rel="noopener">Ver / descargar</a><?php else: ?><span class="texto-secundario">Esperando firma de la Subdirección</span><?php endif; ?></td>
                   <td><?php if ($sn['estado'] === 'acuse'): ?><span class="tit-chip ok">Firmó de recibido el <?= e(fecha_corta($sn['acuse_en'])) ?></span><?php elseif ($sn['estado'] === 'pendiente'): ?><span class="tit-chip rev">Sin firmar</span><?php else: ?><span class="tit-chip pend">Oficio por firmar</span><?php endif; ?></td>
                   <td><?php if ($sn['estado'] === 'pendiente' && $editable): ?><form method="post" action="<?= url($base . '/sinodal/' . (int) $sn['id'] . '/recordar') ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">Enviar recordatorio</button></form><?php endif; ?></td>
                 </tr>
