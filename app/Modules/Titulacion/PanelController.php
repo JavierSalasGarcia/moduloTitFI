@@ -42,6 +42,20 @@ final class PanelController extends TitulacionBase
 
     // ----------------------------------------------------------------- constancias
 
+    /** Agrega a cada constancia su año, su descripción breve y el token para verla o elegirla. */
+    private function preparar(array $lista): array
+    {
+        foreach ($lista as &$c) {
+            $c['anio'] = Services\Constancias::anio($c);
+            $c['descripcion'] = Services\Constancias::descripcion($c);
+            $c['ver'] = Services\Archivos::url('constancia', (int) $c['id']);
+            $c['token'] = substr($c['ver'], strlen('titulacion/archivo/'));
+        }
+        unset($c);
+        usort($lista, static fn(array $x, array $y): int => [$y['anio'], $x['descripcion']] <=> [$x['anio'], $y['descripcion']]);
+        return $lista;
+    }
+
     /** «Constancias → Titulación Lic»: las constancias de quien tiene la sesión. */
     public function constancias(): void
     {
@@ -49,18 +63,23 @@ final class PanelController extends TitulacionBase
         $email = TitulacionAccess::correoSesion();
         $this->vista('constancias', [
             'titulo' => 'Constancias · Titulación Lic',
-            'constancias' => Services\Constancias::dePersona($email),
+            'constancias' => $this->preparar(Services\Constancias::dePersona($email)),
             'persona' => null, 'busqueda' => false,
         ]);
     }
 
-    /** Descarga de una constancia firmada: su titular o quien puede consultarla en la búsqueda. */
+    /** Su titular, o quien puede consultarla en la búsqueda según su alcance. */
+    private function puedeVerConstancia(array $c): bool
+    {
+        $alcance = Services\Constancias::alcance();
+        return $c['email'] === TitulacionAccess::correoSesion() || (Services\Constancias::puedeBuscar() && ($alcance === null || $alcance === $c['emisor']));
+    }
+
+    /** Una constancia firmada, para verla en el navegador (por token: titulacion/archivo/{token}). */
     public function constancia(string $id): void
     {
         $c = ctype_digit($id) ? Database::una('SELECT c.*, t.folio, d.subdir_ruta FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN tit_documentos d ON d.id = c.documento_id WHERE c.id = ?', [(int) $id]) : null;
-        $alcance = Services\Constancias::alcance();
-        $puede = $c && ($c['email'] === TitulacionAccess::correoSesion() || (Services\Constancias::puedeBuscar() && ($alcance === null || $alcance === $c['emisor'])));
-        if (!$puede || empty($c['subdir_ruta'])) {
+        if (!$c || !$this->puedeVerConstancia($c) || empty($c['subdir_ruta'])) {
             $this->noEncontrado();
         }
         Audit::record('titulacion::constancia', 'atendido', 'Constancia ' . (int) $c['id']);
@@ -88,7 +107,7 @@ final class PanelController extends TitulacionBase
         }
         $this->vista('constancias', [
             'titulo' => 'Constancias · Búsqueda',
-            'constancias' => $lista, 'persona' => $persona, 'email' => $email, 'busqueda' => true,
+            'constancias' => $this->preparar($lista), 'persona' => $persona, 'email' => $email, 'busqueda' => true,
             'alcance' => Services\Constancias::alcance(),
         ]);
     }
@@ -105,35 +124,60 @@ final class PanelController extends TitulacionBase
         exit;
     }
 
-    /** Todas las constancias firmadas de un profesor en un ZIP (según el alcance de quien exporta). */
-    public function zip(): void
+    /** Las constancias firmadas que se eligieron (por su token), en un ZIP; cada una se revisa con el mismo permiso que para verla. */
+    public function seleccion(): void
     {
-        $this->soloBusqueda();
-        $email = strtolower(trim((string) ($_GET['email'] ?? '')));
-        $lista = array_filter(Services\Constancias::dePersona($email, Services\Constancias::alcance()), static fn(array $c): bool => !empty($c['subdir_ruta']));
+        $this->privado();
+        $volver = (string) ($_POST['volver'] ?? '') === 'busqueda' ? 'titulacion/constancias/busqueda?email=' . rawurlencode(strtolower(trim((string) ($_POST['email'] ?? '')))) : 'titulacion/constancias';
+        $ids = [];
+        foreach (array_slice(is_array($_POST['c'] ?? null) ? $_POST['c'] : [], 0, 500) as $token) {
+            $a = is_string($token) ? Services\Archivos::abrir($token) : null;
+            if ($a !== null && $a[0] === 'constancia' && ctype_digit($a[1][0] ?? '')) {
+                $ids[(int) $a[1][0]] = true;
+            }
+        }
+        $lista = [];
+        if ($ids) {
+            $marcas = implode(',', array_fill(0, count($ids), '?'));
+            $lista = Database::todas(
+                "SELECT c.*, t.folio, d.subdir_ruta, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre
+                 FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN usuarios u ON u.id = t.alumno_id
+                 LEFT JOIN tit_documentos d ON d.id = c.documento_id WHERE c.id IN ($marcas)",
+                array_keys($ids)
+            );
+        }
+        $lista = array_filter($lista, fn(array $c): bool => !empty($c['subdir_ruta']) && $this->puedeVerConstancia($c));
         if (!$lista) {
-            flash('error', 'Ese profesor no tiene constancias firmadas para exportar.');
-            redirigir('titulacion/constancias/busqueda?email=' . rawurlencode($email));
+            flash('error', 'Elige al menos una constancia firmada.');
+            redirigir($volver);
         }
         $base = rtrim((string) \App\Core\App::config('archivos.storage'), '/\\');
         $tmp = tempnam(sys_get_temp_dir(), 'cns');
         $zip = new \ZipArchive();
         if ($tmp === false || $zip->open($tmp, \ZipArchive::OVERWRITE) !== true) {
             flash('error', 'No se pudo armar el archivo.');
-            redirigir('titulacion/constancias/busqueda?email=' . rawurlencode($email));
+            redirigir($volver);
         }
-        $n = 0;
+        $usados = [];
         foreach ($lista as $c) {
             $abs = realpath($base . '/' . $c['subdir_ruta']);
-            if ($abs !== false && str_starts_with($abs, realpath($base) . DIRECTORY_SEPARATOR)) {
-                $zip->addFile($abs, sprintf('%02d_%s_%s.pdf', ++$n, $c['tipo'], $c['folio']));
+            if ($abs === false || !str_starts_with($abs, realpath($base) . DIRECTORY_SEPARATOR)) {
+                continue;
             }
+            $nombre = Services\Constancias::anio($c) . '_' . trim(preg_replace('/[^A-Za-z0-9]+/', '_', iconv('UTF-8', 'ASCII//TRANSLIT', str_replace(' · ' . Services\Constancias::anio($c), '', Services\Constancias::descripcion($c))) ?: (string) $c['tipo']) ?? '', '_');
+            $final = $nombre;
+            for ($i = 2; isset($usados[$final]); $i++) {
+                $final = $nombre . '_' . $i;
+            }
+            $usados[$final] = true;
+            $zip->addFile($abs, $final . '.pdf');
         }
         $zip->close();
-        Audit::record('titulacion::constancias_zip', 'atendido', $email . ' · ' . $n);
+        $emails = array_unique(array_column($lista, 'email'));
+        Audit::record('titulacion::constancias_zip', 'atendido', implode(', ', $emails) . ' · ' . count($usados));
         $bytes = (string) file_get_contents($tmp);
         @unlink($tmp);
-        $this->enviarBytes($bytes, 'constancias_' . preg_replace('/[^a-z0-9]+/', '_', $email) . '.zip', 'application/zip');
+        $this->enviarBytes($bytes, 'constancias_' . (count($emails) === 1 ? preg_replace('/[^a-z0-9]+/', '_', (string) reset($emails)) : 'titulacion') . '.zip', 'application/zip');
     }
 
     // ----------------------------------------------------------------- pendientes

@@ -326,6 +326,32 @@ final class Constancias
         );
     }
 
+    /** Nombre corto de cada tipo, para identificar la constancia en la lista del profesor. */
+    public const CORTOS = [
+        'revisor_protocolo' => 'Rev. protocolo', 'asesor_trabajo' => 'Director', 'coasesor_trabajo' => 'Codirector', 'sinodal' => 'Sinodal',
+        'cumplimiento_director' => 'Cumplimiento como director', 'nombramiento_director' => 'Nombramiento como director',
+    ];
+
+    /** Año de lo que avala la constancia (examen o aprobación del protocolo); si no se registró, el de emisión. */
+    public static function anio(array $c): string
+    {
+        $d = json_decode((string) ($c['detalle'] ?? ''), true);
+        $f = is_array($d) && !empty($d['hasta']) ? (string) $d['hasta'] : (string) $c['creado_en'];
+        return substr($f, 0, 4);
+    }
+
+    /** «Rev. protocolo · Ana Pérez López · 2024», «Sinodal (presidente) · … · 2019». */
+    public static function descripcion(array $c): string
+    {
+        $d = json_decode((string) ($c['detalle'] ?? ''), true);
+        $tipo = self::CORTOS[$c['tipo']] ?? self::titulo((string) $c['tipo']);
+        if ($c['tipo'] === 'sinodal' && is_array($d) && !empty($d['funcion'])) {
+            $tipo .= ' (' . $d['funcion'] . ')';
+        }
+        $alumno = mb_convert_case(mb_strtolower(trim((string) ($c['alumno_nombre'] ?? ''))), MB_CASE_TITLE);
+        return $tipo . ' · ' . ($alumno !== '' ? $alumno : $c['folio']) . ' · ' . self::anio($c);
+    }
+
     public static function titulo(string $tipo): string
     {
         return self::TIPOS[$tipo][0] ?? 'Constancia';
