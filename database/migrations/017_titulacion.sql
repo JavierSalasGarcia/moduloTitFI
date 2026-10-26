@@ -1,4 +1,4 @@
--- Titulación (licenciatura), Auditorios/Salas, Notificaciones y enlaces de descarga: migración única de todo lo posterior a 016.
+-- Titulación (licenciatura), Auditorios/Salas, Notificaciones, enlaces de descarga, Concursos y Formularios: migración única de todo lo posterior a 016.
 -- Es repetible: puede ejecutarse completa las veces que haga falta, aunque una parte ya esté aplicada
 -- (tablas con IF NOT EXISTS, columnas e índices solo si faltan, ajustes con INSERT IGNORE).
 -- Se aplica a mano en pruebas y producción; copiar las carpetas de los módulos no ejecuta SQL.
@@ -801,6 +801,169 @@ INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
 DELETE FROM ajustes WHERE clave IN ('titulacion_director', 'titulacion_director_email', 'titulacion_subdirector', 'titulacion_subdirector_email', 'titulacion_lema',
   'institucion_director_nombre', 'institucion_director_email', 'institucion_subdirector_nombre', 'institucion_subdirector_email', 'titulacion_dias_aviso');
 UPDATE ajustes SET descripcion = 'Titulación: días hábiles que tiene cada revisor de protocolo; a partir del siguiente el semáforo pasa a rojo.' WHERE clave = 'titulacion_dias_revision';
+
+-- ================================================================ Concursos (actividades temporales, tablas propias con_*)
+CREATE TABLE IF NOT EXISTS con_concursos (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  slug VARCHAR(80) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  titulo VARCHAR(200) NOT NULL,
+  resumen VARCHAR(400) NOT NULL DEFAULT '',
+  tematica VARCHAR(200) NOT NULL DEFAULT '',
+  bases MEDIUMTEXT NOT NULL,
+  estado ENUM('borrador','publicado','cancelado') NOT NULL DEFAULT 'borrador',
+  publicacion DATETIME NOT NULL,
+  recepcion_fin DATETIME NOT NULL,
+  votacion_inicio DATETIME NOT NULL,
+  votacion_fin DATETIME NOT NULL,
+  premiacion DATETIME NOT NULL,
+  premio_1 DECIMAL(10,2) NULL,
+  premio_2 DECIMAL(10,2) NULL,
+  premio_3 DECIMAL(10,2) NULL,
+  max_por_persona TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  max_caracteres SMALLINT UNSIGNED NOT NULL DEFAULT 1500,
+  creado_por INT UNSIGNED NULL,
+  actualizado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_con_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Obras enviadas. «numero» identifica la obra de forma anónima durante el prefiltro y la votación.
+CREATE TABLE IF NOT EXISTS con_participaciones (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  concurso_id INT UNSIGNED NOT NULL,
+  numero SMALLINT UNSIGNED NOT NULL,
+  usuario_id INT UNSIGNED NOT NULL,
+  titulo VARCHAR(120) NOT NULL,
+  texto TEXT NOT NULL,
+  estado ENUM('enviada','aprobada','rechazada','retirada') NOT NULL DEFAULT 'enviada',
+  motivo VARCHAR(600) NULL,
+  revisado_por INT UNSIGNED NULL,
+  revisado_en DATETIME NULL,
+  desempate SMALLINT UNSIGNED NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  actualizado_en DATETIME NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_con_numero (concurso_id, numero),
+  KEY idx_con_part_usuario (concurso_id, usuario_id),
+  CONSTRAINT fk_con_part_concurso FOREIGN KEY (concurso_id) REFERENCES con_concursos(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Voto anónimo: con_votantes guarda QUIÉN ya votó (sin la opción ni la hora); con_votos guarda el voto con su recibo,
+-- sin usuario, sin hora y sin número consecutivo, para que no se pueda cruzar el orden de una tabla con el de la otra.
+CREATE TABLE IF NOT EXISTS con_votantes (
+  concurso_id INT UNSIGNED NOT NULL,
+  usuario_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (concurso_id, usuario_id),
+  CONSTRAINT fk_con_votante_concurso FOREIGN KEY (concurso_id) REFERENCES con_concursos(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS con_votos (
+  recibo CHAR(14) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  concurso_id INT UNSIGNED NOT NULL,
+  participacion_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (recibo),
+  KEY idx_con_voto_part (concurso_id, participacion_id),
+  CONSTRAINT fk_con_voto_concurso FOREIGN KEY (concurso_id) REFERENCES con_concursos(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Concurso de calaveritas 2026 (queda en borrador: revisar bases y montos, y publicarlo desde Concursos → Gestión).
+INSERT IGNORE INTO con_concursos (slug, titulo, resumen, tematica, estado, publicacion, recepcion_fin, votacion_inicio, votacion_fin, premiacion, max_por_persona, max_caracteres, bases) VALUES
+('calaveritas-2026', 'Concurso de Calaveritas Literarias 2026',
+ 'Escribe una calaverita sobre la comunidad de Ingeniería y sus profes. Sin ofender, pero con la picardía de siempre.',
+ 'La comunidad de Ingeniería y sus profes', 'borrador',
+ '2026-10-26 00:00:00', '2026-10-27 23:59:59', '2026-10-28 00:00:00', '2026-10-29 23:59:59', '2026-10-30 12:00:00', 2, 1500,
+'## Presentación
+La Facultad de Ingeniería invita a toda su comunidad a celebrar el Día de Muertos con una de las tradiciones literarias más mexicanas: la calaverita. Las calaveritas son versos breves, con rima y humor, en los que la Muerte (la Catrina, la Flaca, la Huesuda) viene por alguien y se lo lleva al panteón. Nacieron en la prensa del siglo XIX, se popularizaron con los grabados de José Guadalupe Posada y cada 2 de noviembre nos sirven para reírnos de la vida, de la muerte y de nosotros mismos.
+
+## Tema
+{tematica}: las clases, los exámenes, los laboratorios, las entregas de proyecto, las desveladas, la cafetería, el estacionamiento… y, por supuesto, las y los profes de Ingeniería.
+
+## Quiénes pueden participar
+Estudiantes, profesores y personal de la Facultad con cuenta en Traza FI. Cada persona puede enviar hasta {max_por_persona} calaveritas.
+
+## Requisitos
+- Original e inédita, escrita en español.
+- De 4 a 10 estrofas; se recomiendan versos octosílabos con rima consonante (por ejemplo ABBA o ABAB). Máximo {max_caracteres} caracteres.
+- La Muerte debe aparecer y llevarse a alguien o algo; se vale la picardía y la sátira de la tradición.
+- Sin ofender: no se aceptan insultos, groserías, burlas sobre la apariencia, la salud o la vida privada, discriminación de ningún tipo ni acusaciones. Se puede mencionar a profesores o personajes de la comunidad, siempre con respeto y buen humor.
+- Se escribe directamente en Traza FI (título y versos), en el apartado Concursos.
+
+## Recepción
+Desde la publicación de esta convocatoria y hasta el {recepcion_fin}. Mientras tu calaverita no haya sido revisada puedes corregirla o retirarla.
+
+## Fase 1: prefiltro
+Cada calaverita pasa, conforme se recibe, por una revisión de prefiltro que verifica que cumpla estas bases. Las que no las cumplan no pasan a la votación y su autor recibe el aviso en Traza FI, con la posibilidad de enviar otra mientras siga abierta la recepción.
+
+## Fase 2: votación libre
+Del {votacion_inicio} al {votacion_fin} las calaveritas aprobadas se publican sin el nombre de su autor y toda la comunidad registrada en Traza FI puede votar. Cada persona tiene un voto y no puede votar por una calaverita propia.
+
+El voto es anónimo: la plataforma registra que ya votaste, pero no por cuál calaverita. Al votar recibes un recibo de voto con el que puedes comprobar, en la página de verificación, que tu voto se contó por la calaverita que elegiste; nadie puede ligar ese recibo con tu identidad.
+
+## Premiación
+Ganan los tres primeros lugares por número de votos. Los resultados, con el nombre de quienes ganaron, se publican en Traza FI el {premiacion}, fecha de la premiación.
+- Primer lugar: {premio_1}
+- Segundo lugar: {premio_2}
+- Tercer lugar: {premio_3}
+
+En caso de empate, el comité organizador decide el orden. Cualquier situación no prevista en estas bases la resuelve el comité organizador.
+
+## Datos personales
+Solo se publican los nombres de los tres primeros lugares. El resto de las calaveritas se identifica por su número.');
+
+-- ================================================================ Formularios (registros temporales, tablas propias frm_*)
+CREATE TABLE IF NOT EXISTS frm_formularios (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  slug VARCHAR(80) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  titulo VARCHAR(200) NOT NULL,
+  descripcion MEDIUMTEXT NOT NULL,
+  campos MEDIUMTEXT NOT NULL,
+  agrupar_por VARCHAR(40) NOT NULL DEFAULT '',
+  estado ENUM('borrador','abierto','cerrado') NOT NULL DEFAULT 'borrador',
+  cierra_en DATETIME NULL,
+  responsables TEXT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_frm_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS frm_respuestas (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  formulario_id INT UNSIGNED NOT NULL,
+  email VARCHAR(160) NOT NULL,
+  datos MEDIUMTEXT NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  actualizado_por INT UNSIGNED NULL,
+  actualizado_en DATETIME NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_frm_email (formulario_id, email),
+  CONSTRAINT fk_frm_resp_formulario FOREIGN KEY (formulario_id) REFERENCES frm_formularios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Registro de profesores para la clasificación de programas de licenciatura (El Universal), según el formato en Word.
+INSERT IGNORE INTO frm_formularios (slug, titulo, agrupar_por, estado, descripcion, campos) VALUES
+('clasificacion-el-universal-2026', 'Clasificación de programas de licenciatura · Registro de profesores', 'programa', 'abierto',
+'La Facultad de Ingeniería participa en la clasificación de programas de licenciatura del periódico El Universal. Si cumples los requisitos, registra tus datos para formar parte de la lista de profesores del programa en el que impartes clase; la selección de los académicos que serán contactados se hace de manera aleatoria.
+
+Es importante que conozcas el programa de licenciatura en el que te registras: te llamarán del número 55 5709 1313 (Periódico El Universal), tenlo presente.
+
+Escribe tus datos en MAYÚSCULAS. Regístrate en un solo programa: aquel en el que eres especialista.',
+'[{"k":"programa","label":"Programa de licenciatura en el que te registras","tipo":"select","req":true,"opciones":{"civil":"LICENCIATURA EN INGENIERÍA CIVIL","electronica":"LICENCIATURA EN INGENIERÍA EN ELECTRÓNICA","computacion":"LICENCIATURA EN INGENIERÍA EN COMPUTACIÓN","mecanica":"LICENCIATURA EN INGENIERÍA MECÁNICA"}},
+{"k":"institucion","label":"Nombre de la institución","tipo":"texto","req":true,"max":160,"mayusculas":true,"defecto":"UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MÉXICO"},
+{"k":"campus","label":"Nombre del campus, escuela o facultad","tipo":"texto","req":true,"max":160,"mayusculas":true,"defecto":"FACULTAD DE INGENIERÍA"},
+{"k":"grado","label":"Grado académico","tipo":"select","req":true,"opciones":{"DOCTORADO":"DOCTORADO","MAESTRÍA":"MAESTRÍA","LICENCIATURA":"LICENCIATURA"}},
+{"k":"paterno","label":"Apellido paterno","tipo":"texto","req":true,"max":80,"mayusculas":true},
+{"k":"materno","label":"Apellido materno","tipo":"texto","req":false,"max":80,"mayusculas":true},
+{"k":"nombres","label":"Nombres","tipo":"texto","req":true,"max":120,"mayusculas":true},
+{"k":"telefono","label":"Teléfono (incluye clave lada y extensión)","tipo":"texto","req":true,"max":60,"mayusculas":true},
+{"k":"email","label":"Correo electrónico","tipo":"email","req":true,"max":160},
+{"k":"horario","label":"Horario en que se te puede contactar","tipo":"texto","req":true,"max":120,"mayusculas":true},
+{"k":"req_a","label":"Soy profesor titular de al menos una materia en el periodo que inicia en otoño de 2026 y continúa vigente por lo menos hasta marzo de 2027.","tipo":"confirmar","req":true},
+{"k":"req_b","label":"Tengo mínimo cinco años de antigüedad en la institución.","tipo":"confirmar","req":true},
+{"k":"req_c","label":"La materia que imparto es obligatoria (no es curso, optativa ni de tronco común).","tipo":"confirmar","req":true},
+{"k":"req_d","label":"Imparto al menos una materia en el programa en el que me registro y conozco el programa.","tipo":"confirmar","req":true},
+{"k":"req_e","label":"No imparto la materia de idiomas.","tipo":"confirmar","req":true},
+{"k":"req_f","label":"Me registro en un solo programa: aquel en el que soy especialista.","tipo":"confirmar","req":true}]');
 
 -- ================================================================ Historial del libro de actas
 -- Carga única de los registros del CONTROL DE LIBROS DE LICENCIATURAS (hoja y fila de origen). INSERT IGNORE: al

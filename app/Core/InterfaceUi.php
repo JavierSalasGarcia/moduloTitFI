@@ -15,14 +15,14 @@ final class InterfaceUi
 
     public static function menu(array $sections): array
     {
-        $groups = array_fill_keys(['Inicio','Trámites y seguimiento','Titulación','Agenda','Fila','Comunidad','Recursos','Administración'], ['items'=>[]]);
+        $groups = array_fill_keys(['Inicio','Trámites y seguimiento','Titulación','Agenda','Fila','Comunidad','Concursos','Recursos','Administración'], ['items'=>[]]);
         foreach ($sections as $section) foreach ($section['items'] as $item) {
             $root = explode('/', $item['ruta'])[0];
             $group = match ($root) {
                 '', 'seguridad' => 'Inicio', 'tickets','solicitudes','firmas','funciones','grupos-destinatarios' => 'Trámites y seguimiento',
                 'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : 'Agenda',
                 'fila' => 'Fila', 'titulacion' => 'Titulación',
-                'foro','encuestas','comisiones' => 'Comunidad', 'ajustes' => 'Administración',
+                'foro','encuestas','comisiones' => 'Comunidad', 'concursos' => 'Concursos', 'ajustes','formularios' => 'Administración',
                 'recursos' => empty($item['dinamico']) ? 'Administración' : 'Recursos', default => 'Recursos'
             };
             if (!str_contains($item['ruta'], '/') && empty($item['dinamico'])) $item['titulo'] = self::NAMES[$root] ?? $item['titulo'];
