@@ -102,6 +102,7 @@ $estados = ['enviada' => 'En prefiltro', 'aprobada' => 'Aprobada: participa en l
       <label>Tu calaverita (un verso por renglón y una línea en blanco entre estrofas; máximo <?= number_format((int) $c['max_caracteres']) ?> caracteres)
         <textarea name="texto" rows="14" maxlength="<?= (int) $c['max_caracteres'] ?>" required data-cuenta><?= e((string) ($borrador['texto'] ?? '')) ?></textarea></label>
       <small class="texto-secundario" data-contador></small>
+      <p class="texto-secundario" style="font-size:13px">Al enviar tu obra aceptas las bases y el uso de tus datos para este concurso, según el aviso de privacidad de Traza FI: tu nombre solo se publica si quedas en los tres primeros lugares.</p>
       <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Enviar obra</button></div>
     </form>
   <?php endif; ?>

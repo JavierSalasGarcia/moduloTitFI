@@ -91,6 +91,7 @@
       <summary>Aviso de Privacidad Integral (ARCO)</summary>
       <p><strong>Responsable:</strong> la Facultad de Ingeniería de la Universidad Autónoma del Estado de México protege los datos personales de sus usuarios conforme a la normatividad aplicable.</p>
       <p>Traza FI no almacena datos biométricos ni copia archivos de Microsoft Teams; únicamente conserva llaves públicas y referencias necesarias para prestar sus funciones.</p>
+      <p><strong>Concursos y formularios temporales:</strong> Cuando participas en un concurso o llenas un formulario temporal de la Facultad (por ejemplo, el registro de profesores para clasificaciones externas de programas académicos), Traza FI usa los datos que proporcionas (nombre, correo, la obra que envías y, en los formularios, los datos de contacto que se solicitan) únicamente para la finalidad de esa convocatoria: registrar y revisar tu participación, avisarte de su estado, publicar los nombres de quienes ganen y, en los registros para instituciones externas, entregarlos a la institución que realiza la clasificación. En las votaciones anónimas no se guarda tu identidad junto con tu voto: solo que ya votaste y tu recibo de voto. Estos datos se conservan mientras dura la actividad y el tiempo necesario para su comprobación; después se archivan o se eliminan.</p>
       <p>Para ejercer los derechos de acceso, rectificación, cancelación u oposición, presenta una solicitud ante la Unidad de Transparencia de la Facultad de Ingeniería o mediante el correo oficial de soporte.</p>
     </details>
   </div>
