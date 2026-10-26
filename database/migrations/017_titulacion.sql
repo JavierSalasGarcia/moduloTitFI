@@ -868,11 +868,11 @@ CREATE TABLE IF NOT EXISTS con_votos (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Concurso de calaveritas 2026 (queda en borrador: revisar bases y montos, y publicarlo desde Concursos → Gestión).
-INSERT IGNORE INTO con_concursos (slug, titulo, resumen, tematica, estado, publicacion, recepcion_fin, votacion_inicio, votacion_fin, premiacion, max_por_persona, max_caracteres, bases) VALUES
+INSERT IGNORE INTO con_concursos (slug, titulo, resumen, tematica, estado, publicacion, recepcion_fin, votacion_inicio, votacion_fin, premiacion, premio_1, premio_2, premio_3, max_por_persona, max_caracteres, bases) VALUES
 ('calaveritas-2026', 'Concurso de Calaveritas Literarias 2026',
  'Escribe una calaverita sobre la comunidad de Ingeniería y sus profes. Sin ofender, pero con la picardía de siempre.',
  'La comunidad de Ingeniería y sus profes', 'borrador',
- '2026-10-26 00:00:00', '2026-10-27 23:59:59', '2026-10-28 00:00:00', '2026-10-29 23:59:59', '2026-10-30 12:00:00', 2, 1500,
+ '2026-10-26 00:00:00', '2026-10-27 23:59:59', '2026-10-28 00:00:00', '2026-10-29 23:59:59', '2026-10-30 12:00:00', 1500.00, 1000.00, 750.00, 2, 1500,
 '## Presentación
 La Facultad de Ingeniería invita a toda su comunidad a celebrar el Día de Muertos con una de las tradiciones literarias más mexicanas: la calaverita. Las calaveritas son versos breves, con rima y humor, en los que la Muerte (la Catrina, la Flaca, la Huesuda) viene por alguien y se lo lleva al panteón. Nacieron en la prensa del siglo XIX, se popularizaron con los grabados de José Guadalupe Posada y cada 2 de noviembre nos sirven para reírnos de la vida, de la muerte y de nosotros mismos.
 
@@ -910,6 +910,10 @@ En caso de empate, el comité organizador decide el orden. Cualquier situación 
 
 ## Datos personales
 Solo se publican los nombres de los tres primeros lugares. El resto de las calaveritas se identifica por su número.');
+
+-- Premios del concurso de calaveritas: 1,000 + 500, 750 + 250 y 500 + 250 MXN (solo si aún no se capturaron otros).
+UPDATE con_concursos SET premio_1 = 1500.00, premio_2 = 1000.00, premio_3 = 750.00
+WHERE slug = 'calaveritas-2026' AND premio_1 IS NULL AND premio_2 IS NULL AND premio_3 IS NULL;
 
 -- ================================================================ Formularios (registros temporales, tablas propias frm_*)
 CREATE TABLE IF NOT EXISTS frm_formularios (
