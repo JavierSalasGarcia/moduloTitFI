@@ -34,6 +34,7 @@ $parrafos = array_filter(array_map('trim', preg_split('/\R\s*\R/u', (string) $f[
       <?php endif; ?>
     <?php endforeach; ?>
     <?php if ($hayReq): ?></fieldset><?php endif; ?>
+    <p class="texto-secundario" style="font-size:13px;margin-top:12px"><strong>Aviso de privacidad:</strong> la Facultad de Ingeniería de la UAEMEX usará los datos de este formulario únicamente para la finalidad descrita arriba; en los registros para instituciones externas, se entregan a la institución que realiza la clasificación. Se conservan mientras dura la actividad y después se archivan o eliminan. Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición ante la Unidad de Transparencia de la Facultad de Ingeniería. Al enviar el registro aceptas este uso de tus datos.</p>
     <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Enviar registro</button></div>
   </form>
   <?php endif; ?>
