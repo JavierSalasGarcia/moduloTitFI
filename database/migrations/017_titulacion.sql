@@ -928,10 +928,17 @@ CREATE TABLE IF NOT EXISTS frm_formularios (
   estado ENUM('borrador','abierto','cerrado') NOT NULL DEFAULT 'borrador',
   cierra_en DATETIME NULL,
   responsables TEXT NULL,
+  acceso VARCHAR(200) NULL,
   creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE KEY uq_frm_slug (slug)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Autoridades con acceso de consulta y corrección (subdirector, coordinadores_docencia), tomadas de Organización;
+-- NULL = aún no configurado (vacío = ninguna).
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE frm_formularios ADD COLUMN acceso VARCHAR(200) NULL AFTER responsables', 'DO 0')
+          FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'frm_formularios' AND COLUMN_NAME = 'acceso');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
 CREATE TABLE IF NOT EXISTS frm_respuestas (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -970,6 +977,8 @@ Escribe tus datos en MAYÚSCULAS. Regístrate en un solo programa: aquel en el q
 {"k":"req_d","label":"Imparto al menos una materia en el programa en el que me registro y conozco el programa.","tipo":"confirmar","req":true},
 {"k":"req_e","label":"No imparto la materia de idiomas.","tipo":"confirmar","req":true},
 {"k":"req_f","label":"Me registro en un solo programa: aquel en el que soy especialista.","tipo":"confirmar","req":true}]');
+-- El registro de El Universal lo consultan la Subdirección Académica y los Coordinadores de Docencia.
+UPDATE frm_formularios SET acceso = 'subdirector,coordinadores_docencia' WHERE slug = 'clasificacion-el-universal-2026' AND acceso IS NULL;
 
 -- ================================================================ Historial del libro de actas
 -- Carga única de los registros del CONTROL DE LIBROS DE LICENCIATURAS (hoja y fila de origen). INSERT IGNORE: al

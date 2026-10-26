@@ -35,13 +35,24 @@ final class FormulariosController extends Controller
         $this->vista('respuestas', ['titulo' => $f['titulo'], 'f' => $f, 'campos' => Formularios::campos($f), 'respuestas' => Formularios::respuestas($f)]);
     }
 
+    private function soloAdministracion(): void
+    {
+        if (!Formularios::puedeAdministrar()) {
+            http_response_code(403);
+            \App\Core\View::render('errores/403', ['titulo' => 'Acceso restringido']);
+            exit;
+        }
+    }
+
     public function ajustes(string $id): void
     {
+        $this->soloAdministracion();
         $f = $this->formulario($id);
         $estado = in_array($this->post('estado'), ['borrador', 'abierto', 'cerrado'], true) ? $this->post('estado') : $f['estado'];
         $cierra = $this->post('cierra_en') !== '' && strtotime(str_replace('T', ' ', $this->post('cierra_en'))) ? date('Y-m-d H:i:s', strtotime(str_replace('T', ' ', $this->post('cierra_en')))) : null;
-        $resp = Auth::tieneRol('admin') ? mb_substr($this->post('responsables'), 0, 2000) : $f['responsables'];
-        Database::ejecutar('UPDATE frm_formularios SET estado = ?, cierra_en = ?, responsables = ? WHERE id = ?', [$estado, $cierra, $resp, (int) $f['id']]);
+        $resp = mb_substr($this->post('responsables'), 0, 2000);
+        $acceso = implode(',', array_intersect(is_array($_POST['acceso'] ?? null) ? $_POST['acceso'] : [], array_keys(Formularios::AUTORIDADES)));
+        Database::ejecutar('UPDATE frm_formularios SET estado = ?, cierra_en = ?, responsables = ?, acceso = ? WHERE id = ?', [$estado, $cierra, $resp, $acceso, (int) $f['id']]);
         Audit::record('formularios::ajustes', 'correcto', $f['slug'] . ' · ' . $estado);
         flash('exito', 'Ajustes guardados.');
         redirigir('formularios/' . (int) $f['id']);
@@ -75,6 +86,7 @@ final class FormulariosController extends Controller
 
     public function eliminar(string $id, string $rid): void
     {
+        $this->soloAdministracion();
         $f = $this->formulario($id);
         Database::ejecutar('DELETE FROM frm_respuestas WHERE id = ? AND formulario_id = ?', [(int) $rid, (int) $f['id']]);
         Audit::record('formularios::eliminar', 'correcto', $f['slug'] . ' · ' . (int) $rid);
