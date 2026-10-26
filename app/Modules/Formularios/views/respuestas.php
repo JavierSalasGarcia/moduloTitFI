@@ -16,15 +16,22 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
     <a class="btn btn-primario" href="<?= url_archivo($base . '/excel') ?>">Descargar Excel</a></div>
   <p>Enlace público para compartir: <a href="<?= e($enlace) ?>" target="_blank" rel="noopener"><?= e($enlace) ?></a></p>
   <?php if ($grupoCampo): ?><p class="texto-secundario"><?php foreach ($grupoCampo['opciones'] as $k => $n): ?><?= e($n) ?>: <strong><?= count($porGrupo[$k] ?? []) ?></strong> · <?php endforeach; ?></p><?php endif; ?>
+  <?php if (Formularios::puedeAdministrar()): ?>
   <details><summary>Ajustes del formulario</summary>
     <form method="post" action="<?= url($base . '/ajustes') ?>" class="formulario" style="margin-top:8px">
       <input type="hidden" name="_csrf" value="<?= $csrf ?>">
       <label>Estado <select name="estado"><?php foreach (['borrador' => 'Borrador (enlace inactivo)', 'abierto' => 'Abierto', 'cerrado' => 'Cerrado'] as $k => $n): ?><option value="<?= $k ?>" <?= $f['estado'] === $k ? 'selected' : '' ?>><?= $n ?></option><?php endforeach; ?></select></label>
       <label>Cierra automáticamente el (opcional) <input type="datetime-local" name="cierra_en" value="<?= $f['cierra_en'] ? date('Y-m-d\TH:i', strtotime((string) $f['cierra_en'])) : '' ?>"></label>
-      <?php if (Auth::tieneRol('admin')): ?><label>Responsables que también pueden ver y corregir los registros (correos, uno por línea) <textarea name="responsables" rows="3"><?= e((string) $f['responsables']) ?></textarea></label><?php endif; ?>
+      <fieldset><legend>Pueden consultar, descargar y corregir los registros</legend>
+        <?php foreach (Formularios::AUTORIDADES as $k => $n): ?><label style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" name="acceso[]" value="<?= e($k) ?>" <?= in_array($k, Formularios::autoridades($f), true) ? 'checked' : '' ?>> <?= e($n) ?> (según Organización)</label><?php endforeach; ?>
+      </fieldset>
+      <label>Otras personas (correos, uno por línea) <textarea name="responsables" rows="3"><?= e((string) $f['responsables']) ?></textarea></label>
       <button class="btn btn-primario btn-mini" type="submit">Guardar ajustes</button>
     </form>
   </details>
+  <?php else: ?>
+  <p class="texto-secundario">Puedes consultar, descargar y corregir los registros. Eliminar registros y cambiar los ajustes del formulario corresponde a la administración.</p>
+  <?php endif; ?>
 </section>
 
 <?php foreach ($porGrupo as $g => $lista): ?>
@@ -48,7 +55,7 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
               <?php endforeach; ?>
               <button class="btn btn-mini btn-primario" type="submit">Guardar</button>
             </form>
-            <form method="post" action="<?= url($base . '/respuestas/' . (int) $r['id'] . '/eliminar') ?>" onsubmit="return confirm('¿Eliminar este registro?')"><input type="hidden" name="_csrf" value="<?= $csrf ?>"><button class="btn btn-mini" type="submit">Eliminar</button></form>
+            <?php if (Formularios::puedeAdministrar()): ?><form method="post" action="<?= url($base . '/respuestas/' . (int) $r['id'] . '/eliminar') ?>" onsubmit="return confirm('¿Eliminar este registro?')"><input type="hidden" name="_csrf" value="<?= $csrf ?>"><button class="btn btn-mini" type="submit">Eliminar</button></form><?php endif; ?>
           </details>
         </td>
       </tr>

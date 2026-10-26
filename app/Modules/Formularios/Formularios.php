@@ -35,15 +35,58 @@ final class Formularios
         return $f['estado'] === 'abierto' && ($f['cierra_en'] === null || strtotime((string) $f['cierra_en']) > time());
     }
 
-    /** Lo ve la administración y las personas que el formulario tiene como responsables. */
+    /** Autoridades (tomadas de Organización) que pueden consultar y corregir un formulario. */
+    public const AUTORIDADES = ['subdirector' => 'Subdirector(a) Académico(a)', 'coordinadores_docencia' => 'Coordinadores de Docencia de las licenciaturas'];
+
+    /** @return string[] claves de AUTORIDADES con acceso al formulario */
+    public static function autoridades(array $f): array
+    {
+        return array_values(array_intersect(array_map('trim', explode(',', (string) ($f['acceso'] ?? ''))), array_keys(self::AUTORIDADES)));
+    }
+
+    private static function esAutoridad(string $clave, string $email): bool
+    {
+        try {
+            if ($clave === 'subdirector') {
+                return strtolower((string) (\App\Modules\Titulacion\Services\Autoridades::subdirector()['email'] ?? '')) === $email;
+            }
+            if ($clave === 'coordinadores_docencia') {
+                foreach (array_keys(\App\Modules\Titulacion\Catalogo::carreras()) as $carrera) {
+                    if (strtolower((string) (\App\Modules\Titulacion\Services\Autoridades::coordinadorDocencia($carrera)['email'] ?? '')) === $email) {
+                        return true;
+                    }
+                }
+            }
+        } catch (\Throwable) {
+        }
+        return false;
+    }
+
+    /**
+     * Consultan, descargan y corrigen: la administración, las autoridades con acceso (Subdirección, Coordinadores de
+     * Docencia, según el formulario) y las personas responsables por correo. Eliminar y ajustar: solo administración.
+     */
     public static function puedeVer(array $f): bool
     {
         if (Auth::tieneRol('admin')) {
             return true;
         }
         $email = strtolower(trim((string) (Auth::usuario()['email'] ?? '')));
+        if ($email === '') {
+            return false;
+        }
+        foreach (self::autoridades($f) as $a) {
+            if (self::esAutoridad($a, $email)) {
+                return true;
+            }
+        }
         $resp = array_filter(array_map('trim', preg_split('/[\s,;]+/', strtolower((string) $f['responsables'])) ?: []));
-        return $email !== '' && in_array($email, $resp, true);
+        return in_array($email, $resp, true);
+    }
+
+    public static function puedeAdministrar(): bool
+    {
+        return Auth::tieneRol('admin');
     }
 
     public static function puedeAlguno(): bool
@@ -51,7 +94,7 @@ final class Formularios
         if (Auth::tieneRol('admin')) {
             return true;
         }
-        foreach (Database::todas('SELECT * FROM frm_formularios WHERE responsables IS NOT NULL AND responsables <> \'\'') as $f) {
+        foreach (Database::todas("SELECT * FROM frm_formularios WHERE estado <> 'borrador' OR (responsables IS NOT NULL AND responsables <> '')") as $f) {
             if (self::puedeVer($f)) {
                 return true;
             }
