@@ -1,5 +1,5 @@
 <?php
-$titulo = $titulo ?? 'Titulación';
+$titulo = $titulo ?? ($seccion ?? 'Titulación');
 $flash = flash_leer();
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ $flash = flash_leer();
 <body class="ux-app" style="display:block">
   <header class="barra-superior" style="position:static">
     <span class="logo-barra" style="background:url('<?= url('assets/img/logo.png') ?>') no-repeat center center;background-size:cover;border-radius:50%;font-size:0;width:44px;height:44px;display:inline-block">Traza FI</span>
-    <span class="marca"><strong>Traza FI</strong> <span class="marca-desc">Facultad de Ingeniería · UAEMEX · Titulación</span></span>
+    <span class="marca"><strong>Traza FI</strong> <span class="marca-desc">Facultad de Ingeniería · UAEMEX · <?= e($seccion ?? 'Titulación') ?></span></span>
   </header>
   <main id="contenido-principal" class="contenido" style="max-width:1040px;margin:0 auto;padding:16px">
     <?php if ($flash): ?><p role="status" class="flash flash-<?= e($flash['tipo']) ?>"><?= e($flash['mensaje']) ?></p><?php endif; ?>
