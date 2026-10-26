@@ -81,6 +81,14 @@ plataformaFI/
 5. El diseño es compatible con blindaje de permisos (archivos 444 / carpetas 555 en el
    webroot): la única escritura ocurre en `storage/`.
 
+### Actualizar la base de datos
+
+Para llevar una base ya instalada a la versión actual, importar **`database/actualizar.sql`** (phpMyAdmin →
+Importar, o `mysql -u usuario base < database/actualizar.sql`). Es acumulativo y repetible: reúne en orden los
+esquemas y todas las migraciones, solo crea o cambia lo que falta y no borra datos, así que puede importarse
+cuantas veces haga falta sin importar desde qué versión se parta. No se edita a mano: después de cambiar una
+migración se regenera con `php database/construir_actualizar.php`.
+
 ### Local (XAMPP)
 
 ```
