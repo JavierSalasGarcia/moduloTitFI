@@ -21,7 +21,8 @@ final class Persona
         }
         if (!array_key_exists($email, $cache)) {
             try {
-                $cache[$email] = Database::una('SELECT nombre, grado, genero FROM usuarios WHERE email = ? AND activo = 1', [$email]) ?: null;
+                $u = Identidad::usuarioPorCorreo($email);   // correo vigente o uno anterior verificado
+                $cache[$email] = $u ? ['nombre' => $u['nombre'], 'grado' => $u['grado'], 'genero' => $u['genero']] : null;
             } catch (\Throwable) {
                 $cache[$email] = null;   // aún sin la migración
             }

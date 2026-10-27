@@ -20,12 +20,18 @@ final class RegistroController extends Controller
         if ($nombre==='' || mb_strlen($nombre)>120 || strlen($email)>120 || !AccessControl::isUaemexEmail($email) || $genero===null || strlen($password)<10 || strlen($password)>72 || $password!==($_POST['confirmacion']??'')) {
             flash('error','Revisa tu nombre, correo UAEMEX y las contraseñas: se admite uaemex.mx y cualquiera de sus subdominios; las contraseñas deben coincidir y tener entre 10 y 72 caracteres.'); redirigir('registro');
         }
+        // La persona ya tiene cuenta con otro correo (por ejemplo, el de @profesor.uaemex.mx antes de pasar a @uaemex.mx): no se crea otra.
+        $previa=\App\Core\Profesores::cuentaConOtroCorreo($email);
+        if ($previa!==null) {
+            flash('error','Ya tienes una cuenta con el correo '.\App\Core\Identidad::enmascarar($previa).'. Inicia sesión con ella y, si cambió tu correo institucional, actualízalo en «Mi perfil».'); redirigir('login');
+        }
         try {
             $id=AccessControl::internal(function() use($nombre,$email,$password,$genero,$grado): int {
                 $pdo=Database::pdo(); $pdo->beginTransaction();
                 try {
                     $id=Database::ejecutar("INSERT INTO usuarios (nombre,grado,genero,email,password_hash,rol,activo,permite_contrasena,logins_contrasena_restantes) VALUES (?,?,?,?,?,'alumno',1,1,20)",[$nombre,$grado,$genero,$email,password_hash($password,PASSWORD_DEFAULT)]);
                     Database::ejecutar('INSERT INTO cuenta_verificacion (usuario_id,creado_en) VALUES (?,?)',[$id,date('Y-m-d H:i:s')]);
+                    try { Database::ejecutar("INSERT IGNORE INTO usuario_correos (usuario_id,email,principal,origen) VALUES (?,?,1,'cuenta')",[$id,$email]); } catch(\Throwable) {}
                     $pdo->commit(); return $id;
                 } catch(\Throwable $e) { $pdo->rollBack(); throw $e; }
             });
@@ -82,7 +88,7 @@ final class RegistroController extends Controller
             } catch(\Throwable $e) { $pdo->rollBack(); throw $e; }
         });
         AccessControl::reset(); Audit::record('verificacion_correo',$ok?'correcto':'denegado');
-        if ($ok) \App\Core\Profesores::vincularCuenta((int)Auth::id(), (string)(Auth::usuario()['email']??''));
+        if ($ok) AccessControl::internal(fn()=>\App\Core\Profesores::vincularCuenta((int)Auth::id(), (string)(Auth::usuario()['email']??'')));
         flash($ok?'exito':'error',$ok?'Correo verificado. Ya puedes enviar solicitudes y participar.':'Código incorrecto, vencido o sin intentos disponibles. Revisa el código o solicita otro.');
         redirigir($ok?'':'cuenta/verificar');
     }

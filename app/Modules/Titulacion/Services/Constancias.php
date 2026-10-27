@@ -159,6 +159,7 @@ final class Constancias
         }
         $rol = $rol !== '' ? $rol : $email;
         $p = Persona::completar($persona, $email);
+        ['usuario_id' => $uid, 'profesor_id' => $pid] = \App\Core\Identidad::resolver($email);
         $huella = self::huella($tramite, $tipo, $p, $detalle);
         $previa = Database::una('SELECT * FROM tit_constancias WHERE tramite_id = ? AND tipo = ? AND (rol = ? OR (rol = \'\' AND email = ?))', [$tid, $tipo, $rol, $email]);
         if ($previa && $previa['huella'] === $huella) {
@@ -176,8 +177,8 @@ final class Constancias
             // Corrección: mismo archivo, sin la firma anterior (el contenido cambió), y de vuelta a la cola de firmas.
             DocumentosGenerados::sobrescribir((string) $doc['ruta'], $bytes);
             self::anularFirma($doc);
-            Database::ejecutar('UPDATE tit_constancias SET email = ?, nombre = ?, rol = ?, huella = ?, detalle = ? WHERE id = ?',
-                [$email, mb_substr((string) $p['nombre'], 0, 160), $rol, $huella, json_encode($detalle, JSON_UNESCAPED_UNICODE), (int) $previa['id']]);
+            Database::ejecutar('UPDATE tit_constancias SET email = ?, usuario_id = COALESCE(?, usuario_id), profesor_id = COALESCE(?, profesor_id), nombre = ?, rol = ?, huella = ?, detalle = ? WHERE id = ?',
+                [$email, $uid, $pid, mb_substr((string) $p['nombre'], 0, 160), $rol, $huella, json_encode($detalle, JSON_UNESCAPED_UNICODE), (int) $previa['id']]);
             SubdireccionFirma::solicitar($tramite, (int) $doc['id'], 'constancia', self::TIPOS[$tipo][0] . ' (corregida): ' . $p['nombre'], $caja, $emisor);
             return true;
         }
@@ -185,8 +186,8 @@ final class Constancias
         $clave = 'constancia_' . substr(hash('sha256', $tipo . '|' . $rol), 0, 16);
         $docId = TitulacionRepository::registrarDocumento($tid, 'constancias', $clave, 'personal', 'aprobado', $ruta, 'constancia_' . $tipo . '_' . $tramite['folio'] . '.pdf', $usuarioId);
         Database::ejecutar(
-            'INSERT INTO tit_constancias (tramite_id, email, nombre, tipo, rol, emisor, vueltas, huella, detalle, documento_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [$tid, $email, mb_substr((string) $p['nombre'], 0, 160), $tipo, $rol, $emisor, mb_substr((string) ($detalle['vueltas'] ?? ''), 0, 40), $huella, json_encode($detalle, JSON_UNESCAPED_UNICODE), $docId]
+            'INSERT INTO tit_constancias (tramite_id, email, usuario_id, profesor_id, nombre, tipo, rol, emisor, vueltas, huella, detalle, documento_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [$tid, $email, $uid, $pid, mb_substr((string) $p['nombre'], 0, 160), $tipo, $rol, $emisor, mb_substr((string) ($detalle['vueltas'] ?? ''), 0, 40), $huella, json_encode($detalle, JSON_UNESCAPED_UNICODE), $docId]
         );
         SubdireccionFirma::solicitar($tramite, $docId, 'constancia', self::TIPOS[$tipo][0] . ': ' . $p['nombre'], $caja, $emisor);
         return true;
@@ -293,7 +294,8 @@ final class Constancias
     /** @param ?string $emisor null para todas */
     public static function dePersona(string $email, ?string $emisor = null): array
     {
-        $p = [strtolower(trim($email))];
+        // Las constancias son de la persona (cuenta o profesor del directorio), no de un correo: sobreviven al cambio de dominio.
+        [$de, $p] = \App\Core\Identidad::condicion('c', $email);
         $filtro = '';
         if ($emisor !== null) {
             $filtro = ' AND c.emisor = ?';
@@ -303,7 +305,7 @@ final class Constancias
             "SELECT c.*, t.folio, t.titulo, t.modalidad, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre, d.subdir_en, d.subdir_ruta, d.ruta
              FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN usuarios u ON u.id = t.alumno_id
              LEFT JOIN tit_documentos d ON d.id = c.documento_id
-             WHERE c.email = ?$filtro ORDER BY c.id DESC",
+             WHERE $de$filtro ORDER BY c.id DESC",
             $p
         );
     }

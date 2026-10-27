@@ -29,6 +29,14 @@
       "App\\Modules\\Perfil\\PerfilController",
       "tratamiento"
     ],
+    "POST /perfil/correo": [
+      "App\\Modules\\Perfil\\PerfilController",
+      "solicitarCorreo"
+    ],
+    "POST /perfil/correo/confirmar": [
+      "App\\Modules\\Perfil\\PerfilController",
+      "confirmarCorreo"
+    ],
     "POST /perfil/nombre": [
       "App\\Modules\\Perfil\\PerfilController",
       "nombre"
