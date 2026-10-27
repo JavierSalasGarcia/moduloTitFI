@@ -6,8 +6,9 @@ include __DIR__ . '/_estilos.php';
 $csrf = e(Auth::csrfToken());
 $modalidades = array_map(static fn(array $m): string => $m['nombre'], Catalogo::modalidades());
 $carreras = array_map(static fn(array $c): string => $c['nombre'], Catalogo::carreras());
-$columnas = ['acta', 'carrera', 'alumno', 'cuenta', 'modalidad', 'fecha_examen', 'titulo', 'director', 'director_email', 'codirector', 'codirector_email',
-    'presidente', 'presidente_email', 'secretario', 'secretario_email', 'vocal', 'vocal_email', 'testimonio', 'vez', 'fecha_aut_egel', 'fecha_afinidad'];
+$columnas = ['fecha_examen', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'];
+$rotulos = ['fecha_examen' => 'Fecha del examen', 'carrera' => 'Lic.', 'alumno' => 'Alumno', 'titulo' => 'Título del trabajo', 'director' => 'Director de tesis',
+    'codirector' => 'Codirector de tesis', 'presidente' => 'Revisor del trabajo escrito', 'secretario' => 'Revisor del trabajo escrito', 'vocal' => 'Revisor del trabajo escrito'];
 $opciones = [
     'carrera' => array_map(static fn(array $c): string => $c['siglas'][0], Catalogo::carreras()), 'modalidad' => ['' => '—'] + $modalidades,
     'testimonio' => ['' => '—', 'satisfactorio' => 'Satisfactorio', 'sobresaliente' => 'Sobresaliente'], 'vez' => ['' => '—', 'primera' => 'Primera', 'segunda' => 'Segunda'],
@@ -35,7 +36,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 </style>
 
 <div class="tit-cabecera"><div>
-  <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En ámbar, las fechas fuera de rango (antes de 2000 o posteriores a hoy), que suelen ser errores de captura del libro. En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
+  <p class="texto-secundario"><strong>Constancias para profesores: solo hay cuatro</strong> (revisor del protocolo, revisor del trabajo escrito, director de tesis y codirector de tesis). Aquí se generan las de los trabajos escritos ya presentados: director, codirector y los tres sinodales del acta (presidente, secretario o vocal; todos son revisores del trabajo escrito, los suplentes no). Quien se tituló por EGEL, aprovechamiento o créditos no genera constancias, por eso no aparece. Solo se necesita la fecha del examen, el alumno, el título del trabajo y el nombre de cada profesor; su correo se busca solo en el directorio. <br>Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En ámbar, las fechas fuera de rango (antes de 2000 o posteriores a hoy), que suelen ser errores de captura del libro. En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
 </div></div>
 
 <section class="tarjeta" style="margin-bottom:14px" data-disclosure="Agregar un registro que no está en la lista (no es una búsqueda)">
@@ -59,7 +60,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
       <option value="cualquiera" <?= $f['faltantes'] === 'cualquiera' ? 'selected' : '' ?>>Con algún dato faltante</option>
       <option value="completos" <?= $f['faltantes'] === 'completos' ? 'selected' : '' ?>>Completos</option>
       <option value="fuera_rango" <?= $f['faltantes'] === 'fuera_rango' ? 'selected' : '' ?>>Fechas fuera de rango (antes de 2000 o posteriores a hoy)</option>
-      <?php foreach (Historico::CAMPOS as $k => [$et]): ?><option value="<?= e($k) ?>" <?= $f['faltantes'] === $k ? 'selected' : '' ?>>Falta: <?= e($et) ?></option><?php endforeach; ?>
+      <?php foreach (['fecha_examen' => 'la fecha del examen', 'alumno' => 'el alumno', 'titulo' => 'el título del trabajo', 'director' => 'ningún profesor'] as $k => $et): ?><option value="<?= e($k) ?>" <?= $f['faltantes'] === $k ? 'selected' : '' ?>>Falta <?= e($et) ?></option><?php endforeach; ?>
     </select></label>
     <label>Constancias <select name="estado"><option value="">Todas</option><option value="pendientes" <?= $f['estado'] === 'pendientes' ? 'selected' : '' ?>>Sin generar</option><option value="generadas" <?= $f['estado'] === 'generadas' ? 'selected' : '' ?>>Generadas</option></select></label>
     <div><button class="btn btn-primario" type="submit">Filtrar</button></div>
@@ -80,11 +81,11 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
   </div>
   <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '' ?>.</div><?php else: ?>
   <div class="tabla-contenedor"><table class="tabla hist-tabla">
-    <thead><tr><th class="sel"><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos los que se pueden generar"></th><?php foreach ($columnas as $c): ?><th><?= e(Historico::CAMPOS[$c][0]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
+    <thead><tr><th class="sel"><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos los que se pueden generar"></th><?php foreach ($columnas as $c): ?><th><?= e($rotulos[$c]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
     <tbody>
     <?php foreach ($filas as $h): ?>
-      <tr data-id="<?= (int) $h['id'] ?>" data-trabajo="<?= Historico::conTrabajo($h['modalidad']) ? '1' : '0' ?>">
-        <td class="sel"><input type="checkbox" class="sel-fila" aria-label="Seleccionar este registro" <?= !Historico::conTrabajo($h['modalidad']) || $h['faltan'] ? 'disabled' : '' ?>></td>
+      <tr data-id="<?= (int) $h['id'] ?>">
+        <td class="sel"><input type="checkbox" class="sel-fila" aria-label="Seleccionar este registro" <?= !$h['aplica'] || $h['faltan'] ? 'disabled' : '' ?>></td>
         <?php foreach ($columnas as $c): $tipo = Historico::CAMPOS[$c][1]; $v = (string) ($h[$c] ?? ''); ?>
           <td class="<?= in_array($c, $h['faltan'], true) ? 'falta' : (in_array($c, $h['fuera'], true) ? 'fuera' : '') ?><?= in_array($c, ['alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'], true) || str_ends_with($c, '_email') ? ' ancho' : '' ?><?= $c === 'titulo' && $h['titulo_origen'] === 'protocolo' ? ' supuesto' : '' ?>" data-campo="<?= e($c) ?>"
             <?php if ($c === 'titulo' && ($h['titulo_origen'] === 'protocolo' || $h['titulo_protocolo'] !== '' || $h['titulo_origen'] === 'revision' || $h['titulo_origen'] === 'sistema_anterior')): ?>title="<?= e(($h['titulo_origen'] === 'protocolo' ? 'Tomado del protocolo: confirma que sea el título definitivo (edítalo si cambió). ' : ($h['titulo_origen'] === 'revision' ? 'Título del trabajo escrito en la solicitud de revisión. ' : ($h['titulo_origen'] === 'sistema_anterior' ? 'Del sistema de Titulación anterior. ' : ''))) . ($h['titulo_protocolo'] !== '' ? 'Título en el protocolo: ' . $h['titulo_protocolo'] : '')) ?>"<?php elseif ($c === 'modalidad' && $h['modalidad_origen'] !== ''): ?>title="En el libro: <?= e($h['modalidad_origen']) ?>"<?php elseif (str_ends_with($c, '_email') && $h['correos'] !== ''): ?>title="Correos en el libro: <?= e($h['correos']) ?>"<?php endif; ?>>
@@ -97,9 +98,9 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
         <?php endforeach; ?>
         <td class="hist-estado">
           <?php if ($h['generado_en']): ?><span class="tit-chip ok">Generadas</span><?php endif; ?>
-          <button type="button" class="btn btn-mini btn-primario" data-generar <?= !Historico::conTrabajo($h['modalidad']) || $h['faltan'] ? 'hidden' : '' ?>><?= $h['generado_en'] ? 'Completar' : 'Generar' ?></button>
+          <button type="button" class="btn btn-mini btn-primario" data-generar <?= !$h['aplica'] || $h['faltan'] ? 'hidden' : '' ?>><?= $h['generado_en'] ? 'Completar' : 'Generar' ?></button>
           <?php if (!$h['tramite_id']): ?><button type="button" class="btn btn-mini" data-eliminar title="Eliminar registro">Eliminar</button><?php endif; ?>
-          <span data-nota class="texto-secundario"><?= !Historico::conTrabajo($h['modalidad']) && $h['modalidad'] ? 'Sin trabajo escrito' : '' ?></span>
+          <span data-nota class="texto-secundario"></span>
         </td>
       </tr>
     <?php endforeach; ?>
@@ -128,11 +129,9 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
       td.classList.toggle('falta', falta);
       td.classList.toggle('fuera', !falta && (fila.fuera || []).indexOf(td.dataset.campo) >= 0);
     });
-    var trabajo = ['articulo', 'ensayo', 'memoria', 'aplicacion', 'autoempleo', 'residencia', 'tesina', 'tesis'].indexOf(fila.modalidad || '') >= 0;
-    var b = tr.querySelector('[data-generar]'); b.hidden = !trabajo || fila.faltan.length > 0;
+    var b = tr.querySelector('[data-generar]'); b.hidden = !fila.aplica || fila.faltan.length > 0;
     var cs = tr.querySelector('.sel-fila'); cs.disabled = b.hidden; if (b.hidden) { cs.checked = false; }
     actualizarSeleccion();
-    tr.querySelector('[data-nota]').textContent = !trabajo && fila.modalidad ? 'Sin trabajo escrito' : '';
   }
   function bloquear(td, el) {
     td.classList.remove('editando');

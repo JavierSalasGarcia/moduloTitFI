@@ -19,13 +19,21 @@ final class Constancias
 {
     /** tipo => [título, rol impreso, quién la emite y firma] */
     public const TIPOS = [
-        'revisor_protocolo' => ['Revisor de protocolo', 'Revisor(a) de protocolo', 'subdirector'],
-        'asesor_trabajo' => ['Director de trabajo escrito', 'Director(a) del trabajo escrito para evaluación profesional', 'subdirector'],
-        'coasesor_trabajo' => ['Codirector de trabajo escrito', 'Codirector(a) del trabajo escrito para evaluación profesional', 'subdirector'],
-        'sinodal' => ['Sinodal y revisor del trabajo escrito', 'Sinodal de evaluación profesional', 'subdirector'],
+        'revisor_protocolo' => ['Revisor del protocolo', 'Revisor(a) del protocolo', 'subdirector'],
+        'sinodal' => ['Revisor del trabajo escrito', 'Revisor(a) del trabajo escrito', 'subdirector'],
+        'asesor_trabajo' => ['Director de tesis', 'Director(a) del trabajo escrito para evaluación profesional', 'subdirector'],
+        'coasesor_trabajo' => ['Codirector de tesis', 'Codirector(a) del trabajo escrito para evaluación profesional', 'subdirector'],
+        // Ya no se emiten (solo hay las cuatro de arriba); se conservan para mostrar y regenerar las que se hubieran emitido.
         'cumplimiento_director' => ['Constancia de cumplimiento como director', 'Director(a) del trabajo escrito', 'jefe_titulacion'],
         'nombramiento_director' => ['Nombramiento como director', 'Director(a) del trabajo escrito', 'jefe_titulacion'],
     ];
+
+    /**
+     * Los únicos tipos de constancia que existen: revisor del protocolo, revisor del trabajo escrito (cualquier sinodal propietario del
+     * acta —presidente, secretario o vocal—; los suplentes no), director de tesis y codirector de tesis. Quien se tituló por EGEL,
+     * aprovechamiento o créditos no genera constancias para los profesores.
+     */
+    public const ACTIVOS = ['revisor_protocolo', 'sinodal', 'asesor_trabajo', 'coasesor_trabajo'];
 
     public const EMISORES = ['subdirector' => 'Subdirección Académica', 'jefe_titulacion' => 'Departamento de Evaluación Profesional y Grado'];
 
@@ -42,7 +50,7 @@ final class Constancias
         'coasesor_trabajo' => ['asunto' => 'CONSTANCIA', 'intro' => self::INTRO_SUB, 'tabla' => 1, 'cierre' => self::CIERRE_SUB,
             'cuerpo' => 'Participó {periodo} en el tema que a continuación se relaciona, cumpliendo con las actividades de su nombramiento como {rol}.'],
         'sinodal' => ['asunto' => 'CONSTANCIA', 'intro' => self::INTRO_SUB, 'tabla' => 0, 'cierre' => self::CIERRE_SUB,
-            'cuerpo' => 'Participó como parte del sínodo, con la función de {funcion}, en la evaluación profesional de {pasante} (No. de cuenta {cuenta}), pasante de la Licenciatura en {licenciatura}, en la opción de {modalidad}, celebrada el {fecha_examen}; y como {revisor} del trabajo escrito «{titulo}».'],
+            'cuerpo' => 'Participó como {revisor} del trabajo escrito «{titulo}», presentado por {pasante}, pasante de la Licenciatura en {licenciatura}, para su evaluación profesional celebrada el {fecha_examen}, como integrante del sínodo que consta en el acta.'],
         'cumplimiento_director' => ['asunto' => 'CONSTANCIA', 'intro' => self::INTRO_JEFE, 'tabla' => 0,
             'cuerpo' => 'Quien participó como {director} del tema de {modalidad} «{titulo}» que presentó {el_pasante} {pasante} para su Evaluación Profesional de la Licenciatura de {licenciatura} el día {fecha_examen}, cumpliendo en tiempo y forma con las actividades encomendadas.',
             'cierre' => 'A petición {del_interesado} y para los fines legales a que haya lugar, se extiende la presente CONSTANCIA en la Ciudad de Toluca de Lerdo, Estado de México, {fecha_letras}.'],
@@ -153,8 +161,9 @@ final class Constancias
     public static function emitir(array $tramite, string $tipo, array $persona, array $detalle, int $usuarioId, string $rol = ''): bool
     {
         $tid = (int) $tramite['id'];
-        $email = strtolower(trim((string) $persona['email']));
-        if (!isset(self::TIPOS[$tipo]) || $email === '') {
+        $email = strtolower(trim((string) ($persona['email'] ?? '')));
+        // Sin correo (profesor que no está en el directorio ni tiene cuenta) la constancia se emite igual si hay nombre y un rol que la distinga.
+        if (!in_array($tipo, self::ACTIVOS, true) || ($email === '' && (trim((string) ($persona['nombre'] ?? '')) === '' || $rol === ''))) {
             return false;
         }
         $rol = $rol !== '' ? $rol : $email;
@@ -243,8 +252,8 @@ final class Constancias
     }
 
     /**
-     * Evaluación profesional con trabajo escrito concluida: constancias del director y codirector (Subdirección),
-     * cumplimiento y nombramiento del director (Jefatura) y de cada sinodal propietario del examen definitivo.
+     * Evaluación profesional con trabajo escrito concluida: constancias de director y codirector de tesis y, como revisor del trabajo
+     * escrito, de cada sinodal propietario del acta (sea presidente, secretario o vocal; los suplentes no).
      */
     public static function resultado(array $tramite, string $fechaExamen, int $usuarioId): void
     {
@@ -252,7 +261,7 @@ final class Constancias
         $desde = substr((string) $proto, 0, 10);
         $acta = (string) Database::valor("SELECT numero FROM tit_actas WHERE tramite_id = ? AND tipo = 'evaluacion'", [(int) $tramite['id']]);
         foreach (FirmasExternas::asesores($tramite, true) as $a) {
-            $tipos = $a['rol'] === 'asesor' ? ['asesor_trabajo', 'cumplimiento_director', 'nombramiento_director'] : ['coasesor_trabajo'];
+            $tipos = $a['rol'] === 'asesor' ? ['asesor_trabajo'] : ['coasesor_trabajo'];
             foreach ($tipos as $tipo) {
                 self::emitir($tramite, $tipo, $a, ['desde' => $desde, 'hasta' => $fechaExamen, 'acta' => $acta], $usuarioId, $a['rol'] === 'asesor' ? 'director' : 'codirector');
             }
@@ -261,7 +270,7 @@ final class Constancias
         if ($asig) {
             foreach (Jurado::sinodales((int) $asig['id']) as $s) {
                 if ($s['calidad'] === 'propietario') {
-                    self::emitir($tramite, 'sinodal', $s, ['hasta' => $fechaExamen, 'funcion' => (string) ($s['funcion'] ?? ''), 'acta' => $acta], $usuarioId, (string) ($s['funcion'] ?: 'propietario_' . $s['orden']));
+                    self::emitir($tramite, 'sinodal', $s, ['hasta' => $fechaExamen, 'acta' => $acta], $usuarioId, (string) ($s['funcion'] ?: 'propietario_' . $s['orden']));
                 }
             }
         }
@@ -271,7 +280,7 @@ final class Constancias
     public static function firmada(int $docId): void
     {
         $c = Database::una('SELECT c.*, t.folio FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id WHERE c.documento_id = ?', [$docId]);
-        if ($c) {
+        if ($c && (string) $c['email'] !== '') {
             Correo::enviar((string) $c['email'], ['nombre' => $c['nombre']], (self::TIPOS[$c['tipo']][0] ?? 'Constancia') . ' · ' . $c['folio'],
                 'Gracias por su participación en el proceso de titulación. Su ' . mb_strtolower(self::TIPOS[$c['tipo']][0] ?? 'constancia') . ' ya está firmada y disponible en Traza FI, en «Constancias → Titulación Lic».',
                 'Ver mis constancias', Correo::enlace('titulacion/constancias'), 'constancia', (int) $c['tramite_id']);
@@ -330,7 +339,7 @@ final class Constancias
 
     /** Nombre corto de cada tipo, para identificar la constancia en la lista del profesor. */
     public const CORTOS = [
-        'revisor_protocolo' => 'Rev. protocolo', 'asesor_trabajo' => 'Director', 'coasesor_trabajo' => 'Codirector', 'sinodal' => 'Sinodal',
+        'revisor_protocolo' => 'Rev. protocolo', 'asesor_trabajo' => 'Director de tesis', 'coasesor_trabajo' => 'Codirector de tesis', 'sinodal' => 'Rev. trabajo escrito',
         'cumplimiento_director' => 'Cumplimiento como director', 'nombramiento_director' => 'Nombramiento como director',
     ];
 

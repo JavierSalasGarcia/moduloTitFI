@@ -5,6 +5,7 @@ namespace App\Modules\Titulacion\Services;
 
 use App\Core\Database;
 use App\Core\Persona;
+use App\Core\Profesores;
 use App\Modules\Titulacion\Catalogo;
 
 /**
@@ -32,24 +33,45 @@ final class Historico
         return $modalidad !== null && $modalidad !== '' && (Catalogo::modalidad($modalidad)['tipo'] ?? '') === 'con_trabajo';
     }
 
-    /** Campos que faltan para generar las constancias del registro. @return string[] */
+    /** Profesores del registro que reciben constancia: rol => nombre (director, codirector y los tres sinodales del acta; no suplentes). @return array<string,string> */
+    public static function profesores(array $h): array
+    {
+        $p = [];
+        foreach (['director', 'codirector', 'presidente', 'secretario', 'vocal'] as $rol) {
+            if (trim((string) ($h[$rol] ?? '')) !== '') {
+                $p[$rol] = trim((string) $h[$rol]);
+            }
+        }
+        return $p;
+    }
+
+    /**
+     * ¿El registro puede dar constancias a profesores? Solo si se tituló con trabajo escrito: quien lo hizo por EGEL, aprovechamiento o
+     * créditos no genera constancias. Sin la opción capturada se considera con trabajo si ya tiene título o profesores (o si lo creó el personal).
+     */
+    public static function aplica(array $h): bool
+    {
+        $m = (string) ($h['modalidad'] ?? '');
+        if ($m !== '') {
+            return self::conTrabajo($m);
+        }
+        return ($h['hoja'] ?? '') === 'Plataforma' || trim((string) ($h['titulo'] ?? '')) !== '' || self::profesores($h) !== [];
+    }
+
+    /**
+     * Lo único que hace falta para las constancias: fecha del examen, nombre del alumno, título del trabajo y al menos un profesor
+     * (el correo y demás datos no se piden; el correo se busca solo en el directorio por el nombre). @return string[]
+     */
     public static function faltantes(array $h): array
     {
-        $req = ['acta', 'alumno', 'cuenta', 'carrera', 'modalidad', 'fecha_examen'];
-        if (self::conTrabajo($h['modalidad'] ?? null)) {
-            array_push($req, 'titulo', 'director', 'director_email', 'presidente', 'presidente_email', 'secretario', 'secretario_email', 'vocal', 'vocal_email');
-            if (trim((string) $h['codirector']) !== '') {
-                $req[] = 'codirector_email';
-            }
-        } elseif (($h['modalidad'] ?? '') === 'egel') {
-            $req[] = 'testimonio';
-        }
         $f = [];
-        foreach ($req as $k) {
-            $v = trim((string) ($h[$k] ?? ''));
-            if ($v === '' || (str_ends_with($k, '_email') && !filter_var($v, FILTER_VALIDATE_EMAIL))) {
+        foreach (['alumno', 'fecha_examen', 'titulo'] as $k) {
+            if (trim((string) ($h[$k] ?? '')) === '') {
                 $f[] = $k;
             }
+        }
+        if (!self::profesores($h)) {
+            $f[] = 'director';
         }
         return $f;
     }
@@ -88,8 +110,13 @@ final class Historico
 
     public static function listar(array $f, int $limite = 200, int $desde = 0): array
     {
-        $donde = ['1 = 1'];
-        $p = [];
+        // Solo se muestran los registros que pueden dar constancias: se excluyen EGEL, aprovechamiento y créditos.
+        $sin = array_keys(array_filter(Catalogo::modalidades(), static fn(array $m): bool => $m['tipo'] !== 'con_trabajo'));
+        $donde = [
+            '(modalidad IS NULL OR modalidad NOT IN (' . implode(',', array_fill(0, count($sin), '?')) . '))',
+            "(COALESCE(modalidad, '') <> '' OR hoja = 'Plataforma' OR titulo <> '' OR director <> '' OR codirector <> '' OR presidente <> '' OR secretario <> '' OR vocal <> '')",
+        ];
+        $p = $sin;
         if (($f['carrera'] ?? '') !== '') {
             $donde[] = 'carrera = ?';
             $p[] = $f['carrera'];
@@ -110,6 +137,7 @@ final class Historico
         foreach ($filas as $h) {
             $h['faltan'] = self::faltantes($h);
             $h['fuera'] = self::fueraDeRango($h);
+            $h['aplica'] = self::aplica($h);
             if ($campo === 'fuera_rango' && !$h['fuera']) {
                 continue;
             }
@@ -190,9 +218,10 @@ final class Historico
         $fila = Database::una('SELECT * FROM tit_historico WHERE id = ?', [$id]) ?? throw new \InvalidArgumentException('Registro inexistente.');
         $fila['faltan'] = self::faltantes($fila);
         $fila['fuera'] = self::fueraDeRango($fila);
+        $fila['aplica'] = self::aplica($fila);
         $fila['regeneradas'] = 0;
         // Con constancias ya generadas y el registro completo, la corrección se aplica a esas constancias (mismo archivo).
-        if ($fila['tramite_id'] && !$fila['faltan'] && self::conTrabajo($fila['modalidad'])) {
+        if ($fila['tramite_id'] && !$fila['faltan'] && $fila['aplica']) {
             $fila['regeneradas'] = self::generar($id, $usuarioId);
         }
         return $fila;
@@ -253,17 +282,24 @@ final class Historico
 
     // ------------------------------------------------------------------ constancias
 
+    /** La persona de una constancia: si el libro no trae su correo se busca por nombre en el directorio de profesores y en las cuentas. */
     private static function persona(string $nombre, string $email): array
     {
         $n = self::norma($nombre);
         $genero = preg_match('/^(DRA|MTRA|LIC\.?\s*A)\b/', $n) ? 'femenino' : (preg_match('/^(DR|MTRO)\b/', $n) ? 'masculino' : null);
+        $email = trim($email);
+        $conocido = $email === '' ? Profesores::porNombre($nombre) : null;
+        if ($conocido) {
+            $email = $conocido['email'];
+        }
         $p = Persona::completar(['nombre' => $nombre, 'email' => $email], $email);
-        $p['genero'] ??= $genero;
+        $p['genero'] ??= $genero ?? ($conocido['genero'] ?? null);
         return $p;
     }
 
     /**
-     * Genera (o completa) las constancias de un registro completo con trabajo escrito. Devuelve cuántas se generaron.
+     * Genera (o completa) las constancias de un registro con trabajo escrito: director de tesis, codirector de tesis y, como revisor del
+     * trabajo escrito, cada sinodal del acta (presidente, secretario o vocal; su función no importa). Devuelve cuántas se generaron.
      */
     public static function generar(int $id, int $usuarioId): int
     {
@@ -271,28 +307,24 @@ final class Historico
         if (!$h) {
             throw new \InvalidArgumentException('Registro inexistente.');
         }
-        if (!self::conTrabajo($h['modalidad'])) {
-            throw new \InvalidArgumentException('Las opciones sin trabajo escrito no generan constancias para profesores.');
+        if (!self::aplica($h)) {
+            throw new \InvalidArgumentException('Quien se tituló por EGEL, aprovechamiento o créditos no genera constancias para los profesores.');
         }
         if ($faltan = self::faltantes($h)) {
             throw new \InvalidArgumentException('Faltan datos: ' . implode(', ', array_map(static fn(string $k): string => self::CAMPOS[$k][0], $faltan)) . '.');
         }
         $tramite = self::tramite($h, $usuarioId);
         $fecha = (string) $h['fecha_examen'];
-        $detalle = ['desde' => $fecha, 'hasta' => $fecha, 'acta' => (string) $h['acta']];
+        $detalle = ['desde' => $fecha, 'hasta' => $fecha, 'acta' => (string) ($h['acta'] ?? '')];
         $n = 0;
-        foreach (['asesor_trabajo', 'cumplimiento_director', 'nombramiento_director'] as $tipo) {
-            $n += (int) Constancias::emitir($tramite, $tipo, self::persona($h['director'], $h['director_email']), $detalle, $usuarioId, 'director');
-        }
-        if (trim($h['codirector']) !== '') {
-            $n += (int) Constancias::emitir($tramite, 'coasesor_trabajo', self::persona($h['codirector'], $h['codirector_email']), $detalle, $usuarioId, 'codirector');
-        }
-        foreach (['presidente', 'secretario', 'vocal'] as $rol) {
-            $n += (int) Constancias::emitir($tramite, 'sinodal', self::persona($h[$rol], $h[$rol . '_email']), $detalle + ['funcion' => $rol], $usuarioId, $rol);
-        }
-        if (trim($h['codirector']) === '') {
-            foreach (Database::todas("SELECT * FROM tit_constancias WHERE tramite_id = ? AND rol = 'codirector'", [(int) $tramite['id']]) as $c) {
-                Constancias::anular($c);   // se quitó al codirector: su constancia ya no corresponde
+        foreach (['director' => 'asesor_trabajo', 'codirector' => 'coasesor_trabajo', 'presidente' => 'sinodal', 'secretario' => 'sinodal', 'vocal' => 'sinodal'] as $rol => $tipo) {
+            if (trim((string) $h[$rol]) !== '') {
+                $n += (int) Constancias::emitir($tramite, $tipo, self::persona($h[$rol], (string) ($h[$rol . '_email'] ?? '')), $detalle, $usuarioId, $rol);
+            } else {
+                // Se quitó a esa persona del registro: su constancia ya no corresponde.
+                foreach (Database::todas('SELECT * FROM tit_constancias WHERE tramite_id = ? AND rol = ?', [(int) $tramite['id'], $rol]) as $c) {
+                    Constancias::anular($c);
+                }
             }
         }
         Database::ejecutar('UPDATE tit_historico SET generado_en = NOW() WHERE id = ?', [$id]);
@@ -303,28 +335,32 @@ final class Historico
     private static function tramite(array $h, int $usuarioId): array
     {
         $carrera = (string) $h['carrera'];
+        $modalidad = (string) ($h['modalidad'] ?: 'tesis');   // el trámite la exige; las constancias nuevas no la imprimen
+        $acta = (int) ($h['acta'] ?? 0);
         $datos = [
             'datos' => ['nombre' => $h['alumno'], 'cuenta' => $h['cuenta'], 'carrera' => $carrera, 'sistema' => 'fi'],
             'protocolo' => ['titulo' => $h['titulo'], 'asesor' => $h['director'], 'asesor_correo' => $h['director_email'], 'coasesor' => $h['codirector'], 'coasesor_correo' => $h['codirector_email']],
-            'historico' => ['id' => (int) $h['id'], 'acta' => (int) $h['acta'], 'hoja' => $h['hoja'], 'fila' => (int) $h['fila']],
+            'historico' => ['id' => (int) $h['id'], 'acta' => $acta, 'hoja' => $h['hoja'], 'fila' => (int) $h['fila']],
         ];
         $json = json_encode($datos, JSON_UNESCAPED_UNICODE);
         $tid = (int) ($h['tramite_id'] ?? 0);
         if ($tid > 0) {
-            Database::ejecutar('UPDATE tit_tramites SET modalidad = ?, titulo = ?, datos = ? WHERE id = ?', [$h['modalidad'], $h['titulo'], $json, $tid]);
+            Database::ejecutar('UPDATE tit_tramites SET modalidad = ?, titulo = ?, datos = ? WHERE id = ?', [$modalidad, $h['titulo'], $json, $tid]);
         } else {
             $siglas = Catalogo::carreras()[$carrera]['siglas'][0] ?? 'FI';
-            $folio = 'HIS-' . $siglas . '-' . $h['acta'];
+            $folio = 'HIS-' . $siglas . '-' . ($acta > 0 ? $acta : 'S' . $h['id']);
             if (Database::valor('SELECT id FROM tit_tramites WHERE folio = ?', [$folio])) {
                 $folio .= '-' . $h['id'];
             }
             $tid = Database::ejecutar(
                 "INSERT INTO tit_tramites (folio, nivel, alumno_id, tipo, modalidad, estado, etapa_actual, titulo, datos, resultado, responsable_id, historico)
                  VALUES (?, 'licenciatura', NULL, 'con_trabajo', ?, 'concluido', 'resultado', ?, ?, 'aprobado', ?, 1)",
-                [mb_substr($folio, 0, 20), $h['modalidad'], $h['titulo'], $json, $usuarioId]
+                [mb_substr($folio, 0, 20), $modalidad, $h['titulo'], $json, $usuarioId]
             );
             Database::ejecutar('UPDATE tit_historico SET tramite_id = ? WHERE id = ?', [$tid, (int) $h['id']]);
-            Database::ejecutar("INSERT IGNORE INTO tit_actas (tramite_id, carrera, tipo, numero, fecha) VALUES (?, ?, 'evaluacion', ?, ?)", [$tid, $carrera, (int) $h['acta'], $h['fecha_examen']]);
+            if ($acta > 0) {
+                Database::ejecutar("INSERT IGNORE INTO tit_actas (tramite_id, carrera, tipo, numero, fecha) VALUES (?, ?, 'evaluacion', ?, ?)", [$tid, $carrera, $acta, $h['fecha_examen']]);
+            }
         }
         return \App\Modules\Titulacion\TitulacionRepository::obtener($tid) ?? throw new \RuntimeException('No se pudo crear el trámite histórico.');
     }
