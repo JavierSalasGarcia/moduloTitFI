@@ -25,6 +25,8 @@ final class Persona
             } catch (\Throwable) {
                 $cache[$email] = null;   // aún sin la migración
             }
+            // Sin cuenta: el directorio de profesores da su género («Profesor» / «Profesora») y su nombre.
+            $cache[$email] ??= Profesores::porEmail($email);
         }
         return $cache[$email];
     }

@@ -82,6 +82,7 @@ final class RegistroController extends Controller
             } catch(\Throwable $e) { $pdo->rollBack(); throw $e; }
         });
         AccessControl::reset(); Audit::record('verificacion_correo',$ok?'correcto':'denegado');
+        if ($ok) \App\Core\Profesores::vincularCuenta((int)Auth::id(), (string)(Auth::usuario()['email']??''));
         flash($ok?'exito':'error',$ok?'Correo verificado. Ya puedes enviar solicitudes y participar.':'Código incorrecto, vencido o sin intentos disponibles. Revisa el código o solicita otro.');
         redirigir($ok?'':'cuenta/verificar');
     }
