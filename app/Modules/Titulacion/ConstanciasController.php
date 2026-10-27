@@ -188,6 +188,19 @@ final class ConstanciasController extends TitulacionBase
         $this->json(['ok' => true, 'generadas' => $n]);
     }
 
+    /** Busca en los trámites de la plataforma el título de los registros que no lo tienen (el definitivo antes que el del protocolo). */
+    public function titulos(): void
+    {
+        $this->soloHistorial();
+        $r = Historico::buscarTitulos();
+        Audit::record('titulacion::historial', 'correcto', 'Títulos del historial desde trámites: ' . json_encode($r));
+        $n = $r['revision'] + $r['protocolo'];
+        flash($n > 0 ? 'exito' : 'alerta', $n > 0
+            ? $n . ' títulos completados: ' . $r['revision'] . ' del trabajo definitivo (solicitud de revisión) y ' . $r['protocolo'] . ' del protocolo (márcalos con la vista en ámbar punteado y confirma que sean los definitivos). ' . $r['sin_tramite'] . ' registros no tienen trámite en la plataforma.'
+            : 'No se encontró ningún título nuevo: ' . $r['sin_tramite'] . ' registros sin título no tienen un trámite en la plataforma (los de antes de la plataforma se capturan a mano o vienen del sistema anterior).');
+        redirigir('titulacion/constancias/historial');
+    }
+
     /** Genera las constancias de todos los registros completos que aún no las tienen. */
     public function generarTodas(): void
     {
