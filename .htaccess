@@ -2,7 +2,7 @@
 # aplicacion siguen fuera de public/ por compatibilidad con el hosting, pero
 # nunca se sirven directamente: todas las rutas pasan por index.php.
 Options -Indexes
-DirectoryIndex index.php
+DirectoryIndex index.php index.html
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -19,6 +19,9 @@ RewriteRule ^fila/publico(?:/.*)?$ index.php [L,QSA]
 # Entorno de pruebas aislado. Su propio .htaccess aplica el front controller y
 # las mismas protecciones dentro de /pruebas/.
 RewriteRule ^pruebas(?:/.*)?$ - [L]
+
+# Sitio estatico independiente (visor CA-DSyC): se sirve tal cual, sin pasar por la app.
+RewriteRule ^ca_dsyc(?:/.*)?$ - [L]
 
 # Solo esta carpeta contiene archivos que pueden entregarse directamente.
 RewriteRule ^assets/(.+)$ public/assets/$1 [L]

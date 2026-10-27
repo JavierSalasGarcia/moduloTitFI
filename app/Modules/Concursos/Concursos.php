@@ -63,12 +63,26 @@ final class Concursos
         return match (true) {
             $c['estado'] === 'cancelado' => 'cancelado',
             $t < strtotime($c['publicacion']) => 'proximo',
-            $t <= strtotime($c['recepcion_fin']) => 'recepcion',
+            // La recepción puede seguir abierta durante la votación (ver recepcionAbierta): la votación manda en la fase.
+            $t >= strtotime($c['votacion_inicio']) && $t <= strtotime($c['votacion_fin']) => 'votacion',
+            $t < strtotime($c['votacion_inicio']) && $t <= strtotime($c['recepcion_fin']) => 'recepcion',
             $t < strtotime($c['votacion_inicio']) => 'revision',
-            $t <= strtotime($c['votacion_fin']) => 'votacion',
             $t < strtotime($c['premiacion']) => 'computo',
             default => 'resultados',
         };
+    }
+
+    /** Se pueden enviar obras desde la publicación hasta el fin de la recepción, aunque la votación ya haya comenzado. */
+    public static function recepcionAbierta(array $c, ?int $ahora = null): bool
+    {
+        $t = $ahora ?? time();
+        return $c['estado'] === 'publicado' && $t >= strtotime($c['publicacion']) && $t <= strtotime($c['recepcion_fin']);
+    }
+
+    /** Cómo se llama lo que se sube en este concurso (para los botones y textos). */
+    public static function sustantivo(array $c): string
+    {
+        return stripos($c['slug'] . ' ' . $c['titulo'], 'calaverita') !== false ? 'calaverita' : 'obra';
     }
 
     /** Visible para el público: publicado (los borradores solo los ve quien gestiona). */
@@ -145,7 +159,7 @@ final class Concursos
      */
     public static function enviar(array $c, int $usuarioId, string $titulo, string $texto, ?int $obraId = null): int
     {
-        if (self::fase($c) !== 'recepcion' || $c['estado'] !== 'publicado') {
+        if (!self::recepcionAbierta($c)) {
             throw new \InvalidArgumentException('La recepción de obras no está abierta.');
         }
         $titulo = trim(preg_replace('/\s+/u', ' ', $titulo) ?? '');
@@ -183,7 +197,7 @@ final class Concursos
 
     public static function retirar(array $c, int $usuarioId, int $obraId): void
     {
-        if (self::fase($c) !== 'recepcion') {
+        if (!self::recepcionAbierta($c)) {
             throw new \InvalidArgumentException('La recepción ya cerró.');
         }
         $st = Database::pdo()->prepare("UPDATE con_participaciones SET estado = 'retirada', actualizado_en = NOW() WHERE id = ? AND concurso_id = ? AND usuario_id = ? AND estado = 'enviada'");
@@ -196,7 +210,11 @@ final class Concursos
     /** Dictamen del prefiltro sobre una obra; se avisa al autor sin revelar quién revisó. */
     public static function dictaminar(array $c, int $obraId, bool $aprobada, string $motivo, int $revisorId): void
     {
-        if (!in_array(self::fase($c), ['recepcion', 'revision'], true) && !($aprobada === false && self::fase($c) === 'votacion')) {
+        $fase = self::fase($c);
+        // Con la votación en curso solo se pueden dictaminar las obras nuevas que llegan mientras siga abierta la recepción;
+        // de las ya aprobadas solo se puede retirar la aprobación.
+        $nuevaEnVotacion = $fase === 'votacion' && self::recepcionAbierta($c);
+        if (!in_array($fase, ['recepcion', 'revision'], true) && !$nuevaEnVotacion && !($aprobada === false && $fase === 'votacion')) {
             throw new \InvalidArgumentException('El prefiltro ya cerró: la votación comenzó.');
         }
         $motivo = mb_substr(trim($motivo), 0, 600);
@@ -207,11 +225,14 @@ final class Concursos
         if (!$o) {
             throw new \InvalidArgumentException('Obra inexistente.');
         }
+        if ($fase === 'votacion' && $aprobada && $o['estado'] !== 'enviada') {
+            throw new \InvalidArgumentException('La votación ya comenzó: solo se aprueban obras que aún no se revisaban.');
+        }
         Database::ejecutar('UPDATE con_participaciones SET estado = ?, motivo = ?, revisado_por = ?, revisado_en = NOW() WHERE id = ?',
             [$aprobada ? 'aprobada' : 'rechazada', $motivo !== '' ? $motivo : null, $revisorId, $obraId]);
         $cuerpo = $aprobada
             ? 'Tu obra «' . $o['titulo'] . '» pasó el prefiltro y participará en la votación del ' . self::fechaHora($c['votacion_inicio']) . ' al ' . self::fechaHora($c['votacion_fin']) . ' como la número ' . $o['numero'] . '.'
-            : 'Tu obra «' . $o['titulo'] . '» no pasó el prefiltro: ' . $motivo . (self::fase($c) === 'recepcion' ? ' Puedes enviar otra mientras siga abierta la recepción.' : '');
+            : 'Tu obra «' . $o['titulo'] . '» no pasó el prefiltro: ' . $motivo . (self::recepcionAbierta($c) ? ' Puedes enviar otra mientras siga abierta la recepción.' : '');
         try {
             \App\Modules\Notificaciones\Notificaciones::crear((string) $o['email'], $c['titulo'] . ': ' . ($aprobada ? 'obra aprobada' : 'obra no aprobada'), $cuerpo, 'concursos/' . $c['slug'], 'concursos');
         } catch (\Throwable) {
@@ -223,6 +244,40 @@ final class Concursos
     public static function yaVoto(int $concursoId, int $usuarioId): bool
     {
         return (bool) Database::valor('SELECT 1 FROM con_votantes WHERE concurso_id = ? AND usuario_id = ?', [$concursoId, $usuarioId]);
+    }
+
+    /** Números de las obras que la persona marcó como favoritas. */
+    public static function favoritos(int $concursoId, int $usuarioId): array
+    {
+        if ($usuarioId <= 0) {
+            return [];
+        }
+        return array_map('intval', array_column(Database::todas('SELECT numero FROM con_favoritos WHERE concurso_id = ? AND usuario_id = ? ORDER BY creado_en', [$concursoId, $usuarioId]), 'numero'));
+    }
+
+    /** Agrega o quita una obra de las favoritas (solo obras que participan en la votación). @return bool true si queda como favorita */
+    public static function alternarFavorito(array $c, int $usuarioId, int $numero): bool
+    {
+        if (self::fase($c) !== 'votacion' || $c['estado'] !== 'publicado') {
+            throw new \InvalidArgumentException('Las favoritas se marcan mientras la votación está abierta.');
+        }
+        if (self::yaVoto((int) $c['id'], $usuarioId)) {
+            throw new \InvalidArgumentException('Ya votaste; tus favoritas ya no se modifican.');
+        }
+        $o = Database::una("SELECT usuario_id FROM con_participaciones WHERE concurso_id = ? AND numero = ? AND estado = 'aprobada'", [(int) $c['id'], $numero]);
+        if (!$o) {
+            throw new \InvalidArgumentException('Esa obra no participa en la votación.');
+        }
+        if ((int) $o['usuario_id'] === $usuarioId) {
+            throw new \InvalidArgumentException('Tu propia obra no se marca como favorita.');
+        }
+        $st = Database::pdo()->prepare('DELETE FROM con_favoritos WHERE concurso_id = ? AND usuario_id = ? AND numero = ?');
+        $st->execute([(int) $c['id'], $usuarioId, $numero]);
+        if ($st->rowCount() > 0) {
+            return false;
+        }
+        Database::ejecutar('INSERT IGNORE INTO con_favoritos (concurso_id, usuario_id, numero) VALUES (?, ?, ?)', [(int) $c['id'], $usuarioId, $numero]);
+        return true;
     }
 
     /** Registra el voto anónimo y devuelve el recibo. */
@@ -238,6 +293,9 @@ final class Concursos
         if ((int) $o['usuario_id'] === $usuarioId) {
             throw new \InvalidArgumentException('No puedes votar por una obra propia.');
         }
+        if (!in_array($numero, self::favoritos((int) $c['id'], $usuarioId), true)) {
+            throw new \InvalidArgumentException('Marca tus calaveritas favoritas con la estrella y elige la mejor entre ellas.');
+        }
         $pdo = Database::pdo();
         $pdo->beginTransaction();
         try {
@@ -251,6 +309,7 @@ final class Concursos
                 $ok = $pdo->prepare('INSERT IGNORE INTO con_votos (recibo, concurso_id, participacion_id) VALUES (?, ?, ?)');
                 $ok->execute([$recibo, (int) $c['id'], (int) $o['id']]);
             } while ($ok->rowCount() === 0);
+            $pdo->prepare('DELETE FROM con_favoritos WHERE concurso_id = ? AND usuario_id = ?')->execute([(int) $c['id'], $usuarioId]);
             $pdo->commit();
         } catch (\Throwable $e) {
             $pdo->rollBack();
@@ -343,8 +402,8 @@ final class Concursos
             }
             $d[$k] = date('Y-m-d H:i:s', $t);
         }
-        if (!($d['publicacion'] < $d['recepcion_fin'] && $d['recepcion_fin'] < $d['votacion_inicio'] && $d['votacion_inicio'] < $d['votacion_fin'] && $d['votacion_fin'] <= $d['premiacion'])) {
-            throw new \InvalidArgumentException('Las fechas deben ir en orden: publicación, fin de recepción, inicio y fin de votación, premiación.');
+        if (!($d['publicacion'] < $d['recepcion_fin'] && $d['recepcion_fin'] < $d['votacion_fin'] && $d['votacion_inicio'] < $d['votacion_fin'] && $d['votacion_fin'] <= $d['premiacion'])) {
+            throw new \InvalidArgumentException('Las fechas deben ir en orden: publicación, fin de recepción (puede ser después de iniciar la votación), inicio y fin de votación, premiación; la recepción debe cerrar antes de que termine la votación.');
         }
         foreach (['premio_1', 'premio_2', 'premio_3'] as $k) {
             $d[$k] = $d[$k] === '' ? null : (is_numeric(str_replace([',', '$'], '', $d[$k])) ? (float) str_replace([',', '$'], '', $d[$k]) : throw new \InvalidArgumentException('Los premios deben ser montos.'));

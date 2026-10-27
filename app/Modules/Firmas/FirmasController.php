@@ -216,7 +216,7 @@ final class FirmasController extends Controller
             'meToca'      => $meToca,
             'esCreador'   => $esCreador,
             'puedeAnexar' => $puedeAnexar,
-            'puedeCancelar' => $s['estado'] === 'en_ruta' && ($esCreador || Auth::rol() === 'admin'),
+            'puedeCancelar' => $s['estado'] === 'en_ruta' && ($esCreador || Auth::tieneRol('admin')),
             'tengoSello'  => (bool) Database::una(
                 'SELECT 1 FROM usuario_firmas WHERE usuario_id = ?', [Auth::id()]),
             'paginas'     => self::PAGINAS,
@@ -429,7 +429,7 @@ final class FirmasController extends Controller
     public function cancelar(string $id): void
     {
         $s = $this->obtenerPropia((int) $id);
-        if ($s['estado'] !== 'en_ruta' || ((int) $s['creador_id'] !== Auth::id() && Auth::rol() !== 'admin')) {
+        if ($s['estado'] !== 'en_ruta' || ((int) $s['creador_id'] !== Auth::id() && !Auth::tieneRol('admin'))) {
             flash('error', 'Solo quien creó la solicitud puede cancelarla mientras está en ruta.');
             redirigir('firmas/' . $s['id']);
         }
@@ -450,7 +450,7 @@ final class FirmasController extends Controller
                JOIN firma_solicitudes s ON s.id = d.solicitud_id
               WHERE d.id = ?', [(int) $id]);
         $esParte = $d && ((int) $d['creador_id'] === Auth::id()
-            || Auth::rol() === 'admin'
+            || Auth::tieneRol('admin')
             || Database::una('SELECT 1 FROM firma_firmantes WHERE solicitud_id = ? AND usuario_id = ?',
                 [$d['solicitud_id'], Auth::id()]));
         if (!$esParte) {
@@ -760,7 +760,7 @@ final class FirmasController extends Controller
             'SELECT s.*, u.nombre AS creador FROM firma_solicitudes s
                JOIN usuarios u ON u.id = s.creador_id WHERE s.id = ?', [$id]);
         $esParte = $s && ((int) $s['creador_id'] === Auth::id()
-            || Auth::rol() === 'admin'
+            || Auth::tieneRol('admin')
             || Database::una('SELECT 1 FROM firma_firmantes WHERE solicitud_id = ? AND usuario_id = ?',
                 [$id, Auth::id()]));
         if (!$esParte) {

@@ -2,7 +2,7 @@
 $titulo = $titulo ?? 'Plan de Desarrollo FI';
 $usuarioPlan = \App\Core\Auth::usuario();
 $menuPlan = $usuarioPlan
-  ? \App\Core\InterfaceUi::menu(\App\Core\ModuleManager::menu($usuarioPlan['rol']))
+  ? \App\Core\InterfaceUi::menu(\App\Core\ModuleManager::menu(array_merge([$usuarioPlan['rol']], array_column($usuarioPlan['roles_extra'] ?? [], 'rol'))))
   : [];
 $basePlan = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 $rutaPlanActual = trim(substr(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/', strlen($basePlan)), '/');

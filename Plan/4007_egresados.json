@@ -3,7 +3,7 @@
   "categoria": "Egresados",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4007",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZmI3ZTE1NTAtMTk2NS00OWZlLWEyMjItM2E0NTM5NDg1NzdlIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -56,7 +56,7 @@
         },
         "registros": [
           {
-            "Egresados Ciclo Actual1": 327,
+            "Egresados Ciclo Actual1": 329,
             "proyectos": [
               2,
               3,
@@ -79,7 +79,7 @@
         },
         "registros": [
           {
-            "Indice Paridad Genero Egresados": 0.3512396694214876,
+            "Indice Paridad Genero Egresados": 0.47533632286995514,
             "proyectos": [
               2,
               3,
@@ -125,7 +125,7 @@
         },
         "registros": [
           {
-            "Egresados Toluca1": 327,
+            "Egresados Toluca1": 329,
             "proyectos": [
               2,
               3,
@@ -148,7 +148,7 @@
         },
         "registros": [
           {
-            "Brecha Genero Absoluta Egresados1": -157,
+            "Brecha Genero Absoluta Egresados1": -117,
             "proyectos": [
               2,
               3,
@@ -333,9 +333,29 @@
               3,
               15
             ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Sexo": "Hombre",
+            "Suma de Total_Egresados": 223,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Sexo": "Mujer",
+            "Suma de Total_Egresados": 106,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 16
+        "numero_registros": 18
       },
       {
         "visual": "013",
@@ -350,7 +370,7 @@
         },
         "registros": [
           {
-            "% Crecimiento Anual Egresados": -0.04941860465116279,
+            "% Crecimiento Anual Egresados": 0.006116207951070374,
             "proyectos": [
               2,
               3,
@@ -419,6 +439,97 @@
     }
   },
   "carreras": {
+    "Posgrado (maestría y doctorado)": {
+      "nombre": "Posgrado (maestría y doctorado)",
+      "nivel": "posgrado",
+      "indicadores": [
+        {
+          "visual": "serie_posgrado_egresados_graduados",
+          "metricas": [
+            "Ciclo escolar",
+            "Egresados y graduados de posgrado"
+          ],
+          "registros": [
+            {
+              "Ciclo escolar": "2018-2019",
+              "Egresados y graduados de posgrado": 31,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2019-2020",
+              "Egresados y graduados de posgrado": 16,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2020-2021",
+              "Egresados y graduados de posgrado": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2021-2022",
+              "Egresados y graduados de posgrado": 13,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2022-2023",
+              "Egresados y graduados de posgrado": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2023-2024",
+              "Egresados y graduados de posgrado": 18,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2024-2025",
+              "Egresados y graduados de posgrado": 15,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados y graduados de posgrado": 21,
+              "proyectos": [
+                3,
+                15
+              ]
+            }
+          ],
+          "numero_registros": 8,
+          "metodo": "Total de personas egresadas y graduadas de estudios avanzados (maestría y doctorado) de la Facultad de Ingeniería por ciclo escolar, proporcionado por la Facultad."
+        }
+      ],
+      "foda": {
+        "fortalezas": [],
+        "oportunidades": [],
+        "debilidades": [],
+        "amenazas": [],
+        "observaciones_sin_clasificar": [],
+        "diagnostico": "",
+        "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
+        "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
+      }
+    },
     "Doctorado en Ciencias de la Ingeniería": {
       "nombre": "Doctorado en Ciencias de la Ingeniería",
       "nivel": "programa",
@@ -436,7 +547,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 8,
+              "Egresados Ciclo Actual1": 5,
               "proyectos": [
                 3,
                 15
@@ -458,7 +569,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.6,
+              "Indice Paridad Genero Egresados": 0.6666666666666666,
               "proyectos": [
                 3,
                 15
@@ -502,7 +613,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 8,
+              "Egresados Toluca1": 5,
               "proyectos": [
                 3,
                 15
@@ -524,7 +635,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -2,
+              "Brecha Genero Absoluta Egresados1": -1,
               "proyectos": [
                 3,
                 15
@@ -681,9 +792,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 15
+          "numero_registros": 17
         },
         {
           "visual": "013",
@@ -698,7 +827,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": 0.3333333333333333,
+              "% Crecimiento Anual Egresados": -0.375,
               "proyectos": [
                 3,
                 15
@@ -780,7 +909,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 3,
+              "Egresados Ciclo Actual1": 4,
               "proyectos": [
                 3,
                 15
@@ -802,7 +931,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0,
+              "Indice Paridad Genero Egresados": 0.0,
               "proyectos": [
                 3,
                 15
@@ -846,7 +975,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 3,
+              "Egresados Toluca1": 4,
               "proyectos": [
                 3,
                 15
@@ -868,7 +997,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -3,
+              "Brecha Genero Absoluta Egresados1": -4,
               "proyectos": [
                 3,
                 15
@@ -928,9 +1057,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 4
+          "numero_registros": 6
         },
         {
           "visual": "013",
@@ -945,7 +1092,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": -0.75,
+              "% Crecimiento Anual Egresados": 0.33333333333333326,
               "proyectos": [
                 3,
                 15
@@ -1239,7 +1386,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 72,
+              "Egresados Ciclo Actual1": 11,
               "proyectos": [
                 2,
                 15
@@ -1261,7 +1408,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.2,
+              "Indice Paridad Genero Egresados": 0.375,
               "proyectos": [
                 2,
                 15
@@ -1305,7 +1452,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 72,
+              "Egresados Toluca1": 11,
               "proyectos": [
                 2,
                 15
@@ -1327,7 +1474,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -48,
+              "Brecha Genero Absoluta Egresados1": -5,
               "proyectos": [
                 2,
                 15
@@ -1495,9 +1642,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 8,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 3,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 16
+          "numero_registros": 18
         },
         {
           "visual": "013",
@@ -1512,7 +1677,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": -0.14285714285714285,
+              "% Crecimiento Anual Egresados": -0.8472222222222222,
               "proyectos": [
                 2,
                 15
@@ -1594,7 +1759,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 84,
+              "Egresados Ciclo Actual1": 30,
               "proyectos": [
                 2,
                 15
@@ -1616,7 +1781,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.23529411764705882,
+              "Indice Paridad Genero Egresados": 0.42857142857142855,
               "proyectos": [
                 2,
                 15
@@ -1660,7 +1825,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 84,
+              "Egresados Toluca1": 30,
               "proyectos": [
                 2,
                 15
@@ -1682,7 +1847,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -52,
+              "Brecha Genero Absoluta Egresados1": -12,
               "proyectos": [
                 2,
                 15
@@ -1850,9 +2015,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 21,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 9,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 16
+          "numero_registros": 18
         },
         {
           "visual": "013",
@@ -1867,7 +2050,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": 0.16666666666666666,
+              "% Crecimiento Anual Egresados": -0.6428571428571428,
               "proyectos": [
                 2,
                 15
@@ -1949,7 +2132,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 31,
+              "Egresados Ciclo Actual1": 24,
               "proyectos": [
                 2,
                 15
@@ -1971,7 +2154,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.34782608695652173,
+              "Indice Paridad Genero Egresados": 0.2,
               "proyectos": [
                 2,
                 15
@@ -2015,7 +2198,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 31,
+              "Egresados Toluca1": 24,
               "proyectos": [
                 2,
                 15
@@ -2037,7 +2220,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -15,
+              "Brecha Genero Absoluta Egresados1": -16,
               "proyectos": [
                 2,
                 15
@@ -2205,9 +2388,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 20,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 16
+          "numero_registros": 18
         },
         {
           "visual": "013",
@@ -2222,7 +2423,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": 0.14814814814814814,
+              "% Crecimiento Anual Egresados": -0.22580645161290325,
               "proyectos": [
                 2,
                 15
@@ -2304,7 +2505,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 73,
+              "Egresados Ciclo Actual1": 17,
               "proyectos": [
                 2,
                 15
@@ -2326,7 +2527,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.43137254901960786,
+              "Indice Paridad Genero Egresados": 0.5454545454545454,
               "proyectos": [
                 2,
                 15
@@ -2370,7 +2571,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 73,
+              "Egresados Toluca1": 17,
               "proyectos": [
                 2,
                 15
@@ -2392,7 +2593,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -29,
+              "Brecha Genero Absoluta Egresados1": -5,
               "proyectos": [
                 2,
                 15
@@ -2560,9 +2761,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 11,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 6,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 16
+          "numero_registros": 18
         },
         {
           "visual": "013",
@@ -2577,7 +2796,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": -0.20652173913043478,
+              "% Crecimiento Anual Egresados": -0.7671232876712328,
               "proyectos": [
                 2,
                 15
@@ -2659,7 +2878,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 52,
+              "Egresados Ciclo Actual1": 50,
               "proyectos": [
                 2,
                 15
@@ -2681,7 +2900,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.625,
+              "Indice Paridad Genero Egresados": 0.8518518518518519,
               "proyectos": [
                 2,
                 15
@@ -2725,7 +2944,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 52,
+              "Egresados Toluca1": 50,
               "proyectos": [
                 2,
                 15
@@ -2747,7 +2966,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -12,
+              "Brecha Genero Absoluta Egresados1": -4,
               "proyectos": [
                 2,
                 15
@@ -2915,9 +3134,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 27,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 23,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 16
+          "numero_registros": 18
         },
         {
           "visual": "013",
@@ -2932,7 +3169,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": 0.0196078431372549,
+              "% Crecimiento Anual Egresados": -0.038461538461538436,
               "proyectos": [
                 2,
                 15
@@ -3014,7 +3251,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 5,
+              "Egresados Ciclo Actual1": 12,
               "proyectos": [
                 3,
                 15
@@ -3036,7 +3273,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 1.5,
+              "Indice Paridad Genero Egresados": 2.0,
               "proyectos": [
                 3,
                 15
@@ -3080,7 +3317,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 5,
+              "Egresados Toluca1": 12,
               "proyectos": [
                 3,
                 15
@@ -3102,7 +3339,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": 1,
+              "Brecha Genero Absoluta Egresados1": 4,
               "proyectos": [
                 3,
                 15
@@ -3269,9 +3506,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 4,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 8,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 16
+          "numero_registros": 18
         },
         {
           "visual": "013",
@@ -3286,7 +3541,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": 0,
+              "% Crecimiento Anual Egresados": 1.4,
               "proyectos": [
                 3,
                 15
@@ -3368,7 +3623,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 8,
+              "Egresados Ciclo Actual1": 10,
               "proyectos": [
                 3,
                 15
@@ -3390,7 +3645,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 0.6,
+              "Indice Paridad Genero Egresados": 4.0,
               "proyectos": [
                 3,
                 15
@@ -3434,7 +3689,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 8,
+              "Egresados Toluca1": 10,
               "proyectos": [
                 3,
                 15
@@ -3456,7 +3711,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": -2,
+              "Brecha Genero Absoluta Egresados1": 6,
               "proyectos": [
                 3,
                 15
@@ -3516,9 +3771,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 8,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 4
+          "numero_registros": 6
         },
         {
           "visual": "013",
@@ -3533,7 +3806,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": 0.14285714285714285,
+              "% Crecimiento Anual Egresados": 0.25,
               "proyectos": [
                 3,
                 15
@@ -4620,7 +4893,7 @@
           },
           "registros": [
             {
-              "Egresados Ciclo Actual1": 2,
+              "Egresados Ciclo Actual1": 3,
               "proyectos": [
                 3,
                 15
@@ -4642,7 +4915,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero Egresados": 1,
+              "Indice Paridad Genero Egresados": 0.5,
               "proyectos": [
                 3,
                 15
@@ -4686,7 +4959,7 @@
           },
           "registros": [
             {
-              "Egresados Toluca1": 2,
+              "Egresados Toluca1": 3,
               "proyectos": [
                 3,
                 15
@@ -4708,7 +4981,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta Egresados1": 0,
+              "Brecha Genero Absoluta Egresados1": -1,
               "proyectos": [
                 3,
                 15
@@ -4802,9 +5075,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Hombre",
+              "Suma de Total_Egresados": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Sexo": "Mujer",
+              "Suma de Total_Egresados": 1,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 10
         },
         {
           "visual": "013",
@@ -4819,7 +5110,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Egresados": -0.3333333333333333,
+              "% Crecimiento Anual Egresados": null,
               "proyectos": [
                 3,
                 15
@@ -4898,5 +5189,17 @@
     "interpretacion": "La diferencia no se asignó a ninguna carrera; puede representar registros sin programa identificable en el modelo público."
   },
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2025-2026",
+    "fuentes": [
+      {
+        "archivo": "Libro1 e911 (1).xlsx",
+        "hoja": "egreso global",
+        "corte": "05/08/2025 al 03/08/2026"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

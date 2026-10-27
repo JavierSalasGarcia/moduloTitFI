@@ -3,7 +3,7 @@
   "categoria": "Personal administrativo",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4033",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNDU4NDk1NjktODkxYy00ZjI4LWFmMDAtNWZlNGRkOTUyZTA1IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -119,14 +119,24 @@
             "Año": 2025,
             "Confianza": 28,
             "Sindicalizado": 51,
+            "Directivo": 0,
             "Total": 79,
+            "proyectos": [
+              10,
+              11
+            ]
+          },
+          {
+            "Año": 2026,
+            "Directivo": 1,
+            "Total": 74,
             "proyectos": [
               10,
               11
             ]
           }
         ],
-        "numero_registros": 8
+        "numero_registros": 9
       }
     ],
     "foda": {
@@ -162,5 +172,21 @@
     "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
   ],
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026",
+    "fuentes": [
+      {
+        "archivo": "FACULTAD DE INGENIERÍA (2).xls",
+        "hojas": [
+          "BD",
+          "DocentexTiempo"
+        ],
+        "corte": "Estadística de personal 2026"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales.",
+    "nota_clasificacion": "El libro permite confirmar 73 plazas administrativas y 1 directiva, pero no identifica de forma equivalente las categorías Confianza y Sindicalizado; por ello sólo se actualizan Directivo y Total."
+  }
 }

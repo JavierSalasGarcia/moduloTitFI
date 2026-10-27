@@ -69,7 +69,7 @@ final class GruposController extends Controller
             flash('error', 'Escribe el nombre del grupo.');
             redirigir('firmas/grupos');
         }
-        if ($tipo === 'cuerpo_academico' && !$this->esCoordInvestigacion() && Auth::rol() !== 'admin') {
+        if ($tipo === 'cuerpo_academico' && !$this->esCoordInvestigacion() && !Auth::tieneRol('admin')) {
             flash('error', 'Solo la Coordinación de Investigación crea Cuerpos Académicos.');
             redirigir('firmas/grupos');
         }
@@ -122,12 +122,12 @@ final class GruposController extends Controller
 
     private function puedeEditar(array $g): bool
     {
-        if (Auth::rol() === 'admin') {
+        if (Auth::tieneRol('admin')) {
             return true;
         }
         return match ($g['tipo']) {
             'personal'         => (int) $g['creador_id'] === Auth::id(),
-            'nab', 'cap', 'cc' => Auth::rol() === 'titular' && $g['programa_id']
+            'nab', 'cap', 'cc' => Auth::tieneRol('titular') && $g['programa_id']
                 && Auth::departamentoId() === (int) Database::valor(
                     'SELECT depto_id FROM programas WHERE id = ?', [$g['programa_id']]),
             'cuerpo_academico' => $this->esCoordInvestigacion(),
@@ -138,7 +138,7 @@ final class GruposController extends Controller
     private function esCoordInvestigacion(): bool
     {
         $depto = (int) ajuste('firmas_depto_investigacion', '0');
-        return $depto > 0 && Auth::rol() === 'titular' && Auth::departamentoId() === $depto;
+        return $depto > 0 && Auth::tieneRol('titular') && Auth::departamentoId() === $depto;
     }
 
     private function grupoEditable(int $id): array

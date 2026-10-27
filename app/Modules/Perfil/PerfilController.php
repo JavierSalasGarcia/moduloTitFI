@@ -30,7 +30,7 @@ final class PerfilController extends Controller
         $genero = (string) ($_POST['genero'] ?? '');
         Database::ejecutar(
             'UPDATE usuarios SET grado = ?, genero = ? WHERE id = ?',
-            [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino'], true) ? $genero : null, Auth::id()]
+            [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino', 'no_binario'], true) ? $genero : null, Auth::id()]
         );
         flash('exito', 'Tu tratamiento se actualizó.');
         redirigir('perfil');

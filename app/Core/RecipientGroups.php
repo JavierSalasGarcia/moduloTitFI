@@ -23,7 +23,7 @@ final class RecipientGroups
     }
     public static function categories(): array
     {
-        $roles=match(Auth::rol()) {'coordinador'=>['coordinadores'],'titular','operativo'=>['administrativos'],'profesor'=>['profesores'],'alumno'=>['alumnos'],default=>[]};
+        $roles=[]; foreach(Auth::roles() as $rol) $roles=array_merge($roles,match($rol) {'coordinador'=>['coordinadores'],'titular','operativo'=>['administrativos'],'profesor'=>['profesores'],'alumno'=>['alumnos'],default=>[]});
         if (Auth::id() && Database::valor('SELECT COUNT(*) FROM reuniones_coordinadores WHERE usuario_id=? AND activo=1',[Auth::id()])) $roles[]='coordinadores';
         return array_unique($roles);
     }

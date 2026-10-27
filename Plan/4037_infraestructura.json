@@ -3,7 +3,7 @@
   "categoria": "Infraestructura",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4037",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZGQ5YTdkZTQtNWUwYS00ZjZjLWFlNzctZTQyMDRiOWFmZjkxIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-21",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -230,8 +230,16 @@
           },
           {
             "Año": 2025,
+            "Aulas": 62,
+            "Aulas digitales": 4,
+            "Autoacceso": 1,
+            "Cafeterías": 1,
+            "Canchas": 1,
             "Cubículos": 123,
             "Cubículos para PTC": 25,
+            "Laboratorios": 19,
+            "Talleres": 1,
+            "Auditorios": 4,
             "proyectos": [
               2,
               3,
@@ -256,7 +264,7 @@
           "metrica_modelo": "Sum(17_Infraestructura.Aulas)",
           "periodo_inicial": "2014",
           "valor_inicial": 65,
-          "periodo_final": "2023",
+          "periodo_final": "2025",
           "valor_final": 62,
           "cambio_absoluto": -3,
           "visual_fuente": "001",
@@ -269,7 +277,7 @@
           ]
         }
       ],
-      "diagnostico": "Aulas: 65 en 2014 y 62 en 2023 (cambio -3).",
+      "diagnostico": "Aulas: 65 en 2014 y 62 en 2025 (cambio -3).",
       "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
       "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
     }

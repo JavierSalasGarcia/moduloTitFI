@@ -3,7 +3,7 @@
   "categoria": "Solicitudes",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4001",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNWUwZTE3YTItNTQwZi00ZTM5LWEyYjAtYjk1MmEzZDlhODU3IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -254,9 +254,29 @@
               3,
               15
             ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Solicitudes_Sexo": "Hombres",
+            "Suma de Total_Solicitudes": 2197,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Solicitudes_Sexo": "Mujeres",
+            "Suma de Total_Solicitudes": 590,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 20
+        "numero_registros": 22
       },
       {
         "visual": "003",
@@ -271,7 +291,7 @@
         },
         "registros": [
           {
-            "Superavit Mujeres Solicitudes": -1652,
+            "Superavit Mujeres Solicitudes": -1607,
             "proyectos": [
               2,
               3,
@@ -294,7 +314,7 @@
         },
         "registros": [
           {
-            "% Crecimiento Anual Solicitudes": 0.004216444132115249,
+            "% Crecimiento Anual Solicitudes": -0.024842547235829238,
             "proyectos": [
               2,
               3,
@@ -317,7 +337,7 @@
         },
         "registros": [
           {
-            "Solicitudes Ciclo Actual": 2858,
+            "Solicitudes Ciclo Actual": 2787,
             "proyectos": [
               2,
               3,
@@ -338,7 +358,7 @@
         "formatos": {},
         "registros": [
           {
-            "Indice Paridad Genero Solicitudes1": 0.26740576496674057,
+            "Indice Paridad Genero Solicitudes1": 0.26854802002731,
             "proyectos": [
               2,
               3,
@@ -361,7 +381,7 @@
         },
         "registros": [
           {
-            "Solicitudes Toluca": 2858,
+            "Solicitudes Toluca": 2787,
             "proyectos": [
               2,
               3,
@@ -509,9 +529,19 @@
               3,
               15
             ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2026B",
+            "Suma de Total_Solicitudes": 2787,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 10
+        "numero_registros": 11
       }
     ],
     "foda": {
@@ -1339,9 +1369,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 466,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 161,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "003",
@@ -1356,7 +1404,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Solicitudes": -335,
+              "Superavit Mujeres Solicitudes": -305,
               "proyectos": [
                 2,
                 15
@@ -1378,7 +1426,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Solicitudes": -0.17608409986859397,
+              "% Crecimiento Anual Solicitudes": 0.0,
               "proyectos": [
                 2,
                 15
@@ -1420,7 +1468,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Solicitudes1": 0.30353430353430355,
+              "Indice Paridad Genero Solicitudes1": 0.34549356223175964,
               "proyectos": [
                 2,
                 15
@@ -1578,9 +1626,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Solicitudes": 627,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -1809,9 +1866,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 121,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 18,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "003",
@@ -1826,7 +1901,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Solicitudes": -619,
+              "Superavit Mujeres Solicitudes": -103,
               "proyectos": [
                 2,
                 15
@@ -1848,7 +1923,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Solicitudes": 0.0535031847133758,
+              "% Crecimiento Anual Solicitudes": -0.8319226118500604,
               "proyectos": [
                 2,
                 15
@@ -1870,7 +1945,7 @@
           },
           "registros": [
             {
-              "Solicitudes Ciclo Actual": 827,
+              "Solicitudes Ciclo Actual": 139,
               "proyectos": [
                 2,
                 15
@@ -1890,7 +1965,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Solicitudes1": 0.14384508990318118,
+              "Indice Paridad Genero Solicitudes1": 0.1487603305785124,
               "proyectos": [
                 2,
                 15
@@ -1912,7 +1987,7 @@
           },
           "registros": [
             {
-              "Solicitudes Toluca": 827,
+              "Solicitudes Toluca": 139,
               "proyectos": [
                 2,
                 15
@@ -2048,9 +2123,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Solicitudes": 139,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -2279,9 +2363,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 41,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 22,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "003",
@@ -2296,7 +2398,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Solicitudes": -215,
+              "Superavit Mujeres Solicitudes": -19,
               "proyectos": [
                 2,
                 15
@@ -2318,7 +2420,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Solicitudes": -0.09003831417624521,
+              "% Crecimiento Anual Solicitudes": -0.8673684210526316,
               "proyectos": [
                 2,
                 15
@@ -2340,7 +2442,7 @@
           },
           "registros": [
             {
-              "Solicitudes Ciclo Actual": 475,
+              "Solicitudes Ciclo Actual": 63,
               "proyectos": [
                 2,
                 15
@@ -2360,7 +2462,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Solicitudes1": 0.37681159420289856,
+              "Indice Paridad Genero Solicitudes1": 0.5365853658536586,
               "proyectos": [
                 2,
                 15
@@ -2382,7 +2484,7 @@
           },
           "registros": [
             {
-              "Solicitudes Toluca": 475,
+              "Solicitudes Toluca": 63,
               "proyectos": [
                 2,
                 15
@@ -2518,9 +2620,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Solicitudes": 63,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -2749,9 +2860,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 182,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 33,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "003",
@@ -2766,7 +2895,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Solicitudes": -178,
+              "Superavit Mujeres Solicitudes": -149,
               "proyectos": [
                 2,
                 15
@@ -2788,7 +2917,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Solicitudes": -0.2603550295857988,
+              "% Crecimiento Anual Solicitudes": -0.14,
               "proyectos": [
                 2,
                 15
@@ -2810,7 +2939,7 @@
           },
           "registros": [
             {
-              "Solicitudes Ciclo Actual": 250,
+              "Solicitudes Ciclo Actual": 215,
               "proyectos": [
                 2,
                 15
@@ -2830,7 +2959,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Solicitudes1": 0.16822429906542055,
+              "Indice Paridad Genero Solicitudes1": 0.1813186813186813,
               "proyectos": [
                 2,
                 15
@@ -2852,7 +2981,7 @@
           },
           "registros": [
             {
-              "Solicitudes Toluca": 250,
+              "Solicitudes Toluca": 215,
               "proyectos": [
                 2,
                 15
@@ -2988,9 +3117,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Solicitudes": 215,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -3075,9 +3213,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 71,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 21,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 4
+          "numero_registros": 6
         },
         {
           "visual": "003",
@@ -3092,7 +3248,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Solicitudes": -198,
+              "Superavit Mujeres Solicitudes": -50,
               "proyectos": [
                 2,
                 15
@@ -3114,7 +3270,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Solicitudes": 0.8103448275862069,
+              "% Crecimiento Anual Solicitudes": -0.780952380952381,
               "proyectos": [
                 2,
                 15
@@ -3136,7 +3292,7 @@
           },
           "registros": [
             {
-              "Solicitudes Ciclo Actual": 420,
+              "Solicitudes Ciclo Actual": 92,
               "proyectos": [
                 2,
                 15
@@ -3156,7 +3312,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Solicitudes1": 0.3592233009708738,
+              "Indice Paridad Genero Solicitudes1": 0.29577464788732394,
               "proyectos": [
                 2,
                 15
@@ -3178,7 +3334,7 @@
           },
           "registros": [
             {
-              "Solicitudes Toluca": 420,
+              "Solicitudes Toluca": 92,
               "proyectos": [
                 2,
                 15
@@ -3242,9 +3398,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Solicitudes": 92,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 2
+          "numero_registros": 3
         }
       ],
       "foda": {
@@ -3473,9 +3638,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Hombres",
+              "Suma de Total_Solicitudes": 113,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Solicitudes_Sexo": "Mujeres",
+              "Suma de Total_Solicitudes": 47,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "003",
@@ -3490,7 +3673,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Solicitudes": -87,
+              "Superavit Mujeres Solicitudes": -66,
               "proyectos": [
                 2,
                 15
@@ -3512,7 +3695,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Solicitudes": 0.23837209302325582,
+              "% Crecimiento Anual Solicitudes": -0.24882629107981225,
               "proyectos": [
                 2,
                 15
@@ -3534,7 +3717,7 @@
           },
           "registros": [
             {
-              "Solicitudes Ciclo Actual": 213,
+              "Solicitudes Ciclo Actual": 160,
               "proyectos": [
                 2,
                 15
@@ -3554,7 +3737,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Solicitudes1": 0.42,
+              "Indice Paridad Genero Solicitudes1": 0.415929203539823,
               "proyectos": [
                 2,
                 15
@@ -3576,7 +3759,7 @@
           },
           "registros": [
             {
-              "Solicitudes Toluca": 213,
+              "Solicitudes Toluca": 160,
               "proyectos": [
                 2,
                 15
@@ -3712,9 +3895,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Solicitudes": 160,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -4922,5 +5114,17 @@
     "interpretacion": "La suma de programas coincide con el total de Facultad."
   },
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026B",
+    "fuentes": [
+      {
+        "archivo": "Libro1 e911 (1).xlsx",
+        "hoja": "datos preinsc",
+        "corte": "2026B"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

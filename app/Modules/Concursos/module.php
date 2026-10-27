@@ -25,6 +25,7 @@ return [
         'POST /concursos/{slug}/obra'            => [ConcursosController::class, 'enviar'],
         'POST /concursos/{slug}/obra/{id}/retirar' => [ConcursosController::class, 'retirar'],
         'POST /concursos/{slug}/votar'           => [ConcursosController::class, 'votar'],
+        'POST /concursos/{slug}/favorito'        => [ConcursosController::class, 'favorito'],
         // La convocatoria y la verificación de recibos se ven sin iniciar sesión.
         'GET /concursos/{slug}'                  => [ConcursosController::class, 'ver', 'publico'],
         'GET /concursos/{slug}/recibos'          => [ConcursosController::class, 'recibos', 'publico'],

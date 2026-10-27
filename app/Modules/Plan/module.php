@@ -10,6 +10,8 @@ return [
     'rutas' => [
         'GET /plan' => [PlanController::class, 'index', 'publico'],
         'GET /fila/plan' => [PlanController::class, 'index', 'publico'],
+        'GET /plan/graficas' => [PlanController::class, 'graficas', 'publico'],
+        'GET /plan/graficas/datos/{id}' => [PlanController::class, 'graficasDatos', 'publico'],
         'GET /plan/estatus' => [PlanController::class, 'estatus', 'publico'],
         'POST /plan/estatus' => [PlanController::class, 'estatusGuardar', 'publico'],
         'GET /plan/api/{id}' => [PlanController::class, 'api', 'publico'],

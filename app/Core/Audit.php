@@ -6,10 +6,24 @@ final class Audit
 {
     private static array $queue=[];
     private static bool $hook=false;
+    private static int $anonymous=0;
+
+    /**
+     * Ejecuta una operación sin copiar la identidad autenticada a la bitácora.
+     * Se usa únicamente en flujos cuyo contenido debe ser desvinculable, como
+     * la emisión de un voto secreto.
+     */
+    public static function anonymous(callable $fn): mixed
+    {
+        self::$anonymous++;
+        try { return $fn(); } finally { self::$anonymous--; }
+    }
+
     public static function record(string $action,string $result='correcto',string $detail=''): void
     {
         if (!AccessControl::ready()) return;
-        $user=Auth::usuario()??[]; $actor=$_SESSION['impersonador']??$user;
+        $user=self::$anonymous > 0 ? [] : (Auth::usuario()??[]);
+        $actor=self::$anonymous > 0 ? [] : ($_SESSION['impersonador']??$user);
         self::$queue[]=[ $actor['id']??null,$actor['email']??'', $user['id']??null,$user['email']??'',mb_substr($action,0,180),$result,mb_substr($detail,0,500),date('Y-m-d H:i:s') ];
         if (!self::$hook) { self::$hook=true; register_shutdown_function([self::class,'flush']); }
     }

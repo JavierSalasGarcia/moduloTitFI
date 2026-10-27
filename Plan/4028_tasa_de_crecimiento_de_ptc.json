@@ -3,7 +3,7 @@
   "categoria": "Tasa de crecimiento de PTC",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4028",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZmMxYzMxZGYtNTczZS00YTU1LWE2ZDUtZWEzMjJiMzFiMmZhIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-21",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -126,6 +126,8 @@
           },
           {
             "Año": 2025,
+            "Total_PTC_SEP1": 70,
+            "Año Anterior_PTC_SEP": 70,
             "proyectos": [
               4,
               9,
@@ -149,7 +151,7 @@
           "metrica_modelo": "PTC_registrados en SEP_18-23.Total_PTC_SEP1",
           "periodo_inicial": "2018",
           "valor_inicial": 71,
-          "periodo_final": "2023",
+          "periodo_final": "2025",
           "valor_final": 70,
           "cambio_absoluto": -1,
           "visual_fuente": "003",
@@ -161,7 +163,7 @@
           ]
         }
       ],
-      "diagnostico": "Total_PTC_SEP1: 71 en 2018 y 70 en 2023 (cambio -1).",
+      "diagnostico": "Total_PTC_SEP1: 71 en 2018 y 70 en 2025 (cambio -1).",
       "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
       "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
     }

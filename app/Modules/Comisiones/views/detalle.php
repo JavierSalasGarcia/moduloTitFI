@@ -106,7 +106,7 @@
         <?php endforeach; ?>
       </ul>
 
-      <?php if (Auth::rol() === 'profesor' && !$miEstado && $c['estado'] !== 'concluida'): ?>
+      <?php if (Auth::tieneRol('profesor') && !$miEstado && $c['estado'] !== 'concluida'): ?>
         <form method="post" action="<?= url('comisiones/' . $c['id'] . '/postular') ?>" style="margin-top:10px">
           <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
           <button type="submit" class="btn btn-oro btn-bloque">Postularme como voluntario</button>

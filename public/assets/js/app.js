@@ -6,6 +6,15 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
+    // Limpieza de recibos guardados por versiones anteriores. Los recibos de
+    // votación ya no deben persistir asociados a este navegador.
+    try {
+      for (var i = localStorage.length - 1; i >= 0; i--) {
+        var clave = localStorage.key(i);
+        if (clave && clave.indexOf('fi_voto_') === 0) localStorage.removeItem(clave);
+      }
+    } catch (e) {}
+
     var boton = document.getElementById('btn-menu-movil');
     var menu = document.getElementById('menu-lateral');
 
@@ -35,14 +44,5 @@
       });
     });
 
-    // Resalta el voto propio en el tablero público de encuestas
-    document.querySelectorAll('.token-voto[data-token]').forEach(function (celda) {
-      var encuesta = celda.closest('[data-encuesta]');
-      if (!encuesta) return;
-      var guardado = localStorage.getItem('fi_voto_' + encuesta.dataset.encuesta);
-      if (guardado && guardado === celda.dataset.token) {
-        celda.classList.add('mio');
-      }
-    });
   });
 })();

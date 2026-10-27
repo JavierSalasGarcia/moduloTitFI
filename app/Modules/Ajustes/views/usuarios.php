@@ -39,9 +39,13 @@
         <tr class="usuario-fila" style="border-bottom: 1px solid var(--gris-100);">
           <td class="usr-nombre" style="padding: 12px 16px; font-weight: 500;"><?= e($usr['nombre']) ?></td>
           <td class="usr-email" style="padding: 12px 16px;"><?= e($usr['email']) ?></td>
-          <td style="padding: 12px 16px;"><span class="badge" style="background:#f1f5f9; color:#334155; text-transform:uppercase; font-size:10.5px;"><?= e($usr['rol']) ?></span></td>
+          <td style="padding: 12px 16px;"><span class="badge" style="background:#f1f5f9; color:#334155; text-transform:uppercase; font-size:10.5px;"><?= e($usr['rol']) ?></span>
+            <?php foreach ($usr['roles_extra'] as $x): ?>
+              <span class="badge" style="background:#eef6ef; color:#2c5234; text-transform:uppercase; font-size:10.5px;" title="Rol adicional"><?= e($x['rol']) ?><?= $x['programa_siglas'] ? ' · ' . e($x['programa_siglas']) : '' ?></span>
+            <?php endforeach; ?></td>
           <td class="usr-depto" style="padding: 12px 16px;">
-            <?= e($usr['depto_nombre'] ?: ($usr['programa_siglas'] ?: '—')) ?>
+            <?= e(\App\Core\Roles::puesto($usr['cargo'] ?? null, (string) ($usr['depto_nombre'] ?? '')) ?: ($usr['programa_siglas'] ?: '—')) ?>
+            <?php foreach ($usr['roles_extra'] as $x): if ($x['depto_nombre']): ?><br><small class="texto-suave"><?= e(\App\Core\Roles::puesto($x['cargo'] ?? null, (string) $x['depto_nombre'])) ?></small><?php endif; endforeach; ?>
             <?php if ($usr['rol'] === 'coordinador' && $usr['posgrado_codigo']): ?>
               <span class="chip" style="background: var(--oro-050); color: var(--oro-texto); font-weight: bold; font-size: 11px; margin-left: 6px;">Coordinación: <?= e($usr['posgrado_codigo']) ?></span>
             <?php endif; ?>
@@ -132,7 +136,7 @@
         <input type="text" name="grado" maxlength="30" list="grados-lista" placeholder="Ej. Dr., Mtra., Ing.">
       </label>
       <label>Género
-        <select name="genero"><option value="">Sin indicar</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option></select>
+        <select name="genero"><option value="">Sin indicar</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option><option value="no_binario">No binario</option></select>
       </label>
 
       <label>Correo Electrónico <span class="req">*</span>
@@ -147,8 +151,8 @@
       <label>Rol <span class="req">*</span>
         <select name="rol" id="crear-rol" required onchange="toggleFormFields(this.value, 'crear')">
           <option value="coordinador">Coordinador de Posgrado</option>
-          <option value="titular">Titular (Coordinador)</option>
-          <option value="operativo">Operativo (Personal del departamento)</option>
+          <option value="titular">Titular de dependencia o coordinación</option>
+          <option value="operativo">Asistente / personal de la dependencia</option>
           <option value="profesor">Profesor</option>
           <option value="alumno">Alumno</option>
           <option value="admin">Administrador General</option>
@@ -227,7 +231,7 @@
         <input type="text" id="edit-grado" name="grado" maxlength="30" list="grados-lista" placeholder="Ej. Dr., Mtra., Ing.">
       </label>
       <label>Género
-        <select id="edit-genero" name="genero"><option value="">Sin indicar</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option></select>
+        <select id="edit-genero" name="genero"><option value="">Sin indicar</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option><option value="no_binario">No binario</option></select>
       </label>
 
       <label>Correo Electrónico <span class="req">*</span>
@@ -241,8 +245,8 @@
       <label>Rol <span class="req">*</span>
         <select id="edit-rol" name="rol" required onchange="toggleFormFields(this.value, 'edit')">
           <option value="coordinador">Coordinador de Posgrado</option>
-          <option value="titular">Titular (Coordinador)</option>
-          <option value="operativo">Operativo (Personal del departamento)</option>
+          <option value="titular">Titular de dependencia o coordinación</option>
+          <option value="operativo">Asistente / personal de la dependencia</option>
           <option value="profesor">Profesor</option>
           <option value="alumno">Alumno</option>
           <option value="admin">Administrador General</option>
@@ -289,6 +293,22 @@
           <?php endforeach; ?>
         </select>
       </label>
+
+      <label>Puesto en la dependencia
+        <select id="edit-cargo" name="cargo">
+          <option value="">Sin puesto específico</option>
+          <option value="titular">Titular</option>
+          <option value="asistente">Asistente</option>
+        </select>
+      </label>
+
+      <fieldset style="border:1px solid var(--gris-200); border-radius:6px; padding:8px 12px; margin-top:10px">
+        <legend>Roles adicionales</legend>
+        <small class="texto-suave">Una misma persona puede ser, por ejemplo, profesora en varias licenciaturas y además titular de una coordinación.</small>
+        <input type="hidden" name="extra_enviado" value="1">
+        <div id="edit-extra-filas"></div>
+        <button type="button" class="btn btn-mini" onclick="agregarRolExtra()">+ Agregar rol</button>
+      </fieldset>
 
       <label style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:10px; font-weight:normal; font-size:13px; color:var(--gris-700);">
         <input type="checkbox" id="edit-activo" name="activo" value="1">
@@ -410,6 +430,25 @@ function cerrarModalCrear() {
   document.getElementById('modal-crear').style.display = 'none';
 }
 
+const OPCIONES_ROL = <?= json_encode(['profesor' => 'Profesor', 'alumno' => 'Alumno', 'titular' => 'Titular', 'operativo' => 'Asistente / personal', 'coordinador' => 'Coordinador de Posgrado', 'admin' => 'Administrador'], JSON_UNESCAPED_UNICODE) ?>;
+const OPCIONES_DEPTO = <?= json_encode(array_map(fn($d) => [$d['id'], $d['nombre']], $departamentos), JSON_UNESCAPED_UNICODE) ?>;
+const OPCIONES_PROG = <?= json_encode(array_map(fn($p) => [$p['id'], $p['siglas'] . ' · ' . $p['nombre']], $programas), JSON_UNESCAPED_UNICODE) ?>;
+let contadorExtra = 0;
+function agregarRolExtra(x) {
+  x = x && x.rol ? x : {};
+  const i = contadorExtra++;
+  const opts = (lista, sel, vacio) => `<option value="">${vacio}</option>` + lista.map(o => `<option value="${o[0]}" ${String(o[0]) === String(sel) ? 'selected' : ''}>${o[1].replace(/</g, '&lt;')}</option>`).join('');
+  const roles = Object.entries(OPCIONES_ROL).map(o => `<option value="${o[0]}" ${o[0] === x.rol ? 'selected' : ''}>${o[1]}</option>`).join('');
+  const fila = document.createElement('div');
+  fila.style.cssText = 'display:grid;gap:4px;border-top:1px solid var(--gris-100);padding:8px 0';
+  fila.innerHTML = `<select name="extra[${i}][rol]">${roles}</select>
+    <select name="extra[${i}][departamento_id]">${opts(OPCIONES_DEPTO, x.departamento_id > 0 ? x.departamento_id : '', 'Sin dependencia')}</select>
+    <select name="extra[${i}][programa_id]">${opts(OPCIONES_PROG, x.programa_id > 0 ? x.programa_id : '', 'Sin programa')}</select>
+    <select name="extra[${i}][cargo]"><option value="">Sin puesto específico</option><option value="titular" ${x.cargo === 'titular' ? 'selected' : ''}>Titular</option><option value="asistente" ${x.cargo === 'asistente' ? 'selected' : ''}>Asistente</option></select>
+    <button type="button" class="btn btn-mini btn-peligro" onclick="this.parentNode.remove()">Quitar</button>`;
+  document.getElementById('edit-extra-filas').appendChild(fila);
+}
+
 function abrirModalEditar(usr) {
   document.getElementById('edit-nombre').value = usr.nombre;
   document.getElementById('edit-email').value = usr.email;
@@ -420,6 +459,9 @@ function abrirModalEditar(usr) {
   document.getElementById('edit-contratacion').value = usr.tipo_contratacion || '';
   document.getElementById('edit-programa').value = usr.programa_id || '';
   document.getElementById('edit-posgrado').value = usr.posgrado_ids || '';
+  document.getElementById('edit-cargo').value = usr.cargo || '';
+  document.getElementById('edit-extra-filas').innerHTML = '';
+  (usr.roles_extra || []).forEach(x => agregarRolExtra(x));
   document.getElementById('edit-activo').checked = usr.activo == 1;
   document.getElementById('edit-permite-contrasena').checked = usr.permite_contrasena == 1;
 

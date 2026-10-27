@@ -54,6 +54,13 @@
         <input type="password" id="clave-login" name="clave" required maxlength="1024" autocomplete="current-password" placeholder="••••••••">
         <button type="button" id="mostrar-clave" class="enlace" aria-pressed="false" style="display:block;margin:8px 0 0 auto;padding:2px;border:0;background:none;cursor:pointer">Mostrar contraseña</button>
         <p class="ayuda-form">Es la contraseña de Traza FI; no debe ser la contraseña de tu correo institucional.</p>
+        <label for="permanecer-sesion" style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;cursor:pointer">
+          <input type="checkbox" id="permanecer-sesion" name="permanecer" value="1" style="margin-top:4px">
+          <span>
+            <strong style="display:block">Mantener mi sesión abierta durante 5 días</strong>
+            <small class="texto-suave">Úsalo sólo en un equipo personal. En equipos compartidos, déjalo desactivado.</small>
+          </span>
+        </label>
         <button type="submit" class="btn btn-primario btn-bloque" id="btn-clave" style="margin-top:14px">Continuar</button>
       </form>
     </section>
@@ -90,6 +97,7 @@
     <details style="margin-top:10px;font-size:11px;color:var(--gris-500)">
       <summary>Aviso de Privacidad Integral (ARCO)</summary>
       <p><strong>Responsable:</strong> la Facultad de Ingeniería de la Universidad Autónoma del Estado de México protege los datos personales de sus usuarios conforme a la normatividad aplicable.</p>
+      <p><strong>Origen y estado de la plataforma:</strong> Traza FI es una plataforma creada y operada por el Dr. Javier Salas García. Actualmente está en trámite para su uso oficial en la Facultad de Ingeniería de la UAEMEX.</p>
       <p>Traza FI no almacena datos biométricos ni copia archivos de Microsoft Teams; únicamente conserva llaves públicas y referencias necesarias para prestar sus funciones.</p>
       <p><strong>Concursos y formularios temporales:</strong> Cuando participas en un concurso o llenas un formulario temporal de la Facultad (por ejemplo, el registro de profesores para clasificaciones externas de programas académicos), Traza FI usa los datos que proporcionas (nombre, correo, la obra que envías y, en los formularios, los datos de contacto que se solicitan) únicamente para la finalidad de esa convocatoria: registrar y revisar tu participación, avisarte de su estado, publicar los nombres de quienes ganen y, en los registros para instituciones externas, entregarlos a la institución que realiza la clasificación. En las votaciones anónimas no se guarda tu identidad junto con tu voto: solo que ya votaste y tu recibo de voto. Estos datos se conservan mientras dura la actividad y el tiempo necesario para su comprobación; después se archivan o se eliminan.</p>
       <p>Para ejercer los derechos de acceso, rectificación, cancelación u oposición, presenta una solicitud ante la Unidad de Transparencia de la Facultad de Ingeniería o mediante el correo oficial de soporte.</p>
@@ -187,7 +195,8 @@
     if (!clave) { mensaje('Escribe tu contraseña de Traza FI.'); return; }
     cargando(boton, true, 'Verificando…');
     try {
-      const r = await peticion(endpoints.clave, {clave});
+      const permanecer = $('permanecer-sesion').checked ? '1' : '0';
+      const r = await peticion(endpoints.clave, {clave, permanecer});
       if (!r.exito) { mensaje(r.error); return; }
       if (r.redirect) { entrar(r); return; }
       $('btn-passkey').style.display = r.metodos.passkey ? 'block' : 'none';

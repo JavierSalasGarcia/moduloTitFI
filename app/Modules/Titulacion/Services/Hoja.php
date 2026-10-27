@@ -59,9 +59,12 @@ final class Hoja extends \setasign\Fpdi\Fpdi
         $this->pie = $pie;
     }
 
+    /** Páginas de anexos importados: sin hoja membretada de fondo. */
+    public bool $sinFondo = false;
+
     public function Header(): void
     {
-        if ($this->fondo !== null) {
+        if ($this->fondo !== null && !$this->sinFondo) {
             $this->useTemplate($this->fondo);
         }
     }

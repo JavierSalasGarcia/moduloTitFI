@@ -42,6 +42,7 @@ plataformaFI/
 │       ├── Titulacion/      ← trámite de titulación en línea (licenciatura; posgrado próximamente)
 │       ├── Espacios/        ← Auditorios y salas: horarios, personas autorizadas y ocupación (Titulación aparta aquí los exámenes)
 │       ├── Notificaciones/  ← bandeja única de avisos de cada persona (el correo solo alerta y lleva aquí)
+│       ├── Oficios/         ← archivo de oficios/memorándums que cada coordinación envía (PDF + folio)
 │       ├── Directorio/      ← organigrama navegable
 │       └── Ajustes/         ← parámetros configurables (solo admin)
 ├── database/                ← schema.sql, schema_fase2.sql y seeds
@@ -129,7 +130,8 @@ ni deben subirse a la carpeta pública). Cuenta rápida de alumno:
   Servicios Escolares y Difusión Cultural con alcance granular: todos, licenciatura,
   posgrado o un programa específico (ICO, IEL, IIA, IME, ISES / DCI, DCTBC, MCI, MIAA, MMT).
 - **Encuestas anónimas**: un voto por usuario (tabla `encuesta_participantes` registra
-  *que* votó, nunca *qué* votó); cada voto genera un token público. El tablero
+  *que* votó, nunca *qué* votó); cada voto genera un recibo público que no se guarda
+  en la cuenta, la sesión ni el almacenamiento del navegador. El tablero
   `/encuestas/{id}/tablero` es accesible **sin login** para verificación ciudadana.
 - **Foro → trazabilidad**: una petición que reúne el umbral de likes (ajustable en
   Ajustes) pasa a `en_trazabilidad`; la Dirección/Subdirecciones/titular competente

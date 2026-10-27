@@ -341,6 +341,7 @@ final class AuthController extends Controller
     {
         $flujo = $this->flujoPendiente('identificado');
         $clave = (string) ($_POST['clave'] ?? '');
+        $permanecer = (string) ($_POST['permanecer'] ?? '') === '1';
         if (!$flujo || $clave === '' || strlen($clave) > 1024) {
             $this->json(['exito' => false, 'error' => 'La solicitud expiró o la contraseña no es válida. Vuelve a empezar.'], 422);
         }
@@ -361,6 +362,8 @@ final class AuthController extends Controller
         $requiereMfa = $tienePasskey || $tieneTotp
             || (int) $u['permite_contrasena'] !== 1
             || (int) $u['logins_contrasena_restantes'] <= 0;
+
+        $_SESSION['login_flujo']['permanecer'] = $permanecer;
 
         if (!$requiereMfa) {
             flash('alerta', 'Protege tu cuenta: registra tu huella o aplicación autenticadora en Menú → Mi seguridad.');
@@ -398,6 +401,7 @@ final class AuthController extends Controller
 
     private function completarIngreso(int $usuarioId): never
     {
+        $permanecer = !empty($_SESSION['login_flujo']['permanecer']);
         $u = AccessControl::user($usuarioId);
         if (!$u) {
             unset($_SESSION['login_flujo']);
@@ -409,7 +413,7 @@ final class AuthController extends Controller
             $_SESSION['webauthn_challenge_b64'],
             $_SESSION['webauthn_challenge_creado_en']
         );
-        Auth::iniciarSesion($u);
+        Auth::iniciarSesion($u, $permanecer);
         $this->json(['exito' => true, 'redirect' => url(Auth::consumirDestino())]);
     }
 

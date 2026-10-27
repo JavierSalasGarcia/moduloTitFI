@@ -162,7 +162,7 @@ final class RecursosController extends Controller
 
     private function exigirAdmin(): void
     {
-        if (Auth::rol() !== 'admin') {
+        if (!Auth::tieneRol('admin')) {
             http_response_code(403);
             View::render('errores/403', ['titulo' => 'Acceso restringido']);
             exit;

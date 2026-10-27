@@ -16,7 +16,8 @@ final class AjustesController extends Controller
         $this->vista('index', [
             'titulo'  => 'Ajustes de la plataforma',
             'ajustes' => Database::todas('SELECT * FROM ajustes ORDER BY clave'),
-            'departamentos' => Database::todas('SELECT id, nombre FROM departamentos ORDER BY nombre'),
+            // Los antiguos departamentos «Titular de…» se reemplazan por el cargo Titular/Asistente; solo se listan los que aún tienen cuentas.
+            'departamentos' => Database::todas("SELECT id, nombre FROM departamentos WHERE clave NOT LIKE 'titular\_de\_%' OR id IN (SELECT departamento_id FROM usuarios WHERE departamento_id IS NOT NULL) OR id IN (SELECT departamento_id FROM usuario_roles) ORDER BY nombre"),
         ]);
     }
 
@@ -89,6 +90,16 @@ final class AjustesController extends Controller
             $orden = 'recientes';
         }
 
+        $usuarios = Database::todas("SELECT u.*, d.nombre AS depto_nombre, p.siglas AS programa_siglas, (SELECT GROUP_CONCAT(rp.codigo SEPARATOR ', ') FROM reuniones_coordinadores rc JOIN reuniones_posgrados rp ON rp.id = rc.posgrado_id WHERE rc.usuario_id = u.id AND rc.activo = 1) AS posgrado_codigo, (SELECT GROUP_CONCAT(CAST(rp.id AS CHAR) SEPARATOR ', ') FROM reuniones_coordinadores rc JOIN reuniones_posgrados rp ON rp.id = rc.posgrado_id WHERE rc.usuario_id = u.id AND rc.activo = 1) AS posgrado_ids FROM usuarios u LEFT JOIN departamentos d ON d.id = u.departamento_id LEFT JOIN programas p ON p.id = u.programa_id ORDER BY {$ordenes[$orden]}");
+        $extras = [];
+        foreach (Database::todas('SELECT r.usuario_id, r.rol, r.departamento_id, r.programa_id, r.cargo, d.nombre AS depto_nombre, p.siglas AS programa_siglas FROM usuario_roles r LEFT JOIN departamentos d ON d.id = r.departamento_id LEFT JOIN programas p ON p.id = r.programa_id ORDER BY r.id') as $r) {
+            $extras[(int) $r['usuario_id']][] = $r;
+        }
+        foreach ($usuarios as &$usr) {
+            $usr['roles_extra'] = $extras[(int) $usr['id']] ?? [];
+        }
+        unset($usr);
+
         $this->vista('usuarios', [
             'titulo' => 'Gestión de usuarios y coordinadores',
             // El panel administrativo permite localizar cualquier cuenta y ajustar su rol y adscripción.
@@ -105,7 +116,7 @@ final class AjustesController extends Controller
     {
         $grado = mb_substr(trim($this->post('grado')), 0, 30);
         $genero = $this->post('genero');
-        return [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino'], true) ? $genero : null];
+        return [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino', 'no_binario'], true) ? $genero : null];
     }
 
     public function crearUsuario(): void
@@ -145,6 +156,37 @@ final class AjustesController extends Controller
         }
 
         redirigir('ajustes/usuarios');
+    }
+
+    /** Cargo principal (Titular / Asistente) y roles adicionales de la cuenta. */
+    private function guardarCargoYRoles(int $usuarioId, string $rolPrincipal): void
+    {
+        $cargo = $this->post('cargo');
+        $cargo = in_array($cargo, ['titular', 'asistente'], true) && in_array($rolPrincipal, ['titular', 'operativo'], true) ? $cargo : null;
+        Database::ejecutar('UPDATE usuarios SET cargo = ? WHERE id = ?', [$cargo, $usuarioId]);
+        if (!isset($_POST['extra']) && !isset($_POST['extra_enviado'])) {
+            return;
+        }
+        Database::ejecutar('DELETE FROM usuario_roles WHERE usuario_id = ?', [$usuarioId]);
+        $vistos = [];
+        foreach ((array) ($_POST['extra'] ?? []) as $fila) {
+            if (!is_array($fila)) {
+                continue;
+            }
+            $rol = (string) ($fila['rol'] ?? '');
+            if (!\App\Core\Roles::valido($rol)) {
+                continue;
+            }
+            $depto = (int) ($fila['departamento_id'] ?? 0);
+            $programa = (int) ($fila['programa_id'] ?? 0);
+            $cargoExtra = in_array($fila['cargo'] ?? '', ['titular', 'asistente'], true) && in_array($rol, ['titular', 'operativo'], true) ? $fila['cargo'] : null;
+            $clave = "$rol|$depto|$programa";
+            if (isset($vistos[$clave])) {
+                continue;
+            }
+            $vistos[$clave] = true;
+            Database::ejecutar('INSERT INTO usuario_roles (usuario_id, rol, departamento_id, programa_id, cargo) VALUES (?, ?, ?, ?, ?)', [$usuarioId, $rol, $depto, $programa, $cargoExtra]);
+        }
     }
 
     public function actualizarUsuario(string $id): void
@@ -194,6 +236,7 @@ final class AjustesController extends Controller
                 Database::ejecutar('UPDATE reuniones_coordinadores SET activo = 0 WHERE usuario_id = ? AND activo = 1', [(int)$id]);
             }
 
+            $this->guardarCargoYRoles((int)$id, $rol);
             flash('exito', 'Usuario actualizado con éxito.');
         } catch (\Exception $e) {
             flash('error', 'Error al actualizar usuario: ' . $e->getMessage());

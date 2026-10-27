@@ -34,6 +34,7 @@ final class Router
                 'destino' => [$destino[0], $destino[1]],
                 'publico' => !empty($modulo['publico']) || in_array($destino[2] ?? '', ['publico', 'publico_token'], true),
                 'token'   => in_array($destino[2] ?? '', ['token', 'publico_token'], true),
+                'auditoria_anonima' => (($destino[2] ?? '') === 'auditoria_anonima'),
                 'roles'   => $modulo['roles'] ?? null,
                 'modulo'  => $modulo['clave'],
             ];
@@ -75,7 +76,7 @@ final class Router
                     if (!$usuario) {
                         redirigir('login');
                     }
-                    if ($r['roles'] && !in_array($usuario['rol'], $r['roles'], true)) {
+                    if ($r['roles'] && !array_intersect(Auth::roles(), $r['roles'])) {
                         Audit::record($r['modulo'].'::acceso','denegado','Permisos insuficientes');
                         http_response_code(403);
                         View::render('errores/403', ['titulo' => 'Acceso restringido']);
@@ -94,11 +95,18 @@ final class Router
                 if ($metodo !== 'GET' && AccessControl::pending() && !in_array($ruta,['/cuenta/verificar','/cuenta/reenviar','/cuenta/volver','/consulta'],true)) AccessControl::deny();
                 // El editor público guarda su propia bitácora de revisiones y debe
                 // poder consultarse aunque la BD principal no esté disponible.
-                if (!($r['modulo'] === 'plan' && !$usuario)) {
-                    Audit::record($r['modulo'].'::'.$accion,'solicitado');
-                }
                 $params = array_filter($m, 'is_string', ARRAY_FILTER_USE_KEY);
-                (new $clase($r['modulo']))->$accion(...array_values($params));
+                $ejecutar = function () use ($r, $usuario, $accion, $clase, $params): void {
+                    if (!($r['modulo'] === 'plan' && !$usuario)) {
+                        Audit::record($r['modulo'].'::'.$accion,'solicitado');
+                    }
+                    (new $clase($r['modulo']))->$accion(...array_values($params));
+                };
+                if ($r['auditoria_anonima']) {
+                    Audit::anonymous($ejecutar);
+                } else {
+                    $ejecutar();
+                }
                 return;
             }
         }

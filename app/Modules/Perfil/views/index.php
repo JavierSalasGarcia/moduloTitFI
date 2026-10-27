@@ -13,7 +13,7 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   <form method="post" action="<?= url('perfil/tratamiento') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
     <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
     <label>Grado académico<input type="text" name="grado" maxlength="30" list="grados-lista" value="<?= e((string) ($usuarioPerfil['grado'] ?? '')) ?>" placeholder="Ej. Dr., Mtra., Ing."></label>
-    <label>Género<select name="genero"><option value="">Sin indicar</option><option value="masculino" <?= ($usuarioPerfil['genero'] ?? '') === 'masculino' ? 'selected' : '' ?>>Masculino</option><option value="femenino" <?= ($usuarioPerfil['genero'] ?? '') === 'femenino' ? 'selected' : '' ?>>Femenino</option></select></label>
+    <label>Género<select name="genero"><option value="">Sin indicar</option><option value="masculino" <?= ($usuarioPerfil['genero'] ?? '') === 'masculino' ? 'selected' : '' ?>>Masculino</option><option value="femenino" <?= ($usuarioPerfil['genero'] ?? '') === 'femenino' ? 'selected' : '' ?>>Femenino</option><option value="no_binario" <?= ($usuarioPerfil['genero'] ?? '') === 'no_binario' ? 'selected' : '' ?>>No binario</option></select></label>
     <button class="btn btn-primario" type="submit">Guardar</button>
     <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
   </form>

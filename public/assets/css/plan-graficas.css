@@ -1,0 +1,17 @@
+.plan-graficas-intro{max-width:850px;color:#526055;margin:0 0 20px}
+.gr-seccion{margin:32px 0 10px;padding-bottom:8px;border-bottom:2px solid var(--oro)}
+.gr-seccion h2{font-size:22px;margin:0}
+.gr-seccion small{color:#586b5d}
+.gr-rejilla{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;max-width:1260px}
+.gr-tarjeta{min-width:0;background:#fff;border:1px solid var(--borde);border-radius:8px;padding:18px;box-shadow:0 4px 18px #28412b09}
+.gr-tarjeta[hidden],.gr-bloque[hidden]{display:none}
+.gr-tarjeta h3{font-size:18px;line-height:1.3;margin:0 0 2px}
+.gr-tarjeta .gr-sub{font-size:12px;color:#586b5d;margin:0 0 4px}
+.gr-tarjeta .plan-grafica{margin-top:8px}
+.gr-tarjeta details{margin-top:10px;border-top:1px solid var(--borde);padding-top:8px;font-size:12px}
+.gr-tarjeta summary{cursor:pointer;font-weight:700;color:var(--verde)}
+.gr-tarjeta .plan-tabla-scroll{max-height:300px;margin-top:8px}
+.gr-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px}
+.gr-kpi{border-left:3px solid var(--oro);background:#f7f4ec;padding:8px 10px;border-radius:4px}
+.gr-kpi strong{display:block;font:800 20px 'DM Sans',sans-serif;color:var(--verde-oscuro)}
+.gr-kpi span{font-size:11px;color:#586b5d;overflow-wrap:anywhere}
