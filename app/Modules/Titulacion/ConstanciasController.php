@@ -52,7 +52,7 @@ final class ConstanciasController extends TitulacionBase
     {
         $this->soloTextos();
         $textos = [];
-        foreach (array_keys(Constancias::TIPOS) as $tipo) {
+        foreach (Constancias::ACTIVOS as $tipo) {
             $textos[$tipo] = Constancias::texto($tipo);
         }
         $this->vista('constancias_textos', ['titulo' => 'Constancias · Textos', 'textos' => $textos, 'abierto' => (string) ($_GET['tipo'] ?? '')]);
@@ -209,7 +209,7 @@ final class ConstanciasController extends TitulacionBase
         $registros = 0;
         $constancias = 0;
         foreach (\App\Core\Database::todas("SELECT * FROM tit_historico WHERE generado_en IS NULL") as $h) {
-            if (!Historico::conTrabajo($h['modalidad']) || Historico::faltantes($h)) {
+            if (!Historico::aplica($h) || Historico::faltantes($h)) {
                 continue;
             }
             try {

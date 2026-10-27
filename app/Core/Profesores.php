@@ -23,6 +23,61 @@ final class Profesores
         return strtr($s, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'à' => 'a', 'è' => 'e', 'ì' => 'i', 'ò' => 'o', 'ù' => 'u']);
     }
 
+    private const PARTICULAS = ['de', 'del', 'la', 'las', 'los', 'y', 'e', 'van', 'von', 'da', 'di', 'dos'];
+
+    /** Nombre sin grado, acentos, mayúsculas ni orden: «M. en I. Pérez Juan» y «Juan Perez» dan la misma huella. */
+    public static function huellaNombre(string $nombre): string
+    {
+        $t = preg_split('/\s+/', trim(preg_replace('/^(?:(?:[a-zA-Zñáéíóú]{1,5}\.\s*)|(?:en\s))+/iu', '', trim($nombre)) ?? '')) ?: [];
+        $t = array_values(array_filter(
+            array_map(static fn($x) => preg_replace('/[^a-z0-9ñ]/u', '', self::base($x)) ?? '', $t),
+            static fn($x) => $x !== '' && !in_array($x, self::PARTICULAS, true)
+        ));
+        sort($t);
+        return implode(' ', $t);
+    }
+
+    /**
+     * Quién es por su nombre (directorio de profesores y, si no, cuentas), solo si la coincidencia es única. Devuelve su correo vigente
+     * (puede ser '' si el profesor del directorio no tiene), el profesor_id si es del directorio y el género. Sirve para las constancias
+     * históricas, donde el libro trae el nombre pero no el correo.
+     */
+    public static function porNombre(string $nombre): ?array
+    {
+        static $dir = null, $cuentas = null;
+        $h = self::huellaNombre($nombre);
+        if ($h === '') {
+            return null;
+        }
+        try {
+            if ($dir === null) {
+                $dir = [];
+                foreach (Database::todas(
+                    'SELECT p.id, p.usuario_id, p.nombre, p.apellido1, p.apellido2, p.genero,
+                            (SELECT c.email FROM profesor_correos c WHERE c.profesor_id = p.id ORDER BY c.principal DESC, c.id LIMIT 1) AS email,
+                            (SELECT u.email FROM usuarios u WHERE u.id = p.usuario_id) AS email_cuenta
+                     FROM profesores p'
+                ) as $p) {
+                    $dir[self::huellaNombre(self::nombreCompleto($p))][] = $p;
+                }
+                $cuentas = [];
+                foreach (Database::todas('SELECT nombre, email, genero FROM usuarios WHERE activo = 1') as $u) {
+                    $cuentas[self::huellaNombre((string) $u['nombre'])][] = $u;
+                }
+            }
+        } catch (\Throwable) {
+            return null;   // aún sin la migración
+        }
+        if (isset($dir[$h]) && count($dir[$h]) === 1) {
+            $p = $dir[$h][0];
+            return ['email' => (string) ($p['email_cuenta'] ?: $p['email']), 'profesor_id' => (int) $p['id'], 'genero' => $p['genero']];
+        }
+        if (isset($cuentas[$h]) && count($cuentas[$h]) === 1) {
+            return ['email' => (string) $cuentas[$h][0]['email'], 'profesor_id' => null, 'genero' => $cuentas[$h][0]['genero']];
+        }
+        return null;
+    }
+
     /** Profesor del directorio por uno de sus correos (para constancias y correos de quien aún no tiene cuenta). */
     public static function porEmail(string $email): ?array
     {

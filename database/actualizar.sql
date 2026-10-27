@@ -1,5 +1,5 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-27 22:09)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-27 22:24)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
