@@ -72,7 +72,7 @@ final class PanelController extends TitulacionBase
     private function puedeVerConstancia(array $c): bool
     {
         $alcance = Services\Constancias::alcance();
-        return $c['email'] === TitulacionAccess::correoSesion() || (Services\Constancias::puedeBuscar() && ($alcance === null || $alcance === $c['emisor']));
+        return \App\Core\Identidad::esDe($c, TitulacionAccess::correoSesion()) || (Services\Constancias::puedeBuscar() && ($alcance === null || $alcance === $c['emisor']));
     }
 
     /** Una constancia firmada, para verla en el navegador (por token: titulacion/archivo/{token}). */

@@ -23,6 +23,7 @@ $fuentes = [
     'migrations/024_roles_multiples.sql',
     'migrations/025_historico_sistema_anterior.sql',
     'migrations/026_directorio_profesores.sql',
+    'migrations/027_identidad_estable.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

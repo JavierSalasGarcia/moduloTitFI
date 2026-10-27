@@ -189,7 +189,7 @@ final class AuthController extends Controller
         if (AccessControl::ready() && AccessControl::limited('reset-ip:' . $ip, 8, 3600)) {
             $this->json(['exito' => false, 'error' => 'Se alcanzó el límite de solicitudes. Intenta más tarde.'], 429);
         }
-        $u = $email !== '' ? Database::una('SELECT id, nombre, email FROM usuarios WHERE email = ? AND activo = 1', [$email]) : null;
+        $u = $email !== '' ? \App\Core\Identidad::usuarioPorCorreo($email) : null;   // el correo vigente o uno anterior verificado
         if ($u && (!AccessControl::ready() || !AccessControl::limited('reset-cuenta:' . $u['id'], 5, 3600))) {
             $codigo = (string) random_int(100000, 999999);
             Database::ejecutar('DELETE FROM usuarios_codigos_otp WHERE usuario_id = ?', [$u['id']]);
@@ -197,7 +197,7 @@ final class AuthController extends Controller
                 'INSERT INTO usuarios_codigos_otp (usuario_id, codigo, expira_en) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 10 MINUTE))',
                 [$u['id'], password_hash($codigo, PASSWORD_DEFAULT)]
             );
-            $this->enviarCorreoHostinger($email, $u['nombre'], $codigo, true);
+            $this->enviarCorreoHostinger((string) $u['email'], $u['nombre'], $codigo, true);   // siempre al correo vigente
         }
         $_SESSION['restablecer_email'] = $email;
         $this->json(['exito' => true, 'mensaje' => 'Si la cuenta existe, recibirás un código de recuperación.']);
@@ -207,7 +207,7 @@ final class AuthController extends Controller
     {
         $email = Auth::normalizarCorreoInstitucional((string) ($_POST['email'] ?? '')) ?? '';
         $codigo = trim((string) ($_POST['codigo'] ?? ''));
-        $u = $email !== '' ? Database::una('SELECT id FROM usuarios WHERE email = ? AND activo = 1', [$email]) : null;
+        $u = $email !== '' ? \App\Core\Identidad::usuarioPorCorreo($email) : null;
         if ($u && AccessControl::ready() && AccessControl::limited('reset-verificar:' . $u['id'], 10, 900)) {
             $this->json(['exito' => false, 'error' => 'Demasiados intentos. Solicita un código nuevo más tarde.'], 429);
         }
@@ -349,10 +349,7 @@ final class AuthController extends Controller
         if (AccessControl::ready() && AccessControl::limited('login-clave:' . ($_SERVER['REMOTE_ADDR'] ?? '') . ':' . hash('sha256', $email), 10, 900)) {
             $this->json(['exito' => false, 'error' => 'Demasiados intentos. Espera unos minutos antes de volver a intentar.'], 429);
         }
-        $u = Database::una(
-            'SELECT id, password_hash, permite_contrasena, logins_contrasena_restantes, totp_secret FROM usuarios WHERE email = ? AND activo = 1',
-            [$email]
-        );
+        $u = \App\Core\Identidad::usuarioPorCorreo($email);
         if (!$u || !password_verify($clave, $u['password_hash'])) {
             $this->json(['exito' => false, 'error' => 'El correo o la contraseña son incorrectos.'], 403);
         }

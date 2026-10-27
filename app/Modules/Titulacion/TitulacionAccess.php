@@ -124,7 +124,11 @@ final class TitulacionAccess
         }
         $email = self::correoSesion();
         try {
-            return $email !== '' && (bool) \App\Core\Database::valor('SELECT 1 FROM tit_constancias WHERE email = ? LIMIT 1', [$email]);
+            if ($email === '') {
+                return false;
+            }
+            [$de, $par] = \App\Core\Identidad::condicion('c', $email);
+            return (bool) \App\Core\Database::valor("SELECT 1 FROM tit_constancias c WHERE $de LIMIT 1", $par);
         } catch (\Throwable) {
             return false;
         }

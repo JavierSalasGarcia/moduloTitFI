@@ -16,8 +16,8 @@ final class Profesores
         return trim(preg_replace('/\s+/u', ' ', implode(' ', array_filter([$p['nombre'] ?? '', $p['apellido1'] ?? '', $p['apellido2'] ?? '']))) ?? '');
     }
 
-    /** Minúsculas sin acentos (la ñ se conserva): sirve para comprobar que una corrección solo cambia acentos y mayúsculas. */
-    private static function base(string $s): string
+    /** Minúsculas sin acentos (la ñ se conserva): sirve para comparar nombres y para comprobar que una corrección solo cambia acentos y mayúsculas. */
+    public static function base(string $s): string
     {
         $s = mb_strtolower(trim(preg_replace('/\s+/u', ' ', $s) ?? ''));
         return strtr($s, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'à' => 'a', 'è' => 'e', 'ì' => 'i', 'ò' => 'o', 'ù' => 'u']);
@@ -37,11 +37,32 @@ final class Profesores
         return $p ? ['nombre' => self::nombreCompleto($p), 'grado' => $p['grado'], 'genero' => $p['genero']] : null;
     }
 
-    /** Registro del directorio enlazado a la cuenta, con lo que imparte. */
+    /**
+     * Si el correo es de un profesor del directorio que YA tiene cuenta (con otro correo), devuelve el correo de esa cuenta.
+     * Sirve para no crear una segunda cuenta cuando cambia el dominio del correo institucional.
+     */
+    public static function cuentaConOtroCorreo(string $email): ?string
+    {
+        try {
+            $u = Identidad::usuarioPorCorreo($email);
+            if ($u) {
+                return (string) $u['email'];
+            }
+            $c = Database::valor(
+                'SELECT u.email FROM profesor_correos c JOIN profesores p ON p.id = c.profesor_id JOIN usuarios u ON u.id = p.usuario_id WHERE c.email = ? AND u.activo = 1',
+                [strtolower(trim($email))]
+            );
+            return $c ? (string) $c : null;
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
+    /** Registro del directorio enlazado a la cuenta, con lo que imparte. El RFC y el número de empleado son internos: no se devuelven. */
     public static function deUsuario(int $usuarioId): ?array
     {
         try {
-            $p = Database::una('SELECT * FROM profesores WHERE usuario_id = ?', [$usuarioId]);
+            $p = Database::una('SELECT id, nombre, apellido1, apellido2, grado, genero FROM profesores WHERE usuario_id = ?', [$usuarioId]);
             if (!$p) {
                 return null;
             }

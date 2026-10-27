@@ -18,6 +18,24 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
     <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
   </form>
 </section>
+<section class="card" style="padding:20px;margin-bottom:18px">
+  <h3 style="margin-top:0">Mi correo institucional</h3>
+  <p class="texto-suave">Tu cuenta no depende del dominio del correo: si cambia (por ejemplo, de @profesor.uaemex.mx a @uaemex.mx), actualízalo aquí y seguirás siendo la misma cuenta, con tus constancias y accesos.</p>
+  <p style="margin:0 0 10px"><strong><?= e((string) ($correos[0] ?? $usuarioPerfil['email'])) ?></strong> <span class="perfil-estado">Vigente</span><?php if (count($correos) > 1): ?><br><small class="texto-suave">También reconocemos para iniciar sesión: <?= e(implode(', ', array_slice($correos, 1))) ?>. Los códigos siempre llegan al vigente.</small><?php endif; ?></p>
+  <?php if (!empty($cambioCorreo)): ?>
+  <form method="post" action="<?= url('perfil/correo/confirmar') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+    <label>Código enviado a <?= e($cambioCorreo) ?><input type="text" name="codigo" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label>
+    <button class="btn btn-primario" type="submit">Confirmar cambio</button>
+  </form>
+  <?php else: ?>
+  <form method="post" action="<?= url('perfil/correo') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+    <label>Correo nuevo<input type="email" name="email" maxlength="75" required placeholder="usuario@uaemex.mx"></label>
+    <button class="btn" type="submit">Enviar código</button>
+  </form>
+  <?php endif; ?>
+</section>
 <?php if (!empty($profesor)): ?>
 <section class="card" style="padding:20px;margin-bottom:18px">
   <h3 style="margin-top:0">Mi nombre en el directorio de profesores</h3>
