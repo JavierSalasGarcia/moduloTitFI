@@ -184,6 +184,9 @@ final class Historico
             }
         }
         Database::ejecutar("UPDATE tit_historico SET `$campo` = ?, actualizado_por = ?, actualizado_en = NOW() WHERE id = ?", [$valor, $usuarioId, $id]);
+        if ($campo === 'titulo') {
+            Database::ejecutar("UPDATE tit_historico SET titulo_origen = 'manual' WHERE id = ?", [$id]);   // lo confirmó o escribió una persona
+        }
         $fila = Database::una('SELECT * FROM tit_historico WHERE id = ?', [$id]) ?? throw new \InvalidArgumentException('Registro inexistente.');
         $fila['faltan'] = self::faltantes($fila);
         $fila['fuera'] = self::fueraDeRango($fila);
@@ -193,6 +196,59 @@ final class Historico
             $fila['regeneradas'] = self::generar($id, $usuarioId);
         }
         return $fila;
+    }
+
+    // ------------------------------------------------------------------ títulos
+
+    /**
+     * Completa el título de los registros que no lo tienen con el de un trámite de la plataforma del mismo alumno (cuenta y licenciatura).
+     * El título del protocolo suele cambiar al del trabajo definitivo, así que se prefiere el de la solicitud de revisión del trabajo
+     * escrito («revision»); si solo existe el del protocolo se usa marcado como «protocolo» para que se confirme. Nunca pisa un título
+     * escrito ni toca registros con constancias ya generadas. @return array{revision:int,protocolo:int,sin_tramite:int}
+     */
+    public static function buscarTitulos(): array
+    {
+        $porCuenta = [];
+        foreach (Database::todas("SELECT id, titulo, datos, estado FROM tit_tramites WHERE historico = 0 AND tipo = 'con_trabajo' ORDER BY id") as $t) {
+            $d = json_decode((string) $t['datos'], true) ?: [];
+            $cuenta = trim((string) ($d['datos']['cuenta'] ?? ''));
+            if ($cuenta === '') {
+                continue;
+            }
+            $porCuenta[$cuenta][] = [
+                'carrera' => (string) ($d['datos']['carrera'] ?? ''),
+                'revision' => trim((string) ($d['revision']['titulo'] ?? '')),
+                'protocolo' => trim((string) ($d['protocolo']['titulo'] ?? '')),
+                'ultimo' => trim((string) $t['titulo']),
+            ];
+        }
+        $r = ['revision' => 0, 'protocolo' => 0, 'sin_tramite' => 0];
+        foreach (Database::todas("SELECT id, cuenta, carrera, modalidad FROM tit_historico WHERE titulo = '' AND generado_en IS NULL AND cuenta <> ''") as $h) {
+            if ($h['modalidad'] !== null && $h['modalidad'] !== '' && !self::conTrabajo($h['modalidad'])) {
+                continue;
+            }
+            $mejor = null;
+            foreach (array_reverse($porCuenta[trim((string) $h['cuenta'])] ?? []) as $t) {
+                if (($t['carrera'] === '' || $t['carrera'] === $h['carrera']) && ($t['revision'] !== '' || $t['protocolo'] !== '' || $t['ultimo'] !== '')) {
+                    $mejor = $t;
+                    break;
+                }
+            }
+            if (!$mejor) {
+                $r['sin_tramite']++;
+                continue;
+            }
+            $definitivo = $mejor['revision'] !== '' ? $mejor['revision'] : '';
+            $titulo = $definitivo !== '' ? $definitivo : ($mejor['protocolo'] !== '' ? $mejor['protocolo'] : $mejor['ultimo']);
+            $origen = $definitivo !== '' ? 'revision' : 'protocolo';
+            $protocolo = $mejor['protocolo'] !== '' && $mejor['protocolo'] !== $titulo ? $mejor['protocolo'] : '';
+            Database::ejecutar(
+                "UPDATE tit_historico SET titulo = ?, titulo_origen = ?, titulo_protocolo = ? WHERE id = ? AND titulo = ''",
+                [mb_substr($titulo, 0, 500), $origen, mb_substr($protocolo, 0, 500), (int) $h['id']]
+            );
+            $r[$origen]++;
+        }
+        return $r;
     }
 
     // ------------------------------------------------------------------ constancias

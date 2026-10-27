@@ -24,6 +24,10 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 .hist-tabla td.falta{background:#FDE2E2;box-shadow:inset 0 0 0 2px #DC2626;animation:hist-parpadeo 1.1s steps(2,start) infinite}
 .hist-tabla td.fuera{background:#FEF3C7;box-shadow:inset 0 0 0 2px #D97706}
 .hist-tabla td.guardando{opacity:.6}
+.hist-tabla td.supuesto{outline:2px dashed #D97706;outline-offset:-2px}
+.hist-tabla td.sel,.hist-tabla th.sel{width:1%;text-align:center;vertical-align:middle}
+.hist-tabla td.sel input{width:auto;min-width:0;cursor:pointer}
+.hist-tabla td.sel input:disabled{cursor:not-allowed;opacity:.35}
 .hist-tabla td.error{box-shadow:inset 0 0 0 2px #B45309}
 @keyframes hist-parpadeo{50%{background:transparent;box-shadow:inset 0 0 0 2px transparent}}
 @media (prefers-reduced-motion: reduce){.hist-tabla td.falta{animation:none}}
@@ -34,15 +38,16 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
   <p class="texto-secundario">Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En ámbar, las fechas fuera de rango (antes de 2000 o posteriores a hoy), que suelen ser errores de captura del libro. En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
 </div></div>
 
-<section class="tarjeta" style="margin-bottom:14px">
-  <form method="post" action="<?= url('titulacion/constancias/historial/nuevo') ?>" style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
+<section class="tarjeta" style="margin-bottom:14px" data-disclosure="Agregar un registro que no está en la lista (no es una búsqueda)">
+  <form method="post" action="<?= url('titulacion/constancias/historial/nuevo') ?>" style="display:flex;gap:10px;flex-wrap:wrap;align-items:end"
+        onsubmit="return confirm('Esto CREA un registro nuevo para «' + this.alumno.value.trim() + '» (' + this.carrera.selectedOptions[0].textContent + '). Para buscar usa el cuadro «Buscar» de abajo. ¿Crear el registro?')">
     <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-    <label style="flex:0 1 220px">Licenciatura <select name="carrera" required><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>"><?= e($n) ?></option><?php endforeach; ?></select></label>
-    <label style="flex:1 1 260px">Alumno <input name="alumno" maxlength="160" required placeholder="Nombre completo"></label>
+    <label style="flex:0 1 220px">Licenciatura <select name="carrera" required><option value="" selected disabled>Elige…</option><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>"><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <label style="flex:1 1 260px">Nombre completo del alumno nuevo <input name="alumno" maxlength="160" required placeholder="Apellidos y nombre, como en el libro"></label>
     <label style="flex:0 1 120px">Acta <input name="acta" inputmode="numeric" pattern="[0-9]*" maxlength="8"></label>
-    <button class="btn" type="submit">Agregar registro</button>
+    <button class="btn" type="submit">Crear registro</button>
   </form>
-  <p class="texto-secundario" style="margin-top:6px">Para un registro anterior a la plataforma que no esté en la lista. Los trámites nuevos no se capturan aquí: sus constancias se generan solas.</p>
+  <p class="texto-secundario" style="margin-top:6px">Solo para un registro anterior a la plataforma que no esté en la lista. Para encontrar uno existente usa «Buscar». Los trámites nuevos no se capturan aquí: sus constancias se generan solas.</p>
 </section>
 
 <section class="tarjeta">
@@ -61,20 +66,28 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
   </form>
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
     <span class="texto-secundario"><?= (int) $total ?> registros<?= $total > 100 ? ' · página ' . (int) $pagina . ' de ' . (int) ceil($total / 100) : '' ?></span>
-    <form method="post" action="<?= url('titulacion/constancias/historial/generar') ?>" onsubmit="return confirm('¿Generar las constancias de todos los registros completos con trabajo escrito que aún no las tienen?')">
-      <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-      <button class="btn btn-primario" type="submit">Generar constancias de todos los completos</button>
-    </form>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <form method="post" action="<?= url('titulacion/constancias/historial/titulos') ?>" onsubmit="return confirm('¿Buscar en los trámites de la plataforma el título de los registros que no lo tienen? No se cambia ningún título ya escrito.')">
+        <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+        <button class="btn" type="submit" title="Toma el título del trabajo definitivo (solicitud de revisión) o, si no hay, el del protocolo">Buscar títulos en la plataforma</button>
+      </form>
+      <button class="btn btn-primario" type="button" id="generar-sel" disabled>Generar las seleccionadas (<span id="n-sel">0</span>)</button>
+      <form method="post" action="<?= url('titulacion/constancias/historial/generar') ?>" onsubmit="return confirm('¿Generar las constancias de todos los registros completos con trabajo escrito que aún no las tienen?')">
+        <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+        <button class="btn" type="submit">Generar todos los completos</button>
+      </form>
+    </div>
   </div>
   <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '' ?>.</div><?php else: ?>
   <div class="tabla-contenedor"><table class="tabla hist-tabla">
-    <thead><tr><?php foreach ($columnas as $c): ?><th><?= e(Historico::CAMPOS[$c][0]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
+    <thead><tr><th class="sel"><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos los que se pueden generar"></th><?php foreach ($columnas as $c): ?><th><?= e(Historico::CAMPOS[$c][0]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
     <tbody>
     <?php foreach ($filas as $h): ?>
       <tr data-id="<?= (int) $h['id'] ?>" data-trabajo="<?= Historico::conTrabajo($h['modalidad']) ? '1' : '0' ?>">
+        <td class="sel"><input type="checkbox" class="sel-fila" aria-label="Seleccionar este registro" <?= !Historico::conTrabajo($h['modalidad']) || $h['faltan'] ? 'disabled' : '' ?>></td>
         <?php foreach ($columnas as $c): $tipo = Historico::CAMPOS[$c][1]; $v = (string) ($h[$c] ?? ''); ?>
-          <td class="<?= in_array($c, $h['faltan'], true) ? 'falta' : (in_array($c, $h['fuera'], true) ? 'fuera' : '') ?><?= in_array($c, ['alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'], true) || str_ends_with($c, '_email') ? ' ancho' : '' ?>" data-campo="<?= e($c) ?>"
-            <?php if ($c === 'modalidad' && $h['modalidad_origen'] !== ''): ?>title="En el libro: <?= e($h['modalidad_origen']) ?>"<?php elseif (str_ends_with($c, '_email') && $h['correos'] !== ''): ?>title="Correos en el libro: <?= e($h['correos']) ?>"<?php endif; ?>>
+          <td class="<?= in_array($c, $h['faltan'], true) ? 'falta' : (in_array($c, $h['fuera'], true) ? 'fuera' : '') ?><?= in_array($c, ['alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'], true) || str_ends_with($c, '_email') ? ' ancho' : '' ?><?= $c === 'titulo' && $h['titulo_origen'] === 'protocolo' ? ' supuesto' : '' ?>" data-campo="<?= e($c) ?>"
+            <?php if ($c === 'titulo' && ($h['titulo_origen'] === 'protocolo' || $h['titulo_protocolo'] !== '' || $h['titulo_origen'] === 'revision' || $h['titulo_origen'] === 'sistema_anterior')): ?>title="<?= e(($h['titulo_origen'] === 'protocolo' ? 'Tomado del protocolo: confirma que sea el título definitivo (edítalo si cambió). ' : ($h['titulo_origen'] === 'revision' ? 'Título del trabajo escrito en la solicitud de revisión. ' : ($h['titulo_origen'] === 'sistema_anterior' ? 'Del sistema de Titulación anterior. ' : ''))) . ($h['titulo_protocolo'] !== '' ? 'Título en el protocolo: ' . $h['titulo_protocolo'] : '')) ?>"<?php elseif ($c === 'modalidad' && $h['modalidad_origen'] !== ''): ?>title="En el libro: <?= e($h['modalidad_origen']) ?>"<?php elseif (str_ends_with($c, '_email') && $h['correos'] !== ''): ?>title="Correos en el libro: <?= e($h['correos']) ?>"<?php endif; ?>>
             <?php if (isset($opciones[$tipo])): ?>
               <select disabled aria-label="<?= e(Historico::CAMPOS[$c][0]) ?>"><?php foreach ($opciones[$tipo] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
             <?php else: ?>
@@ -117,6 +130,8 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
     });
     var trabajo = ['articulo', 'ensayo', 'memoria', 'aplicacion', 'autoempleo', 'residencia', 'tesina', 'tesis'].indexOf(fila.modalidad || '') >= 0;
     var b = tr.querySelector('[data-generar]'); b.hidden = !trabajo || fila.faltan.length > 0;
+    var cs = tr.querySelector('.sel-fila'); cs.disabled = b.hidden; if (b.hidden) { cs.checked = false; }
+    actualizarSeleccion();
     tr.querySelector('[data-nota]').textContent = !trabajo && fila.modalidad ? 'Sin trabajo escrito' : '';
   }
   function bloquear(td, el) {
@@ -160,17 +175,49 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
       }).catch(function () { alert('No se pudo eliminar.'); });
     });
   });
+  /** Genera las constancias de una fila; devuelve una promesa con true si salió bien. */
+  function generarFila(tr, silencioso) {
+    var b = tr.querySelector('[data-generar]'); b.disabled = true;
+    return enviar(base + tr.dataset.id + '/generar', {}).then(function (r) {
+      b.disabled = false;
+      if (!r.ok) { tr.querySelector('[data-nota]').textContent = r.error; if (!silencioso) { alert(r.error); } return false; }
+      tr.querySelector('[data-nota]').textContent = r.generadas + ' generada(s); en firma';
+      b.textContent = 'Completar';
+      var x = tr.querySelector('[data-eliminar]'); if (x) { x.remove(); }
+      return true;
+    }).catch(function () { b.disabled = false; if (!silencioso) { alert('No se pudo generar.'); } return false; });
+  }
   document.querySelectorAll('[data-generar]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var tr = b.closest('tr'); b.disabled = true;
-      enviar(base + tr.dataset.id + '/generar', {}).then(function (r) {
-        b.disabled = false;
-        if (!r.ok) { alert(r.error); return; }
-        tr.querySelector('[data-nota]').textContent = r.generadas + ' generada(s); en firma';
-        b.textContent = 'Completar';
-        var x = tr.querySelector('[data-eliminar]'); if (x) { x.remove(); }
-      }).catch(function () { b.disabled = false; alert('No se pudo generar.'); });
+    b.addEventListener('click', function () { generarFila(b.closest('tr'), false); });
+  });
+
+  // Casillas: elegir qué registros generar.
+  var selTodos = document.getElementById('sel-todos'), btnSel = document.getElementById('generar-sel'), nSel = document.getElementById('n-sel');
+  function marcadas() { return Array.prototype.filter.call(document.querySelectorAll('.sel-fila'), function (c) { return c.checked && !c.disabled; }); }
+  function actualizarSeleccion() {
+    var habilitadas = Array.prototype.filter.call(document.querySelectorAll('.sel-fila'), function (c) { return !c.disabled; }), m = marcadas().length;
+    nSel.textContent = m; btnSel.disabled = m === 0;
+    if (selTodos) { selTodos.checked = m > 0 && m === habilitadas.length; selTodos.indeterminate = m > 0 && m < habilitadas.length; selTodos.disabled = habilitadas.length === 0; }
+  }
+  document.querySelectorAll('.sel-fila').forEach(function (c) { c.addEventListener('change', actualizarSeleccion); });
+  if (selTodos) {
+    selTodos.addEventListener('change', function () {
+      document.querySelectorAll('.sel-fila').forEach(function (c) { if (!c.disabled) { c.checked = selTodos.checked; } });
+      actualizarSeleccion();
+    });
+  }
+  btnSel.addEventListener('click', function () {
+    var filas = marcadas().map(function (c) { return c.closest('tr'); });
+    if (!filas.length || !confirm('¿Generar las constancias de ' + filas.length + ' registro(s) seleccionado(s)? Quedan en la cola de firmas.')) { return; }
+    btnSel.disabled = true;
+    var ok = 0, mal = 0;
+    filas.reduce(function (p, tr) {
+      return p.then(function () { return generarFila(tr, true).then(function (b) { if (b) { ok++; tr.querySelector('.sel-fila').checked = false; } else { mal++; } }); });
+    }, Promise.resolve()).then(function () {
+      actualizarSeleccion();
+      alert(ok + ' registro(s) generado(s)' + (mal ? '; ' + mal + ' con error (revisa la nota de cada fila).' : '.'));
     });
   });
+  actualizarSeleccion();
 })();
 </script>

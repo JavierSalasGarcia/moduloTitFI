@@ -613,6 +613,10 @@
       "App\\Modules\\Titulacion\\ConstanciasController",
       "nuevo"
     ],
+    "POST /titulacion/constancias/historial/titulos": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "titulos"
+    ],
     "POST /titulacion/constancias/historial/generar": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "generarTodas"
