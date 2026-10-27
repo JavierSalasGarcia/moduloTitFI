@@ -1,0 +1,6 @@
+[
+  "app/bootstrap.php",
+  "app/Core/Auth.php",
+  "app/Modules/Auth/AuthController.php",
+  "app/Modules/Auth/views/login.php"
+]

@@ -29,24 +29,37 @@
             <input type="text" name="titulo" required maxlength="180" placeholder="Ej. Suspensión de actividades por contingencia clima">
           </label>
           
-          <label>Alcance para estudiantes <span class="req">*</span>
+          <?php if (count($emisores) > 1): ?>
+          <label>Emitir como
+            <select name="depto_id">
+              <?php foreach ($emisores as $em): ?><option value="<?= (int) $em['id'] ?>"><?= e($em['nombre']) ?></option><?php endforeach; ?>
+            </select>
+          </label>
+          <?php endif; ?>
+
+          <label>Dirigido a <span class="req">*</span>
+            <select name="destinatarios">
+              <?php foreach (\App\Modules\Comunicados\Avisos::DESTINATARIOS as $k => $n): ?><option value="<?= e($k) ?>"><?= e($n) ?></option><?php endforeach; ?>
+            </select>
+          </label>
+
+          <label>Alcance <span class="req">*</span>
             <select name="alcance" onchange="toggleCarrera(this.value)">
-              <option value="todos">Todos los alumnos</option>
+              <option value="todos">Todos los programas</option>
               <option value="licenciatura">Solo Licenciatura</option>
               <option value="posgrado">Solo Posgrado</option>
-              <option value="programa">Por carrera/programa específico...</option>
+              <option value="programa">Uno o varios programas específicos...</option>
             </select>
           </label>
-          
-          <label id="carrera-select-wrapper" style="display: none;">Carrera / Programa específico
-            <select name="programa">
-              <option value="" disabled selected>-- Elige carrera --</option>
-              <?php foreach ($programas as $p): ?>
-                <option value="<?= $p['id'] ?>"><?= e($p['siglas']) ?> · <?= e($p['nombre']) ?></option>
-              <?php endforeach; ?>
-            </select>
-          </label>
-          
+
+          <fieldset id="carrera-select-wrapper" style="display: none; border:1px solid var(--gris-200); border-radius:6px; padding:8px 12px">
+            <legend>Programas a los que aplica</legend>
+            <small class="ayuda-form">Un solo aviso para varios programas: cada persona lo recibe una vez aunque pertenezca a más de uno.</small>
+            <?php foreach ($programas as $p): ?>
+              <label style="display:block;font-weight:400"><input type="checkbox" name="programas[]" value="<?= (int) $p['id'] ?>"> <?= e($p['siglas']) ?> · <?= e($p['nombre']) ?></label>
+            <?php endforeach; ?>
+          </fieldset>
+
           <label>Contenido <span class="req">*</span>
             <textarea name="contenido" rows="5" required placeholder="Escribe el mensaje oficial para la comunidad estudiantil..."></textarea>
           </label>
@@ -81,12 +94,8 @@
             <small class="texto-suave comunicado-meta-text" style="display: block; margin-top: 4px;"><?= e($c['depto']) ?> · <?= e($c['autor']) ?> · <?= e(fecha_corta($c['creado_en'])) ?></small>
           </div>
           <div class="grupo-chips">
-            <?php if ($c['alcance'] === 'programa'): ?>
-              <span class="badge badge-verde">Programa <?= e($c['siglas']) ?></span>
-            <?php else: ?>
-              <span class="badge badge-oro"><?= e(ucfirst($c['alcance'])) ?></span>
-            <?php endif; ?>
-            <?php if (Auth::rol() === 'admin' || (int) $c['depto_id'] === Auth::departamentoId()): ?>
+            <span class="badge <?= $c['alcance'] === 'programa' ? 'badge-verde' : 'badge-oro' ?>" title="Destinatarios del aviso">Dirigido a: <?= e(\App\Modules\Comunicados\Avisos::destino($c)) ?></span>
+            <?php if (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true)): ?>
               <form method="post" action="<?= url('comunicados/' . $c['id'] . '/eliminar') ?>" data-confirm="¿Retirar este comunicado?">
                 <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
                 <button type="submit" class="btn btn-mini btn-peligro">Retirar</button>
@@ -97,7 +106,7 @@
         <p class="comunicado-contenido-text" style="margin: 8px 0 0; line-height: 1.5; font-size: 13.5px;"><?= nl2br(e($c['contenido'])) ?></p>
         <p class="ayuda-form"><?= !empty($c['vence_en']) ? ($avisosArchivo?'Archivado · venció el ':'Vigente hasta ').e($c['vence_en']) : 'Sin fecha límite publicada' ?></p>
 
-        <?php if ($puedeEmitirComunicados && (Auth::rol() === 'admin' || (int) $c['depto_id'] === Auth::departamentoId())): ?>
+        <?php if ($puedeEmitirComunicados && (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true))): ?>
           <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; border-top: 1px dashed var(--gris-100); padding-top: 10px;">
             <span style="color: var(--gris-600); font-weight: 500;">Categoría del Comunicado:</span>
             <form method="post" action="<?= url('comunicados/' . $c['id'] . '/categoria') ?>" class="ux-toolbar">

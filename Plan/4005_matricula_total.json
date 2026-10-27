@@ -3,7 +3,7 @@
   "categoria": "Matrícula total",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4005",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiZDAzMTNjYjEtZmMxMi00ZWMyLWJkN2EtMzQ4ODkxZTAxZDY4IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -55,7 +55,7 @@
         },
         "registros": [
           {
-            "Brecha Genero Absoluta1": -1557,
+            "Brecha Genero Absoluta1": -1602,
             "proyectos": [
               2,
               3,
@@ -78,7 +78,7 @@
         },
         "registros": [
           {
-            "Indice Paridad Genero1": 0.31500219973603166,
+            "Indice Paridad Genero1": 0.31244635193133047,
             "proyectos": [
               2,
               3,
@@ -153,7 +153,7 @@
         },
         "registros": [
           {
-            "% Crecimiento Interanual1": 0.06370106761565836,
+            "% Crecimiento Interanual1": 0.023084643693543017,
             "proyectos": [
               2,
               3,
@@ -176,7 +176,7 @@
         },
         "registros": [
           {
-            "Matricula Toluca1": 2989,
+            "Matricula Toluca1": 3058,
             "proyectos": [
               2,
               3,
@@ -199,7 +199,7 @@
         },
         "registros": [
           {
-            "Matricula Ciclo Actual1": 2989,
+            "Matricula Ciclo Actual1": 3058,
             "proyectos": [
               2,
               3,
@@ -424,9 +424,129 @@
               3,
               15
             ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Sexo": "Hombre",
+            "Matricula_UAEMEX": 2330,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Sexo": "Mujer",
+            "Matricula_UAEMEX": 728,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 20
+        "numero_registros": 22
+      },
+      {
+        "visual": "posgrado_matricula_ingreso",
+        "metricas": [
+          "Ciclo escolar",
+          "Matrícula total de posgrado",
+          "Nuevo ingreso de posgrado"
+        ],
+        "campos_modelo": {
+          "Serie derivada.Estudios avanzados.Matrícula total": "Matrícula total de posgrado",
+          "Serie derivada.Estudios avanzados.Nuevo ingreso": "Nuevo ingreso de posgrado"
+        },
+        "formatos": {
+          "Serie derivada.Estudios avanzados.Matrícula total": "#,0",
+          "Serie derivada.Estudios avanzados.Nuevo ingreso": "#,0"
+        },
+        "registros": [
+          {
+            "Ciclo escolar": "2018-2019",
+            "Matrícula total de posgrado": 103,
+            "Nuevo ingreso de posgrado": 41,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2019-2020",
+            "Matrícula total de posgrado": 81,
+            "Nuevo ingreso de posgrado": 50,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2020-2021",
+            "Matrícula total de posgrado": 80,
+            "Nuevo ingreso de posgrado": 28,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2021-2022",
+            "Matrícula total de posgrado": 67,
+            "Nuevo ingreso de posgrado": 31,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2022-2023",
+            "Matrícula total de posgrado": 63,
+            "Nuevo ingreso de posgrado": 25,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2023-2024",
+            "Matrícula total de posgrado": 73,
+            "Nuevo ingreso de posgrado": 34,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2024-2025",
+            "Matrícula total de posgrado": 72,
+            "Nuevo ingreso de posgrado": 27,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Matrícula total de posgrado": 75,
+            "Nuevo ingreso de posgrado": 22,
+            "proyectos": [
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Matrícula total de posgrado": 70,
+            "Nuevo ingreso de posgrado": 11,
+            "proyectos": [
+              3,
+              15
+            ]
+          }
+        ],
+        "numero_registros": 9
       }
     ],
     "foda": {
@@ -475,7 +595,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -5,
+              "Brecha Genero Absoluta1": -7,
               "proyectos": [
                 3,
                 15
@@ -497,7 +617,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.4444444444444444,
+              "Indice Paridad Genero1": 0.36363636363636365,
               "proyectos": [
                 3,
                 15
@@ -569,7 +689,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.18181818181818182,
+              "% Crecimiento Interanual1": 0.15384615384615374,
               "proyectos": [
                 3,
                 15
@@ -591,7 +711,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 13,
+              "Matricula Toluca1": 15,
               "proyectos": [
                 3,
                 15
@@ -613,7 +733,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 13,
+              "Matricula Ciclo Actual1": 15,
               "proyectos": [
                 3,
                 15
@@ -817,9 +937,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 11,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 4,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -866,7 +1004,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": 2,
+              "Brecha Genero Absoluta1": 7,
               "proyectos": [
                 3,
                 15
@@ -888,7 +1026,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 1.2857142857142858,
+              "Indice Paridad Genero1": 2.0,
               "proyectos": [
                 3,
                 15
@@ -960,7 +1098,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": -0.1111111111111111,
+              "% Crecimiento Interanual1": 0.3125,
               "proyectos": [
                 3,
                 15
@@ -982,7 +1120,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 16,
+              "Matricula Toluca1": 21,
               "proyectos": [
                 3,
                 15
@@ -1004,7 +1142,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 16,
+              "Matricula Ciclo Actual1": 21,
               "proyectos": [
                 3,
                 15
@@ -1082,9 +1220,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 14,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 6
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -1131,7 +1287,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": 3,
+              "Brecha Genero Absoluta1": 5,
               "proyectos": [
                 3,
                 15
@@ -1153,7 +1309,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 1.6,
+              "Indice Paridad Genero1": 1.7142857142857142,
               "proyectos": [
                 3,
                 15
@@ -1225,7 +1381,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.4444444444444444,
+              "% Crecimiento Interanual1": 0.46153846153846145,
               "proyectos": [
                 3,
                 15
@@ -1247,7 +1403,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 13,
+              "Matricula Toluca1": 19,
               "proyectos": [
                 3,
                 15
@@ -1269,7 +1425,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 13,
+              "Matricula Ciclo Actual1": 19,
               "proyectos": [
                 3,
                 15
@@ -1347,9 +1503,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 12,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 6
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -1396,7 +1570,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -346,
+              "Brecha Genero Absoluta1": -329,
               "proyectos": [
                 2,
                 15
@@ -1418,7 +1592,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.37318840579710144,
+              "Indice Paridad Genero1": 0.36973180076628354,
               "proyectos": [
                 2,
                 15
@@ -1490,7 +1664,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.10495626822157435,
+              "% Crecimiento Interanual1": -0.05672823218997358,
               "proyectos": [
                 2,
                 15
@@ -1512,7 +1686,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 758,
+              "Matricula Toluca1": 715,
               "proyectos": [
                 2,
                 15
@@ -1534,7 +1708,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 758,
+              "Matricula Ciclo Actual1": 715,
               "proyectos": [
                 2,
                 15
@@ -1738,9 +1912,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 522,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 193,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -1787,7 +1979,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -410,
+              "Brecha Genero Absoluta1": -451,
               "proyectos": [
                 2,
                 15
@@ -1809,7 +2001,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.20233463035019456,
+              "Indice Paridad Genero1": 0.19750889679715303,
               "proyectos": [
                 2,
                 15
@@ -1881,7 +2073,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.0016207455429497568,
+              "% Crecimiento Interanual1": 0.08899676375404542,
               "proyectos": [
                 2,
                 15
@@ -1903,7 +2095,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 618,
+              "Matricula Toluca1": 673,
               "proyectos": [
                 2,
                 15
@@ -1925,7 +2117,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 618,
+              "Matricula Ciclo Actual1": 673,
               "proyectos": [
                 2,
                 15
@@ -2129,9 +2321,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 562,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 111,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -2178,7 +2388,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -360,
+              "Brecha Genero Absoluta1": -347,
               "proyectos": [
                 2,
                 15
@@ -2200,7 +2410,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.29133858267716534,
+              "Indice Paridad Genero1": 0.298989898989899,
               "proyectos": [
                 2,
                 15
@@ -2272,7 +2482,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.031446540880503145,
+              "% Crecimiento Interanual1": -0.01981707317073167,
               "proyectos": [
                 2,
                 15
@@ -2294,7 +2504,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 656,
+              "Matricula Toluca1": 643,
               "proyectos": [
                 2,
                 15
@@ -2316,7 +2526,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 656,
+              "Matricula Ciclo Actual1": 643,
               "proyectos": [
                 2,
                 15
@@ -2520,9 +2730,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 495,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 148,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -2569,7 +2797,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -254,
+              "Brecha Genero Absoluta1": -248,
               "proyectos": [
                 2,
                 15
@@ -2591,7 +2819,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.1910828025477707,
+              "Indice Paridad Genero1": 0.17880794701986755,
               "proyectos": [
                 2,
                 15
@@ -2663,7 +2891,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.10979228486646884,
+              "% Crecimiento Interanual1": -0.048128342245989275,
               "proyectos": [
                 2,
                 15
@@ -2685,7 +2913,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 374,
+              "Matricula Toluca1": 356,
               "proyectos": [
                 2,
                 15
@@ -2707,7 +2935,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 374,
+              "Matricula Ciclo Actual1": 356,
               "proyectos": [
                 2,
                 15
@@ -2911,9 +3139,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 302,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 54,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -2960,7 +3206,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -63,
+              "Brecha Genero Absoluta1": -93,
               "proyectos": [
                 2,
                 15
@@ -2982,7 +3228,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.37623762376237624,
+              "Indice Paridad Genero1": 0.47752808988764045,
               "proyectos": [
                 2,
                 15
@@ -3054,7 +3300,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 1.0746268656716418,
+              "% Crecimiento Interanual1": 0.8920863309352518,
               "proyectos": [
                 2,
                 15
@@ -3076,7 +3322,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 139,
+              "Matricula Toluca1": 263,
               "proyectos": [
                 2,
                 15
@@ -3098,7 +3344,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 139,
+              "Matricula Ciclo Actual1": 263,
               "proyectos": [
                 2,
                 15
@@ -3158,9 +3404,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 178,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 85,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 4
+          "numero_registros": 6
         }
       ],
       "foda": {
@@ -3207,7 +3471,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -105,
+              "Brecha Genero Absoluta1": -107,
               "proyectos": [
                 2,
                 15
@@ -3229,7 +3493,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.5569620253164557,
+              "Indice Paridad Genero1": 0.4928909952606635,
               "proyectos": [
                 2,
                 15
@@ -3301,7 +3565,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": -0.06582278481012659,
+              "% Crecimiento Interanual1": -0.14634146341463417,
               "proyectos": [
                 2,
                 15
@@ -3323,7 +3587,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 369,
+              "Matricula Toluca1": 315,
               "proyectos": [
                 2,
                 15
@@ -3345,7 +3609,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 369,
+              "Matricula Ciclo Actual1": 315,
               "proyectos": [
                 2,
                 15
@@ -3549,9 +3813,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 211,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 104,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -3598,7 +3880,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -11,
+              "Brecha Genero Absoluta1": -5,
               "proyectos": [
                 3,
                 15
@@ -3620,7 +3902,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.35294117647058826,
+              "Indice Paridad Genero1": 0.375,
               "proyectos": [
                 3,
                 15
@@ -3692,7 +3974,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": -0.08,
+              "% Crecimiento Interanual1": -0.5217391304347826,
               "proyectos": [
                 3,
                 15
@@ -3714,7 +3996,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 23,
+              "Matricula Toluca1": 11,
               "proyectos": [
                 3,
                 15
@@ -3736,7 +4018,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 23,
+              "Matricula Ciclo Actual1": 11,
               "proyectos": [
                 3,
                 15
@@ -3939,9 +4221,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 3,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -3988,7 +4288,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -5,
+              "Brecha Genero Absoluta1": -1,
               "proyectos": [
                 3,
                 15
@@ -4010,7 +4310,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.7222222222222222,
+              "Indice Paridad Genero1": 0.8888888888888888,
               "proyectos": [
                 3,
                 15
@@ -4082,7 +4382,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": 0.2916666666666667,
+              "% Crecimiento Interanual1": -0.4516129032258065,
               "proyectos": [
                 3,
                 15
@@ -4104,7 +4404,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 31,
+              "Matricula Toluca1": 17,
               "proyectos": [
                 3,
                 15
@@ -4126,7 +4426,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 31,
+              "Matricula Ciclo Actual1": 17,
               "proyectos": [
                 3,
                 15
@@ -4203,9 +4503,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 9,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 6
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -4252,7 +4570,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": 1,
+              "Brecha Genero Absoluta1": 4,
               "proyectos": [
                 3,
                 15
@@ -4274,7 +4592,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 1.2,
+              "Indice Paridad Genero1": 3.0,
               "proyectos": [
                 3,
                 15
@@ -4346,7 +4664,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": -0.15384615384615385,
+              "% Crecimiento Interanual1": -0.2727272727272727,
               "proyectos": [
                 3,
                 15
@@ -4368,7 +4686,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 11,
+              "Matricula Toluca1": 8,
               "proyectos": [
                 3,
                 15
@@ -4390,7 +4708,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 11,
+              "Matricula Ciclo Actual1": 8,
               "proyectos": [
                 3,
                 15
@@ -4592,9 +4910,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 2,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 6,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         }
       ],
       "foda": {
@@ -4641,7 +4977,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -2,
+              "Brecha Genero Absoluta1": -7,
               "proyectos": [
                 3,
                 15
@@ -4663,7 +4999,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.3333333333333333,
+              "Indice Paridad Genero1": 0.125,
               "proyectos": [
                 3,
                 15
@@ -4735,6 +5071,7 @@
           },
           "registros": [
             {
+              "% Crecimiento Interanual1": 1.25,
               "proyectos": [
                 3,
                 15
@@ -4756,7 +5093,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 4,
+              "Matricula Toluca1": 9,
               "proyectos": [
                 3,
                 15
@@ -4778,7 +5115,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 4,
+              "Matricula Ciclo Actual1": 9,
               "proyectos": [
                 3,
                 15
@@ -4820,9 +5157,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 8,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 1,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 2
+          "numero_registros": 4
         }
       ],
       "foda": {
@@ -4853,7 +5208,7 @@
           },
           "registros": [
             {
-              "Brecha Genero Absoluta1": -5,
+              "Brecha Genero Absoluta1": -6,
               "proyectos": [
                 3,
                 15
@@ -4875,7 +5230,7 @@
           },
           "registros": [
             {
-              "Indice Paridad Genero1": 0.375,
+              "Indice Paridad Genero1": 0.14285714285714285,
               "proyectos": [
                 3,
                 15
@@ -4947,7 +5302,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Interanual1": -0.21428571428571427,
+              "% Crecimiento Interanual1": -0.2727272727272727,
               "proyectos": [
                 3,
                 15
@@ -4969,7 +5324,7 @@
           },
           "registros": [
             {
-              "Matricula Toluca1": 11,
+              "Matricula Toluca1": 8,
               "proyectos": [
                 3,
                 15
@@ -4991,7 +5346,7 @@
           },
           "registros": [
             {
-              "Matricula Ciclo Actual1": 11,
+              "Matricula Ciclo Actual1": 8,
               "proyectos": [
                 3,
                 15
@@ -5140,9 +5495,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Hombre",
+              "Matricula_UAEMEX": 7,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Sexo": "Mujer",
+              "Matricula_UAEMEX": 1,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 14
+          "numero_registros": 16
         }
       ],
       "foda": {
@@ -5186,5 +5559,25 @@
     "interpretacion": "La suma de programas coincide con el total de Facultad."
   },
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026B",
+    "fuentes": [
+      {
+        "archivo": "Libro1 e911 (1).xlsx",
+        "hoja": "Matricula total",
+        "corte": "2026B"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales.",
+    "serie_posgrado": {
+      "descripcion": "Agregado de Estudios Avanzados: maestrías y doctorados.",
+      "fuentes": [
+        "4003_nuevo_ingreso_uaemex.json",
+        "4005_matricula_total.json",
+        "Libro1 e911 (1).xlsx, hoja Matricula total"
+      ]
+    }
+  }
 }

@@ -44,28 +44,8 @@ final class EventosController extends Controller
             [Auth::id(), ...$params]
         );
 
-        // 2. Obtener Comunicados
-        $sqlC = 'SELECT c.*, d.nombre AS depto, u2.nombre AS autor, p.siglas,
-                   (SELECT a.valor FROM ajustes a WHERE a.clave = CONCAT(\'comunicado_vence_\', c.id)) AS vence_en
-                   FROM comunicados c
-                   JOIN departamentos d ON d.id = c.depto_id
-                   JOIN usuarios u2 ON u2.id = c.autor_id
-                   LEFT JOIN programas p ON p.id = c.programa_id';
-        $condsC = [];
-        $paramsC = [];
-        if ($u['rol'] === 'alumno' && $u['programa_id']) {
-            $nivel = $u['programa_nivel'] === 'posgrado' ? 'posgrado' : 'licenciatura';
-            $condsC[] = "(c.alcance = 'todos' OR c.alcance = ? OR (c.alcance = 'programa' AND c.programa_id = ?))";
-            $paramsC[] = $nivel;
-            $paramsC[] = $u['programa_id'];
-        }
-        if (!$puedeEmitirComunicados) {
-            $condsC[] = "c.categoria != 'Ocultar'";
-        }
-        if (!empty($condsC)) {
-            $sqlC .= ' WHERE ' . implode(' AND ', $condsC);
-        }
-        $comunicados = Database::todas($sqlC . ' ORDER BY CASE WHEN c.categoria = \'Importantes\' THEN 1 ELSE 2 END, c.creado_en DESC', $paramsC);
+        // 2. Comunicados: cada aviso aparece una sola vez, aunque la persona pertenezca a varios programas destinatarios
+        $comunicados = \App\Modules\Comunicados\Avisos::visibles($puedeEmitirComunicados);
         $archivo = ($_GET['avisos'] ?? '') === 'archivo';
         $comunicados = array_values(array_filter($comunicados, static function($c) use ($archivo) {
             $vencido = !empty($c['vence_en']) && $c['vence_en'] < date('Y-m-d');
@@ -85,24 +65,14 @@ final class EventosController extends Controller
             'puedeEmitirComunicados' => $puedeEmitirComunicados,
             'departamentos' => Database::todas('SELECT id, nombre FROM departamentos ORDER BY nombre'),
             'usuarios'      => Database::todas("SELECT id, nombre, email, rol FROM usuarios WHERE activo = 1 ORDER BY nombre"),
+            'emisores'      => \App\Modules\Comunicados\Avisos::emisores(),
             'programas'     => Database::todas("SELECT * FROM programas ORDER BY nivel = 'posgrado', siglas"),
         ]);
     }
 
     private function puedeEmitirComunicados(): bool
     {
-        if (Auth::rol() === 'admin') {
-            return true;
-        }
-        if (!Auth::tieneRol('titular', 'operativo')) {
-            return false;
-        }
-        $clave = Auth::usuario()['depto_clave'];
-        return in_array($clave, [
-            'coordinacion_de_estudios_avanzados',
-            'departamento_de_servicios_escolares',
-            'coordinacion_de_difusion_cultural',
-        ], true) || str_starts_with($clave, 'coordinacion_de_docencia_de_la_licenciatura');
+        return \App\Modules\Comunicados\Avisos::puedeEmitir();
     }
 
     /** Biblioteca de eventos concluidos: carruseles por categoría. */

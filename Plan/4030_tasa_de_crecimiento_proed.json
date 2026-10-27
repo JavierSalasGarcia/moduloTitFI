@@ -3,7 +3,7 @@
   "categoria": "Tasa de crecimiento Proed",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4030",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiMzg3ZjRiMjAtNTI0Mi00ODhmLWExODctZjE5OTM5MWFjMWZkIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-21",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -112,6 +112,7 @@
           },
           {
             "Año": 2025,
+            "PROED_UAEMEX": 60,
             "Año Anterior_Proed": 60,
             "proyectos": [
               9,
@@ -135,7 +136,7 @@
           "metrica_modelo": "Proed_18-24.PROED_UAEMEX",
           "periodo_inicial": "2018",
           "valor_inicial": 80,
-          "periodo_final": "2024",
+          "periodo_final": "2025",
           "valor_final": 60,
           "cambio_absoluto": -20,
           "visual_fuente": "003",
@@ -146,7 +147,7 @@
           ]
         }
       ],
-      "diagnostico": "PROED_UAEMEX: 80 en 2018 y 60 en 2024 (cambio -20).",
+      "diagnostico": "PROED_UAEMEX: 80 en 2018 y 60 en 2025 (cambio -20).",
       "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
       "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
     }

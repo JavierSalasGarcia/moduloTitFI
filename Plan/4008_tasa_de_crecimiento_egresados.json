@@ -3,7 +3,7 @@
   "categoria": "Tasa de crecimiento Egresados",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4008",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNjZlYWYyMmEtYzNlYi00NTVlLTk1OWQtMDNlNGVhYzBkNmVhIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -98,7 +98,7 @@
         },
         "registros": [
           {
-            "TCMA Egresados1": 0.012387192992381335,
+            "TCMA Egresados1": 0.0116011873155899,
             "proyectos": [
               2,
               3,
@@ -121,7 +121,7 @@
         },
         "registros": [
           {
-            "Crecimiento Acumulado Total Egresados": 0.09,
+            "Crecimiento Acumulado Total Egresados": 0.09666666666666668,
             "proyectos": [
               2,
               3,
@@ -226,9 +226,19 @@
               3,
               15
             ]
+          },
+          {
+            "Ciclo escolar": "2025-2026",
+            "Egresados": 329,
+            "Ciclo Escolar Anterior_Egresados": 327,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 8
+        "numero_registros": 9
       }
     ],
     "foda": {
@@ -295,7 +305,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Mayor Crecimiento Egresados1": "2022-2023",
+              "Ciclo Mayor Crecimiento Egresados1": "2024-2025",
               "proyectos": [
                 3,
                 15
@@ -317,7 +327,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.04195362743720854,
+              "TCMA Egresados1": -0.02253245976944751,
               "proyectos": [
                 3,
                 15
@@ -339,7 +349,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 0.3333333333333333,
+              "Crecimiento Acumulado Total Egresados": -0.16666666666666663,
               "proyectos": [
                 3,
                 15
@@ -435,9 +445,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 5,
+              "Ciclo Escolar Anterior_Egresados": 8,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -502,7 +521,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Mayor Crecimiento Egresados1": "2018-2019",
+              "Ciclo Mayor Crecimiento Egresados1": "2025-2026",
               "proyectos": [
                 3,
                 15
@@ -524,7 +543,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": -0.75,
+              "TCMA Egresados1": -0.42264973081037427,
               "proyectos": [
                 3,
                 15
@@ -546,7 +565,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": -0.75,
+              "Crecimiento Acumulado Total Egresados": -0.6666666666666667,
               "proyectos": [
                 3,
                 15
@@ -588,9 +607,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 4,
+              "Ciclo Escolar Anterior_Egresados": 3,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 2
+          "numero_registros": 3
         }
       ],
       "foda": {
@@ -761,7 +789,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Menor Crecimiento Egresados1": "2021-2022",
+              "Ciclo Menor Crecimiento Egresados1": "2025-2026",
               "proyectos": [
                 2,
                 15
@@ -803,7 +831,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.04195362743720854,
+              "TCMA Egresados1": -0.18035675193010048,
               "proyectos": [
                 2,
                 15
@@ -825,7 +853,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 0.3333333333333333,
+              "Crecimiento Acumulado Total Egresados": -0.7962962962962963,
               "proyectos": [
                 2,
                 15
@@ -921,9 +949,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 11,
+              "Ciclo Escolar Anterior_Egresados": 72,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -968,7 +1005,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "Ciclo Menor Crecimiento Egresados1": "2025-2026",
               "proyectos": [
                 2,
                 15
@@ -1010,7 +1047,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.03961211126013997,
+              "TCMA Egresados1": -0.09036395744687076,
               "proyectos": [
                 2,
                 15
@@ -1032,7 +1069,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 0.3125,
+              "Crecimiento Acumulado Total Egresados": -0.53125,
               "proyectos": [
                 2,
                 15
@@ -1128,9 +1165,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 30,
+              "Ciclo Escolar Anterior_Egresados": 84,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -1217,7 +1263,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.019931800330914795,
+              "TCMA Egresados1": -0.014615027811644143,
               "proyectos": [
                 2,
                 15
@@ -1239,7 +1285,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 0.14814814814814814,
+              "Crecimiento Acumulado Total Egresados": -0.11111111111111116,
               "proyectos": [
                 2,
                 15
@@ -1335,9 +1381,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 24,
+              "Ciclo Escolar Anterior_Egresados": 31,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -1382,7 +1437,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Menor Crecimiento Egresados1": "2018-2019",
+              "Ciclo Menor Crecimiento Egresados1": "2025-2026",
               "proyectos": [
                 2,
                 15
@@ -1424,7 +1479,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": -0.014745872240717661,
+              "TCMA Egresados1": -0.17729244060258964,
               "proyectos": [
                 2,
                 15
@@ -1446,7 +1501,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": -0.09876543209876543,
+              "Crecimiento Acumulado Total Egresados": -0.7901234567901234,
               "proyectos": [
                 2,
                 15
@@ -1542,9 +1597,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 17,
+              "Ciclo Escolar Anterior_Egresados": 73,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -1631,7 +1695,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.05818642439041555,
+              "TCMA Egresados1": 0.04559318758735875,
               "proyectos": [
                 2,
                 15
@@ -1653,7 +1717,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 0.4857142857142857,
+              "Crecimiento Acumulado Total Egresados": 0.4285714285714286,
               "proyectos": [
                 2,
                 15
@@ -1749,9 +1813,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 50,
+              "Ciclo Escolar Anterior_Egresados": 52,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -1816,7 +1889,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Mayor Crecimiento Egresados1": "2022-2023",
+              "Ciclo Mayor Crecimiento Egresados1": "2025-2026",
               "proyectos": [
                 3,
                 15
@@ -1838,7 +1911,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": -0.09427633573609329,
+              "TCMA Egresados1": 0.023051875220462925,
               "proyectos": [
                 3,
                 15
@@ -1860,7 +1933,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": -0.5,
+              "Crecimiento Acumulado Total Egresados": 0.19999999999999996,
               "proyectos": [
                 3,
                 15
@@ -1955,9 +2028,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 12,
+              "Ciclo Escolar Anterior_Egresados": 5,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 8
+          "numero_registros": 9
         }
       ],
       "foda": {
@@ -2022,7 +2104,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Mayor Crecimiento Egresados1": "2018-2019",
+              "Ciclo Mayor Crecimiento Egresados1": "2025-2026",
               "proyectos": [
                 3,
                 15
@@ -2044,7 +2126,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.1428571428571428,
+              "TCMA Egresados1": 0.19522860933439357,
               "proyectos": [
                 3,
                 15
@@ -2066,7 +2148,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 0.14285714285714285,
+              "Crecimiento Acumulado Total Egresados": 0.4285714285714286,
               "proyectos": [
                 3,
                 15
@@ -2108,9 +2190,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 10,
+              "Ciclo Escolar Anterior_Egresados": 8,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 2
+          "numero_registros": 3
         }
       ],
       "foda": {
@@ -2783,7 +2874,7 @@
           },
           "registros": [
             {
-              "TCMA Egresados1": 0.2599210498948732,
+              "TCMA Egresados1": 0.3160740129524924,
               "proyectos": [
                 3,
                 15
@@ -2805,7 +2896,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Egresados": 1,
+              "Crecimiento Acumulado Total Egresados": 2.0,
               "proyectos": [
                 3,
                 15
@@ -2863,9 +2954,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2025-2026",
+              "Egresados": 3,
+              "Ciclo Escolar Anterior_Egresados": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 4
+          "numero_registros": 5
         }
       ],
       "foda": {
@@ -2901,5 +3001,16 @@
     "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
   ],
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2025-2026",
+    "fuentes": [
+      {
+        "archivo": "4007_egresados.json",
+        "transformacion": "Tasas recalculadas con el nuevo corte"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

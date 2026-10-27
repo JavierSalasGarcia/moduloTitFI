@@ -16,6 +16,11 @@ $fuentes = [
     'migrations/006_reuniones_minutas.sql', 'migrations/008_generalizar_asuntos.sql', 'migrations/007_asuntos.sql',
     'migrations/009_firma_pades_pki.sql', 'migrations/014_seguridad_otp.sql', 'migrations/015_estructura_organizacional.sql',
     'migrations/016_profesores_por_programa.sql', 'migrations/017_titulacion.sql',
+    'migrations/018_anonimato_encuestas.sql', 'migrations/019_oficios_enviados.sql',
+    'migrations/020_cambio_titulares_subdireccion_investigacion.sql', 'migrations/021_cuentas_subdireccion_y_admin.sql',
+    'migrations/022_genero_no_binario.sql',
+    'migrations/023_justificantes_faltas.sql',
+    'migrations/024_roles_multiples.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

@@ -60,7 +60,7 @@ Sistema de votación diseñado para consultas estudiantiles o de la comunidad, c
 3.  **Voto Anónimo:**
     *   La opción seleccionada se inserta de forma independiente en la tabla `encuesta_votos` asociada a un token aleatorio único (ej. `V-E83A92`), **sin ninguna relación o llave foránea al usuario que lo emitió**.
 4.  **Constancia de Votación:**
-    *   Al confirmar el voto, la plataforma muestra al usuario su **token de voto** por única vez.
+    *   Al confirmar el voto, la plataforma muestra al usuario su **token de voto** por única vez en la respuesta. No lo conserva en su cuenta, sesión ni navegador; la persona decide si guarda una copia.
 5.  **Tablero Público y Auditoría:**
     *   Cualquier persona (incluso sin iniciar sesión) puede acceder al tablero público de la encuesta para ver el conteo de votos en tiempo real.
     *   El tablero lista todos los tokens generados y la opción correspondiente (ordenados alfabéticamente por token para impedir correlaciones temporales).

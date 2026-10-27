@@ -12,7 +12,7 @@
     <label>Nombre del grupo <span class="req">*</span>
       <input type="text" name="nombre" required maxlength="160" placeholder='Ej. "Comité evaluación Jessica, DCTBC"'>
     </label>
-    <?php if ($puedeCrearCuerpo || Auth::rol() === 'admin'): ?>
+    <?php if ($puedeCrearCuerpo || Auth::tieneRol('admin')): ?>
       <label>Tipo
         <select name="tipo">
           <option value="personal">Personal (solo tú lo usas y editas)</option>

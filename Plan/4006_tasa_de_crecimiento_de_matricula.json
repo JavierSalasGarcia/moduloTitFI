@@ -2,7 +2,7 @@
   "id_categoria": "4006",
   "categoria": "Tasa de crecimiento de Matrícula",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4006",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx",
   "proyectos_relacionados": [
     {
@@ -144,9 +144,20 @@
               3,
               15
             ]
+          },
+          {
+            "ciclo_escolar": "2026B",
+            "matricula": 3058.0,
+            "matricula_anterior": 2989.0,
+            "crecimiento_interanual_pct": 2.308464,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 10,
+        "numero_registros": 11,
         "metodo": "Suma de la matrícula publicada por sexo para cada ciclo; crecimiento = (matrícula actual / anterior - 1) × 100."
       },
       {
@@ -158,9 +169,9 @@
         "registros": [
           {
             "periodo_inicial": "2016-2017",
-            "periodo_final": "2025-2026",
-            "crecimiento_acumulado_pct": 17.077948,
-            "tcma_pct": 1.767322,
+            "periodo_final": "2026B",
+            "crecimiento_acumulado_pct": 19.78065,
+            "tcma_pct": 1.821307,
             "proyectos": [
               2,
               3,
@@ -2077,5 +2088,16 @@
     "El tablero 4006 no entregó todas sus consultas de Power BI durante la captura; estas tasas se calcularon de la serie de matrícula del tablero 4005 con fórmulas explícitas."
   ],
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026B",
+    "fuentes": [
+      {
+        "archivo": "4005_matricula_total.json",
+        "transformacion": "Tasas recalculadas con el nuevo corte"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

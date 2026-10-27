@@ -30,6 +30,7 @@ $https = (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !=
     || strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
 ini_set('session.use_strict_mode', '1');
 ini_set('session.use_only_cookies', '1');
+ini_set('session.gc_maxlifetime', (string) \App\Core\Auth::DURACION_SESION_PERSISTENTE);
 session_start([
     'cookie_httponly' => true,
     'cookie_secure' => $https,

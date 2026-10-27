@@ -40,7 +40,7 @@
         <?php else: ?>
           <span class="badge badge-oro"><?= e(ucfirst($c['alcance'])) ?></span>
         <?php endif; ?>
-        <?php if (Auth::rol() === 'admin' || (int) $c['depto_id'] === Auth::departamentoId()): ?>
+        <?php if (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true)): ?>
           <form method="post" action="<?= url('comunicados/' . $c['id'] . '/eliminar') ?>" data-confirm="¿Retirar este comunicado?">
             <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
             <button type="submit" class="btn btn-mini btn-peligro">Retirar</button>
@@ -50,7 +50,7 @@
     </header>
     <p style="margin:0; padding-bottom: 12px;"><?= nl2br(e($c['contenido'])) ?></p>
 
-    <?php if ($puedeEmitir && (Auth::rol() === 'admin' || (int) $c['depto_id'] === Auth::departamentoId())): ?>
+    <?php if ($puedeEmitir && (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true))): ?>
       <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; border-top: 1px dashed var(--gris-100); padding-top: 10px;">
         <span style="color: var(--gris-600); font-weight: 500;">Categoría del Comunicado:</span>
         <form method="post" action="<?= url('comunicados/' . $c['id'] . '/categoria') ?>" style="display:inline-flex; align-items:center;">

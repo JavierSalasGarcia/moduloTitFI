@@ -3,7 +3,7 @@ use App\Core\Auth;
 use App\Core\ModuleManager;
 
 $usuario = Auth::usuario();
-$secciones = \App\Core\InterfaceUi::menu(ModuleManager::menu($usuario['rol']));
+$secciones = \App\Core\InterfaceUi::menu(ModuleManager::menu(array_merge([$usuario['rol']], array_column($usuario['roles_extra'] ?? [], 'rol'))));
 $flash   = flash_leer();
 $moduloActivo = $moduloActivo ?? '';
 
@@ -151,6 +151,7 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
       </div>
       <div style="padding: 20px; overflow-y: auto; font-size: 13px; color: var(--gris-600); line-height: 1.6; text-align: justify;">
         <p><strong>Responsable del Tratamiento:</strong> La Facultad de Ingeniería de la Universidad Autónoma del Estado de México (UAEMEX) es responsable de proteger los datos personales de sus usuarios en cumplimiento con la normatividad vigente.</p>
+        <p><strong>Origen y estado de la plataforma:</strong> Traza FI es una plataforma creada y operada por el Dr. Javier Salas García. Actualmente está en trámite para su uso oficial en la Facultad de Ingeniería de la UAEMEX.</p>
         <p><strong>Ausencia de Almacenamiento Biométrico:</strong> Traza FI <strong>NO almacena ni tiene acceso</strong> a huellas dactilares, rostros, imágenes o datos biométricos reales de los usuarios. Los "identificadores biométricos hash locales" consisten únicamente en llaves criptográficas públicas y firmas generadas por el sistema operativo de su propio dispositivo (Windows Hello, TouchID/FaceID) bajo el estándar WebAuthn, las cuales se quedan resguardadas localmente en su hardware personal y nunca viajan por la red.</p>
         <p><strong>Sobre la Gestión de Archivos e Integración con Teams:</strong> Traza FI <strong>NO almacena, copia ni aloja carpetas ni contenidos de archivos</strong> en sus servidores. El sistema funciona únicamente como un canalizador ordenado que gestiona accesos directos y peticiones en tiempo real conectándose directamente a la plataforma institucional oficial de <strong>Microsoft Teams</strong>. Traza FI no sustituye ni reemplaza a Teams como plataforma de colaboración oficial, sino que actúa como una interfaz o puente que permite su navegación y consulta estructurada de forma más ágil.</p>
         <p><strong>Concursos y formularios temporales:</strong> Cuando participas en un concurso o llenas un formulario temporal de la Facultad (por ejemplo, el registro de profesores para clasificaciones externas de programas académicos), Traza FI usa los datos que proporcionas (nombre, correo, la obra que envías y, en los formularios, los datos de contacto que se solicitan) únicamente para la finalidad de esa convocatoria: registrar y revisar tu participación, avisarte de su estado, publicar los nombres de quienes ganen y, en los registros para instituciones externas, entregarlos a la institución que realiza la clasificación. En las votaciones anónimas no se guarda tu identidad junto con tu voto: solo que ya votaste y tu recibo de voto. Estos datos se conservan mientras dura la actividad y el tiempo necesario para su comprobación; después se archivan o se eliminan.</p>

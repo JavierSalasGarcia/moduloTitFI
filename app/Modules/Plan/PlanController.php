@@ -57,6 +57,31 @@ final class PlanController extends Controller
             'puedeGestionarContactos' => self::canManageContacts()], 'plan');
     }
 
+    public function graficas(): void
+    {
+        $categorias = [];
+        foreach (glob(dirname(APP_RAIZ) . '/Plan/[0-9][0-9][0-9][0-9]_*.json') ?: [] as $path) {
+            $data = PlanRepository::read(basename($path));
+            $categorias[] = ['id' => (string)$data['id_categoria'], 'nombre' => (string)$data['categoria']];
+        }
+        usort($categorias, static fn(array $a, array $b): int => strcmp($a['id'], $b['id']));
+        $this->vista('graficas', ['titulo' => 'Gráficas de indicadores', 'categorias' => $categorias], 'plan');
+    }
+
+    public function graficasDatos(string $id): void
+    {
+        if (!preg_match('/^\d{4}$/', $id)) { self::reply(['error' => 'Indicador inválido.'], 404); return; }
+        $files = glob(dirname(APP_RAIZ) . '/Plan/' . $id . '_*.json') ?: [];
+        if (!$files) { self::reply(['error' => 'Indicador no disponible.'], 404); return; }
+        $data = PlanRepository::read(basename($files[0]));
+        $clean = static fn(array $section): array => ['nombre' => $section['nombre'] ?? '', 'indicadores' => array_map(
+            static fn(array $i): array => array_intersect_key($i, array_flip(['visual', 'metricas', 'campos_modelo', 'formatos', 'registros'])),
+            $section['indicadores'] ?? [])];
+        self::reply(['id' => $id, 'categoria' => $data['categoria'], 'url' => $data['url_categoria'] ?? '',
+            'cita' => $data['cita_apa'] ?? '', 'facultad' => $clean($data['facultad']),
+            'carreras' => array_map($clean, $data['carreras'] ?? [])]);
+    }
+
     public function estatus(): void
     {
         $this->vista('estatus', ['titulo' => 'Estatus del Plan de Desarrollo FI',

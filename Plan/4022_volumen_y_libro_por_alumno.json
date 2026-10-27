@@ -3,7 +3,7 @@
   "categoria": "Volumen y libro por alumno",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4022",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiNjc5MDYzN2QtMGQxMS00MzZiLTgyNjItMjc1ZmI5YzY5NTFiIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-21",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -152,9 +152,19 @@
               3,
               11
             ]
+          },
+          {
+            "Año": 2025,
+            "Títulos por alumno": 4.4673803947808635,
+            "Volúmenes por alumno": 11.5898293743727,
+            "proyectos": [
+              2,
+              3,
+              11
+            ]
           }
         ],
-        "numero_registros": 11
+        "numero_registros": 12
       }
     ],
     "foda": {

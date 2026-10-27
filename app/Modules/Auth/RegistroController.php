@@ -16,7 +16,7 @@ final class RegistroController extends Controller
     {
         $this->ready(); if (Auth::id()) redirigir('');
         if (AccessControl::limited('registro:'.($_SERVER['REMOTE_ADDR']??''),5,3600)) { flash('error','Se alcanzó el límite de registros. Intenta más tarde.'); redirigir('registro'); }
-        $nombre=trim($this->post('nombre')); $email=Auth::normalizarCorreoInstitucional((string)($_POST['email']??''))??''; $password=(string)($_POST['clave']??''); $grado=mb_substr(trim((string)($_POST['grado']??'')),0,30)?:null; $genero=in_array(($_POST['genero']??''),['masculino','femenino'],true)?$_POST['genero']:null;
+        $nombre=trim($this->post('nombre')); $email=Auth::normalizarCorreoInstitucional((string)($_POST['email']??''))??''; $password=(string)($_POST['clave']??''); $grado=mb_substr(trim((string)($_POST['grado']??'')),0,30)?:null; $genero=in_array(($_POST['genero']??''),['masculino','femenino','no_binario'],true)?$_POST['genero']:null;
         if ($nombre==='' || mb_strlen($nombre)>120 || strlen($email)>120 || !AccessControl::isUaemexEmail($email) || $genero===null || strlen($password)<10 || strlen($password)>72 || $password!==($_POST['confirmacion']??'')) {
             flash('error','Revisa tu nombre, correo UAEMEX y las contraseñas: se admite uaemex.mx y cualquiera de sus subdominios; las contraseñas deben coincidir y tener entre 10 y 72 caracteres.'); redirigir('registro');
         }

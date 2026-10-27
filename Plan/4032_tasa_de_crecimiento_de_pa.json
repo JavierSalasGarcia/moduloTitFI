@@ -3,7 +3,7 @@
   "categoria": "Tasa de crecimiento de PA",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4032",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYWNmODk5MTQtNDQwMS00ZDAwLWJhNGYtM2E4ZTZlZDZhNWIyIiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -153,9 +153,20 @@
               11,
               15
             ]
+          },
+          {
+            "Año": 2026,
+            "Total_PTC": 74,
+            "Año Anterior_PTC": 74,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
           }
         ],
-        "numero_registros": 10
+        "numero_registros": 11
       },
       {
         "visual": "002",
@@ -283,9 +294,20 @@
               11,
               15
             ]
+          },
+          {
+            "Año": 2026,
+            "Total_P Académico": 317,
+            "Año Anterior_Per_Académico": 284,
+            "proyectos": [
+              9,
+              10,
+              11,
+              15
+            ]
           }
         ],
-        "numero_registros": 10
+        "numero_registros": 11
       }
     ],
     "foda": {
@@ -323,5 +345,20 @@
     "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
   ],
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026",
+    "fuentes": [
+      {
+        "archivo": "FACULTAD DE INGENIERÍA (2).xls",
+        "hojas": [
+          "BD",
+          "DocentexTiempo"
+        ],
+        "corte": "Estadística de personal 2026"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

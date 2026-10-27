@@ -19,11 +19,11 @@
     <form class="consulta-form" method="post" action="<?= url('consulta') ?>" data-consulta-form>
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
       <label class="sr-only" for="consulta-texto">Escribe tu consulta</label>
-      <textarea id="consulta-texto" name="consulta" rows="3" minlength="4" maxlength="1200" required
-                placeholder="Ej. Necesito corregir una calificación que aparece mal en mi acta…"><?= e($consulta) ?></textarea>
+      <textarea id="consulta-texto" name="consulta" rows="3" minlength="4" maxlength="1200" required disabled
+                placeholder="Esta función no está disponible aún, el sitio está en construcción"><?= e($consulta) ?></textarea>
       <div class="consulta-form-pie">
         <span>Enter para nueva línea · Ctrl + Enter para consultar</span>
-        <button type="submit" class="consulta-boton">
+        <button type="submit" class="consulta-boton" disabled>
           <span>Consultar</span><?= icono('flecha-der', 17) ?>
         </button>
       </div>

@@ -14,13 +14,15 @@ use App\Core\View;
  * Anonimato: `encuesta_participantes` solo registra QUE un usuario ya
  * votó (para permitir un voto por persona); el voto se guarda en
  * `encuesta_votos` SIN referencia al usuario, con un token aleatorio.
- * El token se muestra una sola vez al votante, quien puede verificar
- * su voto en el tablero público (accesible sin sesión).
+ * El recibo se muestra únicamente en la respuesta al POST. No se guarda
+ * en la sesión, la cuenta ni el navegador: sólo existe en la fila anónima
+ * del voto y en la copia que decida conservar la persona.
  */
 final class EncuestasController extends Controller
 {
     public function index(): void
     {
+        $this->borrarRecibosLegadosDeSesion();
         $encuestas = Database::todas(
             "SELECT e.*, u.nombre AS creador,
                     (SELECT COUNT(*) FROM encuesta_votos v WHERE v.encuesta_id = e.id) AS votos,
@@ -52,6 +54,7 @@ final class EncuestasController extends Controller
 
     public function crear(): void
     {
+        \App\Core\AccessControl::exigirCorreoVerificado('crear encuestas');
         if (!Auth::tieneRol('alumno', 'admin')) {
             flash('error', 'Las encuestas las organizan los alumnos.');
             redirigir('encuestas');
@@ -77,22 +80,14 @@ final class EncuestasController extends Controller
 
     public function detalle(string $id): void
     {
+        $this->borrarRecibosLegadosDeSesion();
         $e = $this->obtener((int) $id);
-        $yaVoto = (bool) Database::una(
-            'SELECT 1 FROM encuesta_participantes WHERE encuesta_id = ? AND usuario_id = ?',
-            [$e['id'], Auth::id()]);
-
-        $this->vista('detalle', [
-            'titulo'   => 'Encuesta',
-            'encuesta' => $e,
-            'opciones' => $this->opcionesConVotos($e['id']),
-            'yaVoto'   => $yaVoto,
-            'esDueno'  => (int) $e['creador_id'] === Auth::id() || Auth::rol() === 'admin',
-        ]);
+        $this->vista('detalle', $this->datosDetalle($e));
     }
 
     public function votar(string $id): void
     {
+        \App\Core\AccessControl::exigirCorreoVerificado('responder encuestas');
         $e = $this->obtener((int) $id);
         $opcion = Database::una(
             'SELECT * FROM encuesta_opciones WHERE id = ? AND encuesta_id = ?',
@@ -119,15 +114,18 @@ final class EncuestasController extends Controller
             throw $ex;
         }
 
-        // El token viaja una sola vez en sesión para mostrarse al votante
-        $_SESSION['token_encuesta_' . $e['id']] = $token;
-        redirigir('encuestas/' . $e['id']);
+        // Entregar el recibo sólo en esta respuesta. Guardarlo en sesión o en
+        // localStorage crearía precisamente la relación cuenta/recibo que el
+        // modelo de anonimato busca evitar.
+        header('Cache-Control: no-store, private');
+        header('Pragma: no-cache');
+        $this->vista('detalle', $this->datosDetalle($e, $token));
     }
 
     public function cerrar(string $id): void
     {
         $e = $this->obtener((int) $id);
-        if ((int) $e['creador_id'] !== Auth::id() && Auth::rol() !== 'admin') {
+        if ((int) $e['creador_id'] !== Auth::id() && !Auth::tieneRol('admin')) {
             flash('error', 'Solo quien organizó la encuesta puede cerrarla.');
         } else {
             Database::ejecutar("UPDATE encuestas SET estado = 'cerrada' WHERE id = ?", [$e['id']]);
@@ -217,6 +215,33 @@ final class EncuestasController extends Controller
         return Database::todas(
             'SELECT o.*, (SELECT COUNT(*) FROM encuesta_votos v WHERE v.opcion_id = o.id) AS votos
                FROM encuesta_opciones o WHERE o.encuesta_id = ? ORDER BY o.id', [$encuestaId]);
+    }
+
+    private function datosDetalle(array $encuesta, ?string $recibo = null): array
+    {
+        return [
+            'titulo'   => 'Encuesta',
+            'encuesta' => $encuesta,
+            'opciones' => $this->opcionesConVotos((int) $encuesta['id']),
+            // Sólo indica participación. No contiene ni permite obtener el
+            // recibo o la opción elegida por la cuenta.
+            'yaVoto'   => (bool) Database::una(
+                'SELECT 1 FROM encuesta_participantes WHERE encuesta_id = ? AND usuario_id = ?',
+                [$encuesta['id'], Auth::id()]
+            ),
+            'esDueno'  => (int) $encuesta['creador_id'] === Auth::id() || Auth::tieneRol('admin'),
+            'recibo'   => $recibo,
+        ];
+    }
+
+    /** Elimina asociaciones cuenta/recibo creadas por versiones anteriores. */
+    private function borrarRecibosLegadosDeSesion(): void
+    {
+        foreach (array_keys($_SESSION) as $clave) {
+            if (is_string($clave) && str_starts_with($clave, 'token_encuesta_')) {
+                unset($_SESSION[$clave]);
+            }
+        }
     }
 
     private function obtener(int $id): array

@@ -13,7 +13,9 @@ return [
         'GET /encuestas/nueva'        => [EncuestasController::class, 'nueva'],
         'POST /encuestas'             => [EncuestasController::class, 'crear'],
         'GET /encuestas/{id}'         => [EncuestasController::class, 'detalle'],
-        'POST /encuestas/{id}/votar'  => [EncuestasController::class, 'votar'],
+        // Requiere cuenta, pero la bitácora omite su identidad para no crear
+        // una relación indirecta entre el votante y el recibo.
+        'POST /encuestas/{id}/votar'  => [EncuestasController::class, 'votar', 'auditoria_anonima'],
         'POST /encuestas/{id}/cerrar' => [EncuestasController::class, 'cerrar'],
         // Tablero público: verificable sin iniciar sesión
         'GET /encuestas/{id}/tablero'     => [EncuestasController::class, 'tablero', 'publico'],

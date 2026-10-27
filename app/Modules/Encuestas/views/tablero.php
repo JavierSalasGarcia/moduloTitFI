@@ -66,7 +66,7 @@ $qs = $buscar !== '' ? '&token=' . urlencode($buscar) : '';
             <tr><td colspan="3" class="texto-suave">Sin votos<?= $buscar !== '' ? ' que coincidan con el filtro' : ' todavía' ?>.</td></tr>
           <?php endif; ?>
           <?php $base = ($pagina - 1) * $porPagina; foreach ($votos as $i => $v): ?>
-            <tr class="token-voto" data-token="<?= e($v['token']) ?>">
+            <tr>
               <td class="texto-suave"><?= $base + $i + 1 ?></td>
               <td class="monoespacio"><strong><?= e($v['token']) ?></strong></td>
               <td><?= e($v['texto']) ?></td>
@@ -95,8 +95,6 @@ $qs = $buscar !== '' ? '&token=' . urlencode($buscar) : '';
 </div>
 
 <style>
-  /* Resaltar el voto propio (token guardado en este navegador) */
-  tr.token-voto.mio td { background: var(--verde-050); box-shadow: inset 3px 0 0 var(--verde-700); }
   @media print {
     .no-imprimir { display: none !important; }
     .contenido { padding: 0; max-width: none; }

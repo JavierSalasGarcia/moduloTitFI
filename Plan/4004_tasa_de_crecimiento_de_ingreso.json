@@ -3,7 +3,7 @@
   "categoria": "Tasa de crecimiento de Ingreso",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4004",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiMWE0MWZkNjktZDI1MC00N2VhLTljYWEtYTVkYWNjY2Q1NmI2IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -53,7 +53,7 @@
         },
         "registros": [
           {
-            "Crecimiento Acumulado Total Ingreso": 0.5560344827586207,
+            "Crecimiento Acumulado Total Ingreso": 0.7974137931034482,
             "proyectos": [
               2,
               3,
@@ -97,7 +97,7 @@
         },
         "registros": [
           {
-            "TCMA Ingreso": 0.050353455544049686,
+            "TCMA Ingreso": 0.060388006499004776,
             "proyectos": [
               2,
               3,
@@ -243,9 +243,19 @@
               3,
               15
             ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Ingreso": 834,
+            "Ciclo Escolar Anterior_Ingreso_1": 722,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 10
+        "numero_registros": 11
       }
     ],
     "foda": {
@@ -294,7 +304,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": -0.7857142857142857,
+              "Crecimiento Acumulado Total Ingreso": -0.7142857142857143,
               "proyectos": [
                 3,
                 15
@@ -336,7 +346,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": -0.22643133427692697,
+              "TCMA Ingreso": -0.16386578820370556,
               "proyectos": [
                 3,
                 15
@@ -436,13 +446,24 @@
             },
             {
               "Ciclo escolar": "2025-2026",
+              "Ingreso": 3,
+              "Ciclo Escolar Anterior_Ingreso_1": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 4,
+              "Ciclo Escolar Anterior_Ingreso_1": 3,
               "proyectos": [
                 3,
                 15
               ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -455,7 +476,7 @@
             "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
             "periodo_inicial": "2019-2020",
             "valor_inicial": 14,
-            "periodo_final": "2023-2024",
+            "periodo_final": "2025-2026",
             "valor_final": 3,
             "cambio_absoluto": -11,
             "visual_fuente": "010",
@@ -467,7 +488,7 @@
         ],
         "amenazas": [],
         "observaciones_sin_clasificar": [],
-        "diagnostico": "Ingreso: 14 en 2019-2020 y 3 en 2023-2024 (cambio -11).",
+        "diagnostico": "Ingreso: 14 en 2019-2020 y 3 en 2025-2026 (cambio -11).",
         "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
         "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
       }
@@ -489,7 +510,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0,
+              "Crecimiento Acumulado Total Ingreso": -1.0,
               "proyectos": [
                 3,
                 15
@@ -509,6 +530,7 @@
           "formatos": {},
           "registros": [
             {
+              "Ciclo Mayor Crecimiento Ingreso": "2026B",
               "proyectos": [
                 3,
                 15
@@ -530,7 +552,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0,
+              "TCMA Ingreso": -1.0,
               "proyectos": [
                 3,
                 15
@@ -550,6 +572,7 @@
           "formatos": {},
           "registros": [
             {
+              "Ciclo Menor Crecimiento Ingreso": "2026B",
               "proyectos": [
                 3,
                 15
@@ -582,9 +605,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 0,
+              "Ciclo Escolar Anterior_Ingreso_1": 5,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 1
+          "numero_registros": 2
         }
       ],
       "foda": {
@@ -615,7 +647,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0.34513274336283184,
+              "Crecimiento Acumulado Total Ingreso": 0.35398230088495586,
               "proyectos": [
                 2,
                 15
@@ -657,7 +689,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0.03349228332949017,
+              "TCMA Ingreso": 0.030768881104207058,
               "proyectos": [
                 2,
                 15
@@ -789,9 +821,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 153,
+              "Ciclo Escolar Anterior_Ingreso_1": 152,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -838,7 +879,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0.3565217391304348,
+              "Crecimiento Acumulado Total Ingreso": 0.791304347826087,
               "proyectos": [
                 2,
                 15
@@ -880,7 +921,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0.03446090986350758,
+              "TCMA Ingreso": 0.06002702601830179,
               "proyectos": [
                 2,
                 15
@@ -1014,9 +1055,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 206,
+              "Ciclo Escolar Anterior_Ingreso_1": 156,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -1063,7 +1113,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0.2882882882882883,
+              "Crecimiento Acumulado Total Ingreso": 0.4414414414414414,
               "proyectos": [
                 2,
                 15
@@ -1105,7 +1155,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0.028545890173886646,
+              "TCMA Ingreso": 0.037241060148093474,
               "proyectos": [
                 2,
                 15
@@ -1239,9 +1289,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 160,
+              "Ciclo Escolar Anterior_Ingreso_1": 143,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -1288,7 +1347,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0.7272727272727273,
+              "Crecimiento Acumulado Total Ingreso": 0.7121212121212122,
               "proyectos": [
                 2,
                 15
@@ -1330,7 +1389,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0.0626088657876307,
+              "TCMA Ingreso": 0.055245359008169626,
               "proyectos": [
                 2,
                 15
@@ -1464,9 +1523,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 113,
+              "Ciclo Escolar Anterior_Ingreso_1": 114,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -1639,7 +1707,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0,
+              "Crecimiento Acumulado Total Ingreso": 0.8805970149253732,
               "proyectos": [
                 2,
                 15
@@ -1659,6 +1727,7 @@
           "formatos": {},
           "registros": [
             {
+              "Ciclo Mayor Crecimiento Ingreso": "2026B",
               "proyectos": [
                 2,
                 15
@@ -1680,7 +1749,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0,
+              "TCMA Ingreso": 0.8805970149253732,
               "proyectos": [
                 2,
                 15
@@ -1700,6 +1769,7 @@
           "formatos": {},
           "registros": [
             {
+              "Ciclo Menor Crecimiento Ingreso": "2026B",
               "proyectos": [
                 2,
                 15
@@ -1732,9 +1802,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 126,
+              "Ciclo Escolar Anterior_Ingreso_1": 67,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 1
+          "numero_registros": 2
         }
       ],
       "foda": {
@@ -1765,7 +1844,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": 0.15254237288135594,
+              "Crecimiento Acumulado Total Ingreso": 0.10169491525423724,
               "proyectos": [
                 2,
                 15
@@ -1807,7 +1886,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": 0.015899547273536152,
+              "TCMA Ingreso": 0.009732033817033692,
               "proyectos": [
                 2,
                 15
@@ -1941,9 +2020,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 65,
+              "Ciclo Escolar Anterior_Ingreso_1": 68,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         }
       ],
       "foda": {
@@ -1990,7 +2078,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": -0.09090909090909091,
+              "Crecimiento Acumulado Total Ingreso": -1.0,
               "proyectos": [
                 3,
                 15
@@ -2032,7 +2120,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": -0.015759528290233193,
+              "TCMA Ingreso": -1.0,
               "proyectos": [
                 3,
                 15
@@ -2052,7 +2140,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Menor Crecimiento Ingreso": "2021-2022",
+              "Ciclo Menor Crecimiento Ingreso": "2026B",
               "proyectos": [
                 3,
                 15
@@ -2137,9 +2225,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 0,
+              "Ciclo Escolar Anterior_Ingreso_1": 10,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -2206,7 +2303,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Mayor Crecimiento Ingreso": "2024-2025",
+              "Ciclo Mayor Crecimiento Ingreso": "2021-2022",
               "proyectos": [
                 3,
                 15
@@ -2228,7 +2325,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": -0.2062994740159002,
+              "TCMA Ingreso": -0.17966464399236204,
               "proyectos": [
                 3,
                 15
@@ -2335,9 +2432,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 4,
+              "Ciclo Escolar Anterior_Ingreso_1": 4,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -2384,7 +2490,7 @@
           },
           "registros": [
             {
-              "Crecimiento Acumulado Total Ingreso": -0.4444444444444444,
+              "Crecimiento Acumulado Total Ingreso": -0.6666666666666667,
               "proyectos": [
                 3,
                 15
@@ -2404,7 +2510,7 @@
           "formatos": {},
           "registros": [
             {
-              "Ciclo Mayor Crecimiento Ingreso": "2022-2023",
+              "Ciclo Mayor Crecimiento Ingreso": "2023-2024",
               "proyectos": [
                 3,
                 15
@@ -2426,7 +2532,7 @@
           },
           "registros": [
             {
-              "TCMA Ingreso": -0.09331885900086678,
+              "TCMA Ingreso": -0.1452486000928478,
               "proyectos": [
                 3,
                 15
@@ -2527,6 +2633,16 @@
             },
             {
               "Ciclo escolar": "2025-2026",
+              "Ingreso": 5,
+              "Ciclo Escolar Anterior_Ingreso_1": 5,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Ingreso": 3,
               "Ciclo Escolar Anterior_Ingreso_1": 5,
               "proyectos": [
                 3,
@@ -2534,7 +2650,7 @@
               ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         }
       ],
       "foda": {
@@ -2547,7 +2663,7 @@
             "metrica_modelo": "2025_Nvo Ingreso.Ingreso",
             "periodo_inicial": "2019-2020",
             "valor_inicial": 9,
-            "periodo_final": "2024-2025",
+            "periodo_final": "2025-2026",
             "valor_final": 5,
             "cambio_absoluto": -4,
             "visual_fuente": "010",
@@ -2559,7 +2675,7 @@
         ],
         "amenazas": [],
         "observaciones_sin_clasificar": [],
-        "diagnostico": "Ingreso: 9 en 2019-2020 y 5 en 2024-2025 (cambio -4).",
+        "diagnostico": "Ingreso: 9 en 2019-2020 y 5 en 2025-2026 (cambio -4).",
         "criterio": "Las fortalezas y debilidades se infieren de tendencias internas sólo cuando la dirección del indicador es interpretable. La guía define oportunidades y amenazas como factores externos; este tablero no aporta evidencia externa suficiente para asignarlas. La variación no establece causalidad ni demuestra el cumplimiento de metas.",
         "referencia_guia": "Guía para la formulación de planes de desarrollo, pp. 20-22"
       }
@@ -2570,5 +2686,16 @@
     "Los valores provienen de consultas al modelo Power BI público, con filtros explícitos de Facultad de Ingeniería y programa educativo. Las unidades y formatos se conservan según el descriptor del modelo."
   ],
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026B",
+    "fuentes": [
+      {
+        "archivo": "4003_nuevo_ingreso_uaemex.json",
+        "transformacion": "Tasas recalculadas con el nuevo corte"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

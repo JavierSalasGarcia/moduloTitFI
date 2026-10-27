@@ -23,6 +23,17 @@ final class AccessControl
         $id=Auth::id(); if (!$id || !self::ready()) return false;
         return self::$pending[$id] ??= (bool) Database::valor('SELECT COUNT(*) FROM cuenta_verificacion WHERE usuario_id=? AND verificado_en IS NULL',[$id]);
     }
+    /**
+     * Exige correo verificado para participar (subir obras, votar, crear encuestas). Hoy el Router ya impide todo POST a una cuenta
+     * pendiente; esta guardia lo hace explícito en cada acción y explica a la persona qué debe hacer.
+     */
+    public static function exigirCorreoVerificado(string $accion): void
+    {
+        if (!self::pending()) return;
+        Audit::record('participacion_bloqueada','denegado',$accion);
+        flash('alerta','Verifica tu correo para '.$accion.'. Te enviamos un código de 6 dígitos; ingrésalo aquí.');
+        redirigir('cuenta/verificar');
+    }
     public static function assertSql(string $sql): void
     {
         if (self::isInternal()) return;
@@ -43,8 +54,20 @@ final class AccessControl
     public static function user(int $id): ?array
     {
         $u=Database::una('SELECT u.*, d.nombre AS departamento,d.clave AS depto_clave,a.nombre AS area,p.siglas AS programa_siglas,p.nombre AS programa,p.nivel AS programa_nivel FROM usuarios u LEFT JOIN departamentos d ON d.id=u.departamento_id LEFT JOIN areas a ON a.id=d.area_id LEFT JOIN programas p ON p.id=u.programa_id WHERE u.id=? AND u.activo=1',[$id]);
-        if ($u) { $u['tiene_totp']=!empty($u['totp_secret']); unset($u['password_hash'],$u['totp_secret']); }
+        if ($u) {
+            $u['tiene_totp']=!empty($u['totp_secret']); unset($u['password_hash'],$u['totp_secret']);
+            [$u['roles_extra'],$u['programas_profesor']]=self::rolesAdicionales($id);
+        }
         return $u;
+    }
+    /** Roles adicionales (usuario_roles) y programas de profesorado; si las tablas aún no existen, la cuenta solo tiene su rol principal. */
+    private static function rolesAdicionales(int $id): array
+    {
+        try {
+            $extra=Database::todas('SELECT r.rol,r.departamento_id,r.programa_id,r.cargo,d.clave AS depto_clave,d.nombre AS departamento FROM usuario_roles r LEFT JOIN departamentos d ON d.id=r.departamento_id WHERE r.usuario_id=? ORDER BY r.id',[$id]);
+            $prog=array_map('intval',array_column(Database::todas("SELECT programa_id FROM programa_profesores WHERE usuario_id=? AND activo=1 AND (fecha_fin IS NULL OR fecha_fin>=CURDATE())",[$id]),'programa_id'));
+            return [$extra,$prog];
+        } catch (\Throwable) { return [[],[]]; }
     }
     public static function refresh(): void
     {

@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-26 20:02)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-27 17:16)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (12 fuentes, en orden).
+-- a partir de las migraciones (19 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3520,4 +3520,201 @@ INSERT IGNORE INTO tit_historico (hoja, fila, carrera, acta, alumno, cuenta, mod
 ('ISES', '165', 'sistemas', '155', 'denise', '', 'tesis', 'TESIS', '', '', NULL, '2026-08-13', '2026-08-13', '', '', '', '', '', '', '', '', '', '', '', ''),
 ('ISES', '166', 'sistemas', '156', 'CORONA MANJARREZ ERIKA LIZETH', '1920070', NULL, '', '', '', NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '', ''),
 ('ISES', '167', 'sistemas', '157', 'OCAMPO VALLEJO ARIADNA ITZEL', '1723648', 'aplicacion', 'RAC', '', '', NULL, '2026-10-07', '2026-10-07', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/018_anonimato_encuestas.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Desvincula de cuentas las entradas históricas de auditoría del flujo de voto.
+-- Conserva qué operación ocurrió y su resultado, pero elimina actor y usuario.
+-- Las tablas funcionales mantienen únicamente:
+--   encuesta_participantes: que una cuenta ya participó en una encuesta;
+--   encuesta_votos: recibo y opción, sin usuario ni FK hacia usuarios.
+
+UPDATE auditoria_acciones
+SET actor_id = NULL,
+    actor_email = '',
+    usuario_id = NULL,
+    usuario_email = ''
+WHERE accion = 'encuestas::votar'
+   OR accion = 'BD: INSERT INTO encuesta_participantes'
+   OR accion = 'BD: INSERT INTO encuesta_votos';
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/019_oficios_enviados.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Archivo de oficios, memorándums y circulares que cada coordinación o
+-- departamento envía a otras dependencias, profesores o alumnos.
+-- Cada registro conserva el PDF firmado en storage/oficios/<departamento>/.
+
+CREATE TABLE IF NOT EXISTS oficios_enviados (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  departamento_id smallint unsigned NOT NULL,
+  tipo enum('memorandum','oficio','circular','otro') NOT NULL DEFAULT 'memorandum',
+  folio varchar(60) NOT NULL,
+  fecha date NOT NULL,
+  asunto varchar(250) NOT NULL,
+  destinatarios varchar(500) NOT NULL,
+  firmante varchar(160) NOT NULL DEFAULT '',
+  notas text DEFAULT NULL,
+  archivo varchar(255) NOT NULL,
+  archivo_nombre varchar(200) NOT NULL,
+  sha256 char(64) NOT NULL,
+  creado_por int unsigned NOT NULL,
+  creado_en timestamp NOT NULL DEFAULT current_timestamp(),
+  actualizado_en timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_oficio_folio (departamento_id, folio),
+  KEY idx_oficio_fecha (departamento_id, fecha),
+  CONSTRAINT fk_oficio_departamento FOREIGN KEY (departamento_id) REFERENCES departamentos (id),
+  CONSTRAINT fk_oficio_usuario FOREIGN KEY (creado_por) REFERENCES usuarios (id) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/020_cambio_titulares_subdireccion_investigacion.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Cambio de titulares (octubre 2026). Idempotente: puede ejecutarse varias veces.
+--  * Dr. Javier Salas García pasa a ser Subdirector Académico.
+--  * Francisco Héctor Bañuelos García es el nuevo Coordinador de Investigación.
+-- La cuenta nueva se crea sin contraseña utilizable (permite_contrasena = 0);
+-- ingresa por los demás métodos de acceso o el administrador le asigna una.
+
+UPDATE usuarios
+   SET nombre = 'Dr. Javier Salas García', departamento_id = 24
+ WHERE email = 'jsalasg@uaemex.mx';
+
+INSERT INTO usuarios (nombre, email, password_hash, departamento_id, rol, activo, permite_contrasena)
+SELECT 'Francisco Héctor Bañuelos García', 'hbanuelosg589@profesor.uaemex.mx', '$2y$10$05GtuGcywcwHh8FgSEstCO7zX.X6nuwODElgi82YZC3XIjGqalmCm', 14, 'titular', 1, 0
+ WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'hbanuelosg589@profesor.uaemex.mx');
+
+UPDATE usuarios
+   SET departamento_id = 14, rol = 'titular', activo = 1
+ WHERE email = 'hbanuelosg589@profesor.uaemex.mx';
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/021_cuentas_subdireccion_y_admin.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Cuentas institucionales de la Subdirección Académica (octubre 2026). Idempotente.
+--  * academica_fi@uaemex.mx es la cuenta oficial de la Subdirección Académica.
+--  * subacademica@fi.uaemex.mx (cuenta de demostración) se desactiva.
+--  * jsalasg@uaemex.mx pasa a ser administrador (puede impersonar cuentas
+--    no administrativas desde Ajustes → Accesos, con registro de auditoría).
+-- La cuenta nueva se crea sin contraseña utilizable (permite_contrasena = 0).
+
+INSERT INTO usuarios (nombre, email, password_hash, departamento_id, rol, activo, permite_contrasena)
+SELECT 'Subdirección Académica', 'academica_fi@uaemex.mx', '$2y$10$ptw3zGPmiihiW/4l5LLoteROeNSvJ6ok5CUDuRcSX8VRAJCqMXeTG', 24, 'titular', 1, 0
+ WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'academica_fi@uaemex.mx');
+
+UPDATE usuarios SET departamento_id = 24, rol = 'titular', activo = 1
+ WHERE email = 'academica_fi@uaemex.mx';
+
+UPDATE usuarios SET activo = 0 WHERE email = 'subacademica@fi.uaemex.mx';
+
+UPDATE usuarios SET rol = 'admin' WHERE email = 'jsalasg@uaemex.mx';
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/022_genero_no_binario.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Género «No binario» en el registro y el perfil. Repetible: MODIFY deja el mismo resultado si ya está aplicado.
+-- Las personas con este valor reciben el saludo neutro («Hola …»), igual que quien no indica género.
+ALTER TABLE usuarios MODIFY COLUMN genero ENUM('masculino','femenino','no_binario') NULL;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/023_justificantes_faltas.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Oficios para justificar faltas de alumnos (Coordinadores de Docencia y Subdirección Académica). Repetible.
+
+CREATE TABLE IF NOT EXISTS jus_oficios (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  usuario_id INT UNSIGNED NOT NULL,
+  firmante VARCHAR(40) CHARACTER SET ascii NOT NULL,
+  numero VARCHAR(80) NOT NULL DEFAULT '',
+  fecha DATE NOT NULL,
+  asunto VARCHAR(200) NOT NULL,
+  destinatario VARCHAR(200) NOT NULL DEFAULT '',
+  saludo VARCHAR(200) NOT NULL DEFAULT '',
+  cuerpo TEXT NOT NULL,
+  periodo VARCHAR(250) NOT NULL DEFAULT '',
+  motivo VARCHAR(250) NOT NULL DEFAULT '',
+  alumnos TEXT NOT NULL,
+  firmante_nombre VARCHAR(200) NOT NULL,
+  firmante_cargo VARCHAR(250) NOT NULL,
+  archivo VARCHAR(255) NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_jus_usuario (usuario_id, creado_en),
+  KEY idx_jus_firmante (firmante, fecha)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS jus_adjuntos (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  oficio_id INT UNSIGNED NOT NULL,
+  nombre VARCHAR(200) NOT NULL,
+  ruta VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id),
+  KEY idx_jus_adj (oficio_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/024_roles_multiples.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Roles múltiples por persona, cargos Titular/Asistente y avisos dirigidos a varios programas.
+-- Repetible: solo crea o cambia lo que falta y no borra datos.
+
+-- Cargo principal de la cuenta dentro de su departamento o coordinación (Titular de… / Asistente de…).
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE usuarios ADD COLUMN cargo ENUM(''titular'',''asistente'') NULL DEFAULT NULL AFTER rol', 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'cargo');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- Roles adicionales: la persona conserva su rol principal en usuarios.rol y suma los que aquí se registren.
+-- Ejemplo: profesor en IC e ISC (dos filas con programa) y, además, titular de una coordinación de docencia.
+CREATE TABLE IF NOT EXISTS usuario_roles (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  usuario_id int unsigned NOT NULL,
+  rol enum('admin','titular','operativo','profesor','alumno','coordinador') NOT NULL,
+  departamento_id smallint unsigned NOT NULL DEFAULT 0,
+  programa_id smallint unsigned NOT NULL DEFAULT 0,
+  cargo enum('titular','asistente') DEFAULT NULL,
+  creado_en timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_usuario_rol (usuario_id, rol, departamento_id, programa_id),
+  KEY idx_usuario_roles_rol (rol, departamento_id, programa_id),
+  CONSTRAINT fk_usuario_roles_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- Avisos: a quién se dirigen (alumnos, profesores o todos) y a cuántos programas a la vez.
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE comunicados ADD COLUMN destinatarios ENUM(''todos'',''alumno'',''profesor'') NOT NULL DEFAULT ''todos'' AFTER alcance', 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'comunicados' AND COLUMN_NAME = 'destinatarios');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+CREATE TABLE IF NOT EXISTS comunicado_programas (
+  comunicado_id int unsigned NOT NULL,
+  programa_id smallint unsigned NOT NULL,
+  PRIMARY KEY (comunicado_id, programa_id),
+  KEY idx_comunicado_programa (programa_id),
+  CONSTRAINT fk_comunicado_programa_com FOREIGN KEY (comunicado_id) REFERENCES comunicados (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- Los avisos ya publicados para un programa pasan a la nueva tabla.
+INSERT IGNORE INTO comunicado_programas (comunicado_id, programa_id)
+SELECT id, programa_id FROM comunicados WHERE alcance = 'programa' AND programa_id IS NOT NULL;
+
+-- Concursos: calaveritas favoritas de cada persona (de ellas elige a su preferida al votar). No son el voto.
+CREATE TABLE IF NOT EXISTS con_favoritos (
+  concurso_id int unsigned NOT NULL,
+  usuario_id int unsigned NOT NULL,
+  numero int unsigned NOT NULL,
+  creado_en timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (concurso_id, usuario_id, numero),
+  CONSTRAINT fk_con_favorito_concurso FOREIGN KEY (concurso_id) REFERENCES con_concursos (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Cargos: los antiguos departamentos «Titular de la …» se unifican con su dependencia y el cargo pasa a la cuenta.
+-- Subdirección Académica, Subdirección Administrativa y Coordinación de Planeación (por clave, no por id).
+UPDATE usuarios u
+  JOIN departamentos o ON o.id = u.departamento_id
+  JOIN departamentos n ON n.clave = REPLACE(o.clave, 'titular_de_la_', '')
+   SET u.cargo = 'titular', u.departamento_id = n.id
+ WHERE u.rol = 'titular'
+   AND o.clave IN ('titular_de_la_subdireccion_academica', 'titular_de_la_subdireccion_administrativa', 'titular_de_la_coordinacion_de_planeacion');
+UPDATE usuarios SET cargo = 'titular' WHERE cargo IS NULL AND rol = 'titular' AND departamento_id IS NOT NULL;
 

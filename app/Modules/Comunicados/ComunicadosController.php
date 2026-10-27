@@ -15,12 +15,6 @@ use App\Core\Database;
  */
 final class ComunicadosController extends Controller
 {
-    private const CLAVES_EMISORAS = [
-        'coordinacion_de_estudios_avanzados',
-        'departamento_de_servicios_escolares',
-        'coordinacion_de_difusion_cultural',
-    ];
-
     public function index(): void
     {
         redirigir('eventos');
@@ -66,7 +60,7 @@ final class ComunicadosController extends Controller
             redirigir('eventos');
         }
         $c = Database::una('SELECT * FROM comunicados WHERE id = ?', [(int) $id]);
-        $puede = $c && (Auth::rol() === 'admin' || (int) $c['depto_id'] === Auth::departamentoId());
+        $puede = $c && (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true));
         if (!$puede) {
             flash('error', 'Solo el departamento emisor puede editar este comunicado.');
             redirigir('eventos');
@@ -90,44 +84,25 @@ final class ComunicadosController extends Controller
 
     public function nuevo(): void
     {
-        if (!$this->puedeEmitir()) {
-            flash('error', 'Tu departamento no está autorizado para emitir comunicados.');
-            redirigir('eventos');
-        }
-        $this->vista('nuevo', [
-            'titulo'    => 'Nuevo comunicado',
-            'programas' => Database::todas("SELECT * FROM programas ORDER BY nivel = 'posgrado', siglas"),
-        ]);
+        redirigir('eventos');
     }
 
     public function crear(): void
     {
-        if (!$this->puedeEmitir()) {
-            flash('error', 'Tu departamento no está autorizado para emitir comunicados.');
+        if (!Avisos::puedeEmitir()) {
+            flash('error', 'Tu cuenta no está autorizada para emitir comunicados.');
             redirigir('eventos');
         }
-        $titulo = $this->post('titulo');
-        $contenido = $this->post('contenido');
-        $alcance = $this->post('alcance');
-        $programaId = (int) $this->post('programa');
-
-        if ($titulo === '' || $contenido === ''
-            || !in_array($alcance, ['todos', 'licenciatura', 'posgrado', 'programa'], true)
-            || ($alcance === 'programa' && !$programaId)) {
-            flash('error', 'Completa título, contenido y alcance (elige el programa si el alcance es por programa).');
-            redirigir('comunicados/nuevo');
+        try {
+            Avisos::publicar([
+                'titulo' => $this->post('titulo'), 'contenido' => $this->post('contenido'), 'alcance' => $this->post('alcance'),
+                'destinatarios' => $this->post('destinatarios') ?: 'todos', 'programas' => $_POST['programas'] ?? [],
+                'vence_en' => $this->post('vence_en'), 'depto_id' => (int) $this->post('depto_id'),
+            ]);
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+            redirigir('eventos');
         }
-
-        $vence = $this->post('vence_en');
-        if ($vence !== '' && (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $vence) || date('Y-m-d', strtotime($vence)) !== $vence)) {
-            flash('error','La fecha de vigencia no es válida.'); redirigir('comunicados/nuevo');
-        }
-        $nuevoId = Database::ejecutar(
-            'INSERT INTO comunicados (autor_id, depto_id, titulo, contenido, alcance, programa_id) VALUES (?, ?, ?, ?, ?, ?)',
-            [Auth::id(), Auth::departamentoId(), $titulo, $contenido, $alcance,
-             $alcance === 'programa' ? $programaId : null]
-        );
-        if ($vence !== '') Database::ejecutar('INSERT INTO ajustes (clave,valor,descripcion) VALUES (?,?,?)', ['comunicado_vence_'.$nuevoId,$vence,'Vigencia del aviso']);
         flash('exito', 'Comunicado publicado.');
         redirigir('eventos');
     }
@@ -135,7 +110,7 @@ final class ComunicadosController extends Controller
     public function eliminar(string $id): void
     {
         $c = Database::una('SELECT * FROM comunicados WHERE id = ?', [(int) $id]);
-        $puede = $c && (Auth::rol() === 'admin' || (int) $c['depto_id'] === Auth::departamentoId());
+        $puede = $c && (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true));
         if (!$puede) {
             flash('error', 'Solo el departamento emisor puede retirar el comunicado.');
         } else {
@@ -145,17 +120,9 @@ final class ComunicadosController extends Controller
         redirigir('eventos');
     }
 
-    /** Coordinaciones de docencia, Estudios Avanzados, Escolares, Difusión o admin. */
+    /** Coordinaciones de docencia, Estudios Avanzados, Escolares, Difusión, Subdirección Académica o admin. */
     private function puedeEmitir(): bool
     {
-        if (Auth::rol() === 'admin') {
-            return true;
-        }
-        if (!Auth::tieneRol('titular', 'operativo')) {
-            return false;
-        }
-        $clave = Auth::usuario()['depto_clave'];
-        return in_array($clave, self::CLAVES_EMISORAS, true)
-            || str_starts_with($clave, 'coordinacion_de_docencia_de_la_licenciatura');
+        return Avisos::puedeEmitir();
     }
 }

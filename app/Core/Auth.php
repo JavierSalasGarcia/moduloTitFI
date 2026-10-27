@@ -8,6 +8,9 @@ namespace App\Core;
  */
 final class Auth
 {
+    public const DURACION_SESION_NORMAL = 7200;
+    public const DURACION_SESION_PERSISTENTE = 432000;
+
     /**
      * Acepta el usuario institucional solo o un correo completo de uaemex.mx
      * (incluidos sus subdominios) y devuelve el correo en minúsculas.
@@ -79,7 +82,7 @@ final class Auth
         return false;
     }
 
-    public static function iniciarSesion(array $u): void
+    public static function iniciarSesion(array $u, bool $permanecer = false): void
     {
         if (isset($u['id']) && (int)$u['logins_contrasena_restantes'] > 0) {
             $nuevosRestantes = max(0, ((int)$u['logins_contrasena_restantes']) - 1);
@@ -94,8 +97,16 @@ final class Auth
 
         unset($u['password_hash']);
         session_regenerate_id(true);
+        $ahora = time();
         $_SESSION['usuario'] = $u;
-        $_SESSION['_ultima_actividad'] = time();
+        $_SESSION['_ultima_actividad'] = $ahora;
+        if ($permanecer) {
+            $expira = $ahora + self::DURACION_SESION_PERSISTENTE;
+            $_SESSION['_sesion_persistente_hasta'] = $expira;
+            self::emitirCookieSesion($expira);
+        } else {
+            unset($_SESSION['_sesion_persistente_hasta']);
+        }
         Audit::record('inicio_sesion','correcto','Acceso verificado por el método de autenticación');
     }
 
@@ -103,12 +114,39 @@ final class Auth
     public static function validarVigencia(): void
     {
         if (!self::usuario()) return;
-        $ultima = (int) ($_SESSION['_ultima_actividad'] ?? time());
-        if (time() - $ultima > 7200) {
+        $ahora = time();
+        $expiraPersistente = (int) ($_SESSION['_sesion_persistente_hasta'] ?? 0);
+        if ($expiraPersistente > 0) {
+            if ($ahora > $expiraPersistente) {
+                self::salir();
+                redirigir('login');
+            }
+            $_SESSION['_ultima_actividad'] = $ahora;
+            return;
+        }
+
+        $ultima = (int) ($_SESSION['_ultima_actividad'] ?? $ahora);
+        if ($ahora - $ultima > self::DURACION_SESION_NORMAL) {
             self::salir();
             redirigir('login');
         }
-        $_SESSION['_ultima_actividad'] = time();
+        $_SESSION['_ultima_actividad'] = $ahora;
+    }
+
+    private static function emitirCookieSesion(int $expira): void
+    {
+        $parametros = session_get_cookie_params();
+        $opciones = [
+            'expires' => $expira,
+            'path' => $parametros['path'] ?: '/',
+            'secure' => (bool) ($parametros['secure'] ?? false),
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ];
+        if (!empty($parametros['domain'])) {
+            $opciones['domain'] = $parametros['domain'];
+        }
+        setcookie(session_name(), session_id(), $opciones);
     }
 
     public static function salir(): void
@@ -143,10 +181,51 @@ final class Auth
         return self::usuario()['rol'] ?? '';
     }
 
-    /** ¿El usuario tiene alguno de estos roles? */
+    /** Rol principal y los roles adicionales de la persona (sin repetir). */
+    public static function roles(): array
+    {
+        $u = self::usuario();
+        if (!$u) return [];
+        $roles = [(string) ($u['rol'] ?? '')];
+        foreach ($u['roles_extra'] ?? [] as $extra) $roles[] = (string) $extra['rol'];
+        return array_values(array_unique(array_filter($roles)));
+    }
+
+    /** ¿El usuario tiene alguno de estos roles (el principal o uno adicional)? */
     public static function tieneRol(string ...$roles): bool
     {
-        return in_array(self::rol(), $roles, true);
+        return (bool) array_intersect(self::roles(), $roles);
+    }
+
+    /** Claves de todos los departamentos o coordinaciones en los que la persona tiene adscripción. */
+    public static function deptoClaves(): array
+    {
+        $u = self::usuario();
+        if (!$u) return [];
+        $claves = [(string) ($u['depto_clave'] ?? '')];
+        foreach ($u['roles_extra'] ?? [] as $extra) $claves[] = (string) ($extra['depto_clave'] ?? '');
+        return array_values(array_unique(array_filter($claves)));
+    }
+
+    /** Identificadores de todos los departamentos o coordinaciones de la persona. */
+    public static function departamentoIds(): array
+    {
+        $u = self::usuario();
+        if (!$u) return [];
+        $ids = [(int) ($u['departamento_id'] ?? 0)];
+        foreach ($u['roles_extra'] ?? [] as $extra) $ids[] = (int) $extra['departamento_id'];
+        return array_values(array_unique(array_filter($ids)));
+    }
+
+    /** Programas a los que está adscrita la persona: el principal, los de sus roles adicionales y los de profesorado. */
+    public static function programaIds(): array
+    {
+        $u = self::usuario();
+        if (!$u) return [];
+        $ids = [(int) ($u['programa_id'] ?? 0)];
+        foreach ($u['roles_extra'] ?? [] as $extra) $ids[] = (int) $extra['programa_id'];
+        foreach ($u['programas_profesor'] ?? [] as $pid) $ids[] = (int) $pid;
+        return array_values(array_unique(array_filter($ids)));
     }
 
     public static function csrfToken(): string

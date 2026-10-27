@@ -5,12 +5,13 @@ $csrf = e(Auth::csrfToken());
 $base = 'concursos/' . $c['slug'];
 $cuenta = array_count_values(array_column($obras, 'estado'));
 $abierto = in_array($fase, ['recepcion', 'revision'], true);
+$nuevasEnVotacion = $fase === 'votacion' && Concursos::recepcionAbierta($c);
 ?>
 <?php include __DIR__ . '/_estilos.php'; ?>
 <style>.cv-verso{white-space:pre-wrap;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.5;margin:8px 0}.cv-obra{border-top:1px solid var(--gris-200,#ddd);padding:14px 0}</style>
 <section class="tarjeta" style="margin-bottom:16px">
   <div class="tarjeta-cabecera"><h2><?= e($c['titulo']) ?></h2><a class="btn btn-mini" href="<?= url($base) ?>">Ver convocatoria</a></div>
-  <p class="texto-secundario">Las obras se muestran sin el nombre de su autor. Aprueba las que cumplen las bases; a las que no, escribe el motivo: se le envía al autor sin decir quién revisó. <?= $abierto ? 'Puedes cambiar un dictamen hasta que empiece la votación.' : 'La votación ya empezó: solo se puede retirar de la votación una obra (no aprobarla).' ?></p>
+  <p class="texto-secundario">Las obras se muestran sin el nombre de su autor. Aprueba las que cumplen las bases; a las que no, escribe el motivo: se le envía al autor sin decir quién revisó. <?= $abierto ? 'Puedes cambiar un dictamen hasta que empiece la votación.' : ($nuevasEnVotacion ? 'La votación ya empezó: puedes aprobar las obras nuevas que sigan llegando mientras la recepción esté abierta; de las ya aprobadas solo se puede retirar la aprobación.' : 'La votación ya empezó: solo se puede retirar de la votación una obra (no aprobarla).') ?></p>
   <p><strong><?= (int) ($cuenta['enviada'] ?? 0) ?></strong> por revisar · <strong><?= (int) ($cuenta['aprobada'] ?? 0) ?></strong> aprobadas · <strong><?= (int) ($cuenta['rechazada'] ?? 0) ?></strong> no aprobadas · fase: <?= e(Concursos::FASES[$fase]) ?></p>
 </section>
 
@@ -48,12 +49,12 @@ $abierto = in_array($fase, ['recepcion', 'revision'], true);
       <small class="texto-secundario">Recibida el <?= e(fecha_corta((string) $o['creado_en'])) ?><?= $o['actualizado_en'] ? ' · corregida el ' . e(fecha_corta((string) $o['actualizado_en'])) : '' ?></small>
       <div class="cv-verso"><?= e($o['texto']) ?></div>
       <?php if ($o['estado'] === 'rechazada' && $o['motivo']): ?><p class="tit-obs"><?= e($o['motivo']) ?></p><?php endif; ?>
-      <?php if ($abierto || ($fase === 'votacion' && $o['estado'] === 'aprobada')): ?>
+      <?php if ($abierto || ($fase === 'votacion' && ($o['estado'] === 'aprobada' || ($nuevasEnVotacion && $o['estado'] === 'enviada')))): ?>
         <form method="post" action="<?= url($base . '/prefiltro/' . (int) $o['id']) ?>" class="formulario" style="margin-top:8px">
           <input type="hidden" name="_csrf" value="<?= $csrf ?>">
           <label>Motivo (si no se aprueba; lo recibe el autor) <textarea name="motivo" rows="2" maxlength="600"><?= e((string) ($o['motivo'] ?? '')) ?></textarea></label>
           <div class="acciones-formulario">
-            <?php if ($abierto && $o['estado'] !== 'aprobada'): ?><button class="btn btn-primario btn-mini" name="dictamen" value="aprobada" type="submit">Aprobar</button><?php endif; ?>
+            <?php if (($abierto || ($nuevasEnVotacion && $o['estado'] === 'enviada')) && $o['estado'] !== 'aprobada'): ?><button class="btn btn-primario btn-mini" name="dictamen" value="aprobada" type="submit">Aprobar</button><?php endif; ?>
             <?php if ($o['estado'] !== 'rechazada'): ?><button class="btn btn-mini" name="dictamen" value="rechazada" type="submit">No aprobar</button><?php endif; ?>
           </div>
         </form>

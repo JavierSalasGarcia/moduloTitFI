@@ -1,8 +1,7 @@
 <?php
 use App\Core\Auth;
 $e = $encuesta;
-$tokenNuevo = $_SESSION['token_encuesta_' . $e['id']] ?? null;
-unset($_SESSION['token_encuesta_' . $e['id']]);
+$tokenNuevo = $recibo ?? null;
 $totalVotos = array_sum(array_column($opciones, 'votos'));
 ?>
 <p><a class="enlace" href="<?= url('encuestas') ?>"><?= icono('flecha-izq', 14) ?> Volver a encuestas</a></p>
@@ -13,7 +12,6 @@ $totalVotos = array_sum(array_column($opciones, 'votos'));
     <strong class="monoespacio"><?= e($tokenNuevo) ?></strong> <button type="button" class="btn" data-copy="<?= e($tokenNuevo) ?>">Copiar comprobante</button> — con él puedes ubicar tu voto en el
     <a href="<?= url('encuestas/' . $e['id'] . '/tablero') ?>">tablero público</a> sin revelar tu identidad.
   </div>
-  <script>localStorage.setItem('fi_voto_<?= (int) $e['id'] ?>', <?= json_encode($tokenNuevo) ?>);</script>
 <?php endif; ?>
 
 <div class="rejilla-detalle">
@@ -64,8 +62,9 @@ $totalVotos = array_sum(array_column($opciones, 'votos'));
   <aside class="columna-lateral">
     <section class="card">
       <header class="tarjeta-cabecera"><h2>Transparencia</h2></header>
-      <p class="texto-suave">Todos los votos, identificados solo por su token, se publican en un tablero
-      accesible <strong>sin iniciar sesión</strong>. Nadie puede vincular un token con una persona.</p>
+      <p class="texto-suave">Todos los votos, identificados solo por su recibo, se publican en un tablero
+      accesible <strong>sin iniciar sesión</strong>. La cuenta sólo conserva el estado «ya participó»;
+      no guarda el recibo ni la opción elegida.</p>
       <a class="btn btn-oro btn-bloque" href="<?= url('encuestas/' . $e['id'] . '/tablero') ?>">Ver tablero público</a>
     </section>
     <?php if ($esDueno && $e['estado'] === 'abierta'): ?>

@@ -71,7 +71,7 @@ $config = [
                     'subdireccion_academica',
                     'titular_de_la_subdireccion_academica',
                 ],
-                'gestores' => ['jsalasg@uaemex.mx'],
+                'gestores' => ['academica_fi@uaemex.mx', 'jsalasg@uaemex.mx'],
             ],
         ],
     ],

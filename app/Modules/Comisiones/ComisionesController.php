@@ -140,7 +140,7 @@ final class ComisionesController extends Controller
     public function postular(string $id): void
     {
         $c = $this->obtener((int) $id);
-        if (Auth::rol() !== 'profesor' || $c['estado'] === 'concluida') {
+        if (!Auth::tieneRol('profesor') || $c['estado'] === 'concluida') {
             flash('error', 'Solo profesores pueden postularse a comisiones activas.');
             redirigir('comisiones/' . $c['id']);
         }
@@ -266,9 +266,9 @@ final class ComisionesController extends Controller
 
     private function esGestor(array $c): bool
     {
-        return Auth::rol() === 'admin'
+        return Auth::tieneRol('admin')
             || (int) $c['creador_id'] === Auth::id()
-            || (Auth::rol() === 'titular' && (int) $c['depto_responsable_id'] === Auth::departamentoId());
+            || (Auth::tieneRol('titular') && (int) $c['depto_responsable_id'] === Auth::departamentoId());
     }
 
     /** Profesores disponibles (excluye a los ya miembros de la comisión). */

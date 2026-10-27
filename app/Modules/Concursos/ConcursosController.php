@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Concursos;
 
+use App\Core\AccessControl;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Controller;
@@ -53,6 +54,7 @@ final class ConcursosController extends Controller
         $this->vista('ver', [
             'titulo' => $c['titulo'], 'c' => $c, 'fase' => $fase, 'conteo' => $conteo,
             'misObras' => $uid ? Concursos::misObras((int) $c['id'], $uid) : [],
+            'favoritos' => $uid ? Concursos::favoritos((int) $c['id'], $uid) : [], 'verificado' => !$uid || !AccessControl::pending(),
             'yaVoto' => $uid && Concursos::yaVoto((int) $c['id'], $uid), 'recibo' => $recibo,
             'gestiona' => Concursos::puedeGestionar(), 'seccion' => 'Concursos',
         ], Auth::usuario() ? 'app' : 'publico');
@@ -60,6 +62,7 @@ final class ConcursosController extends Controller
 
     public function enviar(string $slug): void
     {
+        AccessControl::exigirCorreoVerificado('subir tu obra al concurso');
         $c = $this->concurso($slug);
         $id = ctype_digit($this->post('obra')) ? (int) $this->post('obra') : null;
         try {
@@ -76,6 +79,7 @@ final class ConcursosController extends Controller
 
     public function retirar(string $slug, string $id): void
     {
+        AccessControl::exigirCorreoVerificado('modificar tu obra');
         $c = $this->concurso($slug);
         try {
             Concursos::retirar($c, (int) Auth::id(), (int) $id);
@@ -89,6 +93,7 @@ final class ConcursosController extends Controller
 
     public function votar(string $slug): void
     {
+        AccessControl::exigirCorreoVerificado('votar en el concurso');
         $c = $this->concurso($slug);
         try {
             $recibo = Concursos::votar($c, (int) Auth::id(), (int) $this->post('numero'));
@@ -98,6 +103,32 @@ final class ConcursosController extends Controller
         }
         // El recibo y la obra elegida se muestran una sola vez; no quedan ligados a la cuenta.
         $_SESSION['recibo_concurso_' . $c['id']] = ['recibo' => $recibo, 'numero' => (int) $this->post('numero')];
+        redirigir('concursos/' . $c['slug'] . '#votacion');
+    }
+
+    /** Agrega o quita una calaverita de las favoritas; responde JSON (o redirige si no hay JavaScript). */
+    public function favorito(string $slug): void
+    {
+        AccessControl::exigirCorreoVerificado('guardar tus favoritas');
+        $c = $this->concurso($slug);
+        $json = str_contains($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json');
+        try {
+            $activa = Concursos::alternarFavorito($c, (int) Auth::id(), (int) $this->post('numero'));
+        } catch (\InvalidArgumentException $e) {
+            if ($json) {
+                http_response_code(422);
+                header('Content-Type: application/json');
+                echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
+                exit;
+            }
+            flash('error', $e->getMessage());
+            redirigir('concursos/' . $c['slug'] . '#votacion');
+        }
+        if ($json) {
+            header('Content-Type: application/json');
+            echo json_encode(['ok' => true, 'activa' => $activa, 'favoritos' => Concursos::favoritos((int) $c['id'], (int) Auth::id())]);
+            exit;
+        }
         redirigir('concursos/' . $c['slug'] . '#votacion');
     }
 

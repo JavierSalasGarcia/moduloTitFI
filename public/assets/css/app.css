@@ -732,18 +732,6 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
 .comentario { border-top: 1px solid var(--gris-100); padding: 10px 0; }
 .comentario p { margin: 4px 0; }
 
-/* ── Encuestas: tablero de tokens ───────────────────────────────── */
-.token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
-.token-voto {
-  border: 1px dashed var(--oro-arena);
-  border-radius: 6px;
-  background: var(--oro-050);
-  padding: 8px 10px;
-  font-size: 12.5px;
-}
-.token-voto.mio { border-style: solid; border-color: var(--verde-700); background: var(--verde-050); }
-.token-voto code { font-weight: 700; display: block; }
-
 .opcion-voto { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--gris-100); border-radius: 6px; margin-bottom: 8px; }
 .opcion-voto:hover { border-color: var(--verde-700); }
 

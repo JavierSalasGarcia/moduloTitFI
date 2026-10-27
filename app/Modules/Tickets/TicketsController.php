@@ -417,7 +417,7 @@ final class TicketsController extends Controller
         );
         $esDestino = $t && (int) $t['depto_destino_id'] === Auth::departamentoId()
                      && Auth::tieneRol('admin', 'titular', 'operativo');
-        if (!$t || ((int) $t['usuario_id'] !== Auth::id() && !$esDestino && Auth::rol() !== 'admin')) {
+        if (!$t || ((int) $t['usuario_id'] !== Auth::id() && !$esDestino && !Auth::tieneRol('admin'))) {
             http_response_code(404);
             View::render('errores/404', ['titulo' => 'No encontrado']);
             exit;
@@ -453,7 +453,7 @@ final class TicketsController extends Controller
         $esStaffDepto = (int)$archivo['depto_destino_id'] === Auth::departamentoId()
                         && Auth::tieneRol('admin', 'titular', 'operativo');
 
-        if ((int)$archivo['creador_ticket_id'] !== (int)$u['id'] && !$esDestinatario && !$esStaffDepto && Auth::rol() !== 'admin') {
+        if ((int)$archivo['creador_ticket_id'] !== (int)$u['id'] && !$esDestinatario && !$esStaffDepto && !Auth::tieneRol('admin')) {
             http_response_code(403);
             echo "Acceso denegado.";
             exit;

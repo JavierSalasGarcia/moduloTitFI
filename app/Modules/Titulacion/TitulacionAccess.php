@@ -45,7 +45,7 @@ final class TitulacionAccess
 
     public static function puedeIniciar(): bool
     {
-        return in_array(Auth::rol(), ['alumno', 'admin'], true);
+        return Auth::tieneRol('alumno', 'admin');
     }
 
     // --- condiciones de menú: cada persona solo ve lo que le toca hacer ---
@@ -106,7 +106,7 @@ final class TitulacionAccess
     /** Pasante con al menos un trámite: ve «Estado». */
     public static function tieneTramites(): bool
     {
-        if (Auth::id() <= 0 || Auth::rol() !== 'alumno') {
+        if (Auth::id() <= 0 || !Auth::tieneRol('alumno')) {
             return false;
         }
         try {

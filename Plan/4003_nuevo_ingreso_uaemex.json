@@ -3,7 +3,7 @@
   "categoria": "Nuevo ingreso UAEMéx",
   "url_categoria": "https://spdi2.uaemex.mx/tableros/public/index.php/tablero/4003",
   "url_powerbi": "https://app.powerbi.com/view?r=eyJrIjoiYzRmYTUwMTktMWYxYS00YzAwLWJkZjItMTQxYjY5NWJmM2Q5IiwidCI6ImE5ZTE3ZjllLTkwYmUtNDFkMC04NGViLTZhNDhlYmU5ZmVjMCIsImMiOjR9",
-  "fecha_extraccion": "2026-09-21",
+  "fecha_extraccion": "2026-10-22",
   "fuente_primaria_declarada": "Agendas estadísticas 2016-2025 de la UAEMéx (según la página del tablero; verificar años disponibles por indicador)",
   "proyectos_relacionados": [
     {
@@ -76,7 +76,7 @@
         },
         "registros": [
           {
-            "Ingreso Ciclo Actual": 722,
+            "Ingreso Ciclo Actual": 834,
             "proyectos": [
               2,
               3,
@@ -301,9 +301,29 @@
               3,
               15
             ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Género_Ingreso": "Hombres",
+            "Suma de Total_Ingreso": 646,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
+          },
+          {
+            "Ciclo escolar": "2026B",
+            "Género_Ingreso": "Mujeres",
+            "Suma de Total_Ingreso": 188,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 20
+        "numero_registros": 22
       },
       {
         "visual": "006",
@@ -420,9 +440,19 @@
               3,
               15
             ]
+          },
+          {
+            "Número y nombre de región": "14  Toluca",
+            "Ciclo escolar": "2026B",
+            "Suma de Total_Ingreso": 834,
+            "proyectos": [
+              2,
+              3,
+              15
+            ]
           }
         ],
-        "numero_registros": 10
+        "numero_registros": 11
       },
       {
         "visual": "008",
@@ -437,7 +467,7 @@
         },
         "registros": [
           {
-            "Ingreso Toluca": 722,
+            "Ingreso Toluca": 834,
             "proyectos": [
               2,
               3,
@@ -458,7 +488,7 @@
         "formatos": {},
         "registros": [
           {
-            "Indice Paridad Genero Ingreso": 0.3079710144927536,
+            "Indice Paridad Genero Ingreso": 0.29102167182662536,
             "proyectos": [
               2,
               3,
@@ -481,7 +511,7 @@
         },
         "registros": [
           {
-            "Superavit Mujeres Ingreso": -382,
+            "Superavit Mujeres Ingreso": -458,
             "proyectos": [
               2,
               3,
@@ -504,7 +534,7 @@
         },
         "registros": [
           {
-            "% Crecimiento Anual Ingreso": -0.06233766233766234,
+            "% Crecimiento Anual Ingreso": 0.15512465373961226,
             "proyectos": [
               2,
               3,
@@ -583,7 +613,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 3,
+              "Ingreso Ciclo Actual": 4,
               "proyectos": [
                 3,
                 15
@@ -731,9 +761,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 14
+          "numero_registros": 16
         },
         {
           "visual": "006",
@@ -811,9 +859,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         },
         {
           "visual": "008",
@@ -828,7 +885,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 3,
+              "Ingreso Toluca": 4,
               "proyectos": [
                 3,
                 15
@@ -848,7 +905,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0,
+              "Indice Paridad Genero Ingreso": 0.3333333333333333,
               "proyectos": [
                 3,
                 15
@@ -870,7 +927,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -3,
+              "Superavit Mujeres Ingreso": -2,
               "proyectos": [
                 3,
                 15
@@ -892,7 +949,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": 0,
+              "% Crecimiento Anual Ingreso": 0.33333333333333326,
               "proyectos": [
                 3,
                 15
@@ -968,7 +1025,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 5,
+              "Ingreso Ciclo Actual": 0,
               "proyectos": [
                 3,
                 15
@@ -1010,9 +1067,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 2
+          "numero_registros": 4
         },
         {
           "visual": "006",
@@ -1038,9 +1113,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 1
+          "numero_registros": 2
         },
         {
           "visual": "008",
@@ -1055,7 +1139,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 5,
+              "Ingreso Toluca": 0,
               "proyectos": [
                 3,
                 15
@@ -1075,7 +1159,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 4,
+              "Indice Paridad Genero Ingreso": null,
               "proyectos": [
                 3,
                 15
@@ -1097,7 +1181,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": 3,
+              "Superavit Mujeres Ingreso": 0,
               "proyectos": [
                 3,
                 15
@@ -1119,6 +1203,7 @@
           },
           "registros": [
             {
+              "% Crecimiento Anual Ingreso": -1.0,
               "proyectos": [
                 3,
                 15
@@ -1178,7 +1263,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 152,
+              "Ingreso Ciclo Actual": 153,
               "proyectos": [
                 2,
                 15
@@ -1382,9 +1467,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 119,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 34,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "006",
@@ -1490,9 +1593,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 153,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         },
         {
           "visual": "008",
@@ -1507,7 +1619,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 152,
+              "Ingreso Toluca": 153,
               "proyectos": [
                 2,
                 15
@@ -1527,7 +1639,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.3944954128440367,
+              "Indice Paridad Genero Ingreso": 0.2857142857142857,
               "proyectos": [
                 2,
                 15
@@ -1549,7 +1661,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -66,
+              "Superavit Mujeres Ingreso": -85,
               "proyectos": [
                 2,
                 15
@@ -1571,7 +1683,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": -0.0379746835443038,
+              "% Crecimiento Anual Ingreso": 0.006578947368421018,
               "proyectos": [
                 2,
                 15
@@ -1647,7 +1759,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 156,
+              "Ingreso Ciclo Actual": 206,
               "proyectos": [
                 2,
                 15
@@ -1851,9 +1963,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 178,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 28,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "006",
@@ -1960,9 +2090,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 206,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         },
         {
           "visual": "008",
@@ -1977,7 +2116,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 156,
+              "Ingreso Toluca": 206,
               "proyectos": [
                 2,
                 15
@@ -1997,7 +2136,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.20930232558139536,
+              "Indice Paridad Genero Ingreso": 0.15730337078651685,
               "proyectos": [
                 2,
                 15
@@ -2019,7 +2158,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -102,
+              "Superavit Mujeres Ingreso": -150,
               "proyectos": [
                 2,
                 15
@@ -2041,7 +2180,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": 0.0064516129032258064,
+              "% Crecimiento Anual Ingreso": 0.3205128205128205,
               "proyectos": [
                 2,
                 15
@@ -2117,7 +2256,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 143,
+              "Ingreso Ciclo Actual": 160,
               "proyectos": [
                 2,
                 15
@@ -2321,9 +2460,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 120,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 40,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "006",
@@ -2430,9 +2587,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 160,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         },
         {
           "visual": "008",
@@ -2447,7 +2613,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 143,
+              "Ingreso Toluca": 160,
               "proyectos": [
                 2,
                 15
@@ -2467,7 +2633,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.3619047619047619,
+              "Indice Paridad Genero Ingreso": 0.3333333333333333,
               "proyectos": [
                 2,
                 15
@@ -2489,7 +2655,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -67,
+              "Superavit Mujeres Ingreso": -80,
               "proyectos": [
                 2,
                 15
@@ -2511,7 +2677,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": -0.013793103448275862,
+              "% Crecimiento Anual Ingreso": 0.11888111888111896,
               "proyectos": [
                 2,
                 15
@@ -2587,7 +2753,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 114,
+              "Ingreso Ciclo Actual": 113,
               "proyectos": [
                 2,
                 15
@@ -2791,9 +2957,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 97,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 16,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "006",
@@ -2900,9 +3084,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 113,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         },
         {
           "visual": "008",
@@ -2917,7 +3110,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 114,
+              "Ingreso Toluca": 113,
               "proyectos": [
                 2,
                 15
@@ -2937,7 +3130,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.17525773195876287,
+              "Indice Paridad Genero Ingreso": 0.16494845360824742,
               "proyectos": [
                 2,
                 15
@@ -2959,7 +3152,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -80,
+              "Superavit Mujeres Ingreso": -81,
               "proyectos": [
                 2,
                 15
@@ -2981,7 +3174,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": -0.06557377049180328,
+              "% Crecimiento Anual Ingreso": -0.00877192982456143,
               "proyectos": [
                 2,
                 15
@@ -3267,7 +3460,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 67,
+              "Ingreso Ciclo Actual": 126,
               "proyectos": [
                 2,
                 15
@@ -3309,9 +3502,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 80,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 46,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 2
+          "numero_registros": 4
         },
         {
           "visual": "006",
@@ -3337,9 +3548,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 126,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 1
+          "numero_registros": 2
         },
         {
           "visual": "008",
@@ -3354,7 +3574,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 67,
+              "Ingreso Toluca": 126,
               "proyectos": [
                 2,
                 15
@@ -3374,7 +3594,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.24074074074074073,
+              "Indice Paridad Genero Ingreso": 0.575,
               "proyectos": [
                 2,
                 15
@@ -3396,7 +3616,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -41,
+              "Superavit Mujeres Ingreso": -34,
               "proyectos": [
                 2,
                 15
@@ -3418,6 +3638,7 @@
           },
           "registros": [
             {
+              "% Crecimiento Anual Ingreso": 0.8805970149253732,
               "proyectos": [
                 2,
                 15
@@ -3477,7 +3698,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 68,
+              "Ingreso Ciclo Actual": 65,
               "proyectos": [
                 2,
                 15
@@ -3681,9 +3902,27 @@
                 2,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 45,
+              "proyectos": [
+                2,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 20,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 20
+          "numero_registros": 22
         },
         {
           "visual": "006",
@@ -3790,9 +4029,18 @@
                 2,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 65,
+              "proyectos": [
+                2,
+                15
+              ]
             }
           ],
-          "numero_registros": 10
+          "numero_registros": 11
         },
         {
           "visual": "008",
@@ -3807,7 +4055,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 68,
+              "Ingreso Toluca": 65,
               "proyectos": [
                 2,
                 15
@@ -3827,7 +4075,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.5813953488372093,
+              "Indice Paridad Genero Ingreso": 0.4444444444444444,
               "proyectos": [
                 2,
                 15
@@ -3849,7 +4097,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -18,
+              "Superavit Mujeres Ingreso": -25,
               "proyectos": [
                 2,
                 15
@@ -3871,7 +4119,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": -0.2916666666666667,
+              "% Crecimiento Anual Ingreso": -0.044117647058823484,
               "proyectos": [
                 2,
                 15
@@ -3947,7 +4195,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 10,
+              "Ingreso Ciclo Actual": 0,
               "proyectos": [
                 3,
                 15
@@ -4097,9 +4345,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 14
+          "numero_registros": 16
         },
         {
           "visual": "006",
@@ -4178,9 +4444,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         },
         {
           "visual": "008",
@@ -4195,7 +4470,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 10,
+              "Ingreso Toluca": 0,
               "proyectos": [
                 3,
                 15
@@ -4215,7 +4490,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.42857142857142855,
+              "Indice Paridad Genero Ingreso": null,
               "proyectos": [
                 3,
                 15
@@ -4237,7 +4512,7 @@
           },
           "registros": [
             {
-              "Superavit Mujeres Ingreso": -4,
+              "Superavit Mujeres Ingreso": 0,
               "proyectos": [
                 3,
                 15
@@ -4259,7 +4534,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": -0.16666666666666666,
+              "% Crecimiento Anual Ingreso": -1.0,
               "proyectos": [
                 3,
                 15
@@ -4484,9 +4759,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 1,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 14
+          "numero_registros": 16
         },
         {
           "visual": "006",
@@ -4566,9 +4859,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 4,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         },
         {
           "visual": "008",
@@ -4603,7 +4905,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 3,
+              "Indice Paridad Genero Ingreso": 3.0,
               "proyectos": [
                 3,
                 15
@@ -4647,7 +4949,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": -0.42857142857142855,
+              "% Crecimiento Anual Ingreso": 0.0,
               "proyectos": [
                 3,
                 15
@@ -4723,7 +5025,7 @@
           },
           "registros": [
             {
-              "Ingreso Ciclo Actual": 5,
+              "Ingreso Ciclo Actual": 3,
               "proyectos": [
                 3,
                 15
@@ -4872,9 +5174,27 @@
                 3,
                 15
               ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Hombres",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
+            },
+            {
+              "Ciclo escolar": "2026B",
+              "Género_Ingreso": "Mujeres",
+              "Suma de Total_Ingreso": 0,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 14
+          "numero_registros": 16
         },
         {
           "visual": "006",
@@ -4953,9 +5273,18 @@
                 3,
                 15
               ]
+            },
+            {
+              "Número y nombre de región": "14  Toluca",
+              "Ciclo escolar": "2026B",
+              "Suma de Total_Ingreso": 3,
+              "proyectos": [
+                3,
+                15
+              ]
             }
           ],
-          "numero_registros": 7
+          "numero_registros": 8
         },
         {
           "visual": "008",
@@ -4970,7 +5299,7 @@
           },
           "registros": [
             {
-              "Ingreso Toluca": 5,
+              "Ingreso Toluca": 3,
               "proyectos": [
                 3,
                 15
@@ -4990,7 +5319,7 @@
           "formatos": {},
           "registros": [
             {
-              "Indice Paridad Genero Ingreso": 0.25,
+              "Indice Paridad Genero Ingreso": 0.0,
               "proyectos": [
                 3,
                 15
@@ -5034,7 +5363,7 @@
           },
           "registros": [
             {
-              "% Crecimiento Anual Ingreso": 0,
+              "% Crecimiento Anual Ingreso": -0.4,
               "proyectos": [
                 3,
                 15
@@ -5085,5 +5414,17 @@
     "interpretacion": "La suma de programas coincide con el total de Facultad."
   },
   "cita_apa": "(Sistema de Planeación y Desarrollo Institucional [SPDI], 2026b)",
-  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex"
+  "referencia_apa": "Sistema de Planeación y Desarrollo Institucional. (2026b). Tableros de variables e indicadores [Conjunto de tableros]. Universidad Autónoma del Estado de México. https://spdi2.uaemex.mx/tableros/public/index.php/mosaico/uaemex",
+  "actualizacion_2026": {
+    "fecha": "2026-10-22",
+    "periodo": "2026B",
+    "fuentes": [
+      {
+        "archivo": "Libro1 e911 (1).xlsx",
+        "hoja": "Matricula total",
+        "corte": "2026B"
+      }
+    ],
+    "nota": "Se agregaron únicamente cifras agregadas de la Facultad de Ingeniería; no se publicaron datos personales."
+  }
 }

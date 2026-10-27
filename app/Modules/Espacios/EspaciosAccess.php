@@ -13,7 +13,7 @@ final class EspaciosAccess
     /** Administrador general de la plataforma: nombra a los administradores del módulo. */
     public static function esAdminGeneral(): bool
     {
-        return Auth::rol() === 'admin';
+        return Auth::tieneRol('admin');
     }
 
     public static function esAdmin(): bool
