@@ -28,6 +28,10 @@
     "POST /perfil/tratamiento": [
       "App\\Modules\\Perfil\\PerfilController",
       "tratamiento"
+    ],
+    "POST /perfil/nombre": [
+      "App\\Modules\\Perfil\\PerfilController",
+      "nombre"
     ]
   }
 }

@@ -18,6 +18,20 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
     <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
   </form>
 </section>
+<?php if (!empty($profesor)): ?>
+<section class="card" style="padding:20px;margin-bottom:18px">
+  <h3 style="margin-top:0">Mi nombre en el directorio de profesores</h3>
+  <p class="texto-suave">Así aparece tu nombre en constancias y oficios. Vino de la lista de profesores, sin acentos: corrígelos si quieres (por ejemplo «Maria» → «María»). Solo puedes cambiar acentos y mayúsculas.</p>
+  <form method="post" action="<?= url('perfil/nombre') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+    <label>Nombre(s)<input type="text" name="nombre" maxlength="80" required value="<?= e((string) $profesor['nombre']) ?>"></label>
+    <label>Primer apellido<input type="text" name="apellido1" maxlength="60" required value="<?= e((string) $profesor['apellido1']) ?>"></label>
+    <label>Segundo apellido<input type="text" name="apellido2" maxlength="60" value="<?= e((string) ($profesor['apellido2'] ?? '')) ?>"></label>
+    <button class="btn btn-primario" type="submit">Guardar</button>
+  </form>
+  <?php if ($profesor['imparte']): ?><p class="texto-suave" style="margin-bottom:0"><strong>Imparto clases en:</strong> <?= e(implode(', ', array_map(static fn(array $u): string => $u['nombre'], $profesor['imparte']))) ?>.</p><?php endif; ?>
+</section>
+<?php endif; ?>
 <div class="perfil-grid">
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Programas y carreras donde participo</h3><?php if(!$adscripciones):?><p class="texto-suave">No tienes programas docentes registrados.</p><?php else:?><ul class="perfil-lista"><?php foreach($adscripciones as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['tipo_vinculo'])) ?> · <?= e($r['nivel']) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Responsabilidades en programas</h3><?php if(!$responsabilidades):?><p class="texto-suave">No tienes responsabilidades registradas.</p><?php else:?><ul class="perfil-lista"><?php foreach($responsabilidades as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['cargo'])) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
