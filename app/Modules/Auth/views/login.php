@@ -322,7 +322,7 @@
         return;
       }
       const clave = $('reset-clave').value;
-      if (clave.length < 8 || clave.length > 72) { $('reset-msg').textContent = 'Usa entre 8 y 72 caracteres.'; return; }
+      if (clave.length < 10 || clave.length > 72) { $('reset-msg').textContent = 'Usa entre 10 y 72 caracteres.'; return; }
       const r = await peticion(endpoints.resetGuardar, {clave});
       $('reset-msg').textContent = r.exito ? 'Contraseña actualizada. Ya puedes iniciar sesión.' : r.error;
       if (r.exito) setTimeout(() => window.location.reload(), 1000);
