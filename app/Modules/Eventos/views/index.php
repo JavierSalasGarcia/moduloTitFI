@@ -1,4 +1,9 @@
-<?php use App\Core\Auth; ?>
+<?php
+use App\Core\Auth;
+use App\Modules\Eventos\Clasificacion;
+$siglasProg = array_column($programas, 'siglas', 'id');
+$hayFiltro = $filtros['programa'] || $filtros['semestre'] || $filtros['tema'] !== '' || $filtros['categoria'] !== '' || $filtros['modalidad'] !== '';
+?>
 
 <nav class="pestanas" aria-label="Secciones de avisos y eventos" style="margin-bottom: 20px; display: flex; gap: 8px; border-bottom: 1px solid var(--gris-100); padding-bottom: 8px;">
   <a class="pestana activa" href="#" id="tab-btn-avisos" onclick="switchTab('avisos'); return false;" style="font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 4px; color: var(--texto); text-decoration: none;">
@@ -136,67 +141,41 @@
     <div style="display: flex; gap: 8px; align-items: center;">
       <a class="btn" href="<?= url('eventos/biblioteca') ?>">Biblioteca de eventos concluidos</a>
       
-      <?php if ($puedeEmitir): ?>
-        <details class="card" style="margin: 0;">
-          <summary style="cursor:pointer;font-weight:700;color:var(--verde-900)">+ Publicar aviso de evento</summary>
-          <form id="form-evento" method="post" action="<?= url('eventos') ?>" class="formulario" style="margin-top:12px">
-            <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-
-            <div class="ruta-flujo" style="margin-bottom: 15px; background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; padding: 12px; border-radius: var(--radio); font-size: 12.5px; line-height: 1.45;">
-              <strong>📢 Nota sobre destinatarios:</strong> A diferencia de los **Tickets** (que exigen una acción concreta, respuesta y carga de evidencia de cumplimiento), el envío de avisos a través de **Para** y **CC** tiene un propósito <strong>estrictamente informativo y de difusión</strong> para la comunidad seleccionada.
-            </div>
-
-            <label>Para <span class="req">*</span>
-              <div class="autocomplete-container" id="container-para">
-                <input type="text" class="autocomplete-input" id="input-para" placeholder="Escribe el nombre de una persona, departamento o coordinación..." autocomplete="off">
-                <div class="suggestions-dropdown" id="dropdown-para"></div>
-              </div>
-              <p class="ayuda-form">Elige uno o varios destinatarios (personas, coordinaciones o departamentos) para este aviso.</p>
-            </label>
-
-            <label>CC (Con copia)
-              <div class="autocomplete-container" id="container-cc">
-                <input type="text" class="autocomplete-input" id="input-cc" placeholder="Escribe personas o departamentos para enviar copia..." autocomplete="off">
-                <div class="suggestions-dropdown" id="dropdown-cc"></div>
-              </div>
-              <p class="ayuda-form">Personas o departamentos que recibirán copia informativa de este aviso.</p>
-            </label>
-
-            <div class="form-rejilla">
-              <label>Título <span class="req">*</span>
-                <input type="text" name="titulo" required maxlength="180">
-              </label>
-              <label>Categoría
-                <select name="categoria">
-                  <?php foreach ($categorias as $clave => $nombre): ?>
-                    <option value="<?= $clave ?>"><?= e($nombre) ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </label>
-              <label>Inicio <span class="req">*</span>
-                <input type="datetime-local" name="inicio" required>
-              </label>
-              <label>Fin (opcional)
-                <input type="datetime-local" name="fin">
-              </label>
-              <label>Lugar
-                <input type="text" name="lugar" maxlength="160" placeholder="Aula Magna, Edificio B…">
-              </label>
-            </div>
-            <label>Descripción <span class="req">*</span>
-              <textarea name="descripcion" rows="2" required></textarea>
-            </label>
-            <div class="acciones-formulario">
-              <button type="submit" class="btn btn-primario">Publicar aviso</button>
-            </div>
-          </form>
-        </details>
-      <?php endif; ?>
+      <a class="btn" href="<?= url('eventos/expediente') ?>">Mi expediente</a>
+      <?php if ($puedeEmitir): ?><a class="btn btn-primario" href="<?= url('eventos/nuevo') ?>">+ Publicar aviso de evento</a><?php endif; ?>
     </div>
   </div>
 
+  <?php if ($perfil['grupo'] === 'alumno' && !$preferencias['vigente']): ?>
+    <form method="post" action="<?= url('eventos/preferencias') ?>" class="card ux-toolbar" style="margin-bottom:14px;background:#FFFBEB;flex-wrap:wrap">
+      <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="volver" value="eventos">
+      <?php foreach ($preferencias['temas'] as $t): ?><input type="hidden" name="temas[]" value="<?= e($t) ?>"><?php endforeach; ?>
+      <?php if ($preferencias['notificar']): ?><input type="hidden" name="notificar" value="1"><?php endif; ?>
+      <span><strong>¿En qué semestre estás este periodo (<?= e(Clasificacion::periodo()) ?>)?</strong> Así te mostramos los avisos que te tocan.</span>
+      <select name="semestre" required><option value="">Elige…</option><?php for ($i = 1; $i <= Clasificacion::SEMESTRE_MAX; $i++): ?><option value="<?= $i ?>" <?= $preferencias['semestre'] === $i ? 'selected' : '' ?>><?= $i ?>.°</option><?php endfor; ?></select>
+      <button class="btn btn-primario btn-mini" type="submit">Guardar</button>
+    </form>
+  <?php endif; ?>
+
+  <form method="get" action="<?= url('eventos') ?>" class="card ux-toolbar" style="margin-bottom:14px;flex-wrap:wrap" id="filtros-eventos">
+    <input type="hidden" name="tab" value="eventos">
+    <nav class="pestanas" aria-label="Qué avisos ver" style="margin:0">
+      <a class="pestana <?= $filtros['ver'] === 'para_mi' ? 'activa' : '' ?>" href="<?= url('eventos?tab=eventos&ver=para_mi') ?>">Para mí</a>
+      <a class="pestana <?= $filtros['ver'] === 'todos' ? 'activa' : '' ?>" href="<?= url('eventos?tab=eventos&ver=todos') ?>">Todos</a>
+    </nav>
+    <input type="hidden" name="ver" value="<?= e($filtros['ver']) ?>">
+    <label>Carrera<select name="programa"><option value="">Todas</option><?php foreach ($programas as $p): ?><option value="<?= (int) $p['id'] ?>" <?= $filtros['programa'] === (int) $p['id'] ? 'selected' : '' ?>><?= e($p['siglas']) ?></option><?php endforeach; ?></select></label>
+    <label>Semestre<select name="semestre"><option value="">Todos</option><?php for ($i = 1; $i <= Clasificacion::SEMESTRE_MAX; $i++): ?><option value="<?= $i ?>" <?= $filtros['semestre'] === $i ? 'selected' : '' ?>><?= $i ?>.°</option><?php endfor; ?></select></label>
+    <label>Tema<select name="tema"><option value="">Todos</option><?php foreach (Clasificacion::TEMAS as $k => $n): ?><option value="<?= e($k) ?>" <?= $filtros['tema'] === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <label>Formato<select name="categoria"><option value="">Todos</option><?php foreach ($categorias as $k => $n): ?><option value="<?= e($k) ?>" <?= $filtros['categoria'] === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <label>Modalidad<select name="modalidad"><option value="">Todas</option><?php foreach (Clasificacion::MODALIDADES as $k => $n): ?><option value="<?= e($k) ?>" <?= $filtros['modalidad'] === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <button class="btn btn-mini btn-primario" type="submit">Filtrar</button>
+    <?php if ($hayFiltro): ?><a class="btn btn-mini" href="<?= url('eventos?tab=eventos&ver=' . $filtros['ver']) ?>">Quitar filtros</a><?php endif; ?>
+    <?php if ($filtros['ver'] === 'para_mi'): ?><small class="ayuda-form" style="flex-basis:100%">«Para mí» muestra lo dirigido a tu carrera y semestre<?= $perfil['temas'] ? ' en los temas que elegiste' : '' ?>. <a href="<?= url('perfil') ?>#preferencias-avisos">Elige tus temas en tu perfil</a>.</small><?php endif; ?>
+  </form>
+
   <?php if (!$eventos): ?>
-    <div class="card" id="sin-eventos-banner"><p class="texto-suave">No hay eventos próximos publicados.</p></div>
+    <div class="card" id="sin-eventos-banner"><p class="texto-suave">No hay eventos próximos <?= $filtros['ver'] === 'para_mi' || $hayFiltro ? 'con estos filtros' : 'publicados' ?>.</p></div>
   <?php else: ?>
     <div class="card" id="sin-eventos-banner" style="display: none;"><p class="texto-suave">No se encontraron eventos que coincidan con tu búsqueda.</p></div>
   <?php endif; ?>
@@ -215,7 +194,11 @@
           </p>
           <div class="grupo-chips">
             <span class="badge badge-oro"><?= e($categorias[$ev['categoria']] ?? 'Otros') ?></span>
-            <span class="texto-suave"><?= (int) $ev['interesados'] ?> en su calendario</span>
+            <span class="badge"><?= e(Clasificacion::TEMAS[$ev['tema']] ?? 'Otros') ?></span>
+            <?php if ($ev['modalidad']): ?><span class="badge"><?= e(Clasificacion::MODALIDADES[$ev['modalidad']]) ?></span><?php endif; ?>
+            <?php if ((int) $ev['formacion_integral'] === 1): ?><span class="badge badge-verde">+<?= (int) $ev['puntos'] ?> puntos</span><?php endif; ?>
+            <?php if ($ev['fecha_limite']): ?><span class="badge">Fecha límite: <?= e(date('d/m', strtotime((string) $ev['fecha_limite']))) ?></span><?php endif; ?>
+            <span class="texto-suave"><?= e(Clasificacion::destino($ev, $siglasProg)) ?> · <?= (int) $ev['interesados'] ?> en su calendario</span>
           </div>
         </div>
         <form method="post" action="<?= url('eventos/' . $ev['id'] . '/suscribir') ?>">
@@ -232,6 +215,8 @@
 
 <!-- ESTILOS Y JAVASCRIPT GLOBAL PARA PESTAÑAS Y AUTOCOMPLETADOS -->
 <style>
+.card .badge{text-transform:none}
+@media (max-width:640px){.evento-fila{flex-wrap:wrap}.evento-fila>.evento-fecha{flex:0 0 auto}.evento-fila>div:not(.evento-fecha){flex:1 1 calc(100% - 90px)}.evento-fila>form{flex-basis:100%}.evento-fila>form .btn{width:100%}}
 .pestana {
   border: 1px solid transparent;
   border-bottom: none;
@@ -378,131 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<?php if ($puedeEmitir):
-$opcionesList = [];
-foreach ($departamentos as $d) {
-    $opcionesList[] = [
-        'type' => 'departamento',
-        'id' => $d['id'],
-        'nombre' => $d['nombre'],
-        'subtext' => 'Departamento / Coordinación'
-    ];
-}
-foreach ($usuarios as $u) {
-    $opcionesList[] = [
-        'type' => 'usuario',
-        'id' => $u['id'],
-        'nombre' => $u['nombre'],
-        'subtext' => 'Usuario · ' . ucfirst($u['rol']) . ($u['email'] ? ' (' . $u['email'] . ')' : '')
-    ];
-}
-?>
-<script>
-const autocompleteOptions = <?= json_encode($opcionesList) ?>;
 
-function initAutocomplete(fieldId, isCc) {
-  const container = document.getElementById(`container-${fieldId}`);
-  const input = document.getElementById(`input-${fieldId}`);
-  const dropdown = document.getElementById(`dropdown-${fieldId}`);
-  if (!container || !input) return;
-
-  const selectedKeys = new Set();
-
-  input.addEventListener('input', function() {
-    const query = this.value.trim().toLowerCase();
-    dropdown.innerHTML = '';
-    
-    if (query.length < 1) {
-      dropdown.style.display = 'none';
-      return;
-    }
-
-    const matches = autocompleteOptions.filter(opt => {
-      const key = `${opt.type}_${opt.id}`;
-      if (selectedKeys.has(key)) return false;
-      return opt.nombre.toLowerCase().includes(query) || (opt.subtext && opt.subtext.toLowerCase().includes(query));
-    });
-
-    if (matches.length === 0) {
-      dropdown.innerHTML = '<div style="padding: 10px; font-size: 12px; color: var(--gris-600); text-align: center;">Sin coincidencias.</div>';
-    } else {
-      matches.slice(0, 10).forEach(opt => {
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
-        div.innerHTML = `
-          <strong>${opt.type === 'departamento' ? '🏢' : '👤'} ${escapeHtml(opt.nombre)}</strong>
-          <span>${escapeHtml(opt.subtext)}</span>
-        `;
-        div.addEventListener('click', () => {
-          addChip(opt);
-          input.value = '';
-          dropdown.style.display = 'none';
-        });
-        dropdown.appendChild(div);
-      });
-    }
-    dropdown.style.display = 'block';
-  });
-
-  document.addEventListener('click', function(e) {
-    if (!container.contains(e.target)) {
-      dropdown.style.display = 'none';
-    }
-  });
-
-  function addChip(opt) {
-    const key = `${opt.type}_${opt.id}`;
-    if (selectedKeys.has(key)) return;
-    selectedKeys.add(key);
-
-    const chip = document.createElement('div');
-    chip.className = 'chip-recipient' + (isCc ? ' chip-recipient-cc' : '');
-    chip.innerHTML = `
-      <span>${opt.type === 'departamento' ? '🏢' : '👤'} ${escapeHtml(opt.nombre)}</span>
-      <span class="remove-btn">&times;</span>
-      <input type="hidden" name="${fieldId}_type[]" value="${opt.type}">
-      <input type="hidden" name="${fieldId}_id[]" value="${opt.id}">
-    `;
-
-    chip.querySelector('.remove-btn').addEventListener('click', () => {
-      chip.remove();
-      selectedKeys.delete(key);
-    });
-
-    container.insertBefore(chip, input);
-    input.focus();
-  }
-}
-
-function escapeHtml(str) {
-  return str.replace(/[&<>'"]/g, 
-    tag => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '"': '&quot;'
-    }[tag] || tag)
-  );
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initAutocomplete('para', false);
-  initAutocomplete('cc', true);
-
-  const formEv = document.getElementById('form-evento');
-  if (formEv) {
-    formEv.addEventListener('submit', function(e) {
-      const paras = document.querySelectorAll('#container-para input[name="para_id[]"]');
-      if (paras.length === 0) {
-        e.preventDefault();
-        alert('Debes agregar al menos un destinatario en el campo "Para".');
-      }
-    });
-  }
-});
-</script>
-<?php endif; ?>
 
 <!-- BUSCADORES DINÁMICOS Y RESALTADORES -->
 <script>

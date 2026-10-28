@@ -124,10 +124,11 @@ function guardar_archivos(string $campo, string $subcarpeta, ?array $extPermitid
     return $guardados;
 }
 
-/** Núcleo compartido de guardar_archivo/guardar_archivos. */
-function guardar_archivo_datos(array $f, string $subcarpeta, ?array $extPermitidas = null): string
+/** Núcleo compartido de guardar_archivo/guardar_archivos. $maxBytes sustituye el límite global de la config. */
+function guardar_archivo_datos(array $f, string $subcarpeta, ?array $extPermitidas = null, ?int $maxBytes = null): string
 {
     $cfg = \App\Core\App::config('archivos');
+    $cfg['max_bytes'] = $maxBytes ?? $cfg['max_bytes'];
     $permitidas = $extPermitidas !== null
         ? array_values(array_intersect($cfg['ext_permitidas'], $extPermitidas))
         : $cfg['ext_permitidas'];

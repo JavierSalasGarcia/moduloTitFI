@@ -3,20 +3,21 @@ declare(strict_types=1);
 
 namespace App\Modules\Formularios;
 
-/** Escritor mínimo de libros .xlsx (texto en celdas, una o varias hojas, primera fila en negritas). */
+/** Escritor mínimo de libros .xlsx (texto en celdas, una o varias hojas, las dos primeras filas en negritas). */
 final class XlsxEscritor
 {
-    /** @var array<int,array{nombre:string,filas:array}> */
+    /** @var array<int,array{nombre:string,filas:array,negritas:int[]}> */
     private array $hojas = [];
 
-    public function hoja(string $nombre, array $filas): void
+    /** @param int[]|null $negritas índices de fila (desde 0) en negritas; null = las dos primeras */
+    public function hoja(string $nombre, array $filas, ?array $negritas = null): void
     {
         $nombre = mb_substr(trim(preg_replace('/[\\\\\/\?\*\[\]:]/u', ' ', $nombre) ?? 'Hoja'), 0, 31) ?: 'Hoja';
         $usados = array_column($this->hojas, 'nombre');
         for ($i = 2, $base = $nombre; in_array($nombre, $usados, true); $i++) {
             $nombre = mb_substr($base, 0, 28) . ' ' . $i;
         }
-        $this->hojas[] = ['nombre' => $nombre, 'filas' => $filas];
+        $this->hojas[] = ['nombre' => $nombre, 'filas' => $filas, 'negritas' => $negritas ?? [0, 1]];
     }
 
     private static function x(string $s): string
@@ -51,7 +52,7 @@ final class XlsxEscritor
             foreach (array_values($h['filas']) as $f => $fila) {
                 $xml .= '<row r="' . ($f + 1) . '">';
                 foreach (array_values($fila) as $c => $v) {
-                    $estilo = $f <= 1 ? ' s="1"' : '';
+                    $estilo = in_array($f, $h['negritas'], true) ? ' s="1"' : '';
                     $xml .= '<c r="' . self::columna($c) . ($f + 1) . '" t="inlineStr"' . $estilo . '><is><t xml:space="preserve">' . self::x((string) $v) . '</t></is></c>';
                 }
                 $xml .= '</row>';
