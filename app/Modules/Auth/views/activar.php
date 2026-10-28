@@ -1,0 +1,6 @@
+<?php use App\Core\Auth; $flash = flash_leer(); ?>
+<div class="auth-panel"><section class="auth-tarjeta"><h1>Activa tu cuenta</h1>
+<?php if ($flash): ?><p role="status" class="flash flash-<?= e($flash['tipo']) ?>"><?= e($flash['mensaje']) ?></p><?php endif; ?>
+<p>Ya existía una cuenta de Traza FI con <strong><?= e($email) ?></strong> (por ejemplo, la creó Titulación o la administración). Escribe el código de 6 dígitos que te enviamos para activarla con la contraseña que elegiste. Conservas tus datos y tu historial; no se crea una cuenta nueva.</p>
+<form method="post" action="<?= url('registro/activar') ?>" class="formulario"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><label>Código<input type="text" name="codigo" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required></label><button type="submit" class="btn btn-primario">Activar mi cuenta</button></form>
+<p class="ayuda-form">Vence en 10 minutos. Revisa tu carpeta de spam. Si no llega, <a href="<?= url('registro') ?>">regístrate de nuevo</a> para recibir otro, o <a href="<?= url('login') ?>">entra con un código</a> desde el inicio de sesión.</p></section></div>

@@ -3,6 +3,10 @@ use App\Core\Auth;
 use App\Core\ModuleManager;
 
 $usuario = Auth::usuario();
+// Recordatorios de los eventos del calendario personal (sin tareas programadas: se generan al usar la plataforma).
+if (class_exists(\App\Modules\Eventos\Recordatorios::class)) {
+    \App\Modules\Eventos\Recordatorios::generar();
+}
 $secciones = \App\Core\InterfaceUi::menu(ModuleManager::menu(array_merge([$usuario['rol']], array_column($usuario['roles_extra'] ?? [], 'rol'))));
 $flash   = flash_leer();
 $moduloActivo = $moduloActivo ?? '';
