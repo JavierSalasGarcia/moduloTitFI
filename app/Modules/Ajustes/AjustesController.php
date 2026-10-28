@@ -103,7 +103,7 @@ final class AjustesController extends Controller
         $this->vista('usuarios', [
             'titulo' => 'Gestión de usuarios y coordinadores',
             // El panel administrativo permite localizar cualquier cuenta y ajustar su rol y adscripción.
-            'usuarios' => Database::todas("SELECT u.*, d.nombre AS depto_nombre, p.siglas AS programa_siglas, (SELECT GROUP_CONCAT(rp.codigo SEPARATOR ', ') FROM reuniones_coordinadores rc JOIN reuniones_posgrados rp ON rp.id = rc.posgrado_id WHERE rc.usuario_id = u.id AND rc.activo = 1) AS posgrado_codigo, (SELECT GROUP_CONCAT(CAST(rp.id AS CHAR) SEPARATOR ', ') FROM reuniones_coordinadores rc JOIN reuniones_posgrados rp ON rp.id = rc.posgrado_id WHERE rc.usuario_id = u.id AND rc.activo = 1) AS posgrado_ids FROM usuarios u LEFT JOIN departamentos d ON d.id = u.departamento_id LEFT JOIN programas p ON p.id = u.programa_id ORDER BY {$ordenes[$orden]}"),
+            'usuarios' => $usuarios,
             'orden' => $orden,
             'departamentos' => Database::todas('SELECT id, nombre FROM departamentos ORDER BY nombre'),
             'programas' => Database::todas('SELECT id, siglas, nombre, nivel FROM programas ORDER BY nivel, siglas'),
