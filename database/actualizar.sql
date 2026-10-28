@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 14:38)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 16:36)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (26 fuentes, en orden).
+-- a partir de las migraciones (27 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -6844,4 +6844,18 @@ CREATE TABLE IF NOT EXISTS cuenta_activaciones (
 
 -- Respuestas de formularios enviadas sin sesión con el correo de una cuenta existente: quedan ligadas a esa cuenta.
 UPDATE frm_respuestas r JOIN usuarios u ON u.email COLLATE utf8mb4_unicode_ci = r.email SET r.usuario_id = u.id WHERE r.usuario_id IS NULL;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/032_calaveritas_convocatoria.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Concurso de calaveritas 2026: enlace de la convocatoria oficial y lugar de la premiación en las bases.
+-- Repetible: cada cambio se aplica una sola vez y respeta lo que la administración haya editado.
+
+UPDATE con_concursos
+   SET bases = CONCAT('## Convocatoria\nConsulta la convocatoria oficial: https://www.facebook.com/share/p/1A1xwSwwnC/\n\n', bases)
+ WHERE slug = 'calaveritas-2026' AND bases NOT LIKE '%1A1xwSwwnC%';
+
+UPDATE con_concursos
+   SET bases = REPLACE(bases, 'fecha de la premiación.', 'fecha de la premiación.\n\nLa premiación será el viernes 30 de octubre a las 4:00 pm en la Biblioteca de la FI.')
+ WHERE slug = 'calaveritas-2026' AND bases LIKE '%fecha de la premiación.%' AND bases NOT LIKE '%en la Biblioteca de la FI%';
 
