@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 13:32)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 14:38)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (25 fuentes, en orden).
+-- a partir de las migraciones (26 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -6620,7 +6620,7 @@ Haz un registro por cada premio. Ten a la mano tu constancia o diploma (y una fo
 {"k":"nombre","label":"Nombre completo","tipo":"texto","req":true,"max":160,"mayusculas":true,"de_cuenta":"nombre","ayuda":"Nombre(s) Apellido paterno Apellido materno"},
 {"k":"email","label":"Correo electrónico","tipo":"email","req":true,"max":160,"de_cuenta":"email"},
 {"k":"espacio","label":"Espacio académico","tipo":"fijo","valor":"FACULTAD DE INGENIERÍA"},
-{"k":"programa","label":"Programa educativo","tipo":"texto","req":true,"max":250,"ayuda":"Profesores: en los que impartes clase"},
+{"k":"programa","label":"Programa educativo","tipo":"programa","req":true,"varios_si":{"tipo_persona":"profesor"},"ayuda_varios":"marca todos en los que impartes clase"},
 {"k":"caracter","label":"Alcance del premio","tipo":"select","req":true,"opciones":{"internacional":"Internacional","nacional":"Nacional","estatal":"Estatal"}},
 {"k":"evento","label":"Nombre oficial del evento o reconocimiento","tipo":"texto","req":true,"max":250},
 {"k":"organizador","label":"Quién lo otorga (externo a la UAEMEX)","tipo":"texto","req":true,"max":250},
@@ -6807,4 +6807,41 @@ SELECT v.titulo, v.descripcion, v.categoria, v.tema, v.publico, v.smin, v.smax, 
   JOIN departamentos d ON d.clave = 'coordinacion_de_difusion_cultural'
   JOIN (SELECT MIN(id) AS id FROM usuarios WHERE rol = 'admin' AND activo = 1) u ON u.id IS NOT NULL
  WHERE NOT EXISTS (SELECT 1 FROM eventos e WHERE e.titulo = v.titulo);
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/031_recordatorios_y_activacion.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Recordatorios en la bandeja de Traza FI de los eventos agregados al calendario (un día y una hora antes, y la víspera
+-- de la fecha límite) y activación de cuentas existentes desde el registro (sin duplicar a la persona).
+-- Repetible: solo crea lo que falta y no borra datos.
+
+-- Un recordatorio por persona, evento y momento: así no se repite aunque la persona entre varias veces.
+CREATE TABLE IF NOT EXISTS evento_recordatorios (
+  evento_id INT UNSIGNED NOT NULL,
+  usuario_id INT UNSIGNED NOT NULL,
+  momento ENUM('dia','hora','limite') NOT NULL,
+  enviado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (evento_id, usuario_id, momento),
+  KEY idx_evento_recordatorios_usuario (usuario_id),
+  CONSTRAINT fk_evento_recordatorios_evento FOREIGN KEY (evento_id) REFERENCES eventos (id) ON DELETE CASCADE,
+  CONSTRAINT fk_evento_recordatorios_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- Quien se registra con un correo que ya tiene cuenta (alta de Titulación o de la administración) la activa con un
+-- código enviado a ese correo, en vez de crear otra. Aquí espera la contraseña elegida hasta que confirma el código.
+CREATE TABLE IF NOT EXISTS cuenta_activaciones (
+  usuario_id INT UNSIGNED NOT NULL,
+  codigo_hash VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  grado VARCHAR(30) NULL,
+  genero VARCHAR(20) NULL,
+  expira_en DATETIME NOT NULL,
+  intentos TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  enviado_en DATETIME NOT NULL,
+  PRIMARY KEY (usuario_id),
+  CONSTRAINT fk_cuenta_activaciones_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Respuestas de formularios enviadas sin sesión con el correo de una cuenta existente: quedan ligadas a esa cuenta.
+UPDATE frm_respuestas r JOIN usuarios u ON u.email COLLATE utf8mb4_unicode_ci = r.email SET r.usuario_id = u.id WHERE r.usuario_id IS NULL;
 

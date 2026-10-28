@@ -8,6 +8,8 @@ return [
         'POST /cuenta/volver' => [\App\Modules\Ajustes\AccesosController::class,'volver'],
         'GET /registro' => [\App\Modules\Auth\RegistroController::class, 'formulario', 'publico'],
         'POST /registro' => [\App\Modules\Auth\RegistroController::class, 'crear', 'publico'],
+        'GET /registro/activar' => [\App\Modules\Auth\RegistroController::class, 'activar', 'publico'],
+        'POST /registro/activar' => [\App\Modules\Auth\RegistroController::class, 'confirmarActivacion', 'publico'],
         'GET /cuenta/verificar' => [\App\Modules\Auth\RegistroController::class, 'verificar'],
         'POST /cuenta/verificar' => [\App\Modules\Auth\RegistroController::class, 'confirmar'],
         'POST /cuenta/reenviar' => [\App\Modules\Auth\RegistroController::class, 'reenviar'],
