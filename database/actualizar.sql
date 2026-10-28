@@ -1,5 +1,5 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 09:12)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 09:13)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
@@ -3756,7 +3756,7 @@ PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 -- se conservan como los haya dejado la administración.
 INSERT INTO frm_formularios (slug, titulo, agrupar_por, varios_por_correo, estado, cierra_en, acceso, descripcion, campos, excel) VALUES
 ('galardonados-2026', '¿Ganaste un premio en 2026?', 'tipo_persona', 1, 'abierto', '2026-12-31 23:59:59', 'subdirector',
-'Si eres alumna, alumno, egresada/o o profesor/a de la FI y en 2026 ganaste un premio, lugar o distinción internacional, nacional o estatal otorgado por una institución externa a la UAEMEX, regístralo: la Facultad lo dará a conocer en sus redes sociales y aparecerá en el Informe de Actividades de la Rectora.
+'Si eres alumna, alumno, egresada/o o profesor/a de la FI y en 2026 ganaste un premio, lugar o distinción internacional, nacional o estatal otorgado por una institución externa a la UAEMEX, regístralo para que la Facultad lo dé a conocer en sus redes sociales y lo cuente entre los logros que reporta a la Universidad.
 
 Haz un registro por cada premio. Ten a la mano tu constancia o diploma (y una foto con tu reconocimiento, si la tienes) en un .zip o en una carpeta de Drive. Fecha límite: 12 de noviembre; si recibes un premio después, regístralo hasta el 31 de diciembre.',
 '[{"k":"tipo_persona","label":"Eres","tipo":"select","req":true,"opciones":{"alumno":"Alumno/a","egresado":"Egresado/a","profesor":"Profesor/a"}},
