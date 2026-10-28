@@ -5,7 +5,8 @@ include __DIR__ . '/_estilos.php';
 <div class="tit-cabecera"><div>
   <?php if ($busqueda): ?>
     <p class="texto-secundario">Escribe el nombre o el correo institucional del profesor y elígelo de la lista para ver sus constancias de titulación, por año; elige las que necesites para descargarlas en ZIP.
-      <?= $alcance === null ? 'Como Subdirector ves las constancias de todos los departamentos.' : 'Ves las constancias que emite el Departamento de Evaluación Profesional y Grado.' ?></p>
+      <?= $alcance === null ? 'Como Subdirector ves las constancias de todos los departamentos.' : 'Ves las constancias que emite el Departamento de Evaluación Profesional y Grado.' ?>
+      Las que están «En firma» se pueden abrir o descargar sin firma para revisarlas antes de firmarlas (el archivo dice «SIN_FIRMA»).</p>
   <?php else: ?>
     <p class="texto-secundario">Tus constancias de titulación de licenciatura. Se generan solas cuando se cumple lo que avalan (protocolo aprobado o evaluación profesional concluida) y quedan aquí cuando las firma la Subdirección o la Jefatura de Evaluación Profesional. Elige el año, marca las que necesites y descárgalas en un ZIP, o ábrelas una por una con «Ver».</p>
   <?php endif; ?>
@@ -70,12 +71,15 @@ include __DIR__ . '/_estilos.php';
       <h3 style="margin:14px 0 6px"><?= e($an) ?> <span class="texto-secundario" style="font-weight:400;font-size:14px">· <?= count($grupo) ?></span></h3>
       <div class="tabla-contenedor"><table class="tabla">
         <tbody>
-        <?php foreach ($grupo as $c): $firmada = !empty($c['subdir_ruta']); ?>
+        <?php foreach ($grupo as $c): $firmada = !empty($c['subdir_ruta']); $revisable = $firmada || ($busqueda && !empty($c['ruta'])); ?>
           <tr>
-            <td style="width:34px"><?php if ($firmada): ?><input type="checkbox" name="c[]" value="<?= e($c['token']) ?>" aria-label="Elegir <?= e($c['descripcion']) ?>"><?php endif; ?></td>
+            <td style="width:34px"><?php if ($revisable): ?><input type="checkbox" name="c[]" value="<?= e($c['token']) ?>" aria-label="Elegir <?= e($c['descripcion']) ?>"><?php endif; ?></td>
             <td><strong><?= e($c['descripcion']) ?></strong><br>
               <span class="texto-secundario" style="font-size:13px"><?= e(Constancias::titulo((string) $c['tipo'])) ?> · <?= e(Constancias::nombreModalidad((string) $c['modalidad'])) ?> · <?= e($c['folio']) ?> · emite <?= e(Constancias::EMISORES[$c['emisor']] ?? '') ?></span></td>
-            <td style="width:110px;text-align:right"><?php if ($firmada): ?><a class="btn btn-mini" href="<?= url($c['ver']) ?>" target="_blank" rel="noopener">Ver</a><?php else: ?><span class="tit-chip rev">En firma</span><?php endif; ?></td>
+            <td style="width:190px;text-align:right;white-space:nowrap">
+              <?php if (!$firmada): ?><span class="tit-chip rev">En firma</span><?php endif; ?>
+              <?php if ($revisable): ?><a class="btn btn-mini" href="<?= url($c['ver']) ?>" target="_blank" rel="noopener" <?= $firmada ? '' : 'title="Versión sin firma, para revisarla antes de firmar"' ?>><?= $firmada ? 'Ver' : 'Ver sin firma' ?></a><?php endif; ?>
+            </td>
           </tr>
         <?php endforeach; ?>
         </tbody>

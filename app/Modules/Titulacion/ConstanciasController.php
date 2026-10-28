@@ -204,7 +204,12 @@ final class ConstanciasController extends TitulacionBase
     /** Rehace las constancias que esperan firma (quita las repetidas y toma a quien firma hoy); las firmadas no cambian. */
     public function rehacerPendientes(): void
     {
-        $this->soloHistorial();
+        // También desde «Firmas pendientes»: quien firma puede rehacer lo que va a firmar.
+        if (!Constancias::puedeBuscar() && !\App\Modules\Titulacion\Services\SubdireccionFirma::puedeFirmar()) {
+            $this->prohibido('Constancias pendientes de firma');
+        }
+        $this->privado();
+        $volver = (string) ($_POST['volver'] ?? '') === 'firmas' ? 'titulacion/firmas' : 'titulacion/constancias/historial';
         @set_time_limit(600);
         $quitadas = (int) \App\Core\Database::valor("SELECT COUNT(*) FROM tit_constancias");
         foreach (\App\Core\Database::todas(
@@ -220,7 +225,7 @@ final class ConstanciasController extends TitulacionBase
         $n = Constancias::rehacerPendientes(Auth::id());
         Audit::record('titulacion::historial', 'correcto', 'Constancias pendientes de firma rehechas: ' . $n . '; repetidas quitadas: ' . max(0, $quitadas));
         flash('exito', $n . ' constancias pendientes de firma se rehicieron con el nombre de quien firma' . ($quitadas > 0 ? ' y se quitaron ' . $quitadas . ' repetidas' : '') . '. Las ya firmadas no cambiaron.');
-        redirigir('titulacion/constancias/historial');
+        redirigir($volver);
     }
 
     /** Genera las constancias de todos los registros completos que aún no las tienen. */
