@@ -53,7 +53,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 
 <section class="tarjeta">
   <form method="get" action="<?= url('titulacion/constancias/historial') ?>" class="tit-campos" style="margin-bottom:10px">
-    <label>Buscar <input type="search" name="q" value="<?= e($f['q']) ?>" placeholder="Alumno, cuenta, acta, profesor o título"></label>
+    <label>Buscar <input type="search" name="q" value="<?= e($f['q']) ?>" placeholder="Alumno, cuenta, acta, profesor o título" title="Busca en todo el historial; Enter para buscar"></label>
     <label>Licenciatura <select name="carrera"><option value="">Todas</option><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>" <?= $f['carrera'] === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
     <label>Datos faltantes <select name="faltantes">
       <option value="">Todos los registros</option>
@@ -80,7 +80,7 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
     </div>
   </div>
   <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '' ?>.</div><?php else: ?>
-  <div class="tabla-contenedor"><table class="tabla hist-tabla">
+  <div class="tabla-contenedor"><table class="tabla hist-tabla" data-no-tools>
     <thead><tr><th class="sel"><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos los que se pueden generar"></th><?php foreach ($columnas as $c): ?><th><?= e($rotulos[$c]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
     <tbody>
     <?php foreach ($filas as $h): ?>

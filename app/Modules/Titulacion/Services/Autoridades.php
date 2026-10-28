@@ -8,19 +8,33 @@ use App\Core\Database;
 /** Quién ocupa cada cargo, tomado de Organización (responsables de departamentos y de programas), sin duplicar datos. */
 final class Autoridades
 {
-    /** @return array{id:int,nombre:string,email:string}|null */
+    /**
+     * Titular vigente de la dependencia. El cargo se asigna en Ajustes → Usuarios (puesto «Titular» de la cuenta o de un rol
+     * adicional); los responsables con periodo de Organización, si los hay, tienen preferencia.
+     * @return array{id:int,nombre:string,email:string}|null
+     */
     private static function deDepartamento(array $claves): ?array
     {
         $marcas = implode(',', array_fill(0, count($claves), '?'));
         $f = Database::una(
             "SELECT u.id, u.nombre, u.grado, u.genero, u.email
-             FROM departamento_responsables r
-             JOIN departamentos d ON d.id = r.departamento_id
-             JOIN usuarios u ON u.id = r.usuario_id AND u.activo = 1
-             WHERE d.clave IN ($marcas) AND r.cargo = 'titular' AND r.activo = 1
-               AND r.fecha_inicio <= CURDATE() AND (r.fecha_fin IS NULL OR r.fecha_fin >= CURDATE())
-             ORDER BY r.fecha_inicio DESC, r.id DESC LIMIT 1",
-            $claves
+             FROM (
+               SELECT r.usuario_id, 0 AS prioridad, r.fecha_inicio AS desde, r.id AS orden
+                 FROM departamento_responsables r JOIN departamentos d ON d.id = r.departamento_id
+                WHERE d.clave IN ($marcas) AND r.cargo = 'titular' AND r.activo = 1
+                  AND r.fecha_inicio <= CURDATE() AND (r.fecha_fin IS NULL OR r.fecha_fin >= CURDATE())
+               UNION ALL
+               SELECT x.usuario_id, 1, NULL, x.id
+                 FROM usuario_roles x JOIN departamentos d ON d.id = x.departamento_id
+                WHERE d.clave IN ($marcas) AND x.cargo = 'titular'
+               UNION ALL
+               SELECT c.id, 2, NULL, c.id
+                 FROM usuarios c JOIN departamentos d ON d.id = c.departamento_id
+                WHERE d.clave IN ($marcas) AND c.cargo = 'titular'
+             ) t
+             JOIN usuarios u ON u.id = t.usuario_id AND u.activo = 1
+             ORDER BY t.prioridad, t.desde DESC, t.orden DESC LIMIT 1",
+            [...$claves, ...$claves, ...$claves]
         );
         return $f ? ['id' => (int) $f['id'], 'nombre' => (string) $f['nombre'], 'grado' => $f['grado'], 'genero' => $f['genero'], 'email' => strtolower((string) $f['email'])] : null;
     }
