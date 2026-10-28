@@ -10,7 +10,7 @@
       "titulo": "Notificaciones",
       "ruta": "notificaciones",
       "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
-      "orden": 1
+      "orden": 2
     }
   ],
   "rutas": {

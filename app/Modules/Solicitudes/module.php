@@ -4,6 +4,7 @@ use App\Modules\Solicitudes\SolicitudesController;
 
 return [
     'clave' => 'solicitudes',
+    'pendientes' => 'App\Modules\Solicitudes\PendientesSolicitudes::de',
     'roles' => ['admin', 'titular', 'operativo'],
     'menu'  => [],
     'rutas' => [

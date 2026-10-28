@@ -186,6 +186,17 @@ final class PanelController extends TitulacionBase
     public function pendientes(): void
     {
         $this->privado();
+        $this->vista('pendientes', ['titulo' => 'Titulación · Mis pendientes', 'items' => $this->itemsPendientes()]);
+    }
+
+    /** Lo mismo, para Notificaciones (que concentra los pendientes de todos los módulos). */
+    public static function pendientesDeSesion(): array
+    {
+        return (new self('titulacion'))->itemsPendientes();
+    }
+
+    private function itemsPendientes(): array
+    {
         $email = TitulacionAccess::correoSesion();
         $items = [];
         $add = static function (string $tipo, string $texto, string $enlace, ?int $tramiteId, ?string $folio, ?string $fecha = null) use (&$items): void {
@@ -234,6 +245,6 @@ final class PanelController extends TitulacionBase
                 }
             }
         }
-        $this->vista('pendientes', ['titulo' => 'Titulación · Mis pendientes', 'items' => $items]);
+        return $items;
     }
 }

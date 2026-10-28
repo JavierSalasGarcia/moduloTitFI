@@ -14,14 +14,21 @@ $moduloActivo = $moduloActivo ?? '';
 // Ruta actual (para resaltar entradas dinámicas como recursos/3)
 $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 $rutaActual = trim(substr(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/', strlen($base)), '/');
-$esItemActivo = function (array $item) use ($moduloActivo, $rutaActual): bool {
+$rutasMenu = [];
+foreach ($secciones as $s) { foreach ($s['items'] as $it) { if ($it['ruta'] !== '' && empty($it['dinamico'])) $rutasMenu[] = $it['ruta']; } }
+$esItemActivo = function (array $item) use ($moduloActivo, $rutaActual, $rutasMenu): bool {
     if (!empty($item['dinamico'])) {
         return $item['ruta'] === $rutaActual;
     }
     if ($item['ruta'] === '') return $rutaActual === '' || $rutaActual === 'consulta';
     if ($item['ruta'] === 'ajustes') return $rutaActual === 'ajustes';
     if ($item['ruta'] === 'eventos' && str_starts_with($rutaActual, 'eventos/biblioteca')) return false;
-    return $rutaActual === $item['ruta'] || str_starts_with($rutaActual, $item['ruta'] . '/');
+    if ($rutaActual !== $item['ruta'] && !str_starts_with($rutaActual, $item['ruta'] . '/')) return false;
+    // Si otra entrada del menú coincide con una ruta más específica (p. ej. titulacion/constancias/historial), solo esa queda marcada.
+    foreach ($rutasMenu as $otra) {
+        if (strlen($otra) > strlen($item['ruta']) && ($rutaActual === $otra || str_starts_with($rutaActual, $otra . '/'))) return false;
+    }
+    return true;
 };
 $titulo  = $titulo ?? 'Traza FI';
 $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo' => 'Operativo', 'coordinador' => 'Coordinador', 'profesor' => 'Profesor', 'alumno' => 'Alumno'][$usuario['rol']] ?? $usuario['rol'];
@@ -86,7 +93,21 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
             <span class="menu-flecha" aria-hidden="true"></span>
             <span><?= e($nombreSeccion) ?></span>
           </button>
-          <?php foreach ($seccion['items'] as $item): ?>
+          <?php
+            // Las entradas con «grupo» se reúnen en un subgrupo plegable (se abre solo si contiene la página actual).
+            $bloques = []; $posGrupo = [];
+            foreach ($seccion['items'] as $it) {
+                if (!empty($it['grupo'])) {
+                    if (!isset($posGrupo[$it['grupo']])) { $posGrupo[$it['grupo']] = count($bloques); $bloques[] = ['grupo' => $it['grupo'], 'items' => []]; }
+                    $bloques[$posGrupo[$it['grupo']]]['items'][] = $it;
+                } else {
+                    $bloques[] = ['grupo' => null, 'items' => [$it]];
+                }
+            }
+          ?>
+          <?php foreach ($bloques as $bloque): ?>
+          <?php if ($bloque['grupo'] !== null): ?><details class="menu-grupo"<?= array_filter($bloque['items'], $esItemActivo) ? ' open' : '' ?>><summary><?= e($bloque['grupo']) ?></summary><?php endif; ?>
+          <?php foreach ($bloque['items'] as $item): ?>
             <?php
               $badgeContent = '';
               if ($item['clave'] === 'reuniones') {
@@ -97,6 +118,11 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
                           AND (rp.respondio_en IS NULL OR r.actualizado_en > rp.respondio_en)',
                       [$usuario['id']]
                   );
+                  if ($notifCount > 0) {
+                      $badgeContent = ' <span style="background: var(--error); color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; margin-left: 6px; display: inline-block; min-width: 18px; text-align: center;">' . $notifCount . '</span>';
+                  }
+              } elseif ($item['clave'] === 'notificaciones') {
+                  $notifCount = \App\Core\Pendientes::total() + \App\Modules\Notificaciones\Notificaciones::noLeidas(array_merge(\App\Core\Identidad::correosDeUsuario((int) $usuario['id']), [(string) $usuario['email']]));
                   if ($notifCount > 0) {
                       $badgeContent = ' <span style="background: var(--error); color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; margin-left: 6px; display: inline-block; min-width: 18px; text-align: center;">' . $notifCount . '</span>';
                   }
@@ -115,6 +141,8 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
             <a class="menu-item<?= $esItemActivo($item) ? ' activo' : '' ?>" <?= $esItemActivo($item) ? 'aria-current="page"' : '' ?> href="<?= url($item['ruta']) ?>">
               <?= e($item['titulo']) ?><?= $badgeContent ?>
             </a>
+          <?php endforeach; ?>
+          <?php if ($bloque['grupo'] !== null): ?></details><?php endif; ?>
           <?php endforeach; ?>
         </div>
       <?php endforeach; ?>

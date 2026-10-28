@@ -6,6 +6,7 @@ $todos = ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'];
 
 return [
     'clave' => 'concursos',
+    'pendientes' => 'App\Modules\Concursos\PendientesConcursos::de',
     'menu'  => [
         ['seccion' => 'CONCURSOS', 'titulo' => 'Actuales', 'ruta' => 'concursos', 'roles' => $todos, 'orden' => 40],
         ['seccion' => 'CONCURSOS', 'titulo' => 'Pasados', 'ruta' => 'concursos/pasados', 'roles' => $todos, 'orden' => 41],

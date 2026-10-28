@@ -12,6 +12,7 @@ use App\Modules\Firmas\GruposController;
 
 return [
     'clave' => 'firmas',
+    'pendientes' => 'App\Modules\Firmas\PendientesFirmas::de',
     // Todos los roles: los alumnos también firman. La restricción de
     // CREAR solicitudes (no alumnos) se aplica en el controlador.
     'menu'  => [

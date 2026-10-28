@@ -29,9 +29,16 @@ final class Notificaciones
         }
     }
 
-    public static function de(string $email, int $limite = 300): array
+    /** Correos (uno o varios: la persona puede haber cambiado de dominio) normalizados y sin repetir. @return string[] */
+    private static function correos(string|array $email): array
     {
-        return Database::todas('SELECT * FROM notificaciones WHERE email = ? ORDER BY id DESC LIMIT ' . max(1, $limite), [strtolower(trim($email))]);
+        return array_values(array_unique(array_filter(array_map(static fn($e): string => strtolower(trim((string) $e)), (array) $email))));
+    }
+
+    public static function de(string|array $email, int $limite = 300): array
+    {
+        $c = self::correos($email);
+        return $c ? Database::todas('SELECT * FROM notificaciones WHERE email IN (' . implode(',', array_fill(0, count($c), '?')) . ') ORDER BY id DESC LIMIT ' . max(1, $limite), $c) : [];
     }
 
     public static function una(int $id): ?array
@@ -39,10 +46,11 @@ final class Notificaciones
         return Database::una('SELECT * FROM notificaciones WHERE id = ?', [$id]);
     }
 
-    public static function noLeidas(string $email): int
+    public static function noLeidas(string|array $email): int
     {
         try {
-            return $email === '' ? 0 : (int) Database::valor('SELECT COUNT(*) FROM notificaciones WHERE email = ? AND leida_en IS NULL', [strtolower(trim($email))]);
+            $c = self::correos($email);
+            return $c ? (int) Database::valor('SELECT COUNT(*) FROM notificaciones WHERE email IN (' . implode(',', array_fill(0, count($c), '?')) . ') AND leida_en IS NULL', $c) : 0;
         } catch (Throwable) {
             return 0;
         }
@@ -53,8 +61,11 @@ final class Notificaciones
         Database::ejecutar('UPDATE notificaciones SET leida_en = NOW() WHERE id = ? AND leida_en IS NULL', [$id]);
     }
 
-    public static function marcarTodas(string $email): void
+    public static function marcarTodas(string|array $email): void
     {
-        Database::ejecutar('UPDATE notificaciones SET leida_en = NOW() WHERE email = ? AND leida_en IS NULL', [strtolower(trim($email))]);
+        $c = self::correos($email);
+        if ($c) {
+            Database::ejecutar('UPDATE notificaciones SET leida_en = NOW() WHERE email IN (' . implode(',', array_fill(0, count($c), '?')) . ') AND leida_en IS NULL', $c);
+        }
     }
 }

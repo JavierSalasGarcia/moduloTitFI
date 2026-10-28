@@ -87,6 +87,16 @@ final class ModuleManager
         return $secciones;
     }
 
+    /** Funciones «Clase::metodo» que declaran los módulos (clave `pendientes`) para listar lo que le toca hacer a la persona con sesión. */
+    public static function proveedoresPendientes(): array
+    {
+        $r = [];
+        foreach (self::descubrir() as $m) {
+            if (!empty($m['pendientes'])) $r[(string) $m['clave']] = (string) $m['pendientes'];
+        }
+        return $r;
+    }
+
     /** Condición opcional de una entrada de menú: «Clase::metodo» de un módulo que devuelve bool. */
     private static function cumple(string $condicion): bool
     {
@@ -122,6 +132,9 @@ final class ModuleManager
             if (!is_file($archivoClase)) throw new RuntimeException("No existe el controlador de {$patron}.");
         }
 
+        if (isset($config['pendientes']) && (!is_string($config['pendientes']) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $config['pendientes']))) {
+            throw new RuntimeException('La función de pendientes no es válida.');
+        }
         $menu = $config['menu'] ?? [];
         if (!is_array($menu)) throw new RuntimeException('menu debe ser un arreglo.');
         foreach ($menu as $i => &$item) {

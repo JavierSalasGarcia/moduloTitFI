@@ -1,5 +1,6 @@
 {
   "clave": "titulacion",
+  "pendientes": "App\\Modules\\Titulacion\\PanelController::pendientesDeSesion",
   "nombre": "Titulación",
   "version": "1.0.0",
   "descripcion": "Trámite de titulación en línea: asistente por opción de titulación, formatos llenados automáticamente, carga de documentos en PDF y validación por el Departamento de Evaluación Profesional.",
@@ -47,21 +48,7 @@
       "seccion": "TITULACIÓN",
       "titulo": "Licenciatura",
       "ruta": "titulacion/licenciatura",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 20,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::veLicenciatura"
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Posgrado",
-      "ruta": "titulacion/posgrado",
+      "grupo": "Trámites",
       "roles": [
         "admin",
         "titular",
@@ -71,12 +58,13 @@
         "alumno"
       ],
       "orden": 21,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::vePosgrado"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::veLicenciatura"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Protocolos por revisar",
-      "ruta": "titulacion/revision",
+      "titulo": "Posgrado",
+      "ruta": "titulacion/posgrado",
+      "grupo": "Trámites",
       "roles": [
         "admin",
         "titular",
@@ -86,12 +74,13 @@
         "alumno"
       ],
       "orden": 22,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEvaluador"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::vePosgrado"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Mi comité de revisión",
-      "ruta": "titulacion/comision",
+      "titulo": "Protocolos por revisar",
+      "ruta": "titulacion/revision",
+      "grupo": "Trámites",
       "roles": [
         "admin",
         "titular",
@@ -101,12 +90,13 @@
         "alumno"
       ],
       "orden": 23,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEncargado"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEvaluador"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Protocolos recibidos",
-      "ruta": "titulacion/protocolos",
+      "titulo": "Mi comité de revisión",
+      "ruta": "titulacion/comision",
+      "grupo": "Trámites",
       "roles": [
         "admin",
         "titular",
@@ -116,12 +106,13 @@
         "alumno"
       ],
       "orden": 24,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEncargado"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Validar trámites",
-      "ruta": "titulacion/gestion",
+      "titulo": "Protocolos recibidos",
+      "ruta": "titulacion/protocolos",
+      "grupo": "Trámites",
       "roles": [
         "admin",
         "titular",
@@ -135,21 +126,39 @@
     },
     {
       "seccion": "TITULACIÓN",
+      "titulo": "Validar trámites",
+      "ruta": "titulacion/gestion",
+      "grupo": "Trámites",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 26,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
+    },
+    {
+      "seccion": "TITULACIÓN",
       "titulo": "Estructura",
       "ruta": "titulacion/estructura",
+      "grupo": "Administración",
       "roles": [
         "admin"
       ],
-      "orden": 26
+      "orden": 40
     },
     {
       "seccion": "TITULACIÓN",
       "titulo": "Configuración",
       "ruta": "titulacion/configuracion",
+      "grupo": "Administración",
       "roles": [
         "admin"
       ],
-      "orden": 27
+      "orden": 41
     },
     {
       "seccion": "TITULACIÓN",
@@ -163,13 +172,14 @@
         "profesor",
         "alumno"
       ],
-      "orden": 28,
+      "orden": 20,
       "condicion": "App\\Modules\\Titulacion\\Services\\SubdireccionFirma::puedeFirmar"
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Titulación Lic",
+      "titulo": "Mis constancias",
       "ruta": "titulacion/constancias",
+      "grupo": "Constancias y oficios",
       "roles": [
         "admin",
         "titular",
@@ -183,8 +193,9 @@
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Búsqueda",
+      "titulo": "Buscar constancias",
       "ruta": "titulacion/constancias/busqueda",
+      "grupo": "Constancias y oficios",
       "roles": [
         "admin",
         "titular",
@@ -200,6 +211,7 @@
       "seccion": "TITULACIÓN",
       "titulo": "Oficios",
       "ruta": "titulacion/oficios",
+      "grupo": "Constancias y oficios",
       "roles": [
         "admin",
         "titular",
@@ -208,13 +220,14 @@
         "profesor",
         "alumno"
       ],
-      "orden": 28,
+      "orden": 32,
       "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Historial",
+      "titulo": "Constancias históricas",
       "ruta": "titulacion/constancias/historial",
+      "grupo": "Constancias y oficios",
       "roles": [
         "admin",
         "titular",
@@ -228,8 +241,9 @@
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Textos",
+      "titulo": "Textos de constancias",
       "ruta": "titulacion/constancias/textos",
+      "grupo": "Constancias y oficios",
       "roles": [
         "admin",
         "titular",
@@ -238,7 +252,7 @@
         "profesor",
         "alumno"
       ],
-      "orden": 32,
+      "orden": 33,
       "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeEditarTextos"
     }
   ],

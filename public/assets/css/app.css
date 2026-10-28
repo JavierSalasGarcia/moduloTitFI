@@ -134,7 +134,27 @@ a:hover { text-decoration: underline; }
   text-align: left;
 }
 
-.menu-seccion.colapsada .menu-item { display: none; }
+.menu-seccion.colapsada .menu-item, .menu-seccion.colapsada .menu-grupo { display: none; }
+
+/* Subgrupos plegables dentro de una sección (p. ej. Titulación → Trámites, Constancias y oficios, Administración). */
+.menu-grupo { margin: 2px 0; }
+.menu-grupo > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 7px 16px 7px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gris-600, #555);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-left: 3px solid transparent;
+}
+.menu-grupo > summary::-webkit-details-marker { display: none; }
+.menu-grupo > summary::before { content: ""; border-left: 5px solid var(--gris-600, #555); border-top: 4px solid transparent; border-bottom: 4px solid transparent; transition: transform .15s; }
+.menu-grupo[open] > summary::before { transform: rotate(90deg); }
+.menu-grupo > summary:hover { background: var(--verde-050); }
+.menu-grupo .menu-item { padding-left: 40px; font-size: 13.5px; }
 
 .menu-flecha {
   width: 0; height: 0;
