@@ -22,6 +22,7 @@ $fuentes = [
     'migrations/023_justificantes_faltas.sql',
     'migrations/024_roles_multiples.sql',
     'migrations/025_formulario_galardonados.sql',
+    'migrations/026_avisos_clasificados_y_asistencias.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

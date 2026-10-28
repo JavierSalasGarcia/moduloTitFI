@@ -11,8 +11,10 @@ use App\Core\View;
 /**
  * Avisos de eventos (reuniones, conferencias…) emitidos por los
  * departamentos. Los usuarios los agregan con un clic a su calendario
- * personal (menú RECURSOS → Mi Calendario). Incluye buscador y una
- * biblioteca de eventos concluidos en carruseles por categoría.
+ * personal (menú RECURSOS → Mi Calendario). Incluye buscador, filtros por
+ * carrera, semestre, tema y formato (ver Clasificacion) y una biblioteca de
+ * eventos concluidos en carruseles por categoría. La publicación, la
+ * asistencia y las evidencias están en AvisosController y AsistenciaController.
  */
 final class EventosController extends Controller
 {
@@ -23,13 +25,14 @@ final class EventosController extends Controller
         'academico'   => 'Académicos',
         'cultural'    => 'Culturales',
         'deportivo'   => 'Deportivos',
+        'convocatoria'=> 'Convocatorias',
         'otro'        => 'Otros',
     ];
 
     public function index(): void
     {
         $u = Auth::usuario();
-        $puedeEmitirEventos = Auth::tieneRol('admin', 'titular', 'operativo');
+        $puedeEmitirEventos = Clasificacion::puedePublicar();
         $puedeEmitirComunicados = $this->puedeEmitirComunicados();
 
         // 1. Obtener Eventos
@@ -43,6 +46,9 @@ final class EventosController extends Controller
               ORDER BY ev.inicio",
             [Auth::id(), ...$params]
         );
+        $perfil = Clasificacion::perfil();
+        $filtros = Clasificacion::filtrosGet($perfil, self::CATEGORIAS);
+        $eventos = Clasificacion::filtrar(Clasificacion::conProgramas($eventos), $filtros, $perfil);
 
         // 2. Comunicados: cada aviso aparece una sola vez, aunque la persona pertenezca a varios programas destinatarios
         $comunicados = \App\Modules\Comunicados\Avisos::visibles($puedeEmitirComunicados);
@@ -63,10 +69,11 @@ final class EventosController extends Controller
             'categorias' => self::CATEGORIAS,
             'puedeEmitir'=> $puedeEmitirEventos,
             'puedeEmitirComunicados' => $puedeEmitirComunicados,
-            'departamentos' => Database::todas('SELECT id, nombre FROM departamentos ORDER BY nombre'),
-            'usuarios'      => Database::todas("SELECT id, nombre, email, rol FROM usuarios WHERE activo = 1 ORDER BY nombre"),
             'emisores'      => \App\Modules\Comunicados\Avisos::emisores(),
             'programas'     => Database::todas("SELECT * FROM programas ORDER BY nivel = 'posgrado', siglas"),
+            'filtros'       => $filtros,
+            'perfil'        => $perfil,
+            'preferencias'  => Clasificacion::preferencias(Auth::id()),
         ]);
     }
 
@@ -134,63 +141,21 @@ final class EventosController extends Controller
             [$ev['id']]
         );
 
+        $ev = Clasificacion::conProgramas([$ev])[0];
+        $gestiona = Clasificacion::puedeGestionar($ev);
         $this->vista('detalle', [
             'titulo'     => 'Evento',
             'ev'         => $ev,
             'destinatarios' => $destinatarios,
             'concluido'  => strtotime($ev['fin'] ?: $ev['inicio']) < time(),
             'categorias' => self::CATEGORIAS,
+            'siglas'     => array_column(Database::todas('SELECT id, siglas FROM programas'), 'siglas', 'id'),
+            'programas'  => Database::todas("SELECT id, siglas, nombre FROM programas ORDER BY nivel = 'posgrado', siglas"),
+            'gestiona'   => $gestiona,
+            'asistencia' => Asistencias::de((int) $ev['id'], Auth::id()),
+            'asistentes' => $gestiona ? Asistencias::delEvento((int) $ev['id']) : [],
+            'evidencias' => $gestiona ? Database::todas('SELECT x.*, p.siglas, u.nombre AS autor FROM evento_evidencias x LEFT JOIN programas p ON p.id = x.programa_id JOIN usuarios u ON u.id = x.autor_id WHERE x.evento_id = ? ORDER BY x.id DESC', [(int) $ev['id']]) : [],
         ]);
-    }
-
-    /** Los departamentos emiten avisos (personal de la plataforma). */
-    public function crear(): void
-    {
-        if (!Auth::tieneRol('admin', 'titular', 'operativo')) {
-            flash('error', 'Solo los departamentos emiten avisos de eventos.');
-            redirigir('eventos');
-        }
-        $titulo = $this->post('titulo');
-        $desc   = $this->post('descripcion');
-        $inicio = $this->post('inicio');
-        $cat    = array_key_exists($this->post('categoria'), self::CATEGORIAS) ? $this->post('categoria') : 'otro';
-
-        if ($titulo === '' || $desc === '' || !strtotime($inicio)) {
-            flash('error', 'Completa título, descripción y fecha de inicio.');
-            redirigir('eventos');
-        }
-
-        $id = Database::ejecutar(
-            'INSERT INTO eventos (titulo, descripcion, categoria, depto_id, autor_id, inicio, fin, lugar)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            [$titulo, $desc, $cat, Auth::departamentoId(), Auth::id(),
-             date('Y-m-d H:i:s', strtotime($inicio)),
-             strtotime((string) $this->post('fin')) ? date('Y-m-d H:i:s', strtotime($this->post('fin'))) : null,
-             $this->post('lugar') ?: null]
-         );
-
-        // Guardar destinatarios Para
-        $paraType = $_POST['para_type'] ?? [];
-        $paraId = $_POST['para_id'] ?? [];
-        foreach ($paraId as $idx => $pId) {
-            Database::ejecutar(
-                "INSERT INTO evento_destinatarios (evento_id, tipo, destinatario_type, destinatario_id) VALUES (?, 'para', ?, ?)",
-                [$id, $paraType[$idx], (int)$pId]
-            );
-        }
-
-        // Guardar destinatarios CC
-        $ccType = $_POST['cc_type'] ?? [];
-        $ccId = $_POST['cc_id'] ?? [];
-        foreach ($ccId as $idx => $cId) {
-            Database::ejecutar(
-                "INSERT INTO evento_destinatarios (evento_id, tipo, destinatario_type, destinatario_id) VALUES (?, 'cc', ?, ?)",
-                [$id, $ccType[$idx], (int)$cId]
-            );
-        }
-
-        flash('exito', 'Aviso publicado; la comunidad ya puede agregarlo a su calendario.');
-        redirigir('eventos/' . $id);
     }
 
     /** Alterna la suscripción: agrega o quita el evento del calendario personal. */
