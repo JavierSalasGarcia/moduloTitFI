@@ -4,6 +4,7 @@ use App\Modules\Encuestas\EncuestasController;
 
 return [
     'clave' => 'encuestas',
+    'pendientes' => 'App\Modules\Encuestas\PendientesEncuestas::de',
     'menu'  => [
         ['seccion' => 'COMUNIDAD', 'titulo' => 'Encuestas', 'ruta' => 'encuestas',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 21],

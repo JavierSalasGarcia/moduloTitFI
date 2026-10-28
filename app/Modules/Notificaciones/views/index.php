@@ -10,6 +10,24 @@ use App\Core\Auth;
 .ntf-item time{display:block;font-size:12px;color:var(--gris-600)}
 @media (max-width:900px){.ntf{grid-template-columns:1fr}}
 </style>
+<?php if (!empty($pendientes)): $totalPend = array_sum(array_map(static fn(array $g): int => count($g['items']), $pendientes)); ?>
+<section class="tarjeta" style="margin-bottom:16px">
+  <h2 style="margin-top:0;font-size:18px">Pendientes por hacer <span class="badge badge-oro"><?= (int) $totalPend ?></span></h2>
+  <p class="texto-secundario" style="margin-top:0">Todo lo que te toca hacer en cualquier módulo, en un solo lugar: elige uno para ir directo.</p>
+  <?php foreach ($pendientes as $g): ?>
+    <h3 style="font-size:14px;margin:12px 0 4px;color:var(--oro-texto,#7a5c00);text-transform:uppercase;letter-spacing:.4px"><?= e($g['nombre']) ?></h3>
+    <ul style="list-style:none;margin:0;padding:0">
+      <?php foreach ($g['items'] as $i): ?>
+        <li style="padding:7px 0;border-bottom:1px solid var(--gris-100)">
+          <a href="<?= url((string) $i['enlace']) ?>" style="text-decoration:none;color:var(--texto)"><span class="badge"><?= e((string) ($i['tipo'] ?? '')) ?></span> <?= e((string) $i['texto']) ?><?= !empty($i['folio']) ? ' <small class="texto-secundario">· ' . e((string) $i['folio']) . '</small>' : '' ?></a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endforeach; ?>
+</section>
+<?php elseif ($abierta === null): ?>
+<p class="texto-secundario" style="margin:0 0 12px">No tienes pendientes por hacer en ningún módulo.</p>
+<?php endif; ?>
 <div class="ntf">
   <section class="tarjeta">
     <?php if ($abierta): ?>

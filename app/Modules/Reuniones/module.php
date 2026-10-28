@@ -4,6 +4,7 @@ use App\Modules\Reuniones\ReunionesController;
 
 return [
     'clave' => 'reuniones',
+    'pendientes' => 'App\Modules\Reuniones\PendientesReuniones::de',
     'menu' => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Reuniones', 'ruta' => 'reuniones',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno', 'coordinador'], 'orden' => 32],

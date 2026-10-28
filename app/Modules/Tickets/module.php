@@ -4,6 +4,7 @@ use App\Modules\Tickets\TicketsController;
 
 return [
     'clave' => 'tickets',
+    'pendientes' => 'App\Modules\Tickets\PendientesTickets::de',
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Tickets', 'ruta' => 'tickets',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 11],

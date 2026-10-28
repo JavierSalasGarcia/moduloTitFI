@@ -19,7 +19,7 @@ final class InterfaceUi
         foreach ($sections as $section) foreach ($section['items'] as $item) {
             $root = explode('/', $item['ruta'])[0];
             $group = match ($root) {
-                '', 'seguridad' => 'Inicio', 'tickets','solicitudes','firmas','funciones','grupos-destinatarios' => 'Trámites y seguimiento',
+                '', 'seguridad', 'notificaciones' => 'Inicio', 'tickets','solicitudes','firmas','funciones','grupos-destinatarios' => 'Trámites y seguimiento',
                 'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : 'Agenda',
                 'fila' => 'Fila', 'titulacion' => 'Titulación',
                 'foro','encuestas','comisiones' => 'Comunidad', 'concursos' => 'Concursos', 'ajustes','formularios' => 'Administración',
