@@ -18,6 +18,22 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
     <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
   </form>
 </section>
+<section class="card" style="padding:20px;margin-bottom:18px" id="preferencias-avisos">
+  <h3 style="margin-top:0">Mis avisos</h3>
+  <p class="texto-suave">Con tu carrera<?= $grupoAvisos === 'alumno' ? ', tu semestre' : '' ?> y los temas que elijas, «Avisos y eventos» te muestra primero lo que te toca. Sin temas marcados ves todos.</p>
+  <form method="post" action="<?= url('eventos/preferencias') ?>" class="formulario">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>"><input type="hidden" name="volver" value="perfil">
+    <?php if ($grupoAvisos === 'alumno'): ?>
+    <label style="max-width:320px">Semestre que cursas este periodo (<?= e(\App\Modules\Eventos\Clasificacion::periodo()) ?>)<select name="semestre"><option value="">Sin indicar</option><?php for ($i = 1; $i <= \App\Modules\Eventos\Clasificacion::SEMESTRE_MAX; $i++): ?><option value="<?= $i ?>" <?= $avisos['semestre'] === $i ? 'selected' : '' ?>><?= $i ?>.°</option><?php endfor; ?></select>
+      <?php if ($avisos['semestre'] !== null && !$avisos['vigente']): ?><small class="ayuda-form">Lo declaraste en <?= e((string) $avisos['periodo']) ?>; confírmalo o actualízalo.</small><?php endif; ?></label>
+    <?php endif; ?>
+    <fieldset><legend>Temas que me interesan</legend><div style="display:flex;flex-wrap:wrap;gap:6px 16px">
+      <?php foreach (\App\Modules\Eventos\Clasificacion::TEMAS as $k => $n): ?><label style="display:flex;gap:6px;align-items:center;font-weight:400;margin:0"><input type="checkbox" name="temas[]" value="<?= e($k) ?>" <?= in_array($k, $avisos['temas'], true) ? 'checked' : '' ?>> <?= e($n) ?></label><?php endforeach; ?>
+    </div></fieldset>
+    <label style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" name="notificar" value="1" <?= $avisos['notificar'] ? 'checked' : '' ?>> Avisarme en mi bandeja cuando se publique algo de estos temas que vaya dirigido a mí</label>
+    <button class="btn btn-primario" type="submit">Guardar preferencias</button>
+  </form>
+</section>
 <div class="perfil-grid">
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Programas y carreras donde participo</h3><?php if(!$adscripciones):?><p class="texto-suave">No tienes programas docentes registrados.</p><?php else:?><ul class="perfil-lista"><?php foreach($adscripciones as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['tipo_vinculo'])) ?> · <?= e($r['nivel']) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Responsabilidades en programas</h3><?php if(!$responsabilidades):?><p class="texto-suave">No tienes responsabilidades registradas.</p><?php else:?><ul class="perfil-lista"><?php foreach($responsabilidades as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['cargo'])) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
