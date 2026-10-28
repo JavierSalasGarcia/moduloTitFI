@@ -10,7 +10,14 @@ $rotulo = ['personal' => 'Subdirector', 'delegada' => 'Asistente (por delegació
 </div></div>
 
 <section class="tarjeta" style="margin-bottom:18px">
-  <div class="tarjeta-cabecera"><h2>Pendientes de firma (<?= count($pendientes) ?>)</h2></div>
+  <div class="tarjeta-cabecera"><h2>Pendientes de firma (<?= count($pendientes) ?>)</h2>
+    <?php if (array_filter($pendientes, static fn(array $p): bool => ($p['formato'] ?? '') === 'constancia')): ?>
+      <form method="post" action="<?= url('titulacion/constancias/historial/rehacer') ?>" onsubmit="return confirm('¿Rehacer las constancias que aún esperan firma? Toman el nombre de quien firma hoy y se quitan las repetidas; conservan su número de oficio y QR. Las firmadas no cambian.')">
+        <input type="hidden" name="_csrf" value="<?= $csrf ?>"><input type="hidden" name="volver" value="firmas">
+        <button class="btn" type="submit" title="Úsalo si cambió quien firma o si una constancia salió con datos de firma incorrectos">Rehacer las constancias pendientes de firma</button>
+      </form>
+    <?php endif; ?>
+  </div>
   <?php if (!$pendientes): ?>
     <div class="ux-empty">No hay documentos esperando firma.</div>
   <?php else: ?>

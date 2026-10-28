@@ -75,15 +75,32 @@ final class PanelController extends TitulacionBase
         return \App\Core\Identidad::esDe($c, TitulacionAccess::correoSesion()) || (Services\Constancias::puedeBuscar() && ($alcance === null || $alcance === $c['emisor']));
     }
 
-    /** Una constancia firmada, para verla en el navegador (por token: titulacion/archivo/{token}). */
+    /**
+     * Archivo de la constancia que puede abrir la sesión: la firmada; la que aún espera firma solo la revisa (sin firma)
+     * el personal que busca constancias, para comprobar que esté correcta antes de firmarla. El profesor solo ve las firmadas.
+     */
+    private function archivoConstancia(array $c): ?string
+    {
+        if (!$this->puedeVerConstancia($c)) {
+            return null;
+        }
+        if (!empty($c['subdir_ruta'])) {
+            return (string) $c['subdir_ruta'];
+        }
+        $alcance = Services\Constancias::alcance();
+        return Services\Constancias::puedeBuscar() && ($alcance === null || $alcance === $c['emisor']) && !empty($c['ruta']) ? (string) $c['ruta'] : null;
+    }
+
+    /** Una constancia, para verla en el navegador (por token: titulacion/archivo/{token}). */
     public function constancia(string $id): void
     {
-        $c = ctype_digit($id) ? Database::una('SELECT c.*, t.folio, d.subdir_ruta FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN tit_documentos d ON d.id = c.documento_id WHERE c.id = ?', [(int) $id]) : null;
-        if (!$c || !$this->puedeVerConstancia($c) || empty($c['subdir_ruta'])) {
+        $c = ctype_digit($id) ? Database::una('SELECT c.*, t.folio, d.subdir_ruta, d.ruta FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN tit_documentos d ON d.id = c.documento_id WHERE c.id = ?', [(int) $id]) : null;
+        $archivo = $c ? $this->archivoConstancia($c) : null;
+        if ($archivo === null) {
             $this->noEncontrado();
         }
-        Audit::record('titulacion::constancia', 'atendido', 'Constancia ' . (int) $c['id']);
-        $this->enviarArchivo((string) $c['subdir_ruta'], $c['tipo'] . '_' . $c['folio'] . '.pdf', true);
+        Audit::record('titulacion::constancia', 'atendido', 'Constancia ' . (int) $c['id'] . (empty($c['subdir_ruta']) ? ' (sin firma)' : ''));
+        $this->enviarArchivo($archivo, $c['tipo'] . '_' . $c['folio'] . (empty($c['subdir_ruta']) ? '_SIN_FIRMA' : '') . '.pdf', true);
     }
 
     private function soloBusqueda(): void
@@ -124,7 +141,7 @@ final class PanelController extends TitulacionBase
         exit;
     }
 
-    /** Las constancias firmadas que se eligieron (por su token), en un ZIP; cada una se revisa con el mismo permiso que para verla. */
+    /** Las constancias que se eligieron (por su token), en un ZIP; cada una se revisa con el mismo permiso que para verla (las que esperan firma van sin firma). */
     public function seleccion(): void
     {
         $this->privado();
@@ -140,15 +157,19 @@ final class PanelController extends TitulacionBase
         if ($ids) {
             $marcas = implode(',', array_fill(0, count($ids), '?'));
             $lista = Database::todas(
-                "SELECT c.*, t.folio, d.subdir_ruta, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre
+                "SELECT c.*, t.folio, d.subdir_ruta, d.ruta, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre
                  FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN usuarios u ON u.id = t.alumno_id
                  LEFT JOIN tit_documentos d ON d.id = c.documento_id WHERE c.id IN ($marcas)",
                 array_keys($ids)
             );
         }
-        $lista = array_filter($lista, fn(array $c): bool => !empty($c['subdir_ruta']) && $this->puedeVerConstancia($c));
+        foreach ($lista as &$c) {
+            $c['archivo'] = $this->archivoConstancia($c);
+        }
+        unset($c);
+        $lista = array_filter($lista, static fn(array $c): bool => $c['archivo'] !== null);
         if (!$lista) {
-            flash('error', 'Elige al menos una constancia firmada.');
+            flash('error', 'Elige al menos una constancia.');
             redirigir($volver);
         }
         $base = rtrim((string) \App\Core\App::config('archivos.storage'), '/\\');
@@ -160,11 +181,12 @@ final class PanelController extends TitulacionBase
         }
         $usados = [];
         foreach ($lista as $c) {
-            $abs = realpath($base . '/' . $c['subdir_ruta']);
+            $abs = realpath($base . '/' . $c['archivo']);
             if ($abs === false || !str_starts_with($abs, realpath($base) . DIRECTORY_SEPARATOR)) {
                 continue;
             }
             $nombre = Services\Constancias::anio($c) . '_' . trim(preg_replace('/[^A-Za-z0-9]+/', '_', iconv('UTF-8', 'ASCII//TRANSLIT', str_replace(' · ' . Services\Constancias::anio($c), '', Services\Constancias::descripcion($c))) ?: (string) $c['tipo']) ?? '', '_');
+            $nombre .= empty($c['subdir_ruta']) ? '_SIN_FIRMA' : '';
             $final = $nombre;
             for ($i = 2; isset($usados[$final]); $i++) {
                 $final = $nombre . '_' . $i;
