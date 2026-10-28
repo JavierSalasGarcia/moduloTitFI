@@ -15,12 +15,13 @@ $qs = http_build_query(array_filter($f));
   <h3 style="margin-top:0"><?= count($r['eventos']) ?> evento(s) · <?= count($r['asistentes']) ?> asistencia(s) validada(s) · <?= count($r['evidencias']) ?> evidencia(s)</h3>
   <?php if (!$r['eventos']): ?><div class="ux-empty">Sin eventos en el periodo.</div><?php else: ?>
   <div class="tabla-contenedor"><table class="tabla">
-    <thead><tr><th>Fecha</th><th>Evento</th><th>Tema</th><th>Dirigido a</th><th>Horas</th><th>Asistentes</th><th>Evidencias</th><th>Post</th></tr></thead>
+    <thead><tr><th>Fecha</th><th>Evento</th><th>Tema</th><th>Dirigido a</th><th>Horas</th><th>Asistentes</th><th>Evidencias</th><th>Post</th><th>Publicación de evidencia</th></tr></thead>
     <tbody><?php foreach ($r['eventos'] as $e): $c = $r['conteo'][(int) $e['id']] ?? []; ?>
       <tr><td><?= e(date('d/m/Y', strtotime((string) $e['inicio']))) ?></td><td><a href="<?= url('eventos/' . (int) $e['id']) ?>"><?= e($e['titulo']) ?></a><br><small class="texto-suave"><?= e($categorias[$e['categoria']] ?? '') ?></small></td>
         <td><?= e(Clasificacion::TEMAS[$e['tema']] ?? '') ?></td><td><small><?= e(Clasificacion::destino($e, $siglas)) ?></small></td><td><?= $e['horas'] ? e((string) (float) $e['horas']) : '' ?></td>
         <td><?= (int) ($c['asistentes'] ?? 0) ?></td><td><?= (int) ($c['evidencias'] ?? 0) ?></td>
-        <td><?= $e['post_url'] ? '<a href="' . e($e['post_url']) . '" target="_blank" rel="noopener noreferrer">Ver</a>' : '<span class="badge badge-oro">Falta</span>' ?></td></tr>
+        <td><?= $e['post_url'] ? '<a href="' . e($e['post_url']) . '" target="_blank" rel="noopener noreferrer">Ver</a>' : '<span class="badge badge-oro">Falta</span>' ?></td>
+        <td><?= !empty($e['evidencia_post_url']) ? '<a href="' . e($e['evidencia_post_url']) . '" target="_blank" rel="noopener noreferrer">Ver</a>' : '<span class="texto-suave">—</span>' ?></td></tr>
     <?php endforeach; ?></tbody>
   </table></div>
   <?php endif; ?>

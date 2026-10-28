@@ -46,6 +46,7 @@ $metodos = ['qr' => 'QR', 'clave' => 'Palabra clave', 'constancia' => 'Constanci
     <?php if ($ev['enlace_evento']): ?><a class="btn btn-primario btn-mini" href="<?= e($ev['enlace_evento']) ?>" target="_blank" rel="noopener noreferrer"><?= $ev['requiere_registro'] ? 'Registrarme' : ($ev['modalidad'] === 'presencial' ? 'Más información' : 'Conectarme') ?></a><?php endif; ?>
     <?php if ($ev['post_url']): ?><a class="btn btn-mini" href="<?= e($ev['post_url']) ?>" target="_blank" rel="noopener noreferrer">Ver post en Facebook</a><?php endif; ?>
     <?php if ($ev['grabacion_url']): ?><a class="btn btn-mini" href="<?= e($ev['grabacion_url']) ?>" target="_blank" rel="noopener noreferrer">Ver grabación</a><?php endif; ?>
+    <?php if (!empty($ev['evidencia_post_url'])): ?><a class="btn btn-mini" href="<?= e($ev['evidencia_post_url']) ?>" target="_blank" rel="noopener noreferrer">Ver publicación de la evidencia</a><?php endif; ?>
   </div>
 
   <p class="descripcion-solicitud"><?= nl2br(e($ev['descripcion'])) ?></p>

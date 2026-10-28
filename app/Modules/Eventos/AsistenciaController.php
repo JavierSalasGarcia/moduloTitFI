@@ -306,12 +306,12 @@ final class AsistenciaController extends Controller
         $siglas = array_column(Database::todas('SELECT id, siglas FROM programas'), 'siglas', 'id');
         $x = new \App\Modules\Formularios\XlsxEscritor();
         $titulo = 'Eventos de formación integral del ' . $f['desde'] . ' al ' . $f['hasta'] . ($f['programa'] ? ' · ' . ($siglas[$f['programa']] ?? '') : '');
-        $filas = [[$titulo], ['Fecha', 'Evento', 'Formato', 'Tema', 'Modalidad', 'Organiza', 'Dirigido a', 'Horas', 'Asistentes validados', 'Evidencias', 'Post', 'Grabación', 'Ficha en Traza FI']];
+        $filas = [[$titulo], ['Fecha', 'Evento', 'Formato', 'Tema', 'Modalidad', 'Organiza', 'Dirigido a', 'Horas', 'Asistentes validados', 'Evidencias', 'Post', 'Grabación', 'Publicación de la evidencia', 'Ficha en Traza FI']];
         foreach ($r['eventos'] as $e) {
             $filas[] = [substr((string) $e['inicio'], 0, 16), $e['titulo'], EventosController::CATEGORIAS[$e['categoria']] ?? $e['categoria'],
                 Clasificacion::TEMAS[$e['tema']] ?? $e['tema'], Clasificacion::MODALIDADES[$e['modalidad'] ?? ''] ?? '', (string) $e['organizador'],
                 Clasificacion::destino($e, $siglas), (string) $e['horas'], (string) ($r['conteo'][(int) $e['id']]['asistentes'] ?? 0),
-                (string) ($r['conteo'][(int) $e['id']]['evidencias'] ?? 0), (string) $e['post_url'], (string) $e['grabacion_url'], $base . url('eventos/' . (int) $e['id'])];
+                (string) ($r['conteo'][(int) $e['id']]['evidencias'] ?? 0), (string) $e['post_url'], (string) $e['grabacion_url'], (string) ($e['evidencia_post_url'] ?? ''), $base . url('eventos/' . (int) $e['id'])];
         }
         $x->hoja('Eventos', $filas);
         $filas = [[$titulo], ['Fecha', 'Evento', 'Nombre', 'Correo', 'Carrera', 'Semestre', 'Registro', 'Puntos', 'Folio', 'Verificación']];

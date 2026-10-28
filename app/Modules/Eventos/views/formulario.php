@@ -71,6 +71,7 @@ $deptoSel = (int) ($v['depto_id'] ?? Auth::departamentoId());
         <?php if (!empty($ev['post_imagen'])): ?><img src="<?= url_archivo('eventos/' . (int) $ev['id'] . '/imagen') ?>" alt="Imagen actual del post"><small class="ayuda-form">Sube otra solo si quieres reemplazarla.</small><?php endif; ?>
         <input type="file" name="post_imagen" accept=".jpg,.jpeg,.png,image/jpeg,image/png" <?= empty($ev['post_imagen']) ? 'required' : '' ?>><small class="ayuda-form">JPG o PNG, máximo 5 MB.</small></label>
       <label>Enlace del post <span class="req">*</span><input type="url" name="post_url" maxlength="500" required value="<?= e($val('post_url')) ?>" placeholder="https://www.facebook.com/…"></label>
+      <label>Publicación de la evidencia (opcional)<input type="url" name="evidencia_post_url" maxlength="500" value="<?= e($val('evidencia_post_url')) ?>" placeholder="https://www.facebook.com/…"><small class="ayuda-form">Después del evento: enlace de la publicación en Facebook con fotos o resumen de lo que ocurrió.</small></label>
     </div>
   </section>
 

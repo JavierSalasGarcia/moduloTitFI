@@ -108,6 +108,7 @@ final class AvisosController extends Controller
             'fecha_limite' => self::fecha($this->post('fecha_limite')),
             'post_url' => self::enlace($this->post('post_url')),
             'grabacion_url' => self::enlace($this->post('grabacion_url')),
+            'evidencia_post_url' => self::enlace($this->post('evidencia_post_url')),
             'formacion_integral' => $this->post('formacion_integral') !== '' ? 1 : 0,
             'horas' => $this->post('horas') !== '' ? max(0, min(99, round((float) $this->post('horas'), 1))) : null,
             'puntos' => max(0, min(50, (int) $this->post('puntos'))),
@@ -132,7 +133,7 @@ final class AvisosController extends Controller
         if ($d['fin'] !== null && $d['inicio'] !== null && $d['fin'] < $d['inicio']) {
             $errores[] = 'El fin no puede ser antes del inicio.';
         }
-        foreach (['enlace_evento' => 'del evento', 'post_url' => 'del post', 'grabacion_url' => 'de la grabación'] as $k => $n) {
+        foreach (['enlace_evento' => 'del evento', 'post_url' => 'del post', 'grabacion_url' => 'de la grabación', 'evidencia_post_url' => 'de la publicación de la evidencia'] as $k => $n) {
             if ($this->post($k) !== '' && $d[$k] === null) {
                 $errores[] = 'Revisa el enlace ' . $n . ' (debe empezar con https://).';
             }
