@@ -116,7 +116,16 @@ final class Concursos
         return $m === null || (float) $m <= 0 ? 'por anunciar' : '$' . number_format((float) $m, 2) . ' MXN';
     }
 
-    /** Bases con sus datos (fechas, premios, límites) y un formato mínimo: «## título», «- viñeta» y párrafos. */
+    /** Texto escapado donde las direcciones http(s) se vuelven enlaces. */
+    private static function conEnlaces(string $t): string
+    {
+        return preg_replace_callback('~https?://[^\s<>]+~iu', static function (array $m): string {
+            $u = rtrim($m[0], '.,;:)');
+            return '<a href="' . $u . '" target="_blank" rel="noopener noreferrer">' . $u . '</a>' . substr($m[0], strlen($u));
+        }, e($t)) ?? e($t);
+    }
+
+    /** Bases con sus datos (fechas, premios, límites) y un formato mínimo: «## título», «- viñeta», párrafos y enlaces. */
     public static function basesHtml(array $c): string
     {
         $texto = strtr((string) $c['bases'], [
@@ -130,7 +139,7 @@ final class Concursos
         foreach (preg_split('/\R/u', $texto) ?: [] as $l) {
             $l = trim($l);
             if (str_starts_with($l, '- ')) {
-                $html .= ($lista ? '' : '<ul>') . '<li>' . e(substr($l, 2)) . '</li>';
+                $html .= ($lista ? '' : '<ul>') . '<li>' . self::conEnlaces(substr($l, 2)) . '</li>';
                 $lista = true;
                 continue;
             }
@@ -141,7 +150,7 @@ final class Concursos
             if ($l === '') {
                 continue;
             }
-            $html .= str_starts_with($l, '## ') ? '<h3>' . e(substr($l, 3)) . '</h3>' : '<p>' . e($l) . '</p>';
+            $html .= str_starts_with($l, '## ') ? '<h3>' . e(substr($l, 3)) . '</h3>' : '<p>' . self::conEnlaces($l) . '</p>';
         }
         return $html . ($lista ? '</ul>' : '');
     }
