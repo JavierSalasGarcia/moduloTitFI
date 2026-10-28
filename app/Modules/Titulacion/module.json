@@ -635,6 +635,10 @@
       "App\\Modules\\Titulacion\\ConstanciasController",
       "generarTodas"
     ],
+    "POST /titulacion/constancias/historial/rehacer": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "rehacerPendientes"
+    ],
     "POST /titulacion/constancias/historial/{id}/campo": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "campo"

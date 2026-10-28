@@ -158,7 +158,7 @@ final class Constancias
      * @param array $detalle desde, hasta (fecha que avala), vueltas, funcion, acta
      * @param string $rol quién es en el trámite (director, codirector, presidente…); vacío = la persona por su correo
      */
-    public static function emitir(array $tramite, string $tipo, array $persona, array $detalle, int $usuarioId, string $rol = ''): bool
+    public static function emitir(array $tramite, string $tipo, array $persona, array $detalle, int $usuarioId, string $rol = '', bool $forzar = false): bool
     {
         $tid = (int) $tramite['id'];
         $email = strtolower(trim((string) ($persona['email'] ?? '')));
@@ -171,7 +171,7 @@ final class Constancias
         ['usuario_id' => $uid, 'profesor_id' => $pid] = \App\Core\Identidad::resolver($email);
         $huella = self::huella($tramite, $tipo, $p, $detalle);
         $previa = Database::una('SELECT * FROM tit_constancias WHERE tramite_id = ? AND tipo = ? AND (rol = ? OR (rol = \'\' AND email = ?))', [$tid, $tipo, $rol, $email]);
-        if ($previa && $previa['huella'] === $huella) {
+        if ($previa && $previa['huella'] === $huella && !$forzar) {
             return false;
         }
         $emisor = self::TIPOS[$tipo][2];
@@ -200,6 +200,28 @@ final class Constancias
         );
         SubdireccionFirma::solicitar($tramite, $docId, 'constancia', self::TIPOS[$tipo][0] . ': ' . $p['nombre'], $caja, $emisor);
         return true;
+    }
+
+    /**
+     * Rehace, sobre el mismo archivo (mismo número de oficio y QR), las constancias que aún esperan firma, para que tomen
+     * a quien firma hoy (por ejemplo, si se generaron antes de asignar al titular en Ajustes → Usuarios). Las firmadas no se tocan.
+     */
+    public static function rehacerPendientes(int $usuarioId): int
+    {
+        $n = 0;
+        foreach (Database::todas(
+            "SELECT c.* FROM tit_constancias c
+              WHERE EXISTS (SELECT 1 FROM tit_firmas_subdireccion f WHERE f.documento_id = c.documento_id AND f.formato = 'constancia' AND f.estado = 'pendiente')
+                AND NOT EXISTS (SELECT 1 FROM tit_firmas_subdireccion f WHERE f.documento_id = c.documento_id AND f.estado = 'firmado')"
+        ) as $c) {
+            $tramite = TitulacionRepository::obtener((int) $c['tramite_id']);
+            if (!$tramite) {
+                continue;
+            }
+            $detalle = json_decode((string) $c['detalle'], true) ?: [];
+            $n += (int) self::emitir($tramite, (string) $c['tipo'], Historico::persona((string) $c['nombre'], (string) $c['email']), $detalle, $usuarioId, (string) $c['rol'], true);
+        }
+        return $n;
     }
 
     /** Quita la firma de un documento cuyo contenido cambió: borra el PDF firmado y cancela las solicitudes. */

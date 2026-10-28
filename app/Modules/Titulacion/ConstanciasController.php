@@ -201,6 +201,28 @@ final class ConstanciasController extends TitulacionBase
         redirigir('titulacion/constancias/historial');
     }
 
+    /** Rehace las constancias que esperan firma (quita las repetidas y toma a quien firma hoy); las firmadas no cambian. */
+    public function rehacerPendientes(): void
+    {
+        $this->soloHistorial();
+        @set_time_limit(600);
+        $quitadas = (int) \App\Core\Database::valor("SELECT COUNT(*) FROM tit_constancias");
+        foreach (\App\Core\Database::todas(
+            "SELECT DISTINCT h.id FROM tit_historico h JOIN tit_firmas_subdireccion f ON f.tramite_id = h.tramite_id AND f.formato = 'constancia' AND f.estado = 'pendiente'"
+        ) as $h) {
+            try {
+                Historico::generar((int) $h['id'], Auth::id());
+            } catch (Throwable $e) {
+                error_log('Titulación: revisar constancias del registro ' . $h['id'] . ': ' . $e->getMessage());
+            }
+        }
+        $quitadas -= (int) \App\Core\Database::valor("SELECT COUNT(*) FROM tit_constancias");
+        $n = Constancias::rehacerPendientes(Auth::id());
+        Audit::record('titulacion::historial', 'correcto', 'Constancias pendientes de firma rehechas: ' . $n . '; repetidas quitadas: ' . max(0, $quitadas));
+        flash('exito', $n . ' constancias pendientes de firma se rehicieron con el nombre de quien firma' . ($quitadas > 0 ? ' y se quitaron ' . $quitadas . ' repetidas' : '') . '. Las ya firmadas no cambiaron.');
+        redirigir('titulacion/constancias/historial');
+    }
+
     /** Genera las constancias de todos los registros completos que aún no las tienen. */
     public function generarTodas(): void
     {
