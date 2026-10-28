@@ -42,7 +42,7 @@ Haz un registro por cada premio. Ten a la mano tu constancia o diploma (y una fo
 {"k":"nombre","label":"Nombre completo","tipo":"texto","req":true,"max":160,"mayusculas":true,"de_cuenta":"nombre","ayuda":"Nombre(s) Apellido paterno Apellido materno"},
 {"k":"email","label":"Correo electrónico","tipo":"email","req":true,"max":160,"de_cuenta":"email"},
 {"k":"espacio","label":"Espacio académico","tipo":"fijo","valor":"FACULTAD DE INGENIERÍA"},
-{"k":"programa","label":"Programa educativo","tipo":"texto","req":true,"max":250,"ayuda":"Profesores: en los que impartes clase"},
+{"k":"programa","label":"Programa educativo","tipo":"programa","req":true,"varios_si":{"tipo_persona":"profesor"},"ayuda_varios":"marca todos en los que impartes clase"},
 {"k":"caracter","label":"Alcance del premio","tipo":"select","req":true,"opciones":{"internacional":"Internacional","nacional":"Nacional","estatal":"Estatal"}},
 {"k":"evento","label":"Nombre oficial del evento o reconocimiento","tipo":"texto","req":true,"max":250},
 {"k":"organizador","label":"Quién lo otorga (externo a la UAEMEX)","tipo":"texto","req":true,"max":250},

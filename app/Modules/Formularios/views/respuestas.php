@@ -42,7 +42,7 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
     <tbody>
     <?php foreach ($lista as $i => $r): ?>
       <tr id="r<?= (int) $r['id'] ?>">
-        <td><?= $i + 1 ?></td>
+        <td><?= $i + 1 ?><?= !empty($r['usuario_id']) ? ' <span title="Ligado a su cuenta de Traza FI (mismo correo)">✓</span>' : '' ?></td>
         <?php foreach ($visibles as $c): if ($c['k'] === $f['agrupar_por']) { continue; } ?>
           <?php if (($c['tipo'] ?? '') === 'evidencia'): $ev = Formularios::evidencia($f, $c, $r); ?>
             <td><?php if ($ev['modo'] !== ''): ?><a href="<?= e($ev['url']) ?>" <?= $ev['modo'] === 'enlace' ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><?= $ev['modo'] === 'archivo' ? 'Descargar .zip' : 'Abrir enlace' ?></a><?php endif; ?></td>
@@ -52,7 +52,7 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
           <details><summary>Corregir</summary>
             <form method="post" action="<?= url($base . '/respuestas/' . (int) $r['id']) ?>" class="formulario" style="min-width:260px">
               <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-              <?php foreach ($visibles as $c): if (in_array($c['tipo'] ?? '', ['evidencia', 'confirmar'], true)) { continue; } $v = (string) ($r['datos'][$c['k']] ?? ''); ?>
+              <?php foreach ($visibles as $c): if (in_array($c['tipo'] ?? '', ['evidencia', 'confirmar', 'programa'], true)) { continue; } $v = (string) ($r['datos'][$c['k']] ?? ''); ?>
                 <label><?= e($c['label']) ?>
                 <?php if (($c['tipo'] ?? '') === 'select'): ?><select name="d[<?= e($c['k']) ?>]"><?php foreach ($c['opciones'] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
                 <?php elseif (($c['tipo'] ?? '') === 'fecha'): ?><input type="date" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>">
