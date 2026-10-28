@@ -139,6 +139,8 @@ final class SubdireccionFirma
         if (!in_array($tipo, self::VARIOS, true)) {
             Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE tramite_id = ? AND formato = ? AND rol_firma = ? AND estado = 'pendiente'", [$tid, $tipo, $rol]);
         }
+        // Un mismo documento nunca espera dos veces la firma del mismo cargo (por ejemplo, al generarlo de nuevo).
+        Database::ejecutar("UPDATE tit_firmas_subdireccion SET estado = 'cancelado' WHERE documento_id = ? AND rol_firma = ? AND estado = 'pendiente'", [$documentoId, $rol]);
         Database::ejecutar(
             "INSERT INTO tit_firmas_subdireccion (tramite_id, tipo, documento_id, formato, rol_firma, descripcion, caja, creado_en) VALUES (?, 'documento', ?, ?, ?, ?, ?, ?)",
             [$tid, $documentoId, $tipo, $rol, $descripcion . ' · ' . $tramite['folio'], $caja ? json_encode($caja) : null, date('Y-m-d H:i:s')]

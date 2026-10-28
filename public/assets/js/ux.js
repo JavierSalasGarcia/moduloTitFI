@@ -35,6 +35,8 @@
  });
  // Responsive tables preserve actual links/buttons and do not duplicate IDs.
  all('table.tabla').forEach(table=>{const heads=all('thead th',table);if(!heads.length)return;table.classList.add('ux-card-table');all('tbody tr',table).forEach(row=>all('td',row).forEach((cell,i)=>cell.dataset.label=heads[i]?.textContent.trim()||'Detalle'));if(table.dataset.noTools!==undefined)return;
+   // A page with its own search keeps only that one: two search boxes over the same list confuse and hide each other's rows.
+   if(all('input[type=search]',one('main')||document).some(n=>!n.closest('.ux-toolbar,table')))return;
    const rows=all('tbody tr',table);if(rows.length<2)return;const bar=el('div',undefined,'ux-toolbar'), searchLabel=el('label','Buscar en esta lista'), search=el('input');search.type='search';search.placeholder='Nombre, asunto o palabra clave';searchLabel.append(search);bar.append(searchLabel);
    const sortLabel=el('label','Ordenar por'),sort=el('select');sort.append(new Option('Orden original',''));if(table.dataset.noSort===undefined){heads.forEach((h,i)=>{if(!/acciones/i.test(h.textContent))sort.append(new Option(h.textContent.trim(),String(i)));});sortLabel.append(sort);bar.append(sortLabel);}
    const filters=[];heads.forEach((h,i)=>{if(!/^(rol|estado|programa|nivel)$/i.test(h.textContent.trim()))return;const values=[...new Set(rows.map(r=>r.cells[i]?.textContent.trim()).filter(Boolean))].sort();if(values.length<2)return;const label=el('label',h.textContent.trim()),s=el('select');s.append(new Option('Todos',''));values.forEach(v=>s.append(new Option(v,v)));label.append(s);bar.append(label);filters.push([s,i]);});

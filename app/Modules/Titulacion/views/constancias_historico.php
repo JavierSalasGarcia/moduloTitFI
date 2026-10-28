@@ -77,6 +77,10 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
         <input type="hidden" name="_csrf" value="<?= $csrf ?>">
         <button class="btn" type="submit">Generar todos los completos</button>
       </form>
+      <form method="post" action="<?= url('titulacion/constancias/historial/rehacer') ?>" onsubmit="return confirm('¿Rehacer las constancias que aún esperan firma? Toman el nombre de quien firma hoy y se quitan las repetidas; conservan su número de oficio y QR. Las firmadas no cambian.')">
+        <input type="hidden" name="_csrf" value="<?= $csrf ?>">
+        <button class="btn" type="submit" title="Úsalo si cambió quien firma o si una constancia salió con datos de firma incorrectos">Rehacer las pendientes de firma</button>
+      </form>
     </div>
   </div>
   <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '' ?>.</div><?php else: ?>

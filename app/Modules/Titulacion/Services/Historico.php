@@ -283,7 +283,7 @@ final class Historico
     // ------------------------------------------------------------------ constancias
 
     /** La persona de una constancia: si el libro no trae su correo se busca por nombre en el directorio de profesores y en las cuentas. */
-    private static function persona(string $nombre, string $email): array
+    public static function persona(string $nombre, string $email): array
     {
         $n = self::norma($nombre);
         $genero = preg_match('/^(DRA|MTRA|LIC\.?\s*A)\b/', $n) ? 'femenino' : (preg_match('/^(DR|MTRO)\b/', $n) ? 'masculino' : null);
@@ -317,9 +317,20 @@ final class Historico
         $fecha = (string) $h['fecha_examen'];
         $detalle = ['desde' => $fecha, 'hasta' => $fecha, 'acta' => (string) ($h['acta'] ?? '')];
         $n = 0;
+        $emitidas = [];
         foreach (['director' => 'asesor_trabajo', 'codirector' => 'coasesor_trabajo', 'presidente' => 'sinodal', 'secretario' => 'sinodal', 'vocal' => 'sinodal'] as $rol => $tipo) {
             if (trim((string) $h[$rol]) !== '') {
-                $n += (int) Constancias::emitir($tramite, $tipo, self::persona($h[$rol], (string) ($h[$rol . '_email'] ?? '')), $detalle, $usuarioId, $rol);
+                $persona = self::persona($h[$rol], (string) ($h[$rol . '_email'] ?? ''));
+                // Si el libro repite a alguien en dos lugares del jurado, recibe una sola constancia de revisor del trabajo escrito.
+                $quien = $tipo . '|' . (strtolower(trim((string) ($persona['email'] ?? ''))) ?: self::norma((string) $h[$rol]));
+                if (isset($emitidas[$quien])) {
+                    foreach (Database::todas('SELECT * FROM tit_constancias WHERE tramite_id = ? AND rol = ?', [(int) $tramite['id'], $rol]) as $c) {
+                        Constancias::anular($c);
+                    }
+                    continue;
+                }
+                $emitidas[$quien] = true;
+                $n += (int) Constancias::emitir($tramite, $tipo, $persona, $detalle, $usuarioId, $rol);
             } else {
                 // Se quitó a esa persona del registro: su constancia ya no corresponde.
                 foreach (Database::todas('SELECT * FROM tit_constancias WHERE tramite_id = ? AND rol = ?', [(int) $tramite['id'], $rol]) as $c) {
