@@ -43,14 +43,19 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
     <?php foreach ($lista as $i => $r): ?>
       <tr id="r<?= (int) $r['id'] ?>">
         <td><?= $i + 1 ?></td>
-        <?php foreach ($visibles as $c): if ($c['k'] === $f['agrupar_por']) { continue; } ?><td><?= e(Formularios::valor($c, (string) ($r['datos'][$c['k']] ?? ''))) ?></td><?php endforeach; ?>
+        <?php foreach ($visibles as $c): if ($c['k'] === $f['agrupar_por']) { continue; } ?>
+          <?php if (($c['tipo'] ?? '') === 'evidencia'): $ev = Formularios::evidencia($f, $c, $r); ?>
+            <td><?php if ($ev['modo'] !== ''): ?><a href="<?= e($ev['url']) ?>" <?= $ev['modo'] === 'enlace' ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><?= $ev['modo'] === 'archivo' ? 'Descargar .zip' : 'Abrir enlace' ?></a><?php endif; ?></td>
+          <?php else: ?><td><?= e(Formularios::valor($c, (string) ($r['datos'][$c['k']] ?? ''))) ?></td><?php endif; ?>
+        <?php endforeach; ?>
         <td style="white-space:nowrap">
           <details><summary>Corregir</summary>
             <form method="post" action="<?= url($base . '/respuestas/' . (int) $r['id']) ?>" class="formulario" style="min-width:260px">
               <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-              <?php foreach ($visibles as $c): $v = (string) ($r['datos'][$c['k']] ?? ''); ?>
+              <?php foreach ($visibles as $c): if (($c['tipo'] ?? '') === 'evidencia') { continue; } $v = (string) ($r['datos'][$c['k']] ?? ''); ?>
                 <label><?= e($c['label']) ?>
                 <?php if (($c['tipo'] ?? '') === 'select'): ?><select name="d[<?= e($c['k']) ?>]"><?php foreach ($c['opciones'] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
+                <?php elseif (($c['tipo'] ?? '') === 'fecha'): ?><input type="date" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>">
                 <?php else: ?><input name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>"><?php endif; ?></label>
               <?php endforeach; ?>
               <button class="btn btn-mini btn-primario" type="submit">Guardar</button>
