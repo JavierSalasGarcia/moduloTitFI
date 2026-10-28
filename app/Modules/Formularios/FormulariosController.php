@@ -72,12 +72,12 @@ final class FormulariosController extends Controller
                 $entrada[$c['k']] = (json_decode((string) $r['datos'], true)[$c['k']] ?? '') !== '' ? '1' : '';
             }
         }
-        // La evidencia (archivo o enlace) tampoco: se conserva la que se envió.
+        // La evidencia (archivo o enlace) y los programas elegidos tampoco: se conservan los que se enviaron.
         [$datos, $errores] = Formularios::validar($f, $entrada, false);
         $previos = json_decode((string) $r['datos'], true) ?: [];
         foreach (Formularios::campos($f) as $c) {
-            if (($c['tipo'] ?? '') === 'evidencia') {
-                $datos += array_intersect_key($previos, array_flip([$c['k'], $c['k'] . '_modo', $c['k'] . '_nombre']));
+            if (in_array($c['tipo'] ?? '', ['evidencia', 'programa'], true)) {
+                $datos += array_intersect_key($previos, array_flip([$c['k'], $c['k'] . '_modo', $c['k'] . '_nombre', $c['k'] . '_ids']));
             }
         }
         $otro = empty($f['varios_por_correo']) && Database::valor('SELECT id FROM frm_respuestas WHERE formulario_id = ? AND email = ? AND id <> ?', [(int) $f['id'], $datos['email'] ?? '', (int) $r['id']]);
@@ -155,7 +155,7 @@ final class FormulariosController extends Controller
         $previo = $_SESSION['frm_previo_' . $f['id']] ?? [];
         unset($_SESSION['frm_previo_' . $f['id']]);
         $this->vista('llenar', ['titulo' => $f['titulo'], 'f' => $f, 'campos' => Formularios::campos($f), 'abierto' => Formularios::abierto($f),
-            'enviado' => $enviado, 'previo' => $previo, 'cuenta' => Auth::usuario(), 'seccion' => 'Formularios'], Auth::usuario() ? 'app' : 'publico');
+            'enviado' => $enviado, 'previo' => $previo, 'cuenta' => Auth::usuario(), 'programasCuenta' => Auth::programaIds(), 'seccion' => 'Formularios'], Auth::usuario() ? 'app' : 'publico');
     }
 
     public function enviar(string $slug): void

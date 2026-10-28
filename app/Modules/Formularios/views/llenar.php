@@ -13,7 +13,9 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
 .frm-ev{border:1px solid var(--borde,#d7dbd8);border-radius:6px;padding:10px 12px;margin:10px 0}
 .frm-ev .frm-ev-modo{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 8px}
 .frm-ev .frm-ev-modo label{display:flex;gap:6px;align-items:center;font-weight:400;margin:0}
-.frm-ev [hidden]{display:none}
+.frm-ev [hidden],.frm-prog [hidden]{display:none}
+.frm-prog fieldset{border:1px solid var(--borde,#d7dbd8);border-radius:6px;padding:8px 12px;margin:10px 0}
+.frm-prog-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px 14px}.frm-prog-lista label{display:flex;gap:8px;align-items:flex-start;font-weight:400;margin:2px 0}
 </style>
 <section class="tarjeta" style="max-width:820px;margin:0 auto 16px">
   <h2><?= e($f['titulo']) ?></h2>
@@ -48,6 +50,20 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
           <label data-modo="enlace" <?= $modo === 'enlace' ? '' : 'hidden' ?>>Enlace a la carpeta (debe poder abrirlo cualquier persona con el enlace)
             <input type="url" name="d[<?= e($c['k']) ?>_enlace]" maxlength="500" placeholder="https://" value="<?= $modo === 'enlace' ? e((string) ($previo[$c['k']] ?? '')) : '' ?>" autocomplete="off"></label>
         </fieldset>
+      <?php elseif (($c['tipo'] ?? '') === 'programa'):
+        $elegidos = isset($previo[$c['k'] . '_ids']) ? array_map('intval', explode(',', (string) $previo[$c['k'] . '_ids'])) : ($cuenta ? $programasCuenta : []);
+        $niveles = ['licenciatura' => 'Licenciaturas', 'posgrado' => 'Posgrados']; ?>
+        <div class="frm-prog" data-varios="<?= e(json_encode((object) ($c['varios_si'] ?? []), JSON_UNESCAPED_UNICODE)) ?>">
+          <label data-uno><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
+            <select name="d[<?= e($c['k']) ?>]" <?= !empty($c['req']) ? 'required' : '' ?>><option value="">Elige…</option>
+              <?php foreach ($niveles as $nivel => $grupo): ?><optgroup label="<?= $grupo ?>"><?php foreach (Formularios::programas() as $p): if ($p['nivel'] !== $nivel) { continue; } ?><option value="<?= $p['id'] ?>" <?= ($elegidos[0] ?? 0) === $p['id'] ? 'selected' : '' ?>><?= e($p['nombre']) ?></option><?php endforeach; ?></optgroup><?php endforeach; ?>
+            </select></label>
+          <fieldset data-varios-lista hidden><legend><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?> · <?= e((string) ($c['ayuda_varios'] ?? 'marca todos los que apliquen')) ?></legend>
+            <?php foreach ($niveles as $nivel => $grupo): ?><p class="texto-secundario" style="margin:6px 0 2px;font-size:13px"><?= $grupo ?></p><div class="frm-prog-lista">
+              <?php foreach (Formularios::programas() as $p): if ($p['nivel'] !== $nivel) { continue; } ?><label><input type="checkbox" name="d[<?= e($c['k']) ?>_varios][]" value="<?= $p['id'] ?>" <?= in_array($p['id'], $elegidos, true) ? 'checked' : '' ?>> <?= e($p['nombre']) ?></label><?php endforeach; ?>
+            </div><?php endforeach; ?>
+          </fieldset>
+        </div>
       <?php elseif (($c['tipo'] ?? '') === 'fecha'): ?>
         <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
           <input type="date" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>" <?= isset($c['min']) ? 'min="' . e((string) $c['min']) . '"' : '' ?> <?= isset($c['max_fecha']) ? 'max="' . e((string) $c['max_fecha']) . '"' : '' ?> <?= !empty($c['req']) ? 'required' : '' ?>></label>
@@ -63,6 +79,22 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
     <details class="texto-secundario" style="font-size:13px;margin-top:12px"><summary>Al enviar el registro aceptas el <strong>aviso de privacidad</strong>.</summary>La Facultad de Ingeniería de la UAEMEX usará los datos de este formulario únicamente para la finalidad descrita arriba; cuando otra instancia solicita la información, se entregan a esa instancia. Se conservan mientras dura la actividad y después se archivan o eliminan. Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición ante la Unidad de Transparencia de la Facultad de Ingeniería. Al enviar el registro aceptas este uso de tus datos.</details>
     <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Enviar registro</button></div>
   </form>
+  <script>
+  // Programa: uno (lista desplegable) o varios (casillas) según lo que se elija en otro campo, p. ej. «Eres: Profesor/a».
+  document.querySelectorAll('.frm-prog').forEach(function (bloque) {
+    var cond = JSON.parse(bloque.dataset.varios || '{}'), uno = bloque.querySelector('[data-uno]'), varios = bloque.querySelector('[data-varios-lista]');
+    var sel = uno.querySelector('select'), req = sel.required, form = bloque.closest('form');
+    function aplicar() {
+      var multiple = Object.keys(cond).length > 0 && Object.keys(cond).every(function (k) { var c = form.querySelector('[name="d[' + k + ']"]'); return c && c.value === cond[k]; });
+      uno.hidden = multiple; varios.hidden = !multiple; sel.required = req && !multiple;
+    }
+    Object.keys(cond).forEach(function (k) { var c = form.querySelector('[name="d[' + k + ']"]'); if (c) { c.addEventListener('change', aplicar); } });
+    form.addEventListener('submit', function (e) {
+      if (!varios.hidden && req && !varios.querySelector('input:checked')) { e.preventDefault(); alert('Marca al menos un programa.'); }
+    });
+    aplicar();
+  });
+  </script>
   <?php if ($conArchivos): ?>
   <script>
   // Evidencia: archivo o enlace, nunca ambos. Muestra solo el campo elegido y revisa el tamaño del .zip antes de enviar.

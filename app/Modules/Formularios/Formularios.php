@@ -10,7 +10,8 @@ use App\Core\Database;
  * Formularios temporales (tablas frm_*): un enlace público, sin cuenta en Traza FI, para recabar datos de una sola
  * vez (por ejemplo, el registro de profesores para la clasificación de El Universal). Los campos se definen en JSON:
  * texto, email, select, fecha, confirmar (casilla; «mostrar» la lista en los registros), evidencia (un .zip o un enlace
- * https, uno u otro) y fijo («valor» que se guarda sin mostrarse); «mayusculas» convierte el texto a mayúsculas,
+ * https, uno u otro), programa (programas educativos del catálogo: uno, o varios cuando se cumple «varios_si») y
+ * fijo («valor» que se guarda sin mostrarse); «mayusculas» convierte el texto a mayúsculas,
  * «ayuda» es el texto de ejemplo y «de_cuenta» lo llena con el nombre o correo de quien tiene sesión.
  */
 final class Formularios
@@ -127,8 +128,8 @@ final class Formularios
     }
 
     /**
-     * Valida lo capturado. Con $evidencias = false se omiten los campos evidencia (al corregir se conservan los del
-     * registro). Los .zip solo se revisan aquí; se guardan con guardarEvidencias(). @return array{0:array,1:string[]}
+     * Valida lo capturado. Con $evidencias = false se omiten los campos evidencia y programa (al corregir se
+     * conservan los del registro). Los .zip solo se revisan aquí; se guardan con guardarEvidencias(). @return array{0:array,1:string[]}
      */
     public static function validar(array $f, array $entrada, bool $evidencias = true): array
     {
@@ -139,6 +140,16 @@ final class Formularios
             $v = $entrada[$k] ?? '';
             $v = is_string($v) ? trim(preg_replace('/\s+/u', ' ', $v) ?? '') : '';
             $tipo = (string) ($c['tipo'] ?? 'texto');
+            if ($tipo === 'programa') {
+                if ($evidencias) {
+                    [$prog, $error] = self::validarPrograma($c, $entrada, $datos);
+                    $datos += $prog;
+                    if ($error !== '') {
+                        $errores[] = $error;
+                    }
+                }
+                continue;
+            }
             if ($tipo === 'evidencia') {
                 if ($evidencias) {
                     [$ev, $error] = self::validarEvidencia($c, $entrada);
@@ -180,6 +191,45 @@ final class Formularios
             $datos[$k] = $v;
         }
         return [$datos, $errores];
+    }
+
+    /** Programas educativos del catálogo (licenciaturas primero). @return array<int,array{id:int,siglas:string,nombre:string,nivel:string}> */
+    public static function programas(): array
+    {
+        static $lista = null;
+        if ($lista === null) {
+            $lista = [];
+            foreach (Database::todas("SELECT id, siglas, nombre, nivel FROM programas ORDER BY nivel = 'posgrado', nombre") as $p) {
+                $lista[(int) $p['id']] = ['id' => (int) $p['id'], 'siglas' => (string) $p['siglas'], 'nombre' => (string) $p['nombre'], 'nivel' => (string) $p['nivel']];
+            }
+        }
+        return $lista;
+    }
+
+    /** ¿El campo programa admite varios con los datos capturados? (p. ej. «varios_si»: {"tipo_persona": "profesor"}) */
+    public static function programaMultiple(array $c, array $datos): bool
+    {
+        foreach ((array) ($c['varios_si'] ?? []) as $campo => $valor) {
+            if ((string) ($datos[$campo] ?? '') !== (string) $valor) {
+                return false;
+            }
+        }
+        return !empty($c['varios_si']);
+    }
+
+    /**
+     * Programa(s) elegido(s): uno (d[k]) o varios (d[k_varios][]). Guarda los ids en k_ids y el texto legible en k.
+     * @return array{0:array,1:string}
+     */
+    private static function validarPrograma(array $c, array $entrada, array $datos): array
+    {
+        $k = (string) $c['k'];
+        $catalogo = self::programas();
+        $ids = self::programaMultiple($c, $datos) ? (array) ($entrada[$k . '_varios'] ?? []) : [(string) ($entrada[$k] ?? '')];
+        $ids = array_values(array_unique(array_filter(array_map('intval', $ids), static fn(int $id): bool => isset($catalogo[$id]))));
+        $texto = implode('; ', array_map(static fn(int $id): string => $catalogo[$id]['nombre'], $ids));
+        $error = !empty($c['req']) && !$ids ? 'Elige ' . (self::programaMultiple($c, $datos) ? 'al menos un programa' : 'tu programa') . ' en «' . $c['label'] . '».' : '';
+        return [[$k => $texto, $k . '_ids' => implode(',', $ids)], $error];
     }
 
     /** @return array{0:array,1:string} [datos de la evidencia, error] */
@@ -257,7 +307,15 @@ final class Formularios
         if (empty($f['varios_por_correo']) && Database::valor('SELECT id FROM frm_respuestas WHERE formulario_id = ? AND email = ?', [(int) $f['id'], $email])) {
             throw new \InvalidArgumentException('Ya hay un registro con el correo ' . $email . '. Si necesitas corregirlo, escribe a la Facultad.');
         }
-        return Database::ejecutar('INSERT INTO frm_respuestas (formulario_id, email, datos, usuario_id) VALUES (?, ?, ?, ?)', [(int) $f['id'], $email, json_encode($datos, JSON_UNESCAPED_UNICODE), Auth::id() ?: null]);
+        // Una persona, un registro de identidad: sin sesión, la respuesta se liga a la cuenta que ya tenga ese correo.
+        $usuario = Auth::id() ?: ((int) Database::valor('SELECT id FROM usuarios WHERE email = ?', [$email]) ?: null);
+        return Database::ejecutar('INSERT INTO frm_respuestas (formulario_id, email, datos, usuario_id) VALUES (?, ?, ?, ?)', [(int) $f['id'], $email, json_encode($datos, JSON_UNESCAPED_UNICODE), $usuario]);
+    }
+
+    /** Liga a una cuenta las respuestas que se enviaron sin sesión con su correo (al registrarse o activar la cuenta). */
+    public static function ligarCuenta(int $usuarioId, string $email): void
+    {
+        Database::ejecutar('UPDATE frm_respuestas SET usuario_id = ? WHERE usuario_id IS NULL AND email = ?', [$usuarioId, strtolower(trim($email))]);
     }
 
     public static function respuestas(array $f): array
