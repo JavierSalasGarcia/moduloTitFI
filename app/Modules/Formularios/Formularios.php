@@ -9,8 +9,9 @@ use App\Core\Database;
 /**
  * Formularios temporales (tablas frm_*): un enlace público, sin cuenta en Traza FI, para recabar datos de una sola
  * vez (por ejemplo, el registro de profesores para la clasificación de El Universal). Los campos se definen en JSON:
- * texto, email, select, fecha, confirmar (casilla obligatoria) y evidencia (un .zip o un enlace https, uno u otro);
- * «mayusculas» convierte el texto a mayúsculas y «de_cuenta» lo llena con el nombre o correo de quien tiene sesión.
+ * texto, email, select, fecha, confirmar (casilla; «mostrar» la lista en los registros), evidencia (un .zip o un enlace
+ * https, uno u otro) y fijo («valor» que se guarda sin mostrarse); «mayusculas» convierte el texto a mayúsculas,
+ * «ayuda» es el texto de ejemplo y «de_cuenta» lo llena con el nombre o correo de quien tiene sesión.
  */
 final class Formularios
 {
@@ -146,6 +147,10 @@ final class Formularios
                         $errores[] = $error;
                     }
                 }
+                continue;
+            }
+            if ($tipo === 'fijo') {
+                $datos[$k] = (string) ($c['valor'] ?? '');
                 continue;
             }
             if ($tipo === 'fecha') {

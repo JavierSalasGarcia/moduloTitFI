@@ -24,7 +24,7 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
     <div class="frm-ok" role="status"><strong>Registro recibido<?= $enviado !== '' ? ', ' . e($enviado) : '' ?>.</strong> Gracias. <?= !empty($f['varios_por_correo']) ? 'Si tienes otro, regístralo en un nuevo envío con este mismo formulario.' : 'Ya no necesitas hacer nada más.' ?></div>
   <?php endif; ?>
   <?php if (!$cuenta && $abierto): ?>
-    <div class="frm-aviso">Puedes llenar este formulario sin cuenta, pero te recomendamos <a href="<?= url('registro') ?>">registrarte en Traza FI</a> (o <a href="<?= url('login') ?>">iniciar sesión</a> si ya tienes cuenta): tus datos se llenan solos y recibirás en tu bandeja los avisos de la Facultad.</div>
+    <div class="frm-aviso">No necesitas cuenta, pero te recomendamos <a href="<?= url('registro') ?>">registrarte</a> o <a href="<?= url('login') ?>">iniciar sesión</a>: tus datos se llenan solos.</div>
   <?php endif; ?>
   <?php if (!$abierto): ?>
     <p><strong>Este formulario ya no recibe registros.</strong></p>
@@ -33,13 +33,13 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
     <div style="position:absolute;left:-9999px" aria-hidden="true"><label>No llenar <input name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
     <?php $hayReq = false; foreach ($campos as $c): $v = (string) ($previo[$c['k']] ?? (isset($c['de_cuenta']) && $cuenta ? ($cuenta[$c['de_cuenta']] ?? '') : null) ?? $c['defecto'] ?? ''); ?>
-      <?php if (($c['tipo'] ?? '') === 'confirmar'): if (!$hayReq): $hayReq = true; ?><fieldset class="frm-req" style="margin-top:12px"><legend><strong>Requisitos</strong> (marca cada uno para confirmar que lo cumples)</legend><?php endif; ?>
-        <label><input type="checkbox" name="d[<?= e($c['k']) ?>]" value="1" <?= $v !== '' ? 'checked' : '' ?> <?= !empty($c['req']) ? 'required' : '' ?>> <span><?= e($c['label']) ?></span></label>
+      <?php if (($c['tipo'] ?? '') === 'fijo') { continue; } ?>
+      <?php if (($c['tipo'] ?? '') === 'confirmar'): if (!$hayReq): $hayReq = true; ?><fieldset class="frm-req" style="margin-top:12px"><legend><strong>Confirma</strong> (marca las casillas; las que tienen * son obligatorias)</legend><?php endif; ?>
+        <label><input type="checkbox" name="d[<?= e($c['k']) ?>]" value="1" <?= $v !== '' ? 'checked' : '' ?> <?= !empty($c['req']) ? 'required' : '' ?>> <span><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?></span></label>
       <?php elseif (($c['tipo'] ?? '') === 'evidencia'): $modo = (string) ($previo[$c['k'] . '_modo'] ?? ''); $mb = round(Formularios::maxBytes($c) / 1048576); ?>
         <fieldset class="frm-ev" data-max="<?= Formularios::maxBytes($c) ?>">
           <legend><strong><?= e($c['label']) ?></strong><?= !empty($c['req']) ? ' *' : '' ?></legend>
-          <p class="texto-secundario" style="margin:0">Entrégala de una sola forma: un archivo comprimido o un enlace a una carpeta.</p>
-          <div class="frm-ev-modo">
+                    <div class="frm-ev-modo">
             <label><input type="radio" name="d[<?= e($c['k']) ?>_modo]" value="archivo" <?= $modo === 'archivo' ? 'checked' : '' ?> <?= !empty($c['req']) ? 'required' : '' ?>> Archivo .zip (máximo <?= $mb ?> MB)</label>
             <label><input type="radio" name="d[<?= e($c['k']) ?>_modo]" value="enlace" <?= $modo === 'enlace' ? 'checked' : '' ?>> Enlace a una carpeta (Drive, OneDrive…)</label>
           </div>
@@ -56,11 +56,11 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
           <select name="d[<?= e($c['k']) ?>]" <?= !empty($c['req']) ? 'required' : '' ?>><option value="">Elige…</option><?php foreach ($c['opciones'] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
       <?php else: ?>
         <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
-          <input type="<?= ($c['tipo'] ?? '') === 'email' ? 'email' : 'text' ?>" name="d[<?= e($c['k']) ?>]" maxlength="<?= (int) ($c['max'] ?? 200) ?>" value="<?= e($v) ?>" <?= !empty($c['req']) ? 'required' : '' ?> <?= !empty($c['mayusculas']) ? 'class="frm-mayus"' : '' ?> autocomplete="off"></label>
+          <input type="<?= ($c['tipo'] ?? '') === 'email' ? 'email' : 'text' ?>" name="d[<?= e($c['k']) ?>]" maxlength="<?= (int) ($c['max'] ?? 200) ?>" value="<?= e($v) ?>" <?= !empty($c['req']) ? 'required' : '' ?> <?= !empty($c['mayusculas']) ? 'class="frm-mayus"' : '' ?> <?= isset($c['ayuda']) ? 'placeholder="' . e((string) $c['ayuda']) . '"' : '' ?> autocomplete="off"></label>
       <?php endif; ?>
     <?php endforeach; ?>
     <?php if ($hayReq): ?></fieldset><?php endif; ?>
-    <p class="texto-secundario" style="font-size:13px;margin-top:12px"><strong>Aviso de privacidad:</strong> la Facultad de Ingeniería de la UAEMEX usará los datos de este formulario únicamente para la finalidad descrita arriba; cuando otra instancia solicita la información, se entregan a esa instancia. Se conservan mientras dura la actividad y después se archivan o eliminan. Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición ante la Unidad de Transparencia de la Facultad de Ingeniería. Al enviar el registro aceptas este uso de tus datos.</p>
+    <details class="texto-secundario" style="font-size:13px;margin-top:12px"><summary>Al enviar el registro aceptas el <strong>aviso de privacidad</strong>.</summary>La Facultad de Ingeniería de la UAEMEX usará los datos de este formulario únicamente para la finalidad descrita arriba; cuando otra instancia solicita la información, se entregan a esa instancia. Se conservan mientras dura la actividad y después se archivan o eliminan. Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición ante la Unidad de Transparencia de la Facultad de Ingeniería. Al enviar el registro aceptas este uso de tus datos.</details>
     <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Enviar registro</button></div>
   </form>
   <?php if ($conArchivos): ?>
