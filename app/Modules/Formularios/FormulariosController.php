@@ -72,8 +72,15 @@ final class FormulariosController extends Controller
                 $entrada[$c['k']] = (json_decode((string) $r['datos'], true)[$c['k']] ?? '') !== '' ? '1' : '';
             }
         }
-        [$datos, $errores] = Formularios::validar($f, $entrada);
-        $otro = Database::valor('SELECT id FROM frm_respuestas WHERE formulario_id = ? AND email = ? AND id <> ?', [(int) $f['id'], $datos['email'] ?? '', (int) $r['id']]);
+        // La evidencia (archivo o enlace) tampoco: se conserva la que se envió.
+        [$datos, $errores] = Formularios::validar($f, $entrada, false);
+        $previos = json_decode((string) $r['datos'], true) ?: [];
+        foreach (Formularios::campos($f) as $c) {
+            if (($c['tipo'] ?? '') === 'evidencia') {
+                $datos += array_intersect_key($previos, array_flip([$c['k'], $c['k'] . '_modo', $c['k'] . '_nombre']));
+            }
+        }
+        $otro = empty($f['varios_por_correo']) && Database::valor('SELECT id FROM frm_respuestas WHERE formulario_id = ? AND email = ? AND id <> ?', [(int) $f['id'], $datos['email'] ?? '', (int) $r['id']]);
         if ($errores || $otro) {
             flash('error', $otro ? 'Ese correo ya está en otro registro.' : implode(' ', array_slice($errores, 0, 3)));
             redirigir('formularios/' . (int) $f['id'] . '#r' . (int) $r['id']);
@@ -88,10 +95,29 @@ final class FormulariosController extends Controller
     {
         $this->soloAdministracion();
         $f = $this->formulario($id);
+        $r = Database::una('SELECT datos FROM frm_respuestas WHERE id = ? AND formulario_id = ?', [(int) $rid, (int) $f['id']]);
         Database::ejecutar('DELETE FROM frm_respuestas WHERE id = ? AND formulario_id = ?', [(int) $rid, (int) $f['id']]);
+        if ($r) {
+            Formularios::borrarEvidencias($f, json_decode((string) $r['datos'], true) ?: []);
+        }
         Audit::record('formularios::eliminar', 'correcto', $f['slug'] . ' · ' . (int) $rid);
         flash('exito', 'Registro eliminado.');
         redirigir('formularios/' . (int) $f['id']);
+    }
+
+    /** Descarga el .zip de evidencia de un registro (mismos permisos que consultar el formulario). */
+    public function evidencia(string $id, string $rid, string $k): void
+    {
+        $f = $this->formulario($id);
+        $r = ctype_digit($rid) ? Database::una('SELECT datos FROM frm_respuestas WHERE id = ? AND formulario_id = ?', [(int) $rid, (int) $f['id']]) : null;
+        $datos = $r ? (json_decode((string) $r['datos'], true) ?: []) : [];
+        $ruta = (string) ($datos[$k] ?? '');
+        if (($datos[$k . '_modo'] ?? '') !== 'archivo' || !str_starts_with($ruta, 'formularios/' . $f['slug'] . '/')) {
+            http_response_code(404);
+            exit('Archivo no encontrado.');
+        }
+        Audit::record('formularios::evidencia', 'atendido', $f['slug'] . ' · ' . (int) $rid);
+        descargar_archivo($ruta);
     }
 
     public function excel(string $id): void
@@ -129,7 +155,7 @@ final class FormulariosController extends Controller
         $previo = $_SESSION['frm_previo_' . $f['id']] ?? [];
         unset($_SESSION['frm_previo_' . $f['id']]);
         $this->vista('llenar', ['titulo' => $f['titulo'], 'f' => $f, 'campos' => Formularios::campos($f), 'abierto' => Formularios::abierto($f),
-            'enviado' => $enviado, 'previo' => $previo, 'seccion' => 'Formularios'], Auth::usuario() ? 'app' : 'publico');
+            'enviado' => $enviado, 'previo' => $previo, 'cuenta' => Auth::usuario(), 'seccion' => 'Formularios'], Auth::usuario() ? 'app' : 'publico');
     }
 
     public function enviar(string $slug): void
@@ -147,9 +173,14 @@ final class FormulariosController extends Controller
         $entrada = is_array($_POST['d'] ?? null) ? $_POST['d'] : [];
         [$datos, $errores] = Formularios::validar($f, $entrada);
         if (!$errores) {
+            $conArchivos = null;
             try {
-                Formularios::guardar($f, $datos);
-            } catch (\InvalidArgumentException $e) {
+                $conArchivos = Formularios::guardarEvidencias($f, $datos);
+                Formularios::guardar($f, $conArchivos);
+            } catch (\InvalidArgumentException | \RuntimeException $e) {
+                if ($conArchivos !== null) {
+                    Formularios::borrarEvidencias($f, $conArchivos);
+                }
                 $errores[] = $e->getMessage();
             }
         }
@@ -159,7 +190,7 @@ final class FormulariosController extends Controller
             redirigir('f/' . $f['slug']);
         }
         Audit::record('formularios::registro', 'correcto', $f['slug']);
-        $_SESSION['frm_enviado_' . $f['id']] = trim(($datos['nombres'] ?? '') . ' ' . ($datos['paterno'] ?? ''));
+        $_SESSION['frm_enviado_' . $f['id']] = trim($datos['nombre'] ?? (($datos['nombres'] ?? '') . ' ' . ($datos['paterno'] ?? '')));
         redirigir('f/' . $f['slug']);
     }
 }

@@ -15,6 +15,7 @@ return [
         'POST /formularios/{id}/ajustes'                  => [FormulariosController::class, 'ajustes'],
         'POST /formularios/{id}/respuestas/{rid}'         => [FormulariosController::class, 'corregir'],
         'POST /formularios/{id}/respuestas/{rid}/eliminar' => [FormulariosController::class, 'eliminar'],
+        'GET /formularios/{id}/respuestas/{rid}/evidencia/{k}' => [FormulariosController::class, 'evidencia', 'token'],
         'GET /formularios/{id}/excel'                     => [FormulariosController::class, 'excel', 'token'],
         // Enlace público: se llena sin cuenta en Traza FI.
         'GET /f/{slug}'                                   => [FormulariosController::class, 'llenar', 'publico'],

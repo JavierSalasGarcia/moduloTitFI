@@ -26,6 +26,8 @@ final class PerfilController extends Controller
             'profesor' => \App\Core\Profesores::deUsuario((int) $id),
             'correos' => Identidad::correosDeUsuario((int) $id),
             'cambioCorreo' => Identidad::cambioPendiente((int) $id),
+            'avisos' => \App\Modules\Eventos\Clasificacion::preferencias($id),
+            'grupoAvisos' => \App\Modules\Eventos\Clasificacion::grupo(Auth::roles()),
             'dependencias' => Database::todas('SELECT dr.*,d.nombre AS dependencia FROM departamento_responsables dr JOIN departamentos d ON d.id=dr.departamento_id WHERE dr.usuario_id=? ORDER BY dr.activo DESC,dr.fecha_inicio DESC', [$id]),
         ]);
     }
