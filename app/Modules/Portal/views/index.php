@@ -39,6 +39,8 @@
     <?php endif; ?>
   </div>
 
+  <?php if ($resumen): include __DIR__ . '/_resumen.php'; endif; ?>
+
   <?php if ($resultado && ($resultado['tipo']??'')==='datos'): ?>
     <section class="consulta-respuesta" aria-labelledby="respuesta-titulo"><h2 id="respuesta-titulo"><?= e($resultado['titulo']) ?></h2><p><?= e($resultado['explicacion']) ?></p>
     <ul><?php foreach($resultado['items'] as $item): ?><li style="margin-block:16px"><a href="<?= url($item['ruta']) ?>"><?= e($item['titulo']) ?></a><br><span><?= e($item['detalle']) ?></span></li><?php endforeach; ?></ul><small>Fuente: registros autorizados de Traza FI · sin historial compartido.</small></section>

@@ -1033,3 +1033,20 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
 .lista-simple { list-style: none; padding: 0; margin: 0 0 14px; }
 .lista-simple li { padding: 6px 0; border-bottom: 1px solid var(--gris-100); }
 .lista-simple li:last-child { border-bottom: 0; }
+
+/* ── Inicio: resumen de pendientes, notificaciones, eventos y avisos ───────── */
+.inicio-resumen { max-width: 1080px; margin: 28px auto 0; padding: 0 4px; }
+.inicio-resumen-titulo { font-size: 18px; margin: 0 0 12px; text-align: left; }
+.inicio-resumen-rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; text-align: left; }
+.inicio-bloque { background: #fff; border: 1px solid var(--gris-200, #ddd); border-radius: 12px; padding: 14px 16px; }
+.inicio-bloque header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.inicio-bloque h3 { font-size: 14px; margin: 0; color: var(--verde-900, #2c5234); }
+.inicio-bloque header a { font-size: 12px; white-space: nowrap; }
+.inicio-cuenta { display: inline-block; min-width: 18px; padding: 1px 6px; border-radius: 999px; background: var(--oro, #9c8412); color: #fff; font-size: 11px; text-align: center; vertical-align: 1px; }
+.inicio-bloque ul { list-style: none; margin: 0; padding: 0; }
+.inicio-bloque li a { display: block; padding: 7px 0; border-top: 1px solid var(--gris-100, #eee); color: var(--texto); text-decoration: none; font-size: 13.5px; line-height: 1.35; }
+.inicio-bloque li:first-child a { border-top: 0; }
+.inicio-bloque li a:hover { color: var(--verde-900, #2c5234); }
+.inicio-bloque li small { display: block; color: var(--gris-600, #666); font-size: 11.5px; }
+.inicio-vacio { margin: 8px 0 2px; color: var(--gris-600, #666); font-size: 13px; }
+.inicio-mas { margin: 4px 0 0; font-size: 12px; }

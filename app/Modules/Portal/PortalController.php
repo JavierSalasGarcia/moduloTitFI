@@ -44,6 +44,7 @@ final class PortalController extends Controller
             'resultado' => $resultado,
             'errorConsulta' => $error,
             'notificaciones' => $this->notificaciones(),
+            'resumen' => $resultado === null ? Resumen::de() : null,
             'geminiDisponible' => ajuste('ia_proveedor','local')==='gemini' && ajuste('ia_gemini_pago','0')==='1' && ajuste('ia_gemini_api_key')!=='',
             'departamentos' => $resultado && ($resultado['tipo']??'')!=='datos' ? Database::todas('SELECT id, nombre FROM departamentos ORDER BY nombre') : [],
         ]);
