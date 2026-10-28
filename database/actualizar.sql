@@ -1,5 +1,5 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 09:06)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-10-28 09:12)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
@@ -3752,31 +3752,33 @@ PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 
 -- Memorándum DEP/06/2026: galardonados 2026 para el Segundo Informe de Actividades de la Rectora. Cada persona
 -- registra su propio reconocimiento (uno por envío); lo consulta la Subdirección Académica; abierto hasta el 31-dic.
-INSERT IGNORE INTO frm_formularios (slug, titulo, agrupar_por, varios_por_correo, estado, cierra_en, acceso, descripcion, campos, excel) VALUES
-('galardonados-2026', 'Alumnado, personas egresadas y profesorado galardonados en 2026', 'tipo_persona', 1, 'abierto', '2026-12-31 23:59:59', 'subdirector',
-'La Dirección de Estudios Profesionales de la UAEMEX (Memorándum DEP/06/2026) solicita la relación del alumnado y de las personas egresadas de licenciatura que durante 2026 hayan resultado ganadores en certámenes del conocimiento, y del personal académico que haya obtenido reconocimientos o galardones, de carácter internacional, nacional o estatal, otorgados por instancias externas a la UAEMEX. La información se integrará al texto y anexo estadístico del Segundo Informe de Actividades de la Rectora.
+-- Al volver a importar se actualizan el texto, los campos y el formato del Excel; el estado, el cierre y el acceso
+-- se conservan como los haya dejado la administración.
+INSERT INTO frm_formularios (slug, titulo, agrupar_por, varios_por_correo, estado, cierra_en, acceso, descripcion, campos, excel) VALUES
+('galardonados-2026', '¿Ganaste un premio en 2026?', 'tipo_persona', 1, 'abierto', '2026-12-31 23:59:59', 'subdirector',
+'Si eres alumna, alumno, egresada/o o profesor/a de la FI y en 2026 ganaste un premio, lugar o distinción internacional, nacional o estatal otorgado por una institución externa a la UAEMEX, regístralo: la Facultad lo dará a conocer en sus redes sociales y aparecerá en el Informe de Actividades de la Rectora.
 
-Si eres alumna, alumno, persona egresada o profesor(a) de la Facultad de Ingeniería y obtuviste alguno de estos reconocimientos en 2026, regístralo aquí. Haz un registro por cada reconocimiento. La fecha de entrega a la DEP es el 12 de noviembre de 2026; si obtienes un reconocimiento después, regístralo en cuanto lo tengas (hasta el 31 de diciembre de 2026).
-
-La evidencia debe incluir la documentación probatoria debidamente oficializada (constancia, diploma o reconocimiento) y, si la tienes, una fotografía tuya con el galardón para su posible incorporación al informe. Súbela en un solo archivo .zip o compártela como un enlace a una carpeta (Google Drive, OneDrive u otro) visible para cualquier persona con el enlace.',
-'[{"k":"tipo_persona","label":"Eres","tipo":"select","req":true,"opciones":{"alumno":"Alumno/a","egresado":"Egresado/a","profesor":"Personal académico (profesor/a)"}},
-{"k":"nombre","label":"Nombre completo (nombre[s], apellido paterno y apellido materno)","tipo":"texto","req":true,"max":160,"mayusculas":true,"de_cuenta":"nombre"},
+Haz un registro por cada premio. Ten a la mano tu constancia o diploma (y una foto con tu reconocimiento, si la tienes) en un .zip o en una carpeta de Drive. Fecha límite: 12 de noviembre; si recibes un premio después, regístralo hasta el 31 de diciembre.',
+'[{"k":"tipo_persona","label":"Eres","tipo":"select","req":true,"opciones":{"alumno":"Alumno/a","egresado":"Egresado/a","profesor":"Profesor/a"}},
+{"k":"nombre","label":"Nombre completo","tipo":"texto","req":true,"max":160,"mayusculas":true,"de_cuenta":"nombre","ayuda":"Nombre(s) Apellido paterno Apellido materno"},
 {"k":"email","label":"Correo electrónico","tipo":"email","req":true,"max":160,"de_cuenta":"email"},
-{"k":"espacio","label":"Espacio académico","tipo":"texto","req":true,"max":160,"mayusculas":true,"defecto":"FACULTAD DE INGENIERÍA"},
-{"k":"programa","label":"Programa educativo (alumnado: el que cursas o cursaste; profesorado: los programas en que impartes docencia)","tipo":"texto","req":true,"max":250},
-{"k":"caracter","label":"Carácter del certamen o reconocimiento","tipo":"select","req":true,"opciones":{"internacional":"Internacional","nacional":"Nacional","estatal":"Estatal"}},
-{"k":"evento","label":"Nombre oficial del evento, certamen o reconocimiento","tipo":"texto","req":true,"max":250},
-{"k":"organizador","label":"Organizadores o institución que lo otorga (externa a la UAEMEX)","tipo":"texto","req":true,"max":250},
-{"k":"resultado","label":"Lugar, premio o distinción obtenida","tipo":"texto","req":true,"max":250},
-{"k":"fecha","label":"Fecha en que lo obtuviste","tipo":"fecha","req":true,"min":"2026-01-01","max_fecha":"2026-12-31"},
-{"k":"notas","label":"Notas para interpretar correctamente los datos (opcional)","tipo":"texto","req":false,"max":500},
-{"k":"evidencia","label":"Evidencia","tipo":"evidencia","req":true,"max_mb":25},
-{"k":"conf_a","label":"La evidencia incluye la documentación probatoria oficializada (constancia, diploma o reconocimiento) del galardón que registro.","tipo":"confirmar","req":true},
-{"k":"conf_b","label":"El reconocimiento lo otorgó una instancia externa a la UAEMEX y lo obtuve durante 2026.","tipo":"confirmar","req":true}]',
+{"k":"espacio","label":"Espacio académico","tipo":"fijo","valor":"FACULTAD DE INGENIERÍA"},
+{"k":"programa","label":"Programa educativo","tipo":"texto","req":true,"max":250,"ayuda":"Profesores: en los que impartes clase"},
+{"k":"caracter","label":"Alcance del premio","tipo":"select","req":true,"opciones":{"internacional":"Internacional","nacional":"Nacional","estatal":"Estatal"}},
+{"k":"evento","label":"Nombre oficial del evento o reconocimiento","tipo":"texto","req":true,"max":250},
+{"k":"organizador","label":"Quién lo otorga (externo a la UAEMEX)","tipo":"texto","req":true,"max":250},
+{"k":"resultado","label":"Lugar o premio obtenido","tipo":"texto","req":true,"max":250},
+{"k":"fecha","label":"Fecha","tipo":"fecha","req":true,"min":"2026-01-01","max_fecha":"2026-12-31"},
+{"k":"notas","label":"Notas (opcional)","tipo":"texto","req":false,"max":500},
+{"k":"evidencia","label":"Constancia o diploma (y foto, si la tienes)","tipo":"evidencia","req":true,"max_mb":25},
+{"k":"conf_a","label":"Lo otorgó una institución externa a la UAEMEX en 2026.","tipo":"confirmar","req":true},
+{"k":"redes","label":"Autorizo que la Facultad publique mi nombre, mi premio y mi foto en sus redes sociales.","tipo":"confirmar","req":false,"mostrar":true}]',
 '[{"hoja":"Alumnado y egresados","titulo":"Alumnado y personas egresadas de licenciatura ganadores en certámenes del conocimiento 2026","filtro":{"tipo_persona":["alumno","egresado"]},
   "secciones":{"campo":"caracter","titulos":{"internacional":"Certámenes internacionales","nacional":"Certámenes nacionales","estatal":"Certámenes estatales"}},
-  "columnas":[["Nombre[s] de alumnos / egresados (nombre[s], apellido paterno y apellido materno)","nombre"],["Precisar si es alumno/a o egresado/a","tipo_persona"],["Espacio académico","espacio"],["Nombre oficial del Evento","evento"],["Organizadores (externos a la UAEMex)","organizador"],["Lugar o premio obtenido","resultado"],["Programa educativo","programa"],["Fecha","fecha"],["Correo electrónico","email"],["Evidencia","evidencia"],["Notas","notas"]]},
+  "columnas":[["Nombre[s] de alumnos / egresados (nombre[s], apellido paterno y apellido materno)","nombre"],["Precisar si es alumno/a o egresado/a","tipo_persona"],["Espacio académico","espacio"],["Nombre oficial del Evento","evento"],["Organizadores (externos a la UAEMex)","organizador"],["Lugar o premio obtenido","resultado"],["Programa educativo","programa"],["Fecha","fecha"],["Correo electrónico","email"],["Evidencia","evidencia"],["Notas","notas"],["Autoriza publicar en redes","redes"]]},
  {"hoja":"Profesorado","titulo":"Personal académico galardonada o galardonado 2026","filtro":{"tipo_persona":["profesor"]},
   "secciones":{"campo":"caracter","titulos":{"internacional":"Galardones internacionales","nacional":"Galardones nacionales","estatal":"Galardones estatales"}},
-  "columnas":[["Nombre[s] de profesores (nombre[s], apellido paterno y apellido materno)","nombre"],["Espacio académico","espacio"],["Programa(s) educativo(s) en que imparte docencia","programa"],["Concepto (premio, reconocimiento o distinción que obtuvo)",["evento","resultado"]],["Institución que lo otorga (externa a la UAEMex)","organizador"],["Fecha","fecha"],["Correo electrónico","email"],["Evidencia","evidencia"],["Notas","notas"]]}]');
+  "columnas":[["Nombre[s] de profesores (nombre[s], apellido paterno y apellido materno)","nombre"],["Espacio académico","espacio"],["Programa(s) educativo(s) en que imparte docencia","programa"],["Concepto (premio, reconocimiento o distinción que obtuvo)",["evento","resultado"]],["Institución que lo otorga (externa a la UAEMex)","organizador"],["Fecha","fecha"],["Correo electrónico","email"],["Evidencia","evidencia"],["Notas","notas"],["Autoriza publicar en redes","redes"]]}]')
+ON DUPLICATE KEY UPDATE titulo = VALUES(titulo), agrupar_por = VALUES(agrupar_por), varios_por_correo = VALUES(varios_por_correo),
+  descripcion = VALUES(descripcion), campos = VALUES(campos), excel = VALUES(excel);
 

@@ -3,7 +3,7 @@ use App\Core\Auth;
 use App\Modules\Formularios\Formularios;
 $csrf = e(Auth::csrfToken());
 $base = 'formularios/' . (int) $f['id'];
-$visibles = array_values(array_filter($campos, static fn(array $c): bool => ($c['tipo'] ?? '') !== 'confirmar'));
+$visibles = array_values(array_filter($campos, static fn(array $c): bool => (($c['tipo'] ?? '') !== 'confirmar' || !empty($c['mostrar'])) && ($c['tipo'] ?? '') !== 'fijo'));
 $grupoCampo = null;
 foreach ($campos as $c) { if ($c['k'] === $f['agrupar_por']) { $grupoCampo = $c; } }
 $porGrupo = [];
@@ -52,7 +52,7 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
           <details><summary>Corregir</summary>
             <form method="post" action="<?= url($base . '/respuestas/' . (int) $r['id']) ?>" class="formulario" style="min-width:260px">
               <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-              <?php foreach ($visibles as $c): if (($c['tipo'] ?? '') === 'evidencia') { continue; } $v = (string) ($r['datos'][$c['k']] ?? ''); ?>
+              <?php foreach ($visibles as $c): if (in_array($c['tipo'] ?? '', ['evidencia', 'confirmar'], true)) { continue; } $v = (string) ($r['datos'][$c['k']] ?? ''); ?>
                 <label><?= e($c['label']) ?>
                 <?php if (($c['tipo'] ?? '') === 'select'): ?><select name="d[<?= e($c['k']) ?>]"><?php foreach ($c['opciones'] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
                 <?php elseif (($c['tipo'] ?? '') === 'fecha'): ?><input type="date" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>">
