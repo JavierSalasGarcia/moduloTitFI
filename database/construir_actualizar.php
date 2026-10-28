@@ -29,6 +29,7 @@ $fuentes = [
     'migrations/030_avisos_clasificados_y_asistencias.sql',
     'migrations/031_recordatorios_y_activacion.sql',
     'migrations/032_calaveritas_convocatoria.sql',
+    'migrations/033_evento_publicacion_evidencia.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */
