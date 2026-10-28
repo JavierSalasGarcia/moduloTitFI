@@ -89,7 +89,8 @@ try {
   foreach (['tit_historico', 'tit_constancias', 'usuarios', 'programa_profesores'] as $t) { $antes[$t] = (int)$pdo->query("SELECT COUNT(*) FROM `$t`")->fetchColumn(); }
   // 2) Copia de seguridad de las tablas que se modifican.
   $sello = date('Ymd_His'); $copias = [];
-  foreach (['tit_historico', 'tit_constancias', 'usuarios', 'programa_profesores'] as $t) {
+  foreach (['tit_historico', 'tit_constancias', 'usuarios', 'programa_profesores', 'eventos', 'frm_formularios', 'frm_respuestas'] as $t) {
+    if (!(int)$pdo->query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = " . $pdo->quote($t))->fetchColumn()) { continue; }
     $copia = "zz_bak_{$sello}_$t"; $pdo->exec("CREATE TABLE `$copia` AS SELECT * FROM `$t`"); $copias[] = $copia;
   }
   // 3) Migraciones.
