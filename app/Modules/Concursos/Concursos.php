@@ -220,10 +220,9 @@ final class Concursos
     public static function dictaminar(array $c, int $obraId, bool $aprobada, string $motivo, int $revisorId): void
     {
         $fase = self::fase($c);
-        // Con la votación en curso solo se pueden dictaminar las obras nuevas que llegan mientras siga abierta la recepción;
-        // de las ya aprobadas solo se puede retirar la aprobación.
-        $nuevaEnVotacion = $fase === 'votacion' && self::recepcionAbierta($c);
-        if (!in_array($fase, ['recepcion', 'revision'], true) && !$nuevaEnVotacion && !($aprobada === false && $fase === 'votacion')) {
+        // Con la votación en curso se pueden dictaminar las obras que siguen sin revisar (llegaron dentro del plazo de recepción,
+        // aunque este ya haya cerrado); de las ya aprobadas solo se puede retirar la aprobación.
+        if (!in_array($fase, ['recepcion', 'revision', 'votacion'], true)) {
             throw new \InvalidArgumentException('El prefiltro ya cerró: la votación comenzó.');
         }
         $motivo = mb_substr(trim($motivo), 0, 600);
