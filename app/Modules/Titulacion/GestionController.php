@@ -56,6 +56,7 @@ final class GestionController extends TitulacionBase
             'carreras' => Catalogo::carreras(),
             'sistemas' => Catalogo::sistemas(),
             'formatos' => Catalogo::formatos(),
+            'capturas' => \App\Modules\Titulacion\Services\Captura::paraTramite($t),
         ]);
     }
 
