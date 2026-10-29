@@ -211,11 +211,7 @@ final class Justificantes
         $pdf->SetFont('Helvetica', 'B', 10.5);
         $pdf->Cell(0, 5, 'A T E N T A M E N T E', 0, 1, 'C');
         $pdf->Cell(0, 5, self::l1('PATRIA, CIENCIA Y TRABAJO'), 0, 1, 'C');
-        $lema = trim((string) \ajuste('institucion_lema_anual', ''));
-        if ($lema !== '') {
-            $pdf->SetFont('Helvetica', 'I', 8.5);
-            $pdf->Cell(0, 4.5, self::l1('"' . date('Y') . ', ' . $lema . '"'), 0, 1, 'C');
-        }
+        \App\Core\LemaAnual::imprimir($pdf);
         $pdf->Ln(20);
         $y = $pdf->GetY();
         $pdf->SetDrawColor(70, 70, 70);

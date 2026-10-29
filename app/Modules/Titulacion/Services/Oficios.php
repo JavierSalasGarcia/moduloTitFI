@@ -92,8 +92,8 @@ final class Oficios
         $pdf->Ln(6);
     }
 
-    /** Bloque de firma; devuelve la caja {p,x,y,w,h} (puntos) del nombre impreso. */
-    private static function firma(\FPDF $pdf, string $nombre, array $cargo, bool $lema, float $espacio = 26.0, float $limite = 175.0): array
+    /** Bloque de firma con «Atentamente», lema y leyenda del año; devuelve la caja {p,x,y,w,h} (puntos) del nombre impreso. */
+    private static function firma(\FPDF $pdf, string $nombre, array $cargo, float $espacio = 26.0, float $limite = 175.0): array
     {
         if ($pdf->GetY() > $limite) {
             $pdf->AddPage('P', 'Letter');
@@ -103,11 +103,7 @@ final class Oficios
         $pdf->SetFont('Helvetica', 'B', 10.5);
         $pdf->Cell(0, 5, 'A T E N T A M E N T E', 0, 1, 'C');
         $pdf->Cell(0, 5, self::l1('PATRIA, CIENCIA Y TRABAJO'), 0, 1, 'C');
-        $texto = trim((string) \ajuste('institucion_lema_anual', ''));
-        if ($lema && $texto !== '') {
-            $pdf->SetFont('Helvetica', 'I', 8.5);
-            $pdf->Cell(0, 4.5, self::l1('"' . date('Y') . ', ' . $texto . '"'), 0, 1, 'C');
-        }
+        \App\Core\LemaAnual::imprimir($pdf);
         $pdf->Ln($espacio);
         $y = $pdf->GetY();
         $pdf->SetDrawColor(70, 70, 70);
@@ -190,7 +186,7 @@ final class Oficios
             $pdf->Ln(4);
             $pdf->SetFont('Helvetica', '', 11);
             $pdf->MultiCell(0, 5.8, self::l1('Asimismo, para la aprobación del trabajo y demás trámites deberá sujetarse al reglamento respectivo de esta Institución.'), 0, 'J');
-            $caja = self::firma($pdf, self::director(), [self::cargoDirector(), 'FACULTAD DE INGENIERÍA', 'U.A.E.M.'], true);
+            $caja = self::firma($pdf, self::director(), [self::cargoDirector(), 'FACULTAD DE INGENIERÍA', 'U.A.E.M.']);
             $pdf->SetFont('Helvetica', '', 9);
             $pdf->Cell(0, 6, 'c.c.p. Archivo.', 0, 1);
             return [$pdf->Output('S'), $caja];
@@ -217,7 +213,7 @@ final class Oficios
             $pdf->Ln(4);
             $pdf->SetFont('Helvetica', '', 11);
             $pdf->MultiCell(0, 5.8, self::l1('Le ruego confirmar de recibido desde el enlace del correo que acompaña este oficio, donde también podrá descargar el trabajo escrito. Para el pago del examen definitivo, los trámites deben realizarse fuera del horario de labores de la UAEM.'), 0, 'J');
-            $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA'], true);
+            $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA']);
             return [$pdf->Output('S'), $caja];
         }
 
@@ -238,7 +234,7 @@ final class Oficios
         $pdf->Ln(4);
         $pdf->SetFont('Helvetica', '', 11);
         $pdf->MultiCell(0, 5.8, self::l1($cuerpo), 0, 'J');
-        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA'], true);
+        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector(), 'FACULTAD DE INGENIERÍA']);
         return [$pdf->Output('S'), $caja];
     }
 
@@ -259,11 +255,7 @@ final class Oficios
         $pdf->SetFont('Helvetica', 'B', 10.5);
         $pdf->Cell(0, 5, 'A T E N T A M E N T E', 0, 1, 'C');
         $pdf->Cell(0, 5, self::l1('PATRIA, CIENCIA Y TRABAJO'), 0, 1, 'C');
-        $texto = trim((string) \ajuste('institucion_lema_anual', ''));
-        if ($texto !== '') {
-            $pdf->SetFont('Helvetica', 'I', 8.5);
-            $pdf->Cell(0, 4.5, self::l1('"' . date('Y') . ', ' . $texto . '"'), 0, 1, 'C');
-        }
+        \App\Core\LemaAnual::imprimir($pdf);
     }
 
     /** Texto por omisión de las observaciones del oficio: la leyenda del coasesor, si lo hay. */
@@ -458,8 +450,8 @@ final class Oficios
         $pdf->SetFont('Helvetica', '', 10.5);
         $parrafos($texto['cierre']);
         $caja = $jefatura
-            ? self::firma($pdf, mb_strtoupper($j['nombre']), [$j['cargo'], 'DE LA FACULTAD DE INGENIERÍA, UAEM'], true, 22.0, 200.0)
-            : self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector()], true, 22.0, 200.0);
+            ? self::firma($pdf, mb_strtoupper($j['nombre']), [$j['cargo'], 'DE LA FACULTAD DE INGENIERÍA, UAEM'], 22.0, 200.0)
+            : self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector()], 22.0, 200.0);
         return [$pdf->Output('S'), $caja];
     }
 
@@ -513,7 +505,7 @@ final class Oficios
         $pdf->MultiCell(0, 5.6, self::l1('Por medio del presente, se hace constar que el protocolo de ' . $x['nombre'] . ' (No. Cuenta ' . $x['cuenta'] . ') para la obtención del Título de la Licenciatura en ' . $x['carrera'] . ', titulado «' . $x['titulo'] . '», se encuentra actualmente en proceso de revisión por parte de la comisión revisora correspondiente, a la cual fue turnado desde el día ' . self::fecha($fechaTurno) . '.'), 0, 'J');
         $pdf->Ln(3);
         $pdf->MultiCell(0, 5.6, self::l1('Lo anterior, para los fines académicos y administrativos que a la persona interesada convengan, haciendo constar que el trámite se encuentra en la etapa de revisión correspondiente. Sin otro particular, se extiende el presente para los efectos conducentes.'), 0, 'J');
-        $caja = self::firma($pdf, mb_strtoupper($j['nombre']), [$j['cargo'], 'DE LA FACULTAD DE INGENIERÍA, UAEM'], true);
+        $caja = self::firma($pdf, mb_strtoupper($j['nombre']), [$j['cargo'], 'DE LA FACULTAD DE INGENIERÍA, UAEM']);
         return [$pdf->Output('S'), $caja];
     }
 
@@ -537,7 +529,7 @@ final class Oficios
         $pdf->SetFont('Helvetica', '', 10.5);
         $pdf->Ln(9);
         $pdf->MultiCell(0, 5.6, self::l1('Con base en el artículo 86, fracción VIII del Reglamento de Evaluación Profesional, usted cuenta hasta el ' . self::fecha($hasta) . ' (a partir del ' . self::fecha($desde) . ') para sustentar el trabajo escrito ante el jurado (evaluación profesional definitiva); en caso de no hacerlo así, el tema quedará libre para ser presentado por otro pasante.'), 0, 'J');
-        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector()], true);
+        $caja = self::firma($pdf, mb_strtoupper(Formatos::subdirector()), [Formatos::cargoSubdirector()]);
         return [$pdf->Output('S'), $caja];
     }
 
@@ -596,7 +588,7 @@ final class Oficios
         $pdf->Ln(2);
         $pdf->SetFont('Helvetica', 'B', 9.5);
         $pdf->MultiCell(0, 5, self::l1(ucfirst(self::EXAMEN[$asig['tipo']] ?? 'examen') . ': ' . self::fecha($asig['fecha']) . ' a las ' . $asig['hora'] . ' horas, en ' . $asig['lugar'] . '.'), 0, 'J');
-        $caja = self::firma($pdf, mb_strtoupper((string) $asig['coord_nombre']), [Persona::f(['genero' => $asig['coord_genero'] ?? null], 'COORDINADOR', 'COORDINADORA') . ' DE DOCENCIA DE LA', 'LICENCIATURA EN ' . mb_strtoupper($x['carrera'])], false, 14.0, 215.0);
+        $caja = self::firma($pdf, mb_strtoupper((string) $asig['coord_nombre']), [Persona::f(['genero' => $asig['coord_genero'] ?? null], 'COORDINADOR', 'COORDINADORA') . ' DE DOCENCIA DE LA', 'LICENCIATURA EN ' . mb_strtoupper($x['carrera'])], 14.0, 215.0);
         return [$pdf->Output('S'), $caja];
     }
 }

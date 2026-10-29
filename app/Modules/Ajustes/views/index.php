@@ -22,13 +22,29 @@ $campo = static function(string $clave, string $etiqueta, string $tipo='text') u
   </section>
   <section class="card"><h2>Leyendas oficiales</h2>
     <p class="ayuda-form">El Director y el Subdirector Académico se toman de <a href="<?= url('ajustes/organizacion') ?>">Organización</a> (titular de Dirección y de Subdirección Académica); ahí mismo se registran los Coordinadores de Docencia de cada licenciatura.</p>
-    <?php $campo('institucion_lema_anual','Lema oficial del año (aparece bajo «Patria, Ciencia y Trabajo» en los oficios; vacío para omitirlo)'); ?>
+    <h3 style="margin:14px 0 4px">Leyenda del año</h3>
+    <p class="ayuda-form">Va en cursivas bajo «PATRIA, CIENCIA Y TRABAJO» en todos los oficios que genera la plataforma; cada oficio usa la del año en que se emite. Escribe cada renglón en una línea (Enter para el salto de línea). Para quitar un año, deja su leyenda vacía.</p>
+    <div id="lemas-anuales">
+      <?php $lemasAnuales = \App\Core\LemaAnual::todas(); $anioActual = (int) date('Y');
+      if (!isset($lemasAnuales[(string) $anioActual])) { $lemasAnuales = [(string) $anioActual => ''] + $lemasAnuales; }
+      foreach ($lemasAnuales as $anio => $texto): ?>
+        <div class="lema-fila" style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px">
+          <label style="flex:0 0 110px">Año<input type="number" name="lemas[anio][]" value="<?= e((string) $anio) ?>" min="2000" max="2199" step="1"></label>
+          <label style="flex:1 1 420px">Leyenda<textarea name="lemas[texto][]" rows="2" maxlength="500" style="font-style:italic"><?= e($texto) ?></textarea></label>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <button type="button" class="btn btn-mini" id="agregar-lema">+ Agregar año</button>
   </section>
   <section class="card"><h2>Departamentos</h2><label>Área responsable de los grupos de investigación<select name="valor[firmas_depto_investigacion]"><?php foreach ($departamentos as $d): ?><option value="<?= (int)$d['id'] ?>" <?= (string)$d['id']===($valores['firmas_depto_investigacion']??'')?'selected':'' ?>><?= e($d['nombre']) ?></option><?php endforeach; ?></select></label></section>
   <section class="card"><h2>Comunidad</h2><?php $campo('umbral_likes_trazabilidad','Apoyos necesarios para dar seguimiento a una propuesta','number'); ?></section>
   <div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar ajustes</button></div>
 </form>
 <script>
+document.getElementById('agregar-lema').addEventListener('click', function(){
+ const lista=document.getElementById('lemas-anuales'),fila=lista.querySelector('.lema-fila').cloneNode(true),anios=[...lista.querySelectorAll('input[type=number]')].map(n=>+n.value||0);
+ fila.querySelector('input').value=Math.max(new Date().getFullYear(),...anios)+1;fila.querySelector('textarea').value='';lista.append(fila);fila.querySelector('textarea').focus();
+});
 document.getElementById('probar-nvidia').addEventListener('click', async function(){
  const form=document.getElementById('ajustes-form'),result=document.getElementById('resultado-nvidia'),data=new FormData();
  data.set('_csrf',form.elements['_csrf'].value);data.set('api_key',form.elements['valor[ia_nvidia_api_key]'].value);data.set('modelo',form.elements['valor[ia_nvidia_modelo]'].value);
