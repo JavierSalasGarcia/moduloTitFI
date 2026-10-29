@@ -5,13 +5,14 @@ $csrf = e(Auth::csrfToken());
 $base = 'concursos/' . $c['slug'];
 $cuenta = array_count_values(array_column($obras, 'estado'));
 $abierto = in_array($fase, ['recepcion', 'revision'], true);
-$nuevasEnVotacion = $fase === 'votacion' && Concursos::recepcionAbierta($c);
+// En votación aún se dictaminan las obras sin revisar (llegaron a tiempo aunque la recepción ya haya cerrado).
+$nuevasEnVotacion = $fase === 'votacion';
 ?>
 <?php include __DIR__ . '/_estilos.php'; ?>
 <style>.cv-verso{white-space:pre-wrap;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.5;margin:8px 0}.cv-obra{border-top:1px solid var(--gris-200,#ddd);padding:14px 0}</style>
 <section class="tarjeta" style="margin-bottom:16px">
   <div class="tarjeta-cabecera"><h2><?= e($c['titulo']) ?></h2><a class="btn btn-mini" href="<?= url($base) ?>">Ver convocatoria</a></div>
-  <p class="texto-secundario">Las obras se muestran sin el nombre de su autor. Aprueba las que cumplen las bases; a las que no, escribe el motivo: se le envía al autor sin decir quién revisó. <?= $abierto ? 'Puedes cambiar un dictamen hasta que empiece la votación.' : ($nuevasEnVotacion ? 'La votación ya empezó: puedes aprobar las obras nuevas que sigan llegando mientras la recepción esté abierta; de las ya aprobadas solo se puede retirar la aprobación.' : 'La votación ya empezó: solo se puede retirar de la votación una obra (no aprobarla).') ?></p>
+  <p class="texto-secundario">Las obras se muestran sin el nombre de su autor. Aprueba las que cumplen las bases; a las que no, escribe el motivo: se le envía al autor sin decir quién revisó. <?= $abierto ? 'Puedes cambiar un dictamen hasta que empiece la votación.' : ($nuevasEnVotacion ? 'La votación ya empezó: puedes aprobar las obras que siguen por revisar (llegaron a tiempo); de las ya aprobadas solo se puede retirar la aprobación.' : 'La votación ya empezó: solo se puede retirar de la votación una obra (no aprobarla).') ?></p>
   <p><strong><?= (int) ($cuenta['enviada'] ?? 0) ?></strong> por revisar · <strong><?= (int) ($cuenta['aprobada'] ?? 0) ?></strong> aprobadas · <strong><?= (int) ($cuenta['rechazada'] ?? 0) ?></strong> no aprobadas · fase: <?= e(Concursos::FASES[$fase]) ?></p>
 </section>
 
