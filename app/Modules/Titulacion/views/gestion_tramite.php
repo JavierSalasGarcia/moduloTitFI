@@ -27,6 +27,24 @@ $chips = [
   </div>
 </div>
 
+<?php if (!empty($capturas)): ?>
+<section class="tarjeta" style="margin-bottom:14px">
+  <h2 style="margin-top:0">Captura transitoria</h2>
+  <?php foreach ($capturas as $c): ?>
+    <p><strong>Ficha #<?= (int) $c['id'] ?></strong> · <?= e(\App\Modules\Titulacion\Services\Captura::ESTADOS[$c['estado']] ?? $c['estado']) ?> · <?= e($c['alumno']) ?> (<?= e($c['cuenta']) ?>)<?= $c['titulo'] ? ' · «' . e($c['titulo']) . '»' : '' ?><?= $c['asesor'] ? ' · Asesor: ' . e($c['asesor']) : '' ?>
+      <?php foreach (['fecha_tema' => 'tema aprobado', 'fecha_prorroga' => 'prórroga hasta', 'fecha_afinidad' => 'afinidad', 'fecha_dictamen' => 'dictamen', 'fecha_examen' => 'examen'] as $k => $et): ?><?= $c[$k] ? ' · ' . e($et) . ' ' . e(date('d/m/Y', strtotime($c[$k]))) : '' ?><?php endforeach; ?></p>
+    <?php if ($c['tramite_id']): ?>
+      <p class="texto-secundario">Vinculada con este trámite. Lo que se hizo en papel se registra en cada etapa con sus fechas.</p>
+    <?php else: ?>
+      <form method="post" action="<?= url($base . '/captura') ?>" onsubmit="return confirm('¿Vincular esta ficha con el trámite? Se precargan el título, el asesor y el coasesor que el alumno no haya capturado.')">
+        <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="captura" value="<?= (int) $c['id'] ?>">
+        <button class="btn btn-mini btn-primario" type="submit">Vincular y precargar</button>
+      </form>
+    <?php endif; ?>
+  <?php endforeach; ?>
+</section>
+<?php endif; ?>
+
 <div class="tit-dos">
 <div style="display:flex;flex-direction:column;gap:18px">
 

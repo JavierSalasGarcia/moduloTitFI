@@ -142,6 +142,22 @@
     },
     {
       "seccion": "TITULACIÓN",
+      "titulo": "Captura transitoria",
+      "ruta": "titulacion/captura",
+      "grupo": "Trámites",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 27,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "TITULACIÓN",
       "titulo": "Estructura",
       "ruta": "titulacion/estructura",
       "grupo": "Administración",
@@ -340,6 +356,10 @@
     "POST /titulacion/gestion/{id}/tomar": [
       "App\\Modules\\Titulacion\\GestionController",
       "tomar"
+    ],
+    "POST /titulacion/gestion/{id}/captura": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "vincular"
     ],
     "POST /titulacion/gestion/{id}/cotejo/{doc}": [
       "App\\Modules\\Titulacion\\GestionController",
@@ -708,6 +728,30 @@
     "GET /titulacion/archivo/{token}": [
       "App\\Modules\\Titulacion\\ArchivoController",
       "descargar"
+    ],
+    "GET /titulacion/captura": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "index"
+    ],
+    "GET /titulacion/captura/exportar": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "exportar"
+    ],
+    "POST /titulacion/captura/guardar": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "guardar"
+    ],
+    "POST /titulacion/captura/cerrar": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "cerrar"
+    ],
+    "POST /titulacion/captura/{id}/historial": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "historial"
+    ],
+    "POST /titulacion/captura/{id}/eliminar": [
+      "App\\Modules\\Titulacion\\CapturaController",
+      "eliminar"
     ]
   }
 }
