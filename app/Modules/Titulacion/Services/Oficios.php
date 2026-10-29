@@ -461,16 +461,26 @@ final class Oficios
         $anchos = [40, 34, 30, 62];
         $pdf->SetFont('Helvetica', 'B', 8.5);
         $pdf->SetFillColor(230, 236, 231);
-        foreach (['Pasante', 'Modalidad/Clave', $tituloFecha, 'Nombre del trabajo'] as $i => $h) {
-            $pdf->Cell($anchos[$i], 6, self::l1($h), 1, 0, 'C', true);
+        // Encabezados que no caben en su columna pasan a dos renglones en lugar de rebasar el recuadro.
+        $encabezados = ['Pasante', 'Modalidad/Clave', $tituloFecha, 'Nombre del trabajo'];
+        $renglones = max(array_map(static fn(string $h, float $a): int => $pdf->renglones($a - 1, self::l1($h)), $encabezados, $anchos));
+        $alto = 4.2 * $renglones + 1.8;
+        $y = $pdf->GetY();
+        $xx = 25.0;
+        foreach ($encabezados as $i => $h) {
+            $pdf->Rect($xx, $y, $anchos[$i], $alto, 'DF');
+            $n = $pdf->renglones($anchos[$i] - 1, self::l1($h));
+            $pdf->SetXY($xx + 0.5, $y + ($alto - 4.2 * $n) / 2);
+            $pdf->MultiCell($anchos[$i] - 1, 4.2, self::l1($h), 0, 'C');
+            $xx += $anchos[$i];
         }
-        $pdf->Ln();
+        $pdf->SetY($y + $alto);
         $pdf->SetFont('Helvetica', '', 8.5);
         foreach ($filas as $f) {
             $celdas = [$f['pasante'], $f['modalidad'] . ($f['clave'] !== '' ? "\n" . $f['clave'] : ''), self::fechaTabla($f['fecha']), $f['titulo']];
             $lineas = 1;
             foreach ($celdas as $i => $c) {
-                $lineas = max($lineas, (int) ceil(max(1, $pdf->GetStringWidth(self::l1(str_replace("\n", ' ', $c)))) / ($anchos[$i] - 2)) + substr_count($c, "\n"));
+                $lineas = max($lineas, $pdf->renglones($anchos[$i] - 1, self::l1($c)));
             }
             $alto = 4.4 * $lineas + 1.2;
             if ($pdf->GetY() + $alto > 245) {
