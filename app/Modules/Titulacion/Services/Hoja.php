@@ -132,6 +132,55 @@ final class Hoja extends \setasign\Fpdi\Fpdi
         parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
     }
 
+    /**
+     * Renglones que ocupará $txt (ya en ISO-8859-1) en un MultiCell de ancho $w con la fuente actual: corta por palabras
+     * igual que FPDF, para que las celdas de una tabla tengan el alto justo y ningún texto rebase su recuadro.
+     */
+    public function renglones(float $w, string $txt): int
+    {
+        $cw = $this->CurrentFont['cw'];
+        $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
+        $s = str_replace("\r", '', $txt);
+        $nb = strlen($s);
+        if ($nb > 0 && $s[$nb - 1] === "\n") {
+            $nb--;
+        }
+        $sep = -1;
+        $i = $j = $l = 0;
+        $nl = 1;
+        while ($i < $nb) {
+            $c = $s[$i];
+            if ($c === "\n") {
+                $i++;
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+                continue;
+            }
+            if ($c === ' ') {
+                $sep = $i;
+            }
+            $l += $cw[$c] ?? 0;
+            if ($l > $wmax) {
+                if ($sep === -1) {
+                    if ($i === $j) {
+                        $i++;
+                    }
+                } else {
+                    $i = $sep + 1;
+                }
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+            } else {
+                $i++;
+            }
+        }
+        return $nl;
+    }
+
     public function MultiCell($w, $h, $txt, $border = 0, $align = 'J', $fill = false)
     {
         if (!$this->enPie && $this->anidado === 0) {
