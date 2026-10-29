@@ -49,6 +49,9 @@ final class AjustesController extends Controller
                 [trim((string) $valor), (string) $clave]
             );
         }
+        if (is_array($_POST['lemas'] ?? null)) {
+            \App\Core\LemaAnual::guardar((array) ($_POST['lemas']['anio'] ?? []), (array) ($_POST['lemas']['texto'] ?? []));
+        }
         flash('exito', 'Ajustes guardados.');
         redirigir('ajustes');
     }
