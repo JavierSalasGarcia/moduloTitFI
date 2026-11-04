@@ -134,7 +134,8 @@ final class ConstanciasController extends TitulacionBase
         $this->soloHistorial();
         $acta = trim($this->post('acta'));
         try {
-            $id = Historico::crear($this->post('carrera'), $this->post('alumno'), ctype_digit($acta) ? (int) $acta : null, Auth::id());
+            $id = Historico::capturar(['carrera' => $this->post('carrera'), 'alumno' => $this->post('alumno'), 'acta' => $acta,
+                'fecha_examen' => $this->post('fecha_examen'), 'fecha_protocolo' => $this->post('fecha_protocolo')], Auth::id());
         } catch (\InvalidArgumentException $e) {
             flash('error', $e->getMessage());
             redirigir('titulacion/constancias/historial');
