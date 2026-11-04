@@ -6,8 +6,8 @@ include __DIR__ . '/_estilos.php';
 $csrf = e(Auth::csrfToken());
 $modalidades = array_map(static fn(array $m): string => $m['nombre'], Catalogo::modalidades());
 $carreras = array_map(static fn(array $c): string => $c['nombre'], Catalogo::carreras());
-$columnas = ['fecha_examen', 'fecha_protocolo', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'];
-$rotulos = ['fecha_examen' => 'Fecha del examen', 'fecha_protocolo' => 'Aprobación del protocolo', 'carrera' => 'Lic.', 'alumno' => 'Alumno', 'titulo' => 'Título del trabajo', 'director' => 'Director de tesis',
+$columnas = ['fecha_examen', 'fecha_protocolo', 'fecha_previo', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'];
+$rotulos = ['fecha_examen' => 'Fecha del examen', 'fecha_protocolo' => 'Aprobación del protocolo', 'fecha_previo' => 'Examen previo', 'carrera' => 'Lic.', 'alumno' => 'Alumno', 'titulo' => 'Título del trabajo', 'director' => 'Director de tesis',
     'codirector' => 'Codirector de tesis', 'presidente' => 'Revisor del trabajo escrito', 'secretario' => 'Revisor del trabajo escrito', 'vocal' => 'Revisor del trabajo escrito'];
 $opciones = [
     'carrera' => array_map(static fn(array $c): string => $c['siglas'][0], Catalogo::carreras()), 'modalidad' => ['' => '—'] + $modalidades,
@@ -52,18 +52,8 @@ $enlaceOrden = static function (string $col, string $rotulo) use ($f, $qs): stri
   <p class="texto-secundario"><a class="btn btn-primario" href="<?= url('titulacion/constancias/captura') ?>">Capturar un examen o protocolo hecho fuera del sistema</a><br><strong>Constancias para profesores: solo hay cuatro</strong> (revisor del protocolo, revisor del trabajo escrito, director de tesis y codirector de tesis). Aquí se generan las de los trabajos escritos ya presentados: director, codirector y los tres sinodales del acta (presidente, secretario o vocal; todos son revisores del trabajo escrito, los suplentes no). Quien se tituló por EGEL, aprovechamiento o créditos no genera constancias, por eso no aparece. Solo se necesita la fecha del examen, el alumno, el título del trabajo y el nombre de cada profesor; su correo se busca solo en el directorio. <br>Registros anteriores a la plataforma, tomados del libro de actas. Para completar o corregir un dato, haz doble clic en la celda, escribe y sal de ella (Enter guarda; Esc cancela). En ámbar, las fechas fuera de rango (antes de 2000 o posteriores a hoy), que suelen ser errores de captura del libro. En rojo parpadeante, lo que falta para generar las constancias del director, codirector y sinodales (solo opciones con trabajo escrito). Al generarlas pasan a la cola de firmas y, ya firmadas, aparecen en la cuenta de cada profesor. Si corriges un dato de un registro con constancias ya generadas, las constancias afectadas se rehacen sobre el mismo archivo (mismo número de oficio y QR) y vuelven a firma.</p>
 </div></div>
 
-<section class="tarjeta" style="margin-bottom:14px" data-disclosure="Agregar un registro que no está en la lista (no es una búsqueda)">
-  <form method="post" action="<?= url('titulacion/constancias/historial/nuevo') ?>" style="display:flex;gap:10px;flex-wrap:wrap;align-items:end"
-        onsubmit="return confirm('Esto CREA un registro nuevo para «' + this.alumno.value.trim() + '» (' + this.carrera.selectedOptions[0].textContent + '). Para buscar usa el cuadro «Buscar» de abajo. ¿Crear el registro?')">
-    <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-    <label style="flex:0 1 220px">Licenciatura <select name="carrera" required><option value="" selected disabled>Elige…</option><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>"><?= e($n) ?></option><?php endforeach; ?></select></label>
-    <label style="flex:1 1 260px">Nombre completo del alumno nuevo <input name="alumno" maxlength="160" required placeholder="Apellidos y nombre, como en el libro"></label>
-    <label style="flex:0 1 120px">Acta <input name="acta" inputmode="numeric" pattern="[0-9]*" maxlength="8"></label>
-    <label style="flex:0 1 170px">Fecha del examen <input type="date" name="fecha_examen" max="<?= e(date('Y-m-d')) ?>"></label>
-    <label style="flex:0 1 190px">Aprobación del protocolo <input type="date" name="fecha_protocolo" max="<?= e(date('Y-m-d')) ?>"></label>
-    <button class="btn" type="submit">Crear registro</button>
-  </form>
-  <p class="texto-secundario" style="margin-top:6px">Solo para un registro anterior a la plataforma que no esté en la lista. Para encontrar uno existente usa «Buscar». Los trámites nuevos no se capturan aquí: sus constancias se generan solas.</p>
+<section class="tarjeta" style="margin-bottom:14px">
+  <p>¿Falta alguien en la lista? <a class="btn btn-primario" href="<?= url('titulacion/constancias/captura') ?>">Registrar o completar un expediente</a> <span class="texto-secundario">Busca primero a la persona y captura la etapa que toca (protocolo, examen previo o examen definitivo) sin duplicar registros.</span></p>
 </section>
 
 <section class="tarjeta">
