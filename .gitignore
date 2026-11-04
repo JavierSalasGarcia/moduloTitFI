@@ -21,3 +21,8 @@ node_modules/
 
 # Reportes de encuestas del Plan (contienen correos voluntarios): sólo locales.
 /reportesEncuestas/
+
+# Respaldos y volcados locales con datos personales: nunca versionar.
+/baseDatosTit/
+/u429286701_*.sql
+/reportesEncuestas.zip

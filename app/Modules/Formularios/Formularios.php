@@ -39,7 +39,11 @@ final class Formularios
     }
 
     /** Autoridades (tomadas de Organización) que pueden consultar y corregir un formulario. */
-    public const AUTORIDADES = ['subdirector' => 'Subdirector(a) Académico(a)', 'coordinadores_docencia' => 'Coordinadores de Docencia de las licenciaturas'];
+    public const AUTORIDADES = [
+        'director' => 'Director(a)',
+        'subdirector' => 'Subdirector(a) Académico(a)',
+        'coordinadores_docencia' => 'Coordinadores de Docencia de las licenciaturas',
+    ];
 
     /** @return string[] claves de AUTORIDADES con acceso al formulario */
     public static function autoridades(array $f): array
@@ -50,7 +54,16 @@ final class Formularios
     private static function esAutoridad(string $clave, string $email): bool
     {
         try {
+            if ($clave === 'director') {
+                if (Auth::tieneRol('titular') && in_array('direccion', Auth::deptoClaves(), true)) {
+                    return true;
+                }
+                return strtolower((string) (\App\Modules\Titulacion\Services\Autoridades::director()['email'] ?? '')) === $email;
+            }
             if ($clave === 'subdirector') {
+                if (Auth::tieneRol('titular') && array_intersect(Auth::deptoClaves(), ['subdireccion_academica', 'titular_de_la_subdireccion_academica'])) {
+                    return true;
+                }
                 return strtolower((string) (\App\Modules\Titulacion\Services\Autoridades::subdirector()['email'] ?? '')) === $email;
             }
             if ($clave === 'coordinadores_docencia') {
@@ -170,6 +183,14 @@ final class Formularios
                     $errores[] = 'Revisa la fecha de «' . $c['label'] . '».';
                     $v = '';
                 }
+            } elseif ($tipo === 'numero') {
+                if ($v !== '' && !preg_match('/^\d+$/D', $v)) {
+                    $errores[] = 'Escribe un número entero en «' . $c['label'] . '».';
+                    $v = '';
+                } elseif ($v !== '' && ((isset($c['min']) && (int) $v < (int) $c['min']) || (isset($c['max_num']) && (int) $v > (int) $c['max_num']))) {
+                    $errores[] = 'El valor de «' . $c['label'] . '» está fuera del rango permitido.';
+                    $v = '';
+                }
             } elseif ($tipo === 'confirmar') {
                 $v = $v !== '' ? 'SÍ' : '';
             } elseif ($tipo === 'select') {
@@ -189,6 +210,14 @@ final class Formularios
                 $errores[] = $tipo === 'confirmar' ? 'Confirma: «' . $c['label'] . '»' : 'Falta «' . $c['label'] . '».';
             }
             $datos[$k] = $v;
+        }
+        foreach (self::campos($f) as $c) {
+            $anterior = (string) ($c['no_antes_de'] ?? '');
+            $actual = (string) ($datos[$c['k']] ?? '');
+            $base = (string) ($datos[$anterior] ?? '');
+            if ($anterior !== '' && $actual !== '' && $base !== '' && (float) str_replace('-', '', $actual) < (float) str_replace('-', '', $base)) {
+                $errores[] = '«' . $c['label'] . '» no puede ser menor o anterior a «' . ($c['no_antes_label'] ?? $anterior) . '».';
+            }
         }
         return [$datos, $errores];
     }

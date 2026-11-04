@@ -1,0 +1,8 @@
+[
+  "app/Core/Auth.php",
+  "app/Modules/Formularios/Formularios.php",
+  "app/Modules/Formularios/FormulariosController.php",
+  "app/Modules/Formularios/views/index.php",
+  "app/Modules/Formularios/views/llenar.php",
+  "app/Modules/Formularios/views/respuestas.php"
+]

@@ -34,7 +34,9 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
   <form method="post" action="<?= url('f/' . $f['slug']) ?>" class="formulario"<?= $conArchivos ? ' enctype="multipart/form-data"' : '' ?>>
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
     <div style="position:absolute;left:-9999px" aria-hidden="true"><label>No llenar <input name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
-    <?php $hayReq = false; foreach ($campos as $c): $v = (string) ($previo[$c['k']] ?? (isset($c['de_cuenta']) && $cuenta ? ($cuenta[$c['de_cuenta']] ?? '') : null) ?? $c['defecto'] ?? ''); ?>
+    <?php $hayReq = false; foreach ($campos as $c):
+      $desdeCuenta = isset($c['de_cuenta']) && $cuenta && !empty($f['requiere_rol']);
+      $v = (string) ($desdeCuenta ? ($cuenta[$c['de_cuenta']] ?? '') : ($previo[$c['k']] ?? (isset($c['de_cuenta']) && $cuenta ? ($cuenta[$c['de_cuenta']] ?? '') : null) ?? $c['defecto'] ?? '')); ?>
       <?php if (($c['tipo'] ?? '') === 'fijo') { continue; } ?>
       <?php if (($c['tipo'] ?? '') === 'confirmar'): if (!$hayReq): $hayReq = true; ?><fieldset class="frm-req" style="margin-top:12px"><legend><strong>Confirma</strong> (marca las casillas; las que tienen * son obligatorias)</legend><?php endif; ?>
         <label><input type="checkbox" name="d[<?= e($c['k']) ?>]" value="1" <?= $v !== '' ? 'checked' : '' ?> <?= !empty($c['req']) ? 'required' : '' ?>> <span><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?></span></label>
@@ -67,12 +69,18 @@ $conArchivos = in_array('evidencia', array_column($campos, 'tipo'), true);
       <?php elseif (($c['tipo'] ?? '') === 'fecha'): ?>
         <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
           <input type="date" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>" <?= isset($c['min']) ? 'min="' . e((string) $c['min']) . '"' : '' ?> <?= isset($c['max_fecha']) ? 'max="' . e((string) $c['max_fecha']) . '"' : '' ?> <?= !empty($c['req']) ? 'required' : '' ?>></label>
+      <?php elseif (($c['tipo'] ?? '') === 'numero'): ?>
+        <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
+          <input type="number" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>" <?= isset($c['min']) ? 'min="' . (int) $c['min'] . '"' : '' ?> <?= isset($c['max_num']) ? 'max="' . (int) $c['max_num'] . '"' : '' ?> step="1" <?= !empty($c['req']) ? 'required' : '' ?>></label>
+      <?php elseif (($c['tipo'] ?? '') === 'textarea'): ?>
+        <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
+          <textarea name="d[<?= e($c['k']) ?>]" rows="3" maxlength="<?= (int) ($c['max'] ?? 1000) ?>" <?= !empty($c['req']) ? 'required' : '' ?> placeholder="<?= e((string) ($c['ayuda'] ?? '')) ?>"><?= e($v) ?></textarea></label>
       <?php elseif (($c['tipo'] ?? '') === 'select'): ?>
         <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
           <select name="d[<?= e($c['k']) ?>]" <?= !empty($c['req']) ? 'required' : '' ?>><option value="">Elige…</option><?php foreach ($c['opciones'] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
       <?php else: ?>
         <label><?= e($c['label']) ?><?= !empty($c['req']) ? ' *' : '' ?>
-          <input type="<?= ($c['tipo'] ?? '') === 'email' ? 'email' : 'text' ?>" name="d[<?= e($c['k']) ?>]" maxlength="<?= (int) ($c['max'] ?? 200) ?>" value="<?= e($v) ?>" <?= !empty($c['req']) ? 'required' : '' ?> <?= !empty($c['mayusculas']) ? 'class="frm-mayus"' : '' ?> <?= isset($c['ayuda']) ? 'placeholder="' . e((string) $c['ayuda']) . '"' : '' ?> autocomplete="off"></label>
+          <input type="<?= ($c['tipo'] ?? '') === 'email' ? 'email' : 'text' ?>" name="d[<?= e($c['k']) ?>]" maxlength="<?= (int) ($c['max'] ?? 200) ?>" value="<?= e($v) ?>" <?= !empty($c['req']) ? 'required' : '' ?> <?= $desdeCuenta ? 'readonly' : '' ?> <?= !empty($c['mayusculas']) ? 'class="frm-mayus"' : '' ?> <?= isset($c['ayuda']) ? 'placeholder="' . e((string) $c['ayuda']) . '"' : '' ?> autocomplete="off"></label>
       <?php endif; ?>
     <?php endforeach; ?>
     <?php if ($hayReq): ?></fieldset><?php endif; ?>

@@ -133,6 +133,9 @@ ni deben subirse a la carpeta pública). Cuenta rápida de alumno:
   *que* votó, nunca *qué* votó); cada voto genera un recibo público que no se guarda
   en la cuenta, la sesión ni el almacenamiento del navegador. El tablero
   `/encuestas/{id}/tablero` es accesible **sin login** para verificación ciudadana.
+- **Formularios y encuestas privadas**: los datos identificables solicitados por enlace usan el módulo
+  `Formularios`, con rol obligatorio para responder, autoridades configurables para consultar y exportación
+  `.xlsx`. No se mezclan con las votaciones anónimas. Ver `docs/ENCUESTAS_PRIVADAS.md`.
 - **Foro → trazabilidad**: una petición que reúne el umbral de likes (ajustable en
   Ajustes) pasa a `en_trazabilidad`; la Dirección/Subdirecciones/titular competente
   forma una comisión (detonadores: petición o reunión). Los profesores confirman su
