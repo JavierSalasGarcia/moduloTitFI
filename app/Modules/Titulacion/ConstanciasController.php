@@ -149,7 +149,13 @@ final class ConstanciasController extends TitulacionBase
     public function captura(): void
     {
         $this->soloHistorial();
-        $this->vista('constancias_captura', ['titulo' => 'Constancias · Captura de registros externos', 'protocolos' => HistoricoProtocolos::listar(100)]);
+        $f = ['q' => mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 80), 'carrera' => (string) ($_GET['carrera'] ?? ''), 'estado' => (string) ($_GET['estado'] ?? '')];
+        foreach (['desde', 'hasta'] as $k) {
+            $f[$k] = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) ($_GET[$k] ?? '')) ? (string) $_GET[$k] : '';
+        }
+        $pagina = max(1, (int) ($_GET['p'] ?? 1));
+        $r = HistoricoProtocolos::listar($f, 50, ($pagina - 1) * 50);
+        $this->vista('constancias_captura', ['titulo' => 'Constancias · Captura de registros externos', 'protocolos' => $r['filas'], 'total' => $r['total'], 'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina]);
     }
 
     /** Examen realizado fuera del sistema; con «generar» marcado también se generan sus constancias. */
@@ -196,6 +202,15 @@ final class ConstanciasController extends TitulacionBase
     public function protocoloGenerar(string $id): void
     {
         $this->soloHistorial();
+        if (!empty($_POST['json'])) {
+            try {
+                $n = HistoricoProtocolos::generar((int) $id, Auth::id());
+            } catch (\Throwable $e) {
+                $this->json(['ok' => false, 'error' => $e instanceof \InvalidArgumentException ? $e->getMessage() : 'No se pudo generar.'], 422);
+            }
+            Audit::record('titulacion::historial', 'correcto', 'Constancias de protocolo histórico ' . (int) $id . ': ' . $n);
+            $this->json(['ok' => true, 'generadas' => $n]);
+        }
         try {
             flash('exito', 'Constancias generadas: ' . HistoricoProtocolos::generar((int) $id, Auth::id()) . '.');
         } catch (\InvalidArgumentException $e) {
