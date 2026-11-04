@@ -59,6 +59,8 @@ $enlaceOrden = static function (string $col, string $rotulo) use ($f, $qs): stri
     <label style="flex:0 1 220px">Licenciatura <select name="carrera" required><option value="" selected disabled>Elige…</option><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>"><?= e($n) ?></option><?php endforeach; ?></select></label>
     <label style="flex:1 1 260px">Nombre completo del alumno nuevo <input name="alumno" maxlength="160" required placeholder="Apellidos y nombre, como en el libro"></label>
     <label style="flex:0 1 120px">Acta <input name="acta" inputmode="numeric" pattern="[0-9]*" maxlength="8"></label>
+    <label style="flex:0 1 170px">Fecha del examen <input type="date" name="fecha_examen" max="<?= e(date('Y-m-d')) ?>"></label>
+    <label style="flex:0 1 190px">Aprobación del protocolo <input type="date" name="fecha_protocolo" max="<?= e(date('Y-m-d')) ?>"></label>
     <button class="btn" type="submit">Crear registro</button>
   </form>
   <p class="texto-secundario" style="margin-top:6px">Solo para un registro anterior a la plataforma que no esté en la lista. Para encontrar uno existente usa «Buscar». Los trámites nuevos no se capturan aquí: sus constancias se generan solas.</p>
