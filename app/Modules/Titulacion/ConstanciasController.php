@@ -116,7 +116,12 @@ final class ConstanciasController extends TitulacionBase
         $f = [
             'q' => mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 80), 'carrera' => (string) ($_GET['carrera'] ?? ''),
             'faltantes' => (string) ($_GET['faltantes'] ?? ''), 'estado' => (string) ($_GET['estado'] ?? ''),
+            'orden' => in_array((string) ($_GET['orden'] ?? ''), Historico::ORDENABLES, true) ? (string) $_GET['orden'] : '',
+            'dir' => ($_GET['dir'] ?? '') === 'desc' ? 'desc' : 'asc',
         ];
+        foreach (['examen_desde', 'examen_hasta', 'protocolo_desde', 'protocolo_hasta'] as $k) {
+            $f[$k] = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) ($_GET[$k] ?? '')) ? (string) $_GET[$k] : '';
+        }
         $pagina = max(1, (int) ($_GET['p'] ?? 1));
         $r = Historico::listar($f, 100, ($pagina - 1) * 100);
         $this->vista('constancias_historico', ['titulo' => 'Constancias · Historial', 'f' => $f, 'filas' => $r['filas'], 'total' => $r['total'], 'pagina' => $pagina]);

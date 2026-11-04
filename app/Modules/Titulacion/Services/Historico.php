@@ -19,7 +19,7 @@ final class Historico
     /** Columnas editables del visor => [etiqueta, tipo]. */
     public const CAMPOS = [
         'acta' => ['Acta', 'numero'], 'alumno' => ['Alumno', 'texto'], 'cuenta' => ['Cuenta', 'texto'], 'carrera' => ['Licenciatura', 'carrera'],
-        'modalidad' => ['Modalidad', 'modalidad'], 'fecha_examen' => ['Fecha de evaluación', 'fecha'], 'titulo' => ['Título del trabajo', 'texto'],
+        'modalidad' => ['Modalidad', 'modalidad'], 'fecha_examen' => ['Fecha de evaluación', 'fecha'], 'fecha_protocolo' => ['Aprobación del protocolo', 'fecha'], 'titulo' => ['Título del trabajo', 'texto'],
         'testimonio' => ['Testimonio EGEL', 'testimonio'], 'vez' => ['Vez', 'vez'], 'fecha_aut_egel' => ['Aut. EGEL', 'fecha'], 'fecha_afinidad' => ['Afinidad CEA', 'fecha'],
         'director' => ['Director', 'texto'], 'director_email' => ['Correo del director', 'email'],
         'codirector' => ['Codirector', 'texto'], 'codirector_email' => ['Correo del codirector', 'email'],
@@ -131,6 +131,12 @@ final class Historico
         } elseif (($f['estado'] ?? '') === 'pendientes') {
             $donde[] = 'tramite_id IS NULL';
         }
+        foreach (['examen_desde' => ['fecha_examen', '>='], 'examen_hasta' => ['fecha_examen', '<='], 'protocolo_desde' => ['fecha_protocolo', '>='], 'protocolo_hasta' => ['fecha_protocolo', '<=']] as $k => [$col, $op]) {
+            if (self::fecha($f[$k] ?? '') !== null) {
+                $donde[] = "$col $op ?";
+                $p[] = self::fecha($f[$k]);
+            }
+        }
         $filas = Database::todas('SELECT * FROM tit_historico WHERE ' . implode(' AND ', $donde) . ' ORDER BY carrera, acta DESC, id DESC', $p);
         $campo = (string) ($f['faltantes'] ?? '');
         $salida = [];
@@ -152,8 +158,27 @@ final class Historico
             }
             $salida[] = $h;
         }
+        $orden = (string) ($f['orden'] ?? '');
+        if (in_array($orden, self::ORDENABLES, true)) {
+            $desc = ($f['dir'] ?? 'asc') === 'desc';
+            $clave = static function (array $h) use ($orden): string {
+                $v = $orden === 'constancias' ? (string) ($h['generado_en'] ?? '') : (string) ($h[$orden] ?? '');
+                return $orden === 'acta' ? sprintf('%012d', (int) $v) : self::norma($v);
+            };
+            // Los vacíos van siempre al final, sea cual sea el sentido.
+            usort($salida, static function (array $a, array $b) use ($clave, $desc): int {
+                [$x, $y] = [$clave($a), $clave($b)];
+                if (($x === '') !== ($y === '')) {
+                    return $x === '' ? 1 : -1;
+                }
+                return $desc ? strcmp($y, $x) : strcmp($x, $y);
+            });
+        }
         return ['total' => count($salida), 'filas' => array_slice($salida, $desde, $limite)];
     }
+
+    /** Columnas por las que se puede ordenar el visor. */
+    public const ORDENABLES = ['fecha_examen', 'fecha_protocolo', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal', 'acta', 'constancias'];
 
     /** Registro nuevo capturado por el personal (los del libro ya se cargaron). @return int id */
     public static function crear(string $carrera, string $alumno, ?int $acta, int $usuarioId): int

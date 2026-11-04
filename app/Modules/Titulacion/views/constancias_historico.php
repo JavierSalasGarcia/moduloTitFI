@@ -6,16 +6,29 @@ include __DIR__ . '/_estilos.php';
 $csrf = e(Auth::csrfToken());
 $modalidades = array_map(static fn(array $m): string => $m['nombre'], Catalogo::modalidades());
 $carreras = array_map(static fn(array $c): string => $c['nombre'], Catalogo::carreras());
-$columnas = ['fecha_examen', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'];
-$rotulos = ['fecha_examen' => 'Fecha del examen', 'carrera' => 'Lic.', 'alumno' => 'Alumno', 'titulo' => 'Título del trabajo', 'director' => 'Director de tesis',
+$columnas = ['fecha_examen', 'fecha_protocolo', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal'];
+$rotulos = ['fecha_examen' => 'Fecha del examen', 'fecha_protocolo' => 'Aprobación del protocolo', 'carrera' => 'Lic.', 'alumno' => 'Alumno', 'titulo' => 'Título del trabajo', 'director' => 'Director de tesis',
     'codirector' => 'Codirector de tesis', 'presidente' => 'Revisor del trabajo escrito', 'secretario' => 'Revisor del trabajo escrito', 'vocal' => 'Revisor del trabajo escrito'];
 $opciones = [
     'carrera' => array_map(static fn(array $c): string => $c['siglas'][0], Catalogo::carreras()), 'modalidad' => ['' => '—'] + $modalidades,
     'testimonio' => ['' => '—', 'satisfactorio' => 'Satisfactorio', 'sobresaliente' => 'Sobresaliente'], 'vez' => ['' => '—', 'primera' => 'Primera', 'segunda' => 'Segunda'],
 ];
 $qs = static fn(array $extra): string => http_build_query(array_filter($extra + $f, static fn($v): bool => $v !== '' && $v !== null));
+$enlaceOrden = static function (string $col, string $rotulo) use ($f, $qs): string {
+    $activa = ($f['orden'] ?? '') === $col;
+    $dir = $activa && ($f['dir'] ?? 'asc') === 'asc' ? 'desc' : 'asc';
+    $flecha = $activa ? (($f['dir'] ?? 'asc') === 'asc' ? ' ▲' : ' ▼') : '';
+    return '<a class="hist-orden" href="' . e(url('titulacion/constancias/historial?' . $qs(['orden' => $col, 'dir' => $dir, 'p' => '']))) . '" title="Ordenar por ' . e($rotulo) . '">' . e($rotulo) . $flecha . '</a>';
+};
 ?>
 <style>
+.hist-desliza{overflow-x:auto;overflow-y:hidden;height:16px;margin-bottom:2px}
+.hist-desliza div{height:1px}
+.hist-tabla{width:max-content;min-width:100%}
+.hist-tabla th{white-space:nowrap}
+.hist-orden{color:inherit;text-decoration:none}
+.hist-orden:hover{text-decoration:underline}
+.tabla-contenedor.hist-cont{overflow-x:auto;max-width:100%}
 .hist-tabla td{padding:2px 3px;vertical-align:top}
 .hist-tabla input,.hist-tabla select{width:100%;min-width:90px;font-size:13px;padding:3px 4px;border:1px solid transparent;background:transparent;color:inherit}
 .hist-tabla input[readonly]{cursor:default}
@@ -63,7 +76,12 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
       <?php foreach (['fecha_examen' => 'la fecha del examen', 'alumno' => 'el alumno', 'titulo' => 'el título del trabajo', 'director' => 'ningún profesor'] as $k => $et): ?><option value="<?= e($k) ?>" <?= $f['faltantes'] === $k ? 'selected' : '' ?>>Falta <?= e($et) ?></option><?php endforeach; ?>
     </select></label>
     <label>Constancias <select name="estado"><option value="">Todas</option><option value="pendientes" <?= $f['estado'] === 'pendientes' ? 'selected' : '' ?>>Sin generar</option><option value="generadas" <?= $f['estado'] === 'generadas' ? 'selected' : '' ?>>Generadas</option></select></label>
-    <div><button class="btn btn-primario" type="submit">Filtrar</button></div>
+    <label>Examen desde <input type="date" name="examen_desde" value="<?= e($f['examen_desde']) ?>"></label>
+    <label>Examen hasta <input type="date" name="examen_hasta" value="<?= e($f['examen_hasta']) ?>"></label>
+    <label>Protocolo aprobado desde <input type="date" name="protocolo_desde" value="<?= e($f['protocolo_desde']) ?>" title="Fecha de aprobación del protocolo (dictamen de la Comisión de Evaluación, del sistema anterior)"></label>
+    <label>Protocolo aprobado hasta <input type="date" name="protocolo_hasta" value="<?= e($f['protocolo_hasta']) ?>"></label>
+    <?php if ($f['orden'] !== ''): ?><input type="hidden" name="orden" value="<?= e($f['orden']) ?>"><input type="hidden" name="dir" value="<?= e($f['dir']) ?>"><?php endif; ?>
+    <div><button class="btn btn-primario" type="submit">Filtrar</button> <a class="btn" href="<?= url('titulacion/constancias/historial') ?>">Limpiar</a></div>
   </form>
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
     <span class="texto-secundario"><?= (int) $total ?> registros<?= $total > 100 ? ' · página ' . (int) $pagina . ' de ' . (int) ceil($total / 100) : '' ?></span>
@@ -84,8 +102,9 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
     </div>
   </div>
   <?php if (!$filas): ?><div class="ux-empty">Sin registros<?= $f['faltantes'] || $f['q'] || $f['carrera'] || $f['estado'] ? ' con ese filtro' : '' ?>.</div><?php else: ?>
-  <div class="tabla-contenedor"><table class="tabla hist-tabla" data-no-tools>
-    <thead><tr><th class="sel"><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos los que se pueden generar"></th><?php foreach ($columnas as $c): ?><th><?= e($rotulos[$c]) ?></th><?php endforeach; ?><th>Constancias</th></tr></thead>
+  <div class="hist-desliza" id="hist-desliza" aria-hidden="true"><div></div></div>
+  <div class="tabla-contenedor hist-cont" id="hist-cont"><table class="tabla hist-tabla" data-no-tools>
+    <thead><tr><th class="sel"><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos los que se pueden generar"></th><?php foreach ($columnas as $c): ?><th><?= in_array($c, Historico::ORDENABLES, true) ? $enlaceOrden($c, $rotulos[$c]) : e($rotulos[$c]) ?></th><?php endforeach; ?><th><?= $enlaceOrden('constancias', 'Constancias') ?></th></tr></thead>
     <tbody>
     <?php foreach ($filas as $h): ?>
       <tr data-id="<?= (int) $h['id'] ?>">
@@ -121,6 +140,15 @@ $qs = static fn(array $extra): string => http_build_query(array_filter($extra + 
 
 <script>
 (function () {
+  // Deslizador horizontal también arriba de la tabla, sincronizado con el de abajo.
+  var cont = document.getElementById('hist-cont'), arriba = document.getElementById('hist-desliza');
+  if (cont && arriba) {
+    var tabla = cont.querySelector('table'), sync = false;
+    var medir = function () { arriba.firstElementChild.style.width = tabla.scrollWidth + 'px'; arriba.style.display = tabla.scrollWidth > cont.clientWidth ? '' : 'none'; };
+    arriba.addEventListener('scroll', function () { if (!sync) { sync = true; cont.scrollLeft = arriba.scrollLeft; } sync = false; });
+    cont.addEventListener('scroll', function () { if (!sync) { sync = true; arriba.scrollLeft = cont.scrollLeft; } sync = false; });
+    window.addEventListener('resize', medir); medir();
+  }
   var csrf = <?= json_encode(Auth::csrfToken()) ?>, base = <?= json_encode(url('titulacion/constancias/historial/')) ?>;
   function enviar(url, datos) {
     var fd = new FormData(); fd.append('_csrf', csrf);
