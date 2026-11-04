@@ -52,7 +52,7 @@ Los avisos usan el correo de la plataforma (`correo.api_token` en `config.local.
 
 ## Firma electrónica: mientras no la aprueben los Consejos
 
-Mientras los HH. Consejos Académico y de Gobierno no aprueben la firma electrónica, los sellos que estampa la plataforma se rotulan **«CONFORMIDAD»** con la leyenda *registro interno; no sustituye la firma autógrafa*: sirven como evidencia de control interno (quién dio su visto bueno, cuándo y la huella SHA-256 del archivo), no como firma con validez legal. Los oficios y constancias que deban surtir efectos legales se firman en autógrafo. La **firma automática programada** (piloto) debe mantenerse apagada. Al aprobarse la firma electrónica, basta fijar el ajuste `titulacion_rotulo_firma` en `firma` para volver al rótulo «FIRMA ELECTRÓNICA».
+Mientras los HH. Consejos Académico y de Gobierno no aprueben la firma electrónica, los sellos que estampa la plataforma se rotulan **«CONFORMIDAD»** con la leyenda *Registro interno*: sirven como evidencia de control interno (quién dio su visto bueno, cuándo y la huella SHA-256 del archivo), no como firma con validez legal. Los oficios y constancias que deban surtir efectos legales se firman en autógrafo. La **firma automática programada** (piloto) debe mantenerse apagada. Al aprobarse la firma electrónica, basta fijar el ajuste `titulacion_rotulo_firma` en `firma` para volver al rótulo «FIRMA ELECTRÓNICA».
 
 ## Asesor y coasesor del trabajo
 

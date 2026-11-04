@@ -30,7 +30,7 @@ final class SelloPdf
             $cabecera = 'CONFORMIDAD' . substr($cabecera, strlen('FIRMA ELECTRÓNICA'));
         }
         if (self::modoInterno() && str_starts_with($cabecera, 'CONFORMIDAD')) {
-            $leyenda = ($leyenda !== null && $leyenda !== '' ? $leyenda . ' · registro' : 'Registro') . ' interno; no sustituye la firma autógrafa';
+            $leyenda = ($leyenda !== null && $leyenda !== '' ? $leyenda . ' · registro' : 'Registro') . ' interno';
         }
         if (!is_dir(dirname($salidaAbs))) {
             mkdir(dirname($salidaAbs), 0755, true);
