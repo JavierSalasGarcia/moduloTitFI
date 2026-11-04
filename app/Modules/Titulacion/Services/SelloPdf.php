@@ -25,6 +25,13 @@ final class SelloPdf
     public static function estampar(string $origenAbs, string $salidaAbs, ?int $pagina, float $centroMm, float $yMm, string $cabecera, array $lineas, ?string $leyenda = null): void
     {
         self::libs();
+        // Mientras los Consejos no aprueben la firma electrónica, el sello es un registro de conformidad para control interno.
+        if (self::modoInterno() && str_starts_with($cabecera, 'FIRMA ELECTRÓNICA')) {
+            $cabecera = 'CONFORMIDAD' . substr($cabecera, strlen('FIRMA ELECTRÓNICA'));
+        }
+        if (self::modoInterno() && str_starts_with($cabecera, 'CONFORMIDAD')) {
+            $leyenda = ($leyenda !== null && $leyenda !== '' ? $leyenda . ' · registro' : 'Registro') . ' interno; no sustituye la firma autógrafa';
+        }
         if (!is_dir(dirname($salidaAbs))) {
             mkdir(dirname($salidaAbs), 0755, true);
         }
@@ -63,6 +70,12 @@ final class SelloPdf
             }
         }
         $pdf->Output('F', $salidaAbs);
+    }
+
+    /** Ajuste «titulacion_rotulo_firma»: «conformidad» (por defecto) o «firma» cuando la firma electrónica esté aprobada. */
+    public static function modoInterno(): bool
+    {
+        return \ajuste('titulacion_rotulo_firma', 'conformidad') !== 'firma';
     }
 
     private static function l1(string $s): string
