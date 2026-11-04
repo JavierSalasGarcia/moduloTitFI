@@ -1,6 +1,7 @@
 <?php
 use App\Core\Auth;
 use App\Modules\Titulacion\Catalogo;
+use App\Modules\Titulacion\Services\HistoricoProtocolos;
 include __DIR__ . '/_estilos.php';
 $csrf = e(Auth::csrfToken());
 $carreras = array_map(static fn(array $c): string => $c['nombre'], Catalogo::carreras());
@@ -77,18 +78,31 @@ $opcCarrera = static function () use ($carreras): string {
 </section>
 
 <section class="tarjeta">
-  <h2>Protocolos capturados</h2>
-  <?php if (!$protocolos): ?><div class="ux-empty">Aún no se captura ningún protocolo.</div><?php else: ?>
+  <h2>Protocolos capturados e históricos</h2>
+  <p class="texto-secundario">Incluye los protocolos aprobados del sistema anterior (2004–2021) con todos los revisores que dictaminaron. Sus constancias se generan por lotes: filtra, y pulsa «Generar los pendientes del filtro». Cada constancia pasa a la cola de firmas.</p>
+  <form method="get" action="<?= url('titulacion/constancias/captura') ?>" class="tit-campos" style="margin-bottom:10px">
+    <label>Buscar <input type="search" name="q" value="<?= e($f['q']) ?>" placeholder="Alumno, cuenta, título o revisor"></label>
+    <label>Licenciatura <select name="carrera"><option value="">Todas</option><?php foreach ($carreras as $k => $n): ?><option value="<?= e($k) ?>" <?= $f['carrera'] === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <label>Constancias <select name="estado"><option value="">Todas</option><option value="pendientes" <?= $f['estado'] === 'pendientes' ? 'selected' : '' ?>>Sin generar</option><option value="generadas" <?= $f['estado'] === 'generadas' ? 'selected' : '' ?>>Generadas</option></select></label>
+    <label>Aprobado desde <input type="date" name="desde" value="<?= e($f['desde']) ?>"></label>
+    <label>Aprobado hasta <input type="date" name="hasta" value="<?= e($f['hasta']) ?>"></label>
+    <div><button class="btn btn-primario" type="submit">Filtrar</button> <a class="btn" href="<?= url('titulacion/constancias/captura') ?>">Limpiar</a></div>
+  </form>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+    <span class="texto-secundario"><?= (int) $total ?> protocolos<?= $total > 50 ? ' · página ' . (int) $pagina . ' de ' . (int) ceil($total / 50) : '' ?> · <?= count($pendientes) ?> sin constancias en este filtro</span>
+    <span><button type="button" class="btn btn-primario" id="gen-lote" <?= $pendientes ? '' : 'disabled' ?>>Generar los pendientes del filtro (<?= count($pendientes) ?>)</button> <span id="gen-estado" class="texto-secundario" role="status"></span></span>
+  </div>
+  <?php if (!$protocolos): ?><div class="ux-empty">Sin protocolos con ese filtro.</div><?php else: ?>
   <div class="tabla-contenedor"><table class="tabla" data-no-tools>
     <thead><tr><th>Aprobado</th><th>Lic.</th><th>Alumno</th><th>Título</th><th>Revisores</th><th>Constancias</th></tr></thead>
     <tbody>
-    <?php foreach ($protocolos as $p): ?>
+    <?php foreach ($protocolos as $p): $revs = HistoricoProtocolos::revisores($p); ?>
       <tr>
         <td><?= e((string) $p['fecha_aprobacion']) ?></td>
         <td><?= e(Catalogo::carreras()[$p['carrera']]['siglas'][0] ?? $p['carrera']) ?></td>
         <td><?= e($p['alumno']) ?></td>
         <td><?= e($p['titulo']) ?></td>
-        <td><?= e(implode('; ', array_filter([$p['revisor1'], $p['revisor2'], $p['revisor3']]))) ?></td>
+        <td title="<?= e(implode('; ', array_column($revs, 'nombre'))) ?>"><?= count($revs) ?>: <?= e(implode('; ', array_slice(array_column($revs, 'nombre'), 0, 3))) ?><?= count($revs) > 3 ? '…' : '' ?></td>
         <td style="white-space:nowrap">
           <?php if ($p['generado_en']): ?><span class="tit-chip ok">Generadas</span>
           <?php else: ?>
@@ -100,5 +114,37 @@ $opcCarrera = static function () use ($carreras): string {
     <?php endforeach; ?>
     </tbody>
   </table></div>
+  <?php if ($total > 50): $qs = static fn(array $x): string => http_build_query(array_filter($x + $f, static fn($v): bool => $v !== '' && $v !== null)); ?>
+    <div class="acciones-formulario">
+      <?php if ($pagina > 1): ?><a class="btn" href="<?= url('titulacion/constancias/captura?' . $qs(['p' => $pagina - 1])) ?>">Anterior</a><?php endif; ?>
+      <?php if ($pagina * 50 < $total): ?><a class="btn" href="<?= url('titulacion/constancias/captura?' . $qs(['p' => $pagina + 1])) ?>">Siguiente</a><?php endif; ?>
+    </div>
+  <?php endif; ?>
   <?php endif; ?>
 </section>
+
+<script>
+(function () {
+  var b = document.getElementById('gen-lote'), est = document.getElementById('gen-estado');
+  if (!b) { return; }
+  var ids = <?= json_encode($pendientes) ?>, csrf = <?= json_encode(Auth::csrfToken()) ?>, base = <?= json_encode(url('titulacion/constancias/captura/protocolo/')) ?>;
+  b.addEventListener('click', function () {
+    if (!ids.length || !confirm('¿Generar las constancias de ' + ids.length + ' protocolos? Cada uno genera una constancia por revisor y todas pasan a la cola de firmas. Puede tardar varios minutos: no cierres la página.')) { return; }
+    b.disabled = true;
+    var hechos = 0, constancias = 0, errores = 0, detener = false;
+    function siguiente() {
+      if (detener || hechos + errores >= ids.length) {
+        est.textContent = 'Listo: ' + hechos + ' protocolos, ' + constancias + ' constancias' + (errores ? ', ' + errores + ' con error' : '') + '. Recarga para ver el estado.';
+        b.disabled = false; return;
+      }
+      var fd = new FormData(); fd.append('_csrf', csrf); fd.append('json', '1');
+      fetch(base + ids[hechos + errores] + '/generar', { method: 'POST', body: fd, credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (r) { if (r.ok) { hechos++; constancias += r.generadas; } else { errores++; if (errores >= 10) { detener = true; } } })
+        .catch(function () { errores++; if (errores >= 10) { detener = true; } })
+        .then(function () { est.textContent = (hechos + errores) + ' de ' + ids.length + '…'; siguiente(); });
+    }
+    siguiente();
+  });
+})();
+</script>

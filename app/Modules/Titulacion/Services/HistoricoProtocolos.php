@@ -63,9 +63,54 @@ final class HistoricoProtocolos
         return Database::ejecutar('INSERT INTO tit_historico_protocolos (`' . implode('`,`', array_keys($cols)) . '`) VALUES (' . implode(',', array_fill(0, count($cols), '?')) . ')', array_values($cols));
     }
 
-    public static function listar(int $limite = 200): array
+    /** Todos los revisores del registro: las tres columnas y, si hay más, los de revisores_mas. @return list<array{nombre:string,email:string}> */
+    public static function revisores(array $h): array
     {
-        return Database::todas('SELECT * FROM tit_historico_protocolos ORDER BY id DESC LIMIT ' . (int) $limite);
+        $r = [];
+        foreach (self::REVISORES as $i) {
+            if (trim((string) $h["revisor$i"]) !== '') {
+                $r[] = ['nombre' => trim((string) $h["revisor$i"]), 'email' => (string) $h["revisor{$i}_email"]];
+            }
+        }
+        foreach (json_decode((string) ($h['revisores_mas'] ?? ''), true) ?: [] as $x) {
+            if (trim((string) ($x['nombre'] ?? '')) !== '') {
+                $r[] = ['nombre' => trim((string) $x['nombre']), 'email' => (string) ($x['email'] ?? '')];
+            }
+        }
+        return $r;
+    }
+
+    /** @param array{q?:string,carrera?:string,estado?:string,desde?:string,hasta?:string} $f @return array{total:int,filas:array} */
+    public static function listar(array $f = [], int $limite = 50, int $desde = 0): array
+    {
+        $donde = ['1 = 1'];
+        $p = [];
+        if (($f['carrera'] ?? '') !== '') {
+            $donde[] = 'carrera = ?';
+            $p[] = $f['carrera'];
+        }
+        if (($f['q'] ?? '') !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], (string) $f['q']) . '%';
+            $donde[] = '(alumno LIKE ? OR cuenta LIKE ? OR titulo LIKE ? OR revisor1 LIKE ? OR revisor2 LIKE ? OR revisor3 LIKE ? OR revisores_mas LIKE ?)';
+            array_push($p, $like, $like, $like, $like, $like, $like, $like);
+        }
+        if (($f['estado'] ?? '') === 'generadas') {
+            $donde[] = 'tramite_id IS NOT NULL';
+        } elseif (($f['estado'] ?? '') === 'pendientes') {
+            $donde[] = 'tramite_id IS NULL';
+        }
+        foreach (['desde' => '>=', 'hasta' => '<='] as $k => $op) {
+            if (self::fecha($f[$k] ?? '') !== null) {
+                $donde[] = "fecha_aprobacion $op ?";
+                $p[] = $f[$k];
+            }
+        }
+        $w = implode(' AND ', $donde);
+        return [
+            'total' => (int) Database::valor("SELECT COUNT(*) FROM tit_historico_protocolos WHERE $w", $p),
+            'filas' => Database::todas("SELECT * FROM tit_historico_protocolos WHERE $w ORDER BY fecha_aprobacion DESC, id DESC LIMIT " . (int) $limite . ' OFFSET ' . (int) $desde, $p),
+            'ids_pendientes' => array_map('intval', array_column(Database::todas("SELECT id FROM tit_historico_protocolos WHERE tramite_id IS NULL AND $w ORDER BY id LIMIT 5000", $p), 'id')),
+        ];
     }
 
     public static function eliminar(int $id): void
@@ -88,12 +133,10 @@ final class HistoricoProtocolos
         $detalle = ['desde' => (string) ($h['fecha_inicio'] ?: $h['fecha_aprobacion']), 'hasta' => (string) $h['fecha_aprobacion'], 'vueltas' => ''];
         $n = 0;
         $vistos = [];
-        foreach (self::REVISORES as $i) {
-            if (trim((string) $h["revisor$i"]) === '') {
-                continue;
-            }
-            $persona = Historico::persona((string) $h["revisor$i"], (string) $h["revisor{$i}_email"]);
-            $quien = strtolower(trim((string) ($persona['email'] ?? ''))) ?: mb_strtoupper(trim((string) $h["revisor$i"]));
+        foreach (self::revisores($h) as $k => $r) {
+            $i = $k + 1;
+            $persona = Historico::persona($r['nombre'], $r['email']);
+            $quien = strtolower(trim((string) ($persona['email'] ?? ''))) ?: mb_strtoupper($r['nombre']);
             if (isset($vistos[$quien])) {
                 continue;   // repetido: una sola constancia por persona
             }
