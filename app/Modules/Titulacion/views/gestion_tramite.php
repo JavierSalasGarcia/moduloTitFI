@@ -149,6 +149,30 @@ $chips = [
 </div>
 
 <aside style="display:flex;flex-direction:column;gap:18px">
+  <?php if ($t['tipo'] === 'con_trabajo'): $pr = $t['datos']['protocolo'] ?? []; $ad = $t['datos']['adicional'] ?? [];
+        $sugerido = ['asesor' => (string) ($ad['cambio_asesor']['propuesto'] ?? ''), 'coasesor' => (string) ($ad['coasesoria']['coasesor'] ?? '')]; ?>
+  <section class="tarjeta">
+    <h2 style="font-size:16px">Asesor y coasesor</h2>
+    <p class="texto-secundario" style="margin:0 0 8px">De aquí salen las constancias de director y codirector. Si el Comité o los Consejos autorizaron un cambio, regístralo; la solicitud del pasante por sí sola no cambia nada.</p>
+    <?php foreach (['asesor' => 'Asesor (director)', 'coasesor' => 'Coasesor (codirector)'] as $rol => $rotulo): ?>
+      <details style="margin-bottom:6px">
+        <summary><strong><?= e($rotulo) ?>:</strong> <?= e(trim((string) ($pr[$rol . '_grado'] ?? '') . ' ' . (string) ($pr[$rol] ?? '')) ?: '—') ?></summary>
+        <?php if ($sugerido[$rol] !== ''): ?><p class="texto-secundario">El pasante propuso: «<?= e($sugerido[$rol]) ?>».</p><?php endif; ?>
+        <form method="post" action="<?= url('titulacion/gestion/' . (int) $t['id'] . '/profesor/' . $rol) ?>" style="display:flex;flex-direction:column;gap:6px"
+              onsubmit="return confirm('¿Registrar este cambio? Si ya hay constancias de este profesor, se rehacen y vuelven a firma.')">
+          <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+          <label>Nombre <input name="nombre" maxlength="160" value="<?= e((string) ($pr[$rol] ?? '')) ?>" <?= $rol === 'asesor' ? 'required' : '' ?>></label>
+          <label>Grado <input name="grado" maxlength="30" value="<?= e((string) ($pr[$rol . '_grado'] ?? '')) ?>" placeholder="Dr., Mtra., Ing."></label>
+          <label>Correo <input type="email" name="correo" maxlength="120" value="<?= e((string) ($pr[$rol . '_correo'] ?? '')) ?>"></label>
+          <label>Género <select name="genero"><option value="">—</option><?php foreach (['masculino' => 'Masculino', 'femenino' => 'Femenino'] as $k => $n): ?><option value="<?= e($k) ?>" <?= ($pr[$rol . '_genero'] ?? '') === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
+          <?php if ($rol === 'coasesor'): ?><span class="texto-secundario">Deja el nombre vacío para dar de baja al coasesor.</span><?php endif; ?>
+          <button class="btn btn-primario" type="submit">Registrar</button>
+        </form>
+      </details>
+    <?php endforeach; ?>
+    <?php foreach ($t['datos']['cambios_profesor'] ?? [] as $c): ?><div class="texto-secundario"><?= e((string) $c['fecha']) ?> · <?= e((string) $c['rol']) ?>: <?= e((string) ($c['antes'] ?: '—')) ?> → <?= e((string) ($c['despues'] ?: '—')) ?></div><?php endforeach; ?>
+  </section>
+  <?php endif; ?>
   <section class="tarjeta">
     <h2 style="font-size:16px">Pasante</h2>
     <p style="margin:0"><strong><?= e((string) ($p['nombre'] ?? $t['alumno_nombre'])) ?></strong><br>

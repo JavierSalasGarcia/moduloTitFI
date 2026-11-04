@@ -87,6 +87,25 @@ final class Expedientes
         return $res;
     }
 
+    /** Trámites con trabajo escrito de la plataforma (no históricos) de la misma persona: por cuenta o por nombre exacto. @return list<array<string,mixed>> */
+    public static function tramitesPlataforma(string $carrera, string $cuenta, string $nombre): array
+    {
+        $cuenta = trim($cuenta);
+        $n = self::norma($nombre);
+        $res = [];
+        foreach (Database::todas("SELECT id, folio, modalidad, estado, etapa_actual, datos FROM tit_tramites WHERE historico = 0 AND tipo = 'con_trabajo' ORDER BY id DESC") as $t) {
+            $d = json_decode((string) $t['datos'], true) ?: [];
+            if ((string) ($d['datos']['carrera'] ?? '') !== $carrera) {
+                continue;
+            }
+            $c = trim((string) ($d['datos']['cuenta'] ?? ''));
+            if (($cuenta !== '' && $c === $cuenta) || ($n !== '' && self::norma((string) ($d['datos']['nombre'] ?? '')) === $n)) {
+                $res[] = ['id' => (int) $t['id'], 'folio' => $t['folio'], 'modalidad' => $t['modalidad'], 'estado' => $t['estado'], 'etapa' => $t['etapa_actual'], 'nombre' => (string) ($d['datos']['nombre'] ?? ''), 'cuenta' => $c];
+            }
+        }
+        return $res;
+    }
+
     private static function protocoloDe(int $historicoId): ?array
     {
         return Database::una('SELECT * FROM tit_historico_protocolos WHERE historico_id = ?', [$historicoId]);
@@ -123,6 +142,9 @@ final class Expedientes
     {
         $tabla = $tabla === 'protocolo' ? 'tit_historico_protocolos' : 'tit_historico';
         $cuenta = trim($cuenta);
+        if ($tp = self::tramitesPlataforma($carrera, $cuenta, $cuenta === '' ? $alumno : '')) {
+            return 'Esta persona ya tiene el trámite ' . $tp[0]['folio'] . ' en la plataforma; sus constancias se generan solas al avanzar ese trámite. No lo captures aquí.';
+        }
         if ($cuenta !== '' && ($otro = Database::una("SELECT id, alumno FROM $tabla WHERE carrera = ? AND cuenta = ? AND id <> ? LIMIT 1", [$carrera, $cuenta, $excluir]))) {
             return 'Ya existe un registro de ' . $otro['alumno'] . ' con la cuenta ' . $cuenta . ' en esta licenciatura. Búscalo arriba y complétalo en lugar de crear otro.';
         }

@@ -342,6 +342,10 @@
       "App\\Modules\\Titulacion\\GestionController",
       "reabrir"
     ],
+    "POST /titulacion/gestion/{id}/profesor/{rol}": [
+      "App\\Modules\\Titulacion\\GestionController",
+      "profesor"
+    ],
     "POST /titulacion/gestion/{id}/mensaje": [
       "App\\Modules\\Titulacion\\GestionController",
       "mensaje"

@@ -160,11 +160,13 @@ final class ConstanciasController extends TitulacionBase
         // Búsqueda del expediente (primer paso de toda captura): licenciatura + cuenta o nombre.
         $b = ['carrera' => (string) ($_GET['b_carrera'] ?? ''), 'cuenta' => mb_substr(trim((string) ($_GET['b_cuenta'] ?? '')), 0, 12), 'alumno' => mb_substr(trim((string) ($_GET['b_alumno'] ?? '')), 0, 160)];
         $expedientes = null;
+        $tramites = [];
         if (isset($_GET['buscar']) && isset(Catalogo::carreras()[$b['carrera']]) && ($b['cuenta'] !== '' || mb_strlen($b['alumno']) >= 3)) {
             $expedientes = Expedientes::buscar($b['carrera'], $b['cuenta'], $b['alumno']);
+            $tramites = Expedientes::tramitesPlataforma($b['carrera'], $b['cuenta'], $b['alumno']);
         }
         $this->vista('constancias_captura', ['titulo' => 'Constancias · Registrar o completar un expediente', 'protocolos' => $r['filas'], 'total' => $r['total'],
-            'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina, 'b' => $b, 'expedientes' => $expedientes]);
+            'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina, 'b' => $b, 'expedientes' => $expedientes, 'tramites' => $tramites]);
     }
 
     /** Vuelve a la búsqueda del expediente recién tocado para ver cómo quedó. */

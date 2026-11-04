@@ -404,6 +404,63 @@ final class GestionController extends TitulacionBase
         redirigir('titulacion/gestion/' . $t['id']);
     }
 
+    /**
+     * Aplica al trámite un cambio de asesor o la incorporación o baja del coasesor, ya autorizado por el Comité o los Consejos
+     * (la solicitud del pasante solo genera el formato). Las constancias de director y codirector salen de estos datos.
+     */
+    public function profesor(string $id, string $rol): void
+    {
+        $t = $this->tramite($id, true);
+        if (!in_array($rol, ['asesor', 'coasesor'], true) || $t['tipo'] !== 'con_trabajo') {
+            $this->noEncontrado();
+        }
+        $nombre = mb_substr(trim($this->post('nombre')), 0, 160);
+        $correo = strtolower(mb_substr(trim($this->post('correo')), 0, 120));
+        $grado = mb_substr(trim($this->post('grado')), 0, 30);
+        $genero = in_array($this->post('genero'), ['masculino', 'femenino'], true) ? $this->post('genero') : '';
+        $quitar = $rol === 'coasesor' && $nombre === '';
+        if (!$quitar && ($nombre === '' || !filter_var($correo, FILTER_VALIDATE_EMAIL) || $grado === '' || $genero === '')) {
+            flash('error', 'Captura nombre, correo válido, grado y género de la persona.');
+            redirigir('titulacion/gestion/' . $t['id']);
+        }
+        $datos = $t['datos'];
+        $antes = trim((string) ($datos['protocolo'][$rol] ?? ''));
+        foreach ([$rol, $rol . '_correo', $rol . '_grado', $rol . '_genero'] as $k) {
+            $datos['protocolo'][$k] = '';
+        }
+        if (!$quitar) {
+            $datos['protocolo'][$rol] = $nombre;
+            $datos['protocolo'][$rol . '_correo'] = $correo;
+            $datos['protocolo'][$rol . '_grado'] = $grado;
+            $datos['protocolo'][$rol . '_genero'] = $genero;
+        }
+        $datos['cambios_profesor'][] = ['rol' => $rol, 'antes' => $antes, 'despues' => $quitar ? '' : $nombre, 'fecha' => date('Y-m-d H:i'), 'por' => Auth::id()];
+        TitulacionRepository::guardarDatos((int) $t['id'], $datos);
+        $detalle = ($rol === 'asesor' ? 'Cambio de asesor' : ($quitar ? 'Baja del coasesor' : 'Coasesor')) . ': ' . ($antes !== '' ? $antes : '—') . ' → ' . ($quitar ? '—' : $nombre);
+        TitulacionRepository::evento((int) $t['id'], Auth::id(), 'hito', $detalle . ' (registrado por el departamento).', true);
+        Audit::record('titulacion::profesor', 'correcto', 'Trámite ' . $t['id'] . ' · ' . $detalle);
+        $texto = 'Se registró: ' . $detalle . '.';
+        // Si el resultado ya se registró, las constancias de director y codirector se rehacen con la persona correcta.
+        $res = TitulacionRepository::hitos((int) $t['id'])['resultado']['datos'] ?? null;
+        if ($res && ($res['resultado'] ?? '') !== 'aplazado' && ($res['fecha'] ?? '') !== '') {
+            try {
+                $t = TitulacionRepository::obtener((int) $t['id']) ?? $t;
+                if ($quitar) {
+                    foreach (Database::todas("SELECT * FROM tit_constancias WHERE tramite_id = ? AND rol = 'codirector'", [(int) $t['id']]) as $c) {
+                        Services\Constancias::anular($c);
+                    }
+                }
+                Services\Constancias::resultado($t, (string) $res['fecha'], Auth::id());
+                $texto .= ' Las constancias de director y codirector se actualizaron y vuelven a firma.';
+            } catch (Throwable $e) {
+                error_log('Titulación: no se rehicieron las constancias tras el cambio de profesor: ' . $e->getMessage());
+                $texto .= ' No se pudieron rehacer las constancias; avisa a un administrador.';
+            }
+        }
+        flash('exito', $texto);
+        redirigir('titulacion/gestion/' . $t['id']);
+    }
+
     public function mensaje(string $id): void
     {
         $t = $this->tramite($id, true);

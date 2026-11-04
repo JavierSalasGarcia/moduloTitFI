@@ -49,3 +49,11 @@ Requiere `database/migrations/019_titulacion_revision_protocolos.sql`. El menú 
 El correo del evaluador lleva un enlace personal (`/titulacion/revision/t/<token>`). El token es aleatorio de 256 bits, se guarda solo su huella SHA-256, abre únicamente esa asignación y vence a la fecha límite más la vigencia extra; un recordatorio lo reemplaza y el anterior deja de funcionar. Con el enlace se puede leer el protocolo y guardar borradores sin cuenta, y un banner (no una notificación del navegador) indica que para firmar hace falta una cuenta verificada con ese mismo correo; si ya hay sesión con ese correo, el enlace redirige a la vista normal. Quienes asignan, turnan o dictaminan siempre inician sesión. Los intentos con tokens inválidos tienen límite por IP y quedan en la bitácora de auditoría.
 
 Los avisos usan el correo de la plataforma (`correo.api_token` en `config.local.php`); sin ese token no se envían (en modo `debug` se registran en `storage/logs/titulacion-correos.log`).
+
+## Firma electrónica: mientras no la aprueben los Consejos
+
+Mientras los HH. Consejos Académico y de Gobierno no aprueben la firma electrónica, los sellos que estampa la plataforma se rotulan **«CONFORMIDAD»** con la leyenda *registro interno; no sustituye la firma autógrafa*: sirven como evidencia de control interno (quién dio su visto bueno, cuándo y la huella SHA-256 del archivo), no como firma con validez legal. Los oficios y constancias que deban surtir efectos legales se firman en autógrafo. La **firma automática programada** (piloto) debe mantenerse apagada. Al aprobarse la firma electrónica, basta fijar el ajuste `titulacion_rotulo_firma` en `firma` para volver al rótulo «FIRMA ELECTRÓNICA».
+
+## Asesor y coasesor del trabajo
+
+Las constancias de director y codirector salen de `datos.protocolo` del trámite. Una solicitud de cambio de asesor o de coasesoría solo genera el formato; cuando el Comité o los Consejos la autorizan, el personal la registra en el expediente (panel «Asesor y coasesor»). Si el resultado ya estaba registrado, las constancias de director y codirector se rehacen sobre el mismo archivo y vuelven a firma.

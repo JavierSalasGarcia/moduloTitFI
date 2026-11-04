@@ -104,6 +104,13 @@ $formExamen = static function (array $d, bool $homonimo, array $modalidades) use
   </form>
 </section>
 
+<?php if ($expedientes !== null && $tramites): ?>
+<section class="tarjeta" style="margin-bottom:14px;border-left:4px solid #D97706">
+  <strong>Esta persona ya tiene trámite en la plataforma</strong>
+  <?php foreach ($tramites as $tp): ?><div><a href="<?= url('titulacion/gestion/' . (int) $tp['id']) ?>"><?= e($tp['folio']) ?></a> · <?= e($tp['nombre']) ?> · <?= e(Catalogo::modalidad((string) $tp['modalidad'])['nombre'] ?? $tp['modalidad']) ?> · <?= e((string) (Catalogo::estadosTramite()[$tp['estado']] ?? $tp['estado'])) ?> (etapa: <?= e((string) $tp['etapa']) ?>)</div><?php endforeach; ?>
+  <p class="texto-secundario" style="margin:6px 0 0">Sus constancias se generan solas al avanzar ese trámite; por eso no se permite capturarla de nuevo aquí.</p>
+</section>
+<?php endif; ?>
 <?php if ($expedientes !== null): $d0 = ['carrera' => $b['carrera'], 'cuenta' => $b['cuenta'], 'alumno' => $b['alumno']]; ?>
 <section class="tarjeta" style="margin-bottom:14px">
   <h2>2. <?= $expedientes ? count($expedientes) . ' expediente(s) encontrado(s)' : 'No hay ningún expediente de esa persona' ?></h2>
