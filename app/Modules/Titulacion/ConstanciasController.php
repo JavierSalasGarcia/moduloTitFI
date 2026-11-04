@@ -6,6 +6,7 @@ namespace App\Modules\Titulacion;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Modules\Titulacion\Services\Constancias;
+use App\Modules\Titulacion\Services\Expedientes;
 use App\Modules\Titulacion\Services\Historico;
 use App\Modules\Titulacion\Services\HistoricoProtocolos;
 use App\Modules\Titulacion\Services\Oficios;
@@ -156,16 +157,30 @@ final class ConstanciasController extends TitulacionBase
         }
         $pagina = max(1, (int) ($_GET['p'] ?? 1));
         $r = HistoricoProtocolos::listar($f, 50, ($pagina - 1) * 50);
-        $this->vista('constancias_captura', ['titulo' => 'Constancias · Captura de registros externos', 'protocolos' => $r['filas'], 'total' => $r['total'], 'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina]);
+        // Búsqueda del expediente (primer paso de toda captura): licenciatura + cuenta o nombre.
+        $b = ['carrera' => (string) ($_GET['b_carrera'] ?? ''), 'cuenta' => mb_substr(trim((string) ($_GET['b_cuenta'] ?? '')), 0, 12), 'alumno' => mb_substr(trim((string) ($_GET['b_alumno'] ?? '')), 0, 160)];
+        $expedientes = null;
+        if (isset($_GET['buscar']) && isset(Catalogo::carreras()[$b['carrera']]) && ($b['cuenta'] !== '' || mb_strlen($b['alumno']) >= 3)) {
+            $expedientes = Expedientes::buscar($b['carrera'], $b['cuenta'], $b['alumno']);
+        }
+        $this->vista('constancias_captura', ['titulo' => 'Constancias · Registrar o completar un expediente', 'protocolos' => $r['filas'], 'total' => $r['total'],
+            'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina, 'b' => $b, 'expedientes' => $expedientes]);
     }
 
-    /** Examen realizado fuera del sistema; con «generar» marcado también se generan sus constancias. */
+    /** Vuelve a la búsqueda del expediente recién tocado para ver cómo quedó. */
+    private function volverAlExpediente(): never
+    {
+        $q = http_build_query(['buscar' => 1, 'b_carrera' => (string) ($_POST['carrera'] ?? ''), 'b_cuenta' => (string) ($_POST['cuenta'] ?? ''), 'b_alumno' => (string) ($_POST['alumno'] ?? '')]);
+        redirigir('titulacion/constancias/captura?' . $q);
+    }
+
+    /** Examen definitivo: completa el registro existente o crea uno; con «generar» marcado también se generan sus constancias. */
     public function capturaExamen(): void
     {
         $this->soloHistorial();
         try {
-            $id = Historico::capturar($_POST, Auth::id());
-            $texto = 'Examen capturado.';
+            $id = Expedientes::registrarExamen($_POST, Auth::id());
+            $texto = 'Examen definitivo guardado.';
             if (!empty($_POST['generar'])) {
                 try {
                     $texto .= ' Constancias generadas: ' . Historico::generar($id, Auth::id()) . '; ya están en la cola de firmas.';
@@ -175,29 +190,59 @@ final class ConstanciasController extends TitulacionBase
             }
         } catch (\InvalidArgumentException $e) {
             flash('error', $e->getMessage());
-            redirigir('titulacion/constancias/captura');
+            $this->volverAlExpediente();
         }
-        Audit::record('titulacion::historial', 'correcto', 'Examen externo capturado ' . $id);
+        Audit::record('titulacion::historial', 'correcto', 'Examen definitivo capturado ' . $id);
         flash('exito', $texto);
-        redirigir('titulacion/constancias/captura');
+        $this->volverAlExpediente();
+    }
+
+    /** Examen previo del trabajo escrito. */
+    public function capturaPrevio(): void
+    {
+        $this->soloHistorial();
+        try {
+            $r = Expedientes::registrarPrevio($_POST, Auth::id());
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+            $this->volverAlExpediente();
+        }
+        Audit::record('titulacion::historial', 'correcto', 'Examen previo capturado ' . json_encode($r));
+        flash('exito', 'Examen previo guardado.');
+        $this->volverAlExpediente();
+    }
+
+    /** Une un protocolo con un examen que son la misma persona (confirmación de una coincidencia probable). */
+    public function capturaLigar(): void
+    {
+        $this->soloHistorial();
+        try {
+            Expedientes::ligar((int) ($_POST['protocolo_id'] ?? 0), (int) ($_POST['historico_id'] ?? 0), Auth::id());
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+            $this->volverAlExpediente();
+        }
+        Audit::record('titulacion::historial', 'correcto', 'Expediente ligado: protocolo ' . (int) $_POST['protocolo_id'] . ' con examen ' . (int) $_POST['historico_id']);
+        flash('exito', 'Protocolo y examen ligados en un solo expediente.');
+        $this->volverAlExpediente();
     }
 
     public function capturaProtocolo(): void
     {
         $this->soloHistorial();
         try {
-            $id = HistoricoProtocolos::crear($_POST, Auth::id());
-            $texto = 'Protocolo capturado.';
+            $id = Expedientes::registrarProtocolo($_POST, Auth::id());
+            $texto = 'Protocolo guardado.';
             if (!empty($_POST['generar'])) {
                 $texto .= ' Constancias generadas: ' . HistoricoProtocolos::generar($id, Auth::id()) . '; ya están en la cola de firmas.';
             }
         } catch (\InvalidArgumentException $e) {
             flash('error', $e->getMessage());
-            redirigir('titulacion/constancias/captura');
+            $this->volverAlExpediente();
         }
         Audit::record('titulacion::historial', 'correcto', 'Protocolo externo capturado ' . $id);
         flash('exito', $texto);
-        redirigir('titulacion/constancias/captura');
+        $this->volverAlExpediente();
     }
 
     public function protocoloGenerar(string $id): void

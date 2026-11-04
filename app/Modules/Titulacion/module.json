@@ -241,7 +241,7 @@
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Captura de registros externos",
+      "titulo": "Registrar o completar un expediente",
       "ruta": "titulacion/constancias/captura",
       "grupo": "Constancias y oficios",
       "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
@@ -667,6 +667,14 @@
     "POST /titulacion/constancias/captura/examen": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "capturaExamen"
+    ],
+    "POST /titulacion/constancias/captura/previo": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "capturaPrevio"
+    ],
+    "POST /titulacion/constancias/captura/ligar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "capturaLigar"
     ],
     "POST /titulacion/constancias/captura/protocolo": [
       "App\\Modules\\Titulacion\\ConstanciasController",

@@ -19,7 +19,7 @@ final class Historico
     /** Columnas editables del visor => [etiqueta, tipo]. */
     public const CAMPOS = [
         'acta' => ['Acta', 'numero'], 'alumno' => ['Alumno', 'texto'], 'cuenta' => ['Cuenta', 'texto'], 'carrera' => ['Licenciatura', 'carrera'],
-        'modalidad' => ['Modalidad', 'modalidad'], 'fecha_examen' => ['Fecha de evaluación', 'fecha'], 'fecha_protocolo' => ['Aprobación del protocolo', 'fecha'], 'titulo' => ['Título del trabajo', 'texto'],
+        'modalidad' => ['Modalidad', 'modalidad'], 'fecha_examen' => ['Fecha de evaluación', 'fecha'], 'fecha_protocolo' => ['Aprobación del protocolo', 'fecha'], 'fecha_previo' => ['Examen previo', 'fecha'], 'acta_previo' => ['Acta del examen previo', 'numero'], 'titulo' => ['Título del trabajo', 'texto'],
         'testimonio' => ['Testimonio EGEL', 'testimonio'], 'vez' => ['Vez', 'vez'], 'fecha_aut_egel' => ['Aut. EGEL', 'fecha'], 'fecha_afinidad' => ['Afinidad CEA', 'fecha'],
         'director' => ['Director', 'texto'], 'director_email' => ['Correo del director', 'email'],
         'codirector' => ['Codirector', 'texto'], 'codirector_email' => ['Correo del codirector', 'email'],
@@ -178,7 +178,7 @@ final class Historico
     }
 
     /** Columnas por las que se puede ordenar el visor. */
-    public const ORDENABLES = ['fecha_examen', 'fecha_protocolo', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal', 'acta', 'constancias'];
+    public const ORDENABLES = ['fecha_examen', 'fecha_protocolo', 'fecha_previo', 'carrera', 'alumno', 'titulo', 'director', 'codirector', 'presidente', 'secretario', 'vocal', 'acta', 'constancias'];
 
     /** Registro nuevo capturado por el personal (los del libro ya se cargaron). @return int id */
     public static function crear(string $carrera, string $alumno, ?int $acta, int $usuarioId): int
@@ -205,7 +205,7 @@ final class Historico
         $acta = trim((string) ($in['acta'] ?? ''));
         $id = self::crear((string) ($in['carrera'] ?? ''), (string) ($in['alumno'] ?? ''), ctype_digit($acta) ? (int) $acta : null, $usuarioId);
         try {
-            foreach (['cuenta', 'modalidad', 'fecha_examen', 'fecha_protocolo', 'titulo', 'director', 'director_email', 'codirector', 'codirector_email',
+            foreach (['cuenta', 'modalidad', 'fecha_examen', 'fecha_protocolo', 'fecha_previo', 'acta_previo', 'titulo', 'director', 'director_email', 'codirector', 'codirector_email',
                 'presidente', 'presidente_email', 'secretario', 'secretario_email', 'vocal', 'vocal_email'] as $campo) {
                 if (trim((string) ($in[$campo] ?? '')) !== '') {
                     self::guardarCampo($id, $campo, (string) $in[$campo], $usuarioId);
@@ -216,6 +216,23 @@ final class Historico
             throw $e;
         }
         return $id;
+    }
+
+    /** Las tres etapas van en orden: protocolo, examen previo y examen definitivo. */
+    public static function cronologia(array $f): void
+    {
+        $orden = ['fecha_protocolo' => 'la aprobación del protocolo', 'fecha_previo' => 'el examen previo', 'fecha_examen' => 'el examen definitivo'];
+        $antes = null;
+        foreach ($orden as $k => $nombre) {
+            $v = (string) ($f[$k] ?? '');
+            if ($v === '') {
+                continue;
+            }
+            if ($antes !== null && $v < $antes[1]) {
+                throw new \InvalidArgumentException(ucfirst($nombre) . ' (' . $v . ') no puede ser anterior a ' . $antes[0] . ' (' . $antes[1] . ').');
+            }
+            $antes = [$nombre, $v];
+        }
     }
 
     /** Elimina un registro mientras no tenga constancias generadas. */
@@ -258,7 +275,15 @@ final class Historico
                 throw new \InvalidArgumentException('El acta ' . $valor . ' ya está registrada para ' . ($otro ?: 'el trámite ' . $plat) . '.');
             }
         }
+        if (in_array($campo, ['fecha_protocolo', 'fecha_previo', 'fecha_examen'], true) && $valor !== null) {
+            $h = Database::una('SELECT fecha_protocolo, fecha_previo, fecha_examen FROM tit_historico WHERE id = ?', [$id]) ?: [];
+            self::cronologia([$campo => $valor] + $h);
+        }
         Database::ejecutar("UPDATE tit_historico SET `$campo` = ?, actualizado_por = ?, actualizado_en = NOW() WHERE id = ?", [$valor, $usuarioId, $id]);
+        $destino = ['fecha_protocolo' => 'fecha_aprobacion', 'fecha_previo' => 'fecha_previo', 'acta_previo' => 'acta_previo'][$campo] ?? null;
+        if ($destino !== null && ($valor !== null || $campo !== 'fecha_protocolo')) {
+            Database::ejecutar("UPDATE tit_historico_protocolos SET `$destino` = ? WHERE historico_id = ?", [$valor, $id]);   // el protocolo ligado refleja el mismo dato
+        }
         if ($campo === 'titulo') {
             Database::ejecutar("UPDATE tit_historico SET titulo_origen = 'manual' WHERE id = ?", [$id]);   // lo confirmó o escribió una persona
         }
