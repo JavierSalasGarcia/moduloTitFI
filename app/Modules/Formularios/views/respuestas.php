@@ -56,6 +56,8 @@ $enlace = rtrim((string) \App\Core\App::config('app.url_publica', ''), '/') . ur
                 <label><?= e($c['label']) ?>
                 <?php if (($c['tipo'] ?? '') === 'select'): ?><select name="d[<?= e($c['k']) ?>]"><?php foreach ($c['opciones'] as $k => $n): ?><option value="<?= e((string) $k) ?>" <?= (string) $k === $v ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select>
                 <?php elseif (($c['tipo'] ?? '') === 'fecha'): ?><input type="date" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>">
+                <?php elseif (($c['tipo'] ?? '') === 'numero'): ?><input type="number" name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>" step="1">
+                <?php elseif (($c['tipo'] ?? '') === 'textarea'): ?><textarea name="d[<?= e($c['k']) ?>]" rows="3"><?= e($v) ?></textarea>
                 <?php else: ?><input name="d[<?= e($c['k']) ?>]" value="<?= e($v) ?>"><?php endif; ?></label>
               <?php endforeach; ?>
               <button class="btn btn-mini btn-primario" type="submit">Guardar</button>

@@ -31,6 +31,7 @@ $fuentes = [
     'migrations/032_calaveritas_convocatoria.sql',
     'migrations/033_evento_publicacion_evidencia.sql',
     'migrations/034_programa_ingenieria_civil.sql',
+    'migrations/035_encuesta_privada_viajes_2027.sql',
     'migrations/036_fecha_aprobacion_protocolo.sql',
     'migrations/037_historico_protocolos.sql',
     'migrations/038_protocolos_historicos.sql',

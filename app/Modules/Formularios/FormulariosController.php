@@ -144,6 +144,20 @@ final class FormulariosController extends Controller
             exit;
         }
         header('X-Robots-Tag: noindex, nofollow');
+        $rol = trim((string) ($f['requiere_rol'] ?? ''));
+        if ($rol !== '' && !Auth::usuario()) {
+            Auth::recordarDestino('f/' . $f['slug']);
+            redirigir('login');
+        }
+        if ($rol !== '' && !Auth::tieneRol($rol)) {
+            http_response_code(403);
+            \App\Core\View::render('errores/403', ['titulo' => 'Acceso restringido']);
+            exit;
+        }
+        if ($rol !== '') {
+            header('Cache-Control: no-store, private');
+            header('Pragma: no-cache');
+        }
         return $f;
     }
 
@@ -171,6 +185,13 @@ final class FormulariosController extends Controller
             redirigir('f/' . $f['slug']);
         }
         $entrada = is_array($_POST['d'] ?? null) ? $_POST['d'] : [];
+        if (!empty($f['requiere_rol'])) {
+            foreach (Formularios::campos($f) as $c) {
+                if (!empty($c['de_cuenta'])) {
+                    $entrada[$c['k']] = (string) (Auth::usuario()[$c['de_cuenta']] ?? '');
+                }
+            }
+        }
         [$datos, $errores] = Formularios::validar($f, $entrada);
         if (!$errores) {
             $conArchivos = null;
