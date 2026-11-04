@@ -196,6 +196,28 @@ final class Historico
         );
     }
 
+    /**
+     * Captura completa de un examen hecho fuera del sistema: crea el registro y guarda cada dato con las mismas validaciones del visor.
+     * Si algún dato no es válido el registro no se crea. @return int id
+     */
+    public static function capturar(array $in, int $usuarioId): int
+    {
+        $acta = trim((string) ($in['acta'] ?? ''));
+        $id = self::crear((string) ($in['carrera'] ?? ''), (string) ($in['alumno'] ?? ''), ctype_digit($acta) ? (int) $acta : null, $usuarioId);
+        try {
+            foreach (['cuenta', 'modalidad', 'fecha_examen', 'fecha_protocolo', 'titulo', 'director', 'director_email', 'codirector', 'codirector_email',
+                'presidente', 'presidente_email', 'secretario', 'secretario_email', 'vocal', 'vocal_email'] as $campo) {
+                if (trim((string) ($in[$campo] ?? '')) !== '') {
+                    self::guardarCampo($id, $campo, (string) $in[$campo], $usuarioId);
+                }
+            }
+        } catch (\Throwable $e) {
+            Database::ejecutar('DELETE FROM tit_historico WHERE id = ? AND tramite_id IS NULL', [$id]);
+            throw $e;
+        }
+        return $id;
+    }
+
     /** Elimina un registro mientras no tenga constancias generadas. */
     public static function eliminar(int $id): array
     {

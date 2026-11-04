@@ -7,6 +7,7 @@ use App\Core\Audit;
 use App\Core\Auth;
 use App\Modules\Titulacion\Services\Constancias;
 use App\Modules\Titulacion\Services\Historico;
+use App\Modules\Titulacion\Services\HistoricoProtocolos;
 use App\Modules\Titulacion\Services\Oficios;
 use Throwable;
 
@@ -141,6 +142,79 @@ final class ConstanciasController extends TitulacionBase
         Audit::record('titulacion::historial', 'correcto', 'Registro histórico agregado ' . $id);
         flash('exito', 'Registro agregado. Completa sus datos con doble clic en cada celda.');
         redirigir('titulacion/constancias/historial?q=' . rawurlencode($this->post('alumno')));
+    }
+
+    // ------------------------------------------------------------------ captura de lo hecho fuera del sistema
+
+    public function captura(): void
+    {
+        $this->soloHistorial();
+        $this->vista('constancias_captura', ['titulo' => 'Constancias · Captura de registros externos', 'protocolos' => HistoricoProtocolos::listar(100)]);
+    }
+
+    /** Examen realizado fuera del sistema; con «generar» marcado también se generan sus constancias. */
+    public function capturaExamen(): void
+    {
+        $this->soloHistorial();
+        try {
+            $id = Historico::capturar($_POST, Auth::id());
+            $texto = 'Examen capturado.';
+            if (!empty($_POST['generar'])) {
+                try {
+                    $texto .= ' Constancias generadas: ' . Historico::generar($id, Auth::id()) . '; ya están en la cola de firmas.';
+                } catch (\InvalidArgumentException $e) {
+                    $texto .= ' Aún no se generaron las constancias: ' . $e->getMessage();
+                }
+            }
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+            redirigir('titulacion/constancias/captura');
+        }
+        Audit::record('titulacion::historial', 'correcto', 'Examen externo capturado ' . $id);
+        flash('exito', $texto);
+        redirigir('titulacion/constancias/captura');
+    }
+
+    public function capturaProtocolo(): void
+    {
+        $this->soloHistorial();
+        try {
+            $id = HistoricoProtocolos::crear($_POST, Auth::id());
+            $texto = 'Protocolo capturado.';
+            if (!empty($_POST['generar'])) {
+                $texto .= ' Constancias generadas: ' . HistoricoProtocolos::generar($id, Auth::id()) . '; ya están en la cola de firmas.';
+            }
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+            redirigir('titulacion/constancias/captura');
+        }
+        Audit::record('titulacion::historial', 'correcto', 'Protocolo externo capturado ' . $id);
+        flash('exito', $texto);
+        redirigir('titulacion/constancias/captura');
+    }
+
+    public function protocoloGenerar(string $id): void
+    {
+        $this->soloHistorial();
+        try {
+            flash('exito', 'Constancias generadas: ' . HistoricoProtocolos::generar((int) $id, Auth::id()) . '.');
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+        }
+        redirigir('titulacion/constancias/captura');
+    }
+
+    public function protocoloEliminar(string $id): void
+    {
+        $this->soloHistorial();
+        try {
+            HistoricoProtocolos::eliminar((int) $id);
+            Audit::record('titulacion::historial', 'correcto', 'Protocolo externo eliminado ' . (int) $id);
+            flash('exito', 'Registro eliminado.');
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+        }
+        redirigir('titulacion/constancias/captura');
     }
 
     private function json(array $d, int $codigo = 200): never

@@ -241,6 +241,15 @@
     },
     {
       "seccion": "CONSTANCIAS",
+      "titulo": "Captura de registros externos",
+      "ruta": "titulacion/constancias/captura",
+      "grupo": "Constancias y oficios",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 33,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
       "titulo": "Textos de constancias",
       "ruta": "titulacion/constancias/textos",
       "grupo": "Constancias y oficios",
@@ -650,6 +659,26 @@
     "POST /titulacion/constancias/historial/{id}/generar": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "generar"
+    ],
+    "GET /titulacion/constancias/captura": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "captura"
+    ],
+    "POST /titulacion/constancias/captura/examen": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "capturaExamen"
+    ],
+    "POST /titulacion/constancias/captura/protocolo": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "capturaProtocolo"
+    ],
+    "POST /titulacion/constancias/captura/protocolo/{id}/generar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "protocoloGenerar"
+    ],
+    "POST /titulacion/constancias/captura/protocolo/{id}/eliminar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "protocoloEliminar"
     ],
     "GET /titulacion/ruta/{id}": [
       "App\\Modules\\Titulacion\\RutaController",
