@@ -12,5 +12,5 @@
 <label>Contraseña<input name="clave" type="password" autocomplete="new-password" minlength="10" maxlength="72" required><small>Al menos 10 caracteres. Debe ser diferente a la de tu correo institucional.</small></label>
 <label>Confirma tu contraseña<input name="confirmacion" type="password" autocomplete="new-password" minlength="10" maxlength="72" required></label>
 <p class="ayuda-form">Podrás consultar la plataforma desde el inicio. Para escribir, verifica tu correo con el código que te enviaremos. Los permisos administrativos los asigna la administración.</p>
-<div style="display:flex;flex-direction:column;gap:16px;margin-top:18px"><button class="btn btn-primario btn-bloque" type="submit">Crear cuenta</button><a href="<?= url('login') ?>" style="text-align:center">Ya tengo cuenta · Iniciar sesión</a></div>
+<div style="display:flex;flex-direction:column;gap:16px;margin-top:18px"><button class="btn btn-primario btn-bloque" type="submit">Crear cuenta</button><a href="<?= url('login') ?>" style="text-align:center">Ya tengo cuenta · Iniciar sesión</a><a href="<?= url('registro/egresado') ?>" style="text-align:center">¿Ya no tienes correo institucional? Solicita acceso solo a Titulación</a></div>
 </form></section></div>

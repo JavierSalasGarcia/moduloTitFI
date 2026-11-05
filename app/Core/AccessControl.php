@@ -83,6 +83,19 @@ final class AccessControl
         }
         $u=self::user(Auth::id());
         if (!$u) { Auth::salir(); redirigir('login'); }
+        if (!empty($u['egresado_externo']) && !isset($_SESSION['impersonador'])) {
+            // Vigencia de la cuenta de egresado: 24 meses sin actividad; cada mes de uso la renueva.
+            $vence=(string)($u['egresado_vence']??'');
+            if ($vence!=='' && $vence<date('Y-m-d')) {
+                self::internal(fn()=>Database::ejecutar('UPDATE usuarios SET activo=0 WHERE id=? AND egresado_externo=1',[$u['id']]));
+                Audit::record('egresado_vencido','correcto');
+                Auth::salir(); flash('alerta','Tu acceso de egresado venció por inactividad. Solicítalo de nuevo si aún lo necesitas.'); redirigir('registro/egresado');
+            }
+            if ($vence!=='' && $vence<date('Y-m-d',strtotime('+23 months'))) {
+                $nuevo=date('Y-m-d',strtotime('+24 months'));
+                self::internal(fn()=>Database::ejecutar('UPDATE usuarios SET egresado_vence=? WHERE id=?',[$nuevo,$u['id']])); $u['egresado_vence']=$nuevo;
+            }
+        }
         $_SESSION['usuario']=$u;
     }
     public static function limited(string $purpose,int $limit,int $seconds): bool

@@ -35,10 +35,26 @@ Un correo personal **no prueba** que la persona sea quien dice. Por eso el corre
 | Cola de validación para el personal con vista de documentos | mediano |
 | Caducidad y desactivación; textos del aviso de privacidad | pequeño |
 
-## Decisiones que conviene tomar antes de construir
+## Implementación (migración 041)
 
-1. ¿Quién valida: el personal operativo de Titulación o solo la titular? (Recomendado: operativo propone, titular puede revisar.)
-2. ¿Se exigen siempre documentos o basta la coincidencia de cuenta y correo con los registros del departamento? (Recomendado: documentos solo cuando no coincide del todo.)
-3. ¿Se acepta cualquier correo personal o solo de proveedores conocidos? (Recomendado: cualquiera, porque la validación es humana.)
-4. Aviso de privacidad: los documentos de identidad son datos personales; se recomienda borrarlos al resolver y conservar solo el registro de validación.
-5. Confirmar con Control Escolar si pueden dar fe de «fue alumno de la Facultad» por número de cuenta, para sustituir la copia de documentos.
+Se aceptaron las recomendaciones de este documento y quedó construido:
+
+- **Cuenta**: no hay rol nuevo. Es una cuenta de rol `alumno` con `usuarios.egresado_externo = 1`, programa de su licenciatura, correo personal ya verificado y `egresado_vence` (24 meses; cada mes de uso lo renueva y, vencido, la cuenta se desactiva sola).
+- **Alcance**: `Router` y `ModuleManager` limitan estas cuentas a los módulos `titulacion`, `auth` y `seguridad` (la raíz las lleva a «Mis pendientes»; el resto responde 403 y no aparece en el menú).
+- **Solicitud pública** `/registro/egresado` → verificación con código (10 min, 5 intentos) → prevalidación (`AccesoEgresados::prevalidar`: cuenta, nombre, licenciatura y correo contra `tit_historico`, solicitudes, protocolos y artículo 5).
+  - *Coincide* (las cuatro cosas) → pasa directo a «Por validar» y se aprueba con un clic.
+  - *A medias* o *no aparece* → pide identificación oficial y comprobante de estudios (PDF/JPG/PNG, 5 MB) en `storage/egresados/` (fuera de git y de `public/`).
+- **Cola del personal** «Constancias → Accesos de egresados» (`TitulacionAccess::esPersonal`): aprobar, devolver con motivo, rechazar, y desactivar cuentas. Al resolver se borran los archivos y queda el sello (tipo, huella SHA-256, fechas) en `egresado_documentos`.
+- **Activación**: al aprobar se crea la cuenta y se envía un enlace de un solo uso (7 días) para fijar la contraseña. Iniciar sesión pide siempre el segundo paso (código al correo, huella o app autenticadora).
+- **Antiabuso**: 5 solicitudes por IP y 3 por correo cada hora, campo trampa, pausa mínima de 4 s, una sola solicitud abierta por cuenta o correo, y todo token se guarda como hash. Un correo institucional se redirige al registro normal.
+- Tablas: `egresado_solicitudes`, `egresado_documentos` y seis columnas `egresado_*` en `usuarios`.
+
+Pendiente a propósito: confirmar con Control Escolar si pueden dar fe de «fue alumno» por número de cuenta (sustituiría la copia del comprobante) y, si se desea, avisar al personal por correo cuando entre una solicitud nueva.
+
+## Decisiones tomadas
+
+1. Validan el personal operativo y la titular de Titulación (cualquiera con acceso al módulo; queda en la bitácora quién).
+2. Documentos solo cuando la prevalidación no coincide del todo.
+3. Se acepta cualquier correo personal: el control es la validación humana.
+4. Los documentos se borran al resolver; solo queda el sello.
+5. Control Escolar: por confirmar.

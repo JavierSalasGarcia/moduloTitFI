@@ -26,7 +26,7 @@
       <form class="formulario" id="form-correo" novalidate>
         <label id="titulo-correo" for="email-login">Correo institucional</label>
         <input type="text" id="email-login" name="email" required autofocus maxlength="75" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" aria-label="Correo institucional" placeholder="usuario@alumno.uaemex.mx">
-        <small>Usa tu cuenta institucional UAEMEX.</small>
+        <small>Usa tu cuenta institucional UAEMEX. Si eres egresado con acceso validado, escribe tu correo personal.</small>
         <button type="submit" class="btn btn-primario btn-bloque" id="btn-correo" style="margin-top:16px">Continuar</button>
       </form>
       <p style="text-align:center;margin:16px 0 0"><button type="button" class="enlace" id="abrir-reset" style="background:none;border:0;cursor:pointer">¿Olvidaste tu contraseña?</button></p>
@@ -89,7 +89,7 @@
       </div>
     </section>
 
-    <div style="text-align:center;margin-top:20px;font-size:12px"><a href="<?= url('registro') ?>">Crear mi cuenta</a></div>
+    <div style="text-align:center;margin-top:20px;font-size:12px"><a href="<?= url('registro') ?>">Crear mi cuenta</a> · <a href="<?= url('registro/egresado') ?>">Egresado sin correo institucional</a></div>
     <details style="margin-top:18px;font-size:11px;color:var(--gris-500)">
       <summary>Aviso sobre datos biométricos</summary>
       <p>Traza FI no recibe ni almacena imágenes de huellas o rostros. Windows Hello, Touch ID, Face ID o el bloqueo del dispositivo verifican tu identidad localmente y entregan únicamente una firma criptográfica.</p>
