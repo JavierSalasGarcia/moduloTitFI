@@ -36,6 +36,7 @@ $fuentes = [
     'migrations/037_historico_protocolos.sql',
     'migrations/038_protocolos_historicos.sql',
     'migrations/039_expediente_previo.sql',
+    'migrations/040_titulacion_recientes.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

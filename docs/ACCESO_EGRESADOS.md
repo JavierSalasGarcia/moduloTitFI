@@ -1,0 +1,44 @@
+# Acceso de egresados sin correo institucional (propuesta)
+
+Problema: al egresar, la UAEMéx cancela el correo `@alumno.uaemex.mx`, pero el trámite de titulación sigue. Hoy `/registro` solo admite `uaemex.mx` y subdominios (`app/Modules/Auth/RegistroController.php`, `Auth::esDominioUaemex`), así que esa persona no puede entrar.
+
+## Principio
+
+Un correo personal **no prueba** que la persona sea quien dice. Por eso el correo externo solo sirve para *entrar a una cuenta que antes validó el departamento*. El control no está en el registro, sino en la **validación de identidad** y en lo que la cuenta puede ver.
+
+## Ruta propuesta
+
+1. **Solicitud de acceso** (público, `/registro/egresado`). Aviso al inicio: «Si ya no tienes correo institucional, solicita aquí tu acceso; solo podrás usar el módulo de Titulación». Pide nombre completo, licenciatura, número de cuenta, correo personal y teléfono. No crea cuenta con contraseña: crea una **solicitud**.
+2. **Verificación del correo**: código de 6 dígitos o enlace de un solo uso (ya existe el mecanismo de `cuenta/verificar`). Sin esto la solicitud no llega al personal.
+3. **Prevalidación automática** contra lo que el departamento ya tiene: cuenta + licenciatura en `tit_historico`, `tit_solicitudes_historicas`, `tit_protocolos_recibidos` y `tit_articulo5` (migración 040), y el **correo que la persona dio al departamento** (esas tablas lo traen). Resultado: *coincide* (cuenta y correo), *coincide a medias* (cuenta sí, correo distinto) o *no aparece*.
+4. **Envío de documentos** (solo si no coincide del todo o si se quiere doble control): identificación oficial vigente y comprobante de que fue alumno de la Facultad (historial académico, constancia de terminación de estudios o carta de pasante). Se guardan en `storage/` privado, con hash, y se borran al resolver la solicitud salvo el sello de que se validó.
+5. **Validación por el personal de Titulación** (cola «Accesos por validar»): compara nombre, cuenta y documento; aprueba, devuelve o rechaza con motivo. Queda en la bitácora (quién, cuándo, con qué evidencia). Las coincidencias completas pueden aprobarse con un clic.
+6. **Activación**: al aprobar, se crea la cuenta con rol `egresado`, se envía enlace para fijar contraseña y se exige segundo factor (el módulo de acceso seguro ya lo soporta). Para no depender de contraseñas débiles, solo se permite el ingreso con el correo validado.
+7. **Alcance limitado**: el rol `egresado` solo ve *Titulación → Licenciatura* y sus propios trámites (no directorio, foro, calendario ni el resto de módulos). Vence a los 24 meses sin actividad, al concluir el trámite (o cuando el departamento lo marque) y se desactiva con un clic.
+
+## Qué evita el registro indiscriminado
+
+- Nada se activa sin aprobación humana; la solicitud sin correo verificado ni siquiera llega a la cola.
+- Límite por IP y por correo (ya hay limitadores en el login), campo trampa y pausa entre intentos; un máximo de solicitudes abiertas por cuenta.
+- La cuenta de egresado no puede iniciar un trámite de otra persona: queda ligada a **una** cuenta de alumno y licenciatura; el trámite nuevo se abre solo con esa identidad.
+- Si la persona aún conserva su correo institucional, se le dirige al registro normal (se detecta por el dominio).
+- Las cuentas externas se ven distintas en el panel de personal (etiqueta «Egresado · validado por X»).
+
+## Qué hace falta construir
+
+| Pieza | Esfuerzo |
+|---|---|
+| Rol `egresado` y bandera `identidad_validada` en `usuarios`, con alcance de menú limitado | pequeño |
+| Tabla `solicitudes_acceso_egresado` (datos, estado, documentos, evidencia, resolutor) | pequeño |
+| Formulario público + verificación de correo + límites | mediano |
+| Prevalidación contra las tablas de Titulación (la parte útil de la migración 040) | pequeño |
+| Cola de validación para el personal con vista de documentos | mediano |
+| Caducidad y desactivación; textos del aviso de privacidad | pequeño |
+
+## Decisiones que conviene tomar antes de construir
+
+1. ¿Quién valida: el personal operativo de Titulación o solo la titular? (Recomendado: operativo propone, titular puede revisar.)
+2. ¿Se exigen siempre documentos o basta la coincidencia de cuenta y correo con los registros del departamento? (Recomendado: documentos solo cuando no coincide del todo.)
+3. ¿Se acepta cualquier correo personal o solo de proveedores conocidos? (Recomendado: cualquiera, porque la validación es humana.)
+4. Aviso de privacidad: los documentos de identidad son datos personales; se recomienda borrarlos al resolver y conservar solo el registro de validación.
+5. Confirmar con Control Escolar si pueden dar fe de «fue alumno de la Facultad» por número de cuenta, para sustituir la copia de documentos.

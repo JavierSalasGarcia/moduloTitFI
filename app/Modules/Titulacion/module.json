@@ -250,6 +250,15 @@
     },
     {
       "seccion": "CONSTANCIAS",
+      "titulo": "Registros del departamento",
+      "ruta": "titulacion/constancias/registros",
+      "grupo": "Constancias y oficios",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 34,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
       "titulo": "Textos de constancias",
       "ruta": "titulacion/constancias/textos",
       "grupo": "Constancias y oficios",
@@ -663,6 +672,10 @@
     "POST /titulacion/constancias/historial/{id}/generar": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "generar"
+    ],
+    "GET /titulacion/constancias/registros": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "registros"
     ],
     "GET /titulacion/constancias/captura": [
       "App\\Modules\\Titulacion\\ConstanciasController",

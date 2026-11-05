@@ -111,7 +111,18 @@ $formExamen = static function (array $d, bool $homonimo, array $modalidades) use
   <p class="texto-secundario" style="margin:6px 0 0">Sus constancias se generan solas al avanzar ese trámite; por eso no se permite capturarla de nuevo aquí.</p>
 </section>
 <?php endif; ?>
-<?php if ($expedientes !== null): $d0 = ['carrera' => $b['carrera'], 'cuenta' => $b['cuenta'], 'alumno' => $b['alumno']]; ?>
+<?php if ($expedientes !== null && array_filter($antecedentes ?? [])): $an = $antecedentes; $fd = static fn(?string $f): string => $f ? date('d/m/Y', strtotime($f)) : 'sin fecha'; ?>
+<section class="tarjeta" style="margin-bottom:14px;border-left:4px solid #2563EB">
+  <strong>Antecedentes en los registros del departamento</strong>
+  <p class="texto-secundario" style="margin:2px 0 6px">Salen de los Excel del departamento (<a href="<?= url('titulacion/constancias/registros') ?>">ver todos</a>); sirven para ubicar a la persona, no generan constancias.</p>
+  <?php foreach ($an['protocolos'] as $x): ?><div>Protocolo recibido el <?= e($fd($x['fecha_entrega'])) ?> · <?= e((string) $x['modalidad_origen']) ?><?= $x['incorporada'] !== '' ? ' · incorporada ' . e((string) $x['incorporada']) : '' ?></div><?php endforeach; ?>
+  <?php foreach ($an['solicitudes'] as $x): ?><div>Solicitud de <?= e((string) $x['tipo']) ?> del <?= e($fd($x['fecha_solicitud'])) ?><?= $x['fecha_programada'] ? ' · presentación ' . e($fd($x['fecha_programada'])) : '' ?></div><?php endforeach; ?>
+  <?php foreach ($an['articulo5'] as $x): ?><div>Artículo 5 · oficio <?= e((string) $x['oficio']) ?> · evaluación <?= e($fd($x['fecha_evaluacion'])) ?></div><?php endforeach; ?>
+  <?php foreach ($an['aplazamiento'] as $x): ?><div>Acta de aplazamiento n.º <?= (int) $x['consecutivo'] ?><?= $x['fecha'] ? ' · ' . e($fd($x['fecha'])) : '' ?></div><?php endforeach; ?>
+  <?php foreach ($an['oficios'] as $x): ?><div>Oficio <?= (int) $x['numero'] ?>/<?= e((string) $x['serie']) ?> del <?= e($fd($x['fecha'])) ?> · <?= e(str_replace('_', ' ', (string) $x['tipo'])) ?></div><?php endforeach; ?>
+</section>
+<?php endif; ?>
+<?php if ($expedientes !== null): $d0 =['carrera' => $b['carrera'], 'cuenta' => $b['cuenta'], 'alumno' => $b['alumno']]; ?>
 <section class="tarjeta" style="margin-bottom:14px">
   <h2>2. <?= $expedientes ? count($expedientes) . ' expediente(s) encontrado(s)' : 'No hay ningún expediente de esa persona' ?></h2>
   <?php foreach ($expedientes as $e): $p = $e['protocolo']; $h = $e['historico']; $et = Expedientes::etapas($e);
