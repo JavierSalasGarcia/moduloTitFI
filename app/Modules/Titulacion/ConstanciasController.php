@@ -185,9 +185,15 @@ final class ConstanciasController extends TitulacionBase
         $f = ['q' => mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 80), 'carrera' => (string) ($_GET['carrera'] ?? ''), 'tipo' => mb_substr((string) ($_GET['tipo'] ?? ''), 0, 30),
             'anio' => preg_match('/^\d{4}$/', (string) ($_GET['anio'] ?? '')) ? (string) $_GET['anio'] : '', 'revisar' => !empty($_GET['revisar']) ? '1' : ''];
         $pagina = max(1, (int) ($_GET['p'] ?? 1));
-        $r = Registros::listar($s, $f, 100, ($pagina - 1) * 100);
+        try {
+            $r = Registros::listar($s, $f, 100, ($pagina - 1) * 100);
+            $conteos = Registros::conteos();
+        } catch (Throwable) {
+            flash('error', 'Los registros del departamento aún no se han cargado en esta instalación (falta aplicar la migración 040).');
+            redirigir('titulacion/constancias/historial');
+        }
         $this->vista('constancias_registros', ['titulo' => 'Constancias · Registros del departamento', 's' => $s, 'secciones' => $secciones, 'f' => $f, 'filas' => $r['filas'], 'total' => $r['total'],
-            'pagina' => $pagina, 'conteos' => Registros::conteos(), 'anios' => Registros::anios($s), 'tipos' => Registros::tipos($s)]);
+            'pagina' => $pagina, 'conteos' => $conteos, 'anios' => Registros::anios($s), 'tipos' => Registros::tipos($s)]);
     }
 
     /** Vuelve a la búsqueda del expediente recién tocado para ver cómo quedó. */
