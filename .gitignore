@@ -26,3 +26,6 @@ node_modules/
 /baseDatosTit/
 /u429286701_*.sql
 /reportesEncuestas.zip
+
+# Datos personales cargados desde los Excel del departamento (el repositorio es público)
+/database/datos_privados/

@@ -10,6 +10,7 @@ use App\Modules\Titulacion\Services\Expedientes;
 use App\Modules\Titulacion\Services\Historico;
 use App\Modules\Titulacion\Services\HistoricoProtocolos;
 use App\Modules\Titulacion\Services\Oficios;
+use App\Modules\Titulacion\Services\Registros;
 use Throwable;
 
 /** «Constancias → Textos» (redacción editable de cada constancia) e «Constancias → Historial» (registros anteriores del libro de actas). */
@@ -161,12 +162,32 @@ final class ConstanciasController extends TitulacionBase
         $b = ['carrera' => (string) ($_GET['b_carrera'] ?? ''), 'cuenta' => mb_substr(trim((string) ($_GET['b_cuenta'] ?? '')), 0, 12), 'alumno' => mb_substr(trim((string) ($_GET['b_alumno'] ?? '')), 0, 160)];
         $expedientes = null;
         $tramites = [];
+        $antecedentes = [];
         if (isset($_GET['buscar']) && isset(Catalogo::carreras()[$b['carrera']]) && ($b['cuenta'] !== '' || mb_strlen($b['alumno']) >= 3)) {
             $expedientes = Expedientes::buscar($b['carrera'], $b['cuenta'], $b['alumno']);
             $tramites = Expedientes::tramitesPlataforma($b['carrera'], $b['cuenta'], $b['alumno']);
+            $cuentaAnt = $b['cuenta'];
+            foreach ($expedientes as $e) {
+                $cuentaAnt = $cuentaAnt !== '' ? $cuentaAnt : (string) ($e['historico']['cuenta'] ?? $e['protocolo']['cuenta'] ?? '');
+            }
+            $antecedentes = Registros::antecedentes($cuentaAnt, $b['alumno']);
         }
         $this->vista('constancias_captura', ['titulo' => 'Constancias · Registrar o completar un expediente', 'protocolos' => $r['filas'], 'total' => $r['total'],
-            'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina, 'b' => $b, 'expedientes' => $expedientes, 'tramites' => $tramites]);
+            'pendientes' => $r['ids_pendientes'], 'f' => $f, 'pagina' => $pagina, 'b' => $b, 'expedientes' => $expedientes, 'tramites' => $tramites, 'antecedentes' => $antecedentes]);
+    }
+
+    /** Consulta de los registros que el departamento llevaba en Excel (solicitudes, protocolos recibidos, oficios, artículo 5, aplazamiento). */
+    public function registros(): void
+    {
+        $this->soloHistorial();
+        $secciones = Registros::secciones();
+        $s = isset($secciones[(string) ($_GET['s'] ?? '')]) ? (string) $_GET['s'] : 'solicitudes';
+        $f = ['q' => mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 80), 'carrera' => (string) ($_GET['carrera'] ?? ''), 'tipo' => mb_substr((string) ($_GET['tipo'] ?? ''), 0, 30),
+            'anio' => preg_match('/^\d{4}$/', (string) ($_GET['anio'] ?? '')) ? (string) $_GET['anio'] : '', 'revisar' => !empty($_GET['revisar']) ? '1' : ''];
+        $pagina = max(1, (int) ($_GET['p'] ?? 1));
+        $r = Registros::listar($s, $f, 100, ($pagina - 1) * 100);
+        $this->vista('constancias_registros', ['titulo' => 'Constancias · Registros del departamento', 's' => $s, 'secciones' => $secciones, 'f' => $f, 'filas' => $r['filas'], 'total' => $r['total'],
+            'pagina' => $pagina, 'conteos' => Registros::conteos(), 'anios' => Registros::anios($s), 'tipos' => Registros::tipos($s)]);
     }
 
     /** Vuelve a la búsqueda del expediente recién tocado para ver cómo quedó. */

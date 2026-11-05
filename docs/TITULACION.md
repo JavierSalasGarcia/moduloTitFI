@@ -57,3 +57,19 @@ Mientras los HH. Consejos Académico y de Gobierno no aprueben la firma electró
 ## Asesor y coasesor del trabajo
 
 Las constancias de director y codirector salen de `datos.protocolo` del trámite. Una solicitud de cambio de asesor o de coasesoría solo genera el formato; cuando el Comité o los Consejos la autorizan, el personal la registra en el expediente (panel «Asesor y coasesor»). Si el resultado ya estaba registrado, las constancias de director y codirector se rehacen sobre el mismo archivo y vuelven a firma.
+
+## Registros del departamento (Excel 2015-2026)
+
+La migración `040_titulacion_recientes.sql` solo crea las tablas. Lo que el departamento llevaba en Excel (carpeta `baseDatosTit/recientes`, fuera de git) se carga con `database/datos_privados/040_datos_recientes.sql`, que también queda fuera de git porque el repositorio es público y trae nombres, cuentas, correos y teléfonos de estudiantes: se aplica a mano con `mysql` después de la migración. Ambos archivos los genera `python tools/importar_titulacion_recientes.py` (requiere `openpyxl`) y la carga es repetible: cada tabla tiene una huella o clave única y se usa `INSERT IGNORE`; en `tit_historico` solo se agregan actas que no existen y se llenan vacíos, nunca se sobrescribe lo capturado.
+
+| Excel | Destino |
+|---|---|
+| Control de libros de licenciaturas (actas) | `tit_historico` (actas nuevas y vacíos) y `tit_actas_aplazamiento` |
+| Solicitud EGEL, aprovechamiento y créditos (2015-2026, con las hojas por lote) | `tit_solicitudes_historicas` (las filas repetidas entre hojas se funden en una) |
+| Recepción de protocolo y hoja «Protocolos» de Oficios 2026 | `tit_protocolos_recibidos` |
+| Control de oficios y Oficios 2026 | `tit_oficios_control` (tipo y persona deducidos del texto) |
+| Artículo 5 | `tit_articulo5` |
+
+Consulta: menú **Constancias y oficios → Registros del departamento** (`titulacion/constancias/registros`). Al buscar un expediente en *Registrar o completar un expediente* aparece un recuadro con los antecedentes de esa persona en estos registros.
+
+Fechas: Excel invirtió día y mes en muchas celdas (2026-05-11 era el 5 de noviembre) y repitió años al arrastrar. El importador las corrige por el orden de las filas; las que no pudo decidir se cargan tal cual con `fecha_revisar = 1` (filas en amarillo en la consulta). Las fechas de actas que ya estaban en el historial no se tocan, salvo las que quedaron en el futuro por un año arrastrado (solo cambia el año, y solo si el valor sigue siendo el original). Las demás sospechas quedan en `baseDatosTit/fechas_libro_por_revisar.csv` para revisión humana. La licenciatura de lo recibido sin ella se completa por cuenta con el historial; lo que no tiene cuenta conocida queda sin licenciatura.
