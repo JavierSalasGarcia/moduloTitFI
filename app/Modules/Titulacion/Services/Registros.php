@@ -102,6 +102,15 @@ final class Registros
      */
     public static function antecedentes(string $cuenta, string $alumno): array
     {
+        try {
+            return self::buscarAntecedentes($cuenta, $alumno);
+        } catch (\Throwable) {
+            return ['solicitudes' => [], 'protocolos' => [], 'articulo5' => [], 'aplazamiento' => [], 'oficios' => []];   // tablas aún sin migrar
+        }
+    }
+
+    private static function buscarAntecedentes(string $cuenta, string $alumno): array
+    {
         $r = ['solicitudes' => [], 'protocolos' => [], 'articulo5' => [], 'aplazamiento' => [], 'oficios' => []];
         $cuenta = trim($cuenta);
         if ($cuenta !== '') {
