@@ -29,3 +29,4 @@ node_modules/
 
 # Datos personales cargados desde los Excel del departamento (el repositorio es público)
 /database/datos_privados/
+/storage/egresados/

@@ -70,7 +70,9 @@ final class ModuleManager
     public static function menu(string|array|null $rol): array
     {
         $secciones = [];
+        $soloTitulacion = !empty(Auth::usuario()['egresado_externo']);
         foreach (self::descubrir() as $m) {
+            if ($soloTitulacion && $m['clave'] !== 'titulacion') continue;
             foreach ($m['menu'] as $item) {
                 if ($rol === null || !array_intersect((array) $rol, $item['roles'])) continue;
                 if (!empty($item['condicion']) && !self::cumple((string) $item['condicion'])) continue;

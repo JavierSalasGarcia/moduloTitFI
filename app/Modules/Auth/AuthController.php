@@ -184,7 +184,7 @@ final class AuthController extends Controller
 
     public function solicitarRestablecimiento(): void
     {
-        $email = Auth::normalizarCorreoInstitucional((string) ($_POST['email'] ?? '')) ?? '';
+        $email = Auth::normalizarCorreoAcceso((string) ($_POST['email'] ?? '')) ?? '';
         $ip = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
         if (AccessControl::ready() && AccessControl::limited('reset-ip:' . $ip, 8, 3600)) {
             $this->json(['exito' => false, 'error' => 'Se alcanzó el límite de solicitudes. Intenta más tarde.'], 429);
@@ -205,7 +205,7 @@ final class AuthController extends Controller
 
     public function verificarRestablecimiento(): void
     {
-        $email = Auth::normalizarCorreoInstitucional((string) ($_POST['email'] ?? '')) ?? '';
+        $email = Auth::normalizarCorreoAcceso((string) ($_POST['email'] ?? '')) ?? '';
         $codigo = trim((string) ($_POST['codigo'] ?? ''));
         $u = $email !== '' ? \App\Core\Identidad::usuarioPorCorreo($email) : null;
         if ($u && AccessControl::ready() && AccessControl::limited('reset-verificar:' . $u['id'], 10, 900)) {
@@ -239,7 +239,7 @@ final class AuthController extends Controller
 
     public function consultarPermisoContrasena(): void
     {
-        $email = Auth::normalizarCorreoInstitucional((string) ($_POST['email'] ?? ''));
+        $email = Auth::normalizarCorreoAcceso((string) ($_POST['email'] ?? ''));
         unset(
             $_SESSION['login_flujo'],
             $_SESSION['webauthn_challenge_hex'],
@@ -357,6 +357,7 @@ final class AuthController extends Controller
         $tienePasskey = (bool) Database::valor('SELECT COUNT(*) FROM usuarios_biometria WHERE usuario_id = ?', [$u['id']]);
         $tieneTotp = !empty($u['totp_secret']);
         $requiereMfa = $tienePasskey || $tieneTotp
+            || (int) ($u['egresado_externo'] ?? 0) === 1
             || (int) $u['permite_contrasena'] !== 1
             || (int) $u['logins_contrasena_restantes'] <= 0;
 

@@ -259,6 +259,15 @@
     },
     {
       "seccion": "CONSTANCIAS",
+      "titulo": "Accesos de egresados",
+      "ruta": "titulacion/accesos-egresados",
+      "grupo": "Constancias y oficios",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 35,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
+    },
+    {
+      "seccion": "CONSTANCIAS",
       "titulo": "Textos de constancias",
       "ruta": "titulacion/constancias/textos",
       "grupo": "Constancias y oficios",
@@ -673,6 +682,13 @@
       "App\\Modules\\Titulacion\\ConstanciasController",
       "generar"
     ],
+    "GET /titulacion/accesos-egresados": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "lista"],
+    "GET /titulacion/accesos-egresados/{id}": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "ver"],
+    "GET /titulacion/accesos-egresados/{id}/documento/{doc}": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "documento"],
+    "POST /titulacion/accesos-egresados/{id}/aprobar": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "aprobar"],
+    "POST /titulacion/accesos-egresados/{id}/devolver": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "devolver"],
+    "POST /titulacion/accesos-egresados/{id}/rechazar": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "rechazar"],
+    "POST /titulacion/accesos-egresados/cuenta/{uid}/desactivar": ["App\\Modules\\Titulacion\\AccesosEgresadosController", "desactivar"],
     "GET /titulacion/constancias/registros": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "registros"

@@ -69,12 +69,24 @@ final class Router
             }
         }
 
+        // Cuenta de egresado (correo personal validado por Titulación): su alcance es solo el módulo de Titulación.
+        $egresado = !empty(Auth::usuario()['egresado_externo']);
+        if ($egresado && $metodo === 'GET' && $ruta === '/') {
+            redirigir('titulacion/pendientes');
+        }
+
         foreach ($this->rutas as $r) {
             if ($r['metodo'] === $metodo && $r['token'] === $porToken && preg_match($r['regex'], $ruta, $m)) {
                 $usuario = Auth::usuario();
                 if (!$r['publico']) {
                     if (!$usuario) {
                         redirigir('login');
+                    }
+                    if ($egresado && !in_array($r['modulo'], ['titulacion', 'auth', 'seguridad'], true)) {
+                        Audit::record($r['modulo'].'::acceso','denegado','Cuenta de egresado: solo Titulación');
+                        http_response_code(403);
+                        View::render('errores/403', ['titulo' => 'Acceso restringido']);
+                        return;
                     }
                     if ($r['roles'] && !array_intersect(Auth::roles(), $r['roles'])) {
                         Audit::record($r['modulo'].'::acceso','denegado','Permisos insuficientes');

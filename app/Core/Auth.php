@@ -43,6 +43,27 @@ final class Auth
         return $entrada;
     }
 
+    /**
+     * Correo con el que se puede iniciar sesión: el institucional o, solo si ya existe una cuenta de egresado validada por
+     * Titulación (usuarios.egresado_externo), su correo personal. Nunca abre una cuenta nueva ni acepta otro dominio.
+     */
+    public static function normalizarCorreoAcceso(string $entrada): ?string
+    {
+        $inst = self::normalizarCorreoInstitucional($entrada);
+        if ($inst !== null) {
+            return $inst;
+        }
+        $e = strtolower(trim($entrada));
+        if ($e === '' || strlen($e) > 120 || substr_count($e, '@') !== 1 || filter_var($e, FILTER_VALIDATE_EMAIL) === false) {
+            return null;
+        }
+        try {
+            return Database::valor('SELECT 1 FROM usuarios WHERE email = ? AND egresado_externo = 1 AND activo = 1', [$e]) ? $e : null;
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
     public static function intentar(string $email, string $clave): bool
     {
         $email = self::normalizarCorreoInstitucional($email) ?? '';
