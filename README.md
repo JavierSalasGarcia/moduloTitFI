@@ -187,4 +187,6 @@ Los manifiestos PHP existentes siguen admitidos temporalmente para no interrumpi
 - Roles aplicados centralmente por el Router (módulo) y en controladores (acciones).
 - Subidas validadas (extensión + MIME + tamaño) y guardadas en `storage/` fuera del webroot;
   descargas solo vía controlador con sesión.
+- Cifrado en reposo de secretos TOTP y de los respaldos (`App\Core\Cifrado`, llave fuera de la base):
+  ver `docs/CIFRADO_DE_DATOS.md`. Todo dato personal nuevo debe pasar por esa clase.
 - Regenerar seed de departamentos si cambia el MO: `node database/generar_seed.js`.

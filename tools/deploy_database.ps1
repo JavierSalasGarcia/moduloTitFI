@@ -156,6 +156,8 @@ try {
     if (-not $backupResult.ok) { throw 'El servidor no pudo crear la copia de seguridad previa.' }
     Receive-FtpFile "$remotePublic/$remoteBackupName" $localSafetyBackup $ftpCredential
     if ((Get-Item -LiteralPath $localSafetyBackup).Length -eq 0) { throw 'La copia de seguridad previa esta vacia.' }
+    # La copia contiene todos los datos personales: se deja cifrada en disco (docs/CIFRADO_DE_DATOS.md).
+    $localSafetyBackup = & (Join-Path $PSScriptRoot 'cifrar_respaldo.ps1') -Path $localSafetyBackup | Select-Object -Last 1
 
     Write-Host 'Importando el respaldo y creando el administrador...'
     $body = @{ admin_email = $AdminEmail; admin_password = $AdminPassword } | ConvertTo-Json -Compress

@@ -130,7 +130,7 @@ final class SeguridadController extends Controller
         }
 
         try {
-            Database::ejecutar('UPDATE usuarios SET totp_secret = ? WHERE id = ?', [$secret, $u['id']]);
+            Database::ejecutar('UPDATE usuarios SET totp_secret = ? WHERE id = ?', [Totp::paraGuardar($secret, (int) $u['id']), $u['id']]);
             unset($_SESSION['temp_totp_secret']);
             echo json_encode(['exito' => true, 'mensaje' => 'Aplicación de autenticación vinculada correctamente.']);
         } catch (\Throwable $e) {

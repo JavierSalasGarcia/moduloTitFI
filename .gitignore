@@ -30,3 +30,6 @@ node_modules/
 # Datos personales cargados desde los Excel del departamento (el repositorio es público)
 /database/datos_privados/
 /storage/egresados/
+
+# Llaves de cifrado de datos en reposo: nunca versionar.
+/storage/secrets/

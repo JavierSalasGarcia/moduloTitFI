@@ -2,7 +2,9 @@
 param(
     [string]$Source = (Join-Path $PSScriptRoot '..\database\production-backups'),
     [string]$ArchiveRoot = $(if ($env:TRAZAFI_BACKUP_ROOT) { $env:TRAZAFI_BACKUP_ROOT } else { Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'trazafi-backups' }),
-    [ValidateRange(0, 100)][int]$KeepLatest = 20
+    [ValidateRange(0, 100)][int]$KeepLatest = 20,
+    # Por defecto el ZIP se cifra (tools/cifrar_respaldo.ps1); -SinCifrar sólo para pruebas.
+    [switch]$SinCifrar
 )
 
 $ErrorActionPreference = 'Stop'
@@ -28,6 +30,10 @@ if ($PSCmdlet.ShouldProcess("$($toArchive.Count) carpetas", "Comprimir en $zip y
     $entries = [IO.Compression.ZipFile]::OpenRead($zip)
     try { if ($entries.Entries.Count -lt $toArchive.Count) { throw 'El ZIP no contiene todos los elementos esperados.' } }
     finally { $entries.Dispose() }
+    # Cifrar antes de retirar los originales: si falla, no se borra nada y el ZIP en claro queda para reintentar.
+    if (-not $SinCifrar) {
+        $zip = & (Join-Path $PSScriptRoot 'cifrar_respaldo.ps1') -Path $zip | Select-Object -Last 1
+    }
     foreach ($dir in $toArchive) {
         $resolved = [IO.Path]::GetFullPath($dir.FullName)
         if (-not $resolved.StartsWith($sourceFull.TrimEnd('\') + '\', [StringComparison]::OrdinalIgnoreCase)) { throw "Ruta fuera de Source: $resolved" }

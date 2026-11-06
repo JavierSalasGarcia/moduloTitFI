@@ -63,7 +63,7 @@ final class FirmaElectronica
         if (!$u || empty($u['totp_secret'])) {
             throw new RuntimeException('Activa la contraseña de un solo uso (TOTP) en tu perfil antes de firmar.');
         }
-        if (!Totp::verificar($u['totp_secret'], $codigo)) {
+        if (!Totp::verificarAlmacenado((string) $u['totp_secret'], (int) $u['id'], $codigo)) {
             throw new RuntimeException('El código de segundo factor no es válido o ya expiró.');
         }
         self::registrarUsoCodigo($usuarioId, $codigo);

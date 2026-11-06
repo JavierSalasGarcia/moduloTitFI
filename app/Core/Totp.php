@@ -27,6 +27,38 @@ final class Totp
         return $secreto;
     }
 
+    /** Contexto de cifrado del secreto: ligado a la columna y al usuario para que no se pueda mover entre cuentas. */
+    private static function contexto(int $usuarioId): string
+    {
+        return 'usuarios.totp_secret#' . $usuarioId;
+    }
+
+    /** Valor que se guarda en usuarios.totp_secret (cifrado si hay llave configurada; ver docs/CIFRADO_DE_DATOS.md). */
+    public static function paraGuardar(string $secreto, int $usuarioId): string
+    {
+        return (string) Cifrado::cifrar($secreto, self::contexto($usuarioId));
+    }
+
+    /** Secreto Base32 en claro a partir de lo almacenado (acepta texto plano heredado). */
+    public static function desdeAlmacenado(string $almacenado, int $usuarioId): string
+    {
+        return (string) Cifrado::descifrar($almacenado, self::contexto($usuarioId));
+    }
+
+    /**
+     * Verifica un código contra el valor de usuarios.totp_secret tal como está en la base (cifrado o heredado).
+     * Si no se puede descifrar (llave ausente o dato alterado) devuelve false: nunca deja pasar.
+     */
+    public static function verificarAlmacenado(string $almacenado, int $usuarioId, string $codigo): bool
+    {
+        try {
+            return self::verificar(self::desdeAlmacenado($almacenado, $usuarioId), $codigo);
+        } catch (\Throwable $e) {
+            error_log('TOTP: no se pudo descifrar el secreto del usuario ' . $usuarioId . ': ' . $e->getMessage());
+            return false;
+        }
+    }
+
     /**
      * Verifica si un código de 6 dígitos es válido para un secreto Base32.
      * Soporta un margen de tolerancia de 1 ventana hacia atrás/adelante (total 3 ventanas, 90 seg).

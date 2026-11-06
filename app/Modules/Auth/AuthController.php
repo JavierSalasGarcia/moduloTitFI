@@ -175,7 +175,7 @@ final class AuthController extends Controller
             $this->json(['exito' => false, 'error' => 'La aplicación de autenticación no está configurada para esta cuenta.'], 403);
         }
 
-        $ok = Totp::verificar($u['totp_secret'], $codigo);
+        $ok = Totp::verificarAlmacenado((string) $u['totp_secret'], (int) $u['id'], $codigo);
         if (!$ok) {
             $this->json(['exito' => false, 'error' => 'Código incorrecto o expirado.'], 403);
         }
