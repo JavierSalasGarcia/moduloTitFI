@@ -31,6 +31,14 @@ $config = [
         'ext_permitidas' => ['pdf', 'jpg', 'jpeg', 'png', 'docx', 'xlsx', 'pptx', 'zip'],
         'max_bytes'      => 10 * 1024 * 1024, // 10 MB
     ],
+    'cifrado' => [
+        // Cifrado de campos sensibles en reposo (docs/CIFRADO_DE_DATOS.md). La llave NO se guarda en la base ni en el
+        // repositorio: variable TRAZAFI_CIFRADO_LLAVE o este archivo JSON (fuera de public/, bloqueado por HTTP).
+        'archivo'     => dirname(__DIR__) . '/storage/secrets/cifrado.json',
+        // Con true, guardar un secreto sin llave configurada falla en lugar de guardarlo en claro. Activarlo una vez
+        // instalada la llave y cifrados los datos existentes (tools/cifrar_totp.php).
+        'obligatorio' => filter_var(getenv('TRAZAFI_CIFRADO_OBLIGATORIO') ?: '0', FILTER_VALIDATE_BOOLEAN),
+    ],
     'firma_pki' => [
         // Activar únicamente después de la ceremonia institucional y de aplicar
         // database/migrations/009_firma_pades_pki.sql.

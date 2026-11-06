@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-05 19:02)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-06 13:14)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (36 fuentes, en orden).
+-- a partir de las migraciones (37 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -14968,4 +14968,16 @@ CREATE TABLE IF NOT EXISTS egresado_documentos (
   KEY idx_egresado_doc_sol (solicitud_id),
   CONSTRAINT fk_egresado_doc_sol FOREIGN KEY (solicitud_id) REFERENCES egresado_solicitudes (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/042_cifrado_totp.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Cifrado de secretos TOTP en reposo (docs/CIFRADO_DE_DATOS.md).
+-- El valor cifrado («enc:v1:…») mide unos 90 caracteres; la columna original admitía 32. Repetible: solo ensancha si
+-- falta y no toca los datos. El cifrado de los secretos existentes se hace con tools/cifrar_totp.php, no desde SQL,
+-- porque la llave nunca debe estar en la base de datos.
+SET @s = (SELECT IF(COUNT(*) > 0, 'ALTER TABLE usuarios MODIFY COLUMN totp_secret VARCHAR(255) NULL DEFAULT NULL', 'DO 0')
+  FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'totp_secret'
+  AND (DATA_TYPE <> 'varchar' OR CHARACTER_MAXIMUM_LENGTH < 255));
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 

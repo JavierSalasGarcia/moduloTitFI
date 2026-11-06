@@ -36,6 +36,8 @@ rol o departamento en tablas propias.
    estuvieron almacenados previamente y deben considerarse comprometidos.
 2. Restringir permisos, cifrar o aplicar una retención definida a los ZIP históricos y
    al respaldo de la migración de secretos en `D:\Proyectos\trazafi-backups`.
+   *(6 nov 2026: los scripts de archivado ya cifran los respaldos nuevos y los secretos TOTP
+   se cifran en la base; los ZIP existentes se cifran a mano. Ver `CIFRADO_DE_DATOS.md`.)*
 3. Migrar gradualmente los 23 `module.php` heredados a `module.json`. Un manifiesto PHP
    se ejecuta al descubrirlo y sólo debe aceptarse de una fuente plenamente confiable.
 4. Eliminar progresivamente scripts y estilos en línea para retirar `unsafe-inline` de

@@ -251,7 +251,7 @@ final class FirmasController extends Controller
             flash('error', 'Debes activar la contraseña de un solo uso basada en tiempo antes de firmar.');
             redirigir('firmas/' . $s['id']);
         }
-        if (!Totp::verificar($usuario['totp_secret'], $codigo)) {
+        if (!Totp::verificarAlmacenado((string) $usuario['totp_secret'], (int) $usuario['id'], $codigo)) {
             flash('error', 'El código de segundo factor no es válido o ya expiró.');
             redirigir('firmas/' . $s['id']);
         }

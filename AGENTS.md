@@ -5,3 +5,5 @@ TRAZAFI es la plataforma modular PHP 8 + MySQL de la Facultad de Ingeniería de 
 Para formularios o encuestas privadas por enlace es obligatorio leer `docs/ENCUESTAS_PRIVADAS.md`. El módulo `Formularios` recauda datos identificables y exporta Excel; el módulo `Encuestas` se reserva para votaciones anónimas con tablero público. No mezclar ambos modelos de privacidad.
 
 Las migraciones nuevas se agregan a `database/migrations/` y a `database/construir_actualizar.php`; después se regenera `database/actualizar.sql`. No editar el acumulado a mano.
+
+Los secretos y datos personales nuevos se cifran en reposo con `App\Core\Cifrado` (llave fuera de la base); leer `docs/CIFRADO_DE_DATOS.md`. Nunca guardar secretos TOTP ni llaves en claro.
