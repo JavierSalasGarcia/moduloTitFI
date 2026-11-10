@@ -247,6 +247,35 @@ final class GrafoPersona
     }
 
     /**
+     * Datos para el dibujo interactivo (public/assets/js/grafo.js): nodos y aristas. La persona al centro, un nodo por grupo y un nodo
+     * por elemento. Los textos viajan como JSON dentro de un atributo escapado y el script los asigna con textContent.
+     *
+     * @return array{titulo:string,nodes:list<array<string,string>>,links:list<array{0:string,1:string}>}
+     */
+    public static function datos(array $grafo): array
+    {
+        $colores = ['#e0a526', '#4fb3a5', '#6fa8dc', '#c678dd', '#e5736b', '#8fbf5f', '#d98cb3', '#e8c76a'];
+        $nodos = [['id' => 'p', 'tipo' => 'persona', 'label' => (string) $grafo['persona']['nombre'], 'detalle' => (string) $grafo['persona']['detalle'], 'enlace' => '', 'color' => '#f2c94c']];
+        $aristas = [];
+        foreach ($grafo['grupos'] as $k => $g) {
+            $color = $colores[$k % count($colores)];
+            $gid = 'g' . $k;
+            $nodos[] = ['id' => $gid, 'tipo' => 'grupo', 'label' => $g['titulo'] . ' · ' . $g['total'], 'detalle' => $g['modulo'], 'enlace' => '', 'color' => $color];
+            $aristas[] = ['p', $gid];
+            foreach ($g['items'] as $j => $i) {
+                $nodos[] = ['id' => $gid . '_' . $j, 'tipo' => 'item', 'label' => $i['etiqueta'], 'detalle' => (string) $i['detalle'],
+                    'enlace' => $i['enlace'] ? url($i['enlace']) : '', 'color' => $color];
+                $aristas[] = [$gid, $gid . '_' . $j];
+            }
+            if ($g['total'] > count($g['items'])) {
+                $nodos[] = ['id' => $gid . '_mas', 'tipo' => 'item', 'label' => '+' . ($g['total'] - count($g['items'])) . ' más', 'detalle' => 'Consulta el detalle de la sección', 'enlace' => '', 'color' => $color];
+                $aristas[] = [$gid, $gid . '_mas'];
+            }
+        }
+        return ['titulo' => 'Grafo de relaciones de ' . $grafo['persona']['nombre'], 'nodes' => $nodos, 'links' => $aristas];
+    }
+
+    /**
      * Dibujo SVG generado en el servidor: la persona al centro, un nodo por grupo y, alrededor de cada grupo, sus elementos.
      * Sin bibliotecas ni scripts. Los textos se escapan; la lista accesible equivalente va debajo, en la vista.
      */

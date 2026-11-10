@@ -49,3 +49,6 @@ node_modules/
 !/storage/.htaccess
 /.codex-remote-attachments/
 /.claude/settings.local.json
+
+# Observaciones del plan (no se versionan)
+/Plan/obs/

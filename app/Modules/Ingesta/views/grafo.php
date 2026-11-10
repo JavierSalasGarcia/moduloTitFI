@@ -11,7 +11,13 @@
   </form>
 <?php endif; ?>
 
-<div class="card grafo-lienzo"><?= $svg /* generado y escapado en el servidor (GrafoPersona::svg) */ ?></div>
+<div class="grafo-marco">
+  <div class="grafo-lienzo" data-grafo="<?= e(json_encode(\App\Core\GrafoPersona::datos($grafo), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)) ?>">
+    <noscript><?= $svg /* alternativa sin JavaScript: generada y escapada en el servidor (GrafoPersona::svg) */ ?></noscript>
+  </div>
+  <p class="grafo-ayuda">Arrastra los nodos, usa la rueda para acercar, arrastra el fondo para moverte y haz clic en un elemento para abrir su sección.</p>
+</div>
+<script src="<?= url('assets/js/grafo.js') ?>?v=<?= (int) @filemtime(dirname(__DIR__, 4) . '/public/assets/js/grafo.js') ?>" defer></script>
 
 <h2>Detalle</h2>
 <div class="ing-rejilla">
