@@ -57,11 +57,29 @@ Se retiraron del repositorio (los originales completos quedaron en `database/dat
 Producción no cambia: ya tenía los datos aplicados. Una instalación nueva queda con la estructura y sin personas; los
 datos se cargan desde la carpeta privada.
 
+## Reescritura del historial (10 de noviembre de 2026)
+
+Quitar un archivo no lo borra de los commits pasados, así que el historial se reescribió con `git filter-repo` y se
+forzó el envío de todas las ramas. De todos los commits salieron: `storage/`, `.codex-remote-attachments/`,
+`.claude/settings.local.json`, `tmp/`, `Plan/respaldos/`, `Plan/preliminar_fi.json.bak_original`,
+`database/actualizar.sql` y las ocho migraciones de la tabla anterior. Esos archivos vuelven a entrar, ya solo con
+estructura, en el commit «Estructura de tablas sin datos personales». El contenido final es idéntico al de antes; lo que
+cambió son los identificadores de **todos** los commits.
+
+- Una copia del repositorio clonada antes de esa fecha no debe enviarse (`push`) ni mezclarse: hay que clonar de nuevo.
+  Lo mismo aplica a ramas y `stash` locales anteriores.
+- Respaldo del historial original, fuera del proyecto: `D:\Proyectos\trazafi-backups\historial-antes-reescritura-20261110`.
+  Contiene los datos retirados; no debe publicarse.
+- Para revisar el historial completo (no solo la versión actual) se revisa cada blob de todas las ramas con las mismas
+  reglas del candado; el resultado después de reescribir fue cero hallazgos.
+
 ## Lo que esta limpieza no resuelve
 
-- **El historial de git conserva todo lo anterior.** Quitar un archivo del repositorio no lo borra de los commits
-  pasados, que siguen siendo públicos. Para eliminarlo hay que reescribir el historial y forzar el envío; es una
-  decisión aparte porque cambia todos los identificadores de commit.
+- **GitHub conserva los commits antiguos** aunque ya ninguna rama los contenga: siguen abriéndose por su identificador
+  y por las referencias de los pull requests cerrados (`refs/pull/N/head`), que no se pueden reescribir desde fuera.
+  Solo el soporte de GitHub puede purgarlos (solicitud «remove cached views / sensitive data» indicando el repositorio y
+  los pull requests 1 a 6); la alternativa es borrar el repositorio y crearlo de nuevo con este historial.
+- Lo publicado pudo haberse copiado antes de la limpieza.
 - Los hashes de contraseña que estuvieron publicados deben considerarse expuestos: conviene cambiar esas contraseñas.
 - `app/Modules/Alumnos/AlumnosController.php` da de alta alumnos con una contraseña inicial fija y conocida. No es un
   dato de cuenta, pero es un riesgo: esas altas deberían nacer sin contraseña utilizable.
