@@ -44,6 +44,9 @@ Cada política conserva sus reglas actuales y suma la concesión como vía adici
 | `reuniones.precargar` | `ReunionPolicy::puedePrecargar` |
 | `documentos.subir` | `DocumentArchive::uploader` |
 | `modulo.<clave>` | Router y menú: abre el módulo completo a esa persona aunque su rol no figure en el manifiesto |
+| `ingesta.subir` | `Ingesta::puedeIngresar`: ingresar PDFs, carpetas y enlaces de Teams |
+| `ingesta.carpeta` | `Ingesta::alcance`: leer una carpeta de documentos indizados (se concede sobre la carpeta) |
+| `grafo.personas`, `grafo.programa`, `grafo.organo`, `grafo.persona` | `GrafoPersona::idsVisibles`: ver el grafo de todas las personas, de los profesores de un programa, de los miembros de un órgano o de una persona |
 
 `ajustes`, `seguridad`, `auth` y `concesiones` no se conceden completos. `archivo_accesos` (permiso por documento) sigue
 igual; es el antecedente de esta tabla.
@@ -61,6 +64,6 @@ accesos de su dependencia vencen pronto.
 ## Pendiente
 
 - Agregar funciones al catálogo (`Acceso::CATALOGO`) al migrar más políticas (`FilaAccess`, comisiones, etc.).
-- Concesiones por recurso concreto desde la pantalla (la clase ya las soporta con `recurso_id`).
+- La pantalla concede por recurso solo en las funciones del grafo (programa, órgano o persona). Falta para `ingesta.carpeta` y otros recursos.
 
 Prueba: `php tools/prueba_acceso.php` (revierte todo lo que escribe).

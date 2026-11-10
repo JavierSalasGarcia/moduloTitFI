@@ -11,6 +11,7 @@
   ],
   "pendientes": "App\\Modules\\Titulacion\\PanelController::pendientesDeSesion",
   "vinculacion": "App\\Modules\\Titulacion\\Services\\Constancias::vincular",
+  "grafo": "App\\Modules\\Titulacion\\Services\\GrafoTitulacion::de",
   "nombre": "Titulación",
   "version": "1.0.0",
   "descripcion": "Trámite de titulación en línea: asistente por opción de titulación, formatos llenados automáticamente, carga de documentos en PDF y validación por el Departamento de Evaluación Profesional.",

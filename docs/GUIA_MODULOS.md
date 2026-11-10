@@ -51,6 +51,7 @@ Hay una plantilla completa en `docs/modulos/plantilla/`. Para usarla:
 | `consulta` | lista | Opcional. Describe las secciones del módulo para el asistente de inicio (`ruta`, `descripcion`, `palabras`). Ver `docs/ASISTENTE_JEV_GEMINI.md`. |
 | `vinculacion` | texto | Opcional. `Clase::metodo` que liga a una cuenta nueva los registros previos de la persona. Ver `docs/VINCULACION_DE_CUENTAS.md`. |
 | `pendientes` | texto | Opcional. `Clase::metodo` que devuelve lo que la persona tiene pendiente (Notificaciones). |
+| `grafo` | texto | Opcional. `Clase::metodo` que aporta al grafo de relaciones lo que el módulo sabe de una persona. Ver `docs/GRAFO_DE_PERSONA.md`. |
 
 ### Qué significa cada campo del manifiesto
 

@@ -1113,3 +1113,34 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
 .inicio-bloque li small { display: block; color: var(--gris-600, #666); font-size: 11.5px; }
 .inicio-vacio { margin: 8px 0 2px; color: var(--gris-600, #666); font-size: 13px; }
 .inicio-mas { margin: 4px 0 0; font-size: 12px; }
+
+/* Documentos indizados y grafo de relaciones (módulo Ingesta). */
+.ing-rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+  margin-block: 16px;
+}
+.ing-rejilla h3 { margin: 0 0 4px; font-size: 17px; line-height: 1.3; }
+.ing-origen {
+  margin: 0 0 8px;
+  color: var(--gris-600);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ing-doc dl { margin: 10px 0; font-size: 13px; }
+.ing-doc dt { color: var(--gris-600); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 6px; }
+.ing-doc dd { margin: 0; overflow-wrap: anywhere; }
+.grafo-lienzo { overflow-x: auto; padding: 8px; }
+.grafo-persona { display: block; width: 100%; min-width: 640px; max-width: 1100px; height: auto; margin: 0 auto; }
+.grafo-arista { stroke: rgba(44, 82, 52, 0.22); stroke-width: 1; }
+.grafo-arista-grupo { stroke: rgba(44, 82, 52, 0.45); stroke-width: 1.6; }
+.grafo-nodo { fill: var(--oro-texto, #9c8412); }
+.grafo-grupo { fill: var(--verde-900, #2c5234); }
+.grafo-centro { fill: var(--verde-900, #2c5234); stroke: var(--oro-texto, #9c8412); stroke-width: 4; }
+.grafo-texto { font-size: 10.5px; fill: #3f4a43; }
+.grafo-texto-grupo { font-size: 11px; font-weight: 700; fill: #18311f; }
+.grafo-texto-centro { font-size: 14px; font-weight: 700; fill: #18311f; }
+.grafo-texto-grupo, .grafo-texto-centro { paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }

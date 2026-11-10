@@ -15,3 +15,7 @@ El asistente de la página de inicio usa Jev como árbitro y Gemini para orienta
 Los registros de personas sin cuenta se vinculan solo por correo verificado, nunca por nombre, mediante `Identidad::vincularDatos`; leer `docs/VINCULACION_DE_CUENTAS.md`.
 
 El despliegue se hace con `tools/desplegar.sh` (`docs/DESPLIEGUE.md`). No dejar archivos `.bak` ni respaldos dentro del sitio o del repositorio.
+
+El repositorio es público: solo estructura de tablas, nunca datos de cuentas o de personas. Las cargas de datos van en `database/datos_privados/` y nada de `storage/` se versiona; leer `docs/DATOS_SENSIBLES.md` y ejecutar `php tools/verificar_datos_sensibles.php` antes de cada commit (el hook pre-commit lo hace si está instalado).
+
+Un módulo aporta al grafo de relaciones de la persona con la clave `grafo` de su manifiesto (`docs/GRAFO_DE_PERSONA.md`); quién ve el grafo de quién lo decide `GrafoPersona::idsVisibles`. La ingesta de PDFs, carpetas y enlaces de Teams está en `docs/INGESTA_DOCUMENTAL.md`; toda lectura pasa por `Ingesta::alcance()`.

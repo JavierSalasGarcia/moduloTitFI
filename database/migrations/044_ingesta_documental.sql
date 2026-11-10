@@ -1,0 +1,51 @@
+-- Ingesta documental (docs/INGESTA_DOCUMENTAL.md): PDFs sueltos, carpetas de PDFs y enlaces a archivos de Teams/SharePoint,
+-- indizados para consultar sus metadatos y abrir su enlace. Repetible: solo crea lo que falta. No toca el archivo documental.
+CREATE TABLE IF NOT EXISTS ing_carpetas (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(200) NOT NULL,
+  descripcion TEXT NOT NULL,
+  origen ENUM('pdf','teams') NOT NULL,
+  enlace VARCHAR(1000) NULL COMMENT 'Enlace de la carpeta en Teams/SharePoint (origen teams)',
+  alcance ENUM('propio','departamento','personal','comunidad') NOT NULL DEFAULT 'departamento',
+  departamento_id SMALLINT UNSIGNED NULL,
+  creado_por INT UNSIGNED NOT NULL,
+  creado_en DATETIME NOT NULL,
+  actualizado_en DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  KEY idx_ing_carpeta_alcance (alcance, departamento_id),
+  KEY idx_ing_carpeta_autor (creado_por)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS ing_documentos (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  carpeta_id INT UNSIGNED NULL COMMENT 'NULL = documento ingresado de forma particular',
+  origen ENUM('pdf','teams') NOT NULL,
+  titulo VARCHAR(250) NOT NULL,
+  tipo_documento VARCHAR(100) NOT NULL DEFAULT '',
+  autor VARCHAR(200) NOT NULL DEFAULT '',
+  fecha_documento DATE NULL,
+  palabras_clave TEXT NOT NULL,
+  resumen TEXT NOT NULL,
+  ruta_relativa VARCHAR(500) NOT NULL DEFAULT '' COMMENT 'Ubicación dentro de la carpeta de origen',
+  enlace VARCHAR(1000) NULL COMMENT 'URL del archivo en Teams/SharePoint (origen teams)',
+  clave VARCHAR(40) NULL COMMENT 'Archivo en el almacenamiento privado (origen pdf)',
+  nombre_original VARCHAR(250) NOT NULL DEFAULT '',
+  bytes INT UNSIGNED NOT NULL DEFAULT 0,
+  paginas SMALLINT UNSIGNED NULL,
+  sha256 CHAR(64) NULL,
+  texto MEDIUMTEXT NULL COMMENT 'Texto extraído del PDF para la búsqueda; nunca se muestra completo',
+  -- Copia del alcance de la carpeta (o propio del documento particular): un solo predicado de acceso para toda consulta.
+  alcance ENUM('propio','departamento','personal','comunidad') NOT NULL DEFAULT 'departamento',
+  departamento_id SMALLINT UNSIGNED NULL,
+  creado_por INT UNSIGNED NOT NULL,
+  creado_en DATETIME NOT NULL,
+  actualizado_en DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_ing_clave (clave),
+  KEY idx_ing_doc_carpeta (carpeta_id, ruta_relativa(100)),
+  KEY idx_ing_doc_alcance (alcance, departamento_id),
+  KEY idx_ing_doc_autor (creado_por, creado_en),
+  KEY idx_ing_doc_sha (sha256),
+  FULLTEXT KEY ft_ing_documentos (titulo, tipo_documento, autor, palabras_clave, resumen, nombre_original, ruta_relativa, texto),
+  CONSTRAINT fk_ing_doc_carpeta FOREIGN KEY (carpeta_id) REFERENCES ing_carpetas (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

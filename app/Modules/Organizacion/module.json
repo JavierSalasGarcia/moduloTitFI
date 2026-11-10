@@ -1,5 +1,6 @@
 {
   "clave": "organizacion",
+  "grafo": "App\\Modules\\Organizacion\\GrafoOrganizacion::de",
   "nombre": "Estructura académica",
   "version": "1.0.0",
   "descripcion": "Administración de coordinaciones, NAB y CAP por posgrado y profesor.",

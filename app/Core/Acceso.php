@@ -148,12 +148,21 @@ final class Acceso
         }
     }
 
-    /** Funciones que el administrador puede conceder a una persona (las de módulo completo se generan en la pantalla). titular = lo puede conceder el titular de su dependencia. */
+    /**
+     * Funciones que el administrador puede conceder a una persona (las de módulo completo se generan en la pantalla).
+     * titular = lo puede conceder el titular de su dependencia. recurso = la concesión se da sobre un programa, órgano o persona concretos.
+     */
     public const CATALOGO = [
         'titulacion.personal' => ['nombre' => 'Personal de Titulación (gestión de trámites)', 'titular' => true],
         'asuntos.gestor' => ['nombre' => 'Gestión de Asuntos (oficinas)', 'titular' => true],
         'reuniones.precargar' => ['nombre' => 'Reuniones: precargar y administrar', 'titular' => true],
         'documentos.subir' => ['nombre' => 'Archivo documental: subir documentos', 'titular' => true],
+        'ingesta.subir' => ['nombre' => 'Documentos indizados: ingresar PDFs, carpetas y enlaces de Teams', 'titular' => true],
+        'ingesta.carpeta' => ['nombre' => 'Documentos indizados: consultar carpetas de otras dependencias', 'titular' => true],
+        'grafo.personas' => ['nombre' => 'Grafo de relaciones: ver el de todas las personas', 'titular' => false],
+        'grafo.programa' => ['nombre' => 'Grafo de relaciones: profesores de un programa', 'titular' => false, 'recurso' => 'programa'],
+        'grafo.organo' => ['nombre' => 'Grafo de relaciones: miembros de un cuerpo u órgano académico', 'titular' => false, 'recurso' => 'organo'],
+        'grafo.persona' => ['nombre' => 'Grafo de relaciones: una persona en particular', 'titular' => false, 'recurso' => 'persona'],
     ];
 
     /** Claves de función con concesión vigente para la persona (caché por petición). @return string[] */
@@ -193,6 +202,9 @@ final class Acceso
         try {
             return Database::todas(
                 'SELECT c.*, u.nombre, u.email, o.nombre AS otorgante, d.nombre AS departamento,
+                        (SELECT pr.nombre FROM programas pr WHERE c.funcion = "grafo.programa" AND pr.id = c.recurso_id) AS recurso_programa,
+                        (SELECT CONCAT(og.tipo, " · ", pg.nombre) FROM programa_organos og JOIN programas pg ON pg.id = og.programa_id WHERE c.funcion = "grafo.organo" AND og.id = c.recurso_id) AS recurso_organo,
+                        (SELECT ur.nombre FROM usuarios ur WHERE c.funcion = "grafo.persona" AND ur.id = c.recurso_id) AS recurso_persona,
                         CASE WHEN c.revocado_en IS NOT NULL THEN "revocada" WHEN c.vigente_hasta < CURDATE() THEN "vencida" ELSE "vigente" END AS estado
                  FROM acceso_concesiones c JOIN usuarios u ON u.id = c.usuario_id JOIN usuarios o ON o.id = c.otorgado_por
                  LEFT JOIN departamentos d ON d.id = c.departamento_id

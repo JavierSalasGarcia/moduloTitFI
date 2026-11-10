@@ -65,6 +65,9 @@ final class ConcesionesController extends Controller
             'funciones' => $this->funciones($deptos),
             'departamentos' => $nombres,
             'esAdmin' => $deptos === null,
+            'programas' => $deptos === null ? Database::todas('SELECT id, nombre, nivel FROM programas ORDER BY nivel, nombre') : [],
+            'organos' => $deptos === null ? $this->organos() : [],
+            'conRecurso' => array_map(static fn(array $f): string => (string) $f['recurso'], array_filter(Acceso::CATALOGO, static fn(array $f): bool => isset($f['recurso']))),
             'migrada' => $this->tabla(),
         ]);
     }
@@ -86,12 +89,30 @@ final class ConcesionesController extends Controller
             if (!$persona) {
                 throw new \InvalidArgumentException('No hay una cuenta activa con ese correo. La persona debe tener cuenta en Traza FI.');
             }
-            Acceso::conceder(Auth::id(), (int) $persona['id'], $funcion, $this->post('vigente_hasta'), null, $deptoId, 'usar', $this->post('motivo'));
+            Acceso::conceder(Auth::id(), (int) $persona['id'], $funcion, $this->post('vigente_hasta'), $this->recurso($funcion), $deptoId, 'usar', $this->post('motivo'));
             flash('exito', 'Acceso concedido a ' . $persona['nombre'] . ' hasta el ' . $this->post('vigente_hasta') . '.');
         } catch (\InvalidArgumentException | \DomainException $e) {
             flash('error', $e->getMessage());
         }
         redirigir('concesiones');
+    }
+
+    /** Programa, órgano o persona sobre el que se concede, cuando la función lo requiere (grafo.programa, grafo.organo, grafo.persona). */
+    private function recurso(string $funcion): ?int
+    {
+        $tipo = Acceso::CATALOGO[$funcion]['recurso'] ?? null;
+        if ($tipo === null) {
+            return null;
+        }
+        if ($tipo === 'persona') {
+            $observada = Identidad::usuarioPorCorreo($this->post('recurso_persona'));
+            return $observada ? (int) $observada['id'] : throw new \InvalidArgumentException('Escribe el correo de la persona cuyo grafo se podrá ver; debe tener cuenta activa.');
+        }
+        $id = (int) $this->post($tipo === 'programa' ? 'recurso_programa' : 'recurso_organo');
+        $existe = $tipo === 'programa'
+            ? Database::valor('SELECT 1 FROM programas WHERE id = ?', [$id])
+            : Database::valor('SELECT 1 FROM programa_organos WHERE id = ? AND activo = 1', [$id]);
+        return $existe ? $id : throw new \InvalidArgumentException($tipo === 'programa' ? 'Elige el programa cuyos profesores se podrán ver.' : 'Elige el cuerpo u órgano académico cuyos miembros se podrán ver.');
     }
 
     public function revocar(string $id): void
@@ -104,6 +125,15 @@ final class ConcesionesController extends Controller
             flash('error', 'No se pudo revocar: ya no está vigente o no es de tu dependencia.');
         }
         redirigir('concesiones');
+    }
+
+    private function organos(): array
+    {
+        try {
+            return Database::todas('SELECT o.id, o.tipo, o.nombre, p.nombre AS programa FROM programa_organos o JOIN programas p ON p.id = o.programa_id WHERE o.activo = 1 ORDER BY p.nombre, o.tipo');
+        } catch (\Throwable) {
+            return [];
+        }
     }
 
     private function tabla(): bool

@@ -13,9 +13,15 @@ final class ConsultasSeguras
         $text=mb_strtolower($q);
         if(preg_match('/buscar documentos|buscar archivos|consultar documentos|archivo documental/u',$text)) {
             $terms=trim(preg_replace('/buscar documentos|buscar archivos|consultar documentos|archivo documental|\bsobre\b/ui','',$q));
-            return self::result('Busca en el archivo documental. Los filtros y resultados respetan tus permisos; no se envían documentos a Gemini para buscar.',[
-                ['titulo'=>'Consultar archivo documental','detalle'=>'Palabras clave, departamento, coordinación, programa, autor y fechas.','ruta'=>'documentos'.($terms!==''?'?q='.rawurlencode($terms):'')]
-            ]);
+            $items=[];
+            // Documentos indizados (módulo Ingesta): la búsqueda aplica el alcance de la sesión en SQL; solo se muestran metadatos.
+            try {
+                if($terms!=='' && \App\Modules\Ingesta\Ingesta::lista()) foreach(\App\Modules\Ingesta\Ingesta::buscar($terms,null,5) as $d)
+                    $items[]=['titulo'=>$d['titulo'],'detalle'=>trim(($d['origen']==='teams'?'Teams':'PDF').($d['tipo_documento']!==''?' · '.$d['tipo_documento']:'').($d['carpeta']?' · Carpeta: '.$d['carpeta']:'').($d['fecha_documento']?' · '.$d['fecha_documento']:'')),'ruta'=>'ingesta/documento/'.$d['id']];
+            } catch(\Throwable) {}
+            $items[]=['titulo'=>'Buscar en documentos indizados','detalle'=>'PDFs, carpetas y enlaces de Teams con sus metadatos.','ruta'=>'ingesta'.($terms!==''?'?q='.rawurlencode($terms):'')];
+            $items[]=['titulo'=>'Consultar archivo documental','detalle'=>'Palabras clave, departamento, coordinación, programa, autor y fechas.','ruta'=>'documentos'.($terms!==''?'?q='.rawurlencode($terms):'')];
+            return self::result('Estos son los documentos que coinciden dentro de tu acceso. Los filtros y resultados respetan tus permisos; no se envían documentos a una IA para buscar.',$items);
         }
         if(preg_match('/qu[eé] puedes hacer|qu[eé] puedo consultar|herramientas disponibles/u',$text)) {
             return self::result('Puedo orientar trámites, consultar el estado de tus solicitudes y mostrar tus reuniones autorizadas. No modifico registros ni consulto expedientes académicos, laborales o confidenciales.',[

@@ -43,3 +43,9 @@ node_modules/
 /storage/backups/
 /tmp/
 /tools/despliegue.local.conf
+
+# Datos de personas y de la operación: nunca versionar (docs/DATOS_SENSIBLES.md). Solo se conservan los .htaccess.
+/storage/*
+!/storage/.htaccess
+/.codex-remote-attachments/
+/.claude/settings.local.json
