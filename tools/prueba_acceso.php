@@ -53,6 +53,20 @@ try {
     $ok('quien no es titular ni admin no concede', $lanza(fn() => Acceso::conceder($persona, $admin, 'documentos', $manana, 5, $depto)));
     $ok('el admin sí concede en cualquier dependencia', Acceso::conceder($admin, $persona, 'documentos', $manana, 7, $otroDepto) > 0);
     $ok('concesión sin recurso cubre toda la función', Acceso::conceder($admin, $persona, 'titulacion.panel', $manana) > 0 && Acceso::tiene($persona, 'titulacion.panel', 99));
+
+    // --- alcance, avisos y etiquetas ---
+    $ok('el admin concede en todas las dependencias (null)', Acceso::dependenciasQueConcede($admin) === null);
+    $ok('el titular concede solo en la suya', Acceso::dependenciasQueConcede((int) $titular['id']) === [$depto]);
+    $ok('quien no es titular no tiene dependencias', Acceso::dependenciasQueConcede($persona) === []);
+    $pdo->exec("DELETE FROM acceso_concesiones");
+    Acceso::conceder((int) $titular['id'], $persona, 'documentos.subir', date('Y-m-d', strtotime('+3 days')), null, $depto);
+    Acceso::conceder($admin, $persona, 'asuntos.gestor', date('Y-m-d', strtotime('+60 days')), null, $otroDepto);
+    $ok('por vencer (15 días) solo trae la próxima', count(Acceso::porVencer(15)) === 1 && Acceso::porVencer(15)[0]['funcion'] === 'documentos.subir');
+    $ok('por vencer filtra por dependencia', Acceso::porVencer(90, [$depto]) !== [] && count(Acceso::porVencer(90, [$depto])) === 1);
+    $ok('listar filtra por dependencia', count(Acceso::listar([$otroDepto])) === 1 && count(Acceso::listar()) === 2);
+    $ok('etiqueta de catálogo y de módulo', Acceso::etiqueta('documentos.subir') !== 'documentos.subir' && str_contains(Acceso::etiqueta('modulo.fila'), 'fila'));
+    Acceso::conceder($admin, $persona, 'modulo.fila', $manana);
+    $ok('funcionesVigentes incluye el módulo concedido', in_array('modulo.fila', Acceso::funcionesVigentes($persona), true));
 } finally {
     $pdo->rollBack();
 }

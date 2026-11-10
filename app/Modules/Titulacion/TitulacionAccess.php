@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Titulacion;
 
+use App\Core\Acceso;
 use App\Core\App;
 use App\Core\Auth;
 
@@ -15,7 +16,7 @@ final class TitulacionAccess
         if (!$u) {
             return false;
         }
-        if (($u['rol'] ?? '') === 'admin') {
+        if (($u['rol'] ?? '') === 'admin' || Acceso::puede('titulacion.personal', [], null, null, 'usar', false)) {
             return true;
         }
         $email = strtolower(trim((string) ($u['email'] ?? '')));

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Reuniones\Policies;
 
+use App\Core\Acceso;
 use App\Core\Auth;
 
 final class ReunionPolicy
@@ -14,7 +15,7 @@ final class ReunionPolicy
 
     public static function puedePrecargar(): bool
     {
-        return Auth::tieneRol('admin', 'coordinador');
+        return Acceso::puede('reuniones.precargar', ['admin', 'coordinador'], null, null, 'usar', false);
     }
 
     public static function puedeAdministrarCoordinadores(): bool

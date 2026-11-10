@@ -34,9 +34,9 @@ final class Acceso
 
     /**
      * Decisión para la persona en sesión. $roles son los que el módulo admite para la acción;
-     * $propietarioId, quien creó el recurso (si lo hay).
+     * $propietarioId, quien creó el recurso (si lo hay). Con $auditar = false no registra la denegación (condiciones de menú).
      */
-    public static function puede(string $funcion, array $roles = [], ?int $recursoId = null, ?int $propietarioId = null, string $permiso = 'usar'): bool
+    public static function puede(string $funcion, array $roles = [], ?int $recursoId = null, ?int $propietarioId = null, string $permiso = 'usar', bool $auditar = true): bool
     {
         $id = Auth::id();
         if ($id <= 0) {
@@ -45,7 +45,7 @@ final class Acceso
         $ok = ($propietarioId !== null && $propietarioId === $id)
             || ($roles && Auth::tieneRol(...$roles))
             || self::tiene($id, $funcion, $recursoId, $permiso);
-        if (!$ok) {
+        if (!$ok && $auditar) {
             Audit::record('acceso_denegado', 'denegado', $funcion . ($recursoId !== null ? ' #' . $recursoId : ''));
         }
         return $ok;
@@ -146,5 +146,100 @@ final class Acceso
         } catch (\Throwable) {
             return [];
         }
+    }
+
+    /** Funciones que el administrador puede conceder a una persona (las de módulo completo se generan en la pantalla). titular = lo puede conceder el titular de su dependencia. */
+    public const CATALOGO = [
+        'titulacion.personal' => ['nombre' => 'Personal de Titulación (gestión de trámites)', 'titular' => true],
+        'asuntos.gestor' => ['nombre' => 'Gestión de Asuntos (oficinas)', 'titular' => true],
+        'reuniones.precargar' => ['nombre' => 'Reuniones: precargar y administrar', 'titular' => true],
+        'documentos.subir' => ['nombre' => 'Archivo documental: subir documentos', 'titular' => true],
+    ];
+
+    /** Claves de función con concesión vigente para la persona (caché por petición). @return string[] */
+    public static function funcionesVigentes(int $usuarioId): array
+    {
+        static $cache = [];
+        if ($usuarioId <= 0) {
+            return [];
+        }
+        return $cache[$usuarioId] ??= array_values(array_unique(array_column(self::vigentes($usuarioId), 'funcion')));
+    }
+
+    /** ¿Entra al módulo por concesión (función «modulo.<clave>»)? Complementa los roles del manifiesto. */
+    public static function entraAlModulo(string $clave): bool
+    {
+        return in_array('modulo.' . $clave, self::funcionesVigentes(Auth::id()), true);
+    }
+
+    /** Concesiones vigentes que vencen en $dias días o menos; con $departamentoId solo las de esa dependencia (titular). */
+    public static function porVencer(int $dias = 15, ?array $departamentos = null): array
+    {
+        try {
+            return Database::todas(
+                'SELECT c.id, c.usuario_id, u.nombre, u.email, c.funcion, c.vigente_hasta FROM acceso_concesiones c JOIN usuarios u ON u.id = c.usuario_id
+                 WHERE c.revocado_en IS NULL AND c.vigente_hasta >= CURDATE() AND c.vigente_hasta <= CURDATE() + INTERVAL ? DAY'
+                . ($departamentos !== null ? ' AND c.departamento_id IN (' . self::marcas($departamentos) . ')' : '') . ' ORDER BY c.vigente_hasta',
+                [$dias, ...($departamentos ?? [])]
+            );
+        } catch (\Throwable) {
+            return [];
+        }
+    }
+
+    /** Listado para la pantalla: vigentes y recientemente vencidas o revocadas. $departamentos limita a esas dependencias. */
+    public static function listar(?array $departamentos = null): array
+    {
+        try {
+            return Database::todas(
+                'SELECT c.*, u.nombre, u.email, o.nombre AS otorgante, d.nombre AS departamento,
+                        CASE WHEN c.revocado_en IS NOT NULL THEN "revocada" WHEN c.vigente_hasta < CURDATE() THEN "vencida" ELSE "vigente" END AS estado
+                 FROM acceso_concesiones c JOIN usuarios u ON u.id = c.usuario_id JOIN usuarios o ON o.id = c.otorgado_por
+                 LEFT JOIN departamentos d ON d.id = c.departamento_id
+                 WHERE (c.vigente_hasta >= CURDATE() - INTERVAL 90 DAY)' . ($departamentos !== null ? ' AND c.departamento_id IN (' . self::marcas($departamentos) . ')' : '')
+                . ' ORDER BY (c.revocado_en IS NOT NULL OR c.vigente_hasta < CURDATE()), c.vigente_hasta',
+                $departamentos ?? []
+            );
+        } catch (\Throwable) {
+            return [];
+        }
+    }
+
+    /** Marcadores «?,?,?» para un IN; con lista vacía, «NULL» (no coincide con nada). */
+    private static function marcas(array $lista): string
+    {
+        return $lista ? implode(',', array_fill(0, count($lista), '?')) : 'NULL';
+    }
+
+    /** Dependencias sobre las que la persona puede conceder: todas (null) si es administradora; las suyas si es titular. @return int[]|null */
+    public static function dependenciasQueConcede(int $usuarioId): ?array
+    {
+        $u = Database::una('SELECT rol, departamento_id FROM usuarios WHERE id = ? AND activo = 1', [$usuarioId]);
+        if (!$u) {
+            return [];
+        }
+        if ($u['rol'] === Roles::ADMIN) {
+            return null;
+        }
+        $ids = [];
+        if ($u['rol'] === Roles::TITULAR && (int) $u['departamento_id'] > 0) {
+            $ids[] = (int) $u['departamento_id'];
+        }
+        try {
+            foreach (Database::todas('SELECT departamento_id FROM usuario_roles WHERE usuario_id = ? AND rol = ? AND departamento_id IS NOT NULL', [$usuarioId, Roles::TITULAR]) as $r) {
+                $ids[] = (int) $r['departamento_id'];
+            }
+        } catch (\Throwable) {
+        }
+        return array_values(array_unique($ids));
+    }
+
+    /** Nombre legible de una función concedida. */
+    public static function etiqueta(string $funcion): string
+    {
+        if (isset(self::CATALOGO[$funcion])) {
+            return self::CATALOGO[$funcion]['nombre'];
+        }
+        return str_starts_with($funcion, 'modulo.') ? 'Módulo «' . substr($funcion, 7) . '» completo' : $funcion;
     }
 }

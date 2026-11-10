@@ -88,7 +88,7 @@ final class Router
                         View::render('errores/403', ['titulo' => 'Acceso restringido']);
                         return;
                     }
-                    if ($r['roles'] && !array_intersect(Auth::roles(), $r['roles'])) {
+                    if ($r['roles'] && !array_intersect(Auth::roles(), $r['roles']) && !Acceso::entraAlModulo((string) $r['modulo'])) {
                         Audit::record($r['modulo'].'::acceso','denegado','Permisos insuficientes');
                         http_response_code(403);
                         View::render('errores/403', ['titulo' => 'Acceso restringido']);

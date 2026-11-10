@@ -74,7 +74,7 @@ final class ModuleManager
         foreach (self::descubrir() as $m) {
             if ($soloTitulacion && $m['clave'] !== 'titulacion') continue;
             foreach ($m['menu'] as $item) {
-                if ($rol === null || !array_intersect((array) $rol, $item['roles'])) continue;
+                if ($rol === null || (!array_intersect((array) $rol, $item['roles']) && !Acceso::entraAlModulo((string) $m['clave']))) continue;
                 if (!empty($item['condicion']) && !self::cumple((string) $item['condicion'])) continue;
                 $item['clave'] = $m['clave'];
                 $sec = $item['seccion'];

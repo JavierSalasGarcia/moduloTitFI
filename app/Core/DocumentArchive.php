@@ -10,7 +10,7 @@ final class DocumentArchive
         return self::$ready??=(int)Database::valor("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name IN ('archivo_documentos','archivo_adjuntos','archivo_accesos','archivo_acciones','archivo_extracciones')")===5;
     }
     public static function uploader(): bool {
-        return Auth::tieneRol('admin','coordinador') || (bool)Database::valor('SELECT 1 FROM reuniones_coordinadores WHERE usuario_id=? AND activo=1 LIMIT 1',[Auth::id()]);
+        return Acceso::puede('documentos.subir',['admin','coordinador'],null,null,'usar',false) || (bool)Database::valor('SELECT 1 FROM reuniones_coordinadores WHERE usuario_id=? AND activo=1 LIMIT 1',[Auth::id()]);
     }
     public static function assertUploader(): void {if(!self::uploader())self::deny();}
     public static function deny(): never {Audit::record('documentos_acceso','denegado');http_response_code(404);exit('Documento no disponible.');}

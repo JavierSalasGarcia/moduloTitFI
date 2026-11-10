@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Modules\Asuntos;
 
 use App\Core\AccessControl;
+use App\Core\Acceso;
 use App\Core\App;
 use App\Core\Audit;
 use App\Core\Auth;
@@ -41,7 +42,7 @@ final class AsuntosAccess
         }
         $email = strtolower(trim((string) ($u['email'] ?? '')));
         $gestores = array_map(static fn($valor): string => strtolower(trim((string) $valor)), (array) ($oficina['gestores'] ?? []));
-        if (in_array($email, $gestores, true)) {
+        if (in_array($email, $gestores, true) || Acceso::puede('asuntos.gestor', [], null, null, 'usar', false)) {
             return true;
         }
         return in_array((string) ($u['rol'] ?? ''), ['admin', 'titular', 'operativo'], true)

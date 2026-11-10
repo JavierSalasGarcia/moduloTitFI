@@ -33,10 +33,34 @@ Una concesión sin `recurso_id` cubre toda la función; con `recurso_id`, solo e
 - Nadie se concede acceso a sí mismo. La vigencia debe ser hoy o futura. Se puede revocar antes del vencimiento.
 - Concesión, revocación y denegación quedan en la auditoría.
 
-## Pendiente de migrar
+## Dónde se aplica
 
-Los módulos con política propia (`ReunionPolicy`, `AsuntosAccess`, `TitulacionAccess`, `DocumentArchive::scope`) siguen
-como están. Se migran uno por uno a `Acceso::puede` sin cambiar su comportamiento; `archivo_accesos` es el antecedente
-de esta tabla. Falta también la pantalla para conceder, revocar y avisar de vencimientos próximos.
+Cada política conserva sus reglas actuales y suma la concesión como vía adicional (no cambia quién entra hoy):
+
+| Función concedible | Política que la reconoce |
+|---|---|
+| `titulacion.personal` | `TitulacionAccess::esPersonal` |
+| `asuntos.gestor` | `AsuntosAccess::esGestor` |
+| `reuniones.precargar` | `ReunionPolicy::puedePrecargar` |
+| `documentos.subir` | `DocumentArchive::uploader` |
+| `modulo.<clave>` | Router y menú: abre el módulo completo a esa persona aunque su rol no figure en el manifiesto |
+
+`ajustes`, `seguridad`, `auth` y `concesiones` no se conceden completos. `archivo_accesos` (permiso por documento) sigue
+igual; es el antecedente de esta tabla.
+
+## Pantalla «Accesos especiales» (`/concesiones`)
+
+Módulo `Concesiones`, para administración y titulares. Se concede por correo de una cuenta existente, con fecha de término
+obligatoria. El administrador elige cualquier función (incluidos módulos completos) y dependencia; el titular solo las
+funciones marcadas para titulares y sobre su propia dependencia. Lista vigentes, vencidas y revocadas de los últimos 90
+días, y permite revocar.
+
+**Avisos**: la persona recibe en Notificaciones «Tu acceso … vence el …» desde 15 días antes; quien concede ve cuántos
+accesos de su dependencia vencen pronto.
+
+## Pendiente
+
+- Agregar funciones al catálogo (`Acceso::CATALOGO`) al migrar más políticas (`FilaAccess`, comisiones, etc.).
+- Concesiones por recurso concreto desde la pantalla (la clase ya las soporta con `recurso_id`).
 
 Prueba: `php tools/prueba_acceso.php` (revierte todo lo que escribe).
