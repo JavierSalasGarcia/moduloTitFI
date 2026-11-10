@@ -6,7 +6,7 @@ declare(strict_types=1);
  *
  *   php tools/cifrar_totp.php               Cifra los secretos que aún están en texto plano.
  *   php tools/cifrar_totp.php --simular     Sólo cuenta; no escribe nada.
- *   php tools/cifrar_totp.php --recifrar    Además re-cifra los ya cifrados con otra llave para pasarlos a la activa
+ *   php tools/cifrar_totp.php --recifrar    Además re-cifra los ya cifrados con otra llave o con el formato anterior (enc:v1) para pasarlos a la activa
  *                                           (tras una rotación con tools/cifrado_llave.php --rotar).
  *
  * Requisitos: migración 042 aplicada (columna de 255) y llave configurada. Haz un respaldo de la base antes de ejecutarlo.
@@ -51,7 +51,8 @@ foreach ($filas as $f) {
         $nuevo = Totp::paraGuardar($claro, $id);
         // Comprobación de ida y vuelta antes de escribir: nunca se guarda algo que no se pueda leer de vuelta.
         if (Totp::desdeAlmacenado($nuevo, $id) !== $claro) { throw new RuntimeException('El valor no se descifra de vuelta.'); }
-        if ($cifrado && explode(':', $nuevo, 4)[2] === explode(':', $actual, 4)[2]) { $iguales++; continue; }
+        // Sin cambio solo si coinciden el formato (v1/v2) y la llave.
+        if ($cifrado && array_slice(explode(':', $nuevo, 4), 1, 2) === array_slice(explode(':', $actual, 4), 1, 2)) { $iguales++; continue; }
         if (!$simular) {
             Database::ejecutar('UPDATE usuarios SET totp_secret = ? WHERE id = ? AND totp_secret = ?', [$nuevo, $id, $actual]);
         }

@@ -104,7 +104,7 @@ final class Router
                 if (isset($_SESSION['impersonador']) && ($r['modulo']==='seguridad' || $r['modulo']==='auth') && !in_array($accion,['salir','volver'],true)) {
                     http_response_code(403); exit('Vuelve a tu cuenta para gestionar credenciales o verificar un correo.');
                 }
-                if ($metodo !== 'GET' && AccessControl::pending() && !in_array($ruta,['/cuenta/verificar','/cuenta/reenviar','/cuenta/volver','/consulta'],true)) AccessControl::deny();
+                if ($metodo !== 'GET' && AccessControl::pending() && !in_array($ruta,['/cuenta/verificar','/cuenta/reenviar','/cuenta/volver','/consulta','/logout'],true)) AccessControl::deny();
                 // El editor público guarda su propia bitácora de revisiones y debe
                 // poder consultarse aunque la BD principal no esté disponible.
                 $params = array_filter($m, 'is_string', ARRAY_FILTER_USE_KEY);

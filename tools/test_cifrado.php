@@ -32,7 +32,7 @@ prueba('sin llave: disponible() es false', !Cifrado::disponible());
 // Con llave.
 Cifrado::reiniciar(['activa' => 'k1', 'llaves' => ['k1' => $k1]]);
 $c = Cifrado::cifrar('JBSWY3DPEHPK3PXP', 'usuarios.totp_secret#7');
-prueba('el valor cifrado lleva prefijo y no contiene el secreto', str_starts_with($c, 'enc:v1:k1:') && !str_contains($c, 'JBSWY3DPEHPK3PXP'));
+prueba('el valor cifrado lleva prefijo y no contiene el secreto', str_starts_with($c, 'enc:v2:k1:') && !str_contains($c, 'JBSWY3DPEHPK3PXP'));
 prueba('cabe en VARCHAR(255)', strlen($c) < 255);
 prueba('ida y vuelta', Cifrado::descifrar($c, 'usuarios.totp_secret#7') === 'JBSWY3DPEHPK3PXP');
 prueba('dos cifrados del mismo valor difieren (nonce aleatorio)', $c !== Cifrado::cifrar('JBSWY3DPEHPK3PXP', 'usuarios.totp_secret#7'));
@@ -43,11 +43,21 @@ prueba('un valor alterado no descifra', lanza(fn() => Cifrado::descifrar($altera
 prueba('texto plano heredado se acepta', Cifrado::descifrar('ABC', 'x') === 'ABC');
 prueba('NULL y vacío se conservan', Cifrado::cifrar(null, 'x') === null && Cifrado::cifrar('', 'x') === '');
 
+// Formato anterior (XChaCha20, ext-sodium): se sigue leyendo donde hay sodium.
+if (function_exists('sodium_crypto_aead_xchacha20poly1305_ietf_encrypt')) {
+    $n = random_bytes(SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES);
+    $v1 = 'enc:v1:k1:' . rtrim(strtr(base64_encode($n . sodium_crypto_aead_xchacha20poly1305_ietf_encrypt('VIEJO', 'ctx', $n, base64_decode($k1))), '+/', '-_'), '=');
+    prueba('formato anterior enc:v1 se sigue leyendo', Cifrado::estaCifrado($v1) && Cifrado::descifrar($v1, 'ctx') === 'VIEJO');
+    prueba('formato anterior: otro contexto no descifra', lanza(fn() => Cifrado::descifrar($v1, 'otro')));
+} else {
+    echo "aviso  este PHP no tiene ext-sodium: no se prueba la lectura de enc:v1\n";
+}
+
 // Rotación: se cifra con la activa y se descifra con la que indique el valor.
 Cifrado::reiniciar(['activa' => 'k2', 'llaves' => ['k1' => $k1, 'k2' => $k2]]);
 prueba('tras rotar, lo cifrado con k1 sigue legible', Cifrado::descifrar($c, 'usuarios.totp_secret#7') === 'JBSWY3DPEHPK3PXP');
 $c2 = Cifrado::cifrar('JBSWY3DPEHPK3PXP', 'usuarios.totp_secret#7');
-prueba('tras rotar, lo nuevo usa k2', str_starts_with($c2, 'enc:v1:k2:'));
+prueba('tras rotar, lo nuevo usa k2', str_starts_with($c2, 'enc:v2:k2:'));
 Cifrado::reiniciar(['activa' => 'k2', 'llaves' => ['k2' => $k2]]);
 prueba('sin la llave original no se descifra', lanza(fn() => Cifrado::descifrar($c, 'usuarios.totp_secret#7')));
 

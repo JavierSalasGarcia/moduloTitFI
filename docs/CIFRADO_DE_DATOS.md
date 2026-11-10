@@ -15,10 +15,12 @@ texto ilegible; necesitaría además comprometer el servidor de aplicación.
 
 ## Cómo funciona
 
-`App\Core\Cifrado` usa XChaCha20-Poly1305 (libsodium, ya incluido en PHP 8). Es cifrado autenticado: un valor
-modificado no se descifra. Cada valor se liga a un *contexto* (por ejemplo `usuarios.totp_secret#42`, columna más id de
+`App\Core\Cifrado` usa AES-256-GCM (ext-openssl, disponible tanto en la web como en la consola del servidor). Es cifrado
+autenticado: un valor modificado no se descifra. Hasta el 10 de noviembre de 2026 escribía XChaCha20-Poly1305 con
+ext-sodium (`enc:v1:`), pero el PHP de la web de Hostinger no carga esa extensión y fallaba al activar el autenticador;
+esos valores se siguen leyendo donde hay sodium y se pasan al formato vigente con `php tools/cifrar_totp.php --recifrar`. Cada valor se liga a un *contexto* (por ejemplo `usuarios.totp_secret#42`, columna más id de
 registro), de modo que copiar el texto cifrado de un usuario a otro no sirve. El valor guardado tiene la forma
-`enc:v1:{id_llave}:{datos}` y mide unos 90 caracteres. El id de llave permite rotar llaves sin recifrar todo de golpe.
+`enc:v2:{id_llave}:{datos}` y mide unos 90 caracteres. El id de llave permite rotar llaves sin recifrar todo de golpe.
 Un valor sin el prefijo `enc:` se trata como texto plano heredado, lo que hace gradual la migración.
 
 Las funciones públicas son `Cifrado::cifrar($valor, $contexto)`, `Cifrado::descifrar($valor, $contexto)` y
