@@ -1168,3 +1168,19 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
 .grafo-texto-grupo { font-size: 11px; font-weight: 700; fill: #18311f; }
 .grafo-texto-centro { font-size: 14px; font-weight: 700; fill: #18311f; }
 .grafo-texto-grupo, .grafo-texto-centro { paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+
+/* Ingreso simplificado de documentos. */
+.ing-simple h2 { font-size: 1.05rem; margin: 18px 0 8px; }
+.ing-simple h2:first-child { margin-top: 0; }
+.ing-zona { border: 2px dashed #b9c4bb; border-radius: 12px; padding: 18px; text-align: center; background: #f7faf7; transition: background .15s, border-color .15s; }
+.ing-zona-activa, .ing-zona:focus-within { background: #eaf3ea; border-color: #2c5234; }
+.ing-zona .btn { display: inline-block; cursor: pointer; margin: 4px; }
+.ing-alcances { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+.ing-alcance { display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: start; border: 1px solid #d3dbd5; border-radius: 10px; padding: 10px; cursor: pointer; }
+.ing-alcance small { grid-column: 2; color: #5d6a61; }
+.ing-alcance:has(input:checked) { border-color: #2c5234; background: #f0f6f0; }
+.ing-mas { margin: 14px 0; }
+.ing-mas summary { cursor: pointer; color: #2c5234; font-weight: 600; margin-bottom: 8px; }
+.ing-simple .ing-alcance { display: grid !important; grid-template-columns: auto 1fr; column-gap: 8px; align-items: start; font-weight: 400; }
+.ing-simple .ing-alcance input { margin-top: 3px; }
+.ing-simple .ing-alcance strong, .ing-simple .ing-alcance small { display: block; grid-column: 2; }

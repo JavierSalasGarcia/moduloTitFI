@@ -113,6 +113,7 @@ final class IngestaController extends Controller
     {
         $this->lista();
         $this->exigirIngesta();
+        $json = ($_POST['formato'] ?? '') === 'json';
         try {
             [$alcance, $depto] = Ingesta::destino($this->post('alcance'), (int) $this->post('departamento_id'));
             if ($this->post('origen') === 'teams') {
@@ -122,13 +123,22 @@ final class IngestaController extends Controller
                 }
                 Audit::record('ingesta_enlace', 'correcto');
                 flash('exito', 'Enlace registrado e indizado.');
+                if ($json) {
+                    $this->json(['ok' => true, 'url' => url('ingesta')]);
+                }
                 redirigir('ingesta');
             }
             $r = Ingesta::ingresarPdf($this->subido('archivo'), $this->meta(), null, $alcance, $depto);
             Audit::record('ingesta_pdf', 'correcto', 'Documento #' . $r['id']);
             flash('exito', $r['duplicado'] ? 'Ese PDF ya lo habías ingresado; se abre el registro existente.' : 'PDF indizado. Revisa y completa sus metadatos.');
+            if ($json) {
+                $this->json(['ok' => true, 'url' => url('ingesta/documento/' . $r['id'])]);
+            }
             redirigir('ingesta/documento/' . $r['id']);
         } catch (\InvalidArgumentException $e) {
+            if ($json) {
+                $this->json(['ok' => false, 'error' => $e->getMessage()], 422);
+            }
             flash('error', $e->getMessage());
             redirigir('ingesta/nueva');
         }
