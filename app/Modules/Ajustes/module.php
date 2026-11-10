@@ -17,6 +17,7 @@ return [
         'GET /ajustes/ia' => [\App\Modules\Ajustes\InteligenciaController::class,'index'],
         'POST /ajustes/ia' => [\App\Modules\Ajustes\InteligenciaController::class,'guardar'],
         'POST /ajustes/ia/probar' => [\App\Modules\Ajustes\InteligenciaController::class,'probar'],
+        'POST /ajustes/ia/probar-jev' => [\App\Modules\Ajustes\InteligenciaController::class,'probarJev'],
         'POST /ajustes/ia/clasificar' => [\App\Modules\Ajustes\InteligenciaController::class,'clasificar'],
         'GET /ajustes/accesos' => [\App\Modules\Ajustes\AccesosController::class,'index'],
         'POST /ajustes/accesos/probar-correo' => [\App\Modules\Ajustes\AccesosController::class,'probarCorreo'],

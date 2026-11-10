@@ -90,6 +90,7 @@ Es válido durante 10 minutos. Si no lo solicitaste, ignora este mensaje: tu cue
         $ok = Identidad::confirmarCambio($id, trim((string) ($_POST['codigo'] ?? '')));
         Audit::record('cambio_correo', $ok ? 'correcto' : 'denegado');
         if ($ok) {
+            Identidad::vincularDatos($id);   // el correo recién verificado puede traer registros previos
             AccessControl::reset();
         }
         flash($ok ? 'exito' : 'error', $ok ? 'Tu correo se actualizó. Sigue siendo la misma cuenta: conservas tus constancias y accesos; ya puedes entrar con el correo nuevo.' : 'Código incorrecto, vencido o sin intentos disponibles. Solicita otro.');

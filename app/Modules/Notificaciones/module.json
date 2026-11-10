@@ -1,5 +1,8 @@
 {
   "clave": "notificaciones",
+  "consulta": [
+    {"ruta": "notificaciones", "descripcion": "Bandeja con todo lo que tienes pendiente en la plataforma.", "palabras": "pendientes avisos notificación bandeja"}
+  ],
   "nombre": "Notificaciones",
   "version": "1.0.0",
   "descripcion": "Bandeja única de avisos de la plataforma para cada persona; los correos solo alertan y llevan aquí.",

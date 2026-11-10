@@ -347,6 +347,20 @@ final class Formularios
         Database::ejecutar('UPDATE frm_respuestas SET usuario_id = ? WHERE usuario_id IS NULL AND email = ?', [$usuarioId, strtolower(trim($email))]);
     }
 
+    /** Proveedor de vinculación (manifiesto): respuestas enviadas sin sesión con un correo que la cuenta ya verificó. */
+    public static function vincular(int $usuarioId, array $correos, ?int $profesorId): int
+    {
+        if (!$correos) {
+            return 0;
+        }
+        $marcas = implode(',', array_fill(0, count($correos), '?'));
+        $n = (int) Database::valor("SELECT COUNT(*) FROM frm_respuestas WHERE usuario_id IS NULL AND email IN ($marcas)", $correos);
+        if ($n > 0) {
+            Database::ejecutar("UPDATE frm_respuestas SET usuario_id = ? WHERE usuario_id IS NULL AND email IN ($marcas)", [$usuarioId, ...$correos]);
+        }
+        return $n;
+    }
+
     public static function respuestas(array $f): array
     {
         $r = Database::todas('SELECT * FROM frm_respuestas WHERE formulario_id = ? ORDER BY id', [(int) $f['id']]);

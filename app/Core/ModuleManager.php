@@ -89,6 +89,55 @@ final class ModuleManager
         return $secciones;
     }
 
+    /**
+     * Catálogo de consulta para la persona con sesión: las secciones que puede abrir, con título, descripción y ruta.
+     * Sale de la clave `consulta` de cada manifiesto y, para lo que el módulo no describa, de sus entradas de menú.
+     * Se filtra igual que el menú (roles, concesiones y condiciones), así que nunca incluye algo fuera de su acceso.
+     * @return array<int,array{id:string,titulo:string,descripcion:string,ruta:string,modulo:string,palabras:string}>
+     */
+    public static function consulta(): array
+    {
+        $roles = Auth::roles();
+        if (!$roles) return [];
+        $soloTitulacion = !empty(Auth::usuario()['egresado_externo']);
+        $r = [];
+        foreach (self::descubrir() as $m) {
+            if ($soloTitulacion && $m['clave'] !== 'titulacion') continue;
+            $concedido = Acceso::entraAlModulo((string) $m['clave']);
+            if ($m['roles'] && !array_intersect($roles, $m['roles']) && !$concedido) continue;
+            $nombre = (string) ($m['nombre'] ?? InterfaceUi::NAMES[$m['clave']] ?? ucfirst((string) $m['clave']));
+            $menu = [];
+            foreach ($m['menu'] as $item) $menu[$item['ruta']] ??= $item;
+            $entradas = $m['consulta'] ?? [];
+            $descritas = array_column($entradas, 'ruta');
+            foreach ($menu as $ruta => $item) {
+                if (!in_array($ruta, $descritas, true)) $entradas[] = ['ruta' => $ruta, 'descripcion' => (string) ($m['descripcion'] ?? '')];
+            }
+            foreach ($entradas as $e) {
+                $base = $menu[$e['ruta']] ?? [];
+                $titulo = trim((string) ($e['titulo'] ?? $base['titulo'] ?? ''));
+                if ($titulo === '') continue;
+                $permitidos = $e['roles'] ?? $base['roles'] ?? $m['roles'];
+                if ($permitidos && !array_intersect($roles, $permitidos) && !$concedido) continue;
+                $condicion = (string) ($e['condicion'] ?? $base['condicion'] ?? '');
+                if ($condicion !== '' && !self::cumple($condicion)) continue;
+                $r[] = ['id' => $m['clave'] . ':' . $e['ruta'], 'titulo' => $titulo, 'descripcion' => trim((string) $e['descripcion']),
+                    'ruta' => (string) $e['ruta'], 'modulo' => $nombre, 'palabras' => (string) ($e['palabras'] ?? '')];
+            }
+        }
+        return $r;
+    }
+
+    /** Funciones «Clase::metodo» que los módulos declaran bajo una clave del manifiesto (p. ej. `vinculacion`). @return array<string,string> */
+    public static function proveedores(string $clave): array
+    {
+        $r = [];
+        foreach (self::descubrir() as $m) {
+            if (!empty($m[$clave]) && is_string($m[$clave])) $r[(string) $m['clave']] = $m[$clave];
+        }
+        return $r;
+    }
+
     /** Funciones «Clase::metodo» que declaran los módulos (clave `pendientes`) para listar lo que le toca hacer a la persona con sesión. */
     public static function proveedoresPendientes(): array
     {
@@ -137,6 +186,9 @@ final class ModuleManager
         if (isset($config['pendientes']) && (!is_string($config['pendientes']) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $config['pendientes']))) {
             throw new RuntimeException('La función de pendientes no es válida.');
         }
+        if (isset($config['vinculacion']) && (!is_string($config['vinculacion']) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $config['vinculacion']))) {
+            throw new RuntimeException('La función de vinculación no es válida.');
+        }
         $menu = $config['menu'] ?? [];
         if (!is_array($menu)) throw new RuntimeException('menu debe ser un arreglo.');
         foreach ($menu as $i => &$item) {
@@ -155,6 +207,26 @@ final class ModuleManager
             $item['orden'] = isset($item['orden']) ? (int) $item['orden'] : 999;
         }
         unset($item);
+
+
+        // Entradas del catálogo de consulta (docs/ASISTENTE_JEV_GEMINI.md): lo que el asistente puede ofrecer como enlace.
+        $consulta = $config['consulta'] ?? [];
+        if (!is_array($consulta)) throw new RuntimeException('consulta debe ser un arreglo.');
+        foreach ($consulta as $i => &$entrada) {
+            if (!is_array($entrada) || !isset($entrada['ruta'], $entrada['descripcion']) || !is_string($entrada['ruta']) || !is_string($entrada['descripcion']) || trim($entrada['descripcion']) === '') {
+                throw new RuntimeException("La entrada de consulta {$i} necesita ruta y descripcion.");
+            }
+            if (str_starts_with($entrada['ruta'], '/') || str_contains($entrada['ruta'], '..') || str_contains($entrada['ruta'], ':')) throw new RuntimeException("Ruta de consulta insegura en {$i}.");
+            foreach (['titulo', 'palabras'] as $campo) {
+                if (isset($entrada[$campo]) && !is_string($entrada[$campo])) throw new RuntimeException("{$campo} de la entrada de consulta {$i} debe ser texto.");
+            }
+            if (isset($entrada['condicion']) && (!is_string($entrada['condicion']) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $entrada['condicion']))) {
+                throw new RuntimeException("Condición de consulta inválida en {$i}.");
+            }
+            if (isset($entrada['roles'])) self::validarRoles($entrada['roles'], "roles de la entrada de consulta {$i}");
+        }
+        unset($entrada);
+        $config['consulta'] = array_values($consulta);
 
         $config['dir'] = $dir;
         $config['formato_manifiesto'] = $formato;

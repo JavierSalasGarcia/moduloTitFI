@@ -4,6 +4,10 @@ use App\Modules\Encuestas\EncuestasController;
 
 return [
     'clave' => 'encuestas',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'encuestas', 'descripcion' => 'Responde encuestas y votaciones abiertas y consulta sus resultados.', 'palabras' => 'encuesta votación votar opinión resultados'],
+    ],
     'pendientes' => 'App\Modules\Encuestas\PendientesEncuestas::de',
     'menu'  => [
         ['seccion' => 'COMUNIDAD', 'titulo' => 'Encuestas', 'ruta' => 'encuestas',

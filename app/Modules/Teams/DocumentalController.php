@@ -66,7 +66,7 @@ final class DocumentalController extends Controller
         try{A::assertUploader();$initial=A::get((int)$id,true);$this->version($initial);
             if(!isset($_POST['consentimiento']) || $initial['nivel']!=='restringida')throw new \InvalidArgumentException('Solo se extraen documentos restringidos con tu autorización expresa para enviarlos a Google.');
             $cached=DB::valor("SELECT 1 FROM archivo_extracciones WHERE documento_id=? AND estado='lista'",[$initial['id']]);
-            if(!$cached && (ajuste('ia_proveedor','local')!=='gemini' || ajuste('ia_gemini_pago','0')!=='1' || ajuste('ia_gemini_api_key')===''))throw new \InvalidArgumentException('Configura Gemini con un proyecto de pago en Ajustes. Puedes llenar e indizar el formulario manualmente sin consumir IA.');
+            if(!$cached && (ajuste('ia_proveedor','local')!=='gemini' || ajuste('ia_gemini_pago','0')!=='1' || \App\Core\SecretosIa::clave('gemini')===''))throw new \InvalidArgumentException('Configura Gemini con un proyecto de pago en Ajustes. Puedes llenar e indizar el formulario manualmente sin consumir IA.');
             if(!$cached && (\App\Core\AccessControl::limited('ia:documento:usuario:'.Auth::id(),5,86400) || \App\Core\AccessControl::limited('ia:documento:global',20,86400) || !\App\Modules\Portal\GeminiClient::quota()))throw new \InvalidArgumentException('Se alcanzó la cuota de extracción. Puedes continuar manualmente.');
             DB::pdo()->beginTransaction();$d=A::get((int)$id,true,true);$this->version($d);
             if(!isset($_POST['consentimiento']))throw new \InvalidArgumentException('Confirma el envío de las páginas a Google para extraer sus datos.');

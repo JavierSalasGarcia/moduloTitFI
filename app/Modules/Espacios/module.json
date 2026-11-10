@@ -1,5 +1,8 @@
 {
   "clave": "espacios",
+  "consulta": [
+    {"ruta": "espacios", "descripcion": "Horario y ocupación del auditorio y las salas de la Facultad.", "palabras": "auditorio sala reservar apartar espacio ocupación"}
+  ],
   "nombre": "Auditorios y salas",
   "version": "1.0.0",
   "descripcion": "Horario de uso y ocupación del Auditorio 120-A y las salas de la Facultad. Cada espacio tiene personas autorizadas para registrar su ocupación; Titulación aparta aquí los exámenes.",

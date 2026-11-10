@@ -3,6 +3,10 @@ use App\Modules\Plan\PlanController;
 
 return [
     'clave' => 'plan',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'fila/plan', 'descripcion' => 'Plan de Desarrollo de la Facultad: proyectos, metas e indicadores.', 'palabras' => 'plan desarrollo metas indicadores proyecto'],
+    ],
     'menu' => [[
         'seccion' => 'FILA', 'titulo' => 'Plan de Desarrollo FI', 'ruta' => 'fila/plan',
         'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 8,

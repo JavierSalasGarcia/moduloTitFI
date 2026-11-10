@@ -4,6 +4,10 @@ use App\Modules\Reuniones\ReunionesController;
 
 return [
     'clave' => 'reuniones',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'reuniones', 'descripcion' => 'Convoca reuniones, responde invitaciones con tu disponibilidad y consulta minutas y acuerdos.', 'palabras' => 'reunión junta cita agenda minuta disponibilidad invitación'],
+    ],
     'pendientes' => 'App\Modules\Reuniones\PendientesReuniones::de',
     'menu' => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Reuniones', 'ruta' => 'reuniones',

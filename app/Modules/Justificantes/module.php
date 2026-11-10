@@ -6,6 +6,10 @@ $todos = ['admin', 'titular', 'operativo', 'coordinador', 'profesor'];
 
 return [
     'clave' => 'justificantes',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'justificantes', 'descripcion' => 'Justificación de faltas de alumnos: captura, firma y consulta de justificantes.', 'palabras' => 'falta inasistencia justificante justificar ausencia'],
+    ],
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Justificar faltas de alumnos', 'ruta' => 'justificantes',
          'roles' => $todos, 'orden' => 37, 'condicion' => 'App\Modules\Justificantes\Justificantes::puede'],

@@ -3,6 +3,11 @@ use App\Modules\Teams\TeamsController;
 
 return [
     'clave' => 'teams',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'documentos', 'descripcion' => 'Archivo documental: busca oficios y documentos por palabras clave, área, programa y fecha, dentro de tus permisos.', 'palabras' => 'oficio documento archivo buscar circular'],
+        ['ruta' => 'teams', 'descripcion' => 'Explora los equipos y canales de Teams de la Facultad.', 'palabras' => 'teams equipo canal'],
+    ],
     'menu'  => [
         ['seccion'=>'MI ESPACIO','titulo'=>'Archivo documental','ruta'=>'documentos','roles'=>['admin','coordinador','titular','operativo','profesor','alumno'],'orden'=>35],
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Explorar Teams', 'ruta' => 'teams',

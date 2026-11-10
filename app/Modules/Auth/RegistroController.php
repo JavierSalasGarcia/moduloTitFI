@@ -43,7 +43,7 @@ final class RegistroController extends Controller
             if ($e->getCode()!=='23000') throw $e;
             flash('error','No se pudo registrar ese correo. Si ya tienes cuenta, inicia sesión o recupera tu acceso.'); redirigir('registro');
         }
-        AccessControl::internal(fn()=>\App\Modules\Formularios\Formularios::ligarCuenta($id,$email));
+        // Nada se vincula aquí: el correo aún no está verificado (docs/VINCULACION_DE_CUENTAS.md).
         AccessControl::reset(); Auth::iniciarSesion(AccessControl::user($id)); Audit::record('autorregistro');
         $this->send(); redirigir('cuenta/verificar');
     }
@@ -142,7 +142,7 @@ final class RegistroController extends Controller
             } catch(\Throwable $e) { $pdo->rollBack(); throw $e; }
         });
         AccessControl::reset(); Audit::record('verificacion_correo',$ok?'correcto':'denegado');
-        if ($ok) AccessControl::internal(fn()=>\App\Core\Profesores::vincularCuenta((int)Auth::id(), (string)(Auth::usuario()['email']??'')));
+        if ($ok) AccessControl::internal(fn()=>\App\Core\Identidad::vincularDatos((int)Auth::id()));
         flash($ok?'exito':'error',$ok?'Correo verificado. Ya puedes enviar solicitudes y participar.':'Código incorrecto, vencido o sin intentos disponibles. Revisa el código o solicita otro.');
         redirigir($ok?'':'cuenta/verificar');
     }

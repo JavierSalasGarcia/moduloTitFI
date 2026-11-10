@@ -5,6 +5,10 @@ use App\Modules\Seguridad\SeguridadController;
 
 return [
     'clave' => 'seguridad',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'seguridad', 'descripcion' => 'Segundo factor de autenticación, huella o llave de acceso para tu cuenta.', 'palabras' => 'contraseña mfa totp huella llave acceso seguridad'],
+    ],
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Mi Seguridad (MFA)', 'ruta' => 'seguridad', 'orden' => 90, 'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno']],
     ],

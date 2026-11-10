@@ -27,6 +27,10 @@ try {
 
 return [
     'clave' => 'recursos',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'recursos/1', 'descripcion' => 'Calendario escolar vigente de la UAEMéx.', 'palabras' => 'calendario escolar fechas vacaciones exámenes periodo inscripción semestre'],
+    ],
     'menu'  => $menu,
     'rutas' => [
         // Panel del administrador

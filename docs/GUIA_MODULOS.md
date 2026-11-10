@@ -35,7 +35,7 @@ Hay una plantilla completa en `docs/modulos/plantilla/`. Para usarla:
 2. Renombrar controlador, namespace, clave, rutas y textos.
 3. Ejecutar `php tools/validar_modulos.php`.
 4. Aplicar su migración en pruebas.
-5. Probar acceso con cada rol y después desplegar la carpeta y la migración aprobada.
+5. Probar acceso con cada rol y después desplegar: `tools/desplegar.sh --modulo NombreModulo` y `--migrar` (ver `docs/DESPLIEGUE.md`).
 
 ## Contrato de `module.json`
 
@@ -48,6 +48,9 @@ Hay una plantilla completa en `docs/modulos/plantilla/`. Para usarla:
 | `roles` | lista | Acceso general a todas las rutas privadas. Vacía significa cualquier cuenta autenticada. |
 | `menu` | lista | Entradas que se incorporan al menú principal. Puede estar vacía. |
 | `rutas` | objeto | Mapa `MÉTODO /ruta` → `[Controlador, acción]`. Obligatorio. |
+| `consulta` | lista | Opcional. Describe las secciones del módulo para el asistente de inicio (`ruta`, `descripcion`, `palabras`). Ver `docs/ASISTENTE_JEV_GEMINI.md`. |
+| `vinculacion` | texto | Opcional. `Clase::metodo` que liga a una cuenta nueva los registros previos de la persona. Ver `docs/VINCULACION_DE_CUENTAS.md`. |
+| `pendientes` | texto | Opcional. `Clase::metodo` que devuelve lo que la persona tiene pendiente (Notificaciones). |
 
 ### Qué significa cada campo del manifiesto
 

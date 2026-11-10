@@ -271,7 +271,7 @@ final class Clasificacion
 
     private static function sugerirIa(string $titulo, string $descripcion, array $categorias): ?array
     {
-        if (ajuste('ia_proveedor', 'local') !== 'gemini' || ajuste('ia_gemini_pago', '0') !== '1' || ($key = ajuste('ia_gemini_api_key')) === '') {
+        if (ajuste('ia_proveedor', 'local') !== 'gemini' || ajuste('ia_gemini_pago', '0') !== '1' || ($key = \App\Core\SecretosIa::clave('gemini')) === '') {
             return null;
         }
         $guia = (string) @file_get_contents(dirname(__DIR__, 3) . '/docs/avisos_clasificacion_ia.md');

@@ -6,6 +6,10 @@ $todos = ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'];
 
 return [
     'clave' => 'concursos',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'concursos', 'descripcion' => 'Concursos y convocatorias vigentes; registro de participación.', 'palabras' => 'concurso convocatoria participar premio'],
+    ],
     'pendientes' => 'App\Modules\Concursos\PendientesConcursos::de',
     'menu'  => [
         ['seccion' => 'CONCURSOS', 'titulo' => 'Actuales', 'ruta' => 'concursos', 'roles' => $todos, 'orden' => 40],

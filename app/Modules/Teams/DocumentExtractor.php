@@ -9,7 +9,7 @@ final class DocumentExtractor
     public static function extract(array $doc,array $files): array
     {
         if((int)$doc['subido_por']!==Auth::id() || $doc['nivel']!=='restringida')throw new \InvalidArgumentException('Solo el propietario puede extraer datos de un documento restringido. Los confidenciales no se envían a Google.');
-        if(ajuste('ia_proveedor','local')!=='gemini' || ajuste('ia_gemini_pago','0')!=='1' || ajuste('ia_gemini_api_key')==='')throw new \InvalidArgumentException('Configura Gemini con un proyecto de pago en Ajustes. Mientras tanto puedes llenar e indizar el formulario manualmente.');
+        if(ajuste('ia_proveedor','local')!=='gemini' || ajuste('ia_gemini_pago','0')!=='1' || \App\Core\SecretosIa::clave('gemini')==='')throw new \InvalidArgumentException('Configura Gemini con un proyecto de pago en Ajustes. Mientras tanto puedes llenar e indizar el formulario manualmente.');
         $pages=0;$total=0;$parts=[];$counts=[];
         foreach($files as $i=>$f){$path=Archive::path($f['clave']);
             if(!is_file($path) || hash_file('sha256',$path)!==$f['sha256'])throw new \RuntimeException('No se pudo verificar el archivo original.');
@@ -31,7 +31,7 @@ final class DocumentExtractor
         $payload=['contents'=>[['role'=>'user','parts'=>$parts]],'generationConfig'=>['temperature'=>0,'maxOutputTokens'=>2000,'thinkingConfig'=>['thinkingBudget'=>0],'responseMimeType'=>'application/json','responseSchema'=>$schema]];
         $ch=curl_init('https://generativelanguage.googleapis.com/v1beta/models/'.GeminiClient::MODEL.':generateContent');
         curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_FOLLOWLOCATION=>false,CURLOPT_PROTOCOLS=>CURLPROTO_HTTPS,CURLOPT_CONNECTTIMEOUT=>8,CURLOPT_TIMEOUT=>45,
-            CURLOPT_HTTPHEADER=>['Content-Type: application/json','x-goog-api-key: '.ajuste('ia_gemini_api_key')],CURLOPT_POSTFIELDS=>json_encode($payload)]);
+            CURLOPT_HTTPHEADER=>['Content-Type: application/json','x-goog-api-key: '.\App\Core\SecretosIa::clave('gemini')],CURLOPT_POSTFIELDS=>json_encode($payload)]);
         $raw=curl_exec($ch);$status=(int)curl_getinfo($ch,CURLINFO_HTTP_CODE);curl_close($ch);$body=is_string($raw)?json_decode($raw,true):null;
         Audit::record('documentos_gemini',$status===200?'respuesta':'error','Documento #'.$doc['id'].'; páginas: '.$pages.'; tokens: '.(int)($body['usageMetadata']['totalTokenCount']??0));
         if($status!==200 || ($body['candidates'][0]['finishReason']??'')!=='STOP')throw new \RuntimeException('Gemini no completó la extracción. El documento sigue guardado y puedes continuar manualmente.');

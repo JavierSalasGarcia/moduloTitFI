@@ -6,6 +6,12 @@ use App\Modules\Eventos\EventosController;
 
 return [
     'clave' => 'eventos',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'eventos', 'descripcion' => 'Avisos, convocatorias y eventos de la Facultad, con registro de asistencia.', 'palabras' => 'aviso evento convocatoria conferencia taller curso asistencia'],
+        ['ruta' => 'eventos/expediente', 'descripcion' => 'Tu expediente de formación integral: eventos a los que asististe y sus evidencias.', 'palabras' => 'formación integral expediente créditos evidencia'],
+        ['ruta' => 'eventos/biblioteca', 'descripcion' => 'Biblioteca de eventos pasados y sus materiales.', 'palabras' => 'evento pasado grabación material'],
+    ],
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Avisos y eventos', 'ruta' => 'eventos',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 4],

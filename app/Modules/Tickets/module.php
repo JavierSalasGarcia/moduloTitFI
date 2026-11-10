@@ -4,6 +4,10 @@ use App\Modules\Tickets\TicketsController;
 
 return [
     'clave' => 'tickets',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'tickets', 'descripcion' => 'Crea y da seguimiento a tus solicitudes a las áreas de la Facultad; consulta su estado y las respuestas.', 'palabras' => 'solicitud ticket petición seguimiento estado respuesta'],
+    ],
     'pendientes' => 'App\Modules\Tickets\PendientesTickets::de',
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Tickets', 'ruta' => 'tickets',

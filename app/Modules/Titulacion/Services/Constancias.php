@@ -394,4 +394,31 @@ final class Constancias
     {
         return Catalogo::modalidad($m)['nombre'] ?? $m;
     }
+
+    /**
+     * Proveedor de vinculación (manifiesto): las constancias emitidas al correo verificado de la cuenta, o a su ficha de
+     * profesor, pasan a la cuenta. Las que solo tienen nombre (sin correo ni profesor) no se tocan: requieren revisión humana.
+     */
+    public static function vincular(int $usuarioId, array $correos, ?int $profesorId): int
+    {
+        $cond = [];
+        $par = [];
+        if ($correos) {
+            $cond[] = 'email IN (' . implode(',', array_fill(0, count($correos), '?')) . ')';
+            $par = $correos;
+        }
+        if ($profesorId) {
+            $cond[] = 'profesor_id = ?';
+            $par[] = $profesorId;
+        }
+        if (!$cond) {
+            return 0;
+        }
+        $donde = 'usuario_id IS NULL AND (' . implode(' OR ', $cond) . ')';
+        $n = (int) Database::valor("SELECT COUNT(*) FROM tit_constancias WHERE $donde", $par);
+        if ($n > 0) {
+            Database::ejecutar("UPDATE tit_constancias SET usuario_id = ? WHERE $donde", [$usuarioId, ...$par]);
+        }
+        return $n;
+    }
 }

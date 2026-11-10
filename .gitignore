@@ -33,3 +33,13 @@ node_modules/
 
 # Llaves de cifrado de datos en reposo: nunca versionar.
 /storage/secrets/
+
+# Respaldos y temporales: nunca versionar ni desplegar (ver docs/DESPLIEGUE.md).
+*.bak
+*.bak-*
+*.bak_*
+*.orig
+/Plan/respaldos/
+/storage/backups/
+/tmp/
+/tools/despliegue.local.conf

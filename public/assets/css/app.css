@@ -560,6 +560,69 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
   font-size: 13px;
 }
 
+/* Enlaces de la consulta: lista tipo buscador (sección › dirección, título enlazado, descripción breve). */
+.consulta-ia-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  font-size: 0.85rem;
+  text-align: left;
+}
+.consulta-enlaces {
+  scroll-margin-top: 72px;
+  margin-top: 28px;
+  text-align: left;
+}
+.consulta-enlaces h2 {
+  margin: 0 0 12px;
+  color: var(--gris-600);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.consulta-enlaces ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.consulta-enlaces li {
+  padding: 14px 0;
+  border-top: 1px solid rgba(44, 82, 52, 0.12);
+}
+.consulta-enlace-ruta {
+  display: block;
+  color: var(--gris-600);
+  font-size: 12px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.consulta-enlace-titulo {
+  display: inline-block;
+  margin: 2px 0;
+  color: var(--verde-900);
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 600;
+  text-decoration: none;
+}
+.consulta-enlace-titulo:hover,
+.consulta-enlace-titulo:focus-visible {
+  text-decoration: underline;
+}
+.consulta-enlaces p {
+  margin: 2px 0 0;
+  color: #3f4a43;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.consulta-enlaces small {
+  display: block;
+  margin-top: 8px;
+  color: var(--gris-600);
+}
+
 .consulta-respuesta {
   scroll-margin-top: 72px;
   margin-top: clamp(52px, 9vh, 96px);

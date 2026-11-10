@@ -27,15 +27,13 @@ final class PortalController extends Controller
         }
 
         header('Cache-Control: no-store, private');
-        $resultado = (new AsistenteConsulta())->resolver($consulta);
-        $this->renderizar(
-            $consulta,
-            $resultado,
-            $resultado === null ? 'No encontré una función suficientemente relacionada. Prueba con otras palabras.' : null
-        );
+        // La persona decide en cada consulta si su pregunta puede salir a los servicios de IA (Jev y Gemini).
+        $r = (new AsistenteConsulta())->resolver($consulta, ($_POST['usar_ia'] ?? '') === '1');
+        $error = $r['aviso'] ?? ($r['resultado'] === null && !$r['enlaces'] ? 'No encontré una sección o función relacionada. Prueba con otras palabras.' : null);
+        $this->renderizar($consulta, $r['resultado'], $error, $r);
     }
 
-    private function renderizar(string $consulta = '', ?array $resultado = null, ?string $error = null): void
+    private function renderizar(string $consulta = '', ?array $resultado = null, ?string $error = null, array $extra = []): void
     {
         $this->vista('index', [
             'titulo' => 'Consulta',
@@ -45,7 +43,12 @@ final class PortalController extends Controller
             'errorConsulta' => $error,
             'notificaciones' => $this->notificaciones(),
             'resumen' => $resultado === null ? Resumen::de() : null,
-            'geminiDisponible' => ajuste('ia_proveedor','local')==='gemini' && ajuste('ia_gemini_pago','0')==='1' && ajuste('ia_gemini_api_key')!=='',
+            'iaExterna' => JevClient::activo() || GeminiClient::disponible(),
+            'iaRestantes' => GeminiClient::restantes(),
+            'iaLimite' => GeminiClient::limiteUsuario(),
+            'enlaces' => $extra['enlaces'] ?? [],
+            'limitado' => (bool) ($extra['limitado'] ?? false),
+            'consultado' => $extra !== [],
             'departamentos' => $resultado && ($resultado['tipo']??'')!=='datos' ? Database::todas('SELECT id, nombre FROM departamentos ORDER BY nombre') : [],
         ]);
     }

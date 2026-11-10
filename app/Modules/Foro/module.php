@@ -4,6 +4,10 @@ use App\Modules\Foro\ForoController;
 
 return [
     'clave' => 'foro',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'foro', 'descripcion' => 'Foro de la comunidad: preguntas, propuestas y discusiones.', 'palabras' => 'foro pregunta propuesta discusión comunidad'],
+    ],
     'menu'  => [
         ['seccion' => 'COMUNIDAD', 'titulo' => 'Foro', 'ruta' => 'foro',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 20],

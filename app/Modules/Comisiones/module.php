@@ -4,6 +4,10 @@ use App\Modules\Comisiones\ComisionesController;
 
 return [
     'clave' => 'comisiones',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'comisiones', 'descripcion' => 'Comisiones académicas y administrativas: integrantes, encargos y evidencias.', 'palabras' => 'comisión encargo integrantes evidencia'],
+    ],
     'menu'  => [
         // Visible para todos: la bitácora es auditable por la comunidad
         ['seccion' => 'COMUNIDAD', 'titulo' => 'Comisiones', 'ruta' => 'comisiones',

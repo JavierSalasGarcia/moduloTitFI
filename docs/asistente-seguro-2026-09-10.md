@@ -1,5 +1,7 @@
 # Asistente seguro y Gemini
 
+> La consulta de la página de inicio se describe ahora en `docs/ASISTENTE_JEV_GEMINI.md` (árbitro Jev, catálogo por módulo, claves cifradas). Este documento conserva el contexto original y lo relativo a clasificación y extracción documental.
+
 ## Alcance publicado
 
 - Configuración administrativa: `/public/ajustes/ia`. Gemini 2.5 Flash-Lite, API key de servidor (nunca se devuelve al formulario), prueba sintética, selección local/Gemini y eliminación explícita de clave.

@@ -1,6 +1,16 @@
 {
   "clave": "titulacion",
+  "consulta": [
+    {"ruta": "titulacion/licenciatura", "descripcion": "Inicia y continúa tu trámite de titulación de licenciatura: opciones, requisitos y documentos.", "palabras": "titulación titularme tesis examen profesional pasante opción requisitos"},
+    {"ruta": "titulacion/posgrado", "descripcion": "Trámite de obtención de grado de posgrado: requisitos y documentos.", "palabras": "grado maestría doctorado posgrado tesis"},
+    {"ruta": "titulacion/estado", "descripcion": "Estado de tu trámite de titulación y el siguiente paso.", "palabras": "estado trámite titulación avance"},
+    {"ruta": "titulacion/constancias", "descripcion": "Tus constancias de participación en titulación (asesoría, revisión, sínodo) para descargar.", "palabras": "constancia sinodal asesor revisor jurado descargar"},
+    {"ruta": "titulacion/pendientes", "descripcion": "Lo que te toca hacer en titulación: revisiones, firmas y acuses.", "palabras": "pendientes titulación revisar firmar"},
+    {"ruta": "titulacion/revision", "descripcion": "Protocolos de titulación asignados a ti para revisión.", "palabras": "protocolo revisar revisión dictamen"},
+    {"ruta": "titulacion/firmas", "descripcion": "Documentos de titulación que esperan tu firma.", "palabras": "firma oficio titulación firmar"}
+  ],
   "pendientes": "App\\Modules\\Titulacion\\PanelController::pendientesDeSesion",
+  "vinculacion": "App\\Modules\\Titulacion\\Services\\Constancias::vincular",
   "nombre": "Titulación",
   "version": "1.0.0",
   "descripcion": "Trámite de titulación en línea: asistente por opción de titulación, formatos llenados automáticamente, carga de documentos en PDF y validación por el Departamento de Evaluación Profesional.",

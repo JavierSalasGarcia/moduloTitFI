@@ -4,6 +4,11 @@ use App\Modules\Formularios\FormulariosController;
 
 return [
     'clave' => 'formularios',
+    'vinculacion' => 'App\Modules\Formularios\Formularios::vincular',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'formularios', 'descripcion' => 'Formularios de registro por enlace privado: creación y consulta de respuestas.', 'palabras' => 'formulario registro respuestas excel'],
+    ],
     'menu'  => [
         ['seccion' => 'ADMINISTRACIÓN', 'titulo' => 'Formularios', 'ruta' => 'formularios',
          'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor'], 'orden' => 90,

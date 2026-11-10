@@ -4,6 +4,10 @@ use App\Modules\Fila\HorariosController;
 use App\Modules\Fila\ExpedienteController;
 return [
     'clave' => 'fila',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'fila', 'descripcion' => 'Fila de atención de las áreas: toma turno y consulta horarios de atención.', 'palabras' => 'turno atención horario ventanilla fila cita'],
+    ],
     'menu' => [['seccion'=>'COMUNIDAD', 'titulo'=>'Fila', 'ruta'=>'fila',
         'icono'=>'reloj', 'roles'=>['admin','titular','operativo','profesor','alumno'], 'orden'=>35]],
     'rutas' => ['GET /fila'=>[FilaController::class, 'index'],

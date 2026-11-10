@@ -1,5 +1,8 @@
 {
   "clave": "perfil",
+  "consulta": [
+    {"ruta": "perfil", "descripcion": "Tus datos, adscripciones, correos y preferencias de la cuenta.", "palabras": "perfil nombre correo datos cuenta grado"}
+  ],
   "nombre": "Mi perfil",
   "version": "1.0.0",
   "descripcion": "Perfil personal y adscripciones organizacionales del usuario.",

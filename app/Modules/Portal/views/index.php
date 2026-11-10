@@ -19,15 +19,19 @@
     <form class="consulta-form" method="post" action="<?= url('consulta') ?>" data-consulta-form>
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
       <label class="sr-only" for="consulta-texto">Escribe tu consulta</label>
-      <textarea id="consulta-texto" name="consulta" rows="3" minlength="4" maxlength="1200" required disabled
-                placeholder="Esta función no está disponible aún, el sitio está en construcción"><?= e($consulta) ?></textarea>
+      <textarea id="consulta-texto" name="consulta" rows="3" minlength="4" maxlength="1200" required
+                placeholder="Por ejemplo: ¿cómo solicito una constancia?, ver mis reuniones, ¿dónde justifico una falta?"><?= e($consulta) ?></textarea>
       <div class="consulta-form-pie">
         <span>Enter para nueva línea · Ctrl + Enter para consultar</span>
-        <button type="submit" class="consulta-boton" disabled>
+        <button type="submit" class="consulta-boton">
           <span>Consultar</span><?= icono('flecha-der', 17) ?>
         </button>
       </div>
-      <?php if($geminiDisponible): ?><label style="display:flex;align-items:flex-start;gap:8px;padding:12px;font-size:.85rem"><input type="checkbox" name="usar_gemini" value="1"> Usar Gemini para orientar el trámite. Se enviará mi pregunta a Google; no incluiré datos personales ni confidenciales.</label><?php endif; ?>
+      <?php if ($iaExterna): ?>
+        <label class="consulta-ia-opcion"><input type="checkbox" name="usar_ia" value="1" <?= $iaRestantes > 0 ? 'checked' : 'disabled' ?>>
+          <span>Usar asistencia de IA. Mi pregunta (no mis registros) se envía a los servicios Jev y Gemini; no incluiré datos personales ni confidenciales.
+          <?php if ($iaRestantes > 0): ?>Te quedan <?= (int) $iaRestantes ?> de <?= (int) $iaLimite ?> consultas asistidas hoy.<?php else: ?>Alcanzaste tu límite de <?= (int) $iaLimite ?> consultas asistidas de hoy; la consulta local sigue disponible.<?php endif; ?></span></label>
+      <?php endif; ?>
     </form>
     <p class="ayuda-form">Los registros se consultan aquí, con tus permisos y sin enviar resultados a una IA externa. Consultar no guarda cambios.</p>
 
@@ -39,7 +43,7 @@
     <?php endif; ?>
   </div>
 
-  <?php if ($resumen): include __DIR__ . '/_resumen.php'; endif; ?>
+  <?php if ($resumen && !$consultado): include __DIR__ . '/_resumen.php'; endif; ?>
 
   <?php if ($resultado && ($resultado['tipo']??'')==='datos'): ?>
     <section class="consulta-respuesta" aria-labelledby="respuesta-titulo"><h2 id="respuesta-titulo"><?= e($resultado['titulo']) ?></h2><p><?= e($resultado['explicacion']) ?></p>
@@ -90,6 +94,23 @@
       </form>
     </section>
   <?php endif; ?>
+
+  <?php if ($limitado): ?><p class="ayuda-form" role="status">Se alcanzó el límite de consultas asistidas; esta respuesta se resolvió con el motor local.</p><?php endif; ?>
+  <?php if ($enlaces): ?>
+    <section class="consulta-enlaces" aria-labelledby="enlaces-titulo">
+      <h2 id="enlaces-titulo">Dónde consultarlo</h2>
+      <ol>
+        <?php foreach ($enlaces as $enlace): ?>
+          <li>
+            <span class="consulta-enlace-ruta"><?= e($enlace['modulo']) ?> › <?= e(url($enlace['ruta'])) ?></span>
+            <a class="consulta-enlace-titulo" href="<?= url($enlace['ruta']) ?>"><?= e($enlace['titulo']) ?></a>
+            <?php if ($enlace['descripcion'] !== ''): ?><p><?= e($enlace['descripcion']) ?></p><?php endif; ?>
+          </li>
+        <?php endforeach; ?>
+      </ol>
+      <small>Solo se muestran secciones a las que tu cuenta tiene acceso.</small>
+    </section>
+  <?php endif; ?>
 </section>
 
 <script>
@@ -116,9 +137,9 @@
   });
   resize();
 
-  if (document.querySelector('.consulta-respuesta')) {
+  if (document.querySelector('.consulta-respuesta, .consulta-enlaces')) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.querySelector('.consulta-respuesta').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    document.querySelector('.consulta-respuesta, .consulta-enlaces').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
   }
 })();
 </script>

@@ -12,6 +12,10 @@ use App\Modules\Firmas\GruposController;
 
 return [
     'clave' => 'firmas',
+    // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
+    'consulta' => [
+        ['ruta' => 'firmas', 'descripcion' => 'Firma electrónica de documentos: pendientes por firmar y documentos firmados.', 'palabras' => 'firma firmar documento electrónica sello'],
+    ],
     'pendientes' => 'App\Modules\Firmas\PendientesFirmas::de',
     // Todos los roles: los alumnos también firman. La restricción de
     // CREAR solicitudes (no alumnos) se aplica en el controlador.

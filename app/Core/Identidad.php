@@ -119,6 +119,53 @@ final class Identidad
         return ['(' . implode(' OR ', $sql) . ')', [...$par, ...$correos]];
     }
 
+    // ------------------------------------------------------------------ vinculación de datos previos (docs/VINCULACION_DE_CUENTAS.md)
+
+    /**
+     * Liga a la cuenta lo que la plataforma ya tenía de esa persona antes de que se registrara: su ficha del directorio
+     * de profesores y los registros que cada módulo guardó con su correo (constancias, respuestas de formularios, …).
+     *
+     * Regla: solo se vincula por un correo que la cuenta ya verificó, o por la ficha de profesor enlazada a ese correo.
+     * Nunca por nombre. Llamarla únicamente después de verificar el correo; es repetible y no pisa vínculos existentes.
+     * Cada módulo aporta su parte declarando en el manifiesto `vinculacion: "App\Modules\X\Clase::metodo"`,
+     * con firma fn(int $usuarioId, string[] $correos, ?int $profesorId): int (registros vinculados).
+     * @return array<string,int> registros vinculados por módulo
+     */
+    public static function vincularDatos(int $usuarioId, bool $auditar = true): array
+    {
+        if ($usuarioId <= 0) {
+            return [];
+        }
+        $correos = self::correosDeUsuario($usuarioId);
+        if (!$correos) {
+            return [];
+        }
+        Profesores::vincularCuenta($usuarioId, $correos[0]);
+        $profesorId = null;
+        try {
+            $profesorId = ((int) Database::valor('SELECT id FROM profesores WHERE usuario_id = ?', [$usuarioId])) ?: null;
+        } catch (\Throwable) {
+        }
+        $r = [];
+        foreach (ModuleManager::proveedores('vinculacion') as $modulo => $funcion) {
+            if (!is_callable($funcion)) {
+                continue;
+            }
+            try {
+                $n = (int) $funcion($usuarioId, $correos, $profesorId);
+                if ($n > 0) {
+                    $r[$modulo] = $n;
+                }
+            } catch (\Throwable $e) {
+                error_log('Vinculación de ' . $modulo . ': ' . $e->getMessage());
+            }
+        }
+        if ($r && $auditar) {
+            Audit::record('vinculacion_datos', 'correcto', 'Cuenta #' . $usuarioId . ': ' . json_encode($r));
+        }
+        return $r;
+    }
+
     // ------------------------------------------------------------------ cambio de correo verificado
 
     /** ¿El correo puede pasar a ser de esta cuenta? No debe ser (ni haber sido) de otra cuenta ni de otro profesor con cuenta distinta. */
