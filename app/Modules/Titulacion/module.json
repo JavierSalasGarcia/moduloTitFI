@@ -153,6 +153,22 @@
     },
     {
       "seccion": "TITULACIÓN",
+      "titulo": "Expedientes a Servicios Escolares",
+      "ruta": "titulacion/expedientes",
+      "grupo": "Trámites",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 27,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
+    },
+    {
+      "seccion": "TITULACIÓN",
       "titulo": "Estructura",
       "ruta": "titulacion/estructura",
       "grupo": "Administración",
@@ -350,6 +366,30 @@
     "POST /titulacion/licenciatura/tramite/{id}/cancelar": [
       "App\\Modules\\Titulacion\\TramiteController",
       "cancelar"
+    ],
+    "GET /titulacion/expedientes": [
+      "App\\Modules\\Titulacion\\ExpedienteFinalController",
+      "bandeja"
+    ],
+    "POST /titulacion/expedientes/exportar": [
+      "App\\Modules\\Titulacion\\ExpedienteFinalController",
+      "exportar"
+    ],
+    "GET /titulacion/expedientes/{id}": [
+      "App\\Modules\\Titulacion\\ExpedienteFinalController",
+      "ver"
+    ],
+    "GET /titulacion/expedientes/{id}/formato": [
+      "App\\Modules\\Titulacion\\ExpedienteFinalController",
+      "formato"
+    ],
+    "POST /titulacion/expedientes/{id}/guardar": [
+      "App\\Modules\\Titulacion\\ExpedienteFinalController",
+      "guardar"
+    ],
+    "POST /titulacion/expedientes/{id}/reabrir": [
+      "App\\Modules\\Titulacion\\ExpedienteFinalController",
+      "reabrir"
     ],
     "GET /titulacion/gestion": [
       "App\\Modules\\Titulacion\\GestionController",

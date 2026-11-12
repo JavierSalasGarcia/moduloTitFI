@@ -127,6 +127,16 @@ final class Ruta
             }
         }
         unset($p);
+        // Cierre: verificación final del expediente y envío a Servicios Escolares (Administración Central).
+        if (ExpedienteFinal::elegible($t)) {
+            $exp = ExpedienteFinal::obtener($tid);
+            $est = $exp['estado'] ?? 'en_integracion';
+            $verificado = in_array($est, ['verificado', 'enviado'], true);
+            $pasos[] = ['etapa' => 'Cierre del expediente', 'titulo' => 'Verificación final del expediente por el Departamento de Titulación', 'hecho' => $verificado,
+                'estado' => $verificado ? 'hecho' : 'actual', 'nota' => $verificado ? null : 'en integración', 'archivos' => []];
+            $pasos[] = ['etapa' => 'Cierre del expediente', 'titulo' => 'Envío del expediente a Servicios Escolares (Administración Central)', 'hecho' => $est === 'enviado',
+                'estado' => $est === 'enviado' ? 'hecho' : ($verificado ? 'actual' : 'pendiente'), 'nota' => null, 'archivos' => []];
+        }
         return $pasos;
     }
 }

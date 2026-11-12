@@ -73,3 +73,15 @@ La migración `040_titulacion_recientes.sql` solo crea las tablas. Lo que el dep
 Consulta: menú **Constancias y oficios → Registros del departamento** (`titulacion/constancias/registros`). Al buscar un expediente en *Registrar o completar un expediente* aparece un recuadro con los antecedentes de esa persona en estos registros.
 
 Fechas: Excel invirtió día y mes en muchas celdas (2026-05-11 era el 5 de noviembre) y repitió años al arrastrar. El importador las corrige por el orden de las filas; las que no pudo decidir se cargan tal cual con `fecha_revisar = 1` (filas en amarillo en la consulta). Las fechas de actas que ya estaban en el historial no se tocan, salvo las que quedaron en el futuro por un año arrastrado (solo cambia el año, y solo si el valor sigue siendo el original). Las demás sospechas quedan en `baseDatosTit/fechas_libro_por_revisar.csv` para revisión humana. La licenciatura de lo recibido sin ella se completa por cuenta con el historial; lo que no tiene cuenta conocida queda sin licenciatura.
+
+## Verificación final del expediente y envío a Servicios Escolares
+
+Requiere `database/migrations/045_titulacion_expediente_final.sql`. Cuando la evaluación profesional concluye con resultado favorable, el personal de Titulación (menú **Titulación → Expedientes a Servicios Escolares**, `titulacion/expedientes`) verifica el expediente con el «Formato de integración de expediente» de la opción de titulación (aprovechamiento, EGEL, créditos, artículo y trabajos escritos; los renglones están en `Services/ExpedienteFinal::renglones`).
+
+- Los documentos que la plataforma ya validó se marcan solos; lo que se entrega en físico (fotografías, acta, dictámenes que no se suben) lo confirma la persona responsable, y los renglones «sólo si aplica» pueden quedar como «No aplica». Con todo cubierto se firma la constancia de verificación («Hago constar…») y el trámite pasa a **verificado**.
+- **Exportar** genera una carpeta comprimida (uno o varios expedientes) con los PDF en el orden del formato, el formato llenado, el formato de revisión y un índice con SHA-256; los expedientes pasan a **enviado** y queda un lote en la bitácora. Un verificado puede reabrirse mientras no se envíe.
+- El pasante ve en su ruta los pasos «Verificación final» y «Envío a Servicios Escolares».
+
+### Cuentas y recorrido de prueba
+
+`php tools/titulacion_pruebas_semilla.php` crea (solo en bases locales) una cuenta por actor y un pasante por opción; escribe las contraseñas en `cred_titulacion_pruebas.txt` (ignorado por git). `tools/manual_titulacion/` contiene el arnés Playwright que recorre el flujo y toma las capturas para los manuales.

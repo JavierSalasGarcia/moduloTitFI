@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-10 17:21)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-12 03:41)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (39 fuentes, en orden).
+-- a partir de las migraciones (40 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -2644,5 +2644,39 @@ CREATE TABLE IF NOT EXISTS ing_documentos (
   KEY idx_ing_doc_sha (sha256),
   FULLTEXT KEY ft_ing_documentos (titulo, tipo_documento, autor, palabras_clave, resumen, nombre_original, ruta_relativa, texto),
   CONSTRAINT fk_ing_doc_carpeta FOREIGN KEY (carpeta_id) REFERENCES ing_carpetas (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/045_titulacion_expediente_final.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Verificación final del expediente de titulación y envío a Servicios Escolares (Administración Central).
+-- Es repetible: puede ejecutarse completa las veces que haga falta.
+
+-- Un registro por trámite: lista de verificación (formato de integración de expediente) y su estado.
+CREATE TABLE IF NOT EXISTS tit_expediente_final (
+  tramite_id BIGINT UNSIGNED NOT NULL,
+  estado ENUM('en_integracion','verificado','enviado') NOT NULL DEFAULT 'en_integracion',
+  marcas MEDIUMTEXT NOT NULL,
+  observaciones VARCHAR(1000) NULL,
+  verificado_por INT UNSIGNED NULL,
+  verificado_en DATETIME NULL,
+  enviado_por INT UNSIGNED NULL,
+  enviado_en DATETIME NULL,
+  lote_id BIGINT UNSIGNED NULL,
+  actualizado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (tramite_id),
+  KEY idx_tit_expfinal_estado (estado),
+  CONSTRAINT fk_tit_expfinal_tramite FOREIGN KEY (tramite_id) REFERENCES tit_tramites(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Cada exportación del expediente (individual o en lote) que se envía a Servicios Escolares.
+CREATE TABLE IF NOT EXISTS tit_expediente_lotes (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  creado_por INT UNSIGNED NOT NULL,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  total INT UNSIGNED NOT NULL DEFAULT 0,
+  folios VARCHAR(1000) NOT NULL DEFAULT '',
+  huella CHAR(64) NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
