@@ -83,19 +83,36 @@ el formato de integración llenado, el formato de revisión y `00_indice.txt` co
 
 ## 5. Estado de cobertura (actualizar al repetir la prueba)
 
-- Con capturas reales de extremo a extremo (pasante → Titulación → Subdirección → verificación final → ZIP): **aprovechamiento,
-  EGEL y créditos** (noviembre de 2026).
-- Hallazgo de esa prueba (corregido en `views/tramite.php`): el «Dictamen de los HH. Consejos» (solo si se excedió el plazo) es un
-  documento generado y no ofrecía «No me aplica», lo que dejaba atascado al pasante en la etapa de toma de protesta.
-- **Sin recorrer aún**: artículo, ensayo, memoria, aplicación, autoempleo, residencia, tesina y tesis. Requieren además
-  comisión de protocolos, asesor/coasesor, sínodo y jurado. Esos pasos usan **enlaces con token enviados por correo**; en local
-  el correo no sale (no hay `correo.api_token`) y el contenido queda en `storage/logs/titulacion-correos.log`: de ahí se toma el
-  enlace de cada asesor, revisor, sinodal y Coordinador (`/titulacion/firma/t/{token}`, `/titulacion/jurado/t/{token}`,
-  `/titulacion/sinodal/t/{token}`, `/titulacion/revision/t/{token}`). El arnés aún no los automatiza: hay que extender `flujo.py`
-  con un lector de ese log y con las pantallas de comisión (`/titulacion/protocolos`, `/titulacion/comision/{id}`), agenda
-  (`/titulacion/licenciatura/tramite/{id}/agenda/{etapa}`), voto aprobatorio y resultado.
-- Mientras una opción no se recorra, su manual lleva el aviso «aún no se ha recorrido…» y recuadros `\capturapendiente{…}`
-  (macro del preámbulo) en lugar de capturas; el texto sale del catálogo del sistema.
+Las **11 opciones** se recorrieron de punta a punta en noviembre de 2026, con capturas tomadas **durante la misma ejecución**
+(no en una segunda pasada), y cada una cerró con la verificación final y la exportación del ZIP:
+
+- Sin trabajo escrito: aprovechamiento, EGEL (convocatoria «Pagando menos») y créditos en estudios avanzados
+  (`capturas_sin_trabajo.py`, `continuar.py`).
+- Con trabajo escrito: artículo, ensayo, memoria, aplicación, autoempleo, residencia, tesina y tesis (`capturas_trabajo.py`).
+- Verificación y ZIP de las 11: `capturas_verificacion.py`.
+
+Cómo se resuelven los pasos con enlace por correo (solo pruebas locales): la plataforma deja cada correo en
+`storage/logs/titulacion-correos.log` (porque no hay `correo.api_token` y `app.debug` está activo). El arnés lee ese archivo
+(`flujo.enlaces_correo`, `trabajo.firmar_correos`), **toma solo la ruta** (`/titulacion/<tipo>/t/<token>`; el dominio del correo es
+el de producción y **no debe visitarse**) y la abre en el servidor local con la sesión del destinatario, que debe ser una cuenta
+`prueba.*@uaemex.mx` sembrada. Tipos: `firma` (asesor, coasesor, revisores: protocolo, revisión, voto aprobatorio, sustentación),
+`jurado` (Coordinador de Carrera), `sinodal` (acuse de los oficios).
+
+Orden real de un trámite con trabajo escrito (el arnés lo recorre en rondas hasta que ya no hay nada que hacer):
+1. Pasante: datos y protocolo (incluye asesor, coasesor y cronograma) → «Firmar y enviar a mi asesor».
+2. Asesor y coasesor firman por enlace → el protocolo pasa solo a la comisión.
+3. Encargada de comisión asigna a los 3 integrantes → cada uno aprueba y firma → la encargada dictamina.
+4. Titulación registra la fecha de aprobación; Jefatura da el Vo. Bo. y el Subdirector firma el oficio de aprobación del tema.
+5. Pasante confirma el desarrollo; examen previo: solicitud de revisión (pasante y asesor), agenda con fecha y 5 sinodales.
+6. Coordinador de Carrera ratifica y firma (enlace `jurado`); los sinodales dan acuse (enlace `sinodal`).
+7. Sustentación: voto aprobatorio (asesor y revisores), solicitud de sustentación, oficio de impresión (Subdirector) y **oficio de
+   estructura capitular (lo firma el Director)**.
+8. Documentación final, nueva agenda (examen definitivo) con jurado, resultado y acta; luego verificación y exportación.
+
+Hallazgos de esas pruebas:
+- Corregido en `views/tramite.php`: el «Dictamen de los HH. Consejos» (solo si se excedió el plazo) es un documento generado y no
+  ofrecía «No me aplica»; el pasante quedaba atascado antes de la toma de protesta.
+- `Services/ExpedienteFinal.php`: el logotipo PNG no lo admite FPDF; ahora el formato se genera sin él si falla.
 
 ## 6. Qué hacer cuando se modifique el sistema
 
@@ -120,3 +137,9 @@ Tras cualquier cambio: recompilar, revisar visualmente al menos un PDF por tipo 
 - Un `PDF` de muestra mínimo se crea en `tools/manual_titulacion/muestra.pdf` (no se versiona su contenido real).
 - No usar `taskkill /IM chrome.exe` ni cerrar Python en general: cierra procesos del usuario.
 - Un esperar «hasta que no haya `python.exe`» no termina nunca si hay otros Python abiertos; usa el PID o la salida del script.
+- Cada opción necesita **fechas de examen propias**: el espacio y el sínodo se bloquean al enviar la solicitud, y reutilizar la misma
+  fecha deja sin horarios (`agenda_pasante` busca el siguiente día hábil con horario y `capturas_trabajo.py` reparte las fechas).
+- El desplazamiento de la bitácora de correos se mide en **bytes**: léela en binario (`rb`) o se pierden correos con acentos.
+- Un manual sin capturas casi siempre es una opción cuyo recorrido no llegó a su fin: revisa `*_pasante_07_concluido.png`.
+- Las capturas de página completa se cortan en tramos legibles (`img/cortes/`, no se versiona; lo regenera `generar_latex.py`).
+- Los pies de foto salen de `img/_pies.json` (lo escribe `Sesion.foto(..., pie=...)`); sin entrada, se usa un texto por tema.

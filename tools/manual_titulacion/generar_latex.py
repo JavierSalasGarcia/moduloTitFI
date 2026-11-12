@@ -33,7 +33,7 @@ ACTORES = {
 SIN_TRABAJO = ['pasante', 'responsable_titulacion', 'subdirector', 'servicios_escolares']
 CON_TRABAJO = list(ACTORES)
 # Opciones cuyo recorrido completo se ejecutó con capturas reales.
-EJECUTADAS = {m for m in CAT if glob.glob(os.path.join(IMG, f'{m}_pasante_06_concluido.png'))}
+EJECUTADAS = {m for m in CAT if glob.glob(os.path.join(IMG, f'{m}_pasante_0[67]_concluido.png'))}
 
 ESC = {'\\': r'\textbackslash{}', '&': r'\&', '%': r'\%', '$': r'\$', '#': r'\#', '_': r'\_', '{': r'\{', '}': r'\}', '~': r'\textasciitilde{}', '^': r'\textasciicircum{}'}
 
@@ -61,12 +61,49 @@ def figuras(mod, prefijo, etiqueta):
     return out
 
 
-def captura(n, pie):
-    return f'\\captura{{{n}}}{{{t(pie)}}}\n'
+def cortar(n):
+    """Las capturas de página completa se cortan en tramos legibles (máximo 3) guardados en img/cortes/."""
+    from PIL import Image
+    src = os.path.join(IMG, n + '.png')
+    im = Image.open(src)
+    w, h = im.size
+    alto = int(w * 1.25)
+    if h <= alto * 1.15:
+        return [n]
+    cortes = os.path.join(IMG, 'cortes')
+    os.makedirs(cortes, exist_ok=True)
+    from PIL import ImageStat
+    partes = []
+    for i in range(min(3, -(-h // alto))):
+        trozo = im.crop((0, i * alto, w, min(h, (i + 1) * alto)))
+        # Un tramo casi uniforme (solo fondo) no aporta nada: se omite, salvo el primero.
+        if i and ImageStat.Stat(trozo.convert('L')).stddev[0] < 14:
+            continue
+        nombre = f'{n}__{i + 1}'
+        destino = os.path.join(cortes, nombre + '.png')
+        if not os.path.exists(destino) or os.path.getmtime(destino) < os.path.getmtime(src):
+            trozo.save(destino)
+        partes.append(nombre)
+    return partes if len(partes) > 1 else ([n] if h <= alto * 1.15 else partes)
 
 
-def pendiente(desc):
+def captura_tex(n, pie):
+    partes = cortar(n)
+    if len(partes) == 1:
+        return f'\\captura{{{n}}}{{{t(pie)}}}\n'
+    return ''.join(f'\\captura{{{pn}}}{{{t(pie)} (parte {i} de {len(partes)})}}\n' for i, pn in enumerate(partes, 1))
+
+
+def pendiente_tex(desc):
     return f'\\capturapendiente{{{t(desc)}}}\n'
+
+
+def captura(*a):
+    return ''
+
+
+def pendiente(*a):
+    return ''
 
 
 def lista(items):
@@ -92,7 +129,7 @@ PREAMBULO = r"""% Preámbulo común de los manuales de Titulación (módulo de T
 \usepackage{float}
 \definecolor{uaemex}{HTML}{1F5E3B}
 \definecolor{aviso}{HTML}{8A6A00}
-\graphicspath{{../img/}{../../img/}{img/}}
+\graphicspath{{../img/}{../img/cortes/}{../../img/}{img/}}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
 \pagestyle{fancy}
@@ -105,7 +142,7 @@ PREAMBULO = r"""% Preámbulo común de los manuales de Titulación (módulo de T
 % Captura de pantalla real, con pie.
 \newcommand{\captura}[2]{%
   \begin{figure}[H]\centering
-    \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{#1}
+    \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{#1}
     \caption{#2}
   \end{figure}}
 % Recuadro para una captura que aún no se ha tomado.
@@ -288,6 +325,63 @@ def para_otro(actor):
     return textos[actor]
 
 
+
+try:
+    PIES = json.load(open(os.path.join(IMG, '_pies.json'), encoding='utf-8'))
+except Exception:
+    PIES = {}
+PREFIJOS = {'pasante': ['pasante'], 'responsable_titulacion': ['titulacion'], 'subdirector': ['subdirector', 'director'],
+            'comision_protocolos': ['comision'], 'asesor': ['asesor'], 'coasesor': ['coasesor'], 'sinodal': ['sinodal'],
+            'coordinador_carrera': ['coordinador']}
+TEMAS = [(r'opciones', 'Opciones de titulación en «Licenciatura».'), (r'requisitos', 'Requisitos de la opción y aceptación para iniciar.'),
+         (r'iniciar', 'Aceptación de condiciones para iniciar el trámite.'), (r'_datos', 'Captura de datos del pasante y apertura del trámite.'),
+         (r'agenda', 'Fecha, hora y propuesta de sínodo o jurado.'), (r'concluido', 'Trámite concluido.'), (r'ruta', 'Ruta del trámite con los pasos hechos.'),
+         (r'estado', 'Estado del trámite.'), (r'ronda', 'Etapa en curso del trámite.'), (r'expediente', 'Expediente del trámite en la bandeja de Titulación.'),
+         (r'bandeja', 'Bandeja de la persona responsable.'), (r'firmas', 'Bandeja de firmas pendientes.'), (r'verificacion_01', 'Lista de verificación final del expediente.'),
+         (r'verificacion_02', 'Expediente verificado y exportación para Servicios Escolares.'), (r'enviado', 'Expedientes ya enviados a Servicios Escolares.'),
+         (r'asignar', 'Asignación de evaluadores del comité.'), (r'revision', 'Revisión del protocolo por un integrante del comité.'),
+         (r'dictamen', 'Dictamen consolidado de la comisión.'), (r'enlace', 'Enlace personal recibido por correo.')]
+
+
+def pie_de(nombre):
+    if nombre in PIES:
+        return PIES[nombre]
+    for pat, texto in TEMAS:
+        if re.search(pat, nombre):
+            return texto
+    return 'Pantalla del sistema.'
+
+
+def capturas_de(mod, actor):
+    """Capturas reales de la opción y el actor, en orden, sin repetir las que muestran lo mismo."""
+    arch = []
+    for pref in PREFIJOS.get(actor, []):
+        arch += sorted(glob.glob(os.path.join(IMG, f'{mod}_{pref}_*.png')))
+    nombres = [os.path.splitext(os.path.basename(f))[0] for f in arch if not os.path.basename(f).startswith('_')]
+    out, ult, k = [], None, 0
+    for n in nombres:
+        pie = pie_de(n)
+        if re.search(r'expediente_ronda|firmas_(jefatura|ronda)|_r\d\d$', n):
+            k += 1
+            if k % 4 != 1 and n != nombres[-1]:
+                continue
+        if pie == ult and re.search(r'ronda', n):
+            continue
+        ult = pie
+        out.append((n, pie))
+    return out
+
+
+def seccion_capturas(mod, actor):
+    cs = capturas_de(mod, actor)
+    if not cs:
+        return '\\subsubsection*{Pantallas}\n' + pendiente_tex(f'Pantallas de {ACTORES[actor]} para esta opción: aún no se han tomado (ver el plan de pruebas).')
+    s = '\\subsubsection*{Pantallas del proceso}\n'
+    for n, pie in cs:
+        s += captura_tex(n, pie)
+    return s
+
+
 def modalidades():
     for mod, m in CAT.items():
         actores = CON_TRABAJO if m['tipo'] == 'con_trabajo' else SIN_TRABAJO
@@ -302,7 +396,7 @@ def modalidades():
                 c = para_servicios(mod, m)
             else:
                 c = f"\\subsection{{{t(m['nombre'])}}}\n{t(para_otro(a))}\n" + pendiente(f'Pantalla de {ACTORES[a]} para esta opción.')
-            escribir(f'modalidades/{mod}/{a}.tex', c)
+            escribir(f'modalidades/{mod}/{a}.tex', c + seccion_capturas(mod, a))
 
 
 def participa(a, m):
@@ -315,7 +409,7 @@ def docs_de(m):
     return d, [r['texto'] for r in m['renglones']]
 
 
-def consolidado(a):
+def _consolidado(a):
     """Pasos comunes unificados de un actor en todas las opciones, y particularidades de cada una."""
     mods = {k: m for k, m in CAT.items() if participa(a, m)}
     cuerpo = f"\\section{{{t(ACTORES[a])}: visión global}}\nEste manual reúne lo que el actor hace en \\textbf{{todas}} las opciones de titulación y señala, al final, lo particular de cada una. Para el detalle paso a paso de una opción, consulta el manual específico de esa opción.\n"
@@ -367,6 +461,15 @@ def consolidado(a):
         ev = [d['nombre'] for e in m['etapas'] if e['clave'] == 'final' for d in e['docs'] if d['nombre'] not in ('Trabajo escrito final en PDF',)][:0]
         cuerpo += f"\\subsubsection*{{{t(m['nombre'])}}}\n{t(m['resumen'])}\n"
     return cuerpo
+
+
+def consolidado(a):
+    """Visión global del actor más las pantallas de ejemplo de la opción Tesis (la más completa)."""
+    c = _consolidado(a)
+    if a in PREFIJOS and capturas_de('tesis', a):
+        c += '\n\\subsection{Pantallas de ejemplo}\nPantallas tomadas en la prueba de la opción \\emph{Tesis}; en las demás opciones son equivalentes (el manual de cada opción trae las suyas).\n'
+        c += seccion_capturas('tesis', a).replace('\\subsubsection*{Pantallas del proceso}\n', '')
+    return c
 
 
 def manuales():

@@ -19,7 +19,7 @@ PDF = os.path.join(RAIZ, 'tools', 'manual_titulacion', 'muestra.pdf')
 def credenciales():
     c = {}
     for l in open(os.path.join(RAIZ, 'cred_titulacion_pruebas.txt'), encoding='utf-8'):
-        m = re.search(r'(\S+@\S+)\s+(\S+)\s*$', l)
+        m = re.search(r'(prueba\.[\w.-]+@[\w.-]+)\s+(\S+)\s*$', l)
         if m and not l.lstrip().startswith('→'):
             c[m.group(1)] = m.group(2)
     return c
@@ -56,9 +56,17 @@ class Sesion:
         self.pg.wait_for_load_state('networkidle')
         return self.pg
 
-    def foto(self, nombre, completa=False, localizador=None):
+    def foto(self, nombre, completa=False, localizador=None, pie=None):
         os.makedirs(IMG, exist_ok=True)
         ruta = os.path.join(IMG, nombre + '.png')
+        if pie:
+            sc = os.path.join(IMG, '_pies.json')
+            try:
+                d = json.load(open(sc, encoding='utf-8'))
+            except Exception:
+                d = {}
+            d[nombre] = pie
+            json.dump(d, open(sc, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
         if localizador:
             self.pg.locator(localizador).first.screenshot(path=ruta)
         else:

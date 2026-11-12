@@ -61,8 +61,15 @@ def llenar_y_enviar(s, f, ctx, boton=None):
     sel = f'form:nth-of-type({f["i"] + 1})'
     forms = pg.locator('form').filter(has=pg.locator('xpath=.'))  # todos
     form = pg.locator('form').nth(f['i'])
+    if any(e['name'].startswith('crono_a[') for e in f['els']):
+        form.evaluate("""f => { for (let i = 0; i < 3; i++) { const t = f.querySelector('[name="crono_a[' + i + ']"]'); if (t) t.value = 'Actividad ' + (i + 1) + ' del cronograma';
+            f.querySelectorAll('[name="crono_b[' + i + '][]"]').forEach((c, j) => { c.checked = j >= i * 3 && j < i * 3 + 3; }); } }""")
     for el in f['els']:
-        if el['dis'] or el['type'] in ('hidden', 'submit', 'button', 'file'):
+        if el['dis'] or el['type'] in ('hidden', 'submit', 'button', 'file') or el['name'].startswith('crono_'):
+            continue
+        k0 = re.search(r'\[(\w+)\]', el['name'])
+        k0 = k0.group(1) if k0 else el['name']
+        if not el['req'] and el['type'] not in ('checkbox',) and ctx.get(k0) is None and VALORES.get(k0) is None and el['tag'] != 'SELECT':
             continue
         loc = form.locator(f'[name="{el["name"]}"]')
         if el['type'] == 'checkbox':
@@ -210,3 +217,31 @@ def subdirector_firma(s, foto=None):
         s.pg.wait_for_load_state('networkidle')
         return True
     return False
+
+
+def enlaces_correo(para, patron=r'/titulacion/\S+/t/[0-9a-f]+', desde=0):
+    """Enlaces personales (con token) que la plataforma «envió» a un correo, leídos de la bitácora de pruebas."""
+    if not os.path.exists(LOG):
+        return []
+    txt = open(LOG, 'rb').read()[desde:].decode('utf-8', 'replace')
+    out = []
+    for bloque in txt.split('=== ')[1:]:
+        if f' a {para} ===' in bloque.split('\n', 1)[0]:
+            out += re.findall(patron, bloque)
+    return out
+
+
+def tam_log():
+    return os.path.getsize(LOG) if os.path.exists(LOG) else 0
+
+
+CTX_TRABAJO = {
+    'asesor': 'Raúl Asesor Prueba', 'asesor_correo': 'prueba.asesor@uaemex.mx', 'asesor_grado': 'Dr.', 'asesor_genero': 'masculino',
+    'coasesor': 'Julia Coasesora Prueba', 'coasesor_correo': 'prueba.coasesor@uaemex.mx', 'coasesor_grado': 'Dra.', 'coasesor_genero': 'femenino',
+    'area': 'Computación y sistemas',
+}
+
+
+def firmas_bandeja(s, foto=None):
+    """Firma lo pendiente en «Firmas pendientes» (Subdirector, Director o Jefatura de Titulación)."""
+    return subdirector_firma(s, foto=foto)
