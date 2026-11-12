@@ -1,0 +1,37 @@
+% Preámbulo común de los manuales de Titulación (módulo de Traza FI).
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\definecolor{uaemex}{HTML}{1F5E3B}
+\definecolor{aviso}{HTML}{8A6A00}
+\graphicspath{{../img/}{../../img/}{img/}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Manual de Titulación de Licenciatura}
+\fancyhead[R]{\small \leftmark}
+\fancyfoot[C]{\thepage}
+\setlist{itemsep=2pt}
+
+% Captura de pantalla real, con pie.
+\newcommand{\captura}[2]{%
+  \begin{figure}[H]\centering
+    \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{#1}
+    \caption{#2}
+  \end{figure}}
+% Recuadro para una captura que aún no se ha tomado.
+\newcommand{\capturapendiente}[1]{%
+  \begin{center}\fbox{\parbox{0.9\linewidth}{\color{aviso}\small\textbf{Captura pendiente.} #1}}\end{center}}
+% Aviso destacado.
+\newcommand{\aviso}[1]{\begin{center}\fcolorbox{uaemex}{white}{\parbox{0.92\linewidth}{\small #1}}\end{center}}

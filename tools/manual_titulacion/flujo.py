@@ -151,6 +151,16 @@ def pasante_avanza(s, tid, ctx, prefijo=None, maximo=60):
                 s.pg.wait_for_load_state('networkidle')
                 acciones += 1
                 break
+        if not acciones:
+            # Documentos condicionales que no le aplican al pasante de prueba.
+            for f in formularios(s.pg):
+                a = f['action']
+                if '/noaplica/' in a and re.search(r'dictamen_consejos|const_ingles|registro_dgp|carta_presentacion', a) and (tid, a) not in ctx.setdefault('subidos', set()):
+                    ctx['subidos'].add((tid, a))
+                    s.pg.locator('form').nth(f['i']).locator('button[type=submit]').first.click()
+                    s.pg.wait_for_load_state('networkidle')
+                    acciones += 1
+                    break
         hechas += acciones
         if not acciones:
             break
@@ -189,11 +199,13 @@ def personal_avanza(s, tid, ctx, maximo=80, foto=None):
     return hechas
 
 
-def subdirector_firma(s):
+def subdirector_firma(s, foto=None):
     """El Subdirector firma todo lo que espera su firma. Devuelve True si firmó algo."""
     s.ir('titulacion/firmas')
     b = s.pg.locator('button:has-text("Firmar todos los pendientes")')
     if b.count() and b.first.is_enabled() and s.pg.locator('input[name="ids[]"]').count():
+        if foto:
+            s.foto(foto, completa=True)
         b.first.click()
         s.pg.wait_for_load_state('networkidle')
         return True

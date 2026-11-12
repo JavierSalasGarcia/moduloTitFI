@@ -52,3 +52,7 @@ node_modules/
 
 # Observaciones del plan (no se versionan)
 /Plan/obs/
+
+# Manuales de Titulación: archivos intermedios de LaTeX
+/docs/manuales/titulacion/latex/.build/
+/docs/manuales/titulacion/pdf/

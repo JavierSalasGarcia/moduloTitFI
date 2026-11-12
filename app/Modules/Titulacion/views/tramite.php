@@ -156,6 +156,12 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
                   <button class="btn btn-mini btn-primario" type="submit"><?= $dc === 'protocolo_firmado' ? ($est === 'rechazado' ? 'Firmar la versión corregida y enviarla a mi asesor' : 'Firmar y enviar a mi asesor') : ($dc === 'voto_aprobatorio' ? 'Generar el voto y pedir las firmas' : 'Firmar electrónicamente y enviar') ?></button>
                 </form>
               <?php endif; ?>
+              <?php if ($d['condicion'] && $est !== 'no_aplica' && empty($d['oficio'])): ?>
+                <form method="post" action="<?= url($base . '/noaplica/' . $etapa['clave'] . '/' . $dc) ?>" style="margin-top:4px">
+                  <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+                  <button class="btn btn-mini" type="submit">No me aplica</button>
+                </form>
+              <?php endif; ?>
             <?php elseif (!empty($d['generado'])): ?>
             <?php elseif ($editable && $etapa['propia_ok'] && $est !== 'aprobado'): ?>
               <form method="post" enctype="multipart/form-data" action="<?= url($base . '/documento/' . $etapa['clave'] . '/' . $dc) ?>">
