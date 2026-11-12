@@ -58,3 +58,8 @@ node_modules/
 /docs/manuales/titulacion/pdf/
 /docs/manuales/titulacion/img/cortes/
 /docs/manuales/titulacion/img/_sin_usar/
+
+# Archivos de trabajo del Plan de Desarrollo: solo locales
+/Plan/Matriz2.xlsx
+/Plan/Memoria2.xlsx
+/Plan/obs2/
