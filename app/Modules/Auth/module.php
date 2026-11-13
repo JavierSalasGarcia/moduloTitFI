@@ -7,6 +7,7 @@ return [
     'rutas'   => [
         'POST /cuenta/volver' => [\App\Modules\Ajustes\AccesosController::class,'volver'],
         'GET /registro' => [\App\Modules\Auth\RegistroController::class, 'formulario', 'publico'],
+        'GET /registro/profesor' => [\App\Modules\Auth\RegistroController::class, 'profesor', 'publico'],
         'POST /registro' => [\App\Modules\Auth\RegistroController::class, 'crear', 'publico'],
         'GET /registro/activar' => [\App\Modules\Auth\RegistroController::class, 'activar', 'publico'],
         'POST /registro/activar' => [\App\Modules\Auth\RegistroController::class, 'confirmarActivacion', 'publico'],

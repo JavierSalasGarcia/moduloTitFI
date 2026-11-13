@@ -40,6 +40,15 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   </form>
   <?php endif; ?>
 </section>
+<?php if (!empty($declaracion)): ?>
+<section class="card" style="padding:20px;margin-bottom:18px">
+  <h3 style="margin-top:0">Mis asociaciones en la Facultad</h3>
+  <ul class="perfil-lista">
+    <li><strong>Profesor(a)</strong> <span class="perfil-estado <?= $declaracion['estado'] === 'enlazada' ? '' : 'hist' ?>"><?= $declaracion['estado'] === 'enlazada' ? 'Enlazado al directorio' : 'Pendiente de confirmar por Recursos Humanos' ?></span></li>
+    <?php if (!empty($declaracion['posgrado_siglas'])): ?><li><strong>Estudiante de posgrado</strong> · <?= e($declaracion['posgrado_siglas'] . ' · ' . $declaracion['posgrado']) ?></li><?php endif; ?>
+  </ul>
+</section>
+<?php endif; ?>
 <?php if (!empty($profesor)): ?>
 <section class="card" style="padding:20px;margin-bottom:18px">
   <h3 style="margin-top:0">Mi nombre en el directorio de profesores</h3>

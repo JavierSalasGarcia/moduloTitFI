@@ -78,6 +78,62 @@ final class Profesores
         return null;
     }
 
+    /**
+     * Ficha del directorio (sin cuenta) cuyo nombre coincide con el escrito, ignorando mayúsculas, acentos, grado y orden. Solo si la
+     * coincidencia es única. Sirve al registro para ofrecer «Soy profesor»; nunca enlaza por sí sola (docs/VINCULACION_DE_CUENTAS.md).
+     */
+    public static function fichaLibrePorNombre(string $nombre): ?int
+    {
+        $h = self::huellaNombre($nombre);
+        if ($h === '' || substr_count($h, ' ') < 1) {
+            return null;
+        }
+        try {
+            $ids = [];
+            foreach (Database::todas('SELECT id, nombre, apellido1, apellido2 FROM profesores WHERE usuario_id IS NULL') as $p) {
+                if (self::huellaNombre(self::nombreCompleto($p)) === $h) {
+                    $ids[] = (int) $p['id'];
+                }
+            }
+            return count($ids) === 1 ? $ids[0] : null;
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
+    /** La declaración del registro queda como enlazada cuando la cuenta ya está unida a su ficha. */
+    public static function marcarDeclaracion(int $usuarioId): void
+    {
+        try {
+            Database::ejecutar("UPDATE profesor_declaraciones SET estado = 'enlazada' WHERE usuario_id = ?", [$usuarioId]);
+        } catch (\Throwable) {
+        }
+    }
+
+    /** Posgrados de la Facultad (id, siglas, nombre) para elegir en el registro. */
+    public static function posgrados(): array
+    {
+        try {
+            return Database::todas("SELECT id, siglas, nombre FROM programas WHERE nivel = 'posgrado' ORDER BY siglas");
+        } catch (\Throwable) {
+            return [];
+        }
+    }
+
+    /** Declaración hecha al registrarse (o null): ficha, posgrado que estudia y estado. */
+    public static function declaracion(int $usuarioId): ?array
+    {
+        try {
+            return Database::una(
+                'SELECT d.profesor_id, d.estado, d.posgrado_programa_id, p.siglas AS posgrado_siglas, p.nombre AS posgrado
+                   FROM profesor_declaraciones d LEFT JOIN programas p ON p.id = d.posgrado_programa_id WHERE d.usuario_id = ?',
+                [$usuarioId]
+            ) ?: null;
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
     /** Profesor del directorio por uno de sus correos (para constancias y correos de quien aún no tiene cuenta). */
     public static function porEmail(string $email): ?array
     {
@@ -150,6 +206,7 @@ final class Profesores
                 return false;
             }
             Database::ejecutar('UPDATE profesores SET usuario_id = ? WHERE id = ? AND usuario_id IS NULL', [$usuarioId, $id]);
+            self::marcarDeclaracion($usuarioId);
             Database::ejecutar('UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.genero = p.genero WHERE u.id = ? AND u.genero IS NULL AND p.genero IS NOT NULL', [$usuarioId]);
             Database::ejecutar("UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.grado = p.grado WHERE u.id = ? AND (u.grado IS NULL OR u.grado = '') AND p.grado IS NOT NULL AND p.grado <> ''", [$usuarioId]);
             Database::ejecutar(

@@ -263,13 +263,29 @@ final class CargaRrhh
         ) as $u) {
             $h = self::huella((string) $u['nombre']);
             if (isset($libres[$h])) {
-                $salida[] = $u + ['candidatos' => $libres[$h]];
+                $salida[$u['id']] = $u + ['candidatos' => $libres[$h], 'declaro' => false];
                 if (count($salida) >= $limite) {
                     break;
                 }
             }
         }
-        return $salida;
+        // Quien marcó «Soy profesor» al registrarse aparece aunque haya escrito su nombre distinto (apodo, segundo apellido, etc.).
+        try {
+            foreach (Database::todas(
+                "SELECT u.id, u.nombre, u.email, u.rol, d.profesor_id, d.posgrado_programa_id
+                   FROM profesor_declaraciones d JOIN usuarios u ON u.id = d.usuario_id JOIN profesores p ON p.id = d.profesor_id
+                  WHERE d.estado = 'pendiente' AND u.activo = 1 AND p.usuario_id IS NULL"
+            ) as $d) {
+                $cand = ['id' => (int) $d['profesor_id'], 'nombre' => Profesores::nombreCompleto(Database::una('SELECT nombre, apellido1, apellido2 FROM profesores WHERE id = ?', [$d['profesor_id']]) ?: [])];
+                if (isset($salida[$d['id']])) {
+                    $salida[$d['id']]['declaro'] = true;
+                } else {
+                    $salida[$d['id']] = $d + ['candidatos' => [$cand], 'declaro' => true];
+                }
+            }
+        } catch (\Throwable) {
+        }
+        return array_values($salida);
     }
 
     /** Nombre sin grado, acentos ni orden: «Dr. Pérez Juan» y «Juan Perez» coinciden. */
@@ -304,6 +320,7 @@ final class CargaRrhh
             throw new \InvalidArgumentException('Esa cuenta o ese profesor ya no están disponibles para enlazar.');
         }
         Database::ejecutar('UPDATE profesores SET usuario_id = ? WHERE id = ? AND usuario_id IS NULL', [$usuarioId, $profesorId]);
+        Profesores::marcarDeclaracion($usuarioId);
         if (!Database::valor('SELECT 1 FROM profesor_correos WHERE email = ?', [$u['email']])) {
             Database::ejecutar('INSERT INTO profesor_correos (profesor_id, email, principal) VALUES (?, ?, 0)', [$profesorId, $u['email']]);
         }

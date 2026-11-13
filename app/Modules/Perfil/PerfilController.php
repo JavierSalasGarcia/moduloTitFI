@@ -24,6 +24,7 @@ final class PerfilController extends Controller
             'organos' => Database::todas('SELECT pom.*,po.tipo,p.siglas,p.nombre AS programa FROM programa_organo_miembros pom JOIN programa_organos po ON po.id=pom.organo_id JOIN programas p ON p.id=po.programa_id WHERE pom.usuario_id=? ORDER BY pom.activo DESC,p.siglas,po.tipo', [$id]),
             'cuerpos' => Database::todas("SELECT g.id,g.nombre FROM firma_grupo_miembros gm JOIN firma_grupos g ON g.id=gm.grupo_id WHERE gm.usuario_id=? AND g.tipo='cuerpo_academico' ORDER BY g.nombre",[$id]),
             'profesor' => \App\Core\Profesores::deUsuario((int) $id),
+            'declaracion' => \App\Core\Profesores::declaracion((int) $id),
             'correos' => Identidad::correosDeUsuario((int) $id),
             'cambioCorreo' => Identidad::cambioPendiente((int) $id),
             'avisos' => \App\Modules\Eventos\Clasificacion::preferencias($id),

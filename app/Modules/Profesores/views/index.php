@@ -31,7 +31,7 @@
   <?php if (!$porEnlazar): ?><p class="texto-suave">No hay coincidencias pendientes.</p><?php else: ?>
   <table class="rrhh-tabla"><thead><tr><th>Cuenta</th><th>Profesor del directorio</th><th></th></tr></thead><tbody>
     <?php foreach ($porEnlazar as $c): foreach ($c['candidatos'] as $cand): ?>
-    <tr><td><?= e($c['nombre']) ?><br><small class="texto-suave"><?= e($c['email']) ?></small></td><td><?= e($cand['nombre']) ?></td>
+    <tr><td><?= e($c['nombre']) ?><br><small class="texto-suave"><?= e($c['email']) ?><?= !empty($c['declaro']) ? ' · marcó «Soy profesor» al registrarse' : '' ?></small></td><td><?= e($cand['nombre']) ?></td>
       <td><form method="post" action="<?= url('profesores/rrhh/enlazar') ?>"><input type="hidden" name="_csrf" value="<?= $csrf ?>"><input type="hidden" name="usuario_id" value="<?= (int) $c['id'] ?>"><input type="hidden" name="profesor_id" value="<?= (int) $cand['id'] ?>"><button class="btn" type="submit">Son la misma persona</button></form></td></tr>
     <?php endforeach; endforeach; ?>
   </tbody></table>

@@ -43,6 +43,7 @@ $fuentes = [
     'migrations/044_ingesta_documental.sql',
     'migrations/045_titulacion_expediente_final.sql',
     'migrations/046_profesor_datos_editables.sql',
+    'migrations/047_registro_profesor_posgrado.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

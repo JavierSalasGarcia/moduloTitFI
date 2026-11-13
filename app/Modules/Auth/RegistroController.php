@@ -12,6 +12,18 @@ final class RegistroController extends Controller
         $this->ready(); if (Auth::id()) redirigir('');
         $this->vista('registro',['titulo'=>'Crear cuenta'],'auth');
     }
+    /** ¿El nombre escrito coincide con un profesor del directorio? Solo responde sí/no (y la lista de posgrados): no expone datos. */
+    public function profesor(): void
+    {
+        $this->ready();
+        header('Content-Type: application/json; charset=utf-8');
+        if (Auth::id() || AccessControl::limited('prof-nombre:' . ($_SERVER['REMOTE_ADDR'] ?? ''), 40, 3600)) {
+            echo json_encode(['coincide' => false]);
+            return;
+        }
+        $coincide = AccessControl::internal(fn() => \App\Core\Profesores::fichaLibrePorNombre((string) ($_GET['nombre'] ?? '')) !== null);
+        echo json_encode(['coincide' => $coincide]);
+    }
     public function crear(): void
     {
         $this->ready(); if (Auth::id()) redirigir('');
@@ -19,6 +31,18 @@ final class RegistroController extends Controller
         $nombre=trim($this->post('nombre')); $email=Auth::normalizarCorreoInstitucional((string)($_POST['email']??''))??''; $password=(string)($_POST['clave']??''); $grado=mb_substr(trim((string)($_POST['grado']??'')),0,30)?:null; $genero=in_array(($_POST['genero']??''),['masculino','femenino','no_binario'],true)?$_POST['genero']:null;
         if ($nombre==='' || mb_strlen($nombre)>120 || strlen($email)>120 || !AccessControl::isUaemexEmail($email) || $genero===null || strlen($password)<10 || strlen($password)>72 || $password!==($_POST['confirmacion']??'')) {
             flash('error','Revisa tu nombre, correo UAEMEX y las contraseñas: se admite uaemex.mx y cualquiera de sus subdominios; las contraseñas deben coincidir y tener entre 10 y 72 caracteres.'); redirigir('registro');
+        }
+        // «Soy profesor»: solo si el nombre coincide con una ficha libre del directorio. Si además estudia un posgrado, debe elegirlo.
+        $fichaId = null; $posgradoId = null;
+        if (($_POST['es_profesor'] ?? '') === '1') {
+            $fichaId = AccessControl::internal(fn() => \App\Core\Profesores::fichaLibrePorNombre($nombre));
+            if ($fichaId === null) { flash('error','Tu nombre ya no coincide con el directorio de profesores. Desmarca «Soy profesor(a)» o escríbelo como aparece en tus oficios.'); redirigir('registro'); }
+            if (($_POST['es_estudiante_posgrado'] ?? '') === '1') {
+                $pid=(int)($_POST['posgrado_id']??0);
+                $posgradoId=AccessControl::internal(fn()=>Database::valor("SELECT id FROM programas WHERE id=? AND nivel='posgrado'",[$pid]));
+                if (!$posgradoId) { flash('error','Elige el posgrado de la Facultad en el que estudias.'); redirigir('registro'); }
+                $posgradoId=(int)$posgradoId;
+            }
         }
         // Una persona, una cuenta: si el correo ya existe (alta de Titulación, Organización o la administración) no se crea
         // otra; se activa la existente con un código enviado a ese correo.
@@ -30,11 +54,16 @@ final class RegistroController extends Controller
             flash('error','Ya tienes una cuenta con el correo '.\App\Core\Identidad::enmascarar($previa).'. Inicia sesión con ella y, si cambió tu correo institucional, actualízalo en «Mi perfil».'); redirigir('login');
         }
         try {
-            $id=AccessControl::internal(function() use($nombre,$email,$password,$genero,$grado): int {
+            $id=AccessControl::internal(function() use($nombre,$email,$password,$genero,$grado,$fichaId,$posgradoId): int {
                 $pdo=Database::pdo(); $pdo->beginTransaction();
                 try {
                     $id=Database::ejecutar("INSERT INTO usuarios (nombre,grado,genero,email,password_hash,rol,activo,permite_contrasena,logins_contrasena_restantes) VALUES (?,?,?,?,?,'alumno',1,1,20)",[$nombre,$grado,$genero,$email,password_hash($password,PASSWORD_DEFAULT)]);
                     Database::ejecutar('INSERT INTO cuenta_verificacion (usuario_id,creado_en) VALUES (?,?)',[$id,date('Y-m-d H:i:s')]);
+                    if ($fichaId!==null) {
+                        // Ambas asociaciones quedan en el perfil: como estudiante (programa de la cuenta) y como profesor (declaración que Recursos Humanos o el correo verificado enlazan).
+                        if ($posgradoId!==null) Database::ejecutar('UPDATE usuarios SET programa_id=? WHERE id=?',[$posgradoId,$id]);
+                        Database::ejecutar('INSERT INTO profesor_declaraciones (usuario_id,profesor_id,posgrado_programa_id) VALUES (?,?,?)',[$id,$fichaId,$posgradoId]);
+                    }
                     try { Database::ejecutar("INSERT IGNORE INTO usuario_correos (usuario_id,email,principal,origen) VALUES (?,?,1,'cuenta')",[$id,$email]); } catch(\Throwable) {}
                     $pdo->commit(); return $id;
                 } catch(\Throwable $e) { $pdo->rollBack(); throw $e; }
