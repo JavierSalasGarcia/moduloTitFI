@@ -16,6 +16,7 @@
   --oro-050: #FBF6E3;
   --gris-bg: #F5F5F2;
   --gris-100: #E5E7EB;
+  --borde-campo: #8C97A3;
   --gris-600: #6B7280;
   --texto: #1F2937;
   --blanco: #FFFFFF;
@@ -359,7 +360,7 @@ input[type="date"], input[type="datetime-local"], input[type="search"], input[ty
 select, textarea {
   width: 100%;
   padding: 8px 10px;
-  border: 1px solid var(--gris-100);
+  border: 1px solid var(--borde-campo);
   border-radius: 6px;
   background: var(--blanco);
   font-family: var(--fuente);
@@ -778,7 +779,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
 .pestana:hover { text-decoration: none; }
 .pestana.activa { background: var(--verde-900); color: var(--blanco); }
 
-.buscador { display: flex; align-items: center; gap: 8px; background: var(--blanco); border: 1px solid var(--gris-100); border-radius: 6px; padding: 6px 12px; color: var(--gris-600); }
+.buscador { display: flex; align-items: center; gap: 8px; background: var(--blanco); border: 1px solid var(--borde-campo); border-radius: 6px; padding: 6px 12px; color: var(--gris-600); }
+.buscador:focus-within { border-color: var(--verde-700); box-shadow: 0 0 0 2px rgba(44, 82, 52, .18); }
 .buscador input { border: none; outline: none; background: none; min-width: 170px; margin: 0; padding: 0; }
 .buscador input:focus { outline: none; }
 

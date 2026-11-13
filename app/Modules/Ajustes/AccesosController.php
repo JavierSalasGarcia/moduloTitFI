@@ -9,9 +9,39 @@ final class AccesosController extends Controller
     {
         $this->admin(); $q=mb_substr(trim((string)($_GET['q']??'')),0,120); $page=max(1,(int)($_GET['pagina']??1)); $offset=($page-1)*30;
         $filter='nombre LIKE ? OR email LIKE ?'; $params=['%'.$q.'%','%'.$q.'%'];
-        $this->vista('accesos',['titulo'=>'Cuentas y acceso','listo'=>AccessControl::ready(),'q'=>$q,'pagina'=>$page,
+        $cols=['nombre'=>'nombre','email'=>'email','rol'=>'rol','estado'=>'activo']; $orden=array_key_exists((string)($_GET['orden']??''),$cols)?(string)$_GET['orden']:'nombre'; $dir=(($_GET['dir']??'asc')==='desc')?'desc':'asc';
+        $this->vista('accesos',['titulo'=>'Cuentas y acceso','listo'=>AccessControl::ready(),'q'=>$q,'pagina'=>$page,'orden'=>$orden,'dir'=>$dir,'est'=>$this->estadisticas(),
             'total'=>(int)Database::valor('SELECT COUNT(*) FROM usuarios WHERE '.$filter,$params),
-            'cuentas'=>Database::todas('SELECT id,nombre,email,rol,activo FROM usuarios WHERE '.$filter.' ORDER BY nombre LIMIT 30 OFFSET '.$offset,$params)]);
+            'cuentas'=>Database::todas('SELECT id,nombre,email,rol,activo FROM usuarios WHERE '.$filter.' ORDER BY '.$cols[$orden].' '.strtoupper($dir).', nombre LIMIT 30 OFFSET '.$offset,$params)]);
+    }
+    /** Radiografía de las cuentas: totales, verificadas y desglose por programa, rol y vínculo con el directorio de profesores. */
+    private function estadisticas(): array
+    {
+        $uno = static function (string $sql): int {
+            try { return (int) Database::valor($sql); } catch (\Throwable) { return 0; }
+        };
+        $todas = static function (string $sql): array {
+            try { return Database::todas($sql); } catch (\Throwable) { return []; }
+        };
+        $verif = 'EXISTS (SELECT 1 FROM cuenta_verificacion v WHERE v.usuario_id = u.id AND v.verificado_en IS NOT NULL)';
+        return [
+            'total' => $uno('SELECT COUNT(*) FROM usuarios'),
+            'activas' => $uno('SELECT COUNT(*) FROM usuarios WHERE activo = 1'),
+            'verificadas' => $uno("SELECT COUNT(*) FROM usuarios u WHERE $verif"),
+            'sin_verificar' => $uno("SELECT COUNT(*) FROM usuarios u WHERE u.activo = 1 AND NOT $verif"),
+            'nuevas_30' => $uno('SELECT COUNT(*) FROM usuarios WHERE creado_en >= DATE_SUB(NOW(), INTERVAL 30 DAY)'),
+            'con_2fa' => $uno('SELECT COUNT(*) FROM usuarios WHERE totp_secret IS NOT NULL'),
+            'profesores_enlazados' => $uno('SELECT COUNT(*) FROM profesores WHERE usuario_id IS NOT NULL'),
+            'profesores_directorio' => $uno('SELECT COUNT(*) FROM profesores'),
+            'declaraciones' => $uno("SELECT COUNT(*) FROM profesor_declaraciones WHERE estado = 'pendiente'"),
+            'sin_programa' => $uno('SELECT COUNT(*) FROM usuarios WHERE programa_id IS NULL'),
+            'por_programa' => $todas("SELECT p.siglas, p.nombre, p.nivel, COUNT(u.id) AS total, SUM(u.activo = 1) AS activas,
+                    SUM($verif) AS verificadas
+                  FROM programas p LEFT JOIN usuarios u ON u.programa_id = p.id GROUP BY p.id, p.siglas, p.nombre, p.nivel
+                  ORDER BY FIELD(p.nivel, 'licenciatura', 'posgrado'), p.siglas"),
+            'por_rol' => $todas("SELECT u.rol, COUNT(*) AS total, SUM(u.activo = 1) AS activas, SUM($verif) AS verificadas FROM usuarios u GROUP BY u.rol ORDER BY total DESC"),
+            'por_dominio' => $todas("SELECT SUBSTRING_INDEX(email, '@', -1) AS dominio, COUNT(*) AS total FROM usuarios GROUP BY dominio ORDER BY total DESC LIMIT 8"),
+        ];
     }
     public function activar(): void
     {
@@ -45,17 +75,5 @@ final class AccesosController extends Controller
         $this->vista('auditoria',['titulo'=>'Registro de acciones','q'=>$q,'pagina'=>$page,
             'total'=>(int)Database::valor('SELECT COUNT(*) FROM auditoria_acciones WHERE '.$where,$p),
             'eventos'=>Database::todas('SELECT * FROM auditoria_acciones WHERE '.$where.' ORDER BY id DESC LIMIT 50 OFFSET '.$offset,$p)]);
-    }
-    public function probarCorreo(): void
-    {
-        $this->admin(); if (!AccessControl::ready()) redirigir('ajustes/accesos');
-        $email=trim($this->post('email'));
-        if (!filter_var($email,FILTER_VALIDATE_EMAIL) || AccessControl::limited('prueba_correo:'.Auth::id(),3,3600)) {
-            flash('error','Revisa el correo o espera antes de repetir la prueba.'); redirigir('ajustes/accesos');
-        }
-        $code=(string)random_int(100000,999999);
-        $ok=(new \App\Modules\Reuniones\Services\HostingerMailer())->enviar($email,'Código de prueba · Traza FI',"Tu código de prueba es: $code\n\nEste correo comprueba la entrega de los códigos de Traza FI. No cambia tu contraseña ni tus permisos y no necesitas introducirlo en la plataforma.\n\nMenos trámites. Todo a la mano y con seguimiento.");
-        Audit::record('prueba_correo',$ok?'correcto':'error',$email);
-        flash($ok?'exito':'error',$ok?'El proveedor aceptó el correo de prueba. Confirma su recepción en el buzón.':'No se pudo confirmar el envío. Revisa la configuración del correo.'); redirigir('ajustes/accesos');
     }
 }

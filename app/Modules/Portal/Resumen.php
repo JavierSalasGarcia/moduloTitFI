@@ -43,13 +43,13 @@ final class Resumen
         ];
     }
 
-    /** Eventos que están en curso o empiezan en los próximos 30 días y van dirigidos a la persona. */
+    /** Eventos que están en curso o empiezan en los próximos 30 días y van dirigidos a la persona; los que ya pasaron no aparecen. */
     private static function eventos(): array
     {
         return self::seguro(static function (): array {
             $filas = Database::todas(
                 'SELECT id, titulo, inicio, fin, lugar, modalidad, categoria, publico, semestre_min, semestre_max FROM eventos
-                  WHERE COALESCE(fin, inicio) >= NOW() AND inicio <= DATE_ADD(NOW(), INTERVAL 30 DAY) ORDER BY inicio LIMIT 60'
+                  WHERE COALESCE(fin, DATE_ADD(inicio, INTERVAL 3 HOUR)) >= NOW() AND inicio <= DATE_ADD(NOW(), INTERVAL 30 DAY) ORDER BY inicio LIMIT 60'
             );
             $perfil = Clasificacion::perfil();
             $lista = array_filter(Clasificacion::conProgramas($filas), static fn(array $e): bool => Clasificacion::dirigidoA($e, $perfil));
