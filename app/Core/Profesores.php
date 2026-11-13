@@ -113,11 +113,11 @@ final class Profesores
         }
     }
 
-    /** Registro del directorio enlazado a la cuenta, con lo que imparte. El RFC y el número de empleado son internos: no se devuelven. */
+    /** Registro del directorio enlazado a la cuenta, con lo que imparte. El RFC es interno y no se devuelve; el número de empleado y la categoría los edita la propia persona. */
     public static function deUsuario(int $usuarioId): ?array
     {
         try {
-            $p = Database::una('SELECT id, nombre, apellido1, apellido2, grado, genero FROM profesores WHERE usuario_id = ?', [$usuarioId]);
+            $p = Database::una('SELECT id, nombre, apellido1, apellido2, grado, genero, num_empleado, categoria FROM profesores WHERE usuario_id = ?', [$usuarioId]);
             if (!$p) {
                 return null;
             }
@@ -151,6 +151,7 @@ final class Profesores
             }
             Database::ejecutar('UPDATE profesores SET usuario_id = ? WHERE id = ? AND usuario_id IS NULL', [$usuarioId, $id]);
             Database::ejecutar('UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.genero = p.genero WHERE u.id = ? AND u.genero IS NULL AND p.genero IS NOT NULL', [$usuarioId]);
+            Database::ejecutar("UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.grado = p.grado WHERE u.id = ? AND (u.grado IS NULL OR u.grado = '') AND p.grado IS NOT NULL AND p.grado <> ''", [$usuarioId]);
             Database::ejecutar(
                 "INSERT IGNORE INTO programa_profesores (programa_id, usuario_id, tipo_vinculo, fecha_inicio, activo, observaciones)
                  SELECT un.programa_id, ?, 'docente', a.fecha_inicio, 1, 'Directorio de profesores'
@@ -161,6 +162,36 @@ final class Profesores
         } catch (\Throwable) {
             return false;   // aún sin la migración: el registro sigue su curso
         }
+    }
+
+    public const CATEGORIAS = ['ptc' => 'Profesor de tiempo completo (PTC)', 'medio_tiempo' => 'Profesor de medio tiempo',
+        'asignatura' => 'Profesor de asignatura', 'tecnico_academico' => 'Técnico académico'];
+
+    /**
+     * El profesor completa o corrige sus datos en su ficha del directorio: grado, género, número de empleado y categoría.
+     * Si no hay ficha enlazada, solo se actualizan grado y género de la cuenta. @throws \InvalidArgumentException
+     */
+    public static function guardarDatos(int $usuarioId, string $grado, string $genero, string $numEmpleado, string $categoria): void
+    {
+        $grado = mb_substr(trim($grado), 0, 30);
+        $genero = in_array($genero, ['masculino', 'femenino', 'no_binario'], true) ? $genero : null;
+        Database::ejecutar('UPDATE usuarios SET grado = ?, genero = ? WHERE id = ?', [$grado !== '' ? $grado : null, $genero, $usuarioId]);
+        $pid = Database::valor('SELECT id FROM profesores WHERE usuario_id = ?', [$usuarioId]);
+        if (!$pid) {
+            return;
+        }
+        $numEmpleado = trim($numEmpleado);
+        if ($numEmpleado !== '' && !preg_match('/^\d{1,12}$/', $numEmpleado)) {
+            throw new \InvalidArgumentException('El número de empleado solo lleva dígitos (máximo 12).');
+        }
+        if ($numEmpleado !== '' && Database::valor('SELECT id FROM profesores WHERE num_empleado = ? AND id <> ?', [$numEmpleado, $pid])) {
+            throw new \InvalidArgumentException('Ese número de empleado ya está registrado con otra persona. Si es el tuyo, avisa a la Subdirección Académica.');
+        }
+        Database::ejecutar(
+            'UPDATE profesores SET grado = ?, genero = ?, num_empleado = ?, categoria = ? WHERE id = ?',
+            [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino'], true) ? $genero : null,
+             $numEmpleado !== '' ? $numEmpleado : null, isset(self::CATEGORIAS[$categoria]) ? $categoria : null, $pid]
+        );
     }
 
     /**

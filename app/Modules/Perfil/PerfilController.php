@@ -32,16 +32,16 @@ final class PerfilController extends Controller
         ]);
     }
 
-    /** La persona corrige su grado y género, que se usan para tratarla correctamente en toda la plataforma. */
+    /** La persona corrige su grado y género (con los que se la trata en toda la plataforma) y, si es profesor, su número de empleado y categoría. */
     public function tratamiento(): void
     {
-        $grado = mb_substr(trim((string) ($_POST['grado'] ?? '')), 0, 30);
-        $genero = (string) ($_POST['genero'] ?? '');
-        Database::ejecutar(
-            'UPDATE usuarios SET grado = ?, genero = ? WHERE id = ?',
-            [$grado !== '' ? $grado : null, in_array($genero, ['masculino', 'femenino', 'no_binario'], true) ? $genero : null, Auth::id()]
-        );
-        flash('exito', 'Tu tratamiento se actualizó.');
+        try {
+            \App\Core\Profesores::guardarDatos((int) Auth::id(), (string) ($_POST['grado'] ?? ''), (string) ($_POST['genero'] ?? ''),
+                (string) ($_POST['num_empleado'] ?? ''), (string) ($_POST['categoria'] ?? ''));
+            flash('exito', 'Tus datos se actualizaron.');
+        } catch (\InvalidArgumentException $e) {
+            flash('error', $e->getMessage());
+        }
         redirigir('perfil');
     }
 

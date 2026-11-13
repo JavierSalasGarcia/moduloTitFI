@@ -308,6 +308,7 @@ final class CargaRrhh
             Database::ejecutar('INSERT INTO profesor_correos (profesor_id, email, principal) VALUES (?, ?, 0)', [$profesorId, $u['email']]);
         }
         Database::ejecutar('UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.genero = p.genero WHERE u.id = ? AND u.genero IS NULL AND p.genero IS NOT NULL', [$usuarioId]);
+        Database::ejecutar("UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.grado = p.grado WHERE u.id = ? AND (u.grado IS NULL OR u.grado = '') AND p.grado IS NOT NULL AND p.grado <> ''", [$usuarioId]);
         Database::ejecutar(
             "INSERT IGNORE INTO programa_profesores (programa_id, usuario_id, tipo_vinculo, fecha_inicio, activo, observaciones)
              SELECT un.programa_id, ?, 'docente', a.fecha_inicio, 1, 'Directorio de profesores'

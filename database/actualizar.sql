@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-12 03:41)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-13 17:34)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (40 fuentes, en orden).
+-- a partir de las migraciones (41 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -2679,4 +2679,14 @@ CREATE TABLE IF NOT EXISTS tit_expediente_lotes (
   huella CHAR(64) NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/046_profesor_datos_editables.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Datos del profesor que él mismo puede completar o corregir en «Mi perfil»: categoría de contratación.
+-- (grado, género y número de empleado ya existen.) Es repetible: puede ejecutarse completa las veces que haga falta.
+
+SET @s = (SELECT IF(COUNT(*) = 0, "ALTER TABLE profesores ADD COLUMN categoria ENUM('ptc','medio_tiempo','asignatura','tecnico_academico') NULL DEFAULT NULL AFTER grado", 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'profesores' AND COLUMN_NAME = 'categoria');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 

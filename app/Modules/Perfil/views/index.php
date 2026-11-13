@@ -8,12 +8,16 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   <div class="perfil-grid"><div><strong>Departamento o adscripción</strong><p><?= e($usuarioPerfil['departamento']?:'Sin adscripción registrada') ?></p></div><div><strong>Programa principal</strong><p><?= e($usuarioPerfil['programa']?:'Sin programa principal') ?></p></div></div>
 </section>
 <section class="card" style="padding:20px;margin-bottom:18px">
-  <h3 style="margin-top:0">Cómo dirigirnos a ti</h3>
-  <p class="texto-suave">Se usa en oficios, formatos y correos de toda la plataforma (por ejemplo «Estimada Dra. …»).</p>
+  <h3 style="margin-top:0">Mis datos</h3>
+  <p class="texto-suave">Se usan en oficios, formatos y correos de toda la plataforma (por ejemplo «Estimada Dra. …»). Si ya aparecen datos tuyos, revísalos y corrígelos; si faltan, complétalos.</p>
   <form method="post" action="<?= url('perfil/tratamiento') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
     <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
     <label>Grado académico<input type="text" name="grado" maxlength="30" list="grados-lista" value="<?= e((string) ($usuarioPerfil['grado'] ?? '')) ?>" placeholder="Ej. Dr., Mtra., Ing."></label>
     <label>Género<select name="genero"><option value="">Sin indicar</option><option value="masculino" <?= ($usuarioPerfil['genero'] ?? '') === 'masculino' ? 'selected' : '' ?>>Masculino</option><option value="femenino" <?= ($usuarioPerfil['genero'] ?? '') === 'femenino' ? 'selected' : '' ?>>Femenino</option><option value="no_binario" <?= ($usuarioPerfil['genero'] ?? '') === 'no_binario' ? 'selected' : '' ?>>No binario</option></select></label>
+    <?php if (!empty($profesor)): ?>
+    <label>Número de empleado<input type="text" name="num_empleado" inputmode="numeric" pattern="[0-9]{1,12}" maxlength="12" value="<?= e((string) ($profesor['num_empleado'] ?? '')) ?>"></label>
+    <label>Categoría<select name="categoria"><option value="">Sin indicar</option><?php foreach (\App\Core\Profesores::CATEGORIAS as $k => $n): ?><option value="<?= e($k) ?>" <?= ($profesor['categoria'] ?? '') === $k ? 'selected' : '' ?>><?= e($n) ?></option><?php endforeach; ?></select></label>
+    <?php endif; ?>
     <button class="btn btn-primario" type="submit">Guardar</button>
     <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
   </form>
