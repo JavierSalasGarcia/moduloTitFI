@@ -14,7 +14,9 @@ final class Aviso
 {
     public static function enlace(string $ruta): string
     {
-        return rtrim((string) App::config('app.url_publica', ''), '/') . url($ruta);
+        // La URL pública manda: un script que corre fuera del front controller (instaladores, tareas) daría otra base con url().
+        $publica = rtrim((string) App::config('app.url_publica', ''), '/');
+        return $publica !== '' ? $publica . '/' . ltrim($ruta, '/') : url($ruta);
     }
 
     /** @param bool $correo false: solo la bandeja de notificaciones (p. ej. cada documento validado, para no saturar el correo) */

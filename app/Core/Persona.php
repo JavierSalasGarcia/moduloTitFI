@@ -51,11 +51,30 @@ final class Persona
     public static function tratamiento(array $p, bool $mayusculas = false): string
     {
         $nombre = trim((string) ($p['nombre'] ?? ''));
-        $grado = trim((string) ($p['grado'] ?? ''));
-        if ($grado !== '' && !preg_match('/^' . preg_quote(rtrim($grado, '.'), '/') . '\b/iu', $nombre)) {
+        $grado = self::abreviarGrado(trim((string) ($p['grado'] ?? '')), self::genero($p));
+        // No antepone el grado si el nombre ya trae cualquier tratamiento («DR. JUAN…», «M. en C. Ana…»).
+        $yaTrae = preg_match('/^(DRA?|MTRA?|M\.?\s*EN\s*[A-Z]|LIC|ING|ARQ|C\.\s*P|L\.\s*A\.\s*E|DOCTORA?|MAESTRA?|LICENCIADA?|INGENIERA?)\b\.?/iu', $nombre);
+        if ($grado !== '' && !$yaTrae && !preg_match('/^' . preg_quote(rtrim($grado, '.'), '/') . '\b/iu', $nombre)) {
             $nombre = $grado . ' ' . $nombre;
         }
         return $mayusculas ? mb_strtoupper($nombre) : $nombre;
+    }
+
+    /** Convierte un grado escrito completo («Doctorado», «Maestría en…», «Ingeniería») en su abreviatura de trato. */
+    public static function abreviarGrado(string $grado, ?string $genero = null): string
+    {
+        $g = mb_strtolower($grado);
+        $fem = $genero === 'femenino';
+        return match (true) {
+            $g === '' => '',
+            str_starts_with($g, 'doctor') => $fem ? 'Dra.' : 'Dr.',
+            str_starts_with($g, 'maestr') || str_starts_with($g, 'master') => $fem ? 'Mtra.' : 'Mtro.',
+            str_starts_with($g, 'licenciad') || $g === 'licenciatura' => 'Lic.',
+            str_starts_with($g, 'ingenier') => 'Ing.',
+            str_starts_with($g, 'arquitect') => 'Arq.',
+            str_starts_with($g, 'especialid') => $grado,
+            default => $grado,
+        };
     }
 
     /** Elige la forma masculina o femenina; sin género conocido usa la masculina genérica. */
