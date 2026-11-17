@@ -77,6 +77,35 @@ final class Persona
         };
     }
 
+    /**
+     * Nombre en mayúsculas («DR. JAVIER SALAS GARCIA») a nombre propio («Dr. Javier Salas Garcia»); un nombre que ya trae
+     * minúsculas se respeta. Con $titulo, aplica la misma regla a un título de trabajo escrito todo en mayúsculas.
+     */
+    public static function nombrePropio(string $texto, bool $titulo = false): string
+    {
+        $texto = trim($texto);
+        if ($texto === '' || mb_strtoupper($texto) !== $texto || !preg_match('/\p{Lu}/u', $texto)) {
+            return $texto;
+        }
+        $menores = ['de', 'del', 'la', 'las', 'los', 'y', 'e', 'el', 'en', 'a', 'al', 'o', 'u', 'por', 'para', 'con', 'un', 'una'];
+        $palabras = preg_split('/(\s+)/u', mb_strtolower($texto), -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
+        $salida = '';
+        $primera = true;
+        foreach ($palabras as $p) {
+            if (trim($p) === '') { $salida .= $p; continue; }
+            if ($titulo && !$primera) {
+                $salida .= $p;          // títulos: solo la inicial en mayúscula (tipo oración)
+            } elseif (!$primera && in_array($p, $menores, true)) {
+                $salida .= $p;
+            } else {
+                $salida .= mb_strtoupper(mb_substr($p, 0, 1)) . mb_substr($p, 1);
+            }
+            $primera = false;
+        }
+        // Abreviaturas de grado conocidas («M. En C.» → «M. en C.»).
+        return preg_replace('/\bM\. En\b/u', 'M. en', $salida) ?? $salida;
+    }
+
     /** Elige la forma masculina o femenina; sin género conocido usa la masculina genérica. */
     public static function f(array $p, string $masculino, string $femenino): string
     {
@@ -86,7 +115,7 @@ final class Persona
     /** «Estimado Dr. Javier Salas García» / «Estimada Dra. …»; si no se conoce el género, un saludo neutro. */
     public static function saludo(array $p): string
     {
-        $t = self::tratamiento($p);
+        $t = self::nombrePropio(self::tratamiento($p));
         return self::genero($p) === null ? 'Hola ' . $t : self::f($p, 'Estimado ', 'Estimada ') . $t;
     }
 

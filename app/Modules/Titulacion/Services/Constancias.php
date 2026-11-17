@@ -301,12 +301,27 @@ final class Constancias
     /** La Subdirección o la Jefatura firmó una constancia: se avisa al profesor. */
     public static function firmada(int $docId): void
     {
-        $c = Database::una('SELECT c.*, t.folio FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id WHERE c.documento_id = ?', [$docId]);
-        if ($c && (string) $c['email'] !== '') {
-            Correo::enviar((string) $c['email'], ['nombre' => $c['nombre']], (self::TIPOS[$c['tipo']][0] ?? 'Constancia') . ' · ' . $c['folio'],
-                'Gracias por su participación en el proceso de titulación. Su ' . mb_strtolower(self::TIPOS[$c['tipo']][0] ?? 'constancia') . ' ya está firmada y disponible en Traza FI, en «Constancias → Titulación Lic».',
-                'Ver mis constancias', Correo::enlace('titulacion/constancias'), 'constancia', (int) $c['tramite_id']);
+        $c = Database::una(
+            "SELECT c.*, t.folio, t.titulo, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre
+               FROM tit_constancias c JOIN tit_tramites t ON t.id = c.tramite_id LEFT JOIN usuarios u ON u.id = t.alumno_id
+              WHERE c.documento_id = ?", [$docId]);
+        if (!$c || (string) $c['email'] === '') {
+            return;
         }
+        $persona = Persona::completar(['nombre' => $c['nombre']], (string) $c['email']);
+        $fem = Persona::genero($persona) === 'femenino';
+        // «revisora del trabajo escrito», «director de tesis»…
+        $rol = mb_strtolower(self::TIPOS[$c['tipo']][0] ?? 'participante');
+        if ($fem) {
+            $rol = preg_replace(['/^revisor\b/u', '/^director\b/u', '/^codirector\b/u', '/^asesor\b/u', '/^coasesor\b/u'], ['revisora', 'directora', 'codirectora', 'asesora', 'coasesora'], $rol) ?? $rol;
+        }
+        $alumno = Persona::nombrePropio(trim((string) ($c['alumno_nombre'] ?? '')));
+        $titulo = trim((string) ($c['titulo'] ?? ''));
+        $trabajo = $titulo !== '' ? ' en el trabajo «' . $titulo . '»' . ($alumno !== '' ? ' de ' . $alumno : '') : ($alumno !== '' ? ' en el trámite de ' . $alumno : '');
+        Correo::enviar((string) $c['email'], $persona, 'Su constancia de participación en titulación está lista',
+            'Le informamos que su constancia como ' . $rol . $trabajo . ' ya está firmada por la Subdirección Académica.' . "\n\n"
+            . 'Puede consultarla y descargarla en Traza FI, en el apartado Constancias. Gracias por su participación en el proceso de titulación.',
+            'Ver mis constancias', Correo::enlace('titulacion/constancias'), 'constancia', (int) $c['tramite_id']);
     }
 
     // ------------------------------------------------------------------ consulta
