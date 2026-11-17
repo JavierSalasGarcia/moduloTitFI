@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Portal\PortalController;
+use App\Modules\Portal\SeccionController;
 
 return [
     'clave' => 'portal',
@@ -11,5 +12,7 @@ return [
     'rutas' => [
         'GET /'          => [PortalController::class, 'index'],
         'POST /consulta' => [PortalController::class, 'consultar'],
+        // Página de entrada de un grupo del menú (tarjetas con las entradas que la persona puede ver).
+        'GET /seccion/{clave}' => [SeccionController::class, 'ver'],
     ],
 ];

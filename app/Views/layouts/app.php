@@ -7,7 +7,9 @@ $usuario = Auth::usuario();
 if (class_exists(\App\Modules\Eventos\Recordatorios::class)) {
     \App\Modules\Eventos\Recordatorios::generar();
 }
-$secciones = \App\Core\InterfaceUi::menu(ModuleManager::menu(array_merge([$usuario['rol']], array_column($usuario['roles_extra'] ?? [], 'rol'))));
+$navegacion = \App\Core\InterfaceUi::navegacion();
+$secciones = $navegacion['grupos'];
+$enlacesMenu = $navegacion['enlaces'];
 $flash   = flash_leer();
 $moduloActivo = $moduloActivo ?? '';
 
@@ -30,6 +32,27 @@ $esItemActivo = function (array $item) use ($moduloActivo, $rutaActual, $rutasMe
     }
     return true;
 };
+// Enlace activo: la ruta actual es de alguna de sus entradas o es la página de entrada del grupo.
+// Si ninguna entrada coincide (p. ej. titulacion/tramite/12), se marca el grupo que comparte la raíz de la ruta.
+$raizActual = explode('/', $rutaActual)[0];
+$activos = [];
+foreach ($enlacesMenu as $i => $enlace) {
+    $activos[$i] = $rutaActual === 'seccion/' . $enlace['slug'] || (bool) array_filter($enlace['items'], $esItemActivo);
+}
+if (!array_filter($activos) && $raizActual !== '') {
+    foreach ($enlacesMenu as $i => $enlace) {
+        foreach ($enlace['items'] as $it) {
+            if (explode('/', $it['ruta'])[0] === $raizActual && empty($it['dinamico'])) { $activos[$i] = true; break 2; }
+        }
+    }
+}
+// Migas de regreso: grupo con página de entrada al que pertenece la página actual.
+$grupoVolver = null;
+if ($rutaActual !== '' && !str_starts_with($rutaActual, 'seccion/') && empty($portalMinimal)) {
+    foreach ($enlacesMenu as $i => $enlace) {
+        if (!empty($activos[$i]) && $enlace['pagina']) { $grupoVolver = $enlace; break; }
+    }
+}
 $titulo  = $titulo ?? 'Traza FI';
 $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo' => 'Operativo', 'coordinador' => 'Coordinador', 'profesor' => 'Profesor', 'alumno' => 'Alumno'][$usuario['rol']] ?? $usuario['rol'];
 ?>
@@ -73,79 +96,17 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
   <div class="contenedor-app">
     <button class="menu-scrim" type="button" aria-label="Cerrar menú" hidden></button>
     <nav class="menu-lateral" id="menu-lateral" aria-label="Menú principal">
-      <?php foreach ($secciones as $nombreSeccion => $seccion): ?>
-        <?php if ($nombreSeccion === 'Fila'): ?>
-          <div class="menu-seccion">
-            <?php foreach ($seccion['items'] as $item): ?>
-              <a class="menu-item<?= $esItemActivo($item) ? ' activo' : '' ?>" <?= $esItemActivo($item) ? 'aria-current="page"' : '' ?> href="<?= url($item['ruta']) ?>"><?= e($item['titulo']) ?></a>
-            <?php endforeach; ?>
-          </div>
-          <?php continue; ?>
-        <?php endif; ?>
-        <?php
-          $activa = false;
-          foreach ($seccion['items'] as $it) {
-              if ($esItemActivo($it)) { $activa = true; break; }
-          }
-        ?>
-        <div class="menu-seccion<?= $activa ? '' : ' colapsada' ?>">
-          <button type="button" class="menu-seccion-titulo" aria-expanded="<?= $activa ? 'true' : 'false' ?>">
-            <span class="menu-flecha" aria-hidden="true"></span>
-            <span><?= e($nombreSeccion) ?></span>
-          </button>
-          <?php
-            // Las entradas con «grupo» se reúnen en un subgrupo plegable (se abre solo si contiene la página actual).
-            $bloques = []; $posGrupo = [];
-            foreach ($seccion['items'] as $it) {
-                if (!empty($it['grupo'])) {
-                    if (!isset($posGrupo[$it['grupo']])) { $posGrupo[$it['grupo']] = count($bloques); $bloques[] = ['grupo' => $it['grupo'], 'items' => []]; }
-                    $bloques[$posGrupo[$it['grupo']]]['items'][] = $it;
-                } else {
-                    $bloques[] = ['grupo' => null, 'items' => [$it]];
-                }
-            }
-          ?>
-          <?php foreach ($bloques as $bloque): ?>
-          <?php if ($bloque['grupo'] !== null): ?><details class="menu-grupo"<?= array_filter($bloque['items'], $esItemActivo) ? ' open' : '' ?>><summary><?= e($bloque['grupo']) ?></summary><?php endif; ?>
-          <?php foreach ($bloque['items'] as $item): ?>
-            <?php
-              $badgeContent = '';
-              if ($item['clave'] === 'reuniones') {
-                  $notifCount = (int) \App\Core\Database::valor(
-                      'SELECT COUNT(*) FROM reuniones r
-                         JOIN reuniones_participantes rp ON rp.reunion_id = r.id AND rp.usuario_id = ?
-                        WHERE rp.estado_invitacion <> \'revocada\'
-                          AND (rp.respondio_en IS NULL OR r.actualizado_en > rp.respondio_en)',
-                      [$usuario['id']]
-                  );
-                  if ($notifCount > 0) {
-                      $badgeContent = ' <span style="background: var(--error); color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; margin-left: 6px; display: inline-block; min-width: 18px; text-align: center;">' . $notifCount . '</span>';
-                  }
-              } elseif ($item['clave'] === 'notificaciones') {
-                  $notifCount = \App\Core\Pendientes::total() + \App\Modules\Notificaciones\Notificaciones::noLeidas(array_merge(\App\Core\Identidad::correosDeUsuario((int) $usuario['id']), [(string) $usuario['email']]));
-                  if ($notifCount > 0) {
-                      $badgeContent = ' <span style="background: var(--error); color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; margin-left: 6px; display: inline-block; min-width: 18px; text-align: center;">' . $notifCount . '</span>';
-                  }
-              } elseif ($item['clave'] === 'tickets') {
-                  $notifCount = 0;
-                  if ($usuario['rol'] === 'alumno' || $usuario['rol'] === 'profesor') {
-                      $notifCount = (int) \App\Core\Database::valor("SELECT COUNT(*) FROM tickets WHERE usuario_id = ? AND estado IN ('abierto','en_atencion')", [$usuario['id']]);
-                  } else {
-                      $notifCount = (int) \App\Core\Database::valor("SELECT COUNT(*) FROM tickets WHERE depto_destino_id = ? AND estado IN ('abierto','en_atencion')", [\App\Core\Auth::departamentoId()]);
-                  }
-                  if ($notifCount > 0) {
-                      $badgeContent = ' <span style="background: var(--error); color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; margin-left: 6px; display: inline-block; min-width: 18px; text-align: center;">' . $notifCount . '</span>';
-                  }
-              }
-            ?>
-            <a class="menu-item<?= $esItemActivo($item) ? ' activo' : '' ?>" <?= $esItemActivo($item) ? 'aria-current="page"' : '' ?> href="<?= url($item['ruta']) ?>">
-              <?= e($item['titulo']) ?><?= $badgeContent ?>
+      <ul class="nav-lista">
+        <?php foreach ($enlacesMenu as $i => $enlace): $activo = !empty($activos[$i]); ?>
+          <li>
+            <a class="nav-enlace<?= $activo ? ' activo' : '' ?>" <?= $activo ? 'aria-current="page"' : '' ?> href="<?= e(url($enlace['ruta'])) ?>">
+              <?= icono($enlace['icono'], 20) ?>
+              <span class="nav-texto"><?= e($enlace['etiqueta']) ?></span>
+              <?php if ($enlace['contador'] > 0): ?><span class="nav-badge"><span aria-hidden="true"><?= (int) $enlace['contador'] ?></span><span class="nav-sr"><?= (int) $enlace['contador'] ?> por atender</span></span><?php endif; ?>
             </a>
-          <?php endforeach; ?>
-          <?php if ($bloque['grupo'] !== null): ?></details><?php endif; ?>
-          <?php endforeach; ?>
-        </div>
-      <?php endforeach; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
       <div class="menu-pie" style="padding: 15px; display: flex; flex-direction: column; gap: 4px;">
         <span class="texto-secundario"><?= e($usuario['departamento']) ?></span>
         <a href="#" onclick="event.preventDefault(); document.getElementById('modal-privacidad').style.display = 'flex';" style="font-size: 11px; color: var(--gris-400); text-decoration: underline;">Aviso de Privacidad (ARCO)</a>
@@ -168,8 +129,8 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
         <div class="flash flash-<?= e($flash['tipo']) ?>" role="<?= in_array($flash['tipo'], ['error','danger']) ? 'alert' : 'status' ?>" data-flash="<?= e($flash['tipo']) ?>" tabindex="-1"><?= e($flash['mensaje']) ?></div>
       <?php endif; ?>
       <?php if (empty($portalMinimal)): ?>
-        <?php $raizRuta = explode('/', $rutaActual)[0]; $nombreRaiz = \App\Core\InterfaceUi::NAMES[$raizRuta] ?? $titulo; ?>
-        <nav class="breadcrumbs" aria-label="Tu ubicación"><a href="<?= url('') ?>">Inicio</a><span aria-hidden="true">/</span><?php if ($rutaActual !== $raizRuta): ?><a href="<?= url($raizRuta) ?>"><?= e($nombreRaiz) ?></a><span aria-hidden="true">/</span><?php endif; ?><span aria-current="page"><?= e($rutaActual === $raizRuta ? $nombreRaiz : $titulo) ?></span></nav>
+        <?php $raizRuta = explode('/', $rutaActual)[0]; $nombreRaiz = $raizRuta === 'seccion' ? $titulo : (\App\Core\InterfaceUi::NAMES[$raizRuta] ?? $titulo); if ($raizRuta === 'seccion') $rutaActual = 'seccion'; ?>
+        <nav class="breadcrumbs" aria-label="Tu ubicación"><a href="<?= url('') ?>">Inicio</a><span aria-hidden="true">/</span><?php if ($grupoVolver): /* la página pertenece a un grupo con página de entrada: la miga intermedia regresa a ella */ ?><a href="<?= e(url('seccion/' . $grupoVolver['slug'])) ?>"><?= e($grupoVolver['etiqueta']) ?></a><span aria-hidden="true">/</span><?php elseif ($rutaActual !== $raizRuta): ?><a href="<?= url($raizRuta) ?>"><?= e($nombreRaiz) ?></a><span aria-hidden="true">/</span><?php endif; ?><span aria-current="page"><?= e($rutaActual === $raizRuta && !$grupoVolver ? $nombreRaiz : $titulo) ?></span></nav>
         <h1><?= e($rutaActual === $raizRuta ? $nombreRaiz : $titulo) ?></h1>
       <?php endif; ?>
       <?= $contenido ?>

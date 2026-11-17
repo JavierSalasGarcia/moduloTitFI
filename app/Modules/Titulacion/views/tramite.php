@@ -16,6 +16,90 @@ $editable = $puedeEditar && $etapa['situacion'] === 'actual';
 $editaCaptura = $puedeEditar && $etapa['situacion'] !== 'bloqueada';
 $datosEtapa = $t['datos'][$etapa['clave']] ?? [];
 $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre']);
+
+// ---- Presentación guiada: todo se calcula con lo que ya entrega el controlador ----
+$etapasLista = $flujo['etapas'];
+$nEtapas = count($etapasLista);
+$idxActual = null;
+foreach ($etapasLista as $i => $x) { if ($x['situacion'] === 'actual') { $idxActual = $i; break; } }
+$act = $idxActual !== null ? $etapasLista[$idxActual] : null;
+$idxSel = (int) array_search($etapa['clave'], array_column($etapasLista, 'clave'), true);
+$urlEtapa = static fn(string $clave, string $ancla = ''): string => url($base . '?etapa=' . $clave) . $ancla;
+/** Primera frase de la descripción de una etapa: «qué vendrá». */
+$frase = static function (array $x): string {
+    $txt = trim((string) ($x['descripcion'] ?? ($x['personal']['descripcion'] ?? '')));
+    if ($txt === '') { return ''; }
+    $p = preg_split('/(?<=[.!?])\s+/u', $txt, 2);
+    return (string) $p[0];
+};
+// Documentos devueltos en cualquier etapa: se muestran arriba, en tono constructivo.
+$devueltos = [];
+foreach ($etapasLista as $x) {
+    foreach ($x['docs_estado'] ?? [] as $dc => $info) {
+        if ($info['estado'] === 'rechazado' && $info['fila']) {
+            $devueltos[] = ['etapa' => $x['clave'], 'doc' => $dc, 'nombre' => $info['def']['nombre'], 'revisor' => (string) ($info['fila']['revisor_nombre'] ?? ''), 'obs' => (string) ($info['fila']['comentario'] ?? '')];
+        }
+    }
+}
+// «Tu siguiente paso»: título, explicación y la acción principal (ancla al formulario que ya existe).
+$sig = ['titulo' => '', 'texto' => '', 'boton' => null, 'href' => '', 'turno' => 'alumno'];
+if ($act === null) {
+    $sig['titulo'] = $t['estado'] === 'cancelado' ? 'Este trámite está cancelado' : 'Completaste todas las etapas';
+    $sig['texto'] = $t['estado'] === 'cancelado' ? 'Ya no se pueden hacer cambios en él.' : 'Revisa tu historial y tus notificaciones; ahí te avisamos cualquier novedad.';
+    $sig['turno'] = 'listo';
+} else {
+    $sig['titulo'] = $act['titulo'];
+    $sig['texto'] = (string) ($act['paso']['texto'] ?? '');
+    $sig['turno'] = (string) ($act['paso']['turno'] ?? 'alumno');
+    $docAccion = null;
+    foreach (['rechazado', 'pendiente'] as $buscado) {
+        foreach ($act['docs_estado'] ?? [] as $dc => $info) {
+            if ($info['estado'] === $buscado && !$info['ok']) { $docAccion = [$dc, $info]; break 2; }
+        }
+    }
+    if ($sig['turno'] === 'alumno' && $puedeEditar) {
+        if ($act['tipo'] === 'confirmacion' && empty($act['confirmada'])) {
+            $sig['boton'] = 'Revisar y confirmar'; $sig['href'] = $urlEtapa($act['clave'], '#etapa-' . $act['clave']);
+        } elseif (!$act['propia_ok'] && !empty($act['campos'])) {
+            $sig['boton'] = 'Completar mis datos'; $sig['href'] = $urlEtapa($act['clave'], '#tit-captura');
+        } elseif ($docAccion) {
+            $sig['titulo'] = $docAccion[1]['def']['nombre'];
+            $sig['boton'] = $docAccion[1]['estado'] === 'rechazado' ? 'Corregir este documento' : (!empty($docAccion[1]['def']['generado']) ? 'Generar y firmar' : 'Subir el PDF');
+            $sig['href'] = $urlEtapa($act['clave'], '#doc-' . $docAccion[0]);
+        } elseif ($act['propia_ok'] && !empty($act['agenda']) && empty($act['hito'])) {
+            $sig['boton'] = 'Elegir fecha y hora'; $sig['href'] = $urlEtapa($act['clave'], '#etapa-' . $act['clave']);
+        } else {
+            $sig['boton'] = 'Ver esta etapa'; $sig['href'] = $urlEtapa($act['clave'], '#etapa-' . $act['clave']);
+        }
+    }
+}
+/** Resumen plegado de una etapa que no es la que se está viendo. */
+$resumenEtapa = static function (array $x, int $i) use ($nEtapas, $frase, $urlEtapa, $chips): void {
+    $sit = $x['situacion'];
+    $cls = $sit === 'completa' ? 'hecha' : ($sit === 'actual' ? 'actual' : 'futura'); ?>
+  <?php if ($sit === 'bloqueada'): ?>
+  <div class="tit-etapa futura" id="resumen-<?= e($x['clave']) ?>">
+    <div class="tit-et-cab"><span class="tit-marca" aria-hidden="true"><?= $i + 1 ?></span>
+      <span class="tit-et-t"><?= e($x['titulo']) ?><span class="tit-et-s">Vendrá después: <?= e($frase($x)) ?></span></span></div>
+  </div>
+  <?php else: ?>
+  <details class="tit-etapa <?= $cls ?>" id="resumen-<?= e($x['clave']) ?>">
+    <summary><span class="tit-marca" aria-hidden="true"><?= $sit === 'completa' ? '✓' : $i + 1 ?></span>
+      <span class="tit-et-t"><?= e($x['titulo']) ?><span class="tit-et-s"><?= $sit === 'completa' ? 'Lista. Ver lo que entregaste' : 'Etapa actual. ' . e($frase($x)) ?></span></span></summary>
+    <div class="tit-cuerpo">
+      <?php if (!empty($x['campos'])): ?><p class="nota" style="margin:4px 0">Datos: <?= $x['captura_ok'] ? '<span class="tit-chip ok">Completos</span>' : '<span class="tit-chip pend">Pendientes</span>' ?></p><?php endif; ?>
+      <?php if (!empty($x['docs_estado'])): ?>
+      <ul class="tit-entregado">
+        <?php foreach ($x['docs_estado'] as $info): [$cl, $et] = $chips[$info['estado']] ?? ['pend', $info['estado']]; ?>
+          <li><?= e($info['def']['nombre']) ?> <span class="tit-chip <?= $cl ?>"><?= e($et) ?></span></li>
+        <?php endforeach; ?>
+      </ul>
+      <?php endif; ?>
+      <p style="margin:10px 0 0"><a class="btn btn-mini" href="<?= $urlEtapa($x['clave']) ?>"><?= $sit === 'completa' ? 'Abrir esta etapa' : 'Ir a esta etapa' ?></a></p>
+    </div>
+  </details>
+  <?php endif; ?>
+<?php };
 ?>
 <div class="tit-cabecera">
   <div>
@@ -30,12 +114,46 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
   </div>
 </div>
 
+<?php if ($devueltos): ?>
+<div class="tit-devuelto" role="alert">
+  <strong>Falta corregir <?= count($devueltos) === 1 ? 'un documento' : count($devueltos) . ' documentos' ?></strong>
+  <ul>
+    <?php foreach ($devueltos as $dv): ?>
+      <li><a href="<?= $urlEtapa($dv['etapa'], '#doc-' . $dv['doc']) ?>"><?= e($dv['nombre']) ?></a><?= $dv['obs'] !== '' ? ': ' . e($dv['obs']) : '' ?><?= $dv['revisor'] !== '' ? ' (' . e($dv['revisor']) . ')' : '' ?></li>
+    <?php endforeach; ?>
+  </ul>
+</div>
+<?php endif; ?>
+
+<section class="tit-siguiente <?= $sig['turno'] === 'alumno' ? '' : ($sig['turno'] === 'listo' ? 'listo' : 'espera') ?>" aria-labelledby="tit-sig-t">
+  <p class="tit-sobre">Tu siguiente paso<?= $act ? ' · Etapa ' . ($idxActual + 1) . ' de ' . $nEtapas : '' ?></p>
+  <h2 id="tit-sig-t"><?= e($sig['titulo']) ?></h2>
+  <?php if ($sig['turno'] === 'personal'): ?><p><strong>Ahora le toca al personal de Titulación.</strong> <?= e($sig['texto']) ?></p>
+  <?php elseif ($sig['texto'] !== ''): ?><p><?= e($sig['texto']) ?></p><?php endif; ?>
+  <?php if ($sig['boton']): ?><a class="tit-boton" href="<?= $sig['href'] ?>"><?= e($sig['boton']) ?></a><?php endif; ?>
+</section>
+
+<nav aria-label="Avance por etapas">
+  <ol class="tit-progreso">
+    <?php foreach ($etapasLista as $i => $x): $c = $x['situacion'] === 'completa' ? 'hecho' : ($x['situacion'] === 'actual' ? 'actual' : 'pendiente'); ?>
+      <li class="<?= $c ?>">
+        <?php if ($x['situacion'] === 'bloqueada'): ?><span class="tit-seg"><i class="tit-barrita"></i><span class="tit-nom"><?= e($x['titulo']) ?><span class="sr-only"> (pendiente)</span></span></span>
+        <?php else: ?><a href="<?= url($base . '?etapa=' . $x['clave']) ?>"<?= $x['clave'] === $etapa['clave'] ? ' aria-current="step"' : '' ?>><i class="tit-barrita"></i><span class="tit-nom"><?= $x['situacion'] === 'completa' ? '✓ ' : '' ?><?= e($x['titulo']) ?><span class="sr-only"><?= $x['situacion'] === 'completa' ? ' (hecha)' : ' (etapa actual)' ?></span></span></a><?php endif; ?>
+      </li>
+    <?php endforeach; ?>
+  </ol>
+  <p class="tit-progreso-leyenda"><?= $act ? 'Etapa ' . ($idxActual + 1) . ' de ' . $nEtapas . ' · ' . $hechas . ' ' . ($hechas === 1 ? 'terminada' : 'terminadas') : $hechas . ' de ' . $nEtapas . ' etapas terminadas' ?></p>
+</nav>
+
 <div class="tit-dos">
 <div style="display:flex;flex-direction:column;gap:18px">
 
-  <section class="tarjeta" id="etapa-<?= e($etapa['clave']) ?>">
+  <?php if ($idxSel > 0): ?><div class="tit-etapas-lista"><?php foreach (array_slice($etapasLista, 0, $idxSel, true) as $i => $x) { $resumenEtapa($x, $i); } ?></div><?php endif; ?>
+
+  <section class="tarjeta tit-etapa-vista" id="etapa-<?= e($etapa['clave']) ?>">
     <div class="tarjeta-cabecera">
       <div>
+        <p class="tit-sobre" style="margin:0 0 2px;font-size:13px;color:var(--gris-600)">Etapa <?= $idxSel + 1 ?> de <?= $nEtapas ?></p>
         <h2><?= e($etapa['titulo']) ?></h2>
         <?php if ($etapa['situacion'] === 'actual' && !empty($etapa['paso'])): ?>
           <p class="texto-secundario"><strong><?= $etapa['paso']['turno'] === 'alumno' ? 'Te toca a ti:' : 'En revisión:' ?></strong> <?= e($etapa['paso']['texto']) ?></p>
@@ -65,7 +183,7 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php endif; ?>
 
     <?php if (!$bloqueada && !empty($etapa['campos'])): ?>
-      <h3>Datos <?= $etapa['captura_ok'] ? '<span class="tit-chip ok">Completos</span>' : '<span class="tit-chip pend">Pendientes</span>' ?></h3>
+      <h3 id="tit-captura">Datos <?= $etapa['captura_ok'] ? '<span class="tit-chip ok">Completos</span>' : '<span class="tit-chip pend">Pendientes</span>' ?></h3>
       <form class="formulario" method="post" action="<?= url($base . '/captura/' . $etapa['clave']) ?>">
         <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
         <div class="tit-campos">
@@ -264,6 +382,8 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
     <?php endif; ?>
   </section>
 
+  <?php if ($idxSel < $nEtapas - 1): ?><div class="tit-etapas-lista"><?php foreach (array_slice($etapasLista, $idxSel + 1, null, true) as $i => $x) { $resumenEtapa($x, $i); } ?></div><?php endif; ?>
+
   <?php if ($adicionales): ?>
   <section class="tarjeta" id="adicionales">
     <h2 style="font-size:16px">Solicitudes y formatos adicionales</h2>
@@ -302,25 +422,12 @@ $nombreAlumno = (string) ($t['datos']['datos']['nombre'] ?? $t['alumno_nombre'])
 
 <aside style="display:flex;flex-direction:column;gap:18px">
   <section class="tarjeta">
-    <h2 style="font-size:16px">Avance</h2>
-    <div class="tit-barra" role="progressbar" aria-valuenow="<?= $hechas ?>" aria-valuemin="0" aria-valuemax="<?= $total ?>"><i style="width:<?= $total ? (int) round(100 * $hechas / $total) : 0 ?>%"></i></div>
-    <p class="texto-secundario" style="margin:6px 0 10px"><?= $hechas ?> de <?= $total ?> etapas</p>
-    <ol class="tit-etapas">
-      <?php foreach ($flujo['etapas'] as $i => $e): $cls = $e['situacion'] . ($e['clave'] === $etapa['clave'] ? ' seleccionada' : ''); ?>
-        <li class="<?= e($cls) ?>">
-          <?php if ($e['situacion'] === 'bloqueada'): ?>
-            <span><b class="num"><?= $i + 1 ?></b><?= e($e['titulo']) ?></span>
-          <?php else: ?>
-            <a href="<?= url($base . '?etapa=' . $e['clave']) ?>"><b class="num"><?= $e['situacion'] === 'completa' ? '✓' : $i + 1 ?></b><?= e($e['titulo']) ?></a>
-          <?php endif; ?>
-        </li>
-      <?php endforeach; ?>
-    </ol>
-  </section>
-
-  <section class="tarjeta">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="font-size:16px;margin:0">Ruta del trámite</h2><a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Ver completa</a></div>
-    <?php $compacta = true; include __DIR__ . '/_ruta.php'; ?>
+    <?php /* El recorrido completo queda a un clic: mostrar de entrada todos los pasos intimida a quien empieza. */ ?>
+    <details class="tit-recorrido">
+      <summary><span>Ver las etapas del trámite</span></summary>
+      <p style="margin:10px 0"><a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Abrir en página completa</a></p>
+      <?php $compacta = true; include __DIR__ . '/_ruta.php'; ?>
+    </details>
   </section>
 
   <section class="tarjeta">

@@ -19,8 +19,10 @@
   "menu": [
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Mis pendientes",
-      "ruta": "titulacion/pendientes",
+      "titulo": "Mi trámite de licenciatura",
+      "ruta": "titulacion/licenciatura",
+      "descripcion": "Elige tu opción, captura tus datos una vez y avanza paso a paso.",
+      "grupo": "Mi trámite",
       "roles": [
         "admin",
         "titular",
@@ -29,22 +31,27 @@
         "profesor",
         "alumno"
       ],
-      "orden": 16
+      "orden": 10,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::veLicenciatura"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Estado",
+      "titulo": "Estado de mi trámite",
       "ruta": "titulacion/estado",
+      "descripcion": "En qué va tu trámite y qué sigue.",
+      "grupo": "Mi trámite",
       "roles": [
         "alumno"
       ],
-      "orden": 17,
+      "orden": 11,
       "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneTramites"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Seguimiento",
-      "ruta": "titulacion/seguimiento",
+      "titulo": "Mis pendientes",
+      "ruta": "titulacion/pendientes",
+      "descripcion": "Lo que espera una acción tuya: revisiones, firmas y acuses.",
+      "grupo": "Me toca atender",
       "roles": [
         "admin",
         "titular",
@@ -53,13 +60,14 @@
         "profesor",
         "alumno"
       ],
-      "orden": 19
+      "orden": 20
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Licenciatura",
-      "ruta": "titulacion/licenciatura",
-      "grupo": "Trámites",
+      "titulo": "Firmas pendientes",
+      "ruta": "titulacion/firmas",
+      "descripcion": "Documentos que esperan tu firma.",
+      "grupo": "Me toca atender",
       "roles": [
         "admin",
         "titular",
@@ -69,13 +77,14 @@
         "alumno"
       ],
       "orden": 21,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::veLicenciatura"
+      "condicion": "App\\Modules\\Titulacion\\Services\\SubdireccionFirma::puedeFirmar"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Posgrado",
-      "ruta": "titulacion/posgrado",
-      "grupo": "Trámites",
+      "titulo": "Protocolos por revisar",
+      "ruta": "titulacion/revision",
+      "descripcion": "Protocolos que una comisión te asignó para evaluar.",
+      "grupo": "Me toca atender",
       "roles": [
         "admin",
         "titular",
@@ -85,13 +94,14 @@
         "alumno"
       ],
       "orden": 22,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::vePosgrado"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEvaluador"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Protocolos por revisar",
-      "ruta": "titulacion/revision",
-      "grupo": "Trámites",
+      "titulo": "Mi comité de revisión",
+      "ruta": "titulacion/comision",
+      "descripcion": "Asigna evaluadores, vigila plazos y firma el dictamen.",
+      "grupo": "Me toca atender",
       "roles": [
         "admin",
         "titular",
@@ -101,29 +111,14 @@
         "alumno"
       ],
       "orden": 23,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEvaluador"
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Mi comité de revisión",
-      "ruta": "titulacion/comision",
-      "grupo": "Trámites",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 24,
       "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esEncargado"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Protocolos recibidos",
-      "ruta": "titulacion/protocolos",
-      "grupo": "Trámites",
+      "titulo": "Seguimiento de casos",
+      "ruta": "titulacion/seguimiento",
+      "descripcion": "Consulta el avance de los trámites en los que participas.",
+      "grupo": "Me toca atender",
       "roles": [
         "admin",
         "titular",
@@ -132,97 +127,14 @@
         "profesor",
         "alumno"
       ],
-      "orden": 25,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
+      "orden": 24
     },
     {
       "seccion": "TITULACIÓN",
       "titulo": "Validar trámites",
       "ruta": "titulacion/gestion",
-      "grupo": "Trámites",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 26,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Expedientes a Servicios Escolares",
-      "ruta": "titulacion/expedientes",
-      "grupo": "Trámites",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 27,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Estructura",
-      "ruta": "titulacion/estructura",
-      "grupo": "Administración",
-      "roles": [
-        "admin"
-      ],
-      "orden": 40
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Configuración",
-      "ruta": "titulacion/configuracion",
-      "grupo": "Administración",
-      "roles": [
-        "admin"
-      ],
-      "orden": 41
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Firmas pendientes",
-      "ruta": "titulacion/firmas",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 20,
-      "condicion": "App\\Modules\\Titulacion\\Services\\SubdireccionFirma::puedeFirmar"
-    },
-    {
-      "seccion": "CONSTANCIAS",
-      "titulo": "Mis constancias",
-      "ruta": "titulacion/constancias",
-      "grupo": "Constancias y oficios",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 29,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneConstancias"
-    },
-    {
-      "seccion": "CONSTANCIAS",
-      "titulo": "Buscar constancias",
-      "ruta": "titulacion/constancias/busqueda",
-      "grupo": "Constancias y oficios",
+      "descripcion": "Revisa documentos, registra fechas y resultados de cada trámite.",
+      "grupo": "Gestión del departamento",
       "roles": [
         "admin",
         "titular",
@@ -232,29 +144,14 @@
         "alumno"
       ],
       "orden": 30,
-      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
     },
     {
       "seccion": "TITULACIÓN",
-      "titulo": "Oficios",
-      "ruta": "titulacion/oficios",
-      "grupo": "Constancias y oficios",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 32,
-      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
-    },
-    {
-      "seccion": "CONSTANCIAS",
-      "titulo": "Constancias históricas",
-      "ruta": "titulacion/constancias/historial",
-      "grupo": "Constancias y oficios",
+      "titulo": "Protocolos recibidos",
+      "ruta": "titulacion/protocolos",
+      "descripcion": "Recibe los protocolos y túrnalos a la comisión de cada licenciatura.",
+      "grupo": "Gestión del departamento",
       "roles": [
         "admin",
         "titular",
@@ -264,39 +161,40 @@
         "alumno"
       ],
       "orden": 31,
-      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
     },
     {
-      "seccion": "CONSTANCIAS",
-      "titulo": "Registrar o completar un expediente",
-      "ruta": "titulacion/constancias/captura",
-      "grupo": "Constancias y oficios",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
-      "orden": 33,
-      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
-    },
-    {
-      "seccion": "CONSTANCIAS",
-      "titulo": "Registros del departamento",
-      "ruta": "titulacion/constancias/registros",
-      "grupo": "Constancias y oficios",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
-      "orden": 34,
-      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+      "seccion": "TITULACIÓN",
+      "titulo": "Expedientes a Servicios Escolares",
+      "ruta": "titulacion/expedientes",
+      "descripcion": "Verifica el expediente final y expórtalo para Servicios Escolares.",
+      "grupo": "Gestión del departamento",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 32,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
     },
     {
       "seccion": "CONSTANCIAS",
       "titulo": "Accesos de egresados",
       "ruta": "titulacion/accesos-egresados",
-      "grupo": "Constancias y oficios",
+      "descripcion": "Solicitudes de acceso de egresados con correo personal.",
+      "grupo": "Gestión del departamento",
       "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
-      "orden": 35,
+      "orden": 33,
       "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esPersonal"
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Textos de constancias",
-      "ruta": "titulacion/constancias/textos",
+      "titulo": "Mis constancias",
+      "ruta": "titulacion/constancias",
+      "descripcion": "Descarga tus constancias de asesoría, revisión y sínodo.",
       "grupo": "Constancias y oficios",
       "roles": [
         "admin",
@@ -306,8 +204,118 @@
         "profesor",
         "alumno"
       ],
-      "orden": 33,
+      "orden": 40,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::tieneConstancias"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Buscar constancias",
+      "ruta": "titulacion/constancias/busqueda",
+      "descripcion": "Localiza y reimprime la constancia de cualquier profesor.",
+      "grupo": "Constancias y oficios",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 41,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Oficios",
+      "ruta": "titulacion/oficios",
+      "descripcion": "Consecutivo y bitácora de los oficios emitidos.",
+      "grupo": "Constancias y oficios",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 42,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Constancias históricas",
+      "ruta": "titulacion/constancias/historial",
+      "descripcion": "Constancias de trabajos presentados en años anteriores.",
+      "grupo": "Constancias y oficios",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 43,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Registrar o completar un expediente",
+      "ruta": "titulacion/constancias/captura",
+      "descripcion": "Captura o completa un expediente que no nació en la plataforma.",
+      "grupo": "Constancias y oficios",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 44,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Registros del departamento",
+      "ruta": "titulacion/constancias/registros",
+      "descripcion": "Los registros que el departamento llevaba en Excel (2015-2026).",
+      "grupo": "Constancias y oficios",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 45,
+      "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeBuscar"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Textos de constancias",
+      "ruta": "titulacion/constancias/textos",
+      "descripcion": "Redacción de cada tipo de constancia.",
+      "grupo": "Constancias y oficios",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 46,
       "condicion": "App\\Modules\\Titulacion\\Services\\Constancias::puedeEditarTextos"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Estructura",
+      "ruta": "titulacion/estructura",
+      "descripcion": "Integrantes y encargados de las comisiones por licenciatura.",
+      "grupo": "Administración",
+      "roles": [
+        "admin"
+      ],
+      "orden": 60
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Configuración",
+      "ruta": "titulacion/configuracion",
+      "descripcion": "Formatos, requisitos por opción y parámetros de revisión.",
+      "grupo": "Administración",
+      "roles": [
+        "admin"
+      ],
+      "orden": 61
     }
   ],
   "rutas": {

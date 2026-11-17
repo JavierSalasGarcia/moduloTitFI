@@ -39,7 +39,8 @@ plataformaFI/
 │       ├── Recursos/        ← menú RECURSOS configurable por el admin (archivos/enlaces)
 │       ├── Eventos/         ← avisos suscribibles + buscador + biblioteca de concluidos
 │       ├── Calendario/      ← calendario personal con los eventos suscritos
-│       ├── Titulacion/      ← trámite de titulación en línea (licenciatura; posgrado próximamente)
+│       ├── Titulacion/      ← trámite de titulación en línea (licenciatura)
+│       ├── Posgrado/       ← evaluación de grado de posgrado: requisitos, sínodo, oficios en hoja membretada y constancias
 │       ├── Espacios/        ← Auditorios y salas: horarios, personas autorizadas y ocupación (Titulación aparta aquí los exámenes)
 │       ├── Notificaciones/  ← bandeja única de avisos de cada persona (el correo solo alerta y lleva aquí)
 │       ├── Oficios/         ← archivo de oficios/memorándums que cada coordinación envía (PDF + folio)

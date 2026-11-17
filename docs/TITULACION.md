@@ -85,3 +85,63 @@ Requiere `database/migrations/045_titulacion_expediente_final.sql`. Cuando la ev
 ### Cuentas y recorrido de prueba
 
 `php tools/titulacion_pruebas_semilla.php` crea (solo en bases locales) una cuenta por actor y un pasante por opción; escribe las contraseñas en `cred_titulacion_pruebas.txt` (ignorado por git). `tools/manual_titulacion/` contiene el arnés Playwright que recorre el flujo y toma las capturas para los manuales.
+
+---
+
+# Titulación de Posgrado y navegación simplificada (iniciado el 16 de noviembre de 2026)
+
+Esta sección es la memoria de continuidad del trabajo: léela completa antes de retomarlo en otra sesión.
+
+## Encargo y decisiones tomadas
+
+El Subdirector Académico pidió: (1) un módulo de titulación de posgrado basado en `formulariosPosgrado/` (carpeta local, fuera de git) con los oficios en hoja membretada como en licenciatura; (2) un menú principal simple; (3) que el trámite de licenciatura deje de intimidar al mostrar tantos pasos; (4) presentación atractiva e intuitiva. Decisiones confirmadas con él:
+
+- **Alcance**: flujo completo de evaluación de grado, de los requisitos a las constancias posteriores al examen.
+- **Quién captura**: el **egresado**. Él captura sus datos, la propuesta de sínodo, fecha y hora; la plataforma genera los formatos para que el director de tesis y el sínodo firmen **en autógrafo**, y el egresado sube los firmados. El personal de Apoyo a Grado (Coordinación de Estudios Avanzados) valida, coteja y emite los oficios. Director y sinodales no necesitan cuenta.
+- **Publicación**: directo a producción por **FTP** (`ftp.fingenieria.mx`, credenciales en `cred.txt`, fuera de git). Como no pasa por `tools/desplegar.sh`, el marcador `ultimo_commit` del servidor queda atrás: el siguiente `desplegar.sh` verá estos archivos como cambiados en el servidor y habrá que usar `--forzar` una vez, después de confirmar que el commit local contiene lo mismo que se subió.
+- **Menú**: corto, con páginas de entrada. Aplica a todo el sitio.
+
+## Arquitectura
+
+**Módulo nuevo `app/Modules/Posgrado/`** (clave `posgrado`, rutas `posgrado/...`, tablas `pos_*`, migración `048_posgrado_evaluacion_grado.sql`). Es autocontenido conforme a `docs/GUIA_MODULOS.md`; de Titulación solo reutiliza servicios de presentación: `Services\Hoja` (hoja membretada, folio y QR de verificación), `Services\Calendario` (días hábiles) y `App\Core\LemaAnual`. No se mezcló con el motor de licenciatura (`Catalogo`/`Flujo`) porque el proceso, los actores y la dependencia que atiende son distintos. La ruta antigua `titulacion/posgrado` redirige a `posgrado`.
+
+El trámite se presenta al egresado en **cuatro momentos**, no en una lista de pasos:
+
+1. **Reúne tus requisitos**: datos del interesado y los requisitos de `REQUISITOS EVALUACION DE GRADO CEA-FI` (los de doctorado y el art. 53 del REA solo cuando aplican; fotografías y USB son entregas físicas que marca el personal). Genera el Voto aprobatorio (R 7) y el Formato de datos del interesado (R 24). Cierra cuando Apoyo a Grado coteja los originales y emite el **Oficio de cotejo**.
+2. **Propón sínodo y fecha**: cinco propietarios y dos suplentes (art. 65 del REA), fecha, hora y modelo de tesis. La fecha debe estar al menos a 10 días hábiles (se sugieren 15). Genera la **Solicitud de evaluación de grado** y el **Visto bueno del sínodo**; el egresado sube ambos firmados y el comprobante de firma electrónica vigente (SICDE) de los sinodales.
+3. **Invitaciones al sínodo**: el personal confirma fecha y lugar y emite los **oficios de invitación**, el **acuse** y la **notificación al director**; el egresado sube el acuse firmado a más tardar dos días antes.
+4. **Examen y cierre**: el personal registra el resultado; el egresado registra su folio del SICDE (48 horas); se emiten las **constancias** de revisores y de director/codirector/tutor, la de no adeudo de equipo y el **formato de integración de expediente**.
+
+Quien firma los oficios (Coordinación de Estudios Avanzados) y los datos de contacto de Apoyo a Grado se leen de `ajustes` (claves `posgrado_*`), editables en **Posgrado → Configuración**; los costos de los recibos están en `Posgrado\Catalogo`. Personal autorizado: administradores, `posgrado.gestores` y cuentas titular/operativo/coordinador de `posgrado.departamentos` (`app/config.php`), o concesión `posgrado.personal`.
+
+**Navegación** (`App\Core\InterfaceUi` y `app/Views/layouts/app.php`): el menú lateral muestra un enlace por grupo (Inicio, Trámites, Titulación, Agenda, Comunidad, Recursos, Administración…). Un grupo con varias entradas abre una **página de entrada** con tarjetas (`seccion/<grupo>`, módulo Portal) construida con las mismas entradas de los manifiestos, así que permisos, roles y `condicion` no cambian: solo cambia dónde se muestran. Los módulos siguen declarando su menú igual que antes.
+
+**Licenciatura**: solo cambió la presentación (vistas de `Titulacion`), no el flujo ni las rutas. La entrada pregunta primero «¿con o sin trabajo escrito?», el trámite abre con una sola tarjeta «Tu siguiente paso» y el recorrido completo queda plegado y agrupado por etapa.
+
+## Método de trabajo
+
+La sesión de IA que orquesta escribe las especificaciones, reparte el trabajo en tres agentes con archivos disjuntos (Posgrado; navegación; presentación de licenciatura), revisa sus reportes y el código, prueba en un clon local (PHP 8.3 + MariaDB, sesión simulada) y publica. Los archivos de `formulariosPosgrado/` son la fuente de los textos de cada oficio.
+
+## Estado al 17 de noviembre de 2026 (publicado en producción)
+
+**Publicado.** El 17 de noviembre de 2026 se subieron por FTP 39 archivos a `fingenieria.mx` (módulo `Posgrado` completo, navegación corta, vistas de licenciatura, `app/config.php`, `ux.css`, migración 048 y `actualizar.sql`) y se aplicó la migración `048_posgrado_evaluacion_grado.sql` en la base de producción (tablas `pos_tramites`, `pos_documentos`, `pos_hitos`, `pos_eventos`, `pos_generados`). Comprobado en el servidor (PHP 8.5): sin errores de sintaxis, 36 módulos válidos, la hoja membretada genera PDF y la llave de cifrado está disponible. La copia de los 16 archivos reemplazados está en `.tmp/respaldo_servidor_antes_20261117.tgz` (local, fuera de git) por si hay que revertir. Como no se usó `tools/desplegar.sh`, el siguiente despliegue con ese guion necesitará `--forzar` una vez.
+
+**Qué quedó.**
+- Navegación: `InterfaceUi::GRUPOS` y `InterfaceUi::navegacion()` (un cálculo por petición), un enlace por grupo en `layouts/app.php`, páginas de entrada `seccion/<slug>` (`Portal\SeccionController`), migas Inicio / Grupo / Página. Las tarjetas toman su texto del campo `descripcion` de cada entrada de menú del manifiesto (nuevo, opcional) o del catálogo `consulta`. `posgrado` y `concursos` se agrupan en Titulación y Comunidad; `seguridad` y `perfil` en Recursos → «Mi cuenta». Administrador: de 58 enlaces a 9; alumno: de 28 a 8.
+- Licenciatura (solo vistas): entrada con «¿Cómo quieres titularte?», tarjeta «Tu siguiente paso», barra por etapas. **Regla del Subdirector: nunca mostrar conteos de pasos («1 de 41 pasos»); solo etapas, con «Lista», «En curso» o «Más adelante».**
+- Posgrado: `app/Modules/Posgrado/` (controladores `Tramite`, `Gestion`, `Configuracion`; `Catalogo` con los requisitos; `Flujo` con los cuatro momentos; `Services/Formatos` con los 12 documentos; `Services/Aviso`). `php tools/test_posgrado_formatos.php` genera los 24 PDF de prueba.
+
+**Particularidades de Posgrado que conviene conocer.**
+- `datos` de trámites e hitos se guardan cifrados con `App\Core\Cifrado`.
+- Los oficios de posgrado no llevan QR de verificación (el verificador depende de `tit_tramites`); llevan folio `PG-AAAA-0000` y número de hoja en un pie propio (`Formatos`, escrito por reflexión sobre FPDF porque `Hoja` es `final`).
+- Los avisos usan `Notificaciones::crear` y `HostingerMailer`; el envío real de correo no se probó.
+- Quien firma y el contacto de Apoyo a Grado se editan en `posgrado/configuracion`; por omisión el nombre de contacto va vacío y no se incluyen correos personales ni celulares.
+
+**Pendiente.**
+1. Probar en producción con cuentas reales de cada papel (egresado de maestría y de doctorado, Apoyo a Grado): la verificación con sesión solo se hizo en el clon local.
+2. Pantalla para que el personal corrija los datos del interesado después del cotejo (hoy quedan bloqueados).
+3. Invitación al sínodo cuando la integrante es la propia Coordinadora (debe firmarla el Director).
+4. Formato de pago de sinodales (`FORMATO para pago de sinodales...xlsx`).
+5. Decidir si las cuentas de egresado externo (correo personal) pueden entrar a `posgrado` y a `seccion/*`: hoy `Router` y `ModuleManager` las limitan a `titulacion`, por eso su menú se pinta sin páginas de entrada.
+6. En el servidor siguen 21 archivos `.bak*` en `app/Modules/Titulacion` (contrario a `docs/DESPLIEGUE.md`).
+7. Revisar en móvil las pantallas de gestión y configuración de Posgrado.

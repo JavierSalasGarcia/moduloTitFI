@@ -16,6 +16,6 @@ include __DIR__ . '/_estilos.php';
 </div>
 <section class="tarjeta">
   <h2>Ruta del trámite</h2>
-  <p class="texto-secundario">Pasos palomeados: hechos. Resaltado: el paso actual. Atenuados: los que faltan. Descarga el documento de cada paso para seguimiento o auditoría.</p>
+  <p class="texto-secundario">Se muestra abierta la etapa en la que vas; abre cualquier otra para ver sus pasos. ✓ es un paso hecho y el resaltado es el paso actual. Descarga el documento de cada paso para seguimiento o auditoría.</p>
   <?php include __DIR__ . '/_ruta.php'; ?>
 </section>

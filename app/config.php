@@ -65,6 +65,12 @@ $config = [
         ],
         'gestores' => ['jsalasg@uaemex.mx'],
     ],
+    'posgrado' => [
+        // Personal de Apoyo a Grado que valida trámites de evaluación de grado: cuentas de estas dependencias
+        // (roles titular, operativo o coordinador) y los correos listados como gestores.
+        'departamentos' => ['coordinacion_de_estudios_avanzados', 'titular_de_la_coordinacion_de_investigacion_y_estudios_avanzados'],
+        'gestores' => ['jsalasg@uaemex.mx'],
+    ],
     'asuntos' => [
         // Se aceptan el dominio exacto y sus subdominios institucionales.
         'dominios_correo' => ['uaemex.mx', 'fingenieria.mx'],

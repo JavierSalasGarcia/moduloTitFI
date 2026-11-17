@@ -20,7 +20,8 @@ $cargos = ['jefe_titulacion' => 'Vo. Bo. de la Jefatura de Evaluación Profesion
   <div class="tit-barra" role="progressbar" aria-valuenow="<?= $hechas ?>" aria-valuemin="0" aria-valuemax="<?= $total ?>"><i style="width:<?= $total ? (int) round(100 * $hechas / $total) : 0 ?>%"></i></div>
   <p class="texto-secundario" style="margin:6px 0 10px"><?= $hechas ?> de <?= $total ?> etapas</p>
   <?php if ($x['actual']): $p = $x['actual']['paso'] ?? null; ?>
-    <p><strong>Etapa actual:</strong> <?= e($x['actual']['titulo']) ?></p>
+    <?php $nAct = 0; foreach ($x['flujo']['etapas'] as $k => $ee) { if ($ee['clave'] === $x['actual']['clave']) { $nAct = $k + 1; break; } } ?>
+    <p><strong>Etapa <?= $nAct ?> de <?= $total ?>:</strong> <?= e($x['actual']['titulo']) ?></p>
     <?php if ($p): ?><p class="<?= $p['turno'] === 'alumno' ? 'tit-aviso' : 'tit-ok' ?>"><strong><?= $p['turno'] === 'alumno' ? 'Te toca a ti:' : 'En proceso:' ?></strong> <?= e($p['texto']) ?></p><?php endif; ?>
   <?php elseif ($t['estado'] === 'concluido'): ?>
     <p class="tit-ok">Trámite concluido.</p>
@@ -44,7 +45,7 @@ $cargos = ['jefe_titulacion' => 'Vo. Bo. de la Jefatura de Evaluación Profesion
     <?php endif; ?>
   <?php endif; ?>
   <p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-    <a class="btn btn-mini btn-primario" href="<?= url('titulacion/licenciatura/tramite/' . (int) $t['id']) ?>">Abrir mi trámite</a>
+    <a class="btn btn-mini btn-primario" href="<?= url('titulacion/licenciatura/tramite/' . (int) $t['id']) ?>"><?= $t['estado'] === 'abierto' ? 'Continuar mi trámite' : 'Abrir mi trámite' ?></a>
     <a class="btn btn-mini" href="<?= url('titulacion/ruta/' . (int) $t['id']) ?>">Ver la ruta</a>
     <a class="btn btn-mini" href="<?= url('notificaciones') ?>">Notificaciones<?= $x['noLeidos'] ? ' (' . (int) $x['noLeidos'] . ' sin leer)' : '' ?></a>
   </p>

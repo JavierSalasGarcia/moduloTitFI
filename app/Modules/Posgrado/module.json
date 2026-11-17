@@ -1,0 +1,53 @@
+{
+  "clave": "posgrado",
+  "nombre": "Posgrado: evaluación de grado",
+  "version": "1.0.0",
+  "descripcion": "Trámite de evaluación de grado de maestría, doctorado y especialidad: el egresado captura sus datos, su sínodo y la fecha; la plataforma llena los formatos para firma autógrafa y Apoyo a Grado de la Coordinación de Estudios Avanzados valida, coteja y emite los oficios.",
+  "roles": [],
+  "consulta": [
+    {"ruta": "posgrado", "titulo": "Posgrado: obtener mi grado", "descripcion": "Inicia y continúa tu trámite de evaluación de grado de maestría, doctorado o especialidad: requisitos, sínodo, fecha de examen e invitaciones.", "palabras": "grado maestría doctorado especialidad posgrado examen de grado evaluación de grado sínodo tesis voto aprobatorio cotejo", "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::veTramite"},
+    {"ruta": "posgrado/gestion", "titulo": "Posgrado: validar trámites", "descripcion": "Bandeja de Apoyo a Grado: valida documentos de evaluación de grado, coteja originales, programa exámenes y emite oficios y constancias.", "palabras": "apoyo a grado estudios avanzados validar cotejo oficios constancias sínodo", "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::esPersonal"}
+  ],
+  "menu": [
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Posgrado: obtener mi grado",
+      "ruta": "posgrado",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 22,
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::veTramite"
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Posgrado: validar trámites",
+      "ruta": "posgrado/gestion",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 24,
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::esPersonal"
+    }
+  ],
+  "rutas": {
+    "GET /posgrado": ["App\\Modules\\Posgrado\\TramiteController", "inicio"],
+    "POST /posgrado/iniciar": ["App\\Modules\\Posgrado\\TramiteController", "iniciar"],
+    "GET /posgrado/tramite/{id}": ["App\\Modules\\Posgrado\\TramiteController", "ver"],
+    "POST /posgrado/tramite/{id}/datos": ["App\\Modules\\Posgrado\\TramiteController", "datos"],
+    "POST /posgrado/tramite/{id}/sinodo": ["App\\Modules\\Posgrado\\TramiteController", "sinodo"],
+    "POST /posgrado/tramite/{id}/documento/{clave}": ["App\\Modules\\Posgrado\\TramiteController", "subir"],
+    "POST /posgrado/tramite/{id}/sicde": ["App\\Modules\\Posgrado\\TramiteController", "sicde"],
+    "GET /posgrado/tramite/{id}/formato/{clave}": ["App\\Modules\\Posgrado\\TramiteController", "formato"],
+    "GET /posgrado/documento/{id}": ["App\\Modules\\Posgrado\\TramiteController", "documento"],
+    "GET /posgrado/generado/{id}": ["App\\Modules\\Posgrado\\TramiteController", "generado"],
+    "GET /posgrado/gestion": ["App\\Modules\\Posgrado\\GestionController", "bandeja"],
+    "GET /posgrado/gestion/{id}": ["App\\Modules\\Posgrado\\GestionController", "ver"],
+    "POST /posgrado/gestion/{id}/documento/{docId}": ["App\\Modules\\Posgrado\\GestionController", "revisar"],
+    "POST /posgrado/gestion/{id}/fisico/{clave}": ["App\\Modules\\Posgrado\\GestionController", "fisico"],
+    "POST /posgrado/gestion/{id}/cotejo": ["App\\Modules\\Posgrado\\GestionController", "cotejo"],
+    "POST /posgrado/gestion/{id}/externos": ["App\\Modules\\Posgrado\\GestionController", "externos"],
+    "POST /posgrado/gestion/{id}/programacion": ["App\\Modules\\Posgrado\\GestionController", "programacion"],
+    "POST /posgrado/gestion/{id}/emitir/{clave}": ["App\\Modules\\Posgrado\\GestionController", "emitir"],
+    "POST /posgrado/gestion/{id}/resultado": ["App\\Modules\\Posgrado\\GestionController", "resultado"],
+    "POST /posgrado/gestion/{id}/expediente": ["App\\Modules\\Posgrado\\GestionController", "expediente"],
+    "GET /posgrado/configuracion": ["App\\Modules\\Posgrado\\ConfiguracionController", "index"],
+    "POST /posgrado/configuracion": ["App\\Modules\\Posgrado\\ConfiguracionController", "guardar"]
+  }
+}

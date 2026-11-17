@@ -19,14 +19,12 @@ final class TramiteController extends TitulacionBase
 {
     // ------------------------------------------------------------------ entradas
 
+    /** La entrada de Titulación es ahora la página de tarjetas del menú (`seccion/titulacion`, módulo Portal). */
     public function inicio(): void
     {
         $this->privado();
-        $this->vista('inicio', [
-            'titulo' => 'Titulación', 'esPersonal' => TitulacionAccess::esPersonal(),
-            'veLicenciatura' => TitulacionAccess::veLicenciatura(), 'vePosgrado' => TitulacionAccess::vePosgrado(),
-            'esEvaluador' => TitulacionAccess::esEvaluador(), 'esEncargado' => TitulacionAccess::esEncargado(),
-        ]);
+        // Las cuentas de egresado solo alcanzan rutas de Titulación: van directo a sus pendientes.
+        redirigir(!empty(Auth::usuario()['egresado_externo']) ? 'titulacion/pendientes' : 'seccion/titulacion');
     }
 
     public function licenciatura(): void
@@ -53,13 +51,11 @@ final class TramiteController extends TitulacionBase
         ]);
     }
 
+    /** El trámite de posgrado vive ahora en su propio módulo (`posgrado`). */
     public function posgrado(): void
     {
         $this->privado();
-        if (!TitulacionAccess::vePosgrado()) {
-            redirigir('titulacion/licenciatura');
-        }
-        $this->vista('posgrado', ['titulo' => 'Titulación · Posgrado']);
+        redirigir('posgrado');
     }
 
     public function modalidad(string $clave): void

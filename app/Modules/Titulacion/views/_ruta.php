@@ -2,6 +2,13 @@
 /** Ruta de pasos. Variables: $pasos (Services\Ruta::pasos), $compacta (bool, opcional). */
 $compacta ??= false;
 $hechos = count(array_filter($pasos, static fn(array $p): bool => $p['estado'] === 'hecho'));
+// Los pasos se agrupan por etapa (en el orden en que vienen): solo la etapa actual se muestra abierta.
+$grupos = [];
+foreach ($pasos as $p) {
+    $k = count($grupos) - 1;
+    if ($k < 0 || $grupos[$k]['etapa'] !== $p['etapa']) { $grupos[] = ['etapa' => $p['etapa'], 'pasos' => []]; $k++; }
+    $grupos[$k]['pasos'][] = $p;
+}
 ?>
 <style>
 .ruta{list-style:none;margin:0;padding:0;position:relative}
@@ -17,15 +24,22 @@ $hechos = count(array_filter($pasos, static fn(array $p): bool => $p['estado'] =
 .ruta .t{font-size:14px;line-height:24px}
 .ruta .actual .t{font-weight:700}
 .ruta .e{display:block;font-size:11.5px;color:var(--gris-600);text-transform:uppercase;letter-spacing:.02em}
+.ruta .tit-punto{display:block;width:8px;height:8px;border-radius:50%;background:var(--gris-600)}
 .ruta .n{font-size:12px;color:var(--gris-600)}
 .ruta .a{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:2px;font-size:12.5px}
 </style>
-<p class="texto-secundario" style="margin:0 0 10px"><?= $hechos ?> de <?= count($pasos) ?> pasos completos</p>
-<ol class="ruta" aria-label="Ruta del trámite">
-  <?php $etapaAnt = null; foreach ($pasos as $i => $p): ?>
+<?php $etapasHechas = count(array_filter($grupos, static fn(array $g): bool => !array_filter($g['pasos'], static fn(array $p): bool => $p['estado'] !== 'hecho'))); ?>
+<p class="texto-secundario" style="margin:0 0 10px"><?= $etapasHechas ?> de <?= count($grupos) ?> etapas completas</p>
+<?php foreach ($grupos as $g):
+  $hg = count(array_filter($g['pasos'], static fn(array $p): bool => $p['estado'] === 'hecho'));
+  $esActual = (bool) array_filter($g['pasos'], static fn(array $p): bool => $p['estado'] === 'actual');
+  $cg = $esActual ? 'actual' : ($hg === count($g['pasos']) ? 'concluida' : 'futura'); ?>
+<details class="tit-grupo <?= $cg ?>" <?= $esActual ? 'open' : '' ?>>
+  <summary><span><?= $cg === 'concluida' ? '✓ ' : '' ?><?= e($g['etapa']) ?></span><span class="tit-cuenta"><?= $cg === 'concluida' ? 'Lista' : ($cg === 'actual' ? 'En curso' : 'Más adelante') ?></span></summary>
+<ol class="ruta" aria-label="Pasos de la etapa: <?= e($g['etapa']) ?>">
+  <?php foreach ($g['pasos'] as $p): ?>
     <li class="<?= e($p['estado']) ?>">
-      <span class="ic" aria-hidden="true"><?= $p['estado'] === 'hecho' ? '✓' : ($p['estado'] === 'actual' ? '●' : $i + 1) ?></span>
-      <?php if (!$compacta && $p['etapa'] !== $etapaAnt): ?><span class="e"><?= e($p['etapa']) ?></span><?php endif; $etapaAnt = $p['etapa']; ?>
+      <span class="ic<?= $p['estado'] === 'pendiente' ? ' tit-ic-punto' : '' ?>" aria-hidden="true"><?= $p['estado'] === 'hecho' ? '✓' : ($p['estado'] === 'actual' ? '●' : '<span class="tit-punto"></span>') ?></span>
       <span class="t"><?= e($p['titulo']) ?></span>
       <span class="sr-only"><?= $p['estado'] === 'hecho' ? '(hecho)' : ($p['estado'] === 'actual' ? '(paso actual)' : '(pendiente)') ?></span>
       <?php if ($p['nota']): ?><span class="n"> · <?= e($p['nota']) ?></span><?php endif; ?>
@@ -33,3 +47,5 @@ $hechos = count(array_filter($pasos, static fn(array $p): bool => $p['estado'] =
     </li>
   <?php endforeach; ?>
 </ol>
+</details>
+<?php endforeach; ?>
