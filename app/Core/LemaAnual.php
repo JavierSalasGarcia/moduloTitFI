@@ -40,9 +40,14 @@ final class LemaAnual
         if (!$lineas) {
             return;
         }
+        // La leyenda institucional va entre comillas: abre en la primera línea y cierra en la última.
+        $ultima = count($lineas) - 1;
+        $lineas[0] = '“' . ltrim($lineas[0], '"“«');
+        $lineas[$ultima] = rtrim($lineas[$ultima], '"”»') . '”';
         $pdf->SetFont('Helvetica', 'I', 8.5);
         foreach ($lineas as $l) {
-            $pdf->Cell(0, $alto, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $l) ?: $l, 0, 1, 'C');
+            // Windows-1252 (codificación de las fuentes base de FPDF) sí tiene comillas tipográficas.
+            $pdf->Cell(0, $alto, iconv('UTF-8', 'Windows-1252//TRANSLIT', $l) ?: $l, 0, 1, 'C');
         }
     }
 
