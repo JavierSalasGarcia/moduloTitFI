@@ -947,7 +947,7 @@ final class Formatos
             ['Dos fotografías tamaño semitítulo, blanco y negro, papel mate, fondo gris claro, de frente, con retoque, varones con camisa blanca y saco y corbata oscuros, mujeres con blazer oscuro', true],
             ['Acta de evaluación profesional', true],
             ['Copia del certificado de total de grado (Maestría o Doctorado)', true],
-            ['Copia del certificado de licenciatura con sello y firma de cotejo del responsable de titulación (maestría y/o especialidad)', !$doc],
+            ['Copia del certificado de licenciatura con sello y firma de cotejo del responsable de titulación (maestría y/o especialidad)', true], // También se pide en doctorado (indicación de la Subdirección Académica, 17/11/2026).
             ['Copia de la cédula profesional de licenciatura con sello y firma de cotejo del responsable de titulación (maestría y especialidad, doctorado con antecedente de licenciatura)', true],
             ['Copia del certificado de maestría con sello y firma de cotejo del responsable de titulación (doctorado)', $doc],
             ['Copia de la cédula de maestría con sello y firma de cotejo del responsable de titulación (doctorado)', $doc],

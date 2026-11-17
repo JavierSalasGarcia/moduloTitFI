@@ -113,8 +113,8 @@ final class Catalogo
         return [
             'acta_nacimiento' => ['n' => '1', 'grupo' => 'identidad', 'nombre' => 'Acta de nacimiento', 'ayuda' => 'Con fecha de expedición no mayor a 6 meses. Al cotejo lleva 2 copias.', 'aplica' => 'todos', 'tipo' => 'pdf'],
             'certificado_parcial' => ['n' => '2', 'grupo' => 'identidad', 'nombre' => 'Certificado parcial del posgrado', 'ayuda' => $originales, 'aplica' => 'todos', 'tipo' => 'pdf'],
-            'certificado_licenciatura' => ['n' => '3', 'grupo' => 'identidad', 'nombre' => 'Certificado de licenciatura', 'ayuda' => $originales, 'aplica' => 'todos', 'tipo' => 'pdf'],
-            'certificado_maestria' => ['n' => '4', 'grupo' => 'identidad', 'nombre' => 'Certificado de maestría', 'ayuda' => $originales, 'aplica' => 'doctorado', 'tipo' => 'pdf'],
+            'certificado_licenciatura' => ['n' => '3', 'grupo' => 'identidad', 'nombre' => 'Certificado total de licenciatura', 'ayuda' => $originales, 'aplica' => 'todos', 'tipo' => 'pdf'],
+            'certificado_maestria' => ['n' => '4', 'grupo' => 'identidad', 'nombre' => 'Certificado total de maestría', 'ayuda' => $originales, 'aplica' => 'doctorado', 'tipo' => 'pdf'],
             'cedula_licenciatura' => ['n' => '5', 'grupo' => 'identidad', 'nombre' => 'Cédula profesional de licenciatura', 'ayuda' => $originales, 'aplica' => 'todos', 'tipo' => 'pdf'],
             'cedula_maestria' => ['n' => '6', 'grupo' => 'identidad', 'nombre' => 'Cédula profesional de maestría', 'ayuda' => $originales, 'aplica' => 'doctorado', 'tipo' => 'pdf'],
             'curp' => ['n' => '22', 'grupo' => 'identidad', 'nombre' => 'CURP', 'ayuda' => 'Impresión actual con la leyenda «Verificada por el Registro Civil».', 'aplica' => 'todos', 'tipo' => 'pdf'],

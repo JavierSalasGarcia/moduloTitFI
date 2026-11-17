@@ -71,7 +71,7 @@
         "certificado_licenciatura": {
             "n": "3",
             "grupo": "identidad",
-            "nombre": "Certificado de licenciatura",
+            "nombre": "Certificado total de licenciatura",
             "ayuda": "Al cotejo lleva el original y 2 copias.",
             "aplica": "todos",
             "tipo": "pdf"
@@ -79,7 +79,7 @@
         "certificado_maestria": {
             "n": "4",
             "grupo": "identidad",
-            "nombre": "Certificado de maestría",
+            "nombre": "Certificado total de maestría",
             "ayuda": "Al cotejo lleva el original y 2 copias.",
             "aplica": "doctorado",
             "tipo": "pdf"
