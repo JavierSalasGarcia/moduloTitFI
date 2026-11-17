@@ -22,3 +22,8 @@ include __DIR__ . '/_estilos.php';
   </table></div>
   <?php endif; ?>
 </section>
+<?php $manMios = \App\Modules\Titulacion\Services\Manuales::deLaSesion(); unset($manMios['pasante']); ?>
+<p class="texto-secundario tit-enlace-sec">
+  <?php foreach ($manMios as $a => $etiqueta): ?><a href="<?= url(\App\Modules\Titulacion\Services\Manuales::url($a, 'consolidado')) ?>" download><?= e($etiqueta) ?> (PDF)</a> · <?php endforeach; ?>
+  <a href="<?= url('titulacion/manuales') ?>">Todos los manuales</a>
+</p>

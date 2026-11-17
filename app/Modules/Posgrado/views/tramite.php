@@ -34,6 +34,16 @@ $firmas = $ev['firmas'];
 </div>
 
 <div class="pos-pila">
+  <?php if ($t['estado'] === 'abandonado'): ?>
+  <section class="pos-paso espera" aria-labelledby="pos-paso-titulo">
+    <p class="pos-paso-etiqueta">Trámite en pausa</p>
+    <h2 id="pos-paso-titulo">Dejaste este trámite en pausa</h2>
+    <p>Lo dejaste<?= !empty($t['abandonado_en']) ? ' el ' . e(fecha_corta((string) $t['abandonado_en'])) : '' ?> cuando ibas en «<?= e((string) ($momentos[$actual]['titulo'] ?? '')) ?>». Todo lo que llevas se conserva tal como estaba; mientras siga en pausa nadie puede firmar nada en él.</p>
+    <?php if ($esDueno): ?>
+    <form method="post" action="<?= url($base . '/retomar') ?>"><?= $csrf ?><button class="btn btn-primario" type="submit">Retomar este trámite</button></form>
+    <?php endif; ?>
+  </section>
+  <?php else: ?>
   <section class="pos-paso <?= e($paso['turno']) ?>" aria-labelledby="pos-paso-titulo">
     <p class="pos-paso-etiqueta"><?= $paso['turno'] === 'personal' ? 'Ahora le toca a Apoyo a Grado' : ($paso['turno'] === 'nadie' ? 'Tu trámite' : ($paso['turno'] === 'espera' ? 'Tu siguiente paso · en espera' : 'Tu siguiente paso')) ?></p>
     <h2 id="pos-paso-titulo"><?= e($paso['titulo']) ?></h2>
@@ -49,6 +59,7 @@ $firmas = $ev['firmas'];
       <p class="texto-secundario" style="margin:0">No tienes que hacer nada en la plataforma por ahora; te avisaremos en tus notificaciones y por correo.</p>
     <?php endif; ?>
   </section>
+  <?php endif; ?>
 
   <nav aria-label="Avance de tu trámite">
     <ol class="pos-momentos">
@@ -328,6 +339,19 @@ $firmas = $ev['firmas'];
       <?php endforeach; ?>
     </div>
   </details>
+
+  <?php if ($dejar !== null): ?>
+  <details class="pos-dejar">
+    <summary>¿Elegiste otra modalidad o quieres dejar este trámite?</summary>
+    <?php if ($dejar === 'borrar'): ?>
+      <p>Nadie más ha intervenido en tu trámite, así que puedes borrarlo definitivamente y comenzar otro. Antes de borrar te diremos exactamente qué se pierde.</p>
+      <a class="btn btn-mini" href="<?= url($base . '/dejar') ?>">Borrar este trámite</a>
+    <?php else: ?>
+      <p>Otras personas ya intervinieron en tu trámite, así que no se puede borrar. Puedes dejarlo en pausa: se conserva todo y podrás retomarlo donde se quedó. Antes te diremos por qué y qué se conserva.</p>
+      <a class="btn btn-mini" href="<?= url($base . '/dejar') ?>">Dejar en pausa (abandonar)</a>
+    <?php endif; ?>
+  </details>
+  <?php endif; ?>
 </div>
 <script>
 // Abre los apartados plegados que contienen el destino de un enlace interno (#req-…, #datos, #sinodo…).

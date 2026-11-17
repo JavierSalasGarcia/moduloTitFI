@@ -161,6 +161,9 @@ final class FirmasExternas
         if (!$doc || !$t || $doc['estado'] === 'reemplazado' || empty($doc['ruta'])) {
             throw new RuntimeException('El protocolo ya no está vigente.');
         }
+        if ($t['estado'] === 'abandonado') {
+            throw new RuntimeException('Este trámite está en pausa: no se puede firmar hasta que el pasante lo retome.');
+        }
         $origen = FirmaElectronica::almacen() . '/' . $doc['ruta'];
         $caja = json_decode((string) $f['caja'], true) ?: null;
         if (!is_file($origen) || !is_array($caja)) {

@@ -727,6 +727,7 @@ final class Catalogo
             'abierto' => 'En proceso',
             'concluido' => 'Concluido',
             'cancelado' => 'Cancelado',
+            'abandonado' => 'Abandonado (en pausa)',
         ];
     }
 }

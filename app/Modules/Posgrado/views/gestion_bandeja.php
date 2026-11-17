@@ -19,6 +19,7 @@ $enlace = static function (array $cambios) use ($filtros): string {
     <a class="pos-contador <?= $filtros['momento'] === $n ? 'activo' : '' ?>" href="<?= e($enlace(['momento' => $n, 'pendientes' => '', 'estado' => ''])) ?>"><b><?= (int) $resumen['momentos'][$n] ?></b><span><?= (int) $n ?>. <?= e($m['breve']) ?></span></a>
   <?php endforeach; ?>
   <a class="pos-contador <?= $filtros['estado'] === 'concluido' ? 'activo' : '' ?>" href="<?= e($enlace(['estado' => 'concluido', 'momento' => '', 'pendientes' => ''])) ?>"><b><?= (int) $resumen['concluidos'] ?></b><span>Concluidos</span></a>
+  <a class="pos-contador <?= $filtros['estado'] === 'abandonado' ? 'activo' : '' ?>" href="<?= e($enlace(['estado' => 'abandonado', 'momento' => '', 'pendientes' => ''])) ?>"><b><?= (int) $resumen['abandonados'] ?></b><span>Abandonados (en pausa)</span></a>
 </div>
 
 <section class="tarjeta">
@@ -62,3 +63,4 @@ $enlace = static function (array $cambios) use ($filtros): string {
   </div>
   <?php endif; ?>
 </section>
+<p class="texto-secundario" style="font-size:13px"><?php foreach (\App\Modules\Posgrado\Services\Manuales::deLaSesion() as $manA => $manT): ?><a href="<?= url(\App\Modules\Posgrado\Services\Manuales::url($manA, 'consolidado')) ?>" download><?= e($manT) ?> (PDF)</a> · <?php endforeach; ?><a href="<?= url('posgrado/manuales') ?>">Todos los manuales</a></p>

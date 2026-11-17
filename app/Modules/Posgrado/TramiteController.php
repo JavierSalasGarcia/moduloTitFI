@@ -6,10 +6,12 @@ namespace App\Modules\Posgrado;
 use App\Core\App;
 use App\Core\Audit;
 use App\Core\Auth;
+use App\Modules\Posgrado\Services\Abandono;
 use App\Modules\Posgrado\Services\Firmas;
 use App\Modules\Posgrado\Services\Formatos;
 use App\Modules\Titulacion\Services\Calendario;
 use InvalidArgumentException;
+use RuntimeException;
 use Throwable;
 
 /** Entrada «Posgrado: obtener mi grado» y el trámite del egresado (cuatro momentos). */
@@ -29,6 +31,7 @@ final class TramiteController extends PosgradoBase
             'titulo' => 'Posgrado: obtener mi grado',
             'mis' => $mis,
             'abierto' => PosgradoAccess::puedeIniciar() ? PosgradoRepository::abiertoDe(Auth::id()) : null,
+            'modalidades' => Catalogo::modalidades(),
             'puedeIniciar' => PosgradoAccess::puedeIniciar(),
             'esPersonal' => PosgradoAccess::esPersonal(),
             'usuario' => Auth::usuario() ?? [],
@@ -40,13 +43,17 @@ final class TramiteController extends PosgradoBase
         if (!PosgradoAccess::puedeIniciar()) {
             $this->prohibido('Inicio de trámite de grado');
         }
-        if (($abierto = PosgradoRepository::abiertoDe(Auth::id())) !== null) {
-            flash('error', 'Ya tienes un trámite en proceso; continúa con él.');
-            redirigir('posgrado/tramite/' . (int) $abierto['id']);
-        }
         if ($this->post('acepto') !== '1') {
             flash('error', 'Confirma que leíste el aviso de privacidad para comenzar.');
             redirigir('posgrado');
+        }
+        // Solo un trámite activo a la vez: el que hay se borra o queda en pausa, y eso se confirma antes.
+        $activos = Abandono::activos(Auth::id());
+        if ($activos) {
+            if ($this->post('confirmo') !== '1') {
+                redirigir('posgrado/iniciar/cambio');
+            }
+            $this->dejarActivos($activos, 'posgrado/iniciar/cambio', 'para iniciar un trámite nuevo');
         }
         $u = Auth::usuario() ?? [];
         $programa = (string) ($u['programa'] ?? '');
@@ -60,7 +67,7 @@ final class TramiteController extends PosgradoBase
         ]]);
         PosgradoRepository::evento($id, Auth::id(), 'creacion', 'Trámite de evaluación de grado iniciado.');
         Audit::record('posgrado::iniciar', 'correcto', 'Trámite ' . $id);
-        flash('exito', 'Listo, tu trámite está abierto. Empieza por capturar tus datos.');
+        flash('exito', ($activos ? $this->resumenDejados() . ' ' : '') . 'Listo, tu trámite está abierto. Empieza por capturar tus datos.');
         redirigir('posgrado/tramite/' . $id . '#datos');
     }
 
@@ -81,6 +88,8 @@ final class TramiteController extends PosgradoBase
             'fechaMinima' => Calendario::agregarHabiles($hoy, Catalogo::DIAS_MINIMOS)->format('Y-m-d'),
             'fechaSugerida' => Calendario::agregarHabiles($hoy, Catalogo::DIAS_SUGERIDOS)->format('Y-m-d'),
             'maxMb' => self::maxMb(),
+            // ¿Se puede borrar o solo dejar en pausa? (solo para el dueño de un trámite activo)
+            'dejar' => PosgradoAccess::esDueno($t) && $t['estado'] === 'abierto' ? (Abandono::huboIntervencion($t) === [] ? 'borrar' : 'abandonar') : null,
         ]);
     }
 
@@ -382,6 +391,10 @@ final class TramiteController extends PosgradoBase
         if (!PosgradoAccess::puedeEditar($t) && !PosgradoAccess::esPersonalOperativo()) {
             $this->prohibido('Reenvío de firma en trámite ajeno');
         }
+        if ($t['estado'] !== 'abierto') {
+            flash('error', $t['estado'] === 'abandonado' ? 'Este trámite está en pausa: no se envían enlaces ni recordatorios hasta que se retome.' : 'El trámite ya no está abierto.');
+            redirigir($this->volverA($t));
+        }
         $f = $this->firmaDe($t, $firmaId);
         $volver = $this->volverA($t);
         try {
@@ -399,6 +412,10 @@ final class TramiteController extends PosgradoBase
         $t = $this->tramite($id);
         if (!PosgradoAccess::puedeEditar($t) && !PosgradoAccess::esPersonalOperativo()) {
             $this->prohibido('Corrección de correo en trámite ajeno');
+        }
+        if ($t['estado'] !== 'abierto') {
+            flash('error', $t['estado'] === 'abandonado' ? 'Este trámite está en pausa: no se envían enlaces ni recordatorios hasta que se retome.' : 'El trámite ya no está abierto.');
+            redirigir($this->volverA($t));
         }
         $f = $this->firmaDe($t, $firmaId);
         try {
@@ -549,5 +566,174 @@ final class TramiteController extends PosgradoBase
         }
         Audit::record('posgrado::generado', 'atendido', 'Generado ' . (int) $g['id']);
         $this->enviarArchivo((string) $g['ruta'], $g['clave'] . '_' . $t['folio'] . '.pdf', true);
+    }
+    // --------------------------------------------- dejar (borrar o pausar) y retomar
+
+    /** Trámite del egresado con sesión; a cualquier otra persona (personal incluido) le responde 404. */
+    private function propio(string $id): array
+    {
+        $t = ctype_digit($id) && strlen($id) < 19 ? PosgradoRepository::obtener((int) $id) : null;
+        if ($t === null || !PosgradoAccess::esDueno($t)) {
+            $this->noEncontrado();
+        }
+        return $t;
+    }
+
+    /** @var array<string,string> folio => 'borrado'|'abandonado' */
+    private array $dejados = [];
+
+    /** Deja los trámites activos tras la confirmación; si algo cambió, vuelve a la confirmación sin tocar nada. */
+    private function dejarActivos(array $activos, string $volver, string $motivo): void
+    {
+        if ($this->post('entiendo') !== '1') {
+            flash('error', 'Marca la casilla «Entiendo…» para confirmar.');
+            redirigir($volver);
+        }
+        $esperado = is_array($_POST['plan'] ?? null) ? $_POST['plan'] : [];
+        $lista = [];
+        foreach ($activos as $a) {
+            $a = PosgradoRepository::obtener((int) $a['id']);
+            if ($a === null || ($esperado[(string) $a['id']] ?? '') !== Abandono::plan($a)['accion']) {
+                flash('error', 'Algo cambió mientras confirmabas. Revisa de nuevo qué pasará con tu trámite actual.');
+                redirigir($volver);
+            }
+            $lista[] = $a;
+        }
+        if (count($esperado) !== count($lista)) {
+            flash('error', 'Algo cambió mientras confirmabas. Revisa de nuevo qué pasará con tu trámite actual.');
+            redirigir($volver);
+        }
+        foreach ($lista as $a) {
+            try {
+                $this->dejados[(string) $a['folio']] = Abandono::dejar($a, Auth::id(), $motivo);
+            } catch (RuntimeException $e) {
+                flash('error', $e->getMessage());
+                redirigir($volver);
+            }
+        }
+    }
+
+    private function resumenDejados(): string
+    {
+        $partes = [];
+        foreach ($this->dejados as $folio => $que) {
+            $partes[] = 'Tu trámite ' . $folio . ($que === 'borrado' ? ' se borró.' : ' quedó en «Abandonadas».');
+        }
+        return implode(' ', $partes);
+    }
+
+    /** @return array<int,array{t:array,plan:array,nombre:string}> */
+    private function planesActivos(): array
+    {
+        $r = [];
+        foreach (Abandono::activos(Auth::id()) as $a) {
+            $a = PosgradoRepository::obtener((int) $a['id']);
+            if ($a !== null) {
+                $r[] = ['t' => $a, 'plan' => Abandono::plan($a), 'nombre' => Abandono::nombreModalidad($a)];
+            }
+        }
+        return $r;
+    }
+
+    public function dejarForm(string $id): void
+    {
+        $this->privado();
+        $t = $this->propio($id);
+        if (($imp = Abandono::impedimento($t)) !== null) {
+            flash('error', $imp);
+            redirigir('posgrado/tramite/' . (int) $t['id']);
+        }
+        $plan = Abandono::plan($t);
+        $this->vista('dejar', [
+            'titulo' => $plan['accion'] === 'borrar' ? 'Borrar mi trámite' : 'Dejar mi trámite en pausa',
+            't' => $t, 'plan' => $plan, 'nombre' => Abandono::nombreModalidad($t),
+        ]);
+    }
+
+    public function dejar(string $id): void
+    {
+        $t = $this->propio($id);
+        $volver = 'posgrado/tramite/' . (int) $t['id'] . '/dejar';
+        if (($imp = Abandono::impedimento($t)) !== null) {
+            flash('error', $imp);
+            redirigir('posgrado/tramite/' . (int) $t['id']);
+        }
+        if ($this->post('entiendo') !== '1') {
+            flash('error', 'Marca la casilla «Entiendo…» para confirmar.');
+            redirigir($volver);
+        }
+        if ($this->post('accion') !== Abandono::plan($t)['accion']) {
+            flash('error', 'Algo cambió mientras confirmabas. Revisa de nuevo qué pasará con tu trámite.');
+            redirigir($volver);
+        }
+        try {
+            $r = Abandono::dejar($t, Auth::id());
+        } catch (RuntimeException $e) {
+            flash('error', $e->getMessage());
+            redirigir($volver);
+        }
+        flash('exito', $r === 'borrado'
+            ? 'Borramos tu trámite ' . $t['folio'] . '. Puedes comenzar uno nuevo cuando quieras.'
+            : 'Tu trámite ' . $t['folio'] . ' quedó en pausa. Lo encuentras en «Abandonadas» y puedes retomarlo cuando quieras.');
+        redirigir('posgrado');
+    }
+
+    /** Confirmación de «un trámite activo a la vez» al comenzar uno nuevo. */
+    public function cambio(): void
+    {
+        $this->privado();
+        if (!PosgradoAccess::puedeIniciar()) {
+            $this->noEncontrado();
+        }
+        $actuales = $this->planesActivos();
+        if (!$actuales) {
+            redirigir('posgrado#comenzar');
+        }
+        $this->vista('cambio', [
+            'titulo' => 'Comenzar otro trámite',
+            'modo' => 'iniciar', 'destinoNombre' => 'un trámite nuevo',
+            'accion' => 'posgrado/iniciar', 'volver' => 'posgrado/tramite/' . (int) $actuales[0]['t']['id'],
+            'actuales' => $actuales, 'ocultos' => ['acepto' => '1'],
+        ]);
+    }
+
+    public function retomarForm(string $id): void
+    {
+        $this->privado();
+        $t = $this->propio($id);
+        if ($t['estado'] !== 'abandonado') {
+            redirigir('posgrado/tramite/' . (int) $t['id']);
+        }
+        $this->vista('cambio', [
+            'titulo' => 'Retomar mi trámite',
+            'modo' => 'retomar', 'destinoNombre' => 'tu trámite ' . $t['folio'] . ' (' . Abandono::nombreModalidad($t) . ')',
+            'accion' => 'posgrado/tramite/' . (int) $t['id'] . '/retomar', 'volver' => 'posgrado',
+            'actuales' => $this->planesActivos(), 'ocultos' => [],
+        ]);
+    }
+
+    public function retomar(string $id): void
+    {
+        $t = $this->propio($id);
+        if ($t['estado'] !== 'abandonado') {
+            flash('error', 'Este trámite no está en pausa.');
+            redirigir('posgrado/tramite/' . (int) $t['id']);
+        }
+        $volver = 'posgrado/tramite/' . (int) $t['id'] . '/retomar';
+        $activos = Abandono::activos(Auth::id());
+        if ($activos) {
+            if ($this->post('confirmo') !== '1') {
+                redirigir($volver);
+            }
+            $this->dejarActivos($activos, $volver, 'para retomar ' . $t['folio']);
+        }
+        try {
+            Abandono::retomar($t, Auth::id());
+        } catch (RuntimeException $e) {
+            flash('error', $e->getMessage());
+            redirigir('posgrado');
+        }
+        flash('exito', ($activos ? $this->resumenDejados() . ' ' : '') . 'Retomaste tu trámite justo donde se quedó.');
+        redirigir('posgrado/tramite/' . (int) $t['id']);
     }
 }

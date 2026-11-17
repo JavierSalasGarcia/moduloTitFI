@@ -40,7 +40,7 @@ final class ComisionController extends TitulacionBase
     public function index(): void
     {
         $carreras = $this->encargado();
-        $rondas = RevisionRepository::rondas(['carreras' => $carreras, 'estados' => ['en_comision', 'en_evaluacion', 'por_dictaminar', 'dictaminada']]);
+        $rondas = RevisionRepository::rondas(['carreras' => $carreras, 'estados' => ['en_comision', 'en_evaluacion', 'por_dictaminar', 'dictaminada'], 'sin_pausa' => true]);
         foreach ($rondas as &$r) {
             $r['asignaciones'] = $this->decorarAsignaciones(RevisionRepository::asignaciones((int) $r['id']));
         }

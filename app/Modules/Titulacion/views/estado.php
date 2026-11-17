@@ -19,7 +19,9 @@ $cargos = ['jefe_titulacion' => 'Vo. Bo. de la Jefatura de Evaluación Profesion
   </div>
   <div class="tit-barra" role="progressbar" aria-valuenow="<?= $hechas ?>" aria-valuemin="0" aria-valuemax="<?= $total ?>"><i style="width:<?= $total ? (int) round(100 * $hechas / $total) : 0 ?>%"></i></div>
   <p class="texto-secundario" style="margin:6px 0 10px"><?= $hechas ?> de <?= $total ?> etapas</p>
-  <?php if ($x['actual']): $p = $x['actual']['paso'] ?? null; ?>
+  <?php if ($t['estado'] === 'abandonado'): ?>
+    <p class="tit-aviso"><strong>En pausa:</strong> dejaste este trámite<?= $x['actual'] ? ' cuando ibas en «' . e($x['actual']['titulo']) . '»' : '' ?>. Se conserva todo; puedes retomarlo desde <a href="<?= url('titulacion/licenciatura#abandonadas') ?>">«Abandonadas»</a>.</p>
+  <?php elseif ($x['actual']): $p = $x['actual']['paso'] ?? null; ?>
     <?php $nAct = 0; foreach ($x['flujo']['etapas'] as $k => $ee) { if ($ee['clave'] === $x['actual']['clave']) { $nAct = $k + 1; break; } } ?>
     <p><strong>Etapa <?= $nAct ?> de <?= $total ?>:</strong> <?= e($x['actual']['titulo']) ?></p>
     <?php if ($p): ?><p class="<?= $p['turno'] === 'alumno' ? 'tit-aviso' : 'tit-ok' ?>"><strong><?= $p['turno'] === 'alumno' ? 'Te toca a ti:' : 'En proceso:' ?></strong> <?= e($p['texto']) ?></p><?php endif; ?>

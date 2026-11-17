@@ -55,6 +55,26 @@
 .tit-linea li.mal::after{border-color:var(--error);background:#FEF2F2}.tit-linea li.mal{color:var(--error);font-weight:700}
 .tit-banner{background:#FFF7E6;border:1px solid #F59E0B;border-left-width:6px;padding:12px 14px;border-radius:6px;margin:0 0 16px;font-size:14px}
 .tit-banner strong{display:block;margin-bottom:2px}
+/* Dejar un trámite (borrar o poner en pausa) y retomarlo */
+.estado-abandonado,.estado-cancelado{background:#F3F4F6;color:var(--gris-600);border:1px solid var(--gris-100)}
+.tit-dejar{margin-top:4px;padding:0 2px;font-size:14px;color:var(--gris-600)}
+.tit-dejar>summary{cursor:pointer;padding:8px 0;color:var(--gris-600)}
+.tit-dejar>summary:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+.tit-dejar p{margin:4px 0 10px}
+.tit-confirma{max-width:760px;margin:0 auto}
+.tit-confirma h2{margin:0 0 6px;font-size:22px;color:var(--verde-900);line-height:1.25}
+.tit-confirma .tit-lead{font-size:16px;margin:0 0 14px}
+.tit-confirma h3{font-size:15px;margin:16px 0 6px;color:var(--verde-900)}
+.tit-confirma ul{margin:0;padding-left:20px}
+.tit-confirma li{margin:4px 0;line-height:1.45}
+.tit-entiendo{display:flex;gap:10px;align-items:flex-start;margin:18px 0 14px;font-size:15px;line-height:1.4}
+.tit-entiendo input{width:20px;height:20px;margin:1px 0 0;flex:0 0 auto}
+.tit-acciones{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tit-abandonadas .tit-aband{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--gris-100)}
+.tit-abandonadas .tit-aband:first-child{border-top:0}
+.tit-abandonadas .tit-aband p{margin:2px 0 0;font-size:13.5px;color:var(--gris-600)}
+.tit-abandonadas form{margin:0}
+.tit-dos-abiertos .tit-aband{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--oro-arena)}
 @media(max-width:860px){.tit-dos{grid-template-columns:1fr}.tit-doc{grid-template-columns:1fr}}
 </style>
 

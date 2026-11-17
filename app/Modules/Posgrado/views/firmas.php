@@ -79,6 +79,7 @@ $hechasPropias = array_filter($propias, static fn(array $f): bool => $f['estado'
     </div>
   </details>
   <?php endif; ?>
+  <p class="texto-secundario" style="font-size:13px"><?php foreach (\App\Modules\Posgrado\Services\Manuales::deLaSesion() as $manA => $manT): ?><a href="<?= url(\App\Modules\Posgrado\Services\Manuales::url($manA, 'consolidado')) ?>" download><?= e($manT) ?> (PDF)</a> · <?php endforeach; ?><a href="<?= url('posgrado/manuales') ?>">Todos los manuales</a></p>
 </div>
 <script>
 (function () {

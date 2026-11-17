@@ -4,12 +4,13 @@ use App\Modules\Titulacion\Catalogo;
 include __DIR__ . '/_estilos.php';
 $sin = array_filter($modalidades, static fn(array $m): bool => $m['tipo'] === 'sin_trabajo');
 $con = array_filter($modalidades, static fn(array $m): bool => $m['tipo'] === 'con_trabajo');
-// El trámite abierto (si lo hay) manda: es lo primero que se ofrece.
+// El trámite abierto (si lo hay) manda: es lo primero que se ofrece. Los abandonados van aparte, en «Abandonadas».
 $abierto = null;
-foreach ($mis as $x) {
-    if ($x['estado'] === 'abierto') { $abierto = $x; break; }
-}
-$varios = count($mis) > 1 || ($mis && $abierto === null);
+$abiertos = array_values(array_filter($mis, static fn(array $x): bool => $x['estado'] === 'abierto'));
+$abandonadas = array_values(array_filter($mis, static fn(array $x): bool => $x['estado'] === 'abandonado'));
+$otros = array_values(array_filter($mis, static fn(array $x): bool => $x['estado'] !== 'abandonado'));
+$abierto = $abiertos[0] ?? null;
+$varios = count($otros) > 1 || ($otros && $abierto === null);
 
 /** Lista de opciones de una vía: nombre, resumen de una línea y el artículo en letra pequeña. */
 $listaOpciones = static function (array $grupo): void { ?>
@@ -26,6 +27,19 @@ $listaOpciones = static function (array $grupo): void { ?>
 <div class="tit-cabecera"><div></div><a class="btn" href="<?= url('titulacion/gestion') ?>">Validar trámites</a></div>
 <?php endif; ?>
 
+<?php if (count($abiertos) > 1): ?>
+<section class="tit-aviso tit-dos-abiertos" aria-labelledby="tit-dos-t">
+  <h2 id="tit-dos-t" style="margin:0 0 4px;font-size:18px">Tienes más de un trámite abierto</h2>
+  <p style="margin:0 0 8px">Ahora solo puede seguir una modalidad. Elige cuál dejas; la que quede será la que continúes. Si nadie más intervino en la que dejas, se borrará; si no, pasará a «Abandonadas».</p>
+  <?php foreach ($abiertos as $x): $mx = $modalidades[$x['modalidad']] ?? ['nombre' => $x['modalidad']]; ?>
+    <div class="tit-aband">
+      <div><strong><?= e($mx['nombre']) ?></strong> · folio <?= e($x['folio']) ?><?= $x['paso'] ? '<br><span class="texto-secundario">Va en «' . e($x['paso']['titulo']) . '»</span>' : '' ?></div>
+      <span><a class="btn btn-mini" href="<?= url('titulacion/licenciatura/tramite/' . (int) $x['id']) ?>">Abrir</a> <a class="btn btn-mini btn-peligro" href="<?= url('titulacion/licenciatura/tramite/' . (int) $x['id'] . '/dejar') ?>">Dejar este</a></span>
+    </div>
+  <?php endforeach; ?>
+</section>
+<?php endif; ?>
+
 <?php if ($abierto): $m = $modalidades[$abierto['modalidad']] ?? ['nombre' => $abierto['modalidad']];
   $pct = $abierto['total'] ? (int) round(100 * $abierto['avance'] / $abierto['total']) : 0; ?>
 <section class="tit-continua" aria-labelledby="tit-continua-t">
@@ -39,18 +53,21 @@ $listaOpciones = static function (array $grupo): void { ?>
     <?php if (!empty($abierto['paso']['paso']['texto'])): ?><p class="tit-paso-texto"><?= e($abierto['paso']['paso']['texto']) ?></p><?php endif; ?>
   <?php endif; ?>
   <a class="tit-boton" href="<?= url('titulacion/licenciatura/tramite/' . (int) $abierto['id']) ?>">Continuar</a>
+  <?php if (\App\Modules\Titulacion\Services\Manuales::existe('pasante', (string) $abierto['modalidad'])): ?>
+    <p class="texto-secundario tit-enlace-sec" style="margin:10px 0 0"><a href="<?= url(\App\Modules\Titulacion\Services\Manuales::url('pasante', (string) $abierto['modalidad'])) ?>" download>Manual de tu opción (PDF)</a></p>
+  <?php endif; ?>
 </section>
 <?php endif; ?>
 
 <?php if ($varios): ?>
 <details class="tit-pliegue" <?= $abierto === null ? 'open' : '' ?>>
-  <summary>Mis trámites (<?= count($mis) ?>)</summary>
+  <summary>Mis trámites (<?= count($otros) ?>)</summary>
   <div class="tit-cuerpo">
   <div class="tabla-contenedor">
   <table class="tabla">
     <thead><tr><th>Folio</th><th>Opción</th><th>Avance</th><th>Estado</th><th></th></tr></thead>
     <tbody>
-    <?php foreach ($mis as $t): $m = $modalidades[$t['modalidad']] ?? ['nombre' => $t['modalidad']]; ?>
+    <?php foreach ($otros as $t): $m = $modalidades[$t['modalidad']] ?? ['nombre' => $t['modalidad']]; ?>
       <tr>
         <td><?= e($t['folio']) ?></td>
         <td><?= e($m['nombre']) ?><?php if ($t['titulo']): ?><br><span class="texto-secundario"><?= e(mb_strimwidth($t['titulo'], 0, 90, '…')) ?></span><?php endif; ?></td>
@@ -63,6 +80,29 @@ $listaOpciones = static function (array $grupo): void { ?>
     </tbody>
   </table>
   </div>
+  </div>
+</details>
+<?php endif; ?>
+
+<?php if ($abandonadas): ?>
+<details class="tit-pliegue tit-abandonadas" id="abandonadas">
+  <summary>Abandonadas</summary>
+  <div class="tit-cuerpo">
+    <p class="texto-secundario" style="margin:0 0 6px">Trámites que dejaste en pausa. Se conserva todo lo que llevabas y lo que se generó; al retomar uno sigues justo donde se quedó.</p>
+    <?php foreach ($abandonadas as $x): $mx = $modalidades[$x['modalidad']] ?? ['nombre' => $x['modalidad']]; ?>
+      <div class="tit-aband">
+        <div>
+          <strong><?= e($mx['nombre']) ?></strong> · folio <?= e($x['folio']) ?>
+          <p>En pausa<?= !empty($x['abandonado_en']) ? ' desde el ' . e(fecha_corta((string) $x['abandonado_en'])) : '' ?><?= $x['paso'] ? ' · se quedó en «' . e($x['paso']['titulo']) . '»' : '' ?> · <a href="<?= url('titulacion/licenciatura/tramite/' . (int) $x['id']) ?>">Ver lo que llevas</a></p>
+        </div>
+        <?php if ($puedeIniciar): ?>
+        <form method="post" action="<?= url('titulacion/licenciatura/tramite/' . (int) $x['id'] . '/retomar') ?>">
+          <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+          <button class="btn btn-mini" type="submit">Retomar</button>
+        </form>
+        <?php endif; ?>
+      </div>
+    <?php endforeach; ?>
   </div>
 </details>
 <?php endif; ?>
@@ -108,6 +148,7 @@ $listaOpciones = static function (array $grupo): void { ?>
     <?php $listaOpciones($con); ?>
   </details>
 </div>
+<p class="texto-secundario tit-enlace-sec" style="margin:8px 0 18px"><a href="<?= url('titulacion/manuales') ?>">Compara las opciones: descarga sus manuales</a><?php if (\App\Modules\Titulacion\Services\Manuales::existe('pasante', 'consolidado')): ?> · <a href="<?= url(\App\Modules\Titulacion\Services\Manuales::url('pasante', 'consolidado')) ?>" download>Manual del pasante (PDF)</a><?php endif; ?></p>
 <?php if ($abierto !== null): ?>
   </div>
 </details>

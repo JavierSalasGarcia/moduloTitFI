@@ -83,13 +83,45 @@
       "App\\Modules\\Posgrado\\TramiteController",
       "inicio"
     ],
+    "GET /posgrado/modalidad/{clave}": [
+      "App\\Modules\\Posgrado\\ManualesController",
+      "modalidad"
+    ],
+    "GET /posgrado/manuales": [
+      "App\\Modules\\Posgrado\\ManualesController",
+      "index"
+    ],
+    "GET /posgrado/manual/{actor}/{modalidad}": [
+      "App\\Modules\\Posgrado\\ManualesController",
+      "descargar"
+    ],
     "POST /posgrado/iniciar": [
       "App\\Modules\\Posgrado\\TramiteController",
       "iniciar"
     ],
+    "GET /posgrado/iniciar/cambio": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "cambio"
+    ],
     "GET /posgrado/tramite/{id}": [
       "App\\Modules\\Posgrado\\TramiteController",
       "ver"
+    ],
+    "GET /posgrado/tramite/{id}/dejar": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "dejarForm"
+    ],
+    "POST /posgrado/tramite/{id}/dejar": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "dejar"
+    ],
+    "GET /posgrado/tramite/{id}/retomar": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "retomarForm"
+    ],
+    "POST /posgrado/tramite/{id}/retomar": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "retomar"
     ],
     "POST /posgrado/tramite/{id}/datos": [
       "App\\Modules\\Posgrado\\TramiteController",

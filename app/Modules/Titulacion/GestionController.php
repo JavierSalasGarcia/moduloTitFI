@@ -15,6 +15,15 @@ use Throwable;
 /** Bandeja y validación para el personal del Departamento de Evaluación Profesional. */
 final class GestionController extends TitulacionBase
 {
+    /** El personal consulta un trámite en pausa, pero no lo modifica: solo el pasante puede retomarlo. */
+    private function noEnPausa(array $t): void
+    {
+        if ($t['estado'] === 'abandonado') {
+            flash('error', 'Este trámite está en pausa: el pasante lo dejó. Se puede consultar, pero no modificar hasta que lo retome.');
+            redirigir('titulacion/gestion/' . (int) $t['id']);
+        }
+    }
+
     private function soloPersonal(): void
     {
         if (!TitulacionAccess::esPersonal()) {
@@ -62,6 +71,7 @@ final class GestionController extends TitulacionBase
     public function revisar(string $id, string $docId): void
     {
         $t = $this->tramite($id, true);
+        $this->noEnPausa($t);
         $d = ctype_digit($docId) ? TitulacionRepository::documento((int) $docId) : null;
         if ($d === null || (int) $d['tramite_id'] !== (int) $t['id'] || $d['origen'] !== 'alumno' || $d['estado'] === 'reemplazado') {
             $this->noEncontrado();
@@ -125,6 +135,7 @@ final class GestionController extends TitulacionBase
     public function cotejo(string $id, string $docId): void
     {
         $t = $this->tramite($id, true);
+        $this->noEnPausa($t);
         $d = ctype_digit($docId) ? TitulacionRepository::documento((int) $docId) : null;
         if ($d === null || (int) $d['tramite_id'] !== (int) $t['id'] || $d['origen'] !== 'alumno' || $d['estado'] !== 'aprobado' || empty($d['ruta'])) {
             $this->noEncontrado();
@@ -314,6 +325,7 @@ final class GestionController extends TitulacionBase
     public function reenviarCoordinador(string $id, string $asig): void
     {
         $t = $this->tramite($id, true);
+        $this->noEnPausa($t);
         $ok = ctype_digit($asig) && (int) Database::valor('SELECT COUNT(*) FROM tit_asignaciones_jurado WHERE id = ? AND tramite_id = ?', [(int) $asig, (int) $t['id']]) > 0
             && Jurado::reenviarCoordinador((int) $asig);
         flash($ok ? 'exito' : 'error', $ok ? 'Se reenvió el correo al Coordinador con un enlace nuevo.' : 'No hay una solicitud pendiente.');
@@ -378,6 +390,7 @@ final class GestionController extends TitulacionBase
     public function reabrir(string $id, string $etapaClave): void
     {
         $t = $this->tramite($id, true);
+        $this->noEnPausa($t);
         $hitos = TitulacionRepository::hitos((int) $t['id']);
         if (!isset($hitos[$etapaClave])) {
             $this->noEncontrado();
@@ -411,6 +424,7 @@ final class GestionController extends TitulacionBase
     public function profesor(string $id, string $rol): void
     {
         $t = $this->tramite($id, true);
+        $this->noEnPausa($t);
         if (!in_array($rol, ['asesor', 'coasesor'], true) || $t['tipo'] !== 'con_trabajo') {
             $this->noEncontrado();
         }

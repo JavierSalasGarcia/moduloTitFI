@@ -219,6 +219,9 @@ final class Flujo
         if ($t['estado'] === 'cancelado') {
             return $p('Trámite cancelado', 'Este trámite ya no está activo. Si necesitas retomarlo, comunícate con Apoyo a Grado.', 'nadie');
         }
+        if ($t['estado'] === 'abandonado') {
+            return $p('Trámite en pausa', 'El egresado dejó este trámite en pausa. Se conserva todo y puede retomarlo donde se quedó; mientras tanto nadie puede firmar en él.', 'nadie');
+        }
         if ($ev['completo']) {
             return $p('¡Felicidades! Tu trámite concluyó', 'Apoyo a Grado integró tu expediente. Recuerda que tu director debe subir tu tesis al Repositorio Institucional.', 'nadie');
         }

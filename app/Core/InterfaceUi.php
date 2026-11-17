@@ -11,7 +11,7 @@ final class InterfaceUi
         'foro'=>'Foro','comisiones'=>'Comisiones','encuestas'=>'Encuestas','grupos-destinatarios'=>'Grupos de destinatarios',
         'busqueda'=>'Encontrar un trámite','directorio'=>'Directorio','funciones'=>'Mis funciones',
         'teams'=>'Carpetas de Teams','recursos'=>'Recursos','ajustes'=>'Ajustes','seguridad'=>'Acceso seguro',
-        'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI'];
+        'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI','posgrado'=>'Obtención de grado','titulacion'=>'Titulación'];
 
     /** Un enlace por grupo en el menú lateral; las páginas de entrada viven en `seccion/<slug>`. */
     public const GRUPOS = [

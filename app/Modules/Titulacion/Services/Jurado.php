@@ -143,7 +143,7 @@ final class Jurado
         $cambios = array_diff(array_column($sin, 'email'), $propuestos);
         $t = TitulacionRepository::obtener((int) $a['tramite_id']);
         if (!$t || $t['estado'] !== 'abierto') {
-            throw new RuntimeException('El trámite ya no está abierto.');
+            throw new RuntimeException($t && $t['estado'] === 'abandonado' ? 'Este trámite está en pausa: no se puede firmar hasta que el pasante lo retome.' : 'El trámite ya no está abierto.');
         }
         // Formato firmado por el Coordinador.
         [$bytes, $caja] = Oficios::asignacion($t, $a, $sin);
@@ -219,7 +219,8 @@ final class Jurado
     /** El pasante pide reenviar el correo a un sinodal que aún no firma (máximo tres veces por hora, lo valida el controlador). */
     public static function recordar(int $sinodalId, int $tramiteId): bool
     {
-        $s = Database::una("SELECT * FROM tit_sinodales WHERE id = ? AND tramite_id = ? AND estado = 'pendiente'", [$sinodalId, $tramiteId]);
+        // Sin recordatorios para un trámite en pausa.
+        $s = Database::una("SELECT s.* FROM tit_sinodales s JOIN tit_tramites t ON t.id = s.tramite_id WHERE s.id = ? AND s.tramite_id = ? AND s.estado = 'pendiente' AND t.estado = 'abierto'", [$sinodalId, $tramiteId]);
         if (!$s) {
             return false;
         }
@@ -258,6 +259,9 @@ final class Jurado
         $doc = TitulacionRepository::documento((int) $s['oficio_doc_id']);
         $firma = Database::una('SELECT caja FROM tit_firmas_subdireccion WHERE documento_id = ? ORDER BY id DESC LIMIT 1', [(int) $s['oficio_doc_id']]);
         $t = TitulacionRepository::obtener((int) $s['tramite_id']);
+        if ($t && $t['estado'] === 'abandonado') {
+            throw new RuntimeException('Este trámite está en pausa: no se puede firmar hasta que el pasante lo retome.');
+        }
         $caja = $firma && $firma['caja'] ? json_decode((string) $firma['caja'], true) : null;
         $origenRel = $doc ? ($doc['subdir_ruta'] ?: $doc['ruta']) : null;
         if (!$doc || !$t || !$origenRel || !is_array($caja)) {
@@ -284,7 +288,7 @@ final class Jurado
         return Database::todas(
             "SELECT a.fecha, a.hora, a.lugar, a.tipo, t.folio, t.datos, s.calidad
              FROM tit_sinodales s JOIN tit_asignaciones_jurado a ON a.id = s.asignacion_id JOIN tit_tramites t ON t.id = a.tramite_id
-             WHERE s.email = ? AND s.estado = 'acuse' AND a.estado = 'firmada' AND a.fecha BETWEEN ? AND ? ORDER BY a.fecha, a.hora",
+             WHERE s.email = ? AND s.estado = 'acuse' AND a.estado = 'firmada' AND t.estado <> 'abandonado' AND a.fecha BETWEEN ? AND ? ORDER BY a.fecha, a.hora",
             [strtolower($email), $desde, $hasta]
         );
     }

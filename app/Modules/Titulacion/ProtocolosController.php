@@ -25,9 +25,9 @@ final class ProtocolosController extends TitulacionBase
         $this->personal();
         $estado = (string) ($_GET['estado'] ?? 'activos');
         $filtros = match ($estado) {
-            'recibida' => ['estados' => ['recibida']],
+            'recibida' => ['estados' => ['recibida'], 'sin_pausa' => true],
             'todos' => [],
-            default => ['estados' => ['recibida', 'en_comision', 'en_evaluacion', 'por_dictaminar']],
+            default => ['estados' => ['recibida', 'en_comision', 'en_evaluacion', 'por_dictaminar'], 'sin_pausa' => true],
         };
         $rondas = RevisionRepository::rondas($filtros);
         foreach ($rondas as &$r) {

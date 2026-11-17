@@ -86,7 +86,7 @@ abstract class PosgradoBase extends Controller
     protected function sincronizar(int $id): array
     {
         $t = PosgradoRepository::obtener($id);
-        if ($t !== null && $t['estado'] !== 'cancelado') {
+        if ($t !== null && !in_array($t['estado'], ['cancelado', 'abandonado'], true)) {   // en pausa: el avance queda congelado
             [$ev] = $this->evaluar($t);
             $resultado = $ev['hitos']['resultado']['datos']['resultado'] ?? (!empty($t['datos']['aplazamientos']) ? 'aplazado' : null);
             PosgradoRepository::actualizarAvance($id, Flujo::momentoGuardado($ev), $ev['completo'] ? 'concluido' : 'abierto', $resultado);

@@ -53,6 +53,16 @@ final class Aviso
         }
     }
 
+    /** Correo al personal de Apoyo a Grado con el enlace al expediente (la notificación de la bandeja la deja quien llama). */
+    public static function personal(string $para, string $nombre, string $asunto, string $texto, string $enlace): void
+    {
+        try {
+            self::correo(strtolower(trim($para)), $nombre, $asunto, $texto, $enlace, 'Abrir el expediente', 'Abrir el expediente');
+        } catch (Throwable $e) {
+            error_log('Posgrado: no se envió el aviso al personal: ' . $e->getMessage());
+        }
+    }
+
     private static function correo(string $para, string $nombre, string $asunto, string $texto, string $enlace, string $boton = 'Ver mi trámite', string $etiquetaPlano = 'Ver mi trámite'): void
     {
         $esc = static fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');

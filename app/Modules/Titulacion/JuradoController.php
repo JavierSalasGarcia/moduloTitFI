@@ -41,6 +41,21 @@ final class JuradoController extends TitulacionBase
         return [false, ['tipo' => Auth::usuario() ? 'otra' : ($existe ? 'login' : 'registro'), 'email' => $email]];
     }
 
+    /** Asignación por el enlace del correo; en pausa si el pasante dejó el trámite. */
+    private function asignacionToken(string $token): array
+    {
+        $a = Jurado::porToken($token) ?? $this->invalido();
+        $this->siEnPausa((int) $a['tramite_id']);
+        return $a;
+    }
+
+    private function sinodalToken(string $token): array
+    {
+        $s = Jurado::sinodalPorToken($token) ?? $this->invalido();
+        $this->siEnPausa((int) $s['tramite_id']);
+        return $s;
+    }
+
     // ----------------------------------------------------------------- Coordinador
 
     /** Asignación del Coordinador con sesión (sin token), desde «Mis pendientes». */
@@ -50,6 +65,7 @@ final class JuradoController extends TitulacionBase
         if ($a === null || strtolower((string) $a['coord_email']) !== TitulacionAccess::correoSesion()) {
             $this->noEncontrado();
         }
+        $this->siEnPausa((int) $a['tramite_id']);
         return $a;
     }
 
@@ -59,6 +75,7 @@ final class JuradoController extends TitulacionBase
         if ($s === null || strtolower((string) $s['email']) !== TitulacionAccess::correoSesion()) {
             $this->noEncontrado();
         }
+        $this->siEnPausa((int) $s['tramite_id']);
         return $s;
     }
 
@@ -100,7 +117,7 @@ final class JuradoController extends TitulacionBase
 
     public function coordinador(string $token): void
     {
-        $a = Jurado::porToken($token) ?? $this->invalido();
+        $a = $this->asignacionToken($token);
         $this->verCoordinador($a, $token, 'titulacion/jurado/t/' . $token);
     }
 
@@ -126,7 +143,7 @@ final class JuradoController extends TitulacionBase
 
     public function firmarCoordinador(string $token): void
     {
-        $this->firmarAsignacion(Jurado::porToken($token) ?? $this->invalido(), 'titulacion/jurado/t/' . $token);
+        $this->firmarAsignacion($this->asignacionToken($token), 'titulacion/jurado/t/' . $token);
     }
 
     private function firmarAsignacion(array $a, string $volver): never
@@ -162,7 +179,7 @@ final class JuradoController extends TitulacionBase
 
     public function trabajoCoordinador(string $token): void
     {
-        $this->entregarTrabajo(Jurado::porToken($token) ?? $this->invalido());
+        $this->entregarTrabajo($this->asignacionToken($token));
     }
 
     private function entregarTrabajo(array $a): never
@@ -179,7 +196,7 @@ final class JuradoController extends TitulacionBase
 
     public function sinodal(string $token): void
     {
-        $this->verSinodal(Jurado::sinodalPorToken($token) ?? $this->invalido(), $token, 'titulacion/sinodal/t/' . $token);
+        $this->verSinodal($this->sinodalToken($token), $token, 'titulacion/sinodal/t/' . $token);
     }
 
     private function verSinodal(array $s, string $token, string $base): void
@@ -203,7 +220,7 @@ final class JuradoController extends TitulacionBase
 
     public function oficioSinodal(string $token): void
     {
-        $this->entregarOficio(Jurado::sinodalPorToken($token) ?? $this->invalido());
+        $this->entregarOficio($this->sinodalToken($token));
     }
 
     private function entregarOficio(array $s): never
@@ -217,7 +234,7 @@ final class JuradoController extends TitulacionBase
 
     public function trabajoSinodal(string $token): void
     {
-        $s = Jurado::sinodalPorToken($token) ?? $this->invalido();
+        $s = $this->sinodalToken($token);
         $a = Database::una('SELECT * FROM tit_asignaciones_jurado WHERE id = ?', [(int) $s['asignacion_id']]);
         $d = $a ? Jurado::trabajo($a) : null;
         if ($d === null) {
@@ -229,7 +246,7 @@ final class JuradoController extends TitulacionBase
 
     public function firmarSinodal(string $token): void
     {
-        $this->acuse(Jurado::sinodalPorToken($token) ?? $this->invalido(), 'titulacion/sinodal/t/' . $token);
+        $this->acuse($this->sinodalToken($token), 'titulacion/sinodal/t/' . $token);
     }
 
     private function acuse(array $s, string $volver): never

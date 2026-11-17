@@ -27,6 +27,10 @@ $chips = [
   </div>
 </div>
 
+<?php if ($t['estado'] === 'abandonado'): ?>
+<p class="tit-banner"><strong>Trámite en pausa</strong>El pasante lo dejó<?= !empty($t['abandonado_en']) ? ' el ' . e(fecha_corta((string) $t['abandonado_en'])) : '' ?>. No es un pendiente: se puede consultar, pero no modificar, y sus firmas pendientes están suspendidas. Si lo retoma, vuelve a tu bandeja donde se quedó.</p>
+<?php endif; ?>
+
 <div class="tit-dos">
 <div style="display:flex;flex-direction:column;gap:18px">
 

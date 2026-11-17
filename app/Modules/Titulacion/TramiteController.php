@@ -7,11 +7,13 @@ use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
 use App\Core\AccessControl;
+use App\Modules\Titulacion\Services\Abandono;
 use App\Modules\Titulacion\Services\DocumentosGenerados;
 use App\Modules\Titulacion\Services\FirmasExternas;
 use App\Modules\Titulacion\Services\Jurado;
 use App\Modules\Titulacion\Services\Formatos;
 use InvalidArgumentException;
+use RuntimeException;
 use Throwable;
 
 /** Entradas «Licenciatura» y «Posgrado» y el asistente paso a paso del pasante. */
@@ -91,10 +93,6 @@ final class TramiteController extends TitulacionBase
         if ($m === null || !TitulacionAccess::puedeIniciar()) {
             $this->noEncontrado();
         }
-        if ($this->tramiteAbierto() !== null) {
-            flash('error', 'Ya tienes un trámite en proceso. Termínalo o cancélalo antes de iniciar otro.');
-            redirigir('titulacion/licenciatura');
-        }
         $variante = null;
         if (isset($m['variantes'])) {
             $variante = $this->post('variante');
@@ -107,6 +105,15 @@ final class TramiteController extends TitulacionBase
             flash('error', 'Confirma que leíste el aviso de privacidad para continuar.');
             redirigir('titulacion/licenciatura/modalidad/' . $clave);
         }
+        // Solo una modalidad activa a la vez: la que hay se borra o queda en pausa, y eso se confirma antes.
+        $activos = Abandono::activos(Auth::id());
+        if ($activos) {
+            $cambio = 'titulacion/licenciatura/modalidad/' . $clave . '/cambio' . ($variante !== null ? '?variante=' . rawurlencode($variante) : '');
+            if ($this->post('confirmo') !== '1') {
+                redirigir($cambio);
+            }
+            $this->dejarActivos($activos, $cambio, 'para iniciar «' . $m['nombre'] . '»');
+        }
         $u = Auth::usuario();
         $inicial = ['datos' => [
             'nombre' => (string) ($u['nombre'] ?? ''),
@@ -117,7 +124,7 @@ final class TramiteController extends TitulacionBase
         $id = TitulacionRepository::crear(Auth::id(), $m['tipo'], $clave, $variante, $inicial);
         TitulacionRepository::evento($id, Auth::id(), 'creacion', 'Trámite iniciado: ' . $m['nombre']);
         Audit::record('titulacion::crear', 'correcto', 'Trámite ' . $id);
-        flash('exito', 'Trámite iniciado. Empieza capturando tus datos.');
+        flash('exito', ($activos ? $this->resumenDejados() . ' ' : '') . 'Trámite iniciado. Empieza capturando tus datos.');
         redirigir('titulacion/licenciatura/tramite/' . $id);
     }
 
@@ -159,6 +166,8 @@ final class TramiteController extends TitulacionBase
             'esPersonal' => TitulacionAccess::esPersonal(),
             'eventos' => TitulacionRepository::eventos((int) $t['id'], !TitulacionAccess::esPersonal()),
             'blanco' => Catalogo::archivosBlanco(),
+            // ¿Se puede borrar o solo dejar en pausa? (solo para el dueño de un trámite activo)
+            'dejar' => $esDueno && $t['estado'] === 'abierto' ? (Abandono::huboIntervencion($t) === [] ? 'borrar' : 'abandonar') : null,
         ]);
     }
 
@@ -747,15 +756,191 @@ final class TramiteController extends TitulacionBase
         exit;
     }
 
+    /** Ruta anterior («Cancelar este trámite»): ahora lleva a la confirmación para borrarlo o dejarlo en pausa. */
     public function cancelar(string $id): void
     {
-        $t = $this->tramite($id);
-        if (!TitulacionAccess::puedeEditar($t)) {
-            $this->prohibido('Cancelación de trámite ajeno o cerrado');
+        $this->propio($id);
+        redirigir('titulacion/licenciatura/tramite/' . (int) $id . '/dejar');
+    }
+
+    // --------------------------------------------- dejar (borrar o pausar) y retomar
+
+    /** Trámite del pasante con sesión; a cualquier otra persona (personal incluido) le responde 404. */
+    private function propio(string $id): array
+    {
+        $t = ctype_digit($id) ? TitulacionRepository::obtener((int) $id) : null;
+        if ($t === null || !TitulacionAccess::esDueno($t) || $t['nivel'] !== 'licenciatura') {
+            $this->noEncontrado();
         }
-        Database::ejecutar("UPDATE tit_tramites SET estado = 'cancelado' WHERE id = ?", [(int) $t['id']]);
-        TitulacionRepository::evento((int) $t['id'], Auth::id(), 'cancelacion', 'El pasante canceló el trámite');
-        flash('exito', 'Trámite cancelado. Puedes iniciar otro cuando quieras.');
+        return $t;
+    }
+
+    /** @var array<string,string> folio => 'borrado'|'abandonado' de lo que se dejó en esta petición */
+    private array $dejados = [];
+
+    /**
+     * Deja (borra o pausa) los trámites activos tras la confirmación de la pantalla «cambio». Si mientras tanto cambió
+     * cuáles están activos o lo que les pasaría, vuelve a la confirmación sin tocar nada.
+     */
+    private function dejarActivos(array $activos, string $volver, string $motivo): void
+    {
+        if ($this->post('entiendo') !== '1') {
+            flash('error', 'Marca la casilla «Entiendo…» para confirmar.');
+            redirigir($volver);
+        }
+        $esperado = is_array($_POST['plan'] ?? null) ? $_POST['plan'] : [];
+        $planes = [];
+        foreach ($activos as $a) {
+            $a = TitulacionRepository::obtener((int) $a['id']);
+            $planes[] = [$a, Abandono::plan($a)];
+            if (($esperado[(string) $a['id']] ?? '') !== $planes[array_key_last($planes)][1]['accion']) {
+                flash('error', 'Algo cambió mientras confirmabas. Revisa de nuevo qué pasará con tu trámite actual.');
+                redirigir($volver);
+            }
+        }
+        if (count($esperado) !== count($planes)) {
+            flash('error', 'Algo cambió mientras confirmabas. Revisa de nuevo qué pasará con tu trámite actual.');
+            redirigir($volver);
+        }
+        foreach ($planes as [$a]) {
+            try {
+                $this->dejados[(string) $a['folio']] = Abandono::dejar($a, Auth::id(), $motivo);
+            } catch (RuntimeException $e) {
+                flash('error', $e->getMessage());
+                redirigir($volver);
+            }
+        }
+    }
+
+    private function resumenDejados(): string
+    {
+        $partes = [];
+        foreach ($this->dejados as $folio => $que) {
+            $partes[] = 'Tu trámite ' . $folio . ($que === 'borrado' ? ' se borró.' : ' quedó en «Abandonadas».');
+        }
+        return implode(' ', $partes);
+    }
+
+    /** Confirmación para borrar o dejar en pausa el trámite. */
+    public function dejarForm(string $id): void
+    {
+        $this->privado();
+        $t = $this->propio($id);
+        if (($imp = Abandono::impedimento($t)) !== null) {
+            flash('error', $imp);
+            redirigir('titulacion/licenciatura/tramite/' . (int) $t['id']);
+        }
+        $plan = Abandono::plan($t);
+        $this->vista('dejar', [
+            'titulo' => $plan['accion'] === 'borrar' ? 'Borrar mi trámite' : 'Dejar mi trámite en pausa',
+            't' => $t, 'plan' => $plan, 'nombre' => Abandono::nombreModalidad($t),
+        ]);
+    }
+
+    public function dejar(string $id): void
+    {
+        $t = $this->propio($id);
+        $volver = 'titulacion/licenciatura/tramite/' . (int) $t['id'] . '/dejar';
+        if (($imp = Abandono::impedimento($t)) !== null) {
+            flash('error', $imp);
+            redirigir('titulacion/licenciatura/tramite/' . (int) $t['id']);
+        }
+        if ($this->post('entiendo') !== '1') {
+            flash('error', 'Marca la casilla «Entiendo…» para confirmar.');
+            redirigir($volver);
+        }
+        if ($this->post('accion') !== Abandono::plan($t)['accion']) {
+            flash('error', 'Algo cambió mientras confirmabas. Revisa de nuevo qué pasará con tu trámite.');
+            redirigir($volver);
+        }
+        try {
+            $r = Abandono::dejar($t, Auth::id());
+        } catch (RuntimeException $e) {
+            flash('error', $e->getMessage());
+            redirigir($volver);
+        }
+        flash('exito', $r === 'borrado'
+            ? 'Borramos tu trámite «' . Abandono::nombreModalidad($t) . '» (' . $t['folio'] . '). Puedes elegir otra opción cuando quieras.'
+            : 'Tu trámite «' . Abandono::nombreModalidad($t) . '» quedó en pausa. Lo encuentras en «Abandonadas» y puedes retomarlo cuando quieras.');
         redirigir('titulacion/licenciatura');
+    }
+
+    /** Confirmación para retomar un trámite en pausa (dice qué pasará con el que esté activo). */
+    public function retomarForm(string $id): void
+    {
+        $this->privado();
+        $t = $this->propio($id);
+        if ($t['estado'] !== 'abandonado') {
+            redirigir('titulacion/licenciatura/tramite/' . (int) $t['id']);
+        }
+        $this->vista('cambio', [
+            'titulo' => 'Retomar mi trámite',
+            'modo' => 'retomar', 'destino' => $t, 'destinoNombre' => Abandono::nombreModalidad($t),
+            'accion' => 'titulacion/licenciatura/tramite/' . (int) $t['id'] . '/retomar',
+            'volver' => 'titulacion/licenciatura',
+            'actuales' => $this->planesActivos(), 'ocultos' => [],
+        ]);
+    }
+
+    public function retomar(string $id): void
+    {
+        $t = $this->propio($id);
+        if ($t['estado'] !== 'abandonado') {
+            flash('error', 'Este trámite no está en pausa.');
+            redirigir('titulacion/licenciatura/tramite/' . (int) $t['id']);
+        }
+        $volver = 'titulacion/licenciatura/tramite/' . (int) $t['id'] . '/retomar';
+        $activos = Abandono::activos(Auth::id());
+        if ($activos) {
+            if ($this->post('confirmo') !== '1') {
+                redirigir($volver);
+            }
+            $this->dejarActivos($activos, $volver, 'para retomar ' . $t['folio']);
+        }
+        try {
+            Abandono::retomar($t, Auth::id());
+        } catch (RuntimeException $e) {
+            flash('error', $e->getMessage());
+            redirigir('titulacion/licenciatura');
+        }
+        flash('exito', ($activos ? $this->resumenDejados() . ' ' : '') . 'Retomaste tu trámite justo donde se quedó.');
+        redirigir('titulacion/licenciatura/tramite/' . (int) $t['id']);
+    }
+
+    /** Confirmación de la regla «una modalidad activa a la vez» al iniciar otra. */
+    public function cambio(string $clave): void
+    {
+        $this->privado();
+        $m = Catalogo::modalidad($clave);
+        if ($m === null || !TitulacionAccess::puedeIniciar()) {
+            $this->noEncontrado();
+        }
+        $variante = (string) ($_GET['variante'] ?? '');
+        $variante = isset($m['variantes']) && array_key_exists($variante, $m['variantes']) ? $variante : null;
+        if (isset($m['variantes']) && $variante === null) {
+            redirigir('titulacion/licenciatura/modalidad/' . $clave);
+        }
+        $actuales = $this->planesActivos();
+        if (!$actuales) {
+            redirigir('titulacion/licenciatura/modalidad/' . $clave);
+        }
+        $this->vista('cambio', [
+            'titulo' => 'Iniciar otra opción',
+            'modo' => 'iniciar', 'destino' => null, 'destinoNombre' => $m['nombre'],
+            'accion' => 'titulacion/licenciatura/modalidad/' . $clave,
+            'volver' => 'titulacion/licenciatura/tramite/' . (int) $actuales[0]['t']['id'],
+            'actuales' => $actuales, 'ocultos' => ['acepto' => '1'] + ($variante !== null ? ['variante' => $variante] : []),
+        ]);
+    }
+
+    /** @return array<int,array{t:array,plan:array,nombre:string}> */
+    private function planesActivos(): array
+    {
+        $r = [];
+        foreach (Abandono::activos(Auth::id()) as $a) {
+            $a = TitulacionRepository::obtener((int) $a['id']);
+            $r[] = ['t' => $a, 'plan' => Abandono::plan($a), 'nombre' => Abandono::nombreModalidad($a)];
+        }
+        return $r;
     }
 }

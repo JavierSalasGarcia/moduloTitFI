@@ -139,6 +139,26 @@
 .pos-momento-info h3{margin:0 0 4px;font-size:15px;color:var(--verde-900)}
 .pos-momento-info p{margin:0;font-size:14px;line-height:1.45}
 
+/* Dejar un trámite (borrar o poner en pausa) y retomarlo */
+.estado-abandonado,.estado-cancelado{background:#F3F4F6;color:var(--gris-600);border:1px solid var(--gris-100)}
+.pos-dejar{font-size:14px;color:var(--gris-600)}
+.pos-dejar>summary{cursor:pointer;padding:8px 0;color:var(--gris-600)}
+.pos-dejar>summary:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+.pos-dejar p{margin:4px 0 10px}
+.pos-confirma{max-width:760px;margin:0 auto}
+.pos-confirma h2{margin:0 0 6px;font-size:22px;color:var(--verde-900);line-height:1.25}
+.pos-confirma .pos-lead{font-size:16px;margin:0 0 14px}
+.pos-confirma h3{font-size:15px;margin:16px 0 6px;color:var(--verde-900)}
+.pos-confirma ul{margin:0;padding-left:20px}
+.pos-confirma li{margin:4px 0;line-height:1.45}
+.pos-entiendo{display:flex !important;gap:10px;align-items:flex-start;margin:18px 0 14px;font-size:15px;font-weight:400 !important;line-height:1.4}
+.pos-entiendo input{width:20px;height:20px;margin:1px 0 0;flex:0 0 auto}
+.pos-acciones{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pos-aband{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--gris-100)}
+.pos-aband:first-child{border-top:0}
+.pos-aband p{margin:2px 0 0;font-size:13.5px;color:var(--gris-600)}
+.pos-aband form{margin:0}
+
 .pos-paso a:focus-visible,.pos-momento>summary:focus-visible,.pos-grupo>summary:focus-visible,.pos-contador:focus-visible,.pos-momentos a:focus-visible{outline:3px solid var(--oro);outline-offset:2px;border-radius:6px}
 
 @media (min-width:700px){
@@ -146,7 +166,7 @@
   .pos-miembro{grid-template-columns:24px minmax(0,2fr) minmax(0,1.3fr) minmax(0,1.4fr) auto;align-items:end}
   .pos-miembro label{margin-bottom:0}
   .pos-dl{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .pos-contadores{grid-template-columns:repeat(6,1fr)}
+  .pos-contadores{grid-template-columns:repeat(7,1fr)}
   .pos-tarjetas{grid-template-columns:1fr 1fr}
   .pos-momentos li{font-size:13px}
 }

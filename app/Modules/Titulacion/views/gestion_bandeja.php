@@ -12,6 +12,7 @@ include __DIR__ . '/_estilos.php';
   <div class="stat"><div class="stat-cifra"><?= (int) $resumen['por_validar'] ?></div><div class="stat-etiqueta">Documentos por validar</div></div>
   <div class="stat"><div class="stat-cifra"><?= (int) $resumen['abiertos'] ?></div><div class="stat-etiqueta">Trámites en proceso</div></div>
   <div class="stat"><div class="stat-cifra"><?= (int) $resumen['concluidos'] ?></div><div class="stat-etiqueta">Concluidos</div></div>
+  <a class="stat" href="<?= url('titulacion/gestion?estado=abandonado') ?>" style="text-decoration:none;color:inherit"><div class="stat-cifra"><?= (int) $resumen['abandonados'] ?></div><div class="stat-etiqueta">Abandonados (en pausa)</div></a>
 </div>
 
 <section class="tarjeta">

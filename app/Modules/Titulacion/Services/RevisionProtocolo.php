@@ -66,9 +66,18 @@ final class RevisionProtocolo
         }
     }
 
+    /** Un protocolo cuyo trámite el pasante dejó en pausa no se turna, asigna, recuerda ni dictamina hasta que lo retome. */
+    private static function noEnPausa(array $ronda): void
+    {
+        if (($ronda['tramite_estado'] ?? '') === 'abandonado') {
+            throw new RuntimeException('Este trámite está en pausa: el pasante lo dejó. No se puede continuar hasta que lo retome.');
+        }
+    }
+
     /** Respaldo para el personal: turna a mano un protocolo de una licenciatura que no tenía comité. */
     public static function enviarAComision(array $ronda, int $usuarioId, string $carrera): void
     {
+        self::noEnPausa($ronda);
         if ($ronda['estado'] !== 'recibida') {
             throw new RuntimeException('Este protocolo ya fue turnado.');
         }
@@ -135,6 +144,7 @@ final class RevisionProtocolo
     /** @param int[] $miembroIds @return array{asignados:int,omitidos:int,sin_correo:int} */
     public static function asignar(array $ronda, array $miembroIds, int $usuarioId): array
     {
+        self::noEnPausa($ronda);
         if (!in_array($ronda['estado'], ['en_comision', 'en_evaluacion', 'por_dictaminar'], true)) {
             throw new RuntimeException('Este protocolo no está en tu comisión para asignarse.');
         }
@@ -178,6 +188,7 @@ final class RevisionProtocolo
 
     public static function recordatorio(array $asig, array $ronda): bool
     {
+        self::noEnPausa($ronda);
         if (!in_array($asig['estado'], ['pendiente', 'borrador'], true)) {
             throw new RuntimeException('Esa revisión ya no está pendiente.');
         }
@@ -264,6 +275,9 @@ final class RevisionProtocolo
         if (!in_array($asig['estado'], ['pendiente', 'borrador'], true)) {
             throw new RuntimeException('Esta revisión ya fue firmada o cancelada.');
         }
+        if (($ronda['tramite_estado'] ?? '') === 'abandonado') {
+            throw new RuntimeException('Este trámite está en pausa: no se puede firmar hasta que el pasante lo retome.');
+        }
         if (empty($asig['propuesta']) || $asig['requiere_coord'] === null) {
             throw new InvalidArgumentException('Indica si se aprueba el protocolo y si requiere revisión del coordinador antes de firmar.');
         }
@@ -339,6 +353,7 @@ final class RevisionProtocolo
      */
     public static function dictaminar(array $ronda, array $in, array $usuario, string $codigo): void
     {
+        self::noEnPausa($ronda);
         if (!self::puedeDictaminar($ronda)) {
             throw new RuntimeException('El dictamen se emite cuando todos los revisores terminaron su revisión.');
         }

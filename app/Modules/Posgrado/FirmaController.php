@@ -44,7 +44,20 @@ final class FirmaController extends PosgradoBase
             View::render('posgrado:firma_enlace_invalido', ['titulo' => 'Enlace no disponible', 'seccion' => 'Posgrado'], 'publico');
             exit;
         }
+        $this->siEnPausa((int) $f['tramite_id']);
         return $f;
+    }
+
+    /** Enlaces de un trámite que el egresado dejó en pausa: no permiten firmar ni descargar hasta que lo retome. */
+    private function siEnPausa(int $tramiteId): void
+    {
+        $t = \App\Core\Database::una('SELECT folio, estado FROM pos_tramites WHERE id = ?', [$tramiteId]);
+        if ($t === null || $t['estado'] !== 'abandonado') {
+            return;
+        }
+        Audit::record('posgrado::enlace_en_pausa', 'denegado', 'Trámite ' . $tramiteId);
+        View::render('posgrado:firma_en_pausa', ['titulo' => 'Trámite en pausa', 'seccion' => 'Posgrado', 'folio' => $t['folio']], Auth::usuario() ? 'app' : 'publico');
+        exit;
     }
 
     /** Firma pedida al correo de la sesión (por id, sin token). */
@@ -55,6 +68,7 @@ final class FirmaController extends PosgradoBase
         if ($f === null || $f['estado'] === 'cancelada' || $f['enviada_en'] === null || !in_array(strtolower((string) $f['email']), PosgradoAccess::correosSesion(), true)) {
             $this->noEncontrado();
         }
+        $this->siEnPausa((int) $f['tramite_id']);
         return $f;
     }
 

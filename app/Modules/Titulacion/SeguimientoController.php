@@ -13,7 +13,8 @@ final class SeguimientoController extends TitulacionBase
     {
         $this->privado();
         $hist = ($_GET['ver'] ?? '') === 'historico';
-        $estados = $hist ? ['concluido', 'cancelado'] : ['abierto'];
+        // Un trámite en pausa (abandonado) no está en curso: se consulta en el histórico.
+        $estados = $hist ? ['concluido', 'cancelado', 'abandonado'] : ['abierto'];
 
         $propios = array_values(array_filter(TitulacionRepository::delAlumno(Auth::id()), static fn(array $t): bool => in_array($t['estado'], $estados, true)));
 
@@ -30,7 +31,7 @@ final class SeguimientoController extends TitulacionBase
         if (TitulacionAccess::esEvaluador() && $email !== '') {
             $revisiones = array_values(array_filter(
                 RevisionRepository::delEvaluador($email),
-                static fn(array $a): bool => $hist ? $a['estado'] === 'firmada' : in_array($a['estado'], ['pendiente', 'borrador'], true)
+                static fn(array $a): bool => $hist ? $a['estado'] === 'firmada' : in_array($a['estado'], ['pendiente', 'borrador'], true) && $a['tramite_estado'] !== 'abandonado'
             ));
         }
 
@@ -39,6 +40,7 @@ final class SeguimientoController extends TitulacionBase
             $comision = RevisionRepository::rondas([
                 'carreras' => TitulacionAccess::carrerasEncargado(),
                 'estados' => $hist ? ['dictaminada', 'cancelada'] : ['recibida', 'en_comision', 'en_evaluacion', 'por_dictaminar'],
+                'sin_pausa' => !$hist,
             ]);
         }
 

@@ -32,6 +32,7 @@ final class FirmaExternaController extends TitulacionBase
             View::render('titulacion:revisor_enlace_invalido', ['titulo' => 'Enlace no disponible'], 'publico');
             exit;
         }
+        $this->siEnPausa((int) $f['tramite_id']);
         return $f;
     }
 
@@ -42,6 +43,7 @@ final class FirmaExternaController extends TitulacionBase
         if ($f === null || strtolower((string) $f['email']) !== TitulacionAccess::correoSesion()) {
             $this->noEncontrado();
         }
+        $this->siEnPausa((int) $f['tramite_id']);
         return $f;
     }
 

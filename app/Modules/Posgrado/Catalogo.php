@@ -74,7 +74,7 @@ final class Catalogo
 
     public static function estados(): array
     {
-        return ['abierto' => 'En proceso', 'concluido' => 'Concluido', 'cancelado' => 'Cancelado'];
+        return ['abierto' => 'En proceso', 'concluido' => 'Concluido', 'cancelado' => 'Cancelado', 'abandonado' => 'Abandonado (en pausa)'];
     }
 
     /** Los cuatro momentos, como se muestran al egresado. */

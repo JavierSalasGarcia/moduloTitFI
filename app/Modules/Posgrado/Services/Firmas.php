@@ -532,6 +532,9 @@ final class Firmas
         }
         $g = PosgradoRepository::generado((int) $f['generado_id']);
         $t = PosgradoRepository::obtener((int) $f['tramite_id']);
+        if ($t && $t['estado'] === 'abandonado') {
+            throw new RuntimeException('Este trámite está en pausa: no se puede firmar hasta que el egresado lo retome.');
+        }
         if (!$g || (int) $g['vigente'] !== 1 || !$t || $t['estado'] !== 'abierto') {
             throw new RuntimeException('El documento ya no está vigente.');
         }

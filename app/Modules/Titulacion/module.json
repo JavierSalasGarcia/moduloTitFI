@@ -337,6 +337,14 @@
       "App\\Modules\\Titulacion\\TramiteController",
       "modalidad"
     ],
+    "GET /titulacion/manuales": [
+      "App\\Modules\\Titulacion\\ManualesController",
+      "index"
+    ],
+    "GET /titulacion/manual/{actor}/{opcion}": [
+      "App\\Modules\\Titulacion\\ManualesController",
+      "descargar"
+    ],
     "POST /titulacion/licenciatura/modalidad/{clave}": [
       "App\\Modules\\Titulacion\\TramiteController",
       "crear"
@@ -376,6 +384,26 @@
     "POST /titulacion/licenciatura/tramite/{id}/cancelar": [
       "App\\Modules\\Titulacion\\TramiteController",
       "cancelar"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/dejar": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "dejarForm"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/dejar": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "dejar"
+    ],
+    "GET /titulacion/licenciatura/tramite/{id}/retomar": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "retomarForm"
+    ],
+    "POST /titulacion/licenciatura/tramite/{id}/retomar": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "retomar"
+    ],
+    "GET /titulacion/licenciatura/modalidad/{clave}/cambio": [
+      "App\\Modules\\Titulacion\\TramiteController",
+      "cambio"
     ],
     "GET /titulacion/expedientes": [
       "App\\Modules\\Titulacion\\ExpedienteFinalController",

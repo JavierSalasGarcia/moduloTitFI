@@ -7,6 +7,7 @@ use App\Core\App;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Controller;
+use App\Core\Database;
 use App\Core\View;
 
 /** Utilidades compartidas por los controladores del módulo. */
@@ -32,6 +33,22 @@ abstract class TitulacionBase extends Controller
         Audit::record('titulacion::acceso', 'denegado', $detalle);
         http_response_code(403);
         View::render('errores/403', ['titulo' => 'Acceso restringido']);
+        exit;
+    }
+
+    /**
+     * Enlaces de firma y revisión de un trámite que el pasante dejó en pausa: muestran «este trámite está en pausa» y no
+     * permiten firmar, revisar ni descargar. Vuelven a funcionar en cuanto lo retome (si no vencieron).
+     */
+    protected function siEnPausa(int $tramiteId): void
+    {
+        $t = Database::una('SELECT folio, estado FROM tit_tramites WHERE id = ?', [$tramiteId]);
+        if ($t === null || $t['estado'] !== 'abandonado') {
+            return;
+        }
+        $this->privado();
+        Audit::record('titulacion::enlace_en_pausa', 'denegado', 'Trámite ' . $tramiteId);
+        View::render('titulacion:tramite_en_pausa', ['titulo' => 'Trámite en pausa', 'folio' => $t['folio']], Auth::usuario() ? 'app' : 'publico');
         exit;
     }
 
@@ -63,7 +80,7 @@ abstract class TitulacionBase extends Controller
     {
         $t = TitulacionRepository::obtener($id);
         [$flujo] = $this->evaluar($t);
-        if ($t['estado'] !== 'cancelado') {
+        if (!in_array($t['estado'], ['cancelado', 'abandonado'], true)) {   // en pausa: el avance queda congelado
             $etapas = $flujo['etapas'];
             $ultima = $etapas ? $etapas[array_key_last($etapas)]['clave'] : 'datos';
             $actual = $flujo['actual'] ?? $ultima;

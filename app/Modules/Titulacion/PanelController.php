@@ -230,27 +230,27 @@ final class PanelController extends TitulacionBase
             $add('Firma', 'Firmar ' . Services\FirmasExternas::queSeFirma((string) $f['clave'])[0], 'titulacion/firma/mia/' . (int) $f['id'], (int) $f['tramite_id'], $f['folio'], $f['creado_en']);
         }
         foreach (RevisionRepository::delEvaluador($email) as $a) {
-            if (in_array($a['estado'], ['pendiente', 'borrador'], true)) {
+            if (in_array($a['estado'], ['pendiente', 'borrador'], true) && $a['tramite_estado'] !== 'abandonado') {
                 $add('Revisión', 'Revisar el protocolo de ' . $a['alumno_nombre'] . ' (límite ' . date('d/m/Y', strtotime((string) $a['fecha_limite'])) . ')', 'titulacion/revision/' . (int) $a['id'], (int) $a['tramite_id'], $a['folio'], $a['asignada_en']);
             }
         }
         $carreras = TitulacionAccess::carrerasEncargado();
         if ($carreras) {
-            foreach (RevisionRepository::rondas(['carreras' => $carreras, 'estados' => ['en_comision', 'por_dictaminar']]) as $r) {
+            foreach (RevisionRepository::rondas(['carreras' => $carreras, 'estados' => ['en_comision', 'por_dictaminar'], 'sin_pausa' => true]) as $r) {
                 $add('Comité', ($r['estado'] === 'en_comision' ? 'Enviar a revisores o resolver' : 'Revisiones completas: enviar el resultado') . ' · ' . $r['alumno_nombre'], 'titulacion/comision/' . (int) $r['id'], (int) $r['tramite_id'], $r['folio'], $r['fecha_recepcion']);
             }
         }
-        foreach (Database::todas("SELECT a.*, t.folio FROM tit_asignaciones_jurado a JOIN tit_tramites t ON t.id = a.tramite_id WHERE a.coord_email = ? AND a.estado = 'solicitada' ORDER BY a.id", [$email]) as $a) {
+        foreach (Database::todas("SELECT a.*, t.folio FROM tit_asignaciones_jurado a JOIN tit_tramites t ON t.id = a.tramite_id WHERE a.coord_email = ? AND a.estado = 'solicitada' AND t.estado = 'abierto' ORDER BY a.id", [$email]) as $a) {
             $add('Sínodo', 'Ratificar o modificar el sínodo del ' . (Services\Oficios::EXAMEN[$a['tipo']] ?? 'examen') . ' del ' . Services\Oficios::fecha($a['fecha']), 'titulacion/jurado/mia/' . (int) $a['id'], (int) $a['tramite_id'], $a['folio'], $a['creado_en']);
         }
-        foreach (Database::todas("SELECT s.*, a.tipo, a.fecha, t.folio FROM tit_sinodales s JOIN tit_asignaciones_jurado a ON a.id = s.asignacion_id JOIN tit_tramites t ON t.id = s.tramite_id WHERE s.email = ? AND s.estado = 'pendiente' ORDER BY s.id", [$email]) as $s) {
+        foreach (Database::todas("SELECT s.*, a.tipo, a.fecha, t.folio FROM tit_sinodales s JOIN tit_asignaciones_jurado a ON a.id = s.asignacion_id JOIN tit_tramites t ON t.id = s.tramite_id WHERE s.email = ? AND s.estado = 'pendiente' AND t.estado = 'abierto' ORDER BY s.id", [$email]) as $s) {
             $add('Oficio', 'Firmar de recibido el oficio del ' . (Services\Oficios::EXAMEN[$s['tipo']] ?? 'examen') . ' del ' . Services\Oficios::fecha($s['fecha']), 'titulacion/sinodal/mio/' . (int) $s['id'], (int) $s['tramite_id'], $s['folio'], $s['enviado_en']);
         }
         if (Services\SubdireccionFirma::puedeFirmar() && ($n = count(Services\SubdireccionFirma::pendientes())) > 0) {
             $add('Firmas', $n . ' documento(s) esperan tu firma electrónica', 'titulacion/firmas', null, null);
         }
         if (TitulacionAccess::esPersonal()) {
-            $porValidar = (int) Database::valor("SELECT COUNT(DISTINCT tramite_id) FROM tit_documentos WHERE origen = 'alumno' AND estado = 'en_revision' AND pendiente_firmas = 0");
+            $porValidar = (int) Database::valor("SELECT COUNT(DISTINCT d.tramite_id) FROM tit_documentos d JOIN tit_tramites t ON t.id = d.tramite_id WHERE d.origen = 'alumno' AND d.estado = 'en_revision' AND d.pendiente_firmas = 0 AND t.estado = 'abierto'");
             if ($porValidar > 0) {
                 $add('Validación', $porValidar . ' trámite(s) con documentos por validar', 'titulacion/gestion?pendientes=1', null, null);
             }

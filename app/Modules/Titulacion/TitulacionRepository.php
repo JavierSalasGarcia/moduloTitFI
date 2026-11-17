@@ -47,10 +47,11 @@ final class TitulacionRepository
         }
     }
 
+    /** Un trámite en pausa (abandonado) o cancelado conserva su estado: solo el pasante lo retoma (Services\Abandono). */
     public static function actualizarAvance(int $id, string $etapa, string $estado, ?string $resultado = null): void
     {
         Database::ejecutar(
-            'UPDATE tit_tramites SET etapa_actual = ?, estado = ?, resultado = COALESCE(?, resultado) WHERE id = ?',
+            "UPDATE tit_tramites SET etapa_actual = ?, estado = IF(estado IN ('abandonado','cancelado'), estado, ?), resultado = COALESCE(?, resultado) WHERE id = ?",
             [$etapa, $estado, $resultado, $id]
         );
     }
@@ -81,7 +82,8 @@ final class TitulacionRepository
             $p[] = $f['nivel'];
         }
         if (!empty($f['pendientes'])) {
-            $donde[] = 'EXISTS (SELECT 1 FROM tit_documentos d WHERE d.tramite_id = t.id AND d.estado = \'en_revision\' AND d.origen = \'alumno\')';
+            // Un trámite en pausa no es pendiente del personal.
+            $donde[] = "t.estado = 'abierto' AND EXISTS (SELECT 1 FROM tit_documentos d WHERE d.tramite_id = t.id AND d.estado = 'en_revision' AND d.origen = 'alumno')";
         }
         if (($f['q'] ?? '') !== '') {
             $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], (string) $f['q']) . '%';
@@ -89,9 +91,9 @@ final class TitulacionRepository
             array_push($p, $like, $like, $like, $like);
         }
         return Database::todas(
-            "SELECT t.id, t.folio, t.modalidad, t.tipo, t.estado, t.etapa_actual, t.titulo, t.resultado, t.actualizado_en,
+            "SELECT t.id, t.folio, t.modalidad, t.tipo, t.estado, t.etapa_actual, t.titulo, t.resultado, t.actualizado_en, t.abandonado_en,
                     u.nombre AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre,
-                    (SELECT COUNT(*) FROM tit_documentos d WHERE d.tramite_id = t.id AND d.estado = 'en_revision' AND d.origen = 'alumno') AS por_validar
+                    IF(t.estado = 'abierto', (SELECT COUNT(*) FROM tit_documentos d WHERE d.tramite_id = t.id AND d.estado = 'en_revision' AND d.origen = 'alumno'), 0) AS por_validar
              FROM tit_tramites t
              JOIN usuarios u ON u.id = t.alumno_id
              LEFT JOIN usuarios r ON r.id = t.responsable_id
@@ -106,8 +108,9 @@ final class TitulacionRepository
     {
         return [
             'abiertos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'abierto'"),
-            'por_validar' => (int) Database::valor("SELECT COUNT(*) FROM tit_documentos WHERE estado = 'en_revision' AND origen = 'alumno'"),
+            'por_validar' => (int) Database::valor("SELECT COUNT(*) FROM tit_documentos d JOIN tit_tramites t ON t.id = d.tramite_id WHERE d.estado = 'en_revision' AND d.origen = 'alumno' AND t.estado = 'abierto'"),
             'concluidos' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'concluido' AND historico = 0"),
+            'abandonados' => (int) Database::valor("SELECT COUNT(*) FROM tit_tramites WHERE estado = 'abandonado'"),
         ];
     }
 

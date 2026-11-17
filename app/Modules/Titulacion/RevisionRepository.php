@@ -93,12 +93,16 @@ final class RevisionRepository
     }
 
     /**
-     * Rondas con su avance de evaluadores. $filtros: estados (array), carreras (array).
+     * Rondas con su avance de evaluadores. $filtros: estados (array), carreras (array), sin_pausa (bool: sin las rondas
+     * abiertas de trámites que el pasante dejó en pausa; no son pendientes de nadie).
      */
     public static function rondas(array $filtros = []): array
     {
         $donde = ['1 = 1'];
         $p = [];
+        if (!empty($filtros['sin_pausa'])) {
+            $donde[] = "(t.estado <> 'abandonado' OR r.estado IN ('dictaminada','cancelada'))";
+        }
         foreach (['estados' => 'r.estado', 'carreras' => 'r.carrera'] as $k => $col) {
             if (!empty($filtros[$k])) {
                 $donde[] = $col . ' IN (' . implode(',', array_fill(0, count($filtros[$k]), '?')) . ')';
@@ -106,7 +110,7 @@ final class RevisionRepository
             }
         }
         return Database::todas(
-            "SELECT r.*, t.folio, t.titulo, t.modalidad, u.nombre AS alumno_nombre,
+            "SELECT r.*, t.folio, t.titulo, t.modalidad, t.estado AS tramite_estado, u.nombre AS alumno_nombre,
                     (SELECT COUNT(*) FROM tit_revision_asignaciones a WHERE a.revision_id = r.id AND a.estado <> 'cancelada') AS total,
                     (SELECT COUNT(*) FROM tit_revision_asignaciones a WHERE a.revision_id = r.id AND a.estado = 'firmada') AS firmadas,
                     (SELECT MIN(a.fecha_limite) FROM tit_revision_asignaciones a WHERE a.revision_id = r.id AND a.estado IN ('pendiente','borrador')) AS limite_pendiente
@@ -208,7 +212,7 @@ final class RevisionRepository
     public static function delEvaluador(string $email): array
     {
         return Database::todas(
-            "SELECT a.*, m.carrera, r.numero, r.estado AS ronda_estado, t.folio, t.titulo, t.modalidad, u.nombre AS alumno_nombre
+            "SELECT a.*, m.carrera, r.numero, r.estado AS ronda_estado, t.folio, t.titulo, t.modalidad, t.id AS tramite_id, t.estado AS tramite_estado, u.nombre AS alumno_nombre
              FROM tit_revision_asignaciones a
              JOIN tit_comision_miembros m ON m.id = a.miembro_id
              JOIN tit_revisiones r ON r.id = a.revision_id

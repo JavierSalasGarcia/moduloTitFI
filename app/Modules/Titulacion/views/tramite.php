@@ -125,6 +125,19 @@ $resumenEtapa = static function (array $x, int $i) use ($nEtapas, $frase, $urlEt
 </div>
 <?php endif; ?>
 
+<?php if ($t['estado'] === 'abandonado'): ?>
+<section class="tit-siguiente espera" aria-labelledby="tit-sig-t">
+  <p class="tit-sobre">Trámite en pausa</p>
+  <h2 id="tit-sig-t">Dejaste este trámite en pausa</h2>
+  <p>Lo dejaste<?= !empty($t['abandonado_en']) ? ' el ' . e(fecha_corta((string) $t['abandonado_en'])) : '' ?><?= $act ? ' cuando ibas en «' . e($act['titulo']) . '»' : '' ?>. Todo lo que llevas se conserva tal como estaba; mientras siga en pausa nadie puede firmar ni revisar nada en él.</p>
+  <?php if ($esDueno): ?>
+  <form method="post" action="<?= url($base . '/retomar') ?>">
+    <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+    <button class="tit-boton" type="submit">Retomar este trámite</button>
+  </form>
+  <?php endif; ?>
+</section>
+<?php else: ?>
 <section class="tit-siguiente <?= $sig['turno'] === 'alumno' ? '' : ($sig['turno'] === 'listo' ? 'listo' : 'espera') ?>" aria-labelledby="tit-sig-t">
   <p class="tit-sobre">Tu siguiente paso<?= $act ? ' · Etapa ' . ($idxActual + 1) . ' de ' . $nEtapas : '' ?></p>
   <h2 id="tit-sig-t"><?= e($sig['titulo']) ?></h2>
@@ -132,6 +145,7 @@ $resumenEtapa = static function (array $x, int $i) use ($nEtapas, $frase, $urlEt
   <?php elseif ($sig['texto'] !== ''): ?><p><?= e($sig['texto']) ?></p><?php endif; ?>
   <?php if ($sig['boton']): ?><a class="tit-boton" href="<?= $sig['href'] ?>"><?= e($sig['boton']) ?></a><?php endif; ?>
 </section>
+<?php endif; ?>
 
 <nav aria-label="Avance por etapas">
   <ol class="tit-progreso">
@@ -407,16 +421,17 @@ $resumenEtapa = static function (array $x, int $i) use ($nEtapas, $frase, $urlEt
   </section>
   <?php endif; ?>
 
-  <?php if ($puedeEditar): ?>
-  <section class="tarjeta">
-    <details>
-      <summary>Cancelar este trámite</summary>
-      <form method="post" action="<?= url($base . '/cancelar') ?>" onsubmit="return confirm('¿Cancelar el trámite? Tus datos se conservan, pero tendrás que iniciar otro.')" style="margin-top:10px">
-        <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-        <button class="btn btn-peligro btn-mini" type="submit">Sí, cancelar mi trámite</button>
-      </form>
-    </details>
-  </section>
+  <?php if ($dejar !== null): ?>
+  <details class="tit-dejar">
+    <summary>¿Elegiste otra modalidad o quieres dejar este trámite?</summary>
+    <?php if ($dejar === 'borrar'): ?>
+      <p>Nadie más ha intervenido en tu trámite, así que puedes borrarlo definitivamente y elegir otra opción. Antes de borrar te diremos exactamente qué se pierde.</p>
+      <a class="btn btn-mini" href="<?= url($base . '/dejar') ?>">Borrar este trámite</a>
+    <?php else: ?>
+      <p>Otras personas ya intervinieron en tu trámite, así que no se puede borrar. Puedes dejarlo en pausa: se conserva todo y podrás retomarlo donde se quedó. Antes te diremos por qué y qué se conserva.</p>
+      <a class="btn btn-mini" href="<?= url($base . '/dejar') ?>">Dejar en pausa (abandonar)</a>
+    <?php endif; ?>
+  </details>
   <?php endif; ?>
 </div>
 

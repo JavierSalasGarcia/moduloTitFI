@@ -50,10 +50,11 @@ foreach ($etapas as $et) {
 
       <?php if (!$puedeIniciar): ?>
         <p class="texto-secundario" style="margin-top:12px">Inicia sesión con tu cuenta de pasante para comenzar.</p>
-      <?php elseif ($abierto): ?>
-        <p class="tit-aviso" style="margin-top:12px">Ya tienes el trámite <strong><?= e($abierto['folio']) ?></strong> en proceso. Termínalo o cancélalo para iniciar otro.</p>
-        <a class="btn btn-primario" href="<?= url('titulacion/licenciatura/tramite/' . (int) $abierto['id']) ?>">Continuar mi trámite</a>
       <?php else: ?>
+        <?php if ($abierto): $nomAbierto = \App\Modules\Titulacion\Catalogo::modalidad((string) $abierto['modalidad'])['nombre'] ?? $abierto['modalidad']; ?>
+        <p class="tit-aviso" style="margin-top:12px">Ya tienes en proceso «<?= e($nomAbierto) ?>» (folio <strong><?= e($abierto['folio']) ?></strong>). Solo puede haber una modalidad activa: si inicias esta, antes te diremos qué pasará con aquel trámite y te pediremos confirmarlo.</p>
+        <a class="tit-boton" href="<?= url('titulacion/licenciatura/tramite/' . (int) $abierto['id']) ?>">Continuar con «<?= e($nomAbierto) ?>»</a>
+        <?php endif; ?>
         <form class="formulario" style="margin-top:12px" method="post" action="<?= url('titulacion/licenciatura/modalidad/' . $clave) ?>">
           <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
           <?php if (!empty($m['variantes'])): ?>
@@ -67,10 +68,40 @@ foreach ($etapas as $et) {
           <?php endif; ?>
           <label style="display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="acepto" value="1" required>
             <span>Leí el <a href="<?= url('titulacion/licenciatura/blanco/privacidad') ?>">aviso de privacidad</a> y acepto que mis datos y documentos se usen para este trámite.</span></label>
-          <div class="acciones-formulario"><button class="tit-boton" type="submit">Iniciar mi trámite</button></div>
+          <div class="acciones-formulario"><button class="<?= $abierto ? 'btn' : 'tit-boton' ?>" type="submit"><?= $abierto ? 'Iniciar esta opción en su lugar' : 'Iniciar mi trámite' ?></button></div>
         </form>
       <?php endif; ?>
     </section>
+
+    <?php
+    // Manual de la opción: se descarga sin iniciar nada (también personal y profesores). Si la pantalla ya ofrece
+    // «Iniciar mi trámite», ese sigue siendo el único botón primario y la descarga va con estilo secundario.
+    $manActores = \App\Modules\Titulacion\Services\Manuales::actoresDe($clave);
+    $manOtros = array_values(array_filter($manActores, static fn(string $a): bool => $a !== 'pasante' && \App\Modules\Titulacion\Services\Manuales::existe($a, $clave)));
+    $manPasante = \App\Modules\Titulacion\Services\Manuales::existe('pasante', $clave);
+    ?>
+    <?php if ($manPasante || $manOtros): ?>
+    <section class="tarjeta tit-manual" id="manual" aria-labelledby="tit-man-t" style="margin-bottom:18px">
+      <h2 id="tit-man-t">Manual de esta opción</h2>
+      <p style="margin:0 0 10px">Con pantallas reales, lo que harás etapa por etapa. Descárgalo aunque todavía no inicies tu trámite.</p>
+      <?php if ($manPasante): ?>
+        <a class="<?= $puedeIniciar ? 'btn' : 'tit-boton' ?>" href="<?= url(\App\Modules\Titulacion\Services\Manuales::url('pasante', $clave)) ?>" download>Descargar el manual del pasante (PDF)</a>
+      <?php endif; ?>
+      <?php if ($manOtros): ?>
+      <details class="tit-pliegue" style="margin:12px 0 0">
+        <summary>Manuales para otros participantes</summary>
+        <div class="tit-cuerpo">
+          <ul class="tit-lista-simple" style="margin:0">
+            <?php foreach ($manOtros as $a): ?>
+              <li><a href="<?= url(\App\Modules\Titulacion\Services\Manuales::url($a, $clave)) ?>" download><?= e(\App\Modules\Titulacion\Services\Manuales::ACTORES[$a][1]) ?> (PDF)</a></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </details>
+      <?php endif; ?>
+      <p class="texto-secundario" style="margin:10px 0 0;font-size:13px"><a href="<?= url('titulacion/manuales') ?>">Compara las opciones: descarga sus manuales</a></p>
+    </section>
+    <?php endif; ?>
 
     <section class="tarjeta" style="margin-bottom:18px">
       <h2>Así será tu trámite</h2>

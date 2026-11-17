@@ -1,0 +1,6 @@
+# Productos de compilación de los manuales: se regeneran con tools/manuales_publicar.sh
+*/pdf/
+*/latex/.build/
+# Capturas: se regeneran con los recorridos de tools/manual_titulacion y tools/manual_posgrado (datos ficticios; pesan ~55 MB y no se versionan)
+*/img/*.jpg
+*/img/*.png

@@ -30,7 +30,9 @@ final class RevisionController extends TitulacionBase
         }
         $this->vista('revisor_lista', [
             'titulo' => 'Titulación · Protocolos por evaluar',
-            'asignaciones' => $this->decorarAsignaciones(RevisionRepository::delEvaluador(TitulacionAccess::correoSesion())),
+            // Las pendientes de un trámite en pausa no se muestran: no se pueden evaluar hasta que el pasante lo retome.
+            'asignaciones' => $this->decorarAsignaciones(array_values(array_filter(RevisionRepository::delEvaluador(TitulacionAccess::correoSesion()),
+                static fn(array $a): bool => !($a['tramite_estado'] === 'abandonado' && in_array($a['estado'], ['pendiente', 'borrador'], true))))),
             'carreras' => Catalogo::carreras(),
         ]);
     }
@@ -64,6 +66,7 @@ final class RevisionController extends TitulacionBase
         if (!Auth::usuario() || $a === null || strtolower((string) $a['miembro_email']) !== TitulacionAccess::correoSesion() || $a['estado'] === 'cancelada') {
             $this->noEncontrado();
         }
+        $this->pausaDeRonda($a);
         return $a;
     }
 
@@ -108,7 +111,16 @@ final class RevisionController extends TitulacionBase
             }
             $this->enlaceNoValido();
         }
+        $this->pausaDeRonda($a);
         return $a;
+    }
+
+    /** Una evaluación pendiente de un trámite en pausa no se puede ver ni firmar; las ya firmadas siguen consultables. */
+    private function pausaDeRonda(array $a): void
+    {
+        if (in_array($a['estado'], ['pendiente', 'borrador'], true) && ($r = RevisionRepository::ronda((int) $a['revision_id'])) !== null) {
+            $this->siEnPausa((int) $r['tramite_id']);
+        }
     }
 
     private function enlaceNoValido(): never

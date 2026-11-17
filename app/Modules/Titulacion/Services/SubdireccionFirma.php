@@ -153,6 +153,12 @@ final class SubdireccionFirma
     /** La Subdirección firma después del Vo. Bo.: mientras haya uno pendiente sobre el mismo documento, su solicitud espera. */
     private const SIN_VOBO = "NOT EXISTS (SELECT 1 FROM tit_firmas_subdireccion v WHERE v.documento_id = f.documento_id AND v.rol_firma = 'jefe_titulacion' AND v.estado = 'pendiente' AND v.id <> f.id)";
 
+    /**
+     * Un trámite en pausa (abandonado por el pasante) suspende sus firmas pendientes hasta que lo retome; las constancias
+     * de los profesores no se suspenden: reconocen un trabajo ya hecho.
+     */
+    private const NO_EN_PAUSA = "(f.formato = 'constancia' OR NOT EXISTS (SELECT 1 FROM tit_tramites tp WHERE tp.id = f.tramite_id AND tp.estado = 'abandonado'))";
+
     /** Lo que le toca firmar a quien tiene la sesión, según su cargo (el asistente ve lo del Subdirector). */
     public static function pendientes(): array
     {
@@ -164,7 +170,7 @@ final class SubdireccionFirma
         return Database::todas(
             "SELECT f.*, t.folio, t.modalidad, COALESCE(u.nombre, JSON_UNQUOTE(JSON_EXTRACT(t.datos, '$.datos.nombre'))) AS alumno_nombre
              FROM tit_firmas_subdireccion f JOIN tit_tramites t ON t.id = f.tramite_id LEFT JOIN usuarios u ON u.id = t.alumno_id
-             WHERE f.estado = 'pendiente' AND f.rol_firma IN ($marcas) AND " . self::SIN_VOBO . ' ORDER BY f.creado_en',
+             WHERE f.estado = 'pendiente' AND f.rol_firma IN ($marcas) AND " . self::NO_EN_PAUSA . ' AND ' . self::SIN_VOBO . ' ORDER BY f.creado_en',
             $roles
         );
     }
@@ -186,6 +192,9 @@ final class SubdireccionFirma
         $s = Database::una("SELECT * FROM tit_firmas_subdireccion f WHERE f.id = ? AND f.estado = 'pendiente' AND " . self::SIN_VOBO, [$solicitudId]);
         if (!$s) {
             throw new RuntimeException('La solicitud ya no está pendiente o aún espera el Vo. Bo.');
+        }
+        if (!Database::valor("SELECT 1 FROM tit_firmas_subdireccion f WHERE f.id = ? AND " . self::NO_EN_PAUSA, [$solicitudId])) {
+            throw new RuntimeException('Este trámite está en pausa: el pasante lo dejó y sus firmas quedan suspendidas hasta que lo retome.');
         }
         $rol = (string) ($s['rol_firma'] ?? 'subdirector');
         $doc = $s['documento_id'] ? TitulacionRepository::documento((int) $s['documento_id']) : null;
@@ -237,7 +246,7 @@ final class SubdireccionFirma
     public static function sincronizar(int $id): void
     {
         $t = TitulacionRepository::obtener($id);
-        if (!$t || $t['estado'] === 'cancelado' || !empty($t['historico'])) {
+        if (!$t || in_array($t['estado'], ['cancelado', 'abandonado'], true) || !empty($t['historico'])) {
             return;   // los trámites históricos (importados del libro de actas) no siguen el flujo
         }
         $flujo = Flujo::evaluar($t, TitulacionRepository::documentosVigentes($id), TitulacionRepository::hitos($id));
@@ -292,7 +301,7 @@ final class SubdireccionFirma
         $marcas = implode(',', array_fill(0, count($formatos), '?'));
         $filas = Database::todas(
             "SELECT f.id FROM tit_firmas_subdireccion f WHERE f.estado = 'pendiente' AND f.rol_firma = 'subdirector' AND f.formato IN ($marcas)
-               AND f.creado_en <= ? AND f.creado_en >= ? AND " . self::SIN_VOBO . ' ORDER BY f.creado_en LIMIT 25',
+               AND f.creado_en <= ? AND f.creado_en >= ? AND " . self::NO_EN_PAUSA . ' AND ' . self::SIN_VOBO . ' ORDER BY f.creado_en LIMIT 25',
             [...array_values($formatos), date('Y-m-d H:i:s', time() - (int) $p['retraso_min'] * 60), $p['inicio']]
         );
         $hechas = 0;

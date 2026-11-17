@@ -87,9 +87,10 @@ final class PosgradoRepository
         );
     }
 
+    /** Un trámite en pausa (abandonado) o cancelado conserva su estado: solo el egresado lo retoma (Services\Abandono). */
     public static function actualizarAvance(int $id, int $momento, string $estado, ?string $resultado): void
     {
-        Database::ejecutar('UPDATE pos_tramites SET momento = ?, estado = ?, resultado = ? WHERE id = ?', [$momento, $estado, $resultado, $id]);
+        Database::ejecutar("UPDATE pos_tramites SET momento = ?, estado = IF(estado IN ('abandonado','cancelado'), estado, ?), resultado = ? WHERE id = ?", [$momento, $estado, $resultado, $id]);
     }
 
     public static function asignarResponsable(int $id, int $usuarioId): void
@@ -100,7 +101,7 @@ final class PosgradoRepository
     public static function delAlumno(int $alumnoId): array
     {
         return Database::todas(
-            'SELECT id, folio, nivel, modalidad, titulo, momento, estado, resultado, creado_en, actualizado_en
+            'SELECT id, folio, nivel, modalidad, titulo, momento, estado, resultado, creado_en, actualizado_en, abandonado_en
              FROM pos_tramites WHERE alumno_id = ? ORDER BY creado_en DESC',
             [$alumnoId]
         );
@@ -129,7 +130,8 @@ final class PosgradoRepository
             $p[] = $f['nivel'];
         }
         if (!empty($f['pendientes'])) {
-            $donde[] = "EXISTS (SELECT 1 FROM pos_documentos d WHERE d.tramite_id = t.id AND d.estado = 'subido')";
+            // Un trámite en pausa no es pendiente del personal.
+            $donde[] = "t.estado = 'abierto' AND EXISTS (SELECT 1 FROM pos_documentos d WHERE d.tramite_id = t.id AND d.estado = 'subido')";
         }
         if (($f['q'] ?? '') !== '') {
             $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], (string) $f['q']) . '%';
@@ -137,9 +139,9 @@ final class PosgradoRepository
             array_push($p, $like, $like, $like, $like);
         }
         return Database::todas(
-            "SELECT t.id, t.folio, t.nivel, t.modalidad, t.titulo, t.momento, t.estado, t.resultado, t.actualizado_en,
+            "SELECT t.id, t.folio, t.nivel, t.modalidad, t.titulo, t.momento, t.estado, t.resultado, t.actualizado_en, t.abandonado_en,
                     u.nombre AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre,
-                    (SELECT COUNT(*) FROM pos_documentos d WHERE d.tramite_id = t.id AND d.estado = 'subido') AS por_validar,
+                    IF(t.estado = 'abierto', (SELECT COUNT(*) FROM pos_documentos d WHERE d.tramite_id = t.id AND d.estado = 'subido'), 0) AS por_validar,
                     (SELECT COUNT(*) FROM pos_firmas f JOIN pos_generados g ON g.id = f.generado_id AND g.vigente = 1
                       WHERE f.tramite_id = t.id AND f.documento = 'visto_bueno' AND f.estado = 'firmada'
                         AND 'no' IN (JSON_UNQUOTE(JSON_EXTRACT(f.respuestas, '$.concluida')), JSON_UNQUOTE(JSON_EXTRACT(f.respuestas, '$.entregada')), JSON_UNQUOTE(JSON_EXTRACT(f.respuestas, '$.periodo')))) AS respuestas_no,
@@ -160,6 +162,7 @@ final class PosgradoRepository
     {
         $r = ['por_validar' => (int) Database::valor("SELECT COUNT(*) FROM pos_documentos d JOIN pos_tramites t ON t.id = d.tramite_id WHERE d.estado = 'subido' AND t.estado = 'abierto'"),
             'concluidos' => (int) Database::valor("SELECT COUNT(*) FROM pos_tramites WHERE estado = 'concluido'"),
+            'abandonados' => (int) Database::valor("SELECT COUNT(*) FROM pos_tramites WHERE estado = 'abandonado'"),
             'abiertos' => 0, 'momentos' => [1 => 0, 2 => 0, 3 => 0, 4 => 0]];
         foreach (Database::todas("SELECT momento, COUNT(*) AS n FROM pos_tramites WHERE estado = 'abierto' GROUP BY momento") as $f) {
             $r['momentos'][(int) $f['momento']] = (int) $f['n'];
