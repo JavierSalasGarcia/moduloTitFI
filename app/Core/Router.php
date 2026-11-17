@@ -80,6 +80,9 @@ final class Router
                 $usuario = Auth::usuario();
                 if (!$r['publico']) {
                     if (!$usuario) {
+                        if ($metodo === 'GET') {
+                            Auth::recordarDestino(ltrim($ruta, '/'));   // solo se conservan los destinos de la lista blanca
+                        }
                         redirigir('login');
                     }
                     if ($egresado && !in_array($r['modulo'], ['titulacion', 'auth', 'seguridad'], true)) {

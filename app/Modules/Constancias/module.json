@@ -1,0 +1,59 @@
+{
+  "clave": "constancias",
+  "nombre": "Constancias",
+  "version": "1.0.0",
+  "descripcion": "Constancias emitidas por la plataforma, agrupadas por el departamento que las emite (Titulación, Posgrado y las solicitadas aquí), y solicitud de constancias con firma en línea de un titular o coordinador, folio por departamento y QR de verificación.",
+  "roles": [],
+  "pendientes": "App\\Modules\\Constancias\\FirmaController::pendientesDeSesion",
+  "vinculacion": "App\\Modules\\Constancias\\Services\\Solicitudes::vincular",
+  "consulta": [
+    {"ruta": "constancias", "descripcion": "Constancias emitidas: las que recibiste y, si eres personal, las que emitió tu departamento, agrupadas por departamento, para descargar.", "palabras": "constancia constancias descargar emitidas recibí departamento folio"},
+    {"ruta": "constancias/solicitar", "descripcion": "Solicita una constancia con texto propio o un archivo de Word y envíala a firma a un titular o coordinador.", "palabras": "solicitar constancia redactar firma titular coordinador word oficio", "roles": ["admin", "titular", "coordinador", "operativo"]},
+    {"ruta": "constancias/firmar", "descripcion": "Constancias que esperan tu firma.", "palabras": "firmar constancia pendiente firma", "condicion": "App\\Modules\\Constancias\\ConstanciasAccess::tieneFirmas"}
+  ],
+  "menu": [
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Constancias emitidas",
+      "ruta": "constancias",
+      "descripcion": "Las que recibiste y las que emitió tu departamento, agrupadas por departamento.",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 10
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Solicitar una constancia",
+      "ruta": "constancias/solicitar",
+      "descripcion": "Escribe el texto o sube un Word y envíala a firma.",
+      "roles": ["admin", "titular", "operativo", "coordinador"],
+      "orden": 11
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Por firmar",
+      "ruta": "constancias/firmar",
+      "descripcion": "Constancias que esperan tu firma.",
+      "grupo": "Por firmar",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "orden": 20,
+      "condicion": "App\\Modules\\Constancias\\ConstanciasAccess::tieneFirmas"
+    }
+  ],
+  "rutas": {
+    "GET /constancias": ["App\\Modules\\Constancias\\IndiceController", "index"],
+    "GET /constancias/descargar/{fuente}/{id}": ["App\\Modules\\Constancias\\IndiceController", "descargar"],
+    "GET /constancias/solicitar": ["App\\Modules\\Constancias\\SolicitudController", "formulario"],
+    "POST /constancias/solicitar": ["App\\Modules\\Constancias\\SolicitudController", "crear"],
+    "GET /constancias/solicitud/{id}": ["App\\Modules\\Constancias\\SolicitudController", "ver"],
+    "GET /constancias/solicitud/{id}/editar": ["App\\Modules\\Constancias\\SolicitudController", "editar"],
+    "POST /constancias/solicitud/{id}": ["App\\Modules\\Constancias\\SolicitudController", "actualizar"],
+    "GET /constancias/solicitud/{id}/pdf": ["App\\Modules\\Constancias\\SolicitudController", "pdf"],
+    "POST /constancias/solicitud/{id}/enviar": ["App\\Modules\\Constancias\\SolicitudController", "enviar"],
+    "POST /constancias/solicitud/{id}/cancelar": ["App\\Modules\\Constancias\\SolicitudController", "cancelar"],
+    "GET /constancias/firmar": ["App\\Modules\\Constancias\\FirmaController", "bandeja"],
+    "GET /constancias/firmar/{id}": ["App\\Modules\\Constancias\\FirmaController", "ver"],
+    "POST /constancias/firmar/{id}": ["App\\Modules\\Constancias\\FirmaController", "firmar"],
+    "POST /constancias/firmar/{id}/devolver": ["App\\Modules\\Constancias\\FirmaController", "devolver"],
+    "GET /constancias/verificar/{codigo}": ["App\\Modules\\Constancias\\VerificacionController", "ver", "publico"]
+  }
+}

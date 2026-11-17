@@ -11,13 +11,14 @@ final class InterfaceUi
         'foro'=>'Foro','comisiones'=>'Comisiones','encuestas'=>'Encuestas','grupos-destinatarios'=>'Grupos de destinatarios',
         'busqueda'=>'Encontrar un trámite','directorio'=>'Directorio','funciones'=>'Mis funciones',
         'teams'=>'Carpetas de Teams','recursos'=>'Recursos','ajustes'=>'Ajustes','seguridad'=>'Acceso seguro',
-        'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI','posgrado'=>'Obtención de grado','titulacion'=>'Titulación'];
+        'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI','posgrado'=>'Obtención de grado','titulacion'=>'Titulación','constancias'=>'Constancias emitidas'];
 
     /** Un enlace por grupo en el menú lateral; las páginas de entrada viven en `seccion/<slug>`. */
     public const GRUPOS = [
         'Inicio' => ['slug' => 'inicio', 'icono' => 'panel', 'frase' => 'Tu portada y los avisos que requieren tu atención.'],
         'Trámites y seguimiento' => ['etiqueta' => 'Trámites', 'slug' => 'tramites', 'icono' => 'flujo', 'frase' => 'Solicitudes, firmas y gestiones entre áreas: lo que envías y lo que te toca atender.'],
         'Titulación' => ['slug' => 'titulacion', 'icono' => 'academia', 'frase' => 'Tu trámite de titulación y las gestiones que te corresponden, ordenadas por tarea.'],
+        'Constancias' => ['slug' => 'constancias', 'icono' => 'ok', 'frase' => 'Las constancias que emite la Facultad, agrupadas por departamento, y la solicitud de una constancia nueva con firma en línea.'],
         'Agenda' => ['slug' => 'agenda', 'icono' => 'reloj', 'frase' => 'Avisos, eventos, calendario y reuniones de la Facultad.'],
         'Fila' => ['slug' => 'fila', 'icono' => 'lista', 'frase' => 'Turnos y plan de desarrollo de la Facultad.'],
         'Comunidad' => ['slug' => 'comunidad', 'icono' => 'usuarios', 'frase' => 'Foro, encuestas y comisiones para participar con la comunidad.'],
@@ -33,18 +34,21 @@ final class InterfaceUi
 
     public static function menu(array $sections): array
     {
-        $groups = array_fill_keys(['Inicio','Trámites y seguimiento','Titulación','Agenda','Fila','Comunidad','Concursos','Recursos','Administración'], ['items'=>[]]);
+        $groups = array_fill_keys(['Inicio','Trámites y seguimiento','Titulación','Constancias','Agenda','Fila','Comunidad','Concursos','Recursos','Administración'], ['items'=>[]]);
         foreach ($sections as $section) foreach ($section['items'] as $item) {
             $root = explode('/', $item['ruta'])[0];
             $group = match ($root) {
                 '', 'notificaciones' => 'Inicio', 'seguridad', 'perfil' => 'Recursos', 'tickets','solicitudes','firmas','funciones','grupos-destinatarios' => 'Trámites y seguimiento',
                 'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : 'Agenda',
-                'fila' => 'Fila', 'titulacion', 'posgrado' => 'Titulación',
+                'fila' => 'Fila', 'titulacion' => str_starts_with($item['ruta'], 'titulacion/constancias') ? 'Constancias' : 'Titulación',
+                'posgrado' => 'Titulación', 'constancias' => 'Constancias',
                 'foro','encuestas','comisiones','concursos' => 'Comunidad', 'ajustes','formularios' => 'Administración',
                 'recursos' => empty($item['dinamico']) ? 'Administración' : 'Recursos', default => 'Recursos'
             };
             if (in_array($root, ['seguridad', 'perfil'], true) && empty($item['grupo'])) $item['grupo'] = 'Mi cuenta';
             if ($root === 'concursos' && empty($item['grupo'])) $item['grupo'] = 'Concursos';
+            // Las constancias de Titulación se muestran en el grupo Constancias (mismas rutas y permisos), en su propio subgrupo.
+            if ($group === 'Constancias' && $root === 'titulacion') $item['grupo'] = 'Titulación de licenciatura';
             if (!str_contains($item['ruta'], '/') && empty($item['dinamico'])) $item['titulo'] = self::NAMES[$root] ?? $item['titulo'];
             $groups[$group]['items'][] = $item;
         }
