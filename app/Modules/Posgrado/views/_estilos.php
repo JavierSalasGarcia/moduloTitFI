@@ -82,6 +82,25 @@
 .pos-nota{background:var(--oro-050);border-left:4px solid var(--oro);padding:10px 12px;border-radius:4px;font-size:14px;margin:8px 0 12px;line-height:1.5}
 .pos-ok{background:#F0FDF4;border-left:4px solid var(--ok);padding:10px 12px;border-radius:4px;font-size:14px;margin:8px 0 12px}
 
+/* Firmantes de un documento en línea */
+.pos-firmantes{list-style:none;margin:6px 0 4px;padding:0}
+.pos-firmantes>li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;padding:8px 10px;border:1px solid var(--gris-100);border-radius:6px;margin:0 0 6px;background:#fff;font-size:14px}
+.pos-firmantes>li.pos-firmante-alerta{border-color:var(--error);background:#FFF7F7}
+.pos-firmantes small{line-height:1.5}
+.pos-firmantes input[type=email]{flex:1 1 200px;min-width:0;margin:0}
+.pos-no{color:var(--error)}
+.pos-alerta-linea{margin:6px 0 0;color:var(--error);font-weight:700;font-size:13px}
+.pos-alerta{background:#FEF2F2;border-left:4px solid var(--error);padding:10px 12px;border-radius:4px;font-size:14px;margin:8px 0 12px;line-height:1.5}
+.pos-paso.espera{border-color:#1D4E89;background:#F4F8FE}
+.pos-paso.espera .pos-paso-etiqueta{color:#1D4E89}
+.pos-paso form{display:inline}
+.pos-firma-doc{display:grid;gap:6px;margin:10px 0}
+.pos-visor{width:100%;height:620px;border:1px solid var(--gris-100);border-radius:6px;background:#f8fafc}
+.pos-pregunta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding:8px 0;border-top:1px dashed var(--gris-100)}
+.pos-pregunta .pos-radios{margin:0}
+.pos-tabla-firmas td{vertical-align:top}
+@media (max-width:700px){.pos-visor{height:420px}}
+
 /* Formularios */
 .pos-campos input[type=time],.pos-campos input[type=tel],.formulario input[type=time]{display:block;width:100%;padding:8px 10px;border:1px solid var(--borde-campo);border-radius:6px;background:var(--blanco);font-family:var(--fuente);font-size:14px;color:var(--texto);margin-top:4px}
 .pos-campos{display:grid;grid-template-columns:1fr;gap:4px 14px}

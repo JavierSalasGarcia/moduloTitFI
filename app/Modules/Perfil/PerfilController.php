@@ -29,6 +29,8 @@ final class PerfilController extends Controller
             'cambioCorreo' => Identidad::cambioPendiente((int) $id),
             'avisos' => \App\Modules\Eventos\Clasificacion::preferencias($id),
             'grupoAvisos' => \App\Modules\Eventos\Clasificacion::grupo(Auth::roles()),
+            'fiseVigencia' => FirmaUaemex::aplica() ? FirmaUaemex::deUsuario((int) $id) : null,
+            'fiseAplica' => FirmaUaemex::aplica(),
             'dependencias' => Database::todas('SELECT dr.*,d.nombre AS dependencia FROM departamento_responsables dr JOIN departamentos d ON d.id=dr.departamento_id WHERE dr.usuario_id=? ORDER BY dr.activo DESC,dr.fecha_inicio DESC', [$id]),
         ]);
     }
@@ -44,6 +46,29 @@ final class PerfilController extends Controller
             flash('error', $e->getMessage());
         }
         redirigir('perfil');
+    }
+
+    /**
+     * Vigencia de la firma electrónica UAEMéx (la del SICDE, https://fise.uaemex.mx/): la persona la declara, la corrige
+     * o la borra. No la ven los alumnos de licenciatura.
+     */
+    public function firmaUaemex(): void
+    {
+        if (!FirmaUaemex::aplica()) {
+            http_response_code(404);
+            \App\Core\View::render('errores/404', ['titulo' => 'Página no encontrada']);
+            return;
+        }
+        $fecha = trim((string) ($_POST['fise_vigencia'] ?? ''));
+        $borrar = ($_POST['accion'] ?? '') === 'borrar' || $fecha === '';
+        if (!$borrar && !FirmaUaemex::fechaValida($fecha)) {
+            flash('error', 'La vigencia de tu firma electrónica UAEMéx no es una fecha válida.');
+            redirigir('perfil#firma-uaemex');
+        }
+        FirmaUaemex::guardar((int) Auth::id(), $borrar ? null : $fecha, 'Mi perfil');
+        unset($_SESSION['_fise_aviso_en']);
+        flash('exito', $borrar ? 'Borramos la vigencia de tu firma electrónica UAEMéx.' : 'Guardamos la vigencia de tu firma electrónica UAEMéx: ' . FirmaUaemex::fechaLarga($fecha) . '.');
+        redirigir('perfil#firma-uaemex');
     }
 
     /** El profesor del directorio corrige acentos y mayúsculas de su nombre. */

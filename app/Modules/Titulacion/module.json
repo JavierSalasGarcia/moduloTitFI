@@ -32,7 +32,7 @@
         "alumno"
       ],
       "orden": 10,
-      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::veLicenciatura"
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::menuLicenciatura"
     },
     {
       "seccion": "TITULACIÓN",
@@ -60,7 +60,8 @@
         "profesor",
         "alumno"
       ],
-      "orden": 20
+      "orden": 20,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esActor"
     },
     {
       "seccion": "TITULACIÓN",
@@ -127,7 +128,8 @@
         "profesor",
         "alumno"
       ],
-      "orden": 24
+      "orden": 24,
+      "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esActor"
     },
     {
       "seccion": "TITULACIÓN",

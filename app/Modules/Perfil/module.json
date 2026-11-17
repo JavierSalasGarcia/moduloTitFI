@@ -6,6 +6,7 @@
   "nombre": "Mi perfil",
   "version": "1.0.0",
   "descripcion": "Perfil personal y adscripciones organizacionales del usuario.",
+  "pendientes": "App\\Modules\\Perfil\\FirmaUaemex::pendientes",
   "roles": [],
   "menu": [
     {
@@ -39,6 +40,10 @@
     "POST /perfil/correo/confirmar": [
       "App\\Modules\\Perfil\\PerfilController",
       "confirmarCorreo"
+    ],
+    "POST /perfil/firma-uaemex": [
+      "App\\Modules\\Perfil\\PerfilController",
+      "firmaUaemex"
     ],
     "POST /perfil/nombre": [
       "App\\Modules\\Perfil\\PerfilController",

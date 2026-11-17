@@ -45,6 +45,7 @@ $fuentes = [
     'migrations/046_profesor_datos_editables.sql',
     'migrations/047_registro_profesor_posgrado.sql',
     'migrations/048_posgrado_evaluacion_grado.sql',
+    'migrations/049_posgrado_firmas.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

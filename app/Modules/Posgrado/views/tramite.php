@@ -2,6 +2,7 @@
 use App\Core\Auth;
 use App\Modules\Posgrado\Catalogo;
 use App\Modules\Posgrado\Flujo;
+use App\Modules\Posgrado\Services\Firmas;
 
 include __DIR__ . '/_estilos.php';
 
@@ -18,6 +19,8 @@ $csrf = '<input type="hidden" name="_csrf" value="' . e(Auth::csrfToken()) . '">
 $sel = static fn(string $a, string $b): string => $a === $b ? ' selected' : '';
 $chk = static fn(bool $b): string => $b ? ' checked' : '';
 $maxMb = (int) $maxMb;
+$cotejado = isset($ev['hitos']['cotejo']);
+$firmas = $ev['firmas'];
 ?>
 <div class="pos-cabecera">
   <div>
@@ -32,11 +35,16 @@ $maxMb = (int) $maxMb;
 
 <div class="pos-pila">
   <section class="pos-paso <?= e($paso['turno']) ?>" aria-labelledby="pos-paso-titulo">
-    <p class="pos-paso-etiqueta"><?= $paso['turno'] === 'personal' ? 'Ahora le toca a Apoyo a Grado' : ($paso['turno'] === 'nadie' ? 'Tu trámite' : 'Tu siguiente paso') ?></p>
+    <p class="pos-paso-etiqueta"><?= $paso['turno'] === 'personal' ? 'Ahora le toca a Apoyo a Grado' : ($paso['turno'] === 'nadie' ? 'Tu trámite' : ($paso['turno'] === 'espera' ? 'Tu siguiente paso · en espera' : 'Tu siguiente paso')) ?></p>
     <h2 id="pos-paso-titulo"><?= e($paso['titulo']) ?></h2>
     <p><?= e($paso['texto']) ?></p>
     <?php if ($paso['turno'] === 'tuyo' && $paso['boton'] && $editable): ?>
       <a class="btn btn-primario" href="#<?= e((string) $paso['ancla']) ?>"><?= e($paso['boton']) ?> <?= icono('flecha-der', 16) ?></a>
+    <?php elseif ($paso['turno'] === 'espera'): ?>
+      <?php if (!empty($paso['reenviar']) && $editable): ?>
+        <form method="post" action="<?= url($base . '/firma/' . (int) $paso['reenviar'] . '/reenviar') ?>"><?= $csrf ?><input type="hidden" name="volver" value="<?= e((string) $paso['ancla']) ?>"><button class="btn btn-primario" type="submit">Reenviar enlace</button></form>
+      <?php endif; ?>
+      <a class="btn" href="#<?= e((string) $paso['ancla']) ?>">Ver quién falta</a>
     <?php elseif ($paso['turno'] === 'personal'): ?>
       <p class="texto-secundario" style="margin:0">No tienes que hacer nada en la plataforma por ahora; te avisaremos en tus notificaciones y por correo.</p>
     <?php endif; ?>
@@ -57,14 +65,15 @@ $maxMb = (int) $maxMb;
   <details class="pos-momento <?= $actual === 1 ? 'actual' : '' ?>" id="momento-1" <?= $actual === 1 ? 'open' : '' ?>>
     <summary>1. <?= e($momentos[1]['titulo']) ?> <small><?= $ev['hecho'][1] ? '· Hecho' : '· ' . (int) $ev['listos'] . ' de ' . (int) $ev['total'] . ' listos' ?></small></summary>
     <div class="pos-momento-cuerpo">
-      <?php if ($ev['hecho'][1]): $c = $ev['hitos']['cotejo']['datos']; ?>
+      <?php if ($cotejado): $c = $ev['hitos']['cotejo']['datos']; ?>
         <div class="pos-ok">Apoyo a Grado cotejó tus originales el <?= e(Flujo::fechaLarga((string) ($c['fecha'] ?? ''))) ?> a las <?= e((string) ($c['hora'] ?? '')) ?> horas.
-          <?php if (isset($ev['generados']['cotejo'])): ?> <a href="<?= url('posgrado/generado/' . (int) $ev['generados']['cotejo']['id']) ?>" target="_blank" rel="noopener">Ver el oficio de cotejo para tu director</a>.<?php endif; ?></div>
+          <?php if ($ev['hecho'][1] && isset($ev['generados']['cotejo'])): ?> <a href="<?= url('posgrado/generado/' . (int) $ev['generados']['cotejo']['id']) ?>" target="_blank" rel="noopener">Ver el oficio de cotejo para tu director</a>.
+          <?php else: ?> El oficio de cotejo está en firma de la Coordinación.<?php endif; ?></div>
       <?php endif; ?>
 
       <details id="datos" class="pos-grupo" <?= $ev['faltanDatos'] ? 'open' : '' ?>>
         <summary>Tus datos y los de tu director <span class="pos-cuenta"><?= $ev['faltanDatos'] ? count($ev['faltanDatos']) . ' por capturar' : 'Completos' ?></span></summary>
-        <?php $editaDatos = $editable && !$ev['hecho'][1]; ?>
+        <?php $editaDatos = $editable && !$cotejado; ?>
         <form class="formulario" method="post" action="<?= url($base . '/datos') ?>">
           <?= $csrf ?>
           <fieldset class="pos-fieldset" <?= $editaDatos ? '' : 'disabled' ?>>
@@ -105,12 +114,13 @@ $maxMb = (int) $maxMb;
             <div class="pos-campos">
               <label>Grado<input type="text" name="c[<?= $rol ?>_grado]" list="pos-grados" maxlength="20" placeholder="Dr., Dra., Mtro., Mtra." value="<?= e((string) ($i[$rol . '_grado'] ?? '')) ?>"></label>
               <label>Nombre completo<input type="text" name="c[<?= $rol ?>_nombre]" maxlength="120" value="<?= e((string) ($i[$rol . '_nombre'] ?? '')) ?>"></label>
-              <label class="ancho">Correo<input type="email" name="c[<?= $rol ?>_correo]" maxlength="120" value="<?= e((string) ($i[$rol . '_correo'] ?? '')) ?>"></label>
+              <label class="ancho">Correo<?= $rol === 'director' ? ' (obligatorio)' : '' ?><input type="email" name="c[<?= $rol ?>_correo]" maxlength="120" value="<?= e((string) ($i[$rol . '_correo'] ?? '')) ?>"<?= $rol === 'director' ? ' aria-describedby="ayuda-dir-correo"' : '' ?>>
+                <?php if ($rol === 'director'): ?><small id="ayuda-dir-correo">A este correo le llega su enlace personal para firmar en línea el voto aprobatorio y la solicitud.</small><?php endif; ?></label>
             </div>
           </fieldset>
           <?php endforeach; ?>
           <?php if ($editaDatos): ?><div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar mis datos</button></div>
-          <?php elseif ($ev['hecho'][1]): ?><p class="texto-secundario">Tus datos ya se cotejaron; si algo está mal, pídele a Apoyo a Grado que lo corrija.</p><?php endif; ?>
+          <?php elseif ($cotejado): ?><p class="texto-secundario">Tus datos ya se cotejaron; si algo está mal, pídele a Apoyo a Grado que lo corrija.</p><?php endif; ?>
         </form>
       </details>
 
@@ -120,7 +130,7 @@ $maxMb = (int) $maxMb;
           <strong><?= (int) $ev['listos'] ?> de <?= (int) $ev['total'] ?> listos</strong>
           <div class="pos-barra" role="progressbar" aria-label="Requisitos listos" aria-valuemin="0" aria-valuemax="<?= (int) $ev['total'] ?>" aria-valuenow="<?= (int) $ev['listos'] ?>"><i style="width:<?= $ev['total'] > 0 ? round(100 * $ev['listos'] / $ev['total']) : 0 ?>%"></i></div>
         </div>
-        <p class="texto-secundario" style="margin:0 0 8px">Sube cada documento escaneado en PDF. Los originales y copias los entregas en persona el día del cotejo.</p>
+        <p class="texto-secundario" style="margin:0 0 8px">Sube cada documento escaneado en PDF. Los originales y copias los entregas en persona el día del cotejo. El voto aprobatorio y tu formato de datos se firman en línea.</p>
         <?php
         $porGrupo = [];
         foreach ($ev['requisitos'] as $r) {
@@ -133,19 +143,19 @@ $maxMb = (int) $maxMb;
             }
             $cuentan = array_filter($filas, static fn(array $r): bool => $r['cuenta'] ?? true);
             $hechos = count(array_filter($cuentan, static fn(array $r): bool => $r['listo']));
-            $abrir = !$ev['hecho'][1] && $hechos < count($cuentan); ?>
+            $abrir = !$cotejado && $hechos < count($cuentan); ?>
           <details class="pos-grupo" <?= $abrir ? 'open' : '' ?>>
             <summary><?= e($nombreGrupo) ?> <span class="pos-cuenta"><?= $hechos ?> de <?= count($cuentan) ?></span></summary>
             <ul class="pos-lista">
               <?php foreach ($filas as $fila) {
                   $prefijo = 'req-';
-                  $puedeSubir = $editable && !$ev['hecho'][1] && !$ev['faltanDatos'];
+                  $puedeSubir = $editable && !$cotejado && !$ev['faltanDatos'];
                   include __DIR__ . '/_doc.php';
               } ?>
             </ul>
           </details>
         <?php endforeach; ?>
-        <?php if ($editable && $ev['faltanDatos'] && !$ev['hecho'][1]): ?><p class="pos-nota">Para subir documentos, primero completa <a href="#datos">tus datos</a>.</p><?php endif; ?>
+        <?php if ($editable && $ev['faltanDatos'] && !$cotejado): ?><p class="pos-nota">Para subir documentos, primero completa <a href="#datos">tus datos</a>.</p><?php endif; ?>
       </div>
     </div>
   </details>
@@ -155,15 +165,15 @@ $maxMb = (int) $maxMb;
     <summary>2. <?= e($momentos[2]['titulo']) ?> <small><?= $ev['hecho'][2] ? '· Hecho' : ($actual < 2 ? '· Después del cotejo' : '') ?></small></summary>
     <div class="pos-momento-cuerpo" id="sinodo">
       <?php if (!empty($t['datos']['aplazamientos']) && !$ev['hecho'][2]): ?>
-        <p class="pos-nota">Tu examen anterior quedó aplazado. Propón una nueva fecha y vuelve a recabar la solicitud, el visto bueno y los comprobantes.</p>
+        <p class="pos-nota">Tu examen anterior quedó aplazado. Propón una nueva fecha y envíala a firma: tu director y tu sínodo firmarán otra vez en línea.</p>
       <?php endif; ?>
       <?php if (!$ev['hecho'][1]): ?>
-        <p class="texto-secundario">Cuando Apoyo a Grado coteje tus originales, aquí propondrás a tu sínodo y la fecha de tu examen.</p>
+        <p class="texto-secundario">Cuando Apoyo a Grado coteje tus originales y la Coordinación firme el oficio de cotejo, aquí propondrás a tu sínodo y la fecha de tu examen.</p>
       <?php else: ?>
         <?php if ($ev['hecho'][2]): ?>
           <div class="pos-ok"><strong>Examen programado:</strong> <?= e(Flujo::fechaLarga((string) ($prog['fecha'] ?? ''))) ?> a las <?= e((string) ($prog['hora'] ?? '')) ?> horas, <?= ($prog['modalidad'] ?? '') === 'virtual' ? 'modalidad virtual' : 'modalidad presencial' ?>, en <?= e((string) ($prog['lugar'] ?? '')) ?>.</div>
-        <?php else: ?>
-          <p class="pos-nota">Elige una fecha a partir del <strong><?= e(Flujo::fechaLarga($fechaMinima)) ?></strong> (10 días hábiles). Te sugerimos dejar 15 días hábiles, es decir, del <strong><?= e(Flujo::fechaLarga($fechaSugerida)) ?></strong> en adelante, para recabar las firmas con calma.</p>
+        <?php elseif (!$ev['propuestaEnviada']): ?>
+          <p class="pos-nota">Elige una fecha a partir del <strong><?= e(Flujo::fechaLarga($fechaMinima)) ?></strong> (10 días hábiles). Te sugerimos dejar 15 días hábiles, es decir, del <strong><?= e(Flujo::fechaLarga($fechaSugerida)) ?></strong> en adelante, para que firmen con calma. Cada integrante necesita su correo: ahí recibe su enlace para firmar el visto bueno y, después, su invitación. Su firma electrónica UAEMéx debe estar vigente al menos un mes después del examen.</p>
         <?php endif; ?>
         <?php
         $miembros = $s['miembros'] ?? [];
@@ -178,6 +188,7 @@ $maxMb = (int) $maxMb;
         }
         $editaSinodo = $editable && !$ev['hecho'][2];
         ?>
+        <?php if ($ev['propuestaEnviada']): ?><details class="pos-grupo"><summary>Tu propuesta: <?= e(Flujo::fechaLarga((string) ($s['fecha'] ?? ''))) ?>, <?= e((string) ($s['hora'] ?? '')) ?> horas<?= $editaSinodo ? ' · ver o cambiar' : '' ?></summary><?php endif; ?>
         <form class="formulario" method="post" action="<?= url($base . '/sinodo') ?>">
           <?= $csrf ?>
           <fieldset class="pos-fieldset" <?= $editaSinodo ? '' : 'disabled' ?>>
@@ -189,7 +200,7 @@ $maxMb = (int) $maxMb;
                 <span class="pos-n" aria-hidden="true"><?= $n + 1 ?></span>
                 <label>Nombre con grado<input type="text" name="m[<?= $n ?>][nombre]" maxlength="150" value="<?= e((string) ($m['nombre'] ?? '')) ?>" aria-label="<?= $n < 5 ? 'Propietario ' . ($n + 1) : 'Suplente ' . ($n - 4) ?>: nombre con grado"></label>
                 <label>Tipo de miembro<select name="m[<?= $n ?>][tipo]"><option value="">Elige…</option><?php foreach (Catalogo::tiposMiembro() as $k => $v): ?><option value="<?= e($k) ?>"<?= $sel($k, (string) ($m['tipo'] ?? '')) ?>><?= e($v) ?></option><?php endforeach; ?></select></label>
-                <label>Correo<input type="email" name="m[<?= $n ?>][correo]" maxlength="120" value="<?= e((string) ($m['correo'] ?? '')) ?>"></label>
+                <label>Correo (obligatorio)<input type="email" name="m[<?= $n ?>][correo]" maxlength="120" value="<?= e((string) ($m['correo'] ?? '')) ?>"></label>
                 <label class="pos-check"><input type="checkbox" name="m[<?= $n ?>][externo]" value="1"<?= $chk(!empty($m['externo'])) ?>> Externo a la UAEMéx</label>
               </div>
             <?php endfor; ?>
@@ -203,8 +214,18 @@ $maxMb = (int) $maxMb;
                 <div class="pos-radios"><label><input type="radio" name="modalidad" value="presencial"<?= $chk(($s['modalidad'] ?? 'presencial') === 'presencial') ?>> Presencial</label><label><input type="radio" name="modalidad" value="virtual"<?= $chk(($s['modalidad'] ?? '') === 'virtual') ?>> Virtual</label></div></div>
             </div>
           </fieldset>
-          <?php if ($editaSinodo): ?><div class="acciones-formulario"><button class="btn btn-primario" type="submit">Guardar mi propuesta</button></div><?php endif; ?>
+          <?php if ($editaSinodo): ?><div class="acciones-formulario">
+            <?php if ($ev['propuestaEnviada']): ?>
+              <button class="btn btn-primario" type="submit">Guardar cambios</button>
+              <small class="texto-secundario" style="display:block;margin-top:6px">Si cambias nombres, fecha u hora, la solicitud y el visto bueno se regeneran y se piden de nuevo todas las firmas. Si solo corriges un correo, se envía un enlace nuevo a esa persona.</small>
+            <?php else: ?>
+              <button class="btn" type="submit">Guardar borrador</button>
+              <button class="btn btn-primario" type="submit" name="enviar" value="1">Guardar y enviar a firma</button>
+              <small class="texto-secundario" style="display:block;margin-top:6px">Al enviar, tu director recibe la solicitud y cada integrante el visto bueno, con un enlace personal para firmar en línea.</small>
+            <?php endif; ?>
+          </div><?php endif; ?>
         </form>
+        <?php if ($ev['propuestaEnviada']): ?></details><?php endif; ?>
 
         <?php if ($ev['externos']): ?>
           <div class="pos-nota"><strong>Tienes sinodales externos.</strong> Apoyo a Grado verificará que estén registrados en el Sistema de Control Escolar de la UAEMéx; si no lo están, les pedirán a ti y a tu director los documentos del profesor para darlo de alta. Además, cada externo necesita su firma electrónica para firmar el acta en el SICDE.
@@ -212,19 +233,21 @@ $maxMb = (int) $maxMb;
             <small class="texto-secundario" style="display:block;margin-top:4px">Punto 4 de «Puntos a considerar».</small></div>
         <?php endif; ?>
 
-        <h3 class="pos-sub">Formatos firmados</h3>
-        <?php if ($ev['faltanSinodo'] && !$ev['hecho'][2]): ?><p class="texto-secundario">Cuando completes tu propuesta podrás descargar la solicitud y el visto bueno ya llenados.</p><?php endif; ?>
-        <ul class="pos-lista">
-          <?php foreach (['solicitud_firmada', 'visto_bueno_firmado', 'comprobantes_sicde'] as $clave) {
-              $fila = $ev['m2docs'][$clave] + ['tipo' => 'pdf'];
-              $prefijo = 'doc-';
-              $puedeSubir = $editable && $actual === 2 && !$ev['faltanSinodo'];
-              if ($ev['faltanSinodo']) {
-                  unset($fila['formato']);
-              }
-              include __DIR__ . '/_doc.php';
-          } ?>
-        </ul>
+        <div id="firmas-m2">
+        <h3 class="pos-sub">Firmas de tu propuesta</h3>
+        <?php if (!$ev['propuestaEnviada']): ?>
+          <p class="texto-secundario"><?= $ev['faltanSinodo'] ? 'Cuando completes tu propuesta podrás enviarla a firma.' : 'Tu propuesta aún no se envía a firma.' ?> <?php if (!$ev['faltanSinodo']): ?><a href="<?= url($base . '/formato/solicitud') ?>" target="_blank" rel="noopener">Vista previa de la solicitud</a> · <a href="<?= url($base . '/formato/visto_bueno') ?>" target="_blank" rel="noopener">vista previa del visto bueno</a><?php endif; ?></p>
+        <?php else: ?>
+          <?php foreach ($ev['avisosVigencia'] as $aviso): ?><p class="pos-alerta" role="alert"><strong><?= e($aviso) ?></strong> Debe renovarla en <a href="https://fise.uaemex.mx/" target="_blank" rel="noopener noreferrer">https://fise.uaemex.mx/</a> y actualizar la fecha desde su enlace.</p><?php endforeach; ?>
+          <?php foreach ($ev['respuestasNo'] as $rn): ?><p class="pos-alerta"><strong><?= e($rn['nombre']) ?></strong> contestó «No» a: <?= e(implode(', ', $rn['preguntas'])) ?>. Apoyo a Grado revisará la propuesta.</p><?php endforeach; ?>
+          <?php foreach (['solicitud' => 'Solicitud de evaluación de grado (la firma tu director)', 'visto_bueno' => 'Visto bueno del sínodo (lo firma cada integrante)'] as $doc => $etq):
+              $docFirmas = $firmas[$doc] ?? null; $g = $ev['generados'][$doc] ?? null; ?>
+            <h4 style="margin:12px 0 4px;font-size:14px"><?= e($etq) ?> <?php if ($docFirmas): ?><span class="pos-estado <?= $docFirmas['completo'] ? 'pos-e-ok' : 'pos-e-rev' ?>"><?= $docFirmas['completo'] ? 'Firmado por todos' : 'En firma' ?></span><?php endif; ?>
+              <?php if ($g): ?> <a class="btn btn-mini" href="<?= url('posgrado/generado/' . (int) $g['id']) ?>" target="_blank" rel="noopener">Ver PDF</a><?php endif; ?></h4>
+            <?php $gestiona = $editable && !$ev['hecho'][2]; $volver = 'firmas-m2'; $fechaExamen = $ev['fechaExamen']; include __DIR__ . '/_firmantes.php'; ?>
+          <?php endforeach; ?>
+        <?php endif; ?>
+        </div>
       <?php endif; ?>
     </div>
   </details>
@@ -236,23 +259,22 @@ $maxMb = (int) $maxMb;
       <?php if (!$ev['hecho'][2]): ?>
         <p class="texto-secundario">Cuando Apoyo a Grado programe tu examen, aquí descargarás los oficios de invitación para tu sínodo.</p>
       <?php else: ?>
-        <p>Entrega a cada integrante de tu sínodo su oficio de invitación junto con tu trabajo final, y pide que firmen el acuse. Sube el acuse firmado <strong>al menos dos días antes</strong> de tu examen.</p>
+        <p>La Coordinación firma tus oficios de invitación; después cada integrante recibe el suyo por correo y acusa de recibido en línea. Tú solo entrégales tu trabajo final.</p>
         <ul class="pos-lista">
-          <?php foreach (['invitaciones', 'acuse', 'notificacion'] as $clave): $g = $ev['generados'][$clave] ?? null; ?>
-            <li class="pos-doc">
-              <span class="pos-icono <?= $g ? 'pos-e-ok' : 'pos-e-pend' ?>" aria-hidden="true"><?= $g ? icono('ok', 18) : '' ?></span>
-              <div><h4><?= e(Catalogo::emitibles()[$clave]['nombre']) ?></h4>
-                <p class="pos-ayuda"><?= $clave === 'notificacion' ? 'Para tu director: explica lo que debe hacer antes, durante y después del examen.' : ($clave === 'acuse' ? 'Lo firma cada integrante al recibir su oficio.' : 'Una hoja por cada integrante (propietarios y suplentes).') ?></p></div>
-              <div class="pos-doc-acciones"><?= $g ? '<a class="btn btn-mini" href="' . url('posgrado/generado/' . (int) $g['id']) . '" target="_blank" rel="noopener">Descargar</a>' : '<span class="texto-secundario">Apoyo a Grado lo emitirá pronto.</span>' ?></div>
+          <?php foreach (['invitaciones' => 'Una hoja por cada integrante (propietarios y suplentes).', 'notificacion' => 'Para tu director: explica lo que debe hacer antes, durante y después del examen. Descárgala y compártela con él.', 'acuse' => 'Cada integrante acusa de recibido en línea su invitación; su sello queda en su renglón.'] as $clave => $ayuda):
+              $g = $ev['generados'][$clave] ?? null; $ef = Flujo::estadoFirma($firmas, $clave);
+              $listo = $ef === 'firmado' || ($clave === 'acuse' && Firmas::rolCompleto($firmas, 'acuse', 'coordinacion')); ?>
+            <li class="pos-doc" id="doc-<?= e($clave) ?>">
+              <span class="pos-icono <?= $ef === 'firmado' ? 'pos-e-ok' : ($g ? 'pos-e-rev' : 'pos-e-pend') ?>" aria-hidden="true"><?= $ef === 'firmado' ? icono('ok', 18) : '' ?></span>
+              <div><h4><?= e(Catalogo::emitibles()[$clave]['nombre']) ?>
+                <?php if ($ef === 'firmado'): ?><span class="pos-estado pos-e-ok">Firmado</span><?php elseif ($g && !$listo): ?><span class="pos-estado pos-e-rev">En firma de la Coordinación</span><?php elseif ($g): ?><span class="pos-estado pos-e-rev">Esperando acuses</span><?php endif; ?></h4>
+                <p class="pos-ayuda"><?= e($ayuda) ?></p></div>
+              <?php if ($clave === 'acuse' && $listo): ?><div style="grid-column:2"><?php $docFirmas = $firmas['acuse'] ?? null; $gestiona = $editable; $volver = 'doc-acuse'; $fechaExamen = ''; include __DIR__ . '/_firmantes.php'; ?></div><?php endif; ?>
+              <div class="pos-doc-acciones"><?= $g && $listo ? '<a class="btn btn-mini" href="' . url('posgrado/generado/' . (int) $g['id']) . '" target="_blank" rel="noopener">Descargar</a>' : '<span class="texto-secundario">' . ($g ? 'Disponible cuando lo firme la Coordinación.' : 'Apoyo a Grado lo emitirá pronto.') . '</span>' ?></div>
             </li>
           <?php endforeach; ?>
-          <?php
-          $fila = $ev['m2docs']['acuse_firmado'] + ['tipo' => 'pdf'];
-          $prefijo = 'doc-';
-          $puedeSubir = $editable && $actual === 3 && $ev['invitacionesListas'];
-          include __DIR__ . '/_doc.php';
-          ?>
         </ul>
+        <?php if (isset($ev['hitos']['acuse_cierre'])): ?><p class="pos-ok">Apoyo a Grado cerró las invitaciones.</p><?php endif; ?>
       <?php endif; ?>
     </div>
   </details>
@@ -289,7 +311,7 @@ $maxMb = (int) $maxMb;
           if ($constancias): ?>
             <h3 class="pos-sub">Documentos emitidos</h3>
             <ul>
-              <?php foreach ($constancias as $c): ?><li><a href="<?= url('posgrado/generado/' . (int) $ev['generados'][$c]['id']) ?>" target="_blank" rel="noopener"><?= e(Catalogo::emitibles()[$c]['nombre']) ?></a></li><?php endforeach; ?>
+              <?php foreach ($constancias as $c): ?><li><?php if (Flujo::estadoFirma($firmas, $c) === 'firmado'): ?><a href="<?= url('posgrado/generado/' . (int) $ev['generados'][$c]['id']) ?>" target="_blank" rel="noopener"><?= e(Catalogo::emitibles()[$c]['nombre']) ?></a><?php else: ?><?= e(Catalogo::emitibles()[$c]['nombre']) ?> <span class="pos-estado pos-e-rev">En firma de la Coordinación</span><?php endif; ?></li><?php endforeach; ?>
             </ul>
           <?php endif; ?>
         <?php endif; ?>

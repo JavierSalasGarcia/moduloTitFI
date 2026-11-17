@@ -10,7 +10,7 @@ $enlace = static function (array $cambios) use ($filtros): string {
 ?>
 <div class="pos-cabecera">
   <p class="texto-secundario">Valida los documentos de los egresados, coteja originales, programa exámenes y emite oficios y constancias.</p>
-  <a class="btn btn-mini" href="<?= url('posgrado/configuracion') ?>"><?= icono('engrane', 16) ?> Configuración</a>
+  <span><?php if (\App\Modules\Posgrado\PosgradoAccess::tieneFirmas()): ?><a class="btn btn-mini" href="<?= url('posgrado/firmas') ?>">Firmas</a> <?php endif; ?><a class="btn btn-mini" href="<?= url('posgrado/configuracion') ?>"><?= icono('engrane', 16) ?> Configuración</a></span>
 </div>
 
 <div class="pos-contadores">
@@ -50,7 +50,9 @@ $enlace = static function (array $cambios) use ($filtros): string {
           <td><?= $f['estado'] === 'abierto'
               ? e((int) $f['momento'] . '. ' . ($momentos[(int) $f['momento']]['breve'] ?? '')) . ($f['resultado'] === 'aplazado' ? ' <span class="pos-estado pos-e-mal">aplazado</span>' : '')
               : '<span class="estado estado-' . e($f['estado'] === 'concluido' ? 'concluida' : $f['estado']) . '">' . e(Catalogo::estados()[$f['estado']] ?? $f['estado']) . '</span>' ?></td>
-          <td><?= (int) $f['por_validar'] > 0 ? '<span class="pos-estado pos-e-rev">' . (int) $f['por_validar'] . '</span>' : '—' ?></td>
+          <td><?= (int) $f['por_validar'] > 0 ? '<span class="pos-estado pos-e-rev">' . (int) $f['por_validar'] . '</span>' : '—' ?>
+            <?= (int) $f['respuestas_no'] > 0 ? '<br><span class="pos-estado pos-e-mal">«No» en visto bueno</span>' : '' ?>
+            <?= (int) $f['en_firma_coord'] > 0 ? '<br><span class="pos-estado pos-e-pend">' . (int) $f['en_firma_coord'] . ' en firma de la Coordinación</span>' : '' ?></td>
           <td><?= e((string) ($f['responsable_nombre'] ?? '—')) ?></td>
           <td><?= e(fecha_corta((string) $f['actualizado_en'])) ?></td>
         </tr>

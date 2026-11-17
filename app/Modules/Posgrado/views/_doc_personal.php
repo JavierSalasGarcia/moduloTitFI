@@ -12,6 +12,8 @@ $tipo = $fila['tipo'] ?? 'pdf';
 $formato = (string) ($fila['formato'] ?? '');
 $generado = $formato !== '' ? ($ev['generados'][$formato] ?? null) : null;
 $gbase = 'posgrado/gestion/' . (int) $t['id'];
+$docFirmas = $formato !== '' ? ($ev['firmas'][$formato] ?? null) : null;
+$opera = \App\Modules\Posgrado\PosgradoAccess::esPersonalOperativo();
 ?>
 <li class="pos-doc" id="<?= e($prefijo . $fila['clave']) ?>">
   <span class="pos-icono <?= e($clase) ?>" aria-hidden="true"><?= $ico !== '' ? icono($ico, 18) : '' ?></span>
@@ -24,11 +26,14 @@ $gbase = 'posgrado/gestion/' . (int) $t['id'];
     <?php endif; ?>
   </div>
   <?php if (!empty($doc['comentario'])): ?><div class="pos-obs"><?= e((string) $doc['comentario']) ?></div><?php endif; ?>
+  <?php if ($docFirmas && in_array($tipo, ['firma', 'generado'], true)): ?>
+    <div style="grid-column:2"><?php $gestiona = $opera && $t['estado'] === 'abierto'; $volver = $prefijo . $fila['clave']; $fechaExamen = ''; include __DIR__ . '/_firmantes.php'; ?></div>
+  <?php endif; ?>
   <div class="pos-doc-acciones">
     <?php if ($doc && !empty($doc['ruta'])): ?>
       <a class="btn btn-mini" href="<?= url('posgrado/documento/' . (int) $doc['id']) ?>" target="_blank" rel="noopener">Ver PDF</a>
     <?php endif; ?>
-    <?php if ($tipo === 'pdf' && $doc && !$bloqueado && in_array($fila['estado'], ['subido', 'validado', 'devuelto'], true)): ?>
+    <?php if ($tipo === 'pdf' && $doc && !$bloqueado && $opera && in_array($fila['estado'], ['subido', 'validado', 'devuelto'], true)): ?>
       <?php if ($fila['estado'] !== 'validado'): ?>
         <form method="post" action="<?= url($gbase . '/documento/' . (int) $doc['id']) ?>">
           <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
@@ -45,7 +50,7 @@ $gbase = 'posgrado/gestion/' . (int) $t['id'];
       </form>
     <?php elseif ($tipo === 'pdf' && !$doc): ?>
       <span class="texto-secundario">El egresado aún no lo sube.</span>
-    <?php elseif ($tipo === 'fisico' && !$bloqueado): ?>
+    <?php elseif ($tipo === 'fisico' && !$bloqueado && $opera): ?>
       <form method="post" action="<?= url($gbase . '/fisico/' . $fila['clave']) ?>">
         <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
         <?php if ($fila['estado'] === 'recibido'): ?>
@@ -54,12 +59,25 @@ $gbase = 'posgrado/gestion/' . (int) $t['id'];
           <input type="hidden" name="accion" value="marcar"><button class="btn btn-mini btn-primario" type="submit">Marcar como recibido</button>
         <?php endif; ?>
       </form>
+    <?php elseif ($tipo === 'firma' || ($tipo === 'generado' && $formato === 'datos_interesado')): ?>
+      <?php if ($generado): ?><a class="btn btn-mini" href="<?= url('posgrado/generado/' . (int) $generado['id']) ?>" target="_blank" rel="noopener">Ver PDF</a><?php endif; ?>
+      <?php if (!$generado): ?><span class="texto-secundario"><?= $fila['estado'] === 'pendiente' ? 'Faltan datos del interesado.' : ($tipo === 'firma' ? 'El egresado aún no lo pide.' : 'El egresado aún no lo firma.') ?></span>
+        <?php if ($fila['estado'] !== 'pendiente'): ?><a class="btn btn-mini" href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/' . $formato) ?>" target="_blank" rel="noopener">Vista previa</a><?php endif; ?>
+      <?php endif; ?>
+      <?php if ($generado && $fila['estado'] === 'listo' && !$bloqueado && $opera): ?>
+        <details class="pos-reemplazar"><summary>Anular para que el egresado corrija</summary>
+          <form method="post" action="<?= url($gbase . '/anular/' . $formato) ?>">
+            <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+            <label class="sr-only" for="anular-<?= e($formato) ?>">Motivo</label>
+            <textarea id="anular-<?= e($formato) ?>" name="justificacion" rows="1" maxlength="300" placeholder="Qué debe corregir" required></textarea>
+            <button class="btn btn-mini btn-peligro" type="submit">Anular firmas</button>
+          </form>
+        </details>
+      <?php endif; ?>
     <?php elseif ($tipo === 'generado'): ?>
-      <?php if ($formato === 'datos_interesado'): ?>
-        <?php if ($fila['estado'] === 'listo'): ?><a class="btn btn-mini" href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/datos_interesado') ?>">Ver formato</a><?php else: ?><span class="texto-secundario">Faltan datos del interesado.</span><?php endif; ?>
-      <?php elseif ($formato !== '' && isset(Catalogo::emitibles()[$formato])): ?>
+      <?php if ($formato !== '' && isset(Catalogo::emitibles()[$formato])): ?>
         <?php if ($generado): ?><a class="btn btn-mini" href="<?= url('posgrado/generado/' . (int) $generado['id']) ?>" target="_blank" rel="noopener">Ver PDF</a><?php endif; ?>
-        <?php if ($t['estado'] === 'abierto' && ($formato !== 'integracion' || $ev['aprobado'])): ?>
+        <?php if ($t['estado'] === 'abierto' && $opera && ($formato !== 'integracion' || $ev['aprobado'])): ?>
           <form method="post" action="<?= url($gbase . '/emitir/' . $formato) ?>">
             <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
             <button class="btn btn-mini <?= $generado ? '' : 'btn-primario' ?>" type="submit"><?= $generado ? 'Volver a emitir' : 'Emitir' ?></button>
@@ -68,9 +86,6 @@ $gbase = 'posgrado/gestion/' . (int) $t['id'];
           <span class="texto-secundario">Se emite después del examen.</span>
         <?php endif; ?>
       <?php endif; ?>
-    <?php endif; ?>
-    <?php if ($formato !== '' && isset(Catalogo::formatosEgresado()[$formato]) && $tipo === 'pdf'): ?>
-      <a class="btn btn-mini" href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/' . $formato) ?>">Formato llenado</a>
     <?php endif; ?>
   </div>
 </li>

@@ -82,8 +82,8 @@ final class Catalogo
     {
         return [
             1 => ['titulo' => 'Reúne tus requisitos', 'breve' => 'Requisitos', 'texto' => 'Captura tus datos, sube tus documentos en PDF y lleva los originales a Apoyo a Grado para el cotejo.'],
-            2 => ['titulo' => 'Propón sínodo y fecha', 'breve' => 'Sínodo y fecha', 'texto' => 'Propón a los siete integrantes de tu sínodo y la fecha de tu examen; recaba las firmas de tu director y de tu sínodo.'],
-            3 => ['titulo' => 'Invitaciones al sínodo', 'breve' => 'Invitaciones', 'texto' => 'Apoyo a Grado emite las invitaciones; las entregas a tu sínodo con tu trabajo y subes el acuse firmado.'],
+            2 => ['titulo' => 'Propón sínodo y fecha', 'breve' => 'Sínodo y fecha', 'texto' => 'Propón a los siete integrantes de tu sínodo y la fecha de tu examen; tu director y tu sínodo firman en línea desde su correo.'],
+            3 => ['titulo' => 'Invitaciones al sínodo', 'breve' => 'Invitaciones', 'texto' => 'La Coordinación firma las invitaciones; cada integrante recibe la suya por correo y acusa de recibido en línea.'],
             4 => ['titulo' => 'Examen y cierre', 'breve' => 'Examen y cierre', 'texto' => 'Presentas tu examen, registras tu grado en el SICDE y Apoyo a Grado integra tu expediente.'],
         ];
     }
@@ -130,7 +130,7 @@ final class Catalogo
 
             'no_adeudo_biblioteca' => ['n' => '16', 'grupo' => 'constancias', 'nombre' => 'Constancia de no adeudo bibliotecario', 'ayuda' => 'Se tramita directamente en la biblioteca de la F.I.', 'aplica' => 'todos', 'tipo' => 'pdf'],
             'donacion_libro' => ['n' => '17', 'grupo' => 'constancias', 'nombre' => 'Oficio de donación del libro', 'ayuda' => 'Se tramita en la biblioteca de la F.I.', 'aplica' => 'todos', 'tipo' => 'pdf'],
-            'no_adeudo_mobiliario' => ['n' => '18', 'grupo' => 'constancias', 'nombre' => 'Constancia de no adeudo de mobiliario y equipo', 'ayuda' => 'La emite Apoyo a Grado de la Coordinación de Estudios Avanzados; aparecerá aquí cuando la generen.', 'aplica' => 'todos', 'tipo' => 'generado', 'formato' => 'no_adeudo'],
+            'no_adeudo_mobiliario' => ['n' => '18', 'grupo' => 'constancias', 'nombre' => 'Constancia de no adeudo de mobiliario y equipo', 'ayuda' => 'La emite Apoyo a Grado y la firma en línea la Coordinación de Estudios Avanzados; aparecerá aquí cuando esté firmada.', 'aplica' => 'todos', 'tipo' => 'generado', 'formato' => 'no_adeudo'],
             'cvu' => ['n' => '20', 'grupo' => 'constancias', 'nombre' => 'Constancia del llenado del CVU', 'ayuda' => 'Avalada por el coordinador de tu programa.', 'aplica' => 'todos', 'tipo' => 'pdf'],
             'folio_egresados' => ['n' => '23', 'grupo' => 'constancias', 'nombre' => 'Folio del Sistema de Seguimiento de Egresados de posgrado', 'ayuda' => 'Se obtiene en alumniversitario.uaemex.mx/posgrado. Si el sistema falla, pide por correo a la Dirección de Alumniversitario una constancia de la falla.', 'aplica' => 'todos', 'tipo' => 'pdf'],
 
@@ -139,8 +139,8 @@ final class Catalogo
             'fotos_ovalo' => ['n' => '14', 'grupo' => 'fisico', 'nombre' => '7 fotografías tamaño óvalo miñón', 'ayuda' => 'Blanco y negro, papel mate opalina, fondo blanco, de frente. Saco negro, camisa blanca y corbata lisa negra, o blazer negro y blusa blanca, aretes pequeños y sin cabello en la frente.', 'aplica' => 'todos', 'tipo' => 'fisico'],
             'fotos_semititulo' => ['n' => '15', 'grupo' => 'fisico', 'nombre' => '2 fotografías tamaño semitítulo', 'ayuda' => 'Blanco y negro, papel mate, fondo gris claro, de frente con retoque. Camisa blanca, saco y corbata oscuros, o blazer oscuro y blusa blanca, aretes pequeños y sin cabello en la frente.', 'aplica' => 'todos', 'tipo' => 'fisico'],
 
-            'voto_aprobatorio' => ['n' => '7', 'grupo' => 'formatos', 'nombre' => 'Voto aprobatorio de tu director', 'ayuda' => 'Descarga el formato ya llenado, pide a tu director que lo firme y súbelo.', 'aplica' => 'todos', 'tipo' => 'pdf', 'formato' => 'voto'],
-            'datos_interesado' => ['n' => '24', 'grupo' => 'formatos', 'nombre' => 'Formato de datos del interesado', 'ayuda' => 'Se llena con tus datos. Imprímelo, fírmalo y entrega el original en el cotejo.', 'aplica' => 'todos', 'tipo' => 'generado', 'formato' => 'datos_interesado'],
+            'voto_aprobatorio' => ['n' => '7', 'grupo' => 'formatos', 'nombre' => 'Voto aprobatorio de tu director', 'ayuda' => 'Tu director lo firma en línea desde su correo: la plataforma llena el formato y le envía su enlace personal. No hay que imprimir ni subir nada.', 'aplica' => 'todos', 'tipo' => 'firma', 'formato' => 'voto'],
+            'datos_interesado' => ['n' => '24', 'grupo' => 'formatos', 'nombre' => 'Formato de datos del interesado', 'ayuda' => 'Se llena con tus datos. Revísalo y fírmalo en línea con el botón «Firmar mi formato».', 'aplica' => 'todos', 'tipo' => 'generado', 'formato' => 'datos_interesado'],
             'formato_revision' => ['n' => '26', 'grupo' => 'formatos', 'nombre' => 'Formato de revisión para autorización de evaluación', 'ayuda' => 'Te lo proporciona y lo llena Apoyo a Grado durante el cotejo.', 'aplica' => 'todos', 'tipo' => 'fisico'],
             'integracion' => ['n' => '25', 'grupo' => 'formatos', 'nombre' => 'Formato de integración de expediente', 'ayuda' => 'Lo prepara Apoyo a Grado al final, al integrar tu expediente.', 'aplica' => 'todos', 'tipo' => 'generado', 'formato' => 'integracion', 'cuenta' => false],
         ];
@@ -156,18 +156,38 @@ final class Catalogo
         };
     }
 
-    /** PDF que el egresado sube después del primer momento. @return array<string,array{momento:int,nombre:string,ayuda:string,formato?:string}> */
-    public static function documentosMomento(): array
+    /**
+     * Documentos que se firman en línea: nombre, cómo se nombra en un correo y quién firma.
+     * @return array<string,array{nombre:string,que:string,firman:string[]}>
+     */
+    public static function firmables(): array
     {
         return [
-            'solicitud_firmada' => ['momento' => 2, 'nombre' => 'Solicitud de evaluación de grado, firmada por tu director', 'ayuda' => 'Descárgala ya llenada, recaba la firma autógrafa de tu director y súbela.', 'formato' => 'solicitud'],
-            'visto_bueno_firmado' => ['momento' => 2, 'nombre' => 'Visto bueno del sínodo, firmado por los siete integrantes', 'ayuda' => 'Descárgalo ya llenado y recaba la firma de cada integrante. Considera el tiempo que te llevará.', 'formato' => 'visto_bueno'],
-            'comprobantes_sicde' => ['momento' => 2, 'nombre' => 'Comprobantes de firma electrónica vigente del sínodo', 'ayuda' => 'Un PDF con la hoja de prueba del portal fise.uaemex.mx de cada sinodal (firma electrónica del SICDE).'],
-            'acuse_firmado' => ['momento' => 3, 'nombre' => 'Acuse de recibido firmado por tu sínodo', 'ayuda' => 'Entrégalo a Apoyo a Grado al menos dos días antes de tu examen.'],
+            'voto' => ['nombre' => 'Voto aprobatorio', 'que' => 'el voto aprobatorio', 'firman' => ['director']],
+            'datos_interesado' => ['nombre' => 'Formato de datos del interesado', 'que' => 'el formato de datos del interesado', 'firman' => ['egresado']],
+            'solicitud' => ['nombre' => 'Solicitud de evaluación de grado', 'que' => 'la solicitud de evaluación de grado', 'firman' => ['director']],
+            'visto_bueno' => ['nombre' => 'Visto bueno del sínodo', 'que' => 'el visto bueno para la evaluación de grado', 'firman' => ['sinodal']],
+            'cotejo' => ['nombre' => 'Oficio de cotejo', 'que' => 'el oficio de cotejo', 'firman' => ['coordinacion']],
+            'invitaciones' => ['nombre' => 'Oficios de invitación al sínodo', 'que' => 'los oficios de invitación', 'firman' => ['coordinacion']],
+            'acuse' => ['nombre' => 'Acuse de recibido de oficios', 'que' => 'el acuse de recibido de su oficio de invitación', 'firman' => ['coordinacion', 'sinodal']],
+            'notificacion' => ['nombre' => 'Notificación al director de tesis', 'que' => 'la notificación al director', 'firman' => ['coordinacion']],
+            'constancias_revisores' => ['nombre' => 'Constancias de revisores', 'que' => 'las constancias de revisores', 'firman' => ['coordinacion']],
+            'constancias_direccion' => ['nombre' => 'Constancias de director, codirector y tutor', 'que' => 'las constancias de dirección', 'firman' => ['coordinacion']],
+            'no_adeudo' => ['nombre' => 'Constancia de no adeudo de equipo y mobiliario', 'que' => 'la constancia de no adeudo', 'firman' => ['coordinacion']],
+            'integracion' => ['nombre' => 'Formato de integración de expediente', 'que' => 'el formato de integración de expediente', 'firman' => ['coordinacion']],
         ];
     }
 
-    /** Formatos que se generan al vuelo para el egresado. */
+    /** Preguntas del visto bueno del sínodo, en el orden de las columnas del formato. */
+    public static function preguntasVistoBueno(): array
+    {
+        return ['concluida' => 'Tesis concluida', 'entregada' => 'Tesis entregada a usted', 'periodo' => 'Revisión en el periodo solicitado'];
+    }
+
+    /**
+     * Vistas previas que el egresado (y el personal) pueden abrir antes de pedir las firmas; no se firman ni se suben:
+     * lo que se firma es el documento que la plataforma genera una sola vez al pedir las firmas.
+     */
     public static function formatosEgresado(): array
     {
         return [
@@ -202,6 +222,10 @@ final class Catalogo
             'recibido' => ['pos-e-ok', 'ok', 'Recibido'],
             'listo' => ['pos-e-ok', 'ok', 'Listo'],
             'devuelto' => ['pos-e-mal', 'alerta', 'Corregir'],
+            'en_firma' => ['pos-e-rev', 'reloj', 'En firma'],
+            'firmado' => ['pos-e-ok', 'ok', 'Firmado'],
+            'por_firmar' => ['pos-e-pend', '', 'Por firmar'],
+            'por_pedir' => ['pos-e-pend', '', 'Por pedir'],
             'al_final' => ['pos-e-na', '', 'Al final'],
             default => ['pos-e-pend', '', 'Pendiente'],
         };

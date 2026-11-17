@@ -1,53 +1,256 @@
 {
   "clave": "posgrado",
   "nombre": "Posgrado: evaluación de grado",
-  "version": "1.0.0",
-  "descripcion": "Trámite de evaluación de grado de maestría, doctorado y especialidad: el egresado captura sus datos, su sínodo y la fecha; la plataforma llena los formatos para firma autógrafa y Apoyo a Grado de la Coordinación de Estudios Avanzados valida, coteja y emite los oficios.",
+  "version": "1.1.0",
+  "descripcion": "Trámite de evaluación de grado de maestría, doctorado y especialidad: el egresado captura sus datos, su sínodo y la fecha; director, sínodo y Coordinación de Estudios Avanzados firman en línea (el director y el sínodo desde un enlace personal, sin cuenta) y Apoyo a Grado valida, coteja y programa.",
   "roles": [],
+  "pendientes": "App\\Modules\\Posgrado\\FirmaController::pendientesDeSesion",
   "consulta": [
-    {"ruta": "posgrado", "titulo": "Posgrado: obtener mi grado", "descripcion": "Inicia y continúa tu trámite de evaluación de grado de maestría, doctorado o especialidad: requisitos, sínodo, fecha de examen e invitaciones.", "palabras": "grado maestría doctorado especialidad posgrado examen de grado evaluación de grado sínodo tesis voto aprobatorio cotejo", "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::veTramite"},
-    {"ruta": "posgrado/gestion", "titulo": "Posgrado: validar trámites", "descripcion": "Bandeja de Apoyo a Grado: valida documentos de evaluación de grado, coteja originales, programa exámenes y emite oficios y constancias.", "palabras": "apoyo a grado estudios avanzados validar cotejo oficios constancias sínodo", "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::esPersonal"}
+    {
+      "ruta": "posgrado",
+      "titulo": "Posgrado: obtener mi grado",
+      "descripcion": "Inicia y continúa tu trámite de evaluación de grado de maestría, doctorado o especialidad: requisitos, sínodo, fecha de examen e invitaciones.",
+      "palabras": "grado maestría doctorado especialidad posgrado examen de grado evaluación de grado sínodo tesis voto aprobatorio cotejo",
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::veTramite"
+    },
+    {
+      "ruta": "posgrado/gestion",
+      "titulo": "Posgrado: validar trámites",
+      "descripcion": "Bandeja de Apoyo a Grado: valida documentos de evaluación de grado, coteja originales, programa exámenes y emite oficios y constancias.",
+      "palabras": "apoyo a grado estudios avanzados validar cotejo oficios constancias sínodo",
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::menuGestion"
+    },
+    {
+      "ruta": "posgrado/firmas",
+      "titulo": "Posgrado: firmas",
+      "descripcion": "Documentos de evaluación de grado que esperan tu firma en línea: voto aprobatorio, visto bueno del sínodo, acuses y oficios de la Coordinación.",
+      "palabras": "firmar firma voto aprobatorio visto bueno sínodo acuse oficios coordinación estudios avanzados posgrado",
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::tieneFirmas"
+    }
   ],
   "menu": [
     {
       "seccion": "TITULACIÓN",
       "titulo": "Posgrado: obtener mi grado",
       "ruta": "posgrado",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
       "orden": 22,
-      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::veTramite"
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::veTramite",
+      "descripcion": "Tu trámite de evaluación de grado de maestría, doctorado o especialidad."
     },
     {
       "seccion": "TITULACIÓN",
       "titulo": "Posgrado: validar trámites",
       "ruta": "posgrado/gestion",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
       "orden": 24,
-      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::esPersonal"
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::menuGestion",
+      "descripcion": "Valida documentos, coteja originales y programa exámenes de grado."
+    },
+    {
+      "seccion": "TITULACIÓN",
+      "titulo": "Posgrado: firmas",
+      "ruta": "posgrado/firmas",
+      "descripcion": "Documentos de evaluación de grado que esperan tu firma en línea.",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 23,
+      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::tieneFirmas"
     }
   ],
   "rutas": {
-    "GET /posgrado": ["App\\Modules\\Posgrado\\TramiteController", "inicio"],
-    "POST /posgrado/iniciar": ["App\\Modules\\Posgrado\\TramiteController", "iniciar"],
-    "GET /posgrado/tramite/{id}": ["App\\Modules\\Posgrado\\TramiteController", "ver"],
-    "POST /posgrado/tramite/{id}/datos": ["App\\Modules\\Posgrado\\TramiteController", "datos"],
-    "POST /posgrado/tramite/{id}/sinodo": ["App\\Modules\\Posgrado\\TramiteController", "sinodo"],
-    "POST /posgrado/tramite/{id}/documento/{clave}": ["App\\Modules\\Posgrado\\TramiteController", "subir"],
-    "POST /posgrado/tramite/{id}/sicde": ["App\\Modules\\Posgrado\\TramiteController", "sicde"],
-    "GET /posgrado/tramite/{id}/formato/{clave}": ["App\\Modules\\Posgrado\\TramiteController", "formato"],
-    "GET /posgrado/documento/{id}": ["App\\Modules\\Posgrado\\TramiteController", "documento"],
-    "GET /posgrado/generado/{id}": ["App\\Modules\\Posgrado\\TramiteController", "generado"],
-    "GET /posgrado/gestion": ["App\\Modules\\Posgrado\\GestionController", "bandeja"],
-    "GET /posgrado/gestion/{id}": ["App\\Modules\\Posgrado\\GestionController", "ver"],
-    "POST /posgrado/gestion/{id}/documento/{docId}": ["App\\Modules\\Posgrado\\GestionController", "revisar"],
-    "POST /posgrado/gestion/{id}/fisico/{clave}": ["App\\Modules\\Posgrado\\GestionController", "fisico"],
-    "POST /posgrado/gestion/{id}/cotejo": ["App\\Modules\\Posgrado\\GestionController", "cotejo"],
-    "POST /posgrado/gestion/{id}/externos": ["App\\Modules\\Posgrado\\GestionController", "externos"],
-    "POST /posgrado/gestion/{id}/programacion": ["App\\Modules\\Posgrado\\GestionController", "programacion"],
-    "POST /posgrado/gestion/{id}/emitir/{clave}": ["App\\Modules\\Posgrado\\GestionController", "emitir"],
-    "POST /posgrado/gestion/{id}/resultado": ["App\\Modules\\Posgrado\\GestionController", "resultado"],
-    "POST /posgrado/gestion/{id}/expediente": ["App\\Modules\\Posgrado\\GestionController", "expediente"],
-    "GET /posgrado/configuracion": ["App\\Modules\\Posgrado\\ConfiguracionController", "index"],
-    "POST /posgrado/configuracion": ["App\\Modules\\Posgrado\\ConfiguracionController", "guardar"]
+    "GET /posgrado": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "inicio"
+    ],
+    "POST /posgrado/iniciar": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "iniciar"
+    ],
+    "GET /posgrado/tramite/{id}": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "ver"
+    ],
+    "POST /posgrado/tramite/{id}/datos": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "datos"
+    ],
+    "POST /posgrado/tramite/{id}/sinodo": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "sinodo"
+    ],
+    "POST /posgrado/tramite/{id}/voto": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "pedirVoto"
+    ],
+    "POST /posgrado/tramite/{id}/firmar-datos": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "firmarDatos"
+    ],
+    "POST /posgrado/tramite/{id}/firma/{firmaId}/reenviar": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "reenviar"
+    ],
+    "POST /posgrado/tramite/{id}/firma/{firmaId}/correo": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "correo"
+    ],
+    "POST /posgrado/tramite/{id}/documento/{clave}": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "subir"
+    ],
+    "POST /posgrado/tramite/{id}/sicde": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "sicde"
+    ],
+    "GET /posgrado/tramite/{id}/formato/{clave}": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "formato"
+    ],
+    "GET /posgrado/documento/{id}": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "documento"
+    ],
+    "GET /posgrado/generado/{id}": [
+      "App\\Modules\\Posgrado\\TramiteController",
+      "generado"
+    ],
+    "GET /posgrado/gestion": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "bandeja"
+    ],
+    "GET /posgrado/gestion/{id}": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "ver"
+    ],
+    "POST /posgrado/gestion/{id}/documento/{docId}": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "revisar"
+    ],
+    "POST /posgrado/gestion/{id}/fisico/{clave}": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "fisico"
+    ],
+    "POST /posgrado/gestion/{id}/cotejo": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "cotejo"
+    ],
+    "POST /posgrado/gestion/{id}/externos": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "externos"
+    ],
+    "POST /posgrado/gestion/{id}/programacion": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "programacion"
+    ],
+    "POST /posgrado/gestion/{id}/devolver": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "devolver"
+    ],
+    "POST /posgrado/gestion/{id}/anular/{doc}": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "anular"
+    ],
+    "POST /posgrado/gestion/{id}/acuse": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "cerrarAcuse"
+    ],
+    "POST /posgrado/gestion/{id}/emitir/{clave}": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "emitir"
+    ],
+    "POST /posgrado/gestion/{id}/resultado": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "resultado"
+    ],
+    "POST /posgrado/gestion/{id}/expediente": [
+      "App\\Modules\\Posgrado\\GestionController",
+      "expediente"
+    ],
+    "GET /posgrado/configuracion": [
+      "App\\Modules\\Posgrado\\ConfiguracionController",
+      "index"
+    ],
+    "POST /posgrado/configuracion": [
+      "App\\Modules\\Posgrado\\ConfiguracionController",
+      "guardar"
+    ],
+    "GET /posgrado/firmas": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "index"
+    ],
+    "POST /posgrado/firmas/coordinacion": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "firmarCoordinacion"
+    ],
+    "GET /posgrado/firmas/{id}/pdf": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "pdfCoordinacion"
+    ],
+    "GET /posgrado/firma/mia/{id}": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "verPropia"
+    ],
+    "GET /posgrado/firma/mia/{id}/pdf": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "pdfPropia"
+    ],
+    "GET /posgrado/firma/mia/{id}/oficio": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "oficioPropia"
+    ],
+    "POST /posgrado/firma/mia/{id}/firmar": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "firmarPropia"
+    ],
+    "POST /posgrado/firma/mia/{id}/vigencia": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "vigenciaPropia"
+    ],
+    "GET /posgrado/firma/t/{token}": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "ver",
+      "publico"
+    ],
+    "GET /posgrado/firma/t/{token}/pdf": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "pdf",
+      "publico"
+    ],
+    "GET /posgrado/firma/t/{token}/oficio": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "oficio",
+      "publico"
+    ],
+    "POST /posgrado/firma/t/{token}/firmar": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "firmar",
+      "publico"
+    ],
+    "POST /posgrado/firma/t/{token}/vigencia": [
+      "App\\Modules\\Posgrado\\FirmaController",
+      "vigencia",
+      "publico"
+    ]
   }
 }

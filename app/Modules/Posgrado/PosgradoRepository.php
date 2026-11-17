@@ -139,7 +139,12 @@ final class PosgradoRepository
         return Database::todas(
             "SELECT t.id, t.folio, t.nivel, t.modalidad, t.titulo, t.momento, t.estado, t.resultado, t.actualizado_en,
                     u.nombre AS alumno_nombre, u.email AS alumno_email, r.nombre AS responsable_nombre,
-                    (SELECT COUNT(*) FROM pos_documentos d WHERE d.tramite_id = t.id AND d.estado = 'subido') AS por_validar
+                    (SELECT COUNT(*) FROM pos_documentos d WHERE d.tramite_id = t.id AND d.estado = 'subido') AS por_validar,
+                    (SELECT COUNT(*) FROM pos_firmas f JOIN pos_generados g ON g.id = f.generado_id AND g.vigente = 1
+                      WHERE f.tramite_id = t.id AND f.documento = 'visto_bueno' AND f.estado = 'firmada'
+                        AND 'no' IN (JSON_UNQUOTE(JSON_EXTRACT(f.respuestas, '$.concluida')), JSON_UNQUOTE(JSON_EXTRACT(f.respuestas, '$.entregada')), JSON_UNQUOTE(JSON_EXTRACT(f.respuestas, '$.periodo')))) AS respuestas_no,
+                    (SELECT COUNT(*) FROM pos_firmas f JOIN pos_generados g ON g.id = f.generado_id AND g.vigente = 1
+                      WHERE f.tramite_id = t.id AND f.rol = 'coordinacion' AND f.estado = 'pendiente') AS en_firma_coord
              FROM pos_tramites t
              JOIN usuarios u ON u.id = t.alumno_id
              LEFT JOIN usuarios r ON r.id = t.responsable_id
@@ -266,20 +271,34 @@ final class PosgradoRepository
 
     // ----------------------------------------------------------------- generados
 
-    public static function registrarGenerado(int $tramiteId, string $clave, string $nombre, string $ruta, string $huella, int $usuarioId): int
+    /** Registra un PDF emitido; la emisión anterior de la misma clave deja de estar vigente. */
+    public static function registrarGenerado(int $tramiteId, string $clave, string $nombre, string $ruta, string $huella, int $usuarioId, ?string $huellaDatos = null): int
     {
+        self::retirarGenerado($tramiteId, $clave);
         return Database::ejecutar(
-            'INSERT INTO pos_generados (tramite_id, clave, nombre, ruta, huella, generado_por) VALUES (?, ?, ?, ?, ?, ?)',
-            [$tramiteId, $clave, mb_substr($nombre, 0, 160), $ruta, $huella, $usuarioId]
+            'INSERT INTO pos_generados (tramite_id, clave, nombre, ruta, huella, vigente, huella_datos, generado_por) VALUES (?, ?, ?, ?, ?, 1, ?, ?)',
+            [$tramiteId, $clave, mb_substr($nombre, 0, 160), $ruta, $huella, $huellaDatos, $usuarioId]
         );
     }
 
-    /** Última emisión de cada clave. */
+    /** Deja sin vigencia la emisión de una clave (se regeneró, se devolvió la propuesta o se aplazó el examen). */
+    public static function retirarGenerado(int $tramiteId, string $clave): void
+    {
+        Database::ejecutar('UPDATE pos_generados SET vigente = 0 WHERE tramite_id = ? AND clave = ? AND vigente = 1', [$tramiteId, $clave]);
+    }
+
+    /** Tras estampar un sello: el archivo vigente es el nuevo, con su huella. */
+    public static function actualizarArchivoGenerado(int $id, string $ruta, string $huella): void
+    {
+        Database::ejecutar('UPDATE pos_generados SET ruta = ?, huella = ? WHERE id = ?', [$ruta, $huella, $id]);
+    }
+
+    /** Emisión vigente de cada clave. */
     public static function generadosVigentes(int $tramiteId): array
     {
         $mapa = [];
         foreach (Database::todas(
-            'SELECT g.*, u.nombre AS generado_nombre FROM pos_generados g JOIN usuarios u ON u.id = g.generado_por WHERE g.tramite_id = ? ORDER BY g.id',
+            'SELECT g.*, u.nombre AS generado_nombre FROM pos_generados g JOIN usuarios u ON u.id = g.generado_por WHERE g.tramite_id = ? AND g.vigente = 1 ORDER BY g.id',
             [$tramiteId]
         ) as $g) {
             $mapa[$g['clave']] = $g;

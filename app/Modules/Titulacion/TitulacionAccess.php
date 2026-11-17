@@ -68,6 +68,63 @@ final class TitulacionAccess
         return self::nivelAlumno() !== 'licenciatura';
     }
 
+    /** Administración y Subdirección Académica supervisan el módulo completo: siempre lo ven. */
+    public static function esSupervision(): bool
+    {
+        $u = Auth::usuario();
+        return $u !== null && (($u['rol'] ?? '') === 'admin' || Services\SubdireccionFirma::esSubdirector());
+    }
+
+    /** Entrada de menú «Mi trámite de licenciatura»: pasantes de licenciatura, personal de Titulación y supervisión. */
+    public static function menuLicenciatura(): bool
+    {
+        $u = Auth::usuario();
+        if (!$u) {
+            return false;
+        }
+        return self::esSupervision() || self::esPersonal() || (($u['rol'] ?? '') === 'alumno' && self::nivelAlumno() !== 'posgrado');
+    }
+
+    /**
+     * ¿La persona es actor de la titulación de licenciatura? Solo entonces ve el módulo en el menú: pasante, personal,
+     * supervisión, quien evalúa o encabeza una comisión, quien firma, quien tiene constancias y quien participa en algún
+     * trámite como asesoría, sinodal o coordinación de docencia.
+     */
+    public static function esActor(): bool
+    {
+        static $cache = [];
+        $id = Auth::id();
+        if ($id <= 0) {
+            return false;
+        }
+        return $cache[$id] ??= self::calcularActor();
+    }
+
+    private static function calcularActor(): bool
+    {
+        if (self::menuLicenciatura() || self::esEvaluador() || self::esEncargado()) {
+            return true;
+        }
+        try {
+            if (Services\SubdireccionFirma::puedeFirmar() || self::tieneConstancias()) {
+                return true;
+            }
+            $email = self::correoSesion();
+            if ($email === '') {
+                return false;
+            }
+            return (bool) \App\Core\Database::valor(
+                "SELECT 1 FROM tit_firmas_externas WHERE email = ?
+                 UNION SELECT 1 FROM tit_sinodales WHERE email = ?
+                 UNION SELECT 1 FROM tit_asignaciones_jurado WHERE coord_email = ?
+                 LIMIT 1",
+                [$email, $email, $email]
+            );
+        } catch (\Throwable) {
+            return false;
+        }
+    }
+
     /** Correo de la sesión, en minúsculas. */
     public static function correoSesion(): string
     {

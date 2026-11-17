@@ -15,6 +15,8 @@ final class Configuracion
     public const CAMPOS = [
         'posgrado_coordinador_nombre' => ['Nombre de quien firma los oficios', 'Dra. Lourdes Loza Hernández', 'Con grado, tal como va en el bloque de firma.'],
         'posgrado_coordinador_cargo' => ['Cargo de quien firma', 'Coordinadora de Estudios Avanzados F.I.', 'Por ejemplo «Coordinadora de Estudios Avanzados F.I.».'],
+        'posgrado_coordinador_correo' => ['Correo de la cuenta que firma en línea por la Coordinación', '', 'Opcional. Esa cuenta firma los oficios y constancias en «Posgrado: firmas». También firma quien tenga rol titular en la Coordinación de Estudios Avanzados.'],
+        'posgrado_token_dias' => ['Vigencia de los enlaces de firma (días)', '14', 'Días que dura el enlace personal que reciben el director y el sínodo; al reenviarlo se cuenta de nuevo.'],
         'posgrado_apoyo_nombre' => ['Nombre de la persona de Apoyo a Grado', '', 'Con grado. Si lo dejas vacío, los oficios dicen «el personal de Apoyo a Grado F.I.».'],
         'posgrado_apoyo_correos' => ['Correos de contacto de Apoyo a Grado', 'apoyoagraduacionfi@gmail.com y cea_fi@uaemex.mx', 'Como se escriben en la notificación al director, separados por «y».'],
         'posgrado_apoyo_telefono' => ['Teléfono de Apoyo a Grado', '722 2 14 08 55 extensión 1124', 'Como se escribe en la notificación al director.'],
@@ -58,6 +60,13 @@ final class Configuracion
     public static function cargoSinFi(): string
     {
         return trim((string) preg_replace('/\s*F\.\s?I\.?\s*$/u', '', self::cargo()));
+    }
+
+    /** Días de vigencia del enlace personal de firma (1 a 90). */
+    public static function diasToken(): int
+    {
+        $n = (int) self::valor('posgrado_token_dias');
+        return $n >= 1 && $n <= 90 ? $n : 14;
     }
 
     public static function apoyoNombre(): string

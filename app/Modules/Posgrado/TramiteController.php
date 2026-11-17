@@ -6,6 +6,7 @@ namespace App\Modules\Posgrado;
 use App\Core\App;
 use App\Core\Audit;
 use App\Core\Auth;
+use App\Modules\Posgrado\Services\Firmas;
 use App\Modules\Posgrado\Services\Formatos;
 use App\Modules\Titulacion\Services\Calendario;
 use InvalidArgumentException;
@@ -18,7 +19,10 @@ final class TramiteController extends PosgradoBase
     {
         $this->privado();
         if (!PosgradoAccess::veTramite()) {
-            redirigir('titulacion/licenciatura');
+            if (PosgradoAccess::tieneFirmas()) {
+                redirigir('posgrado/firmas');
+            }
+            $this->noEncontrado();
         }
         $mis = PosgradoAccess::puedeIniciar() ? PosgradoRepository::delAlumno(Auth::id()) : [];
         $this->vista('inicio', [
@@ -142,6 +146,7 @@ final class TramiteController extends PosgradoBase
             $i['fecha_previo'] = '';
         }
         foreach (['director' => true, 'codirector' => false, 'tutor' => false] as $rol => $obligatorio) {
+            // El correo del director es obligatorio: a él le llega el enlace para firmar el voto y la solicitud.
             $i[$rol . '_grado'] = $txt($rol . '_grado', 20);
             $i[$rol . '_nombre'] = $txt($rol . '_nombre', 120);
             $i[$rol . '_correo'] = strtolower($txt($rol . '_correo', 120));
@@ -157,17 +162,99 @@ final class TramiteController extends PosgradoBase
 
         $datos = $t['datos'];
         $datos['interesado'] = $i;
+        $bloqueos = Firmas::bloqueos(['datos' => $datos] + $t, $hitos);
+        if ($bloqueos) {
+            flash('error', 'No guardamos los cambios: ya está firmado por todos «' . implode('», «', $bloqueos) . '» y esos datos quedaron fijos. Si hay un error, pídele a Apoyo a Grado que lo anule para corregirlo.');
+            redirigir($volver);
+        }
         PosgradoRepository::guardarDatos((int) $t['id'], $datos);
         PosgradoRepository::evento((int) $t['id'], Auth::id(), 'captura', 'Datos del interesado guardados.');
+        $regenerados = Firmas::sincronizarDatos((int) $t['id'], Auth::id());
         $t = $this->sincronizar((int) $t['id']);
         $faltan = Flujo::faltantesInteresado($t);
+        $nota = $regenerados ? ' Como cambiaste datos que van en «' . implode('», «', $regenerados) . '», lo regeneramos y se pidieron de nuevo las firmas.' : '';
         if ($errores) {
-            flash('error', 'Guardamos tu avance, pero revisa: ' . implode(' ', array_slice($errores, 0, 3)));
+            flash('error', 'Guardamos tu avance, pero revisa: ' . implode(' ', array_slice($errores, 0, 3)) . $nota);
         } elseif ($faltan) {
-            flash('exito', 'Guardamos tu avance. Aún faltan: ' . implode(', ', array_slice($faltan, 0, 6)) . (count($faltan) > 6 ? '…' : '') . '.');
+            flash('exito', 'Guardamos tu avance. Aún faltan: ' . implode(', ', array_slice($faltan, 0, 6)) . (count($faltan) > 6 ? '…' : '') . '.' . $nota);
         } else {
-            flash('exito', 'Datos completos. Ya puedes descargar tus formatos y subir tus documentos.');
+            flash('exito', ($nota !== '' ? 'Guardamos tus datos.' : 'Datos completos. Ya puedes pedir el voto aprobatorio a tu director, firmar tu formato de datos y subir tus documentos.') . $nota);
         }
+        redirigir($volver);
+    }
+
+    // ---------------------------------------------------------- firmas del momento 1
+
+    /** «Pedir el voto aprobatorio a mi director»: genera el voto una sola vez y le envía su enlace. */
+    public function pedirVoto(string $id): void
+    {
+        $t = $this->tramite($id);
+        if (!PosgradoAccess::puedeEditar($t)) {
+            $this->prohibido('Edición de trámite ajeno o cerrado');
+        }
+        $volver = 'posgrado/tramite/' . (int) $t['id'] . '#req-voto_aprobatorio';
+        [$ev] = $this->evaluar($t);
+        if (isset($ev['hitos']['cotejo']) || ($ev['requisitos']['voto_aprobatorio']['estado'] ?? '') !== 'por_pedir') {
+            flash('error', 'El voto aprobatorio ya se pidió o ya está firmado.');
+            redirigir($volver);
+        }
+        if (!filter_var((string) ($t['datos']['interesado']['director_correo'] ?? ''), FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'Escribe el correo de tu director en tus datos: a ese correo le llega su enlace para firmar.');
+            redirigir('posgrado/tramite/' . (int) $t['id'] . '#datos');
+        }
+        try {
+            Firmas::emitir($t, 'voto', Auth::id());
+        } catch (\RuntimeException $e) {
+            flash('error', $e->getMessage());
+            redirigir($volver);
+        } catch (Throwable $e) {
+            error_log('Posgrado: no se pidió el voto: ' . $e->getMessage());
+            flash('error', 'No se pudo preparar el voto aprobatorio. Intenta de nuevo.');
+            redirigir($volver);
+        }
+        $this->sincronizar((int) $t['id']);
+        flash('exito', 'Listo: tu director recibió por correo su enlace para firmar el voto aprobatorio en línea.');
+        redirigir($volver);
+    }
+
+    /** El egresado firma con su sesión el formato de datos del interesado. */
+    public function firmarDatos(string $id): void
+    {
+        $t = $this->tramite($id);
+        if (!PosgradoAccess::puedeEditar($t)) {
+            $this->prohibido('Edición de trámite ajeno o cerrado');
+        }
+        $volver = 'posgrado/tramite/' . (int) $t['id'] . '#req-datos_interesado';
+        [$ev] = $this->evaluar($t);
+        if (($ev['requisitos']['datos_interesado']['estado'] ?? '') !== 'por_firmar' || isset($ev['hitos']['cotejo'])) {
+            flash('error', $ev['faltanDatos'] ? 'Completa primero tus datos.' : 'Tu formato ya está firmado.');
+            redirigir($volver);
+        }
+        if ($this->post('leido') !== '1') {
+            flash('error', 'Marca «Revisé mi formato y mis datos son correctos» para firmarlo.');
+            redirigir($volver);
+        }
+        try {
+            $estado = Firmas::estado((int) $t['id']);
+            if (!isset($estado['datos_interesado'])) {
+                Firmas::emitir($t, 'datos_interesado', Auth::id());
+                $estado = Firmas::estado((int) $t['id']);
+            }
+            $f = Flujo::primeraPendiente($estado, 'datos_interesado', 'egresado');
+            if ($f === null) {
+                throw new \RuntimeException('No se encontró tu formato para firmar.');
+            }
+            Firmas::firmar($f, ['usuario_id' => Auth::id()]);
+        } catch (\RuntimeException $e) {
+            flash('error', $e->getMessage());
+            redirigir($volver);
+        } catch (Throwable $e) {
+            error_log('Posgrado: no se firmó el formato de datos: ' . $e->getMessage());
+            flash('error', 'No se pudo firmar tu formato. Intenta de nuevo.');
+            redirigir($volver);
+        }
+        $this->sincronizar((int) $t['id']);
+        flash('exito', 'Firmaste tu formato de datos del interesado.');
         redirigir($volver);
     }
 
@@ -182,7 +269,7 @@ final class TramiteController extends PosgradoBase
         $volver = 'posgrado/tramite/' . (int) $t['id'] . '#sinodo';
         [$ev] = $this->evaluar($t);
         if (!$ev['hecho'][1]) {
-            flash('error', 'Primero termina tus requisitos: el sínodo se propone después del cotejo de originales.');
+            flash('error', 'Primero termina tus requisitos: el sínodo se propone después del cotejo de originales y de que la Coordinación firme el oficio de cotejo.');
             redirigir($volver);
         }
         if ($ev['hecho'][2]) {
@@ -210,18 +297,23 @@ final class TramiteController extends PosgradoBase
         if (count($nombres) !== count(array_unique($nombres))) {
             $errores[] = 'Hay un nombre repetido en tu sínodo.';
         }
+        $correos = array_filter(array_column($miembros, 'correo'));
+        if (count($correos) !== count(array_unique($correos))) {
+            $errores[] = 'Hay un correo repetido en tu sínodo: cada integrante necesita el suyo para firmar.';
+        }
         $fecha = self::linea($_POST['fecha'] ?? '', 10);
         $hora = self::linea($_POST['hora'] ?? '', 5);
         $modalidad = in_array($_POST['modalidad'] ?? '', ['presencial', 'virtual'], true) ? (string) $_POST['modalidad'] : '';
         $hoy = new \DateTimeImmutable('today');
         $minima = Calendario::agregarHabiles($hoy, Catalogo::DIAS_MINIMOS);
+        $fechaAntes = (string) ($t['datos']['sinodo']['fecha'] ?? '');
         if ($fecha !== '' && !self::fechaValida($fecha)) {
             $errores[] = 'La fecha no es válida.';
             $fecha = '';
-        } elseif ($fecha !== '' && $fecha < $minima->format('Y-m-d')) {
+        } elseif ($fecha !== '' && $fecha !== $fechaAntes && $fecha < $minima->format('Y-m-d')) {
             $sugerida = Calendario::agregarHabiles($hoy, Catalogo::DIAS_SUGERIDOS);
             $errores[] = 'Tu examen debe quedar al menos a ' . Catalogo::DIAS_MINIMOS . ' días hábiles de hoy: elige el ' . Flujo::fechaLarga($minima->format('Y-m-d'))
-                . ' o después. Te sugerimos dejar ' . Catalogo::DIAS_SUGERIDOS . ' días hábiles, es decir, del ' . Flujo::fechaLarga($sugerida->format('Y-m-d')) . ' en adelante, para recabar las firmas con calma.';
+                . ' o después. Te sugerimos dejar ' . Catalogo::DIAS_SUGERIDOS . ' días hábiles, es decir, del ' . Flujo::fechaLarga($sugerida->format('Y-m-d')) . ' en adelante, para que firmen con calma.';
             $fecha = '';
         } elseif ($fecha !== '' && !Calendario::esHabil(new \DateTimeImmutable($fecha))) {
             $errores[] = 'Elige un día hábil (de lunes a viernes).';
@@ -232,32 +324,97 @@ final class TramiteController extends PosgradoBase
             $hora = '';
         }
         $datos = $t['datos'];
-        $antes = $datos['sinodo'] ?? [];
         $datos['sinodo'] = ['miembros' => $miembros, 'fecha' => $fecha, 'hora' => $hora, 'modalidad' => $modalidad];
-        PosgradoRepository::guardarDatos((int) $t['id'], $datos);
-        $cambio = ($antes['miembros'] ?? null) !== $miembros || ($antes['fecha'] ?? '') !== $fecha || ($antes['hora'] ?? '') !== $hora;
-        $retirados = [];
-        if ($cambio) {
-            // Los formatos firmados ya no corresponden a la nueva propuesta.
-            foreach (['solicitud_firmada', 'visto_bueno_firmado'] as $clave) {
-                if (isset($ev['m2docs'][$clave]['doc'])) {
-                    PosgradoRepository::retirarDocumento((int) $t['id'], $clave);
-                    $retirados[] = Catalogo::documentosMomento()[$clave]['nombre'];
-                }
-            }
+        $hitos = PosgradoRepository::hitos((int) $t['id']);
+        $bloqueos = Firmas::bloqueos(['datos' => $datos] + $t, $hitos);
+        if ($bloqueos) {
+            flash('error', 'No guardamos los cambios: tu director y tu sínodo ya firmaron «' . implode('», «', $bloqueos) . '». Si necesitas cambiar algo, pídele a Apoyo a Grado que te devuelva la propuesta.');
+            redirigir($volver);
         }
+        PosgradoRepository::guardarDatos((int) $t['id'], $datos);
         PosgradoRepository::evento((int) $t['id'], Auth::id(), 'captura', 'Propuesta de sínodo y fecha guardada.');
+        $nota = '';
+        $enviar = $this->post('enviar') === '1';
+        try {
+            if ($ev['propuestaEnviada']) {
+                $regenerados = Firmas::sincronizarDatos((int) $t['id'], Auth::id());
+                $nota = $regenerados ? ' Como cambiaste la propuesta, se regeneró «' . implode('» y «', $regenerados) . '» y se pidieron de nuevo las firmas.' : '';
+            } elseif ($enviar && !$errores && !Flujo::faltantesSinodo(['datos' => $datos] + $t)) {
+                $t2 = PosgradoRepository::obtener((int) $t['id']);
+                Firmas::emitir($t2, 'solicitud', Auth::id());
+                Firmas::emitir($t2, 'visto_bueno', Auth::id());
+                $nota = ' Enviamos la solicitud a tu director y el visto bueno a cada integrante de tu sínodo para que firmen en línea.';
+            }
+        } catch (Throwable $e) {
+            error_log('Posgrado: no se enviaron a firma la solicitud o el visto bueno: ' . $e->getMessage());
+            $errores[] = 'No se pudo enviar tu propuesta a firma; intenta de nuevo.';
+        }
         $t = $this->sincronizar((int) $t['id']);
         $faltan = Flujo::faltantesSinodo($t);
-        $aviso = $retirados ? ' Como cambiaste la propuesta, vuelve a recabar firmas y a subir: ' . implode('; ', $retirados) . '.' : '';
         if ($errores) {
-            flash('error', 'Guardamos tu avance, pero revisa: ' . implode(' ', array_slice($errores, 0, 3)) . $aviso);
+            flash('error', 'Guardamos tu avance, pero revisa: ' . implode(' ', array_slice($errores, 0, 3)) . $nota);
         } elseif ($faltan) {
-            flash('exito', 'Guardamos tu avance. Aún falta: ' . implode(', ', array_slice($faltan, 0, 5)) . '.' . $aviso);
+            flash('exito', 'Guardamos tu avance. Aún falta: ' . implode(', ', array_slice($faltan, 0, 5)) . '.' . $nota);
+        } elseif ($nota === '' && !$ev['propuestaEnviada']) {
+            flash('exito', 'Propuesta completa y guardada. Cuando la revises, pulsa «Enviar a firma».');
         } else {
-            flash('exito', 'Propuesta completa. Descarga la solicitud y el visto bueno para recabar las firmas.' . $aviso);
+            flash('exito', 'Propuesta guardada.' . $nota);
         }
         redirigir($volver);
+    }
+
+    // ------------------------------------------------------------ firmantes
+
+    /** La firma pedida en este trámite (para reenviar o corregir el correo). */
+    private function firmaDe(array $t, string $firmaId): array
+    {
+        $f = ctype_digit($firmaId) && strlen($firmaId) < 19 ? Firmas::una((int) $firmaId) : null;
+        if ($f === null || (int) $f['tramite_id'] !== (int) $t['id'] || $f['estado'] === 'cancelada') {
+            $this->noEncontrado();
+        }
+        return $f;
+    }
+
+    /** Reenviar el enlace a un firmante (el egresado o el personal que opera): token nuevo, el anterior deja de servir. */
+    public function reenviar(string $id, string $firmaId): void
+    {
+        $t = $this->tramite($id);
+        if (!PosgradoAccess::puedeEditar($t) && !PosgradoAccess::esPersonalOperativo()) {
+            $this->prohibido('Reenvío de firma en trámite ajeno');
+        }
+        $f = $this->firmaDe($t, $firmaId);
+        $volver = $this->volverA($t);
+        try {
+            Firmas::reenviar($f, $t, Auth::id());
+            flash('exito', 'Reenviamos el enlace a ' . $f['nombre'] . '. El enlace anterior ya no funciona.');
+        } catch (\RuntimeException $e) {
+            flash('error', $e->getMessage());
+        }
+        redirigir($volver);
+    }
+
+    /** Corregir el correo de un firmante que aún no firma. */
+    public function correo(string $id, string $firmaId): void
+    {
+        $t = $this->tramite($id);
+        if (!PosgradoAccess::puedeEditar($t) && !PosgradoAccess::esPersonalOperativo()) {
+            $this->prohibido('Corrección de correo en trámite ajeno');
+        }
+        $f = $this->firmaDe($t, $firmaId);
+        try {
+            Firmas::corregirCorreo($f, $t, $this->post('email'), Auth::id());
+            flash('exito', 'Corregimos el correo de ' . $f['nombre'] . ' y le enviamos un enlace nuevo.');
+        } catch (\RuntimeException $e) {
+            flash('error', $e->getMessage());
+        }
+        $this->sincronizar((int) $t['id']);
+        redirigir($this->volverA($t));
+    }
+
+    private function volverA(array $t): string
+    {
+        $ancla = preg_replace('/[^a-z0-9_-]/', '', (string) ($_POST['volver'] ?? ''));
+        return (PosgradoAccess::esDueno($t) ? 'posgrado/tramite/' : 'posgrado/gestion/') . (int) $t['id'] . ($ancla !== '' ? '#' . $ancla : '');
     }
 
     // -------------------------------------------------------------- documentos
@@ -270,32 +427,19 @@ final class TramiteController extends PosgradoBase
         }
         [$ev] = $this->evaluar($t);
         $req = $ev['requisitos'][$clave] ?? null;
-        $mom = $ev['m2docs'][$clave] ?? null;
-        if (($req === null || $req['tipo'] !== 'pdf') && $mom === null) {
+        if ($req === null || $req['tipo'] !== 'pdf') {
             $this->noEncontrado();
         }
-        $volver = 'posgrado/tramite/' . (int) $t['id'] . ($req !== null ? '#req-' : '#doc-') . $clave;
-        if ($req !== null) {
-            if ($ev['hecho'][1]) {
-                flash('error', 'Tus requisitos ya se cotejaron; ya no se pueden reemplazar.');
-                redirigir($volver);
-            }
-            if ($ev['faltanDatos']) {
-                flash('error', 'Antes de subir documentos, completa tus datos.');
-                redirigir('posgrado/tramite/' . (int) $t['id'] . '#datos');
-            }
-            $actual = $req['estado'];
-        } else {
-            $permitido = $mom['momento'] === 2
-                ? ($ev['actual'] === 2 && !$ev['faltanSinodo'])
-                : ($ev['actual'] === 3 && $ev['invitacionesListas']);
-            if (!$permitido) {
-                flash('error', $mom['momento'] === 2 ? 'Completa primero tu propuesta de sínodo y fecha.' : 'Podrás subir el acuse cuando Apoyo a Grado emita tus invitaciones.');
-                redirigir($volver);
-            }
-            $actual = $mom['estado'];
+        $volver = 'posgrado/tramite/' . (int) $t['id'] . '#req-' . $clave;
+        if ($ev['hecho'][1] || isset($ev['hitos']['cotejo'])) {
+            flash('error', 'Tus requisitos ya se cotejaron; ya no se pueden reemplazar.');
+            redirigir($volver);
         }
-        if ($actual === 'validado') {
+        if ($ev['faltanDatos']) {
+            flash('error', 'Antes de subir documentos, completa tus datos.');
+            redirigir('posgrado/tramite/' . (int) $t['id'] . '#datos');
+        }
+        if ($req['estado'] === 'validado') {
             flash('error', 'Ese documento ya fue validado.');
             redirigir($volver);
         }
@@ -323,11 +467,10 @@ final class TramiteController extends PosgradoBase
         $huella = is_file($absoluta) ? (string) hash_file('sha256', $absoluta) : null;
         $nombre = mb_substr((string) ($_FILES['archivo']['name'] ?? 'documento.pdf'), 0, 255);
         PosgradoRepository::registrarDocumento((int) $t['id'], $clave, 'pdf', 'subido', $ruta, $nombre, $huella, Auth::id());
-        $etiqueta = $req['nombre'] ?? $mom['nombre'];
-        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'documento', 'Documento enviado a validación: ' . $etiqueta);
+        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'documento', 'Documento enviado a validación: ' . $req['nombre']);
         Audit::record('posgrado::subir', 'correcto', 'Trámite ' . (int) $t['id'] . ' · ' . $clave);
         $this->sincronizar((int) $t['id']);
-        flash('exito', 'Recibimos «' . $etiqueta . '». Apoyo a Grado lo revisará.');
+        flash('exito', 'Recibimos «' . $req['nombre'] . '». Apoyo a Grado lo revisará.');
         redirigir($volver);
     }
 
@@ -360,7 +503,7 @@ final class TramiteController extends PosgradoBase
 
     // ------------------------------------------------------------ descargas
 
-    /** Formatos del egresado generados al vuelo con sus datos (voto, datos del interesado, solicitud y visto bueno). */
+    /** Vista previa (sin firmas) de los formatos del egresado, generada al vuelo con sus datos; no se firma ni se sube. */
     public function formato(string $id, string $clave): void
     {
         $t = $this->tramite($id);
@@ -376,8 +519,8 @@ final class TramiteController extends PosgradoBase
             flash('error', $e instanceof \RuntimeException ? $e->getMessage() : 'No se pudo generar el formato. Intenta de nuevo.');
             redirigir('posgrado/tramite/' . (int) $t['id']);
         }
-        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'formato', 'Formato descargado: ' . Catalogo::formatosEgresado()[$clave], false);
-        $this->enviarBytes($bytes, $nombre);
+        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'formato', 'Vista previa: ' . Catalogo::formatosEgresado()[$clave], false);
+        $this->enviarBytes($bytes, 'Vista_previa_' . $nombre, 'application/pdf', true);
     }
 
     /** PDF que subió el egresado: lo ve él y el personal. */
@@ -400,6 +543,10 @@ final class TramiteController extends PosgradoBase
             $this->noEncontrado();
         }
         $t = $this->tramite((string) $g['tramite_id']);
+        // Lo que firma la Coordinación se entrega al egresado hasta que está firmado.
+        if (!PosgradoAccess::esPersonal() && (int) \App\Core\Database::valor("SELECT COUNT(*) FROM pos_firmas WHERE generado_id = ? AND rol = 'coordinacion' AND estado = 'pendiente'", [(int) $g['id']]) > 0) {
+            $this->noEncontrado();
+        }
         Audit::record('posgrado::generado', 'atendido', 'Generado ' . (int) $g['id']);
         $this->enviarArchivo((string) $g['ruta'], $g['clave'] . '_' . $t['folio'] . '.pdf', true);
     }

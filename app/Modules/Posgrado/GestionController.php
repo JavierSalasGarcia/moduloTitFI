@@ -6,7 +6,7 @@ namespace App\Modules\Posgrado;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Modules\Posgrado\Services\Aviso;
-use App\Modules\Posgrado\Services\Expediente;
+use App\Modules\Posgrado\Services\Firmas;
 use App\Modules\Posgrado\Services\Formatos;
 use Throwable;
 
@@ -61,7 +61,7 @@ final class GestionController extends PosgradoBase
     /** Nombre legible de un documento por su clave. */
     private static function nombreDocumento(string $clave): string
     {
-        return Catalogo::requisitos()[$clave]['nombre'] ?? Catalogo::documentosMomento()[$clave]['nombre'] ?? $clave;
+        return Catalogo::requisitos()[$clave]['nombre'] ?? $clave;
     }
 
     // ------------------------------------------------------------------ documentos
@@ -147,7 +147,7 @@ final class GestionController extends PosgradoBase
         $this->abierto($t);
         $volver = $this->volver($t, 'momento-1');
         [$ev] = $this->evaluar($t);
-        if ($ev['hecho'][1]) {
+        if (isset($ev['hitos']['cotejo'])) {
             flash('error', 'El cotejo ya está registrado.');
             redirigir($volver);
         }
@@ -169,8 +169,8 @@ final class GestionController extends PosgradoBase
         Audit::record('posgrado::cotejo', 'correcto', 'Trámite ' . (int) $t['id']);
         $emitido = $this->emitirClave($t, 'cotejo');
         $t = $this->sincronizar((int) $t['id']);
-        Aviso::egresado($t, 'Cotejo realizado: ya puedes proponer tu sínodo', 'Apoyo a Grado cotejó tus originales y emitió el oficio de cotejo para tu director. Ya puedes proponer tu sínodo y la fecha de tu examen en tu trámite ' . $t['folio'] . '.');
-        flash($emitido ? 'exito' : 'error', $emitido ? 'Cotejo registrado y oficio de cotejo emitido.' : 'Cotejo registrado, pero no se pudo emitir el oficio; intenta emitirlo de nuevo.');
+        Aviso::egresado($t, 'Cotejo realizado', 'Apoyo a Grado cotejó tus originales y emitió el oficio de cotejo para tu director. En cuanto lo firme la Coordinación de Estudios Avanzados podrás proponer tu sínodo y la fecha de tu examen en tu trámite ' . $t['folio'] . '.');
+        flash($emitido ? 'exito' : 'error', $emitido ? 'Cotejo registrado. El oficio de cotejo quedó en firma de la Coordinación.' : 'Cotejo registrado, pero no se pudo emitir el oficio; intenta emitirlo de nuevo.');
         redirigir($volver);
     }
 
@@ -192,33 +192,133 @@ final class GestionController extends PosgradoBase
         redirigir($this->volver($t, 'momento-2'));
     }
 
-    /** Programación del examen: cierra el segundo momento. */
+    /**
+     * Programación del examen: cierra el segundo momento. Requiere que hayan firmado el director y los siete integrantes,
+     * sin respuestas «No» ni vigencias de firma UAEMéx insuficientes; cualquiera de esas faltas solo se salva con una
+     * justificación escrita que queda en la bitácora.
+     */
     public function programacion(string $id): void
     {
         $t = $this->tramite($id, true);
         $this->abierto($t);
         $volver = $this->volver($t, 'momento-2');
         [$ev] = $this->evaluar($t);
-        if (!$ev['hecho'][1] || $ev['faltanSinodo'] || !$ev['m2validados'] || ($ev['externos'] && !$ev['externosAlta'])) {
-            flash('error', 'Para programar se necesita el cotejo, la propuesta completa, la solicitud, el visto bueno y los comprobantes validados' . ($ev['externos'] ? ' y el alta de los sinodales externos' : '') . '.');
+        if (!$ev['hecho'][1] || $ev['faltanSinodo'] || !$ev['propuestaEnviada'] || ($ev['externos'] && !$ev['externosAlta'])) {
+            flash('error', 'Para programar se necesita el cotejo, la propuesta completa y enviada a firma' . ($ev['externos'] ? ' y el alta de los sinodales externos' : '') . '.');
             redirigir($volver);
         }
         $fecha = self::linea($_POST['fecha'] ?? '', 10);
         $hora = self::linea($_POST['hora'] ?? '', 5);
         $lugar = self::linea($_POST['lugar'] ?? '', 200);
         $modalidad = in_array($_POST['modalidad'] ?? '', ['presencial', 'virtual'], true) ? (string) $_POST['modalidad'] : 'presencial';
+        $justificacion = trim((string) preg_replace('/\s+/u', ' ', $this->post('justificacion')));
         if (!self::fechaValida($fecha) || $fecha < date('Y-m-d') || !self::horaValida($hora) || $lugar === '') {
             flash('error', 'Indica fecha (hoy o posterior), hora y lugar del examen.');
             redirigir($volver);
         }
-        PosgradoRepository::guardarHito((int) $t['id'], 'programacion', ['fecha' => $fecha, 'hora' => $hora, 'lugar' => $lugar, 'modalidad' => $modalidad], Auth::id());
+        $faltas = [];
+        if (!$ev['firmasM2']) {
+            $faltas[] = 'aún no firman todos (director y siete integrantes)';
+        }
+        foreach ($ev['respuestasNo'] as $r) {
+            $faltas[] = $r['nombre'] . ' contestó «No» (' . implode(', ', $r['preguntas']) . ')';
+        }
+        foreach (Firmas::avisosVigencia(Firmas::estado((int) $t['id']), $fecha) as $a) {
+            $faltas[] = $a;
+        }
+        if ($faltas && mb_strlen($justificacion) < 15) {
+            flash('error', 'No se puede programar todavía: ' . implode('; ', array_map(static fn(string $x): string => rtrim($x, '.'), array_slice($faltas, 0, 4))) . '. Si aun así debe programarse, escribe la justificación (mínimo 15 caracteres).');
+            redirigir($volver);
+        }
+        PosgradoRepository::guardarHito((int) $t['id'], 'programacion', ['fecha' => $fecha, 'hora' => $hora, 'lugar' => $lugar, 'modalidad' => $modalidad] + ($faltas ? ['justificacion' => mb_substr($justificacion, 0, 900)] : []), Auth::id());
         PosgradoRepository::asignarResponsable((int) $t['id'], Auth::id());
+        if ($faltas) {
+            PosgradoRepository::evento((int) $t['id'], Auth::id(), 'justificacion', 'Programación con salvedades (' . implode('; ', $faltas) . '). Justificación: ' . $justificacion, false);
+        }
         PosgradoRepository::evento((int) $t['id'], Auth::id(), 'programacion', 'Examen programado para el ' . Flujo::fechaLarga($fecha) . ' a las ' . $hora . ' horas.');
-        Audit::record('posgrado::programacion', 'correcto', 'Trámite ' . (int) $t['id']);
+        Audit::record('posgrado::programacion', 'correcto', 'Trámite ' . (int) $t['id'] . ($faltas ? ' (con justificación)' : ''));
         $t = $this->sincronizar((int) $t['id']);
-        Aviso::egresado($t, 'Tu examen de grado está programado', 'Apoyo a Grado programó tu examen para el ' . Flujo::fechaLarga($fecha) . ' a las ' . $hora . ' horas, ' . ($modalidad === 'virtual' ? 'en modalidad virtual' : 'en ' . $lugar) . '. En cuanto emitan tus invitaciones podrás descargarlas en tu trámite ' . $t['folio'] . '.');
-        flash('exito', 'Examen programado. Ahora puedes emitir las invitaciones, el acuse y la notificación al director.');
+        Aviso::egresado($t, 'Tu examen de grado está programado', 'Apoyo a Grado programó tu examen para el ' . Flujo::fechaLarga($fecha) . ' a las ' . $hora . ' horas, ' . ($modalidad === 'virtual' ? 'en modalidad virtual' : 'en ' . $lugar) . '. Después la Coordinación firmará tus invitaciones y cada integrante de tu sínodo recibirá la suya por correo. Trámite ' . $t['folio'] . '.');
+        flash('exito', 'Examen programado. Ahora emite las invitaciones, el acuse y la notificación al director; quedan en firma de la Coordinación.');
         redirigir($this->volver($t, 'momento-3'));
+    }
+
+    /** Devuelve la propuesta al egresado (p. ej. por una respuesta «No»): se cancelan la solicitud, el visto bueno y sus firmas. */
+    public function devolver(string $id): void
+    {
+        $t = $this->tramite($id, true);
+        $this->abierto($t);
+        $volver = $this->volver($t, 'momento-2');
+        [$ev] = $this->evaluar($t);
+        $comentario = trim((string) preg_replace('/\s+/u', ' ', $this->post('comentario')));
+        if ($ev['hecho'][2] || !$ev['propuestaEnviada']) {
+            flash('error', 'No hay una propuesta en firma que devolver.');
+            redirigir($volver);
+        }
+        if (mb_strlen($comentario) < 10) {
+            flash('error', 'Explica al egresado qué debe ajustar (mínimo 10 caracteres).');
+            redirigir($volver);
+        }
+        foreach (['solicitud', 'visto_bueno'] as $doc) {
+            Firmas::cancelarDocumento((int) $t['id'], $doc, Auth::id(), 'Apoyo a Grado devolvió la propuesta');
+        }
+        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'observacion', 'Propuesta de sínodo y fecha devuelta: ' . mb_substr($comentario, 0, 400));
+        Audit::record('posgrado::devolver', 'correcto', 'Trámite ' . (int) $t['id']);
+        $t = $this->sincronizar((int) $t['id']);
+        Aviso::egresado($t, 'Ajusta tu propuesta de sínodo y fecha', "Apoyo a Grado te devolvió tu propuesta con esta observación:\n\n" . $comentario . "\n\nAjústala y envíala de nuevo a firma en tu trámite " . $t['folio'] . '.');
+        flash('exito', 'Propuesta devuelta al egresado; se cancelaron las firmas pendientes y hechas.');
+        redirigir($volver);
+    }
+
+    /** Anula un documento del egresado ya firmado (voto o formato de datos) para que corrija sus datos antes del cotejo. */
+    public function anular(string $id, string $doc): void
+    {
+        $t = $this->tramite($id, true);
+        $this->abierto($t);
+        $volver = $this->volver($t, 'momento-1');
+        if (!in_array($doc, ['voto', 'datos_interesado'], true)) {
+            $this->noEncontrado();
+        }
+        $justificacion = trim((string) preg_replace('/\s+/u', ' ', $this->post('justificacion')));
+        if (isset(PosgradoRepository::hitos((int) $t['id'])['cotejo'])) {
+            flash('error', 'Después del cotejo ya no se anulan estos documentos.');
+            redirigir($volver);
+        }
+        if (mb_strlen($justificacion) < 10) {
+            flash('error', 'Escribe por qué se anula (mínimo 10 caracteres).');
+            redirigir($volver);
+        }
+        Firmas::cancelarDocumento((int) $t['id'], $doc, Auth::id(), 'anulado por Apoyo a Grado: ' . mb_substr($justificacion, 0, 300));
+        Audit::record('posgrado::anular', 'correcto', 'Trámite ' . (int) $t['id'] . ' · ' . $doc);
+        $t = $this->sincronizar((int) $t['id']);
+        Aviso::egresado($t, 'Puedes corregir tus datos', 'Apoyo a Grado anuló «' . Firmas::nombreDocumento($doc) . '» para que corrijas tus datos: ' . $justificacion . ' Después vuelve a pedir la firma en tu trámite ' . $t['folio'] . '.');
+        flash('exito', 'Documento anulado; el egresado puede corregir sus datos y pedir de nuevo la firma.');
+        redirigir($volver);
+    }
+
+    /** Cierra las invitaciones sin todos los acuses, con justificación escrita en la bitácora. */
+    public function cerrarAcuse(string $id): void
+    {
+        $t = $this->tramite($id, true);
+        $this->abierto($t);
+        $volver = $this->volver($t, 'momento-3');
+        [$ev] = $this->evaluar($t);
+        $justificacion = trim((string) preg_replace('/\s+/u', ' ', $this->post('justificacion')));
+        if (!$ev['hecho'][2] || $ev['hecho'][3] || !$ev['invitacionesFirmadas']) {
+            flash('error', 'Se cierra después de que la Coordinación firme las invitaciones y el acuse.');
+            redirigir($volver);
+        }
+        if (mb_strlen($justificacion) < 15) {
+            flash('error', 'Escribe la justificación para cerrar sin todos los acuses (mínimo 15 caracteres).');
+            redirigir($volver);
+        }
+        PosgradoRepository::guardarHito((int) $t['id'], 'acuse_cierre', ['justificacion' => mb_substr($justificacion, 0, 900)], Auth::id());
+        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'justificacion', 'Invitaciones cerradas sin todos los acuses. Justificación: ' . $justificacion, false);
+        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'acuse', 'Apoyo a Grado cerró las invitaciones al sínodo.');
+        Audit::record('posgrado::cerrar_acuse', 'correcto', 'Trámite ' . (int) $t['id']);
+        $this->sincronizar((int) $t['id']);
+        flash('exito', 'Invitaciones cerradas.');
+        redirigir($this->volver($t, 'momento-4'));
     }
 
     /** Resultado del examen; «aplazado» reabre el segundo momento para reprogramar. */
@@ -229,7 +329,7 @@ final class GestionController extends PosgradoBase
         $volver = $this->volver($t, 'momento-4');
         [$ev] = $this->evaluar($t);
         if (!$ev['hecho'][3]) {
-            flash('error', 'El resultado se registra después de validar el acuse firmado por el sínodo.');
+            flash('error', 'El resultado se registra después de que el sínodo acuse de recibido sus invitaciones (o de cerrarlas con justificación).');
             redirigir($volver);
         }
         $resultado = array_key_exists($this->post('resultado'), Catalogo::resultados()) ? $this->post('resultado') : '';
@@ -258,13 +358,14 @@ final class GestionController extends PosgradoBase
             PosgradoRepository::guardarDatos((int) $t['id'], $datos);
             PosgradoRepository::borrarHito((int) $t['id'], 'programacion');
             PosgradoRepository::borrarHito((int) $t['id'], 'resultado');
-            foreach (['solicitud_firmada', 'visto_bueno_firmado', 'comprobantes_sicde', 'acuse_firmado'] as $clave) {
-                PosgradoRepository::retirarDocumento((int) $t['id'], $clave);
+            PosgradoRepository::borrarHito((int) $t['id'], 'acuse_cierre');
+            foreach (['solicitud', 'visto_bueno', 'invitaciones', 'acuse', 'notificacion'] as $doc) {
+                Firmas::cancelarDocumento((int) $t['id'], $doc, Auth::id(), 'examen aplazado');
             }
             PosgradoRepository::evento((int) $t['id'], Auth::id(), 'resultado', 'Examen aplazado (' . Flujo::fechaLarga($fecha) . '). El trámite vuelve a «Propón sínodo y fecha».');
             Audit::record('posgrado::resultado', 'correcto', 'Trámite ' . (int) $t['id'] . ' aplazado');
             $t = $this->sincronizar((int) $t['id']);
-            Aviso::egresado($t, 'Tu examen de grado quedó aplazado', 'Tu trámite ' . $t['folio'] . ' sigue abierto. Cuando estés listo, propón de nuevo la fecha de tu examen y recaba otra vez la solicitud, el visto bueno y los comprobantes.');
+            Aviso::egresado($t, 'Tu examen de grado quedó aplazado', 'Tu trámite ' . $t['folio'] . ' sigue abierto. Cuando estés listo, propón de nuevo la fecha de tu examen y envíala a firma: tu director y tu sínodo firmarán otra vez en línea.');
             flash('exito', 'Resultado registrado: aplazado. El trámite volvió al momento 2 para reprogramar.');
             redirigir($this->volver($t, 'momento-2'));
         }
@@ -284,8 +385,8 @@ final class GestionController extends PosgradoBase
         $this->abierto($t);
         $volver = $this->volver($t, 'momento-4');
         [$ev] = $this->evaluar($t);
-        if (!$ev['aprobado'] || $ev['folioSicde'] === '' || !isset($ev['generados']['integracion'])) {
-            flash('error', 'Para integrar el expediente se necesita el resultado aprobatorio, el folio del SICDE del egresado y el formato de integración emitido.');
+        if (!$ev['aprobado'] || $ev['folioSicde'] === '' || Flujo::estadoFirma($ev['firmas'], 'integracion') !== 'firmado') {
+            flash('error', 'Para integrar el expediente se necesita el resultado aprobatorio, el folio del SICDE del egresado y el formato de integración firmado por la Coordinación.');
             redirigir($volver);
         }
         PosgradoRepository::guardarHito((int) $t['id'], 'expediente', ['fecha' => date('Y-m-d')], Auth::id());
@@ -320,26 +421,19 @@ final class GestionController extends PosgradoBase
         }
         $ok = $this->emitirClave($t, $clave);
         $t = $this->sincronizar((int) $t['id']);
-        if ($ok && in_array($clave, ['invitaciones', 'acuse', 'notificacion', 'no_adeudo', 'constancias_revisores', 'constancias_direccion'], true)) {
-            Aviso::egresado($t, 'Nuevo documento en tu trámite: ' . $def['nombre'], 'Apoyo a Grado emitió «' . $def['nombre'] . '» en tu trámite ' . $t['folio'] . '. Ya puedes descargarlo.');
-        }
-        flash($ok ? 'exito' : 'error', $ok ? '«' . $def['nombre'] . '» emitido y guardado en el expediente.' : 'No se pudo emitir el documento. Intenta de nuevo.');
+        flash($ok ? 'exito' : 'error', $ok ? '«' . $def['nombre'] . '» emitido: quedó en firma de la Coordinación de Estudios Avanzados.' : 'No se pudo emitir el documento. Intenta de nuevo.');
         redirigir($volver);
     }
 
-    /** Genera, guarda y registra un oficio. */
+    /** Genera, guarda y deja en firma de la Coordinación un oficio (la emisión anterior y sus firmas se cancelan). */
     private function emitirClave(array $t, string $clave): bool
     {
         try {
-            [$bytes] = Formatos::generar($clave, $t, PosgradoRepository::hitos((int) $t['id']));
-            $nombre = Catalogo::emitibles()[$clave]['nombre'] ?? $clave;
-            $gid = Expediente::guardar($t, $clave, $nombre, $bytes, Auth::id());
+            Firmas::emitir($t, $clave, Auth::id());
         } catch (Throwable $e) {
             error_log('Posgrado: no se pudo emitir ' . $clave . ': ' . $e->getMessage());
             return false;
         }
-        PosgradoRepository::evento((int) $t['id'], Auth::id(), 'oficio', 'Emitido: ' . $nombre . '.');
-        Audit::record('posgrado::emitir', 'correcto', 'Trámite ' . (int) $t['id'] . ' · ' . $clave . ' · ' . $gid);
         return true;
     }
 }

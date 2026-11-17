@@ -66,6 +66,8 @@ $config = [
         'gestores' => ['jsalasg@uaemex.mx'],
     ],
     'posgrado' => [
+        // false: el módulo no aparece en el menú y sus rutas (incluidos los enlaces de firma) muestran «próximamente».
+        'publicado' => true,
         // Personal de Apoyo a Grado que valida trámites de evaluación de grado: cuentas de estas dependencias
         // (roles titular, operativo o coordinador) y los correos listados como gestores.
         'departamentos' => ['coordinacion_de_estudios_avanzados', 'titular_de_la_coordinacion_de_investigacion_y_estudios_avanzados'],

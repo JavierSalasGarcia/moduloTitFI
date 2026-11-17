@@ -22,6 +22,26 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
     <datalist id="grados-lista"><?php foreach (\App\Core\Persona::GRADOS as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist>
   </form>
 </section>
+<?php if (!empty($fiseAplica)):
+  $fisePorVencer = \App\Modules\Perfil\FirmaUaemex::porVencer($fiseVigencia ?? null);
+  $fiseVencida = $fisePorVencer && (string) $fiseVigencia < date('Y-m-d'); ?>
+<section class="card" style="padding:20px;margin-bottom:18px" id="firma-uaemex">
+  <h3 style="margin-top:0">Vigencia de mi firma electrónica UAEMéx</h3>
+  <p class="texto-suave">Es la firma institucional con la que se firman las actas en el SICDE de Control Escolar (por ejemplo, como sinodal de un examen de grado). No es el sello que pone Traza FI en sus documentos. Puedes verificar la fecha de validez de tu firma entrando a <a href="<?= e(\App\Modules\Perfil\FirmaUaemex::URL) ?>" target="_blank" rel="noopener noreferrer">https://fise.uaemex.mx/</a></p>
+  <?php if ($fisePorVencer): ?>
+    <p role="alert" style="background:#FEF2F2;border-left:4px solid var(--error);padding:10px 12px;border-radius:4px;margin:0 0 12px">
+      <strong><?= $fiseVencida ? 'Tu firma electrónica UAEMéx venció el ' : 'Tu firma electrónica UAEMéx vence el ' ?><?= e(\App\Modules\Perfil\FirmaUaemex::fechaLarga((string) $fiseVigencia)) ?>.</strong>
+      Renuévala en <a href="<?= e(\App\Modules\Perfil\FirmaUaemex::URL) ?>" target="_blank" rel="noopener noreferrer">https://fise.uaemex.mx/</a> y actualiza aquí la fecha nueva.</p>
+  <?php endif; ?>
+  <form method="post" action="<?= url('perfil/firma-uaemex') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+    <label>Vigencia de mi firma electrónica UAEMéx<input type="date" name="fise_vigencia" min="2000-01-01" max="2100-12-31" value="<?= e((string) ($fiseVigencia ?? '')) ?>" aria-describedby="fise-ayuda">
+      <small id="fise-ayuda" class="texto-suave" style="display:block;font-weight:400">Opcional. Puedes verificar la fecha de validez de tu firma entrando a <a href="<?= e(\App\Modules\Perfil\FirmaUaemex::URL) ?>" target="_blank" rel="noopener noreferrer">https://fise.uaemex.mx/</a></small></label>
+    <button class="btn btn-primario" type="submit" name="accion" value="guardar">Guardar</button>
+    <?php if (!empty($fiseVigencia)): ?><button class="btn" type="submit" name="accion" value="borrar">Borrar la fecha</button><?php endif; ?>
+  </form>
+</section>
+<?php endif; ?>
 <section class="card" style="padding:20px;margin-bottom:18px">
   <h3 style="margin-top:0">Mi correo institucional</h3>
   <p class="texto-suave">Tu cuenta no depende del dominio del correo: si cambia (por ejemplo, de @profesor.uaemex.mx a @uaemex.mx), actualízalo aquí y seguirás siendo la misma cuenta, con tus constancias y accesos.</p>

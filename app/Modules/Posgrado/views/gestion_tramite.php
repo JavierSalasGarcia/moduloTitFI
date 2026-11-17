@@ -2,6 +2,8 @@
 use App\Core\Auth;
 use App\Modules\Posgrado\Catalogo;
 use App\Modules\Posgrado\Flujo;
+use App\Modules\Posgrado\PosgradoAccess;
+use App\Modules\Posgrado\Services\Firmas;
 
 include __DIR__ . '/_estilos.php';
 
@@ -10,7 +12,10 @@ $i = $t['datos']['interesado'] ?? [];
 $s = $t['datos']['sinodo'] ?? [];
 $actual = (int) $ev['actual'];
 $momentos = Catalogo::momentos();
-$abierto = $t['estado'] === 'abierto';
+$opera = PosgradoAccess::esPersonalOperativo();
+$abierto = $t['estado'] === 'abierto' && $opera;
+$cotejado = isset($ev['hitos']['cotejo']);
+$firmas = $ev['firmas'];
 $prog = $ev['hitos']['programacion']['datos'] ?? [];
 $res = $ev['hitos']['resultado']['datos'] ?? [];
 $csrf = '<input type="hidden" name="_csrf" value="' . e(Auth::csrfToken()) . '">';
@@ -20,6 +25,11 @@ $persona = static fn(string $rol): string => trim(($i[$rol . '_grado'] ?? '') . 
 $emitir = static function (string $clave, string $texto, bool $primario = true) use ($gbase, $csrf, $ev, $abierto): string {
     $g = $ev['generados'][$clave] ?? null;
     $h = '';
+    if ($g) {
+        $ef = Flujo::estadoFirma($ev['firmas'], $clave);
+        $h .= $ef === 'firmado' ? '<span class="pos-estado pos-e-ok">Firmado</span> '
+            : (Firmas::rolCompleto($ev['firmas'], $clave, 'coordinacion') ? '<span class="pos-estado pos-e-rev">Esperando acuses</span> ' : '<span class="pos-estado pos-e-rev">En firma de la Coordinación</span> ');
+    }
     if ($g) {
         $h .= '<a class="btn btn-mini" href="' . url('posgrado/generado/' . (int) $g['id']) . '" target="_blank" rel="noopener">Ver ' . e(mb_strtolower($texto)) . '</a> ';
     }
@@ -81,7 +91,7 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
           <dt>Art. 53 del REA</dt><dd><?= e($valor('art53')) ?></dd>
           <dt>Título</dt><dd><?= e($valor('titulo')) ?></dd>
         </dl>
-        <p><a class="btn btn-mini" href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/datos_interesado') ?>">Formato de datos del interesado</a> <a class="btn btn-mini" href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/voto') ?>">Voto aprobatorio (formato)</a></p>
+
       </details>
       <?php
       $porGrupo = [];
@@ -101,7 +111,7 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
           <ul class="pos-lista">
             <?php foreach ($filas as $fila) {
                 $prefijo = 'req-';
-                $bloqueado = $ev['hecho'][1] || !$abierto;
+                $bloqueado = $cotejado || !$abierto;
                 if ($fila['tipo'] === 'generado' && ($fila['formato'] ?? '') === 'no_adeudo') {
                     $bloqueado = !$abierto;
                 }
@@ -112,18 +122,18 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
       <?php endforeach; ?>
 
       <h3 class="pos-sub">Cotejo de originales</h3>
-      <?php if ($ev['hecho'][1]): $c = $ev['hitos']['cotejo']; ?>
+      <?php if ($cotejado): $c = $ev['hitos']['cotejo']; ?>
         <div class="pos-ok">Cotejo registrado: <?= e(Flujo::fechaLarga((string) ($c['datos']['fecha'] ?? ''))) ?>, <?= e((string) ($c['datos']['hora'] ?? '')) ?> horas, por <?= e((string) $c['completado_nombre']) ?>.</div>
         <p><?= $emitir('cotejo', 'Oficio de cotejo') ?></p>
       <?php elseif ($abierto): ?>
-        <?php if (!$ev['requisitosCompletos']): ?><p class="pos-nota">Para cotejar deben estar completos los datos, validados todos los PDF, marcadas las entregas en físico y emitida la constancia de no adeudo.</p><?php endif; ?>
+        <?php if (!$ev['requisitosCompletos']): ?><p class="pos-nota">Para cotejar deben estar completos los datos, firmados el voto aprobatorio y el formato de datos, validados todos los PDF, marcadas las entregas en físico y firmada por la Coordinación la constancia de no adeudo.</p><?php endif; ?>
         <form class="formulario" method="post" action="<?= url($gbase . '/cotejo') ?>">
           <?= $csrf ?>
           <div class="pos-campos">
             <label>Fecha de recepción del total de requisitos<input type="date" name="fecha" max="<?= e(date('Y-m-d')) ?>" value="<?= e(date('Y-m-d')) ?>" required></label>
             <label>Hora<input type="time" name="hora" value="<?= e(date('H:i')) ?>" required></label>
           </div>
-          <div class="acciones-formulario"><button class="btn btn-primario" type="submit" <?= $ev['requisitosCompletos'] ? '' : 'disabled' ?>>Registrar cotejo y emitir oficio</button></div>
+          <div class="acciones-formulario"><button class="btn btn-primario" type="submit" <?= $ev['requisitosCompletos'] ? '' : 'disabled' ?>>Registrar cotejo y emitir oficio</button> <small class="texto-secundario">El oficio queda en firma de la Coordinación.</small></div>
         </form>
       <?php endif; ?>
     </div>
@@ -152,15 +162,29 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
         <p>Propuesta: <strong><?= e(Flujo::fechaLarga((string) ($s['fecha'] ?? '')) ?: '—') ?></strong> a las <strong><?= e((string) ($s['hora'] ?? '—')) ?></strong> · <?= e((string) ($s['modalidad'] ?? '')) ?>
           <?php if (!$ev['faltanSinodo']): ?> · <a href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/solicitud') ?>">Solicitud</a> · <a href="<?= url('posgrado/tramite/' . (int) $t['id'] . '/formato/visto_bueno') ?>">Visto bueno</a><?php endif; ?></p>
       <?php endif; ?>
-      <ul class="pos-lista">
-        <?php foreach (['solicitud_firmada', 'visto_bueno_firmado', 'comprobantes_sicde'] as $clave) {
-            $fila = $ev['m2docs'][$clave] + ['tipo' => 'pdf'];
-            unset($fila['formato']);
-            $prefijo = 'doc-';
-            $bloqueado = !$abierto || $ev['hecho'][2];
-            include __DIR__ . '/_doc_personal.php';
-        } ?>
-      </ul>
+      <div id="firmas-m2">
+      <?php if (!$ev['propuestaEnviada']): ?>
+        <p class="texto-secundario">El egresado aún no envía su propuesta a firma.</p>
+      <?php else: ?>
+        <?php foreach ($ev['avisosVigencia'] as $aviso): ?><p class="pos-alerta" role="alert"><strong><?= e($aviso) ?></strong></p><?php endforeach; ?>
+        <?php foreach ($ev['respuestasNo'] as $rn): ?><p class="pos-alerta"><strong><?= e($rn['nombre']) ?> contestó «No»</strong> a: <?= e(implode(', ', $rn['preguntas'])) ?>. Decide si validas la propuesta (al programar, con justificación) o la devuelves al egresado.</p><?php endforeach; ?>
+        <?php foreach (['solicitud' => 'Solicitud de evaluación de grado', 'visto_bueno' => 'Visto bueno del sínodo'] as $doc => $etq): $docFirmas = $firmas[$doc] ?? null; $g = $ev['generados'][$doc] ?? null; ?>
+          <h4 style="margin:12px 0 4px;font-size:14px"><?= e($etq) ?> <?php if ($docFirmas): ?><span class="pos-estado <?= $docFirmas['completo'] ? 'pos-e-ok' : 'pos-e-rev' ?>"><?= $docFirmas['completo'] ? 'Firmado por todos' : 'En firma' ?></span><?php endif; ?>
+            <?php if ($g): ?> <a class="btn btn-mini" href="<?= url('posgrado/generado/' . (int) $g['id']) ?>" target="_blank" rel="noopener">Ver PDF</a><?php endif; ?></h4>
+          <?php $gestiona = $abierto && !$ev['hecho'][2]; $volver = 'firmas-m2'; $fechaExamen = $ev['fechaExamen']; include __DIR__ . '/_firmantes.php'; ?>
+        <?php endforeach; ?>
+        <?php if ($abierto && !$ev['hecho'][2]): ?>
+          <details class="pos-reemplazar" style="margin-top:8px"><summary>Devolver la propuesta al egresado</summary>
+            <form method="post" action="<?= url($gbase . '/devolver') ?>">
+              <?= $csrf ?>
+              <label class="sr-only" for="devolver-com">Qué debe ajustar</label>
+              <textarea id="devolver-com" name="comentario" rows="2" maxlength="600" placeholder="Qué debe ajustar el egresado" required></textarea>
+              <button class="btn btn-mini btn-peligro" type="submit">Devolver y cancelar las firmas</button>
+            </form>
+          </details>
+        <?php endif; ?>
+      <?php endif; ?>
+      </div>
       <?php if ($ev['externos']): ?>
         <div class="pos-nota" id="externos"><strong>Hay sinodales externos.</strong> Verifica que estén registrados en el Sistema de Control Escolar y que tengan firma electrónica para el SICDE.
           <?php if ($abierto && !$ev['hecho'][2]): ?>
@@ -176,8 +200,11 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
       <h3 class="pos-sub">Programación del examen</h3>
       <?php if ($ev['hecho'][2]): ?>
         <div class="pos-ok"><?= e(Flujo::fechaLarga((string) $prog['fecha'])) ?>, <?= e((string) $prog['hora']) ?> horas, <?= e((string) $prog['modalidad']) ?>, en <?= e((string) $prog['lugar']) ?>.</div>
-      <?php elseif ($abierto && $ev['hecho'][1]): $listo = !$ev['faltanSinodo'] && $ev['m2validados'] && (!$ev['externos'] || $ev['externosAlta']); ?>
-        <?php if (!$listo): ?><p class="pos-nota">Se habilita con la propuesta completa, los tres documentos validados<?= $ev['externos'] ? ' y el alta de externos' : '' ?>.</p><?php endif; ?>
+      <?php elseif ($abierto && $ev['hecho'][1]):
+          $listo = !$ev['faltanSinodo'] && $ev['propuestaEnviada'] && (!$ev['externos'] || $ev['externosAlta']);
+          $salvedad = !$ev['firmasM2'] || $ev['respuestasNo'] || $ev['vigencias']; ?>
+        <?php if (!$listo): ?><p class="pos-nota">Se habilita con la propuesta enviada a firma<?= $ev['externos'] ? ' y el alta de externos' : '' ?>.</p>
+        <?php elseif ($salvedad): ?><p class="pos-nota">Aún no se cumple todo (firmas del director y los siete integrantes, sin «No» y con vigencias de firma UAEMéx suficientes). Solo puedes programar escribiendo la justificación, que queda en la bitácora.</p><?php endif; ?>
         <form class="formulario" method="post" action="<?= url($gbase . '/programacion') ?>">
           <?= $csrf ?>
           <div class="pos-campos">
@@ -185,6 +212,7 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
             <label>Hora<input type="time" name="hora" value="<?= e((string) ($s['hora'] ?? '')) ?>" required></label>
             <label class="ancho">Lugar, como irá en los oficios<input type="text" name="lugar" maxlength="200" placeholder="el Auditorio 120 de la Facultad de Ingeniería" required>
               <small>Se escribe después de «en …». Si es virtual, indica la plataforma.</small></label>
+            <?php if (!empty($salvedad)): ?><label class="ancho">Justificación (obligatoria para programar con salvedades)<textarea name="justificacion" rows="2" maxlength="900"></textarea></label><?php endif; ?>
             <div class="ancho"><div class="pos-radios"><label><input type="radio" name="modalidad" value="presencial"<?= $chk(($s['modalidad'] ?? 'presencial') !== 'virtual') ?>> Presencial</label><label><input type="radio" name="modalidad" value="virtual"<?= $chk(($s['modalidad'] ?? '') === 'virtual') ?>> Virtual</label></div></div>
           </div>
           <div class="acciones-formulario"><button class="btn btn-primario" type="submit" <?= $listo ? '' : 'disabled' ?>>Registrar programación</button></div>
@@ -195,22 +223,30 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
 
   <?php /* ------------------------------------------------------------ Momento 3 */ ?>
   <details class="pos-momento <?= $actual === 3 ? 'actual' : '' ?>" id="momento-3" <?= $actual === 3 ? 'open' : '' ?>>
-    <summary>3. Invitaciones al sínodo <small><?= $ev['hecho'][3] ? '· Acuse validado' : '' ?></small></summary>
+    <summary>3. Invitaciones al sínodo <small><?= $ev['hecho'][3] ? '· Acuses completos' : '' ?></small></summary>
     <div class="pos-momento-cuerpo">
       <?php if (!$ev['hecho'][2]): ?>
         <p class="texto-secundario">Se habilita al registrar la programación.</p>
       <?php else: ?>
         <ul class="pos-lista">
           <li class="pos-doc"><span class="pos-icono <?= isset($ev['generados']['invitaciones']) ? 'pos-e-ok' : 'pos-e-pend' ?>" aria-hidden="true"></span><div><h4>Oficios de invitación (una hoja por integrante)</h4></div><div class="pos-doc-acciones"><?= $emitir('invitaciones', 'Invitaciones') ?></div></li>
-          <li class="pos-doc"><span class="pos-icono <?= isset($ev['generados']['acuse']) ? 'pos-e-ok' : 'pos-e-pend' ?>" aria-hidden="true"></span><div><h4>Acuse de recibido de oficios</h4></div><div class="pos-doc-acciones"><?= $emitir('acuse', 'Acuse') ?></div></li>
+          <li class="pos-doc" id="doc-acuse"><span class="pos-icono <?= isset($ev['generados']['acuse']) ? 'pos-e-ok' : 'pos-e-pend' ?>" aria-hidden="true"></span><div><h4>Acuse de recibido de oficios</h4><p class="pos-ayuda">Cuando la Coordinación firma las invitaciones y el acuse, cada integrante recibe su invitación por correo y acusa de recibido en línea.</p></div>
+            <?php if (isset($firmas['acuse'])): ?><div style="grid-column:2"><?php $docFirmas = $firmas['acuse']; $gestiona = $abierto; $volver = 'doc-acuse'; $fechaExamen = ''; include __DIR__ . '/_firmantes.php'; ?></div><?php endif; ?>
+            <div class="pos-doc-acciones"><?= $emitir('acuse', 'Acuse') ?></div></li>
           <li class="pos-doc"><span class="pos-icono <?= isset($ev['generados']['notificacion']) ? 'pos-e-ok' : 'pos-e-pend' ?>" aria-hidden="true"></span><div><h4>Notificación al director de tesis</h4><p class="pos-ayuda">Lleva los datos de contacto de <a href="<?= url('posgrado/configuracion') ?>">Configuración</a>.</p></div><div class="pos-doc-acciones"><?= $emitir('notificacion', 'Notificación') ?></div></li>
-          <?php
-          $fila = $ev['m2docs']['acuse_firmado'] + ['tipo' => 'pdf'];
-          $prefijo = 'doc-';
-          $bloqueado = !$abierto || $ev['hecho'][3];
-          include __DIR__ . '/_doc_personal.php';
-          ?>
         </ul>
+        <?php if (isset($ev['hitos']['acuse_cierre'])): ?>
+          <div class="pos-ok">Invitaciones cerradas con justificación: <?= e((string) ($ev['hitos']['acuse_cierre']['datos']['justificacion'] ?? '')) ?></div>
+        <?php elseif ($abierto && !$ev['hecho'][3] && $ev['invitacionesFirmadas']): ?>
+          <details class="pos-reemplazar"><summary>Cerrar sin todos los acuses</summary>
+            <form method="post" action="<?= url($gbase . '/acuse') ?>">
+              <?= $csrf ?>
+              <label class="sr-only" for="cierre-just">Justificación</label>
+              <textarea id="cierre-just" name="justificacion" rows="2" maxlength="900" placeholder="Por qué se cierra sin todos los acuses" required></textarea>
+              <button class="btn btn-mini" type="submit">Cerrar invitaciones</button>
+            </form>
+          </details>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
   </details>
@@ -220,7 +256,7 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
     <summary>4. Examen y cierre <small><?= $ev['hecho'][4] ? '· Expediente integrado' : '' ?></small></summary>
     <div class="pos-momento-cuerpo">
       <?php if (!$ev['hecho'][3]): ?>
-        <p class="texto-secundario">Se habilita al validar el acuse firmado.</p>
+        <p class="texto-secundario">Se habilita cuando el sínodo acusa de recibido sus invitaciones (o al cerrarlas con justificación).</p>
       <?php else: ?>
         <h3 class="pos-sub">Resultado</h3>
         <?php if ($res): ?>
@@ -250,10 +286,10 @@ $emitir = static function (string $clave, string $texto, bool $primario = true) 
           </ul>
           <?php if ($ev['hecho'][4]): ?>
             <div class="pos-ok">Expediente integrado el <?= e(Flujo::fechaLarga((string) ($ev['hitos']['expediente']['datos']['fecha'] ?? ''))) ?>. Trámite concluido.</div>
-          <?php elseif ($abierto): $puede = $ev['folioSicde'] !== '' && isset($ev['generados']['integracion']); ?>
+          <?php elseif ($abierto): $puede = $ev['folioSicde'] !== '' && Flujo::estadoFirma($firmas, 'integracion') === 'firmado'; ?>
             <form method="post" action="<?= url($gbase . '/expediente') ?>">
               <?= $csrf ?>
-              <?php if (!$puede): ?><p class="pos-nota">Se habilita cuando el egresado capture su folio del SICDE y emitas el formato de integración.</p><?php endif; ?>
+              <?php if (!$puede): ?><p class="pos-nota">Se habilita cuando el egresado capture su folio del SICDE y la Coordinación firme el formato de integración.</p><?php endif; ?>
               <button class="btn btn-primario" type="submit" <?= $puede ? '' : 'disabled' ?>>Marcar expediente como integrado y concluir</button>
             </form>
           <?php endif; ?>

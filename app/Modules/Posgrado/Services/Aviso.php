@@ -43,7 +43,17 @@ final class Aviso
         }
     }
 
-    private static function correo(string $para, string $nombre, string $asunto, string $texto, string $enlace): void
+    /** Correo con el enlace personal de firma a un firmante (director o sinodal) que puede no tener cuenta. */
+    public static function firmante(string $para, string $nombre, string $asunto, string $texto, string $enlace, string $boton): void
+    {
+        try {
+            self::correo(strtolower(trim($para)), $nombre, $asunto, $texto, $enlace, $boton, 'Revisar y firmar');
+        } catch (Throwable $e) {
+            error_log('Posgrado: no se envió el enlace de firma: ' . $e->getMessage());
+        }
+    }
+
+    private static function correo(string $para, string $nombre, string $asunto, string $texto, string $enlace, string $boton = 'Ver mi trámite', string $etiquetaPlano = 'Ver mi trámite'): void
     {
         $esc = static fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
         $saludo = $nombre !== '' ? 'Hola, ' . $nombre : 'Hola';
@@ -51,9 +61,9 @@ final class Aviso
             . "<h2 style='color:#2C5234;margin-top:0'>Evaluación de grado · Facultad de Ingeniería</h2>"
             . "<p style='color:#334155;font-size:14px'><strong>" . $esc($saludo) . '</strong>:</p>'
             . "<div style='color:#334155;font-size:14px;line-height:1.5'>" . nl2br($esc($texto)) . '</div>'
-            . "<p style='margin:22px 0'><a href='" . $esc($enlace) . "' style='background:#2C5234;color:#fff;padding:11px 18px;border-radius:6px;text-decoration:none;font-weight:bold'>Ver mi trámite</a></p>"
+            . "<p style='margin:22px 0'><a href='" . $esc($enlace) . "' style='background:#2C5234;color:#fff;padding:11px 18px;border-radius:6px;text-decoration:none;font-weight:bold'>" . $esc($boton) . "</a></p>"
             . "<hr style='border:0;border-top:1px solid #e2e8f0;margin:20px 0'><p style='color:#94a3b8;font-size:11px;text-align:center'>Traza FI · Coordinación de Estudios Avanzados · UAEMéx</p></div>";
-        $plano = "$saludo:\n\n$texto\n\nVer mi trámite: $enlace\n\nTraza FI · Facultad de Ingeniería UAEMéx";
+        $plano = "$saludo:\n\n$texto\n\n$etiquetaPlano: $enlace\n\nTraza FI · Facultad de Ingeniería UAEMéx";
         if ((string) App::config('correo.api_token', '') !== '' && class_exists(\App\Modules\Reuniones\Services\HostingerMailer::class)) {
             (new \App\Modules\Reuniones\Services\HostingerMailer())->enviar($para, $asunto, $plano, $html);
         } elseif (App::config('app.debug')) {

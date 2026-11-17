@@ -8,7 +8,7 @@ $momentos = Catalogo::momentos();
 <div class="pos-pila">
   <section class="tarjeta">
     <h2>Tu examen de grado, en cuatro momentos</h2>
-    <p>Tú capturas tus datos, tu sínodo y la fecha; la plataforma llena los formatos para que tu director y tu sínodo solo los firmen. El personal de Apoyo a Grado de la Coordinación de Estudios Avanzados revisa tus documentos y emite los oficios. Siempre verás un solo siguiente paso.</p>
+    <p>Tú capturas tus datos, tu sínodo y la fecha; la plataforma llena los formatos y tu director, tu sínodo y la Coordinación los firman en línea, sin imprimir nada. El personal de Apoyo a Grado de la Coordinación de Estudios Avanzados revisa tus documentos y emite los oficios. Siempre verás un solo siguiente paso.</p>
     <div class="pos-tarjetas">
       <?php foreach ($momentos as $n => $m): ?>
         <div class="pos-momento-info">

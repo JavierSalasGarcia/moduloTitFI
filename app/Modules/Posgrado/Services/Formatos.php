@@ -29,9 +29,22 @@ use RuntimeException;
  *
  * El QR de verificación de Hoja depende de tit_tramites (Verificacion::guardado), así que estas hojas se crean sin
  * folio de Titulación (Hoja::nueva('')) y llevan un pie propio con el folio del trámite de grado.
+ *
+ * Las firmas son en línea (Services\Firmas): al componer cada documento se anotan las «cajas» donde irá el sello de
+ * cada firmante (página y coordenadas en mm) y, en el visto bueno, las casillas Sí/No de cada integrante.
  */
 final class Formatos
 {
+    /** Alto que se deja sobre la línea de firma para el sello (SelloPdf mide 14 a 20 mm según sus renglones). */
+    private const ESPACIO_SELLO = 21.0;
+    private const ESPACIO_SELLO_COORDINACION = 24.0;
+    /** Alto de un renglón del sínodo con sello (visto bueno y acuse) y ancho de su columna de firma (el sello mide 62 mm). */
+    private const RENGLON_SELLO = 19.0;
+    private const COLUMNA_SELLO = 64.0;
+
+    /** @var array<string,array> cajas del documento que se está componiendo */
+    private static array $cajas = [];
+
     public const NOMBRES = [
         'voto' => 'Voto aprobatorio', 'datos_interesado' => 'Formato de datos del interesado', 'solicitud' => 'Solicitud de evaluación de grado',
         'visto_bueno' => 'Visto bueno del sínodo', 'cotejo' => 'Oficio de cotejo', 'invitaciones' => 'Oficios de invitación al sínodo',
@@ -49,6 +62,20 @@ final class Formatos
      */
     public static function generar(string $clave, array $t, array $hitos = []): array
     {
+        [$bytes, $nombre] = self::generarConCajas($clave, $t, $hitos);
+        return [$bytes, $nombre];
+    }
+
+    /**
+     * Como generar(), y además devuelve dónde va el sello de cada firmante:
+     * ['coordinacion' => ['sellos' => [['p' => 0, 'x' => 108.0, 'y' => 201.3]]], 'director' => …, 'egresado' => …,
+     *  'sinodal_0' … 'sinodal_6' => ['sellos' => […], 'marcas' => [['p'=>0,'y'=>…,'si'=>[x,x,x],'no'=>[x,x,x]]]],
+     *  'paginas' => [n => página de la invitación del integrante n]]. Coordenadas en mm; y = borde inferior del sello.
+     * @return array{0:string,1:string,2:array}
+     */
+    public static function generarConCajas(string $clave, array $t, array $hitos = []): array
+    {
+        self::$cajas = [];
         if (!isset(self::NOMBRES[$clave])) {
             throw new RuntimeException('Formato desconocido.');
         }
@@ -73,7 +100,9 @@ final class Formatos
         };
         self::pie($pdf, (string) ($t['folio'] ?? ''));
         $nombre = preg_replace('/[^A-Za-z0-9_-]+/', '_', self::NOMBRES[$clave]) . '_' . ($t['folio'] ?? 'PG') . '.pdf';
-        return [$pdf->Output('S'), $nombre];
+        $cajas = self::$cajas;
+        self::$cajas = [];
+        return [$pdf->Output('S'), $nombre, $cajas];
     }
 
     /** Qué falta capturar para generar el formato; null si se puede. */
@@ -316,11 +345,15 @@ final class Formatos
     /** «A T E N T A M E N T E», lema, leyenda del año y firma de la Coordinación de Estudios Avanzados. */
     private static function firmaCoordinacion(Hoja $pdf, array $x, float $espacio = 18.0, ?array $cargo = null): void
     {
-        self::firma($pdf, $x['firmante'], $cargo ?? [$x['cargo']], $espacio);
+        self::firma($pdf, $x['firmante'], $cargo ?? [$x['cargo']], $espacio, true, 'coordinacion');
     }
 
-    private static function firma(Hoja $pdf, string $nombre, array $cargo, float $espacio = 18.0, bool $lema = true): void
+    /** @param ?string $rol quien firma en línea sobre esta línea (se deja espacio para su sello y se anota su caja) */
+    private static function firma(Hoja $pdf, string $nombre, array $cargo, float $espacio = 18.0, bool $lema = true, ?string $rol = null): void
     {
+        if ($rol !== null) {
+            $espacio = max($espacio, $rol === 'coordinacion' ? self::ESPACIO_SELLO_COORDINACION : self::ESPACIO_SELLO);
+        }
         $necesario = ($lema ? 22 : 6) + $espacio + 6 + 5 * count($cargo);
         if ($pdf->GetY() + $necesario > 279.4 - 30) {
             $pdf->AddPage();
@@ -342,6 +375,9 @@ final class Formatos
         $pdf->SetDrawColor(70, 70, 70);
         $pdf->SetLineWidth(0.2);
         $pdf->Line(63, $y - 1, 153, $y - 1);
+        if ($rol !== null) {
+            self::$cajas[$rol]['sellos'][] = ['p' => $pdf->PageNo() - 1, 'x' => 108.0, 'y' => round($y - 2.5, 2)];
+        }
         $pdf->SetFont('Helvetica', 'B', 10.5);
         $pdf->MultiCell(0, 5, self::l1($nombre), 0, 'C');
         $pdf->SetFont('Helvetica', '', 10);
@@ -364,8 +400,10 @@ final class Formatos
      * @param array<int,array{0:string,1:float,2?:string}> $columnas [encabezado, ancho, alineación]
      * @param array<int,array<int,string>> $filas
      */
-    private static function tabla(Hoja $pdf, array $columnas, array $filas, float $tam = 9.0, float $minimo = 6.0): void
+    /** @return array<int,array{p:int,y:float,h:float}> página (0 = primera), y superior y alto de cada renglón */
+    private static function tabla(Hoja $pdf, array $columnas, array $filas, float $tam = 9.0, float $minimo = 6.0): array
     {
+        $posiciones = [];
         $alto = 4.4;
         $encabezado = function () use ($pdf, $columnas, $tam, $alto): void {
             $pdf->SetFont('Helvetica', 'B', $tam);
@@ -413,9 +451,11 @@ final class Formatos
                 $pdf->MultiCell($c[1], $alto, $texto, 0, $c[2] ?? 'L');
                 $x += $c[1];
             }
+            $posiciones[] = ['p' => $pdf->PageNo() - 1, 'y' => $y, 'h' => $h];
             $pdf->SetXY(self::IZQ, $y + $h);
         }
         $pdf->Ln(3);
+        return $posiciones;
     }
 
     /** Renglón «Etiqueta: valor» con el valor en negritas y subrayado. */
@@ -453,7 +493,7 @@ final class Formatos
 
     // ------------------------------------------------------------------- formatos
 
-    /** R 7 · Voto aprobatorio (firma autógrafa del director). */
+    /** R 7 · Voto aprobatorio (lo firma en línea el director). */
     private static function voto(array $x): Hoja
     {
         $pdf = self::nuevo();
@@ -465,7 +505,7 @@ final class Formatos
             . self::fecha($x['fecha_previo'], true) . ', por lo que su proyecto de investigación de la modalidad: ' . $x['modalidad_nombre']
             . ' intitulado: «' . $x['titulo'] . '» se encuentra en condiciones de ser sustentado en evaluación de grado, motivo por el cual en calidad de Director de tesis o Trabajo terminal de grado emito el VOTO APROBATORIO, para que continue con el proceso correspondiente.');
         self::parrafo($pdf, 'Sin otro particular de momento, le reitero la seguridad de mi consideración distinguida.');
-        self::firma($pdf, $x['director'], ['Nombre, y firma autógrafa del', 'Director de tesis o Trabajo terminal de grado.'], 20.0);
+        self::firma($pdf, $x['director'], ['Director(a) de tesis o trabajo terminal de grado'], 20.0, true, 'director');
         self::ccp($pdf, ['c.c.p. Alumno/egresado.']);
         return $pdf;
     }
@@ -479,7 +519,7 @@ final class Formatos
         $pdf->SetFont('Helvetica', 'B', 10);
         $pdf->Write(5.2, 'Instrucciones: ');
         $pdf->SetFont('Helvetica', '', 10);
-        $pdf->Write(5.2, self::l1('El interesado deberá llenar autógrafamente su nombre, con mayúsculas, minúsculas y acentos. Tal como lo escriba aparecerá en grado o diploma. Es necesario indicar claramente los acentos. El formato no es válido si se llena únicamente con letra mayúscula o presenta abreviaturas en el nombre que no concuerden con la CURP.'));
+        $pdf->Write(5.2, self::l1('El interesado deberá capturar su nombre con mayúsculas, minúsculas y acentos. Tal como lo escriba aparecerá en grado o diploma. Es necesario indicar claramente los acentos. El formato no es válido si se llena únicamente con letra mayúscula o presenta abreviaturas en el nombre que no concuerden con la CURP.'));
         $pdf->Ln(11);
         self::campo($pdf, 'Nombre:', $x['nombre']);
         self::campo($pdf, 'No. de cuenta:', $x['cuenta']);
@@ -501,11 +541,11 @@ final class Formatos
         $pdf->Write(5.2, self::l1('El nombre en este formato debe corresponder (mayúsculas, minúsculas y acentos) al que se indique en el proceso de actualización de datos en el portal de alumnos. Cualquier inconsistencia será causante de atraso en la expedición del grado o diploma.'));
         $pdf->Ln(10);
         self::parrafo($pdf, 'Hago constar que la información proporcionada en este documento es correcta y soy responsable de los datos mencionados.');
-        self::firma($pdf, $x['nombre'], ['Nombre y firma del Interesado'], 20.0, false);
+        self::firma($pdf, $x['nombre'], ['Interesado(a)'], 20.0, false, 'egresado');
         return $pdf;
     }
 
-    /** 1.1 · Oficio de solicitud de evaluación de grado (firma autógrafa del director). */
+    /** 1.1 · Oficio de solicitud de evaluación de grado (la firma en línea el director). */
     private static function solicitud(array $x): Hoja
     {
         $pdf = self::nuevo();
@@ -533,84 +573,109 @@ final class Formatos
         }
         self::tabla($pdf, $cols, $filas);
         self::parrafo($pdf, 'Sin otro particular de momento, le reitero la seguridad de mi consideración distinguida.', 10, 0);
-        self::firma($pdf, $x['director'], ['Nombre, fecha y firma autógrafa del', 'Director de tesis o Trabajo terminal de grado.'], 12.0);
+        self::firma($pdf, $x['director'], ['Director(a) de tesis o trabajo terminal de grado'], 12.0, true, 'director');
         self::ccp($pdf, ['c.c.p. Alumno/egresado.']);
         return $pdf;
     }
 
-    /** 1.2 · Visto bueno del sínodo (cada integrante firma). */
+    /** 1.2 · Visto bueno del sínodo: cada integrante contesta Sí/No y firma en línea en su renglón. */
     private static function vistoBueno(array $x): Hoja
     {
         $pdf = self::nuevo();
-        $pdf->SetY(40);
+        $pdf->SetY(38);
         self::tituloOficio($pdf, 'Visto bueno para realización de evaluación definitiva', 11);
         $p = $x['propuesta'];
-        self::campo($pdf, 'Programa de Posgrado:', $x['programa']);
-        self::campo($pdf, 'Nombre del sustentante:', $x['nombre']);
-        $pdf->SetFont('Helvetica', '', 10.5);
-        $pdf->Write(6, self::l1('Título de la tesis: '));
-        $pdf->SetFont('Helvetica', 'B', 10.5);
-        $pdf->Write(6, self::l1('«' . $x['titulo'] . '»'));
-        $pdf->Ln(8);
-        self::campo($pdf, 'Fecha programada del examen:', self::fecha($p['fecha'], true));
-        self::campo($pdf, 'Hora del examen:', self::hora($p['hora']) . ' horas');
+        $campo = static function (string $etiqueta, string $valor, bool $comillas = false) use ($pdf): void {
+            $pdf->SetFont('Helvetica', '', 10);
+            $pdf->Write(5.4, self::l1($etiqueta . ' '));
+            $pdf->SetFont('Helvetica', 'B', 10);
+            $pdf->Write(5.4, self::l1($comillas ? '«' . $valor . '»' : $valor));
+            $pdf->Ln(6.6);
+        };
+        $campo('Programa de Posgrado:', $x['programa']);
+        $campo('Nombre del sustentante:', $x['nombre']);
+        $campo('Título de la tesis:', $x['titulo'], true);
+        $campo('Fecha programada del examen:', self::fecha($p['fecha'], true) . ' · ' . self::hora($p['hora']) . ' horas');
         $pdf->SetFont('Helvetica', 'B', 10.5);
         $pdf->Cell(0, 6, self::l1('Visto Bueno del Sínodo respecto a:'), 0, 1);
         $pdf->Ln(1);
-        // Encabezado de dos niveles.
+
         $x0 = self::IZQ;
-        $y = $pdf->GetY();
-        $wNom = 58.0;
-        $wSN = 12.0;
-        $wFirma = self::ANCHO - $wNom - 6 * $wSN;
-        $pdf->SetFillColor(...Hoja::VERDE);
-        $pdf->SetTextColor(255, 255, 255);
-        $pdf->SetDrawColor(110, 110, 110);
-        $pdf->SetFont('Helvetica', 'B', 8.5);
-        $alto = 18.0;
-        $pdf->Rect($x0, $y, $wNom, $alto, 'DF');
-        $pdf->SetXY($x0, $y + 7);
-        $pdf->Cell($wNom, 4, self::l1('Integrante del sínodo'), 0, 0, 'C');
-        $grupos = ['Tesis concluida', 'Tesis entregada a usted', 'Revisión en el periodo solicitado'];
-        foreach ($grupos as $k => $g) {
-            $gx = $x0 + $wNom + $k * 2 * $wSN;
-            $pdf->SetFont('Helvetica', 'B', 7.5);
-            $pdf->Rect($gx, $y, 2 * $wSN, 13, 'DF');
-            $l = $pdf->renglones(2 * $wSN, self::l1($g));
-            $pdf->SetXY($gx, $y + (13 - $l * 3.3) / 2);
-            $pdf->MultiCell(2 * $wSN, 3.3, self::l1($g), 0, 'C');
-            $pdf->SetFont('Helvetica', 'B', 8.5);
-            foreach (['Sí', 'No'] as $j => $sn) {
-                $pdf->Rect($gx + $j * $wSN, $y + 13, $wSN, 5, 'DF');
-                $pdf->SetXY($gx + $j * $wSN, $y + 13.5);
-                $pdf->Cell($wSN, 4, self::l1($sn), 0, 0, 'C');
-            }
-        }
+        $wSN = 10.0;
+        $wFirma = self::COLUMNA_SELLO;
+        $wNom = self::ANCHO - 6 * $wSN - $wFirma;
         $fx = $x0 + $wNom + 6 * $wSN;
-        $pdf->Rect($fx, $y, $wFirma, $alto, 'DF');
-        $pdf->SetXY($fx, $y + 7);
-        $pdf->Cell($wFirma, 4, 'Firma', 0, 0, 'C');
-        $pdf->SetTextColor(25, 25, 25);
-        $y += $alto;
-        foreach ($x['miembros'] as $n => $m) {
-            $h = 13.0;
-            $pdf->Rect($x0, $y, $wNom, $h);
+        $encabezado = function () use ($pdf, $x0, $wNom, $wSN, $wFirma, $fx): void {
+            $y = $pdf->GetY();
+            $alto = 18.0;
+            $pdf->SetFillColor(...Hoja::VERDE);
+            $pdf->SetTextColor(255, 255, 255);
+            $pdf->SetDrawColor(110, 110, 110);
+            $pdf->SetLineWidth(0.2);
             $pdf->SetFont('Helvetica', 'B', 8.5);
+            $pdf->Rect($x0, $y, $wNom, $alto, 'DF');
+            $pdf->SetXY($x0, $y + 5);
+            $pdf->MultiCell($wNom, 4, self::l1("Integrante\ndel sínodo"), 0, 'C');
+            foreach (['Tesis concluida', 'Tesis entregada a usted', 'Revisión en el periodo solicitado'] as $k => $g) {
+                $gx = $x0 + $wNom + $k * 2 * $wSN;
+                $pdf->SetFont('Helvetica', 'B', 6.8);
+                $pdf->Rect($gx, $y, 2 * $wSN, 13, 'DF');
+                $l = $pdf->renglones(2 * $wSN, self::l1($g));
+                $pdf->SetXY($gx, $y + (13 - $l * 3.1) / 2);
+                $pdf->MultiCell(2 * $wSN, 3.1, self::l1($g), 0, 'C');
+                $pdf->SetFont('Helvetica', 'B', 8.5);
+                foreach (['Sí', 'No'] as $j => $sn) {
+                    $pdf->Rect($gx + $j * $wSN, $y + 13, $wSN, 5, 'DF');
+                    $pdf->SetXY($gx + $j * $wSN, $y + 13.5);
+                    $pdf->Cell($wSN, 4, self::l1($sn), 0, 0, 'C');
+                }
+            }
+            $pdf->Rect($fx, $y, $wFirma, $alto, 'DF');
+            $pdf->SetXY($fx, $y + 7);
+            $pdf->Cell($wFirma, 4, self::l1('Firma en línea'), 0, 0, 'C');
+            $pdf->SetTextColor(25, 25, 25);
+            $pdf->SetXY($x0, $y + $alto);
+        };
+        $encabezado();
+        $h = self::RENGLON_SELLO;
+        foreach ($x['miembros'] as $n => $m) {
+            if ($pdf->GetY() + $h > 279.4 - 30) {
+                $pdf->AddPage();
+                $pdf->SetY(40);
+                $encabezado();
+            }
+            $y = $pdf->GetY();
+            $pdf->SetDrawColor(110, 110, 110);
+            $pdf->Rect($x0, $y, $wNom, $h);
+            $pdf->SetFont('Helvetica', 'B', 8);
             $texto = self::l1($m['nombre']);
-            $l = $pdf->renglones($wNom, $texto);
+            $l = min(3, $pdf->renglones($wNom, $texto));
             $pdf->SetXY($x0, $y + 1);
-            $pdf->MultiCell($wNom, 3.8, $texto, 0, 'L');
-            $pdf->SetFont('Helvetica', '', 7.5);
-            $pdf->SetXY($x0, $y + 1 + $l * 3.8);
-            $pdf->MultiCell($wNom, 3.4, self::l1($m['etiqueta'] . ' · ' . $m['cargo']), 0, 'L');
+            $pdf->MultiCell($wNom, 3.5, $texto, 0, 'L');
+            $pdf->SetFont('Helvetica', '', 7);
+            $pdf->SetXY($x0, $y + 1.3 + $l * 3.5);
+            $pdf->MultiCell($wNom, 3.1, self::l1($m['etiqueta'] . ' · ' . $m['cargo']), 0, 'L');
+            $si = [];
+            $no = [];
             for ($k = 0; $k < 6; $k++) {
-                $pdf->Rect($x0 + $wNom + $k * $wSN, $y, $wSN, $h);
+                $cx = $x0 + $wNom + $k * $wSN;
+                $pdf->Rect($cx, $y, $wSN, $h);
+                if ($k % 2 === 0) {
+                    $si[] = round($cx + $wSN / 2, 2);
+                } else {
+                    $no[] = round($cx + $wSN / 2, 2);
+                }
             }
             $pdf->Rect($fx, $y, $wFirma, $h);
-            $y += $h;
+            $pagina = $pdf->PageNo() - 1;
+            self::$cajas['sinodal_' . $n] = [
+                'sellos' => [['p' => $pagina, 'x' => round($fx + $wFirma / 2, 2), 'y' => round($y + $h - 1.0, 2)]],
+                'marcas' => [['p' => $pagina, 'y' => round($y + $h / 2, 2), 'si' => $si, 'no' => $no]],
+            ];
+            $pdf->SetXY($x0, $y + $h);
         }
-        $pdf->SetY($y + 4);
-        self::parrafo($pdf, 'Cada integrante marca Sí o No en cada columna y firma de manera autógrafa.', 8.5, 1, 'L');
+        $pdf->Ln(3);
+        self::parrafo($pdf, 'Cada integrante contesta y firma en línea desde su enlace personal; sus respuestas y su sello quedan en su renglón.', 8.5, 1, 'L');
         return $pdf;
     }
 
@@ -629,18 +694,18 @@ final class Formatos
         self::destinatario($pdf, [$x['director'] . '.', 'Director de tesis o trabajo terminal de grado.']);
         self::parrafo($pdf, 'Por este conducto hago de su conocimiento que el alumno o egresado: ' . $x['nombre'] . ', con número de cuenta: ' . $x['cuenta']
             . ' del Programa: ' . $x['programa'] . ' de Estudios Avanzados ha entregado el total de requisitos para examen de grado.', 10.5, 2.5);
-        self::parrafo($pdf, 'Por lo anterior, ya se encuentra en posibilidad de proponer: sínodo (artículo 65 del REA), día y hora para llevar a cabo su Examen de Grado. Este deberá programarse con mínimo 10 días hábiles a partir de la fecha que entregue de manera presencial:', 10.5, 1.5);
+        self::parrafo($pdf, 'Por lo anterior, ya se encuentra en posibilidad de proponer en la plataforma Traza FI: sínodo (artículo 65 del REA), día y hora para llevar a cabo su Examen de Grado. Este deberá programarse con mínimo 10 días hábiles a partir de la fecha en que se reúnan en la plataforma:', 10.5, 1.5);
         foreach ([
-            '1) Oficio de solicitud firmado de manera autógrafa por Usted, (anexo 1)',
-            '2) Formato de Visto Bueno firmado de manera autógrafa por todos los miembros del Sínodo Propuesto, (anexo 2) y',
-            '3) Confirmación de firma electrónica activa en el SICDE (sacar hoja de prueba del portal: https://fise.uaemex.mx/#/login)',
+            '1) Oficio de solicitud, que Usted firma en línea desde el enlace personal que recibirá por correo electrónico, (anexo 1)',
+            '2) Formato de Visto Bueno, que cada miembro del Sínodo propuesto contesta y firma en línea desde su enlace personal, (anexo 2) y',
+            '3) Fecha de vigencia de la firma electrónica UAEMéx de cada miembro del Sínodo, que declara al firmar el Visto Bueno (se consulta en https://fise.uaemex.mx/) y que debe cubrir al menos un mes posterior a la fecha propuesta para el examen.',
         ] as $l) {
             $pdf->SetX(self::IZQ + 6);
             $pdf->SetFont('Helvetica', '', 10.5);
             $pdf->MultiCell(self::ANCHO - 6, 5.3, self::l1($l), 0, 'L');
         }
         $pdf->Ln(2);
-        self::mixto($pdf, [['Nota importante: ', true], ['Considerar el tiempo que requiere para recabar firmas de cada uno de los sinodales en el formato de visto bueno del sínodo.', false]], 10, 1.5);
+        self::mixto($pdf, [['Nota importante: ', true], ['Cada firmante recibe por correo un enlace personal para firmar en la plataforma; considere el tiempo de respuesta de cada uno de los sinodales en el formato de visto bueno del sínodo.', false]], 10, 1.5);
         self::mixto($pdf, [['Anexo 3: ', true], ['Instrucciones a considerar para su examen de Grado.', false]], 10, 0);
         self::firmaCoordinacion($pdf, $x, 14.0);
         self::ccp($pdf, ['c.c.p. Alumno/egresado.']);
@@ -653,9 +718,9 @@ final class Formatos
         $puntos = [
             'No se podrá programar examen definitivo si existe un periodo inferior a: 10 días hábiles entre la recepción del oficio de solicitud de examen definitivo y la fecha propuesta para el examen. (SE SUGIERE CONSIDERAR 15 DÍAS o más entre la entrega total de requisitos y la fecha propuesta para hacer el examen).',
             'Para DOCTORADO (DCI) es necesario presentar evidencia de: «…un artículo de investigación original aceptado por una revista especializada arbitraria e indexada de reconocimiento internacional, o capítulo de libro…» Lo anterior, de acuerdo a lo que establece el artículo 60 Ter en sus fracciones III, IV y V. Además de lo que dicta la normatividad 15.10 del programa del DCI.',
-            'El Director de Tesis, es el responsable de verificar que las firmas electrónicas de los profesores del sínodo estén vigentes a la fecha de la evaluación de grado.',
-            'Para el caso de que haya profesores externos al programa, como parte del Sínodo se deberá verificar si se encuentra registrado en el Sistema de Control Escolar de la UAEMex, en caso contrario se le pedirá al alumno y a su Director de Tesis, documentos del profesor para solicitar sea dado de alta en dicho sistema (esto se debe verificar previo a la programación de su Examen de grado). Además de contar con la evidencia de que el profesor externo cuente ya con su firma electrónica para firmar su Acta de Evaluación a través del SICDE.',
-            'Una vez aprobado el examen de grado el alumno deberá registrar su grado electrónico en el portal de alumnos de Control Escolar en máximo 48 horas después de concluido el examen y entregar o enviar vía correo electrónico el número de folio de seguimiento que le arroja el SICDE al correo ' . $correos . '.',
+            'La plataforma verifica que la vigencia declarada de la firma electrónica UAEMéx de cada profesor del sínodo cubra al menos un mes posterior a la fecha de la evaluación de grado; el Director de Tesis cuida que sus sinodales la renueven a tiempo en https://fise.uaemex.mx/ cuando la plataforma lo indique.',
+            'Para el caso de que haya profesores externos al programa, como parte del Sínodo se deberá verificar si se encuentra registrado en el Sistema de Control Escolar de la UAEMex, en caso contrario se le pedirá al alumno y a su Director de Tesis, documentos del profesor para solicitar sea dado de alta en dicho sistema (esto se debe verificar previo a la programación de su Examen de grado). Además, el profesor externo debe contar con su firma electrónica UAEMéx vigente para firmar su Acta de Evaluación a través del SICDE.',
+            'Una vez aprobado el examen de grado el alumno deberá registrar su grado electrónico en el portal de alumnos de Control Escolar en máximo 48 horas después de concluido el examen y capturar en la plataforma Traza FI el número de folio de seguimiento que le arroja el SICDE (dudas: ' . $correos . ').',
             'Director(a) de Tesis: La OCA (Oficina del Conocimiento Abierto) de la UAEM solicita atentamente su colaboración para que las tesis de grado se suban al RI (Repositorio Institucional) en los 3 días siguientes a la aprobación del examen de grado.',
         ];
         foreach ($puntos as $n => $texto) {
@@ -697,7 +762,7 @@ final class Formatos
     {
         $pdf = self::nuevo();
         $primera = true;
-        foreach ($x['miembros'] as $m) {
+        foreach ($x['miembros'] as $n => $m) {
             if ($m['nombre'] === '') {
                 continue;
             }
@@ -705,6 +770,7 @@ final class Formatos
                 $pdf->AddPage();
             }
             $primera = false;
+            self::$cajas['paginas'][$n] = $pdf->PageNo() - 1;
             self::lugarFecha($pdf, 'Ciudad Universitaria, Toluca; México a ' . self::fecha() . '.');
             self::destinatario($pdf, [$m['nombre'] . '.', $m['etiqueta'] . '.']);
             self::parrafo($pdf, self::textoInvitacion($x, $m['cargo'] === 'Propietario' ? 'propietario' : 'suplente'));
@@ -725,13 +791,18 @@ final class Formatos
         self::parrafo($pdf, self::textoInvitacion($x, 'propietario o suplente'), 10, 2);
         self::parrafo($pdf, 'Dicho examen se llevará a cabo ' . self::examen($x) . '.', 10, 2);
         $trabajo = $x['modalidad'] === 'trabajo_terminal' ? 'TTG' : $x['trabajo'];
-        self::parrafo($pdf, 'Se pide su firma de su confirmación de la entrega de su respectivo oficio y ' . ($trabajo === 'TTG' ? 'el TTG' : 'el trabajo de ' . $trabajo) . ' final ' . $x['alumno_de'] . '.', 10, 2);
+        self::parrafo($pdf, 'Se pide su acuse de recibido, en línea, de la entrega de su respectivo oficio y ' . ($trabajo === 'TTG' ? 'el TTG' : 'el trabajo de ' . $trabajo) . ' final ' . $x['alumno_de'] . '.', 10, 2);
         $filas = [];
         foreach ($x['miembros'] as $n => $m) {
-            $filas[] = [(string) ($n + 1), $m['nombre'], $m['etiqueta'], $m['cargo'], ''];
+            $filas[] = [(string) ($n + 1), $m['nombre'], $m['etiqueta'] . "\n" . $m['cargo'], ''];
         }
-        self::tabla($pdf, [['No.', 10, 'C'], ['Docente', 54], ['Tipo de miembro', 42], ['Cargo', 24, 'C'], ['Firma', 36]], $filas, 8.5, 11.0);
-        self::parrafo($pdf, 'Es importante que verifiquen que cuentan con su firma electrónica activa del SICDE para que puedan participar en este examen de grado.', 9.5, 0);
+        $cols = [['No.', 9, 'C'], ['Docente', 50], ['Tipo de miembro y cargo', 43], ['Acuse de recibido en línea', self::COLUMNA_SELLO]];
+        $posiciones = self::tabla($pdf, $cols, $filas, 8.5, self::RENGLON_SELLO);
+        $fx = self::IZQ + 9 + 50 + 43;
+        foreach ($posiciones as $n => $pos) {
+            self::$cajas['sinodal_' . $n] = ['sellos' => [['p' => $pos['p'], 'x' => round($fx + self::COLUMNA_SELLO / 2, 2), 'y' => round($pos['y'] + $pos['h'] - 1.0, 2)]]];
+        }
+        self::parrafo($pdf, 'Es importante que su firma electrónica UAEMéx (https://fise.uaemex.mx/) siga vigente para firmar el acta de este examen de grado en el SICDE.', 9.5, 0);
         self::firmaCoordinacion($pdf, $x, 12.0);
         return $pdf;
     }
@@ -749,8 +820,8 @@ final class Formatos
             . ' a las ' . self::hora($x['prog']['hora']) . ' horas, en modalidad ' . ($x['prog']['modalidad'] === 'virtual' ? 'virtual' : 'presencial') . ($x['prog']['lugar'] !== '' ? ' en ' . $x['prog']['lugar'] : '') . '.', $tam, 2);
         self::parrafo($pdf, 'Atendiendo al Procedimiento general para presentar exámenes de grado emitido por la Facultad de Ingeniería a través de la Coordinación de Estudios Avanzados F.I. y para dar cumplimiento a lo establecido por la Dirección de Servicios Escolares de la UAEMex, le solicito realizar las siguientes actividades:', $tam, 2);
         $items = [
-            'Tres días hábiles previos al examen de grado Usted Director(a) de tesis del alumno (a) deberá enviar vía correo electrónico comprobante de que la firma electrónica de todos los sinodales y en especial el de los externos esta activa, lo anterior de acuerdo a lo siguiente: Para renovación de firma cuando se conoce la clave, ingresa al siguiente formulario: https://fise.uaemex.mx/#/login',
-            'Cinco minutos previos del comienzo del examen de grado, deberá indicar o notificar al personal de apoyo de Apoyo a Grado la conformación definitiva del Sínodo; posterior a ello (durante la deliberación) deberá notificar el resultado del examen (veredicto) y los datos necesarios para la captura del acta correspondiente. Al mismo tiempo el departamento le entregará el acta para proceder con firmas autógrafas y con la lectura correspondiente.',
+            'La plataforma Traza FI verifica la fecha de vigencia de la firma electrónica UAEMéx que cada sinodal declaró al firmar el visto bueno, la cual debe cubrir al menos un mes posterior al examen; no es necesario que Usted envíe comprobantes. Si la plataforma indica que la firma de algún sinodal, en especial la de los externos, debe renovarse, apóyelo para que lo haga en https://fise.uaemex.mx/ y actualice la fecha desde su enlace.',
+            'Cinco minutos previos del comienzo del examen de grado, deberá indicar o notificar al personal de apoyo de Apoyo a Grado la conformación definitiva del Sínodo; posterior a ello (durante la deliberación) deberá notificar el resultado del examen (veredicto) y los datos necesarios para la captura del acta correspondiente. Al mismo tiempo el departamento le entregará el acta para proceder con la lectura correspondiente.',
             'Todos los sinodales deberán firmar electrónicamente el acta dentro de las 24 horas después de concluido el examen.',
             'Recordar al Tesista que deberá registrar su grado electrónico en el portal de alumnos de Control Escolar en máximo 48 horas después de concluido el examen, y entregar o enviar vía correo electrónico el número de folio de seguimiento que le arroja el SICDE al Departamento de Apoyo a Grado.',
         ];
@@ -893,7 +964,7 @@ final class Formatos
         self::parrafo($pdf, 'Hago constar que se ha revisado el expediente y contiene todos los documentos requeridos para esta modalidad en este formato en el orden establecido.', 10, 0);
         $pdf->Ln(4);
         self::mixto($pdf, [['Egresado: ', true], [$x['nombre'] . ' · No. de cuenta ' . $x['cuenta'] . ' · ' . $x['programa'], false]], 9, 0);
-        self::firma($pdf, ' ', ['Nombre y firma del Responsable de Evaluación de Grado', 'Sello del Espacio Académico'], 16.0, false);
+        self::firma($pdf, $x['firmante'], ['Responsable de Evaluación de Grado', 'Sello del Espacio Académico'], 16.0, false, 'coordinacion');
         return $pdf;
     }
 }
