@@ -30,8 +30,9 @@
         <button type="submit" class="btn btn-primario btn-bloque" id="btn-correo" style="margin-top:16px">Continuar</button>
       </form>
       <div id="aviso-sin-cuenta" class="flash" role="status" hidden style="margin-top:16px;background:#fff8e6;border:1px solid #f3d27a;color:#5c4400">
-        <strong>Aún no tienes cuenta en Traza FI.</strong>
-        <p style="margin:6px 0 10px">No hay ninguna cuenta con el correo <strong id="sin-cuenta-correo"></strong>. Revisa que esté bien escrito o crea tu cuenta (toma un par de minutos) y elige una contraseña para Traza FI; no es la de tu correo institucional.</p>
+        <strong id="sin-cuenta-titulo">Aún no tienes cuenta en Traza FI.</strong>
+        <p style="margin:6px 0 10px" id="sin-cuenta-texto-inst">No hay ninguna cuenta con el correo <strong class="sin-cuenta-correo"></strong>. Revisa que esté bien escrito o crea tu cuenta (toma un par de minutos) y elige una contraseña para Traza FI; no es la de tu correo institucional.</p>
+        <p style="margin:6px 0 10px" id="sin-cuenta-texto-egr" hidden><strong class="sin-cuenta-correo"></strong> no es un correo institucional de la UAEMEX. Alumnos y profesores deben entrar con su correo @uaemex.mx (o de sus subdominios, como @alumno.uaemex.mx). <strong>Si eres egresado y no tienes correo institucional</strong>, regístrate con tu correo personal en el registro de egresados; una vez validado tu acceso, podrás entrar aquí con ese correo.</p>
         <a class="btn btn-primario btn-bloque" id="sin-cuenta-enlace" href="<?= e(url('registro')) ?>">Crear mi cuenta</a>
       </div>
       <p style="text-align:center;margin:16px 0 0"><button type="button" class="enlace" id="abrir-reset" style="background:none;border:0;cursor:pointer">¿Olvidaste tu contraseña?</button></p>
@@ -177,9 +178,12 @@
       const r = await peticion(endpoints.correo, {email: entrada});
       if (!r.exito) { mensaje(r.error); return; }
       if (r.sin_cuenta) {
-        $('sin-cuenta-correo').textContent = r.email;
+        document.querySelectorAll('.sin-cuenta-correo').forEach(n => n.textContent = r.email);
+        $('sin-cuenta-texto-inst').hidden = !r.institucional;
+        $('sin-cuenta-texto-egr').hidden = !!r.institucional;
+        $('sin-cuenta-titulo').textContent = r.institucional ? 'Aún no tienes cuenta en Traza FI.' : '¿Eres egresado sin correo institucional?';
         $('sin-cuenta-enlace').href = r.registro;
-        $('sin-cuenta-enlace').textContent = r.institucional ? 'Crear mi cuenta' : 'Registrarme como egresado';
+        $('sin-cuenta-enlace').textContent = r.institucional ? 'Crear mi cuenta' : 'Registrarme como egresado sin correo institucional';
         $('aviso-sin-cuenta').hidden = false;
         $('sin-cuenta-enlace').focus();
         return;

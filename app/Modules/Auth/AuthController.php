@@ -247,6 +247,17 @@ final class AuthController extends Controller
             $_SESSION['webauthn_challenge_creado_en']
         );
         if ($email === null) {
+            $bruto = strtolower(trim((string) ($_POST['email'] ?? '')));
+            if (strlen($bruto) <= 120 && filter_var($bruto, FILTER_VALIDATE_EMAIL) !== false) {
+                // Correo válido pero no institucional ni de un egresado registrado: se le ofrece el registro de egresados.
+                $this->json([
+                    'exito' => true,
+                    'email' => $bruto,
+                    'sin_cuenta' => true,
+                    'institucional' => false,
+                    'registro' => url('registro/egresado'),
+                ]);
+            }
             $this->json(['exito' => false, 'error' => 'Escribe tu usuario o un correo de uaemex.mx (por ejemplo, @alumno.uaemex.mx).'], 422);
         }
 
