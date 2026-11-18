@@ -16,6 +16,7 @@ final class VisorReunionesService
                 WHERE p.usuario_id = ? AND p.estado_invitacion <> 'revocada'
                   AND p.tipo <> 'organizador' AND p.respondio_en IS NULL
                   AND r.estado IN ('convocada','en_respuesta')
+                  AND (r.rango_fin IS NULL OR r.rango_fin >= CURDATE())
                 ORDER BY r.rango_inicio, r.id", [$usuarioId]);
     }
     public function listar(int $usuarioId, string $busqueda = '', int $categoriaId = 0): array

@@ -108,7 +108,10 @@ final class InterfaceUi
                 'SELECT COUNT(*) FROM reuniones r
                    JOIN reuniones_participantes rp ON rp.reunion_id = r.id AND rp.usuario_id = ?
                   WHERE rp.estado_invitacion <> \'revocada\'
-                    AND (rp.respondio_en IS NULL OR r.actualizado_en > rp.respondio_en)',
+                    AND (rp.respondio_en IS NULL OR r.actualizado_en > rp.respondio_en)
+                    AND r.estado IN (\'convocada\', \'en_respuesta\', \'fecha_confirmada\')
+                    AND (CASE WHEN r.fecha_confirmada IS NOT NULL THEN r.fecha_confirmada >= CURDATE()
+                              ELSE r.rango_fin IS NULL OR r.rango_fin >= CURDATE() END)',
                 [$usuario['id']]
             );
         }
