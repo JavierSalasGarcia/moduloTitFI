@@ -1,7 +1,11 @@
 {
   "clave": "notificaciones",
   "consulta": [
-    {"ruta": "notificaciones", "descripcion": "Bandeja con todo lo que tienes pendiente en la plataforma.", "palabras": "pendientes avisos notificación bandeja"}
+    {
+      "ruta": "notificaciones",
+      "descripcion": "Bandeja con todo lo que tienes pendiente en la plataforma.",
+      "palabras": "pendientes avisos notificación bandeja"
+    }
   ],
   "nombre": "Notificaciones",
   "version": "1.0.0",
@@ -12,13 +16,41 @@
       "seccion": "MI ESPACIO",
       "titulo": "Notificaciones",
       "ruta": "notificaciones",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
       "orden": 2
     }
   ],
   "rutas": {
-    "GET /notificaciones": ["App\\Modules\\Notificaciones\\NotificacionesController", "index"],
-    "GET /notificaciones/{id}": ["App\\Modules\\Notificaciones\\NotificacionesController", "ver"],
-    "POST /notificaciones/leidas": ["App\\Modules\\Notificaciones\\NotificacionesController", "leidas"]
+    "GET /notificaciones": [
+      "App\\Modules\\Notificaciones\\NotificacionesController",
+      "index"
+    ],
+    "GET /notificaciones/app": [
+      "App\\Modules\\Notificaciones\\NotificacionesController",
+      "guia"
+    ],
+    "POST /notificaciones/push/suscribir": [
+      "App\\Modules\\Notificaciones\\NotificacionesController",
+      "suscribir"
+    ],
+    "POST /notificaciones/push/cancelar": [
+      "App\\Modules\\Notificaciones\\NotificacionesController",
+      "cancelar"
+    ],
+    "GET /notificaciones/{id}": [
+      "App\\Modules\\Notificaciones\\NotificacionesController",
+      "ver"
+    ],
+    "POST /notificaciones/leidas": [
+      "App\\Modules\\Notificaciones\\NotificacionesController",
+      "leidas"
+    ]
   }
 }

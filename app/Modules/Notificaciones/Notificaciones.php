@@ -19,10 +19,13 @@ final class Notificaciones
             return 0;
         }
         try {
-            return Database::ejecutar(
+            $id = Database::ejecutar(
                 'INSERT INTO notificaciones (email, titulo, cuerpo, enlace, origen, tramite_id) VALUES (?, ?, ?, ?, ?, ?)',
                 [$email, mb_substr($titulo, 0, 200), mb_substr($cuerpo, 0, 20000), $enlace !== null ? mb_substr($enlace, 0, 500) : null, mb_substr($origen, 0, 40), $tramiteId]
             );
+            // También al teléfono o computadora donde la persona activó las notificaciones push.
+            Push::aCorreo($email, $titulo, $cuerpo, 'notificaciones/' . $id);
+            return $id;
         } catch (Throwable $e) {
             error_log('Notificaciones: no se registró: ' . $e->getMessage());
             return 0;

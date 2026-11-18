@@ -26,6 +26,9 @@ RewriteRule ^ca_dsyc(?:/.*)?$ - [L]
 # Solo esta carpeta contiene archivos que pueden entregarse directamente.
 RewriteRule ^assets/(.+)$ public/assets/$1 [L]
 
+# App instalable (PWA): manifiesto, service worker y página «Sin conexión» se sirven desde la raíz del sitio.
+RewriteRule ^(sw\.js|manifest\.webmanifest|offline\.html)$ public/$1 [L]
+
 # El resto de las solicitudes se resuelve en el front controller.
 RewriteRule ^ index.php [L,QSA]
 </IfModule>
@@ -34,3 +37,11 @@ RewriteRule ^ index.php [L,QSA]
 <FilesMatch "(?i)^(?:cred.*\.txt|api-.*\.json|.*\.(?:sql|key|pem|env|ini|log|bak|dist))$">
     Require all denied
 </FilesMatch>
+
+# Tipo del manifiesto de la app y service worker sin caché (para que las actualizaciones lleguen pronto).
+AddType application/manifest+json .webmanifest
+<IfModule mod_headers.c>
+<FilesMatch "^sw\.js$">
+Header set Cache-Control "no-cache"
+</FilesMatch>
+</IfModule>

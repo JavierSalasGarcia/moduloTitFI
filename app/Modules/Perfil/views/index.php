@@ -7,6 +7,12 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   <div class="perfil-cabecera"><div class="perfil-avatar"><?= e(mb_strtoupper(mb_substr($usuarioPerfil['nombre'],0,1))) ?></div><div><h2 style="margin:0"><?= e($usuarioPerfil['nombre']) ?></h2><p class="texto-suave" style="margin:4px 0 0"><?= e($usuarioPerfil['email']) ?> · <?= e($rolEtiquetas[$usuarioPerfil['rol']]??$usuarioPerfil['rol']) ?></p></div></div>
   <div class="perfil-grid"><div><strong>Departamento o adscripción</strong><p><?= e($usuarioPerfil['departamento']?:'Sin adscripción registrada') ?></p></div><div><strong>Programa principal</strong><p><?= e($usuarioPerfil['programa']?:'Sin programa principal') ?></p></div></div>
 </section>
+<section class="card perfil-app" style="padding:18px 20px;margin-bottom:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+  <span aria-hidden="true" style="font-size:34px">📱</span>
+  <div style="flex:1 1 260px"><h3 style="margin:0 0 4px">Traza FI en tu teléfono</h3>
+    <p class="texto-suave" style="margin:0">Instálala como app en Android o iPhone y recibe notificaciones de avisos, exámenes, eventos y de tu bandeja.<?php $nDisp = \App\Modules\Notificaciones\Push::dispositivos((int) $usuarioPerfil['id']); ?><?= $nDisp ? ' <strong>Activas en ' . $nDisp . ' dispositivo' . ($nDisp > 1 ? 's' : '') . '.</strong>' : '' ?></p></div>
+  <a class="btn btn-primario" href="<?= e(url('notificaciones/app')) ?>">Cómo instalarla y activar notificaciones</a>
+</section>
 <section class="card" style="padding:20px;margin-bottom:18px">
   <h3 style="margin-top:0">Mis datos</h3>
   <p class="texto-suave">Se usan en oficios, formatos y correos de toda la plataforma (por ejemplo «Estimada Dra. …»). Si ya aparecen datos tuyos, revísalos y corrígelos; si faltan, complétalos.</p>

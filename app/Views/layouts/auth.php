@@ -7,6 +7,7 @@
   <title><?= e($titulo) ?> · Plataforma FI</title>
   <link rel="stylesheet" href="<?= url('assets/css/app.css?v=' . filemtime(dirname(__DIR__, 3) . '/public/assets/css/app.css')) ?>">
   <link rel="stylesheet" href="<?= url('assets/css/ux.css?v=' . filemtime(dirname(__DIR__, 3) . '/public/assets/css/ux.css')) ?>">
+<?php require __DIR__ . '/_pwa.php'; ?>
 </head>
 <body class="cuerpo-auth">
   <?= $contenido ?>

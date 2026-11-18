@@ -12,6 +12,7 @@ $flash = flash_leer();
   <title><?= e($titulo) ?> · Traza FI</title>
   <link rel="stylesheet" href="<?= url('assets/css/app.css?v=' . filemtime(dirname(__DIR__, 3) . '/public/assets/css/app.css')) ?>">
   <link rel="stylesheet" href="<?= url('assets/css/ux.css?v=' . filemtime(dirname(__DIR__, 3) . '/public/assets/css/ux.css')) ?>">
+<?php require __DIR__ . '/_pwa.php'; ?>
 </head>
 <body class="ux-app" style="display:block">
   <header class="barra-superior" style="position:static">

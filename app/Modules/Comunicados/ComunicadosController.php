@@ -115,6 +115,7 @@ final class ComunicadosController extends Controller
             flash('exito', 'Borrador guardado: revísalo y agrega sus archivos antes de publicarlo.');
             redirigir(\App\Modules\Eventos\AvisoController::ruta((int) $id));
         }
+        \App\Modules\Eventos\AvisoController::notificar((int) $id);
         flash('exito', 'Comunicado publicado.');
         redirigir('eventos');
     }

@@ -42,6 +42,20 @@ final class AvisoController extends Controller
         return $t;
     }
 
+    /** Notificación push del aviso recién publicado a quienes pueden verlo y activaron las notificaciones. */
+    public static function notificar(int $id): void
+    {
+        try {
+            $c = Database::una('SELECT id, token, titulo, contenido, clase FROM comunicados WHERE id = ? AND categoria <> \'Ocultar\'', [$id]);
+            if ($c) {
+                $tipo = ['examenes' => 'Exámenes', 'convocatoria' => 'Convocatoria'][$c['clase'] ?? ''] ?? 'Aviso oficial';
+                \App\Modules\Notificaciones\Push::aUsuarios(\App\Modules\Notificaciones\Push::destinatariosAviso($id), $tipo . ': ' . $c['titulo'],
+                    trim((string) $c['contenido']) !== '' ? (string) $c['contenido'] : 'Toca para consultarlo en Traza FI.', self::ruta($c));
+            }
+        } catch (\Throwable) {
+        }
+    }
+
     public static function ruta(array|int $c): string
     {
         return 'aviso/' . self::token($c);
@@ -215,6 +229,7 @@ final class AvisoController extends Controller
         if ($accion === 'publicar') {
             Database::ejecutar("UPDATE comunicados SET categoria = 'General', creado_en = NOW() WHERE id = ?", [(int) $c['id']]);
             flash('exito', 'Aviso publicado.');
+            self::notificar((int) $c['id']);
         } elseif ($accion === 'borrador') {
             Database::ejecutar("UPDATE comunicados SET categoria = 'Ocultar' WHERE id = ?", [(int) $c['id']]);
             flash('alerta', 'El aviso volvió a borrador: solo lo ve tu área.');

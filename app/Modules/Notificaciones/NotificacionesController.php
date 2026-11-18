@@ -42,4 +42,39 @@ final class NotificacionesController extends Controller
         Notificaciones::marcarTodas($this->correos());
         redirigir('notificaciones');
     }
+
+    /** Registra el dispositivo (navegador o app instalada) para recibir notificaciones push. */
+    public function suscribir(): void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $endpoint = (string) ($_POST['endpoint'] ?? '');
+        $p256dh = (string) ($_POST['p256dh'] ?? '');
+        $auth = (string) ($_POST['auth'] ?? '');
+        if (!preg_match('#^https://[^\s]{10,690}$#', $endpoint) || !preg_match('/^[A-Za-z0-9_-]{60,120}$/', $p256dh) || !preg_match('/^[A-Za-z0-9_-]{10,60}$/', $auth)) {
+            http_response_code(422);
+            echo json_encode(['exito' => false, 'error' => 'Suscripción no válida.']);
+            exit;
+        }
+        Push::guardar((int) Auth::id(), $endpoint, $p256dh, $auth, (string) ($_SERVER['HTTP_USER_AGENT'] ?? ''));
+        if (($_POST['probar'] ?? '') === '1') {
+            Push::aUsuarios([(int) Auth::id()], 'Traza FI', 'Listo: en este dispositivo recibirás avisos, eventos y notificaciones de la plataforma.', 'notificaciones');
+        }
+        echo json_encode(['exito' => true]);
+        exit;
+    }
+
+    public function cancelar(): void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        Push::quitar((string) ($_POST['endpoint'] ?? ''));
+        echo json_encode(['exito' => true]);
+        exit;
+    }
+
+    /** Guía para instalar Traza FI como app en Android e iOS y activar las notificaciones. */
+    public function guia(): void
+    {
+        $this->vista('guia_app', ['titulo' => 'Instalar Traza FI y recibir notificaciones', 'clavePush' => \App\Core\WebPush::claves()['publica'],
+            'dispositivos' => Push::dispositivos((int) Auth::id())]);
+    }
 }

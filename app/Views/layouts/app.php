@@ -64,6 +64,7 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
   <title><?= e($titulo) ?> · Traza FI</title>
   <link rel="stylesheet" href="<?= url('assets/css/app.css?v=' . (string) filemtime(dirname(__DIR__, 3) . '/public/assets/css/app.css')) ?>">
   <link rel="stylesheet" href="<?= url('assets/css/ux.css?v=' . (string) filemtime(dirname(__DIR__, 3) . '/public/assets/css/ux.css')) ?>">
+<?php require __DIR__ . '/_pwa.php'; ?>
 </head>
 <body class="ux-app <?= !empty($portalMinimal) ? 'portal-minimal' : '' ?>" data-user="<?= (int) $usuario['id'] ?>" data-base="<?= e(url('')) ?>" data-module="<?= e($moduloActivo) ?>">
   <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
