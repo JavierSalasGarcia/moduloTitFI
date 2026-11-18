@@ -47,6 +47,66 @@ function pos_cifrar(?string $valor, string $contexto): ?string
     }
 }
 
+/** Palabras normalizadas de un nombre: minúsculas, sin acentos, sin grado (Dr., Mtra., M. en I.) ni partículas. */
+function pos_palabras(string $s): array
+{
+    $s = mb_strtolower(trim($s), 'UTF-8');
+    $s = strtr($s, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n']);
+    $s = preg_replace('/(^|\s)(dra|dr|mtra|mtro|m\.? ?en ?[a-z]\.?|mc|ing|lic)\.?(?=\s)/u', ' ', ' ' . $s . ' ') ?? $s;
+    $t = preg_split('/[\s.]+/u', trim(preg_replace('/[^a-z.\s]/u', ' ', $s) ?? $s), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+    return array_values(array_filter($t, static fn(string $x): bool => !in_array($x, ['de', 'del', 'la', 'las', 'los', 'y'], true)));
+}
+
+/**
+ * Ficha del directorio para un nombre escrito con variaciones («Adriana H. Vilchis González», «Ivan Martínez Cienfuegos»):
+ * exige el primer apellido, el segundo si la ficha lo tiene y el nombre lo trae, y al menos un nombre (completo, inicial o con
+ * una letra de diferencia). Solo devuelve la ficha si es la única con el mejor puntaje y este es suficiente; si no, null.
+ */
+function pos_ficha_aproximada(string $nombre): ?int
+{
+    static $dir = null;
+    if ($dir === null) {
+        $dir = [];
+        foreach (Database::todas('SELECT id, nombre, apellido1, apellido2 FROM profesores') as $p) {
+            $dir[] = ['id' => (int) $p['id'], 'nom' => pos_palabras((string) $p['nombre']), 'a1' => implode(' ', pos_palabras((string) $p['apellido1'])),
+                      'a2' => implode(' ', pos_palabras((string) ($p['apellido2'] ?? ''))), 'a1p' => pos_palabras((string) $p['apellido1']), 'a2p' => pos_palabras((string) ($p['apellido2'] ?? ''))];
+        }
+    }
+    $t = pos_palabras($nombre);
+    $txt = ' ' . implode(' ', $t) . ' ';
+    $mejor = [];
+    foreach ($dir as $p) {
+        if ($p['a1'] === '' || !str_contains($txt, ' ' . $p['a1'] . ' ')) {
+            continue;
+        }
+        $puntos = 2;
+        if ($p['a2'] !== '') {
+            if (!str_contains($txt, ' ' . $p['a2'] . ' ')) {
+                continue;   // el segundo apellido de la ficha no aparece: no es la misma persona
+            }
+            $puntos += 2;
+        }
+        $nombres = 0;
+        foreach (array_diff($t, $p['a1p'], $p['a2p']) as $x) {
+            foreach ($p['nom'] as $n) {
+                if ($x === $n || (strlen($x) === 1 && $n[0] === $x) || (strlen($x) >= 4 && levenshtein($x, $n) <= 1)) {
+                    $nombres++;
+                    break;
+                }
+            }
+        }
+        if ($nombres === 0) {
+            continue;
+        }
+        $mejor[] = [$puntos + $nombres, $p['id']];
+    }
+    rsort($mejor);
+    if (!$mejor || $mejor[0][0] < 5 || (isset($mejor[1]) && $mejor[1][0] === $mejor[0][0])) {
+        return null;
+    }
+    return (int) $mejor[0][1];
+}
+
 function importar_posgrado_academico(array $d, bool $simular = false): array
 {
     $r = ['asignaturas' => 0, 'materias' => 0, 'materias_sin_profesor' => [], 'materias_sin_asignatura' => [], 'adscripciones' => 0,
@@ -168,7 +228,7 @@ function importar_posgrado_academico(array $d, bool $simular = false): array
             $r['comites']++;
             foreach ($c['miembros'] as $m) {
                 $f = Profesores::porNombre((string) $m['nombre']);
-                $profesorId = $f['profesor_id'] ?? null;
+                $profesorId = ($f['profesor_id'] ?? null) ?: pos_ficha_aproximada((string) $m['nombre']);
                 Database::ejecutar(
                     'INSERT INTO pos_comite_miembros (comite_id, rol, orden, nombre, profesor_id, externo, nota) VALUES (?, ?, ?, ?, ?, ?, ?)
                      ON DUPLICATE KEY UPDATE nombre = VALUES(nombre), profesor_id = COALESCE(VALUES(profesor_id), profesor_id), externo = VALUES(externo), nota = VALUES(nota)',
