@@ -49,6 +49,7 @@ $fuentes = [
     'migrations/050_abandono_modalidades.sql',
     'migrations/051_constancias.sql',
     'migrations/052_constancias_plantillas.sql',
+    'migrations/053_posgrado_academico.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */
