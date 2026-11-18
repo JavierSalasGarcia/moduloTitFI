@@ -250,24 +250,22 @@ final class AuthController extends Controller
             $this->json(['exito' => false, 'error' => 'Escribe tu usuario o un correo de uaemex.mx (por ejemplo, @alumno.uaemex.mx).'], 422);
         }
 
-        // Profesor del directorio que aún no crea su cuenta: en lugar de pedirle una contraseña que no existe
-        // (y que acabe bloqueado por intentos), se le envía al registro con su correo ya escrito.
-        // Solo se revela para correos del directorio de profesores, que son institucionales y públicos.
+        // Correo sin cuenta: en lugar de pedir una contraseña que no existe (y que la persona acabe bloqueada
+        // por intentos), se le envía al registro con su correo ya escrito. Con límite por IP contra enumeración.
         if (AccessControl::ready() && !AccessControl::limited('login-correo:' . ($_SERVER['REMOTE_ADDR'] ?? ''), 60, 900)) {
-            $sinCuenta = AccessControl::internal(function () use ($email): bool {
-                if (\App\Core\Identidad::usuarioPorCorreo($email)) {
-                    return false;
-                }
-                return (bool) Database::valor('SELECT COUNT(*) FROM profesor_correos c JOIN profesores p ON p.id = c.profesor_id WHERE c.email = ? AND p.usuario_id IS NULL', [$email]);
-            });
+            $sinCuenta = AccessControl::internal(fn (): bool => \App\Core\Identidad::usuarioPorCorreo($email) === null);
             if ($sinCuenta) {
                 unset($_SESSION['login_flujo']);
-                $_SESSION['_registro_email'] = $email;
+                $institucional = AccessControl::isUaemexEmail($email);
+                if ($institucional) {
+                    $_SESSION['_registro_email'] = $email;
+                }
                 $this->json([
                     'exito' => true,
                     'email' => $email,
                     'sin_cuenta' => true,
-                    'registro' => url('registro'),
+                    'institucional' => $institucional,
+                    'registro' => url($institucional ? 'registro' : 'registro/egresado'),
                 ]);
             }
         }

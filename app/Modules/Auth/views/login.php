@@ -31,7 +31,7 @@
       </form>
       <div id="aviso-sin-cuenta" class="flash" role="status" hidden style="margin-top:16px;background:#fff8e6;border:1px solid #f3d27a;color:#5c4400">
         <strong>Aún no tienes cuenta en Traza FI.</strong>
-        <p style="margin:6px 0 10px">El correo <strong id="sin-cuenta-correo"></strong> está en el directorio de profesores, pero todavía no se ha registrado. Crea tu cuenta (toma un par de minutos) y elige una contraseña para Traza FI; no es la de tu correo institucional.</p>
+        <p style="margin:6px 0 10px">No hay ninguna cuenta con el correo <strong id="sin-cuenta-correo"></strong>. Revisa que esté bien escrito o crea tu cuenta (toma un par de minutos) y elige una contraseña para Traza FI; no es la de tu correo institucional.</p>
         <a class="btn btn-primario btn-bloque" id="sin-cuenta-enlace" href="<?= e(url('registro')) ?>">Crear mi cuenta</a>
       </div>
       <p style="text-align:center;margin:16px 0 0"><button type="button" class="enlace" id="abrir-reset" style="background:none;border:0;cursor:pointer">¿Olvidaste tu contraseña?</button></p>
@@ -179,6 +179,7 @@
       if (r.sin_cuenta) {
         $('sin-cuenta-correo').textContent = r.email;
         $('sin-cuenta-enlace').href = r.registro;
+        $('sin-cuenta-enlace').textContent = r.institucional ? 'Crear mi cuenta' : 'Registrarme como egresado';
         $('aviso-sin-cuenta').hidden = false;
         $('sin-cuenta-enlace').focus();
         return;
