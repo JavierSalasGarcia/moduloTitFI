@@ -22,6 +22,13 @@ $borrador = $c['categoria'] === 'Ocultar';
   <p class="texto-suave" style="margin:0 0 16px"><?= e($c['depto']) ?> · <?= e(fecha_corta($c['creado_en'])) ?> · <?= e(Avisos::destino($c)) ?><?= !empty($c['vence_en']) ? ' · Vigente hasta ' . e($c['vence_en']) : '' ?></p>
   <div style="font-size:15px;line-height:1.6"><?= nl2br(e($c['contenido'])) ?></div>
 
+  <?php foreach ($relacionados ?? [] as $r): ?>
+    <a class="boton-relacionado" href="<?= e(url('eventos/aviso/' . $r['id'] . ($comoVisitante && Auth::id() ? '?como=visitante' : ''))) ?>">
+      <span aria-hidden="true" style="font-size:28px">📅</span>
+      <span><strong><?= e($r['titulo']) ?></strong><small>Ver los calendarios<?= $r['categoria'] === 'Ocultar' ? ' · borrador' : '' ?> →</small></span>
+    </a>
+  <?php endforeach; ?>
+
   <?php if ($adjuntos): ?>
     <h2 style="font-size:16px;margin:22px 0 10px">Archivos</h2>
     <div class="adjuntos-aviso">
@@ -71,4 +78,8 @@ $borrador = $c['categoria'] === 'Ocultar';
 .adjunto-boton{flex:1 1 280px;display:flex;gap:10px;align-items:center;border:1px solid var(--gris-200,#d6dbe1);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--verde-900,#1f4d36);background:#fbfdfc}
 .adjunto-boton:hover{border-color:var(--verde-700,#2c6b4a);background:#f1f8f4}
 .adjunto-fila form{margin:0}
+.boton-relacionado{display:flex;gap:14px;align-items:center;margin:20px 0 4px;padding:18px 22px;border-radius:12px;background:var(--verde-700,#2c6b4a);color:#fff;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.boton-relacionado:hover{background:var(--verde-900,#1f4d36)}
+.boton-relacionado strong{display:block;font-size:18px}
+.boton-relacionado small{display:block;font-size:14px;opacity:.9}
 </style>

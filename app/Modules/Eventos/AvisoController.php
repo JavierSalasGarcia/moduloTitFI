@@ -75,7 +75,21 @@ final class AvisoController extends Controller
             Lecturas::marcar('comunicado', (int) $c['id']);
         }
         $c['programas_lista'] = array_column(Database::todas('SELECT p.siglas FROM comunicado_programas cp JOIN programas p ON p.id = cp.programa_id WHERE cp.comunicado_id = ? ORDER BY p.siglas', [(int) $c['id']]), 'siglas');
+        // Otros calendarios de exámenes (p. ej. licenciatura ↔ posgrado): se muestran como botones grandes.
+        $relacionados = [];
+        if (($c['clase'] ?? '') === 'examenes') {
+            foreach (Database::todas("SELECT * FROM comunicados WHERE clase = 'examenes' AND id <> ? ORDER BY creado_en DESC", [(int) $c['id']]) as $r) {
+                $r['vence_en'] = Database::valor("SELECT valor FROM ajustes WHERE clave = ?", ['comunicado_vence_' . $r['id']]);
+                $vigente = empty($r['vence_en']) || $r['vence_en'] >= date('Y-m-d');
+                // Sin sesión: solo públicos y publicados; en la vista previa «como visitante», también los borradores públicos.
+                $ok = $comoVisitante ? ((int) $r['publico'] === 1 && ($r['categoria'] !== 'Ocultar' || Auth::id())) : self::puedeVer($r);
+                if ($vigente && $ok) {
+                    $relacionados[] = $r;
+                }
+            }
+        }
         $datos = [
+            'relacionados' => $relacionados,
             'titulo' => $c['titulo'], 'seccion' => 'Avisos', 'c' => $c, 'adjuntos' => self::adjuntos((int) $c['id']),
             'gestiona' => $gestiona && !$comoVisitante, 'comoVisitante' => $comoVisitante, 'clases' => self::CLASES,
         ];
