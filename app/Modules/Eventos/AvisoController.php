@@ -19,16 +19,44 @@ final class AvisoController extends Controller
 {
     public const CLASES = ['aviso' => 'Avisos oficiales', 'convocatoria' => 'Convocatorias', 'examenes' => 'Exámenes'];
 
-    private static function cargar(string $id): ?array
+    /** Alfabeto sin caracteres que se confunden (0/o, 1/l/i). */
+    private const ALFABETO = 'abcdefghjkmnpqrstuvwxyz23456789';
+
+    /** Token corto del aviso para su enlace público (/aviso/{token}); se crea si aún no tiene. */
+    public static function token(array|int $c): string
     {
-        if (!ctype_digit($id) || strlen($id) > 9) {
+        $id = is_array($c) ? (int) $c['id'] : $c;
+        $t = is_array($c) && !empty($c['token']) ? (string) $c['token'] : (string) Database::valor('SELECT token FROM comunicados WHERE id = ?', [$id]);
+        while ($t === '') {
+            $n = '';
+            for ($i = 0; $i < 8; $i++) {
+                $n .= self::ALFABETO[random_int(0, strlen(self::ALFABETO) - 1)];
+            }
+            try {
+                Database::ejecutar('UPDATE comunicados SET token = ? WHERE id = ? AND token IS NULL', [$n, $id]);
+            } catch (\Throwable) {
+                continue;   // token repetido: se genera otro
+            }
+            $t = (string) Database::valor('SELECT token FROM comunicados WHERE id = ?', [$id]);
+        }
+        return $t;
+    }
+
+    public static function ruta(array|int $c): string
+    {
+        return 'aviso/' . self::token($c);
+    }
+
+    private static function cargar(string $token): ?array
+    {
+        if (!preg_match('/^[a-z0-9]{8}$/D', $token)) {
             return null;
         }
         return Database::una(
             "SELECT c.*, d.nombre AS depto, u.nombre AS autor, p.siglas,
                     (SELECT a.valor FROM ajustes a WHERE a.clave = CONCAT('comunicado_vence_', c.id)) AS vence_en
                FROM comunicados c JOIN departamentos d ON d.id = c.depto_id JOIN usuarios u ON u.id = c.autor_id
-               LEFT JOIN programas p ON p.id = c.programa_id WHERE c.id = ?", [(int) $id]);
+               LEFT JOIN programas p ON p.id = c.programa_id WHERE c.token = ?", [$token]);
     }
 
     /** ¿Puede ver este aviso quien hace la petición? (sin sesión: solo públicos y publicados). */
@@ -50,7 +78,7 @@ final class AvisoController extends Controller
     private function noEncontrado(): never
     {
         http_response_code(404);
-        View::render('errores/404', ['titulo' => 'Aviso no encontrado'], Auth::id() ? 'app' : 'publico');
+        $this->vista('no_disponible', ['titulo' => 'Aviso no disponible', 'seccion' => 'Avisos', 'visitante' => !Auth::id()], Auth::id() ? 'app' : 'publico');
         exit;
     }
 
@@ -139,12 +167,12 @@ final class AvisoController extends Controller
         $f = $_FILES['archivo'] ?? null;
         if ($etiqueta === '' || !$f || ($f['error'] ?? 1) !== UPLOAD_ERR_OK || $f['size'] > 20 * 1024 * 1024) {
             flash('error', 'Escribe la etiqueta (por ejemplo, «Ingeniería Civil (ICI)») y elige un PDF de hasta 20 MB.');
-            redirigir('eventos/aviso/' . $c['id']);
+            redirigir(self::ruta($c));
         }
         $cabeza = (string) file_get_contents($f['tmp_name'], false, null, 0, 5);
         if ($cabeza !== '%PDF-') {
             flash('error', 'El archivo debe ser PDF.');
-            redirigir('eventos/aviso/' . $c['id']);
+            redirigir(self::ruta($c));
         }
         $rel = 'avisos/' . (int) $c['id'] . '/' . bin2hex(random_bytes(8)) . '.pdf';
         $dest = rtrim((string) App::config('archivos.storage'), '/\\') . '/' . $rel;
@@ -153,7 +181,7 @@ final class AvisoController extends Controller
         }
         if (!move_uploaded_file($f['tmp_name'], $dest)) {
             flash('error', 'No fue posible guardar el archivo.');
-            redirigir('eventos/aviso/' . $c['id']);
+            redirigir(self::ruta($c));
         }
         $nombre = preg_replace('/[^A-Za-z0-9._ -]+/u', '_', (string) $f['name']) ?: 'archivo.pdf';
         $orden = (int) Database::valor('SELECT COALESCE(MAX(orden), 0) + 1 FROM comunicado_adjuntos WHERE comunicado_id = ?', [(int) $c['id']]);
@@ -161,7 +189,7 @@ final class AvisoController extends Controller
         Database::ejecutar('INSERT INTO comunicado_adjuntos (comunicado_id, grupo, etiqueta, nombre, ruta, bytes, orden) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [(int) $c['id'], $grupo, $etiqueta, $nombre, $rel, (int) $f['size'], $orden]);
         flash('exito', 'Archivo agregado: ' . $etiqueta . '.');
-        redirigir('eventos/aviso/' . $c['id']);
+        redirigir(self::ruta($c));
     }
 
     public function quitarAdjunto(string $id, string $aid): void
@@ -176,7 +204,7 @@ final class AvisoController extends Controller
             }
             flash('exito', 'Archivo retirado.');
         }
-        redirigir('eventos/aviso/' . $c['id']);
+        redirigir(self::ruta($c));
     }
 
     /** Publicar (o volver a borrador) y abrir o cerrar la consulta sin sesión. */
@@ -196,7 +224,7 @@ final class AvisoController extends Controller
         } elseif (isset(self::CLASES[$accion])) {
             Database::ejecutar('UPDATE comunicados SET clase = ? WHERE id = ?', [$accion, (int) $c['id']]);
         }
-        redirigir('eventos/aviso/' . $c['id']);
+        redirigir(self::ruta($c));
     }
 
     /** Marca un aviso o evento como no leído (vuelve a contar en el globito). */

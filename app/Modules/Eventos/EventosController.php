@@ -124,7 +124,7 @@ final class EventosController extends Controller
                 'titulo' => $c['titulo'], 'texto' => $c['contenido'], 'fecha' => $c['creado_en'], 'origen' => $c['depto'],
                 'destino' => \App\Modules\Comunicados\Avisos::destino($c), 'importante' => $c['categoria'] === 'Importantes',
                 'borrador' => $c['categoria'] === 'Ocultar', 'publico' => (int) ($c['publico'] ?? 0) === 1, 'vence' => $c['vence_en'] ?? null,
-                'adjuntos' => $adjuntos[(int) $c['id']] ?? 0, 'leido' => !empty($leidos['comunicado'][(int) $c['id']]), 'url' => 'eventos/aviso/' . (int) $c['id'], 'dato' => $c];
+                'adjuntos' => $adjuntos[(int) $c['id']] ?? 0, 'leido' => !empty($leidos['comunicado'][(int) $c['id']]), 'url' => AvisoController::ruta($c), 'dato' => $c];
         }
         foreach ($eventos as $ev) {
             $items[] = ['tipo' => 'evento', 'id' => (int) $ev['id'], 'filtro' => $ev['categoria'] === 'convocatoria' ? 'convocatorias' : 'eventos',

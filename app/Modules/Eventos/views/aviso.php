@@ -4,10 +4,10 @@ use App\Modules\Comunicados\Avisos;
 $etiquetaTipo = ['aviso' => 'Aviso oficial', 'convocatoria' => 'Convocatoria', 'examenes' => 'Exámenes'];
 $borrador = $c['categoria'] === 'Ocultar';
 ?>
-<?php include __DIR__ . '/_cintillo.php'; ?>
+<?php $rutaAviso = \App\Modules\Eventos\AvisoController::ruta($c); include __DIR__ . '/_cintillo.php'; ?>
 
 <?php if ($comoVisitante && Auth::id()): ?>
-  <p class="flash flash-alerta" role="status">Vista previa: así lo verá una persona sin iniciar sesión<?= $borrador ? ' cuando lo publiques' : '' ?>. <a href="<?= e(url('eventos/aviso/' . $c['id'])) ?>">Volver a la vista de gestión</a></p>
+  <p class="flash flash-alerta" role="status">Vista previa: así lo verá una persona sin iniciar sesión<?= $borrador ? ' cuando lo publiques' : '' ?>. <a href="<?= e(url($rutaAviso)) ?>">Volver a la vista de gestión</a></p>
 <?php endif; ?>
 
 <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 10px;flex-wrap:wrap">
@@ -28,7 +28,7 @@ $borrador = $c['categoria'] === 'Ocultar';
   <?php if (trim((string) $c['contenido']) !== ''): ?><div style="font-size:15px;line-height:1.6"><?= nl2br(e($c['contenido'])) ?></div><?php endif; ?>
 
   <?php foreach ($relacionados ?? [] as $r): ?>
-    <a class="boton-relacionado" href="<?= e(url('eventos/aviso/' . $r['id'] . ($comoVisitante && Auth::id() ? '?como=visitante' : ''))) ?>">
+    <a class="boton-relacionado" href="<?= e(url(\App\Modules\Eventos\AvisoController::ruta($r) . ($comoVisitante && Auth::id() ? '?como=visitante' : ''))) ?>">
       <span aria-hidden="true" style="font-size:28px">📅</span>
       <span><strong><?= e($r['titulo']) ?></strong><small>Ver los calendarios<?= $r['categoria'] === 'Ocultar' ? ' · borrador' : '' ?> →</small></span>
     </a>
@@ -51,12 +51,12 @@ $borrador = $c['categoria'] === 'Ocultar';
       <div class="adjuntos-aviso">
         <?php foreach ($lista as $a): ?>
           <div class="adjunto-fila">
-            <a class="adjunto-boton" href="<?= e(url('eventos/aviso/' . $c['id'] . '/archivo/' . $a['id'])) ?>" target="_blank" rel="noopener">
+            <a class="adjunto-boton" href="<?= e(url($rutaAviso . '/archivo/' . $a['id'])) ?>" target="_blank" rel="noopener">
               <span aria-hidden="true">📄</span> <strong><?= e($a['etiqueta']) ?></strong> <small class="texto-suave">PDF · <?= number_format($a['bytes'] / 1024, 0) ?> KB</small>
             </a>
-            <a class="btn btn-mini" href="<?= e(url('eventos/aviso/' . $c['id'] . '/archivo/' . $a['id'] . '?descargar=1')) ?>" aria-label="Descargar <?= e($a['etiqueta']) ?>">Descargar</a>
+            <a class="btn btn-mini" href="<?= e(url($rutaAviso . '/archivo/' . $a['id'] . '?descargar=1')) ?>" aria-label="Descargar <?= e($a['etiqueta']) ?>">Descargar</a>
             <?php if ($gestiona): ?>
-              <form method="post" action="<?= e(url('eventos/aviso/' . $c['id'] . '/adjuntos/' . $a['id'] . '/quitar')) ?>" data-confirm="¿Retirar «<?= e($a['etiqueta']) ?>»?"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini btn-peligro" type="submit">Quitar</button></form>
+              <form method="post" action="<?= e(url($rutaAviso . '/adjuntos/' . $a['id'] . '/quitar')) ?>" data-confirm="¿Retirar «<?= e($a['etiqueta']) ?>»?"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini btn-peligro" type="submit">Quitar</button></form>
             <?php endif; ?>
           </div>
         <?php endforeach; ?>
@@ -74,15 +74,15 @@ $borrador = $c['categoria'] === 'Ocultar';
       Consulta sin sesión: <strong><?= (int) $c['publico'] === 1 ? 'sí, es público' : 'no, solo con sesión' ?></strong>
     </p>
     <div class="grupo-chips" style="gap:8px;margin-bottom:14px">
-      <a class="btn" href="<?= e(url('eventos/aviso/' . $c['id'] . '?como=visitante')) ?>">👁 Ver como visitante</a>
+      <a class="btn" href="<?= e(url($rutaAviso . '?como=visitante')) ?>">👁 Ver como visitante</a>
       <?php foreach ([$borrador ? 'publicar' : 'borrador', (int) $c['publico'] === 1 ? 'privado' : 'publico'] as $acc): ?>
-        <form method="post" action="<?= e(url('eventos/aviso/' . $c['id'] . '/estado')) ?>" <?= $acc === 'publicar' ? 'data-confirm="¿Publicar este aviso? Lo verán sus destinatarios' . ((int) $c['publico'] === 1 ? ' y cualquier visitante' : '') . '."' : '' ?>>
+        <form method="post" action="<?= e(url($rutaAviso . '/estado')) ?>" <?= $acc === 'publicar' ? 'data-confirm="¿Publicar este aviso? Lo verán sus destinatarios' . ((int) $c['publico'] === 1 ? ' y cualquier visitante' : '') . '."' : '' ?>>
           <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="accion" value="<?= $acc ?>">
           <button class="btn <?= $acc === 'publicar' ? 'btn-primario' : '' ?>" type="submit"><?= ['publicar' => '✓ Publicar', 'borrador' => 'Regresar a borrador', 'publico' => '🌐 Permitir consulta sin sesión', 'privado' => 'Solo con sesión'][$acc] ?></button>
         </form>
       <?php endforeach; ?>
     </div>
-    <form method="post" action="<?= e(url('eventos/aviso/' . $c['id'] . '/adjuntos')) ?>" enctype="multipart/form-data" class="ux-toolbar" style="flex-wrap:wrap">
+    <form method="post" action="<?= e(url($rutaAviso . '/adjuntos')) ?>" enctype="multipart/form-data" class="ux-toolbar" style="flex-wrap:wrap">
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
       <label>Sección (opcional)<input type="text" name="grupo" maxlength="60" list="grupos-aviso" placeholder="Ej. Licenciatura"><datalist id="grupos-aviso"><?php foreach (array_unique(array_filter(array_column($adjuntos, 'grupo'))) as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist></label>
       <label>Etiqueta del archivo<input type="text" name="etiqueta" required maxlength="120" placeholder="Ej. Ingeniería Mecánica (IME)"></label>

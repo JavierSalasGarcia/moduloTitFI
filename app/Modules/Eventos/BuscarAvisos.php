@@ -60,7 +60,7 @@ final class BuscarAvisos
             }
             $tipo = ['examenes' => 'Exámenes', 'convocatoria' => 'Convocatoria'][$c['clase'] ?? ''] ?? 'Aviso oficial';
             $texto = self::normal($c['titulo'] . ' ' . $c['titulo'] . ' ' . $c['contenido'] . ' ' . implode(' ', $archivos) . ' ' . $tipo . ' examen calendario');
-            $candidatos[] = ['texto' => $texto, 'titulo' => $c['titulo'], 'ruta' => 'eventos/aviso/' . (int) $c['id'],
+            $candidatos[] = ['texto' => $texto, 'titulo' => $c['titulo'], 'ruta' => AvisoController::ruta($c),
                 'detalle' => $tipo . ($borrador ? ' (borrador, aún no publicado)' : '') . ' · ' . $c['depto'] . ($archivos ? ' · ' . count($archivos) . ' archivo' . (count($archivos) > 1 ? 's' : '') : '')];
         }
         foreach (Database::todas("SELECT ev.id, ev.titulo, ev.descripcion, ev.lugar, ev.inicio, d.nombre AS depto FROM eventos ev JOIN departamentos d ON d.id = ev.depto_id WHERE COALESCE(ev.fin, ev.inicio) >= NOW()") as $e) {

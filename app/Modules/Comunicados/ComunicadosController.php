@@ -113,7 +113,7 @@ final class ComunicadosController extends Controller
         }
         if ($borrador) {
             flash('exito', 'Borrador guardado: revísalo y agrega sus archivos antes de publicarlo.');
-            redirigir('eventos/aviso/' . $id);
+            redirigir(\App\Modules\Eventos\AvisoController::ruta((int) $id));
         }
         flash('exito', 'Comunicado publicado.');
         redirigir('eventos');
