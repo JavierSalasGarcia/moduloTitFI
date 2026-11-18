@@ -9,7 +9,7 @@ return [
     'clave' => 'eventos',
     // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
     'consulta' => [
-        ['ruta' => 'eventos', 'descripcion' => 'Avisos, convocatorias y eventos de la Facultad, con registro de asistencia.', 'palabras' => 'aviso evento convocatoria conferencia taller curso asistencia'],
+        ['ruta' => 'eventos', 'descripcion' => 'Avisos, convocatorias, calendarios de exámenes y eventos de la Facultad, con registro de asistencia.', 'palabras' => 'aviso avisos evento eventos convocatoria conferencia taller curso asistencia examen examenes exámenes calendario definitivos ordinarios extraordinarios inauguración comunicado'],
         ['ruta' => 'eventos/expediente', 'descripcion' => 'Tu expediente de formación integral: eventos a los que asististe y sus evidencias.', 'palabras' => 'formación integral expediente créditos evidencia'],
         ['ruta' => 'eventos/biblioteca', 'descripcion' => 'Biblioteca de eventos pasados y sus materiales.', 'palabras' => 'evento pasado grabación material'],
     ],

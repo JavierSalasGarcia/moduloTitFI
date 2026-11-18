@@ -34,6 +34,12 @@ final class AsistenteConsulta
         if ($veredicto['sospechosa']) {
             return ['aviso' => self::AVISO_BLOQUEO] + $base;
         }
+        // Lo publicado en «Avisos y eventos» (exámenes, convocatorias, avisos, eventos) se busca aquí, con el alcance de la sesión.
+        $avisos = \App\Modules\Eventos\BuscarAvisos::buscar($consulta);
+        if ($avisos) {
+            return ['resultado' => ['tipo' => 'datos', 'titulo' => 'Avisos y eventos', 'explicacion' => 'Esto es lo publicado en Avisos y eventos que coincide con tu consulta.',
+                'items' => $avisos, 'metodo' => 'local'], 'enlaces' => $veredicto['enlaces']] + $base;
+        }
         if (!$veredicto['en_ambito']) {
             return ['aviso' => self::AVISO_FUERA] + $base;
         }
