@@ -250,6 +250,28 @@ final class AuthController extends Controller
             $this->json(['exito' => false, 'error' => 'Escribe tu usuario o un correo de uaemex.mx (por ejemplo, @alumno.uaemex.mx).'], 422);
         }
 
+        // Profesor del directorio que aún no crea su cuenta: en lugar de pedirle una contraseña que no existe
+        // (y que acabe bloqueado por intentos), se le envía al registro con su correo ya escrito.
+        // Solo se revela para correos del directorio de profesores, que son institucionales y públicos.
+        if (AccessControl::ready() && !AccessControl::limited('login-correo:' . ($_SERVER['REMOTE_ADDR'] ?? ''), 60, 900)) {
+            $sinCuenta = AccessControl::internal(function () use ($email): bool {
+                if (\App\Core\Identidad::usuarioPorCorreo($email)) {
+                    return false;
+                }
+                return (bool) Database::valor('SELECT COUNT(*) FROM profesor_correos c JOIN profesores p ON p.id = c.profesor_id WHERE c.email = ? AND p.usuario_id IS NULL', [$email]);
+            });
+            if ($sinCuenta) {
+                unset($_SESSION['login_flujo']);
+                $_SESSION['_registro_email'] = $email;
+                $this->json([
+                    'exito' => true,
+                    'email' => $email,
+                    'sin_cuenta' => true,
+                    'registro' => url('registro'),
+                ]);
+            }
+        }
+
         $_SESSION['login_flujo'] = [
             'email' => $email,
             'etapa' => 'identificado',

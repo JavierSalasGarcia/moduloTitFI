@@ -29,6 +29,11 @@
         <small>Usa tu cuenta institucional UAEMEX. Si eres egresado con acceso validado, escribe tu correo personal.</small>
         <button type="submit" class="btn btn-primario btn-bloque" id="btn-correo" style="margin-top:16px">Continuar</button>
       </form>
+      <div id="aviso-sin-cuenta" class="flash" role="status" hidden style="margin-top:16px;background:#fff8e6;border:1px solid #f3d27a;color:#5c4400">
+        <strong>Aún no tienes cuenta en Traza FI.</strong>
+        <p style="margin:6px 0 10px">El correo <strong id="sin-cuenta-correo"></strong> está en el directorio de profesores, pero todavía no se ha registrado. Crea tu cuenta (toma un par de minutos) y elige una contraseña para Traza FI; no es la de tu correo institucional.</p>
+        <a class="btn btn-primario btn-bloque" id="sin-cuenta-enlace" href="<?= e(url('registro')) ?>">Crear mi cuenta</a>
+      </div>
       <p style="text-align:center;margin:16px 0 0"><button type="button" class="enlace" id="abrir-reset" style="background:none;border:0;cursor:pointer">¿Olvidaste tu contraseña?</button></p>
       <div id="panel-reset" class="formulario" style="display:none;margin-top:14px;border-top:1px solid var(--gris-100);padding-top:14px">
         <h3 style="font-size:14px">Restablecer contraseña</h3>
@@ -171,6 +176,14 @@
     try {
       const r = await peticion(endpoints.correo, {email: entrada});
       if (!r.exito) { mensaje(r.error); return; }
+      if (r.sin_cuenta) {
+        $('sin-cuenta-correo').textContent = r.email;
+        $('sin-cuenta-enlace').href = r.registro;
+        $('aviso-sin-cuenta').hidden = false;
+        $('sin-cuenta-enlace').focus();
+        return;
+      }
+      $('aviso-sin-cuenta').hidden = true;
       emailCanonico = r.email;
       $('correo-confirmado').textContent = emailCanonico;
       mostrarPaso(2);
