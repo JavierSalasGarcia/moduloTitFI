@@ -20,7 +20,7 @@ $borrador = $c['categoria'] === 'Ocultar';
   </div>
   <h1 style="margin:0 0 6px;font-size:22px;color:var(--verde-900,#1f4d36)"><?= e($c['titulo']) ?></h1>
   <p class="texto-suave" style="margin:0 0 16px"><?= e($c['depto']) ?> · <?= e(fecha_corta($c['creado_en'])) ?> · <?= e(Avisos::destino($c)) ?><?= !empty($c['vence_en']) ? ' · Vigente hasta ' . e($c['vence_en']) : '' ?></p>
-  <div style="font-size:15px;line-height:1.6"><?= nl2br(e($c['contenido'])) ?></div>
+  <?php if (trim((string) $c['contenido']) !== ''): ?><div style="font-size:15px;line-height:1.6"><?= nl2br(e($c['contenido'])) ?></div><?php endif; ?>
 
   <?php foreach ($relacionados ?? [] as $r): ?>
     <a class="boton-relacionado" href="<?= e(url('eventos/aviso/' . $r['id'] . ($comoVisitante && Auth::id() ? '?como=visitante' : ''))) ?>">
@@ -30,7 +30,7 @@ $borrador = $c['categoria'] === 'Ocultar';
   <?php endforeach; ?>
 
   <?php if ($adjuntos): ?>
-    <h2 style="font-size:16px;margin:22px 0 10px">Archivos</h2>
+    <h2 style="font-size:16px;margin:22px 0 10px"><?= ($c['clase'] ?? '') === 'examenes' ? 'Calendarios de Exámenes' : 'Archivos' ?></h2>
     <div class="adjuntos-aviso">
       <?php foreach ($adjuntos as $a): ?>
         <div class="adjunto-fila">
