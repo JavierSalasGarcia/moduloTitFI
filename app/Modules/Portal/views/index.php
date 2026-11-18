@@ -12,7 +12,15 @@
   </nav>
 
   <div class="consulta-hero">
-    <p class="consulta-saludo">Hola, <?= e(explode(' ', trim($usuario['nombre']))[0] ?? $usuario['nombre']) ?></p>
+    <?php
+      // Primer nombre sin el grado que algunas cuentas guardan al inicio («Dr.», «Mtra.», «M. en C.», «Ing.»…).
+      $palabrasNombre = preg_split('/\s+/', trim((string) $usuario['nombre'])) ?: [];
+      $grados = ['dr', 'dra', 'mtro', 'mtra', 'm', 'en', 'c', 'i', 'ing', 'lic', 'arq', 'prof', 'profa', 'phd'];
+      while (count($palabrasNombre) > 1 && in_array(rtrim(mb_strtolower($palabrasNombre[0]), '.'), $grados, true)) {
+          array_shift($palabrasNombre);
+      }
+    ?>
+    <p class="consulta-saludo">Hola, <?= e($palabrasNombre[0] ?? (string) $usuario['nombre']) ?></p>
     <h1 id="consulta-titulo">¿Qué necesitas resolver?</h1>
     <p class="consulta-intro">Consulta tus solicitudes, tus reuniones o encuentra el trámite que necesitas.</p>
 
