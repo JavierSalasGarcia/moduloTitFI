@@ -199,6 +199,18 @@ final class AvisoController extends Controller
         redirigir('eventos/aviso/' . $c['id']);
     }
 
+    /** Marca un aviso o evento como no leído (vuelve a contar en el globito). */
+    public function noLeido(): void
+    {
+        $tipo = $this->post('tipo');
+        $id = (int) $this->post('id');
+        if (in_array($tipo, ['comunicado', 'evento'], true) && $id > 0) {
+            Database::ejecutar('DELETE FROM aviso_lecturas WHERE usuario_id = ? AND tipo = ? AND item_id = ?', [Auth::id(), $tipo, $id]);
+            flash('exito', 'Marcado como no leído.');
+        }
+        redirigir('eventos');
+    }
+
     public function marcarLeidos(): void
     {
         Lecturas::marcarTodos();

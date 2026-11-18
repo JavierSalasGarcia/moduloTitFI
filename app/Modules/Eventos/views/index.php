@@ -97,7 +97,7 @@ if (!$visitante) {
         <span class="aviso-cuerpo">
           <span class="grupo-chips" style="gap:6px">
             <span class="badge tipo-<?= e($it['filtro']) ?>"><?= e($etiquetaTipo[$it['filtro']] ?? 'Aviso') ?></span>
-            <?php if (!$it['leido'] && !$visitante && !$it['borrador']): ?><span class="badge badge-nuevo">● Nuevo</span><?php endif; ?>
+            <?php if (!$visitante && !$it['borrador']): ?><?php if ($it['leido']): ?><span class="badge badge-visto">✓ Visto</span><?php else: ?><span class="badge badge-nuevo">● Nuevo</span><?php endif; ?><?php endif; ?>
             <?php if ($it['importante']): ?><span class="badge" style="background:#fef3c7;color:#b45309;border-color:#fde68a">⭐ Importante</span><?php endif; ?>
             <?php if ($it['borrador']): ?><span class="badge" style="background:#f1f5f9;color:#475569">Borrador · solo tu área lo ve</span><?php endif; ?>
             <?php if (!$visitante && !empty($it['publico'])): ?><span class="badge" title="Se consulta sin iniciar sesión">🌐 Público</span><?php endif; ?>
@@ -110,6 +110,12 @@ if (!$visitante) {
           </small>
         </span>
       </a>
+      <?php if (!$visitante && !$it['borrador'] && $it['leido']): ?>
+        <form method="post" action="<?= url('eventos/no-leido') ?>" class="aviso-accion aviso-no-leido">
+          <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="tipo" value="<?= e($it['tipo']) ?>"><input type="hidden" name="id" value="<?= (int) $it['id'] ?>">
+          <button type="submit" class="btn btn-mini" title="Volver a marcarlo como nuevo">Marcar como no leído</button>
+        </form>
+      <?php endif; ?>
       <?php if ($ev): ?>
         <form method="post" action="<?= url('eventos/' . $ev['id'] . '/suscribir') ?>" class="aviso-accion">
           <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="volver" value="eventos">
@@ -159,6 +165,8 @@ if (!$visitante) {
 .aviso-resumen{font-size:13.5px;color:var(--gris-700,#334155);line-height:1.45}
 .aviso-accion{padding:0 16px 0 0}
 .badge-nuevo{background:#fee4e2;color:#b42318;border-color:#fecdca}
+.badge-visto{background:#f1f5f9;color:#475569;border-color:#e2e8f0}
+.aviso-no-leido{padding:0 8px 0 0}
 .tipo-examenes{background:#e0ecff;color:#1d4ed8;border-color:#bfd5ff}
 .tipo-convocatorias{background:#fdf2e9;color:#b54708;border-color:#f9dbaf}
 .tipo-eventos{background:#ecfdf3;color:#067647;border-color:#abefc6}
@@ -183,6 +191,13 @@ if (!$visitante) {
     aplicar();
   }));
   buscador.addEventListener('input', aplicar);
+  // Al volver con «Atrás», el navegador mostraría la página guardada con los contadores viejos: se recarga.
+  window.addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
+  // Al abrir un aviso se ve como leído de inmediato.
+  document.querySelectorAll('.aviso-item.no-leido .aviso-enlace').forEach(a => a.addEventListener('click', () => {
+    const it = a.closest('.aviso-item'); it.classList.remove('no-leido');
+    const b = it.querySelector('.badge-nuevo'); if (b) { b.className = 'badge badge-visto'; b.textContent = '✓ Visto'; }
+  }));
   const inicial = location.hash.slice(1);
   const chip = document.querySelector('.chip-filtro[data-filtro="' + inicial + '"]');
   if (chip) chip.click();

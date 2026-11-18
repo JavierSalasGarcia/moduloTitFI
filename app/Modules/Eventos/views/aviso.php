@@ -10,7 +10,12 @@ $borrador = $c['categoria'] === 'Ocultar';
   <p class="flash flash-alerta" role="status">Vista previa: así lo verá una persona sin iniciar sesión<?= $borrador ? ' cuando lo publiques' : '' ?>. <a href="<?= e(url('eventos/aviso/' . $c['id'])) ?>">Volver a la vista de gestión</a></p>
 <?php endif; ?>
 
-<p style="margin:0 0 10px"><a href="<?= e(url('eventos')) ?>">← Todos los avisos</a></p>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 10px;flex-wrap:wrap">
+  <a href="<?= e(url('eventos')) ?>">← Todos los avisos</a>
+  <?php if (Auth::id() && !$comoVisitante && !$borrador): ?>
+    <form method="post" action="<?= e(url('eventos/no-leido')) ?>" style="margin:0"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="tipo" value="comunicado"><input type="hidden" name="id" value="<?= (int) $c['id'] ?>"><button class="btn btn-mini" type="submit">Marcar como no leído</button></form>
+  <?php endif; ?>
+</div>
 
 <article class="card" style="padding:22px">
   <div class="grupo-chips" style="gap:6px;margin-bottom:8px">

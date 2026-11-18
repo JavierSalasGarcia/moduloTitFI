@@ -14,7 +14,10 @@ $metodos = ['qr' => 'QR', 'clave' => 'Palabra clave', 'constancia' => 'Constanci
 .ev-caja{border-top:1px solid var(--gris-100);margin-top:16px;padding-top:12px}
 @media(max-width:640px){.ev-post{float:none;max-width:100%;margin:0 0 12px}.ev-datos{grid-template-columns:1fr}}
 </style>
-<p><a class="enlace" href="<?= url($concluido ? 'eventos/biblioteca' : 'eventos') ?>"><?= icono('flecha-izq', 14) ?> Volver</a></p>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+  <a class="enlace" href="<?= url($concluido ? 'eventos/biblioteca' : 'eventos') ?>"><?= icono('flecha-izq', 14) ?> Volver</a>
+  <?php if (!$concluido): ?><form method="post" action="<?= url('eventos/no-leido') ?>" style="margin:0"><input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>"><input type="hidden" name="tipo" value="evento"><input type="hidden" name="id" value="<?= (int) $ev['id'] ?>"><button class="btn btn-mini" type="submit">Marcar como no leído</button></form><?php endif; ?>
+</div>
 
 <section class="card" style="max-width:860px">
   <header class="tarjeta-cabecera columna-movil">

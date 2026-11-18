@@ -28,6 +28,7 @@ return [
         // Consulta sin sesión: solo los avisos públicos (con sesión, todo lo que le corresponde a la persona).
         'GET /eventos'                              => [EventosController::class, 'index', 'publico'],
         'POST /eventos/leidos'                      => [AvisoController::class, 'marcarLeidos'],
+        'POST /eventos/no-leido'                    => [AvisoController::class, 'noLeido'],
         'GET /eventos/aviso/{id}'                   => [AvisoController::class, 'ver', 'publico'],
         'GET /eventos/aviso/{id}/archivo/{aid}'     => [AvisoController::class, 'archivo', 'publico'],
         'POST /eventos/aviso/{id}/adjuntos'         => [AvisoController::class, 'adjuntar'],
