@@ -19,7 +19,7 @@ $borrador = $c['categoria'] === 'Ocultar';
     <?php if ($borrador && !$comoVisitante): ?><span class="badge" style="background:#f1f5f9;color:#475569">Borrador · aún no publicado</span><?php endif; ?>
   </div>
   <h1 style="margin:0 0 6px;font-size:22px;color:var(--verde-900,#1f4d36)"><?= e($c['titulo']) ?></h1>
-  <p class="texto-suave" style="margin:0 0 16px"><?= e($c['depto']) ?> · <?= e(fecha_corta($c['creado_en'])) ?> · <?= e(Avisos::destino($c)) ?><?= !empty($c['vence_en']) ? ' · Vigente hasta ' . e($c['vence_en']) : '' ?></p>
+  <p class="texto-suave" style="margin:0 0 16px"><?= e($c['depto']) ?><?= ($c['clase'] ?? '') === 'examenes' ? '' : ' · ' . e(fecha_corta($c['creado_en'])) ?> · <?= e(Avisos::destino($c)) ?><?= !empty($c['vence_en']) ? ' · Vigente hasta ' . e($c['vence_en']) : '' ?></p>
   <?php if (trim((string) $c['contenido']) !== ''): ?><div style="font-size:15px;line-height:1.6"><?= nl2br(e($c['contenido'])) ?></div><?php endif; ?>
 
   <?php foreach ($relacionados ?? [] as $r): ?>
@@ -29,21 +29,35 @@ $borrador = $c['categoria'] === 'Ocultar';
     </a>
   <?php endforeach; ?>
 
-  <?php if ($adjuntos): ?>
-    <h2 style="font-size:16px;margin:22px 0 10px"><?= ($c['clase'] ?? '') === 'examenes' ? 'Calendarios de Exámenes' : 'Archivos' ?></h2>
-    <div class="adjuntos-aviso">
-      <?php foreach ($adjuntos as $a): ?>
-        <div class="adjunto-fila">
-          <a class="adjunto-boton" href="<?= e(url('eventos/aviso/' . $c['id'] . '/archivo/' . $a['id'])) ?>" target="_blank" rel="noopener">
-            <span aria-hidden="true">📄</span> <strong><?= e($a['etiqueta']) ?></strong> <small class="texto-suave">PDF · <?= number_format($a['bytes'] / 1024, 0) ?> KB</small>
-          </a>
-          <a class="btn btn-mini" href="<?= e(url('eventos/aviso/' . $c['id'] . '/archivo/' . $a['id'] . '?descargar=1')) ?>" aria-label="Descargar <?= e($a['etiqueta']) ?>">Descargar</a>
-          <?php if ($gestiona): ?>
-            <form method="post" action="<?= e(url('eventos/aviso/' . $c['id'] . '/adjuntos/' . $a['id'] . '/quitar')) ?>" data-confirm="¿Retirar «<?= e($a['etiqueta']) ?>»?"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini btn-peligro" type="submit">Quitar</button></form>
-          <?php endif; ?>
-        </div>
-      <?php endforeach; ?>
-    </div>
+  <?php if ($adjuntos):
+    $grupos = [];
+    foreach ($adjuntos as $a) { $grupos[$a['grupo'] ?? ''][] = $a; }
+    $esExamen = ($c['clase'] ?? '') === 'examenes';
+    $ancla = static fn(string $g) => 'seccion-' . (preg_replace('/[^a-z0-9]+/', '-', mb_strtolower(strtr($g, 'áéíóúñÁÉÍÓÚÑ', 'aeiounAEIOUN'))) ?: 'archivos');
+  ?>
+    <?php if (count($grupos) > 1): ?>
+      <div class="botones-secciones">
+        <?php foreach (array_keys($grupos) as $g): ?>
+          <a class="boton-relacionado" href="#<?= e($ancla($g)) ?>"><span aria-hidden="true" style="font-size:28px">📅</span><span><strong><?= e($g !== '' ? $g : 'Otros') ?></strong><small>Ver los calendarios ↓</small></span></a>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+    <?php foreach ($grupos as $g => $lista): ?>
+      <h2 id="<?= e($ancla($g)) ?>" style="font-size:17px;margin:26px 0 10px;scroll-margin-top:80px"><?= $esExamen ? 'Calendarios de Exámenes' : 'Archivos' ?><?= $g !== '' ? ' · ' . e($g) : '' ?></h2>
+      <div class="adjuntos-aviso">
+        <?php foreach ($lista as $a): ?>
+          <div class="adjunto-fila">
+            <a class="adjunto-boton" href="<?= e(url('eventos/aviso/' . $c['id'] . '/archivo/' . $a['id'])) ?>" target="_blank" rel="noopener">
+              <span aria-hidden="true">📄</span> <strong><?= e($a['etiqueta']) ?></strong> <small class="texto-suave">PDF · <?= number_format($a['bytes'] / 1024, 0) ?> KB</small>
+            </a>
+            <a class="btn btn-mini" href="<?= e(url('eventos/aviso/' . $c['id'] . '/archivo/' . $a['id'] . '?descargar=1')) ?>" aria-label="Descargar <?= e($a['etiqueta']) ?>">Descargar</a>
+            <?php if ($gestiona): ?>
+              <form method="post" action="<?= e(url('eventos/aviso/' . $c['id'] . '/adjuntos/' . $a['id'] . '/quitar')) ?>" data-confirm="¿Retirar «<?= e($a['etiqueta']) ?>»?"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini btn-peligro" type="submit">Quitar</button></form>
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    <?php endforeach; ?>
   <?php endif; ?>
 </article>
 
@@ -65,6 +79,7 @@ $borrador = $c['categoria'] === 'Ocultar';
     </div>
     <form method="post" action="<?= e(url('eventos/aviso/' . $c['id'] . '/adjuntos')) ?>" enctype="multipart/form-data" class="ux-toolbar" style="flex-wrap:wrap">
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+      <label>Sección (opcional)<input type="text" name="grupo" maxlength="60" list="grupos-aviso" placeholder="Ej. Licenciatura"><datalist id="grupos-aviso"><?php foreach (array_unique(array_filter(array_column($adjuntos, 'grupo'))) as $g): ?><option value="<?= e($g) ?>"><?php endforeach; ?></datalist></label>
       <label>Etiqueta del archivo<input type="text" name="etiqueta" required maxlength="120" placeholder="Ej. Ingeniería Mecánica (IME)"></label>
       <label>PDF (hasta 20 MB)<input type="file" name="archivo" accept="application/pdf" required></label>
       <button class="btn btn-mini btn-primario" type="submit">+ Agregar archivo</button>
@@ -78,6 +93,8 @@ $borrador = $c['categoria'] === 'Ocultar';
 .adjunto-boton{flex:1 1 280px;display:flex;gap:10px;align-items:center;border:1px solid var(--gris-200,#d6dbe1);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--verde-900,#1f4d36);background:#fbfdfc}
 .adjunto-boton:hover{border-color:var(--verde-700,#2c6b4a);background:#f1f8f4}
 .adjunto-fila form{margin:0}
+.botones-secciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:8px}
+.botones-secciones .boton-relacionado{margin:0}
 .boton-relacionado{display:flex;gap:14px;align-items:center;margin:20px 0 4px;padding:18px 22px;border-radius:12px;background:var(--verde-700,#2c6b4a);color:#fff;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.12)}
 .boton-relacionado:hover{background:var(--verde-900,#1f4d36)}
 .boton-relacionado strong{display:block;font-size:18px}

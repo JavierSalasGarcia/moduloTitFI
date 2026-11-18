@@ -57,7 +57,7 @@ final class AvisoController extends Controller
     public static function adjuntos(int $id): array
     {
         try {
-            return Database::todas('SELECT * FROM comunicado_adjuntos WHERE comunicado_id = ? ORDER BY orden, etiqueta', [$id]);
+            return Database::todas('SELECT * FROM comunicado_adjuntos WHERE comunicado_id = ? ORDER BY grupo = \'\', orden, etiqueta', [$id]);
         } catch (\Throwable) {
             return [];
         }
@@ -157,8 +157,9 @@ final class AvisoController extends Controller
         }
         $nombre = preg_replace('/[^A-Za-z0-9._ -]+/u', '_', (string) $f['name']) ?: 'archivo.pdf';
         $orden = (int) Database::valor('SELECT COALESCE(MAX(orden), 0) + 1 FROM comunicado_adjuntos WHERE comunicado_id = ?', [(int) $c['id']]);
-        Database::ejecutar('INSERT INTO comunicado_adjuntos (comunicado_id, etiqueta, nombre, ruta, bytes, orden) VALUES (?, ?, ?, ?, ?, ?)',
-            [(int) $c['id'], $etiqueta, $nombre, $rel, (int) $f['size'], $orden]);
+        $grupo = mb_substr(trim($this->post('grupo')), 0, 60);
+        Database::ejecutar('INSERT INTO comunicado_adjuntos (comunicado_id, grupo, etiqueta, nombre, ruta, bytes, orden) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [(int) $c['id'], $grupo, $etiqueta, $nombre, $rel, (int) $f['size'], $orden]);
         flash('exito', 'Archivo agregado: ' . $etiqueta . '.');
         redirigir('eventos/aviso/' . $c['id']);
     }

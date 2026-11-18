@@ -106,7 +106,7 @@ if (!$visitante) {
           <span class="aviso-resumen"><?= e(mb_strimwidth(preg_replace('/\s+/', ' ', $it['texto']), 0, 190, '…')) ?></span>
           <small class="texto-suave">
             <?php if ($ev): ?><?= e(fecha_corta($ev['inicio'])) ?><?= $ev['lugar'] ? ' · ' . e($ev['lugar']) : '' ?> · <?= e($it['origen']) ?>
-            <?php else: ?><?= e($it['origen']) ?> · <?= e(fecha_corta($it['fecha'])) ?><?= !empty($it['destino']) ? ' · ' . e($it['destino']) : '' ?><?= !empty($it['adjuntos']) ? ' · 📎 ' . (int) $it['adjuntos'] . ' archivo' . ($it['adjuntos'] > 1 ? 's' : '') : '' ?><?php endif; ?>
+            <?php else: ?><?= e($it['origen']) ?><?= $it['filtro'] === 'examenes' ? '' : ' · ' . e(fecha_corta($it['fecha'])) ?><?= !empty($it['destino']) ? ' · ' . e($it['destino']) : '' ?><?= !empty($it['adjuntos']) ? ' · 📎 ' . (int) $it['adjuntos'] . ' archivo' . ($it['adjuntos'] > 1 ? 's' : '') : '' ?><?php endif; ?>
           </small>
         </span>
       </a>
