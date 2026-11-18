@@ -113,9 +113,9 @@ final class Solicitudes
     public static function obtener(int $id): ?array
     {
         $s = Database::una(
-            'SELECT s.*, u.nombre AS solicitante_nombre, u.email AS solicitante_email, d.nombre AS departamento, d.clave AS depto_clave, f.email AS firmante_email
+            'SELECT s.*, u.nombre AS solicitante_nombre, u.email AS solicitante_email, d.nombre AS departamento, d.clave AS depto_clave, f.email AS firmante_email, f.genero AS firmante_genero, pl.nombre AS plantilla_nombre
                FROM cst_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id JOIN usuarios f ON f.id = s.firmante_id
-               JOIN departamentos d ON d.id = s.departamento_id WHERE s.id = ?',
+               JOIN departamentos d ON d.id = s.departamento_id LEFT JOIN cst_plantillas pl ON pl.id = s.plantilla_id WHERE s.id = ?',
             [$id]
         );
         return $s ? self::descifrarFila($s) : null;
@@ -135,6 +135,13 @@ final class Solicitudes
             $s['texto'] = (string) ($cuerpo['texto'] ?? '');
             $s['avisos'] = array_values(array_map('strval', (array) ($cuerpo['avisos'] ?? [])));
             $s['archivo'] = (string) ($cuerpo['archivo'] ?? '');
+            if (array_key_exists('firmante_genero', $s)) {
+                // Marcadores automáticos de las plantillas ({fecha_letras}, {firmante}, {cargo_firmante}, {suscribe}): se llenan con quien
+                // firma y la fecha de expedición (la del envío a firma; antes de enviarla, la de hoy). El texto editable los conserva.
+                $mapa = Plantillas::automaticos(['nombre' => $s['firmante_nombre'], 'cargo' => $s['firmante_cargo'], 'genero' => $s['firmante_genero']],
+                    !empty($s['enviada_en']) ? substr((string) $s['enviada_en'], 0, 10) : date('Y-m-d'));
+                $s['bloques'] = Plantillas::sustituirBloques($s['bloques'], $mapa);
+            }
         }
         $s['caja'] = isset($s['caja']) && is_string($s['caja']) ? (json_decode($s['caja'], true) ?: null) : ($s['caja'] ?? null);
         return $s;
@@ -182,7 +189,7 @@ final class Solicitudes
 
     /**
      * Guarda una constancia nueva (borrador) o los cambios de una en borrador o devuelta, y regenera su vista previa.
-     * @param array{dirigido_a:string,asunto:string,bloques:array,texto:string,avisos:array,archivo:string,origen:string,persona_nombre:string,persona_email:string,firmante:array} $d
+     * @param array{dirigido_a:string,asunto:string,bloques:array,texto:string,avisos:array,archivo:string,origen:string,persona_nombre:string,persona_email:string,firmante:array,plantilla_id?:?int} $d (plantilla_id solo cuenta al crearla)
      */
     public static function guardar(?int $id, array $d, int $usuarioId): int
     {
@@ -194,8 +201,8 @@ final class Solicitudes
         try {
             if ($id === null) {
                 $id = Database::ejecutar(
-                    'INSERT INTO cst_solicitudes (estado, solicitante_id, firmante_id, firmante_nombre, firmante_cargo, departamento_id, asunto, codigo) VALUES (\'borrador\', ?, ?, ?, ?, ?, ?, ?)',
-                    [$usuarioId, $f['usuario_id'], mb_substr($f['nombre'], 0, 160), mb_substr($f['cargo'], 0, 255), $f['departamento_id'], mb_substr($d['asunto'], 0, 160), self::codigo()]
+                    'INSERT INTO cst_solicitudes (estado, solicitante_id, firmante_id, firmante_nombre, firmante_cargo, departamento_id, asunto, codigo, plantilla_id) VALUES (\'borrador\', ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [$usuarioId, $f['usuario_id'], mb_substr($f['nombre'], 0, 160), mb_substr($f['cargo'], 0, 255), $f['departamento_id'], mb_substr($d['asunto'], 0, 160), self::codigo(), ($d['plantilla_id'] ?? null) ?: null]
                 );
                 if ($id <= 0) {
                     throw new RuntimeException('No se obtuvo el identificador de la constancia.');

@@ -10,6 +10,7 @@ use App\Modules\Constancias\Services\Cuerpo;
 use App\Modules\Constancias\Services\Docx;
 use App\Modules\Constancias\Services\Firmantes;
 use App\Modules\Constancias\Services\Folio;
+use App\Modules\Constancias\Services\Plantillas;
 use App\Modules\Constancias\Services\Solicitudes;
 use InvalidArgumentException;
 use RuntimeException;
@@ -21,23 +22,81 @@ final class SolicitudController extends ConstanciasBase
     {
         $this->soloSolicitantes();
         $this->privado();
-        $this->mostrarFormulario(null, [], null);
+        $plantilla = null;
+        $error = null;
+        if ((string) ($_GET['plantilla'] ?? '') !== '') {
+            $plantilla = $this->plantilla((string) $_GET['plantilla']);
+            if ($plantilla === null) {
+                $error = 'Esa plantilla ya no está disponible. Elige otra o empieza en blanco.';
+            }
+        }
+        $this->mostrarFormulario(null, $plantilla ? ['asunto' => $plantilla['asunto'], 'dirigido_a' => $plantilla['dirigido_a']] : [], $error, $plantilla);
     }
 
     public function crear(): void
     {
         $this->soloSolicitantes();
+        $plantilla = null;
+        if ((string) ($_POST['plantilla'] ?? '') !== '') {
+            $plantilla = $this->plantilla((string) $_POST['plantilla']);
+            if ($plantilla === null) {
+                $this->privado();
+                $this->mostrarFormulario(null, [], 'Esa plantilla ya no está disponible. Elige otra o empieza en blanco.', null);
+                return;
+            }
+            $paso = (string) ($_POST['paso'] ?? '');
+            $campo = is_array($_POST['campo'] ?? null) ? $_POST['campo'] : [];
+            if ($paso === 'renglones') {
+                // Sin JavaScript: más renglones para las tablas, sin validar todavía.
+                $this->privado();
+                $this->mostrarFormulario(null, $_POST, null, $plantilla, [], null, 3);
+                return;
+            }
+            if ($paso === 'armar' || empty($_POST['armado'])) {
+                $r = Plantillas::leerValores($plantilla, $campo);
+                if ($r['errores']) {
+                    $this->privado();
+                    $this->mostrarFormulario(null, $_POST, 'Faltan datos o hay datos por corregir; están marcados abajo.', $plantilla, $r['errores']);
+                    return;
+                }
+                $lleno = Plantillas::llenar($plantilla, $r['valores']);
+                $this->privado();
+                $this->mostrarFormulario(null, array_merge($_POST, $lleno, ['armado' => '1']), null, $plantilla, [],
+                    'Así quedó el texto con tus datos. Corrígelo aquí si hace falta y pide la vista previa.');
+                return;
+            }
+            $pendientes = Plantillas::pendientes($plantilla, (string) ($_POST['texto'] ?? '') . (string) ($_POST['asunto'] ?? '') . (string) ($_POST['dirigido_a'] ?? ''));
+            if ($pendientes) {
+                $this->privado();
+                $this->mostrarFormulario(null, $_POST, 'Quedan datos sin llenar en el texto: ' . implode(', ', $pendientes) . '. Escríbelos o vuelve a llenar el texto con los datos.', $plantilla);
+                return;
+            }
+        }
         try {
-            $d = $this->leer(null);
+            $d = $this->leer(null, $plantilla !== null);
+            $d['plantilla_id'] = $plantilla['id'] ?? null;
             $id = Solicitudes::guardar(null, $d, Auth::id());
         } catch (InvalidArgumentException | RuntimeException $e) {
             $this->privado();
-            $this->mostrarFormulario(null, $_POST, $e->getMessage());
+            $this->mostrarFormulario(null, $_POST, $e->getMessage(), $plantilla);
             return;
         }
-        Audit::record('constancias::solicitar', 'correcto', 'Constancia ' . $id . ' (borrador) · firma ' . $d['firmante']['usuario_id'] . ' · depto ' . $d['firmante']['departamento_id']);
+        Audit::record('constancias::solicitar', 'correcto', 'Constancia ' . $id . ' (borrador) · firma ' . $d['firmante']['usuario_id'] . ' · depto ' . $d['firmante']['departamento_id']
+            . ($plantilla ? ' · plantilla ' . $plantilla['id'] : ''));
         flash('exito', 'Revisa la vista previa. Cuando esté lista, envíala a firma.');
         redirigir('constancias/solicitud/' . $id);
+    }
+
+    /** Plantilla activa por su id (las ve todo el personal que solicita). */
+    private function plantilla(string $id): ?array
+    {
+        $n = self::id($id);
+        try {
+            return $n !== null ? Plantillas::obtener($n, true) : null;
+        } catch (\Throwable $e) {
+            error_log('Constancias: plantillas no disponibles: ' . $e->getMessage());
+            return null;
+        }
     }
 
     public function editar(string $id): void
@@ -175,7 +234,12 @@ final class SolicitudController extends ConstanciasBase
 
     // ------------------------------------------------------------------ formulario
 
-    private function mostrarFormulario(?array $s, array $post, ?string $error): void
+    /**
+     * @param ?array $plantilla plantilla elegida (solo al crear)
+     * @param array<string,string> $errores errores por campo de la plantilla
+     * @param int $masRenglones renglones extra en las tablas (sin JavaScript)
+     */
+    private function mostrarFormulario(?array $s, array $post, ?string $error, ?array $plantilla = null, array $errores = [], ?string $aviso = null, int $masRenglones = 0): void
     {
         if ($error !== null) {
             http_response_code(422);
@@ -196,19 +260,30 @@ final class SolicitudController extends ConstanciasBase
             'persona_nombre' => (string) ($post['persona_nombre'] ?? ($s['persona_nombre'] ?? '')),
             'persona_email' => (string) ($post['persona_email'] ?? ($s['persona_email'] ?? '')),
             'firmante' => (string) ($post['firmante'] ?? $firmanteActual),
-            'modo' => (string) ($post['modo'] ?? (($s['origen'] ?? 'texto') === 'docx' ? 'docx' : 'texto')),
+            'modo' => $plantilla ? 'texto' : (string) ($post['modo'] ?? (($s['origen'] ?? 'texto') === 'docx' ? 'docx' : 'texto')),
+            'campo' => is_array($post['campo'] ?? null) ? $post['campo'] : [],
+            'armado' => $plantilla !== null && !empty($post['armado']),
         ];
+        $plantillas = [];
+        if (!$s) {
+            try {
+                $plantillas = Plantillas::listar(true);
+            } catch (\Throwable $e) {
+                error_log('Constancias: plantillas no disponibles: ' . $e->getMessage());
+            }
+        }
         $this->vista('solicitar', [
             'titulo' => $s ? 'Corregir la constancia' : 'Solicitar una constancia',
             's' => $s, 'v' => $v, 'error' => $error,
             'firmantes' => Firmantes::todos(),
             'docx' => Docx::disponible(),
             'mias' => $s ? [] : Solicitudes::delSolicitante(Auth::id()),
+            'plantillas' => $plantillas, 'plantilla' => $plantilla, 'errores' => $errores, 'aviso' => $aviso, 'masRenglones' => $masRenglones,
         ]);
     }
 
     /** Valida lo capturado; el cuerpo sale del archivo de Word (si se subió uno) o del campo de texto. */
-    private function leer(?array $previo): array
+    private function leer(?array $previo, bool $soloTexto = false): array
     {
         $linea = static fn(string $v, int $max): string => mb_substr(trim(preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $v) ?? ''), 0, $max);
         $dirigido = str_replace("\r", '', $linea((string) ($_POST['dirigido_a'] ?? ''), 600));
@@ -231,7 +306,7 @@ final class SolicitudController extends ConstanciasBase
         if (mb_strlen($texto) > Cuerpo::MAX_TEXTO) {
             throw new InvalidArgumentException('El texto es demasiado largo (máximo ' . number_format(Cuerpo::MAX_TEXTO) . ' caracteres).');
         }
-        $modo = ($_POST['modo'] ?? 'texto') === 'docx' ? 'docx' : 'texto';
+        $modo = !$soloTexto && ($_POST['modo'] ?? 'texto') === 'docx' ? 'docx' : 'texto';
         $archivo = $_FILES['archivo'] ?? null;
         $subido = is_array($archivo) && ($archivo['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE;
         $avisos = [];

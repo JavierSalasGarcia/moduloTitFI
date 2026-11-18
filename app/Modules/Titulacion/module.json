@@ -739,6 +739,34 @@
       "App\\Modules\\Titulacion\\ConstanciasController",
       "muestra"
     ],
+    "GET /titulacion/constancias/plantillas/nueva": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaNueva"
+    ],
+    "POST /titulacion/constancias/plantillas": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaCrear"
+    ],
+    "POST /titulacion/constancias/plantillas/muestra": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaMuestra"
+    ],
+    "GET /titulacion/constancias/plantillas/{id}": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaEditar"
+    ],
+    "POST /titulacion/constancias/plantillas/{id}": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaActualizar"
+    ],
+    "POST /titulacion/constancias/plantillas/{id}/duplicar": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaDuplicar"
+    ],
+    "POST /titulacion/constancias/plantillas/{id}/estado": [
+      "App\\Modules\\Titulacion\\ConstanciasController",
+      "plantillaEstado"
+    ],
     "GET /titulacion/constancias/historial": [
       "App\\Modules\\Titulacion\\ConstanciasController",
       "historico"

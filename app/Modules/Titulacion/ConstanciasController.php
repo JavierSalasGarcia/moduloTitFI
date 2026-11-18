@@ -5,6 +5,9 @@ namespace App\Modules\Titulacion;
 
 use App\Core\Audit;
 use App\Core\Auth;
+use App\Modules\Constancias\Services\Cuerpo;
+use App\Modules\Constancias\Services\Pdf;
+use App\Modules\Constancias\Services\Plantillas;
 use App\Modules\Titulacion\Services\Constancias;
 use App\Modules\Titulacion\Services\Expedientes;
 use App\Modules\Titulacion\Services\Historico;
@@ -13,7 +16,10 @@ use App\Modules\Titulacion\Services\Oficios;
 use App\Modules\Titulacion\Services\Registros;
 use Throwable;
 
-/** «Constancias → Textos» (redacción editable de cada constancia) e «Constancias → Historial» (registros anteriores del libro de actas). */
+/**
+ * «Constancias → Textos» (redacción editable de cada constancia y plantillas para «Solicitar una constancia» del módulo
+ * Constancias) e «Constancias → Historial» (registros anteriores del libro de actas).
+ */
 final class ConstanciasController extends TitulacionBase
 {
     private function soloTextos(): void
@@ -58,7 +64,127 @@ final class ConstanciasController extends TitulacionBase
         foreach (Constancias::ACTIVOS as $tipo) {
             $textos[$tipo] = Constancias::texto($tipo);
         }
-        $this->vista('constancias_textos', ['titulo' => 'Constancias · Textos', 'textos' => $textos, 'abierto' => (string) ($_GET['tipo'] ?? '')]);
+        $plantillas = [];
+        try {
+            $plantillas = Plantillas::listar(false);
+        } catch (Throwable $e) {
+            error_log('Titulación: plantillas de constancias: ' . $e->getMessage());
+        }
+        $this->vista('constancias_textos', ['titulo' => 'Constancias · Textos', 'textos' => $textos, 'abierto' => (string) ($_GET['tipo'] ?? ''), 'plantillas' => $plantillas]);
+    }
+
+    // ------------------------------------------------------------------ plantillas para «Solicitar una constancia»
+
+    private function plantillaId(string $id): array
+    {
+        $p = ctype_digit($id) && strlen($id) < 10 ? Plantillas::obtener((int) $id) : null;
+        if (!$p) {
+            $this->noEncontrado();
+        }
+        return $p;
+    }
+
+    /** Editor de una plantilla (nueva o existente) en la misma vista de Textos. */
+    private function editor(?array $p, array $d, ?string $error = null, ?string $aviso = null): void
+    {
+        if ($error !== null) {
+            http_response_code(422);
+        }
+        $this->vista('constancias_textos', [
+            'titulo' => $p ? 'Constancias · Editar plantilla' : 'Constancias · Nueva plantilla',
+            'editor' => $d, 'plantillaActual' => $p, 'error' => $error, 'aviso' => $aviso,
+            'historialPlantilla' => $p ? Plantillas::historial((int) $p['id']) : [],
+        ]);
+    }
+
+    public function plantillaNueva(): void
+    {
+        $this->soloTextos();
+        $this->editor(null, ['nombre' => '', 'descripcion' => '', 'asunto' => 'CONSTANCIA', 'dirigido_a' => 'A QUIEN CORRESPONDA', 'cuerpo' => '', 'campos' => []]);
+    }
+
+    public function plantillaEditar(string $id): void
+    {
+        $this->soloTextos();
+        $p = $this->plantillaId($id);
+        $this->editor($p, $p);
+    }
+
+    public function plantillaCrear(): void
+    {
+        $this->soloTextos();
+        $this->guardarPlantilla(null);
+    }
+
+    public function plantillaActualizar(string $id): void
+    {
+        $this->soloTextos();
+        $this->guardarPlantilla($this->plantillaId($id));
+    }
+
+    private function guardarPlantilla(?array $p): void
+    {
+        $d = Plantillas::leerFormulario($_POST);
+        if (($_POST['accion'] ?? '') === 'detectar') {
+            $this->editor($p, $d, null, count($d['campos']) . ' marcador(es) por llenar. Define cómo se piden y guarda.');
+            return;
+        }
+        try {
+            Plantillas::validar($d, $p['id'] ?? null);
+            $id = Plantillas::guardar($p ? (int) $p['id'] : null, $d, Auth::id());
+        } catch (\InvalidArgumentException $e) {
+            $this->editor($p, $d, $e->getMessage());
+            return;
+        }
+        Audit::record('titulacion::constancia_plantilla', 'correcto', ($p ? 'Editada' : 'Creada') . ' la plantilla ' . $id . ': ' . $d['nombre']);
+        flash('exito', $p ? 'Plantilla guardada. Las constancias que se soliciten a partir de ahora usan esta versión.' : 'Plantilla creada. Ya aparece en «Solicitar una constancia».');
+        redirigir('titulacion/constancias/textos#plantillas');
+    }
+
+    public function plantillaDuplicar(string $id): void
+    {
+        $this->soloTextos();
+        $p = $this->plantillaId($id);
+        $nuevo = Plantillas::duplicar((int) $p['id'], Auth::id());
+        Audit::record('titulacion::constancia_plantilla', 'correcto', 'Duplicada la plantilla ' . (int) $p['id'] . ' como ' . $nuevo);
+        flash('exito', 'Se hizo una copia de «' . $p['nombre'] . '». Cámbiale el nombre y lo que necesites.');
+        redirigir('titulacion/constancias/plantillas/' . $nuevo);
+    }
+
+    public function plantillaEstado(string $id): void
+    {
+        $this->soloTextos();
+        $p = $this->plantillaId($id);
+        $activa = ($_POST['activa'] ?? '') === '1';
+        Plantillas::activar((int) $p['id'], $activa, Auth::id());
+        Audit::record('titulacion::constancia_plantilla', 'correcto', ($activa ? 'Activada' : 'Desactivada') . ' la plantilla ' . (int) $p['id'] . ': ' . $p['nombre']);
+        flash('exito', $activa ? 'La plantilla «' . $p['nombre'] . '» vuelve a aparecer al solicitar constancias.' : 'La plantilla «' . $p['nombre'] . '» ya no aparece al solicitar constancias. Las constancias hechas con ella no cambian.');
+        redirigir('titulacion/constancias/textos#plantillas');
+    }
+
+    /** Vista previa en PDF de la plantilla del formulario (sin guardarla) con datos de ejemplo y el generador del módulo Constancias. */
+    public function plantillaMuestra(): void
+    {
+        $this->soloTextos();
+        $d = Plantillas::leerFormulario($_POST);
+        try {
+            Plantillas::validar(['nombre' => $d['nombre'] !== '' ? $d['nombre'] : 'Vista previa'] + $d, null, false);
+        } catch (\InvalidArgumentException $e) {
+            $id = (string) ($_POST['plantilla_id'] ?? '');
+            $this->editor(ctype_digit($id) && strlen($id) < 10 ? Plantillas::obtener((int) $id) : null, $d, $e->getMessage());
+            return;
+        }
+        $lleno = Plantillas::llenar($d, Plantillas::ejemplo($d));
+        $firmante = ['nombre' => 'Dra. Nombre de quien firma', 'cargo' => 'Cargo de quien firma', 'genero' => 'femenino'];
+        $bloques = Plantillas::sustituirBloques(Cuerpo::desdeTexto($lleno['texto']), Plantillas::automaticos($firmante, date('Y-m-d')));
+        try {
+            [$bytes] = Pdf::generar(['asunto' => $lleno['asunto'], 'dirigido_a' => $lleno['dirigido_a'], 'bloques' => $bloques, 'firmante_nombre' => $firmante['nombre'],
+                'firmante_cargo' => $firmante['cargo'], 'folio' => 'EJEMPLO/CONST/0/' . date('Y'), 'codigo' => 'EJEMPLOEJEMPLOEJEMPL', 'fecha' => date('Y-m-d')], true);
+        } catch (Throwable $e) {
+            error_log('Titulación: vista previa de plantilla: ' . $e->getMessage());
+            $this->noEncontrado();
+        }
+        $this->enviarBytes($bytes, 'muestra_plantilla.pdf', 'application/pdf');
     }
 
     public function guardarTexto(string $tipo): void

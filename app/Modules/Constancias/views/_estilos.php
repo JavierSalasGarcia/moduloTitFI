@@ -58,6 +58,28 @@ p.const-ayuda{margin:6px 0 14px}
 .const-hoja table{border-collapse:collapse;width:100%;font-size:13px}
 .const-hoja th,.const-hoja td{border:1px solid #9aa59c;padding:5px 7px;vertical-align:top;white-space:pre-line;text-align:left;overflow-wrap:normal;word-break:normal;min-width:4em}
 .const-hoja th{background:#e6ece7}
+.const-plantilla-sel .const-sel-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.const-plantilla-sel label{flex:1 1 280px;margin:0;font-weight:600;display:flex;flex-direction:column;gap:4px}
+.const-plantilla-sel select{min-height:44px;width:100%}
+.const-plantilla-sel p.const-ayuda{margin:8px 0 0}
+.const-datos-plantilla{border:1px solid var(--gris-100);border-radius:var(--radio);padding:12px 14px 4px;margin:0 0 14px;min-width:0}
+.const-datos-plantilla legend{font-weight:700;color:var(--verde-900);padding:0 6px}
+.const-opcional{font-weight:400;color:var(--gris-600)}
+.const-error-campo{display:block;color:var(--error);font-size:13px;font-weight:600;margin-top:4px}
+label.con-error input,label.con-error textarea{border-color:var(--error)}
+.const-campo-tabla{border:0;padding:0;margin:0 0 14px;min-width:0}
+.const-campo-tabla legend{font-weight:600;margin-bottom:4px;padding:0}
+.const-campo-tabla.con-error .const-captura{outline:2px solid var(--error)}
+.const-captura{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+.const-captura th{background:var(--verde-050);text-align:left;padding:6px;font-size:13px;border:1px solid var(--gris-100)}
+.const-captura td{border:1px solid var(--gris-100);padding:3px}
+.const-captura input{width:100%;min-width:8em;border:0;min-height:36px;padding:4px 6px;margin:0}
+.const-captura .const-n{width:2.2em;text-align:center;color:var(--gris-600);font-size:12px}
+.const-mas{margin-top:8px}
+.const-plantilla-texto{border:1px dashed var(--gris-100);border-radius:var(--radio);padding:10px 14px;margin:0 0 14px}
+.const-plantilla-texto>summary{cursor:pointer;font-weight:600;color:var(--verde-900)}
+.const-pre{white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.5;background:var(--gris-bg);padding:10px;border-radius:var(--radio);margin:6px 0 0;overflow-wrap:anywhere}
+.const-oculto{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .const-historial{list-style:none;margin:0;padding:0;font-size:14px}
 .const-historial li{padding:8px 0;border-top:1px dashed var(--gris-100)}
 .const-historial q{display:block;margin-top:4px;color:var(--texto);font-style:italic}
