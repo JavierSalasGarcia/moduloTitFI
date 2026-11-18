@@ -35,15 +35,14 @@ $borrador = $c['categoria'] === 'Ocultar';
     $esExamen = ($c['clase'] ?? '') === 'examenes';
     $ancla = static fn(string $g) => 'seccion-' . (preg_replace('/[^a-z0-9]+/', '-', mb_strtolower(strtr($g, 'áéíóúñÁÉÍÓÚÑ', 'aeiounAEIOUN'))) ?: 'archivos');
   ?>
-    <?php if (count($grupos) > 1): ?>
-      <div class="botones-secciones">
-        <?php foreach (array_keys($grupos) as $g): ?>
-          <a class="boton-relacionado" href="#<?= e($ancla($g)) ?>"><span aria-hidden="true" style="font-size:28px">📅</span><span><strong><?= e($g !== '' ? $g : 'Otros') ?></strong><small>Ver los calendarios ↓</small></span></a>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
+    <?php $acordeon = count($grupos) > 1; ?>
     <?php foreach ($grupos as $g => $lista): ?>
-      <h2 id="<?= e($ancla($g)) ?>" style="font-size:17px;margin:26px 0 10px;scroll-margin-top:80px"><?= $esExamen ? 'Calendarios de Exámenes' : 'Archivos' ?><?= $g !== '' ? ' · ' . e($g) : '' ?></h2>
+      <?php if ($acordeon): ?>
+        <details class="acordeon-aviso" id="<?= e($ancla($g)) ?>">
+          <summary><span aria-hidden="true" style="font-size:26px">📅</span><span><strong><?= e($g !== '' ? $g : 'Otros') ?></strong><small><?= count($lista) ?> programa<?= count($lista) > 1 ? 's' : '' ?> · toca para ver los calendarios</small></span><span class="acordeon-flecha" aria-hidden="true">▾</span></summary>
+      <?php else: ?>
+        <h2 style="font-size:17px;margin:26px 0 10px"><?= $esExamen ? 'Calendarios de Exámenes' : 'Archivos' ?></h2>
+      <?php endif; ?>
       <div class="adjuntos-aviso">
         <?php foreach ($lista as $a): ?>
           <div class="adjunto-fila">
@@ -57,6 +56,7 @@ $borrador = $c['categoria'] === 'Ocultar';
           </div>
         <?php endforeach; ?>
       </div>
+      <?php if ($acordeon): ?></details><?php endif; ?>
     <?php endforeach; ?>
   <?php endif; ?>
 </article>
@@ -93,10 +93,20 @@ $borrador = $c['categoria'] === 'Ocultar';
 .adjunto-boton{flex:1 1 280px;display:flex;gap:10px;align-items:center;border:1px solid var(--gris-200,#d6dbe1);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--verde-900,#1f4d36);background:#fbfdfc}
 .adjunto-boton:hover{border-color:var(--verde-700,#2c6b4a);background:#f1f8f4}
 .adjunto-fila form{margin:0}
-.botones-secciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:8px}
-.botones-secciones .boton-relacionado{margin:0}
+.acordeon-aviso{margin:14px 0 0;border-radius:12px;overflow:hidden;border:1px solid var(--verde-700,#2c6b4a)}
+.acordeon-aviso summary{list-style:none;display:flex;gap:14px;align-items:center;padding:18px 22px;background:var(--verde-700,#2c6b4a);color:#fff;cursor:pointer}
+.acordeon-aviso summary::-webkit-details-marker{display:none}
+.acordeon-aviso summary:hover{background:var(--verde-900,#1f4d36)}
+.acordeon-aviso summary strong{display:block;font-size:19px}
+.acordeon-aviso summary small{display:block;font-size:14px;opacity:.9}
+.acordeon-flecha{margin-left:auto;font-size:22px;transition:transform .2s}
+.acordeon-aviso[open] .acordeon-flecha{transform:rotate(180deg)}
+.acordeon-aviso .adjuntos-aviso{padding:14px}
 .boton-relacionado{display:flex;gap:14px;align-items:center;margin:20px 0 4px;padding:18px 22px;border-radius:12px;background:var(--verde-700,#2c6b4a);color:#fff;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.12)}
 .boton-relacionado:hover{background:var(--verde-900,#1f4d36)}
 .boton-relacionado strong{display:block;font-size:18px}
 .boton-relacionado small{display:block;font-size:14px;opacity:.9}
 </style>
+<script>
+(() => { const d = location.hash && document.getElementById(location.hash.slice(1)); if (d && d.tagName === 'DETAILS') { d.open = true; d.scrollIntoView(); } })();
+</script>
