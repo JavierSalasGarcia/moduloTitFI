@@ -94,7 +94,7 @@ final class ComunicadosController extends Controller
             redirigir('eventos');
         }
         try {
-            Avisos::publicar([
+            $id = Avisos::publicar([
                 'titulo' => $this->post('titulo'), 'contenido' => $this->post('contenido'), 'alcance' => $this->post('alcance'),
                 'destinatarios' => $this->post('destinatarios') ?: 'todos', 'programas' => $_POST['programas'] ?? [],
                 'vence_en' => $this->post('vence_en'), 'depto_id' => (int) $this->post('depto_id'),
@@ -102,6 +102,18 @@ final class ComunicadosController extends Controller
         } catch (\InvalidArgumentException $e) {
             flash('error', $e->getMessage());
             redirigir('eventos');
+        }
+        // Tipo de aviso, consulta sin sesión y borrador (para revisarlo y adjuntar archivos antes de publicarlo).
+        $clase = in_array($this->post('clase'), ['aviso', 'convocatoria', 'examenes'], true) ? $this->post('clase') : 'aviso';
+        $borrador = $this->post('borrador') === '1';
+        try {
+            Database::ejecutar('UPDATE comunicados SET clase = ?, publico = ?, categoria = IF(?, \'Ocultar\', categoria) WHERE id = ?',
+                [$clase, $this->post('publico') === '1' ? 1 : 0, $borrador ? 1 : 0, $id]);
+        } catch (\Throwable) {
+        }
+        if ($borrador) {
+            flash('exito', 'Borrador guardado: revísalo y agrega sus archivos antes de publicarlo.');
+            redirigir('eventos/aviso/' . $id);
         }
         flash('exito', 'Comunicado publicado.');
         redirigir('eventos');

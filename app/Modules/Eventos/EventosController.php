@@ -31,11 +31,14 @@ final class EventosController extends Controller
 
     public function index(): void
     {
-        $u = Auth::usuario();
+        if (!Auth::usuario()) {
+            $this->indexPublico();
+            return;
+        }
         $puedeEmitirEventos = Clasificacion::puedePublicar();
         $puedeEmitirComunicados = $this->puedeEmitirComunicados();
 
-        // 1. Obtener Eventos
+        // 1. Eventos próximos (con los filtros de carrera, semestre, tema… de Clasificacion)
         [$condicion, $params] = $this->filtros();
         $eventos = Database::todas(
             "SELECT ev.*, d.nombre AS depto,
@@ -50,22 +53,19 @@ final class EventosController extends Controller
         $filtros = Clasificacion::filtrosGet($perfil, self::CATEGORIAS);
         $eventos = Clasificacion::filtrar(Clasificacion::conProgramas($eventos), $filtros, $perfil);
 
-        // 2. Comunicados: cada aviso aparece una sola vez, aunque la persona pertenezca a varios programas destinatarios
+        // 2. Avisos oficiales: cada aviso aparece una sola vez, aunque la persona pertenezca a varios programas destinatarios
         $comunicados = \App\Modules\Comunicados\Avisos::visibles($puedeEmitirComunicados);
         $archivo = ($_GET['avisos'] ?? '') === 'archivo';
         $comunicados = array_values(array_filter($comunicados, static function($c) use ($archivo) {
             $vencido = !empty($c['vence_en']) && $c['vence_en'] < date('Y-m-d');
-            if ($archivo !== $vencido) return false;
-            return empty($_GET['recientes']) || $c['creado_en'] >= date('Y-m-d H:i:s', strtotime('-14 days'));
+            return $archivo === $vencido;
         }));
 
         $this->vista('index', [
             'titulo'     => 'Avisos y eventos',
+            'items'      => self::lista($comunicados, $archivo ? [] : $eventos, Lecturas::leidos()),
             'eventos'    => $eventos,
-            'comunicados' => $comunicados,
             'avisosArchivo' => $archivo,
-            'q'          => trim((string) ($_GET['q'] ?? '')),
-            'categoria'  => $_GET['categoria'] ?? '',
             'categorias' => self::CATEGORIAS,
             'puedeEmitir'=> $puedeEmitirEventos,
             'puedeEmitirComunicados' => $puedeEmitirComunicados,
@@ -74,7 +74,66 @@ final class EventosController extends Controller
             'filtros'       => $filtros,
             'perfil'        => $perfil,
             'preferencias'  => Clasificacion::preferencias(Auth::id()),
+            'visitante'     => false,
         ]);
+    }
+
+    /** Consulta sin sesión: solo los avisos marcados como públicos y vigentes. */
+    private function indexPublico(): void
+    {
+        $hoy = date('Y-m-d');
+        $comunicados = [];
+        try {
+            $comunicados = Database::todas(
+                "SELECT c.*, d.nombre AS depto, u2.nombre AS autor, p.siglas,
+                        (SELECT a.valor FROM ajustes a WHERE a.clave = CONCAT('comunicado_vence_', c.id)) AS vence_en
+                   FROM comunicados c JOIN departamentos d ON d.id = c.depto_id JOIN usuarios u2 ON u2.id = c.autor_id
+                   LEFT JOIN programas p ON p.id = c.programa_id
+                  WHERE c.publico = 1 AND c.categoria != 'Ocultar'
+                  ORDER BY CASE WHEN c.categoria = 'Importantes' THEN 1 ELSE 2 END, c.creado_en DESC");
+        } catch (\Throwable) {
+        }
+        $comunicados = array_values(array_filter($comunicados, static fn($c) => empty($c['vence_en']) || $c['vence_en'] >= $hoy));
+        foreach ($comunicados as &$c) {
+            $c['programas_lista'] = array_column(Database::todas('SELECT p.siglas FROM comunicado_programas cp JOIN programas p ON p.id = cp.programa_id WHERE cp.comunicado_id = ? ORDER BY p.siglas', [(int) $c['id']]), 'siglas');
+        }
+        unset($c);
+        $this->vista('index', [
+            'titulo' => 'Avisos', 'seccion' => 'Avisos', 'items' => self::lista($comunicados, [], ['comunicado' => [], 'evento' => []]),
+            'visitante' => true, 'avisosArchivo' => false, 'puedeEmitir' => false, 'puedeEmitirComunicados' => false,
+        ], 'publico');
+    }
+
+    /** Une avisos y eventos en una sola lista con su tipo para los filtros (Avisos oficiales, Convocatorias, Eventos, Exámenes). */
+    private static function lista(array $comunicados, array $eventos, array $leidos): array
+    {
+        $items = [];
+        $adjuntos = [];
+        if ($comunicados) {
+            $ids = array_map('intval', array_column($comunicados, 'id'));
+            try {
+                foreach (Database::todas('SELECT comunicado_id, COUNT(*) n FROM comunicado_adjuntos WHERE comunicado_id IN (' . implode(',', $ids) . ') GROUP BY comunicado_id') as $r) {
+                    $adjuntos[(int) $r['comunicado_id']] = (int) $r['n'];
+                }
+            } catch (\Throwable) {
+            }
+        }
+        foreach ($comunicados as $c) {
+            $clase = $c['clase'] ?? 'aviso';
+            $items[] = ['tipo' => 'comunicado', 'id' => (int) $c['id'], 'filtro' => ['aviso' => 'avisos', 'convocatoria' => 'convocatorias', 'examenes' => 'examenes'][$clase] ?? 'avisos',
+                'titulo' => $c['titulo'], 'texto' => $c['contenido'], 'fecha' => $c['creado_en'], 'origen' => $c['depto'],
+                'destino' => \App\Modules\Comunicados\Avisos::destino($c), 'importante' => $c['categoria'] === 'Importantes',
+                'borrador' => $c['categoria'] === 'Ocultar', 'publico' => (int) ($c['publico'] ?? 0) === 1, 'vence' => $c['vence_en'] ?? null,
+                'adjuntos' => $adjuntos[(int) $c['id']] ?? 0, 'leido' => !empty($leidos['comunicado'][(int) $c['id']]), 'url' => 'eventos/aviso/' . (int) $c['id'], 'dato' => $c];
+        }
+        foreach ($eventos as $ev) {
+            $items[] = ['tipo' => 'evento', 'id' => (int) $ev['id'], 'filtro' => $ev['categoria'] === 'convocatoria' ? 'convocatorias' : 'eventos',
+                'titulo' => $ev['titulo'], 'texto' => (string) ($ev['descripcion'] ?? ''), 'fecha' => $ev['creado_en'] ?? $ev['inicio'], 'origen' => $ev['depto'],
+                'importante' => false, 'borrador' => false, 'leido' => !empty($leidos['evento'][(int) $ev['id']]), 'url' => 'eventos/' . (int) $ev['id'], 'dato' => $ev];
+        }
+        // Lo importante primero; después lo no leído y lo más reciente.
+        usort($items, static fn($a, $b) => [$b['importante'], $a['leido'], $b['fecha']] <=> [$a['importante'], $b['leido'], $a['fecha']]);
+        return $items;
     }
 
     private function puedeEmitirComunicados(): bool
@@ -141,6 +200,7 @@ final class EventosController extends Controller
             [$ev['id']]
         );
 
+        Lecturas::marcar('evento', (int) $ev['id']);
         $ev = Clasificacion::conProgramas([$ev])[0];
         $gestiona = Clasificacion::puedeGestionar($ev);
         $this->vista('detalle', [

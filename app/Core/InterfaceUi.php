@@ -28,7 +28,7 @@ final class InterfaceUi
     ];
 
     /** Icono de entradas que se pintan sueltas (grupo «Inicio»). */
-    private const ICONOS_ENTRADA = ['notificaciones' => 'alerta'];
+    private const ICONOS_ENTRADA = ['notificaciones' => 'alerta', 'eventos' => 'reloj'];
 
     private static ?array $navegacion = null;
 
@@ -39,7 +39,8 @@ final class InterfaceUi
             $root = explode('/', $item['ruta'])[0];
             $group = match ($root) {
                 '', 'notificaciones' => 'Inicio', 'seguridad', 'perfil' => 'Recursos', 'tickets','solicitudes','firmas','funciones','grupos-destinatarios' => 'Trámites y seguimiento',
-                'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : 'Agenda',
+                // «Avisos y eventos» va suelto en el menú principal, con su globito de no leídos.
+                'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : ($item['ruta'] === 'eventos' ? 'Inicio' : 'Agenda'),
                 'fila' => 'Fila', 'titulacion' => str_starts_with($item['ruta'], 'titulacion/constancias') ? 'Constancias' : 'Titulación',
                 'posgrado' => 'Titulación', 'constancias' => 'Constancias',
                 'foro','encuestas','comisiones','concursos' => 'Comunidad', 'ajustes','formularios' => 'Administración',
@@ -113,6 +114,9 @@ final class InterfaceUi
         }
         if ($clave === 'notificaciones') {
             return \App\Core\Pendientes::total() + \App\Modules\Notificaciones\Notificaciones::noLeidas(array_merge(Identidad::correosDeUsuario((int) $usuario['id']), [(string) $usuario['email']]));
+        }
+        if ($clave === 'eventos') {
+            return \App\Modules\Eventos\Lecturas::noLeidos();
         }
         if ($clave === 'tickets') {
             return in_array($usuario['rol'], ['alumno', 'profesor'], true)

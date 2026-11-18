@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Eventos\AsistenciaController;
+use App\Modules\Eventos\AvisoController;
 use App\Modules\Eventos\AvisosController;
 use App\Modules\Eventos\EventosController;
 
@@ -14,7 +15,7 @@ return [
     ],
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Avisos y eventos', 'ruta' => 'eventos',
-         'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 4],
+         'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'], 'orden' => 4],
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Mi expediente de formación integral', 'ruta' => 'eventos/expediente',
          'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'], 'orden' => 5],
         ['seccion' => 'RECURSOS', 'titulo' => 'Biblioteca de eventos', 'ruta' => 'eventos/biblioteca',
@@ -24,7 +25,14 @@ return [
     ],
     'rutas' => [
         // Las rutas fijas van antes que /eventos/{id}.
-        'GET /eventos'                              => [EventosController::class, 'index'],
+        // Consulta sin sesión: solo los avisos públicos (con sesión, todo lo que le corresponde a la persona).
+        'GET /eventos'                              => [EventosController::class, 'index', 'publico'],
+        'POST /eventos/leidos'                      => [AvisoController::class, 'marcarLeidos'],
+        'GET /eventos/aviso/{id}'                   => [AvisoController::class, 'ver', 'publico'],
+        'GET /eventos/aviso/{id}/archivo/{aid}'     => [AvisoController::class, 'archivo', 'publico'],
+        'POST /eventos/aviso/{id}/adjuntos'         => [AvisoController::class, 'adjuntar'],
+        'POST /eventos/aviso/{id}/adjuntos/{aid}/quitar' => [AvisoController::class, 'quitarAdjunto'],
+        'POST /eventos/aviso/{id}/estado'           => [AvisoController::class, 'estado'],
         'GET /eventos/biblioteca'                   => [EventosController::class, 'biblioteca'],
         'GET /eventos/nuevo'                        => [AvisosController::class, 'nuevo'],
         'POST /eventos'                             => [AvisosController::class, 'guardar'],
