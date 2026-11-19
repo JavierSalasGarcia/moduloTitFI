@@ -242,6 +242,7 @@ final class CargaRrhh
                 // Si ya existía una cuenta con ese correo y el profesor aún no tenía cuenta, son la misma persona: se enlazan.
                 if ($cuenta && $p['usuario_id'] === null && !Database::valor('SELECT 1 FROM profesores WHERE usuario_id = ?', [$cuenta['id']])) {
                     Database::ejecutar('UPDATE profesores SET usuario_id = ? WHERE id = ? AND usuario_id IS NULL', [$cuenta['id'], $p['id']]);
+                    \App\Core\Profesores::rolProfesor((int) $cuenta['id']);
                     $p['usuario_id'] = (int) $cuenta['id'];
                     $r['cuentas_enlazadas']++;
                 }
@@ -320,6 +321,7 @@ final class CargaRrhh
             throw new \InvalidArgumentException('Esa cuenta o ese profesor ya no están disponibles para enlazar.');
         }
         Database::ejecutar('UPDATE profesores SET usuario_id = ? WHERE id = ? AND usuario_id IS NULL', [$usuarioId, $profesorId]);
+        \App\Core\Profesores::rolProfesor($usuarioId);
         Profesores::marcarDeclaracion($usuarioId);
         if (!Database::valor('SELECT 1 FROM profesor_correos WHERE email = ?', [$u['email']])) {
             Database::ejecutar('INSERT INTO profesor_correos (profesor_id, email, principal) VALUES (?, ?, 0)', [$profesorId, $u['email']]);

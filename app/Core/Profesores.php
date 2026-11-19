@@ -192,10 +192,31 @@ final class Profesores
      * Enlaza la cuenta (con su correo ya verificado) al profesor del directorio que tiene ese correo, si lo hay y no está enlazado.
      * Pasa sus programas a programa_profesores y completa el género de la cuenta. Es seguro repetirla.
      */
+    /**
+     * Una cuenta que coincide con una ficha del directorio de profesores pasa a tener rol de profesor (el registro la crea
+     * como alumno). Si además estudia un posgrado (programa de la cuenta), conserva «alumno» como rol adicional.
+     * No toca cuentas con otro rol (titular, operativo, coordinador, admin).
+     */
+    public static function rolProfesor(int $usuarioId): void
+    {
+        try {
+            $u = Database::una('SELECT rol, programa_id FROM usuarios WHERE id = ?', [$usuarioId]);
+            if (!$u || $u['rol'] !== 'alumno') {
+                return;
+            }
+            if ($u['programa_id'] && !Database::valor("SELECT 1 FROM usuario_roles WHERE usuario_id = ? AND rol = 'alumno'", [$usuarioId])) {
+                Database::ejecutar("INSERT INTO usuario_roles (usuario_id, rol, programa_id) VALUES (?, 'alumno', ?)", [$usuarioId, $u['programa_id']]);
+            }
+            Database::ejecutar("UPDATE usuarios SET rol = 'profesor' WHERE id = ? AND rol = 'alumno'", [$usuarioId]);
+        } catch (\Throwable) {
+        }
+    }
+
     public static function vincularCuenta(int $usuarioId, string $email): bool
     {
         try {
             if (Database::valor('SELECT id FROM profesores WHERE usuario_id = ?', [$usuarioId])) {
+                self::rolProfesor($usuarioId);
                 return true;
             }
             $id = Database::valor(
@@ -206,6 +227,7 @@ final class Profesores
                 return false;
             }
             Database::ejecutar('UPDATE profesores SET usuario_id = ? WHERE id = ? AND usuario_id IS NULL', [$usuarioId, $id]);
+            self::rolProfesor($usuarioId);
             self::marcarDeclaracion($usuarioId);
             Database::ejecutar('UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.genero = p.genero WHERE u.id = ? AND u.genero IS NULL AND p.genero IS NOT NULL', [$usuarioId]);
             Database::ejecutar("UPDATE usuarios u JOIN profesores p ON p.usuario_id = u.id SET u.grado = p.grado WHERE u.id = ? AND (u.grado IS NULL OR u.grado = '') AND p.grado IS NOT NULL AND p.grado <> ''", [$usuarioId]);
