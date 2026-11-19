@@ -5,13 +5,13 @@ include __DIR__ . '/_estilos.php';
 $csrf = e(Auth::csrfToken());
 ?>
 <div class="esp-cabecera">
-  <p class="texto-secundario" style="margin:0">Da de alta auditorios y salas, define su horario de uso y a las personas autorizadas para registrar su ocupación. Los exámenes de titulación se apartan solos en el espacio que configure Titulación, aunque el pasante no esté autorizado.</p>
+  <p class="texto-secundario" style="margin:0">Da de alta auditorios y salas y a las personas autorizadas para registrar su ocupación. La ocupación se aparta por evento en el <a href="<?= url('espacios') ?>">calendario</a>: fecha, horario, evento o actividad, responsable y quién la registró; puede ser un evento único o periódico (clases, cursos). Los exámenes de titulación se apartan solos en el espacio que configure Titulación, aunque el pasante no esté autorizado.</p>
   <a class="btn btn-mini" href="<?= url('espacios') ?>">← Calendario</a>
 </div>
 
 <?php foreach ($espacios as $e): $id = (int) $e['id']; ?>
 <section class="tarjeta" id="esp-<?= $id ?>" style="margin-bottom:16px">
-  <div class="tarjeta-cabecera"><h2><?= e($e['nombre']) ?> <?= (int) $e['activo'] ? '' : '<small class="texto-secundario">(inactivo)</small>' ?></h2></div>
+  <div class="tarjeta-cabecera" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2><?= e($e['nombre']) ?> <?= (int) $e['activo'] ? '' : '<small class="texto-secundario">(inactivo)</small>' ?></h2><a class="btn btn-mini btn-primario" href="<?= url('espacios?s=' . $id) ?>">Ocupación y reservas →</a></div>
   <details>
     <summary>Datos del espacio</summary>
     <form class="formulario" method="post" action="<?= url('espacios/admin/espacio') ?>" style="margin-top:8px">
@@ -27,19 +27,6 @@ $csrf = e(Auth::csrfToken());
       <div class="acciones-formulario"><button class="btn btn-primario btn-mini" type="submit">Guardar datos</button></div>
     </form>
   </details>
-
-  <h3>Horario de uso</h3>
-  <form class="formulario" method="post" action="<?= url('espacios/admin/espacio/' . $id . '/horario') ?>">
-    <input type="hidden" name="_csrf" value="<?= $csrf ?>">
-    <div class="esp-horario">
-      <?php foreach (Agenda::DIAS as $dia => $nombre): ?>
-        <label><?= e($nombre) ?>
-          <input type="text" name="h[<?= $dia ?>]" placeholder="Sin servicio" value="<?= e(implode(', ', array_map(static fn(array $h): string => $h['inicio'] . '-' . $h['fin'], $e['horario'][$dia] ?? []))) ?>"></label>
-      <?php endforeach; ?>
-    </div>
-    <p class="texto-secundario" style="font-size:13px">Escribe uno o varios rangos por día, separados por coma (p. ej. 08:00-14:00, 16:00-19:00). Vacío: no se presta ese día.</p>
-    <div class="acciones-formulario"><button class="btn btn-primario btn-mini" type="submit">Guardar horario</button></div>
-  </form>
 
   <h3>Personas autorizadas para registrar su ocupación</h3>
   <?php if (!$e['autorizados']): ?><p class="texto-secundario">Nadie aún (los administradores del módulo siempre pueden registrar).</p><?php endif; ?>

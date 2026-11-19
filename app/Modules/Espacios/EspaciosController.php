@@ -60,13 +60,34 @@ final class EspaciosController extends Controller
             flash('error', 'No estás autorizado para registrar la ocupación de este espacio.');
             redirigir($volver);
         }
+        $datos = ['fecha' => $fecha, 'inicio' => $this->post('inicio'), 'fin' => $this->post('fin'),
+            'descripcion' => $this->post('descripcion'), 'responsable' => $this->post('responsable'), 'responsable_email' => $this->post('responsable_email')];
         try {
-            $id = Agenda::reservar($espacioId, [
-                'fecha' => $fecha, 'inicio' => $this->post('inicio'), 'fin' => $this->post('fin'),
-                'descripcion' => $this->post('descripcion'), 'responsable' => $this->post('responsable'), 'responsable_email' => $this->post('responsable_email'),
-            ], Auth::id());
-            Audit::record('espacios::registrar', 'correcto', 'Reserva ' . $id);
-            flash('exito', 'Ocupación registrada.');
+            if ($this->post('repetir') === 'semanal') {
+                $dias = array_map('intval', (array) ($_POST['dias'] ?? []));
+                $hasta = $this->post('hasta');
+                if (!preg_match('/^([01]\d|2[0-3]):[0-5]\d$/D', $datos['inicio']) || !preg_match('/^([01]\d|2[0-3]):[0-5]\d$/D', $datos['fin']) || $datos['inicio'] >= $datos['fin']) {
+                    throw new RuntimeException('Revisa la hora de inicio y de término.');
+                }
+                if (mb_strlen(trim($datos['descripcion'])) < 3 || mb_strlen(trim($datos['responsable'])) < 3) {
+                    throw new RuntimeException('Describe el evento e indica a la persona responsable que lo solicitó.');
+                }
+                $fechas = array_values(array_filter(Agenda::fechasSerie($fecha, $hasta, $dias), static fn(string $f): bool => $f >= date('Y-m-d')));
+                $choques = Agenda::choques($espacioId, $fechas, $datos['inicio'], $datos['fin']);
+                if ($choques && $this->post('confirmar') !== '1') {
+                    // Antes de guardar se muestran las fechas en conflicto; quien reserva decide.
+                    $this->vista('confirmar', ['titulo' => 'Confirmar serie', 'espacio' => Agenda::espacio($espacioId), 'datos' => $datos,
+                        'dias' => $dias, 'hasta' => $hasta, 'fechas' => $fechas, 'choques' => $choques, 'volver' => $volver]);
+                    return;
+                }
+                $r = Agenda::reservarSerie($espacioId, $datos, $dias, $hasta, Auth::id());
+                Audit::record('espacios::serie', 'correcto', 'Serie ' . $r['serie'] . ': ' . $r['creadas'] . ' sesiones');
+                flash('exito', 'Serie registrada: ' . $r['creadas'] . ' sesiones.' . ($r['omitidas'] ? ' No se apartaron ' . count($r['omitidas']) . ' fechas por choque: ' . implode(', ', array_map(static fn(string $f): string => date('d/m', strtotime($f)), $r['omitidas'])) . '.' : ''));
+            } else {
+                $id = Agenda::reservar($espacioId, $datos, Auth::id());
+                Audit::record('espacios::registrar', 'correcto', 'Reserva ' . $id);
+                flash('exito', 'Ocupación registrada.');
+            }
         } catch (RuntimeException $e) {
             flash('error', $e->getMessage());
         } catch (Throwable $e) {
@@ -87,9 +108,10 @@ final class EspaciosController extends Controller
         if ($r['origen'] === 'titulacion' && !EspaciosAccess::esAdmin()) {
             flash('error', 'Los espacios apartados para exámenes de titulación solo los libera un administrador del módulo.');
         } else {
-            Agenda::cancelar((int) $r['id'], Auth::id());
-            Audit::record('espacios::cancelar', 'correcto', 'Reserva ' . (int) $r['id']);
-            flash('exito', 'Se canceló el registro; el horario quedó libre.');
+            $alcance = in_array($this->post('alcance'), ['esta', 'siguientes', 'serie'], true) ? $this->post('alcance') : 'esta';
+            $n = Agenda::cancelarAlcance($r, $alcance, Auth::id());
+            Audit::record('espacios::cancelar', 'correcto', 'Reserva ' . (int) $r['id'] . ' (' . $alcance . ', ' . $n . ')');
+            flash('exito', $n > 1 ? 'Se cancelaron ' . $n . ' sesiones; los horarios quedaron libres.' : 'Se canceló el registro; el horario quedó libre.');
         }
         redirigir('espacios?s=' . (int) $r['espacio_id'] . '&semana=' . $r['fecha']);
     }

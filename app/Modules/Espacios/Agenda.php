@@ -38,11 +38,13 @@ final class Agenda
         return $salida;
     }
 
-    /** Intervalos en que el espacio puede usarse en esa fecha. */
+    /**
+     * Intervalos en que el espacio puede usarse en esa fecha. Ya no hay horario de servicio por espacio (la ocupación
+     * es por evento): se usa la jornada completa de la Facultad para proponer horas libres.
+     */
     public static function horarioDelDia(int $espacioId, string $fecha): array
     {
-        $d = DateTimeImmutable::createFromFormat('!Y-m-d', $fecha);
-        return $d ? (self::horario($espacioId)[(int) $d->format('N')] ?? []) : [];
+        return DateTimeImmutable::createFromFormat('!Y-m-d', $fecha) ? [['inicio' => '07:00', 'fin' => '22:00']] : [];
     }
 
     // ------------------------------------------------------------------ ocupación
@@ -174,9 +176,6 @@ final class Agenda
             if (!$e || !(int) $e['activo']) {
                 throw new RuntimeException('El espacio no está disponible.');
             }
-            if (!self::dentroDeHorario($espacioId, $fecha, $inicio, $fin)) {
-                throw new RuntimeException($e['nombre'] . ' no puede usarse en ese horario. Consulta su horario de uso.');
-            }
             if (!self::libre($espacioId, $fecha, $inicio, $fin)) {
                 throw new RuntimeException($e['nombre'] . ' ya está ocupado en ese horario.');
             }
@@ -184,8 +183,8 @@ final class Agenda
                 throw new RuntimeException('Ya hay un espacio apartado para este examen.');
             }
             $id = Database::ejecutar(
-                'INSERT INTO esp_reservas (espacio_id, fecha, hora_inicio, hora_fin, descripcion, responsable, responsable_email, registrado_por, origen, tramite_id, examen) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-                [$espacioId, $fecha, $inicio . ':00', $fin . ':00', mb_substr($descripcion, 0, 500), mb_substr($responsable, 0, 160), $email !== '' ? mb_substr($email, 0, 120) : null,
+                'INSERT INTO esp_reservas (espacio_id, serie_id, fecha, hora_inicio, hora_fin, descripcion, responsable, responsable_email, registrado_por, origen, tramite_id, examen) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+                [$espacioId, $r['serie_id'] ?? null, $fecha, $inicio . ':00', $fin . ':00', mb_substr($descripcion, 0, 500), mb_substr($responsable, 0, 160), $email !== '' ? mb_substr($email, 0, 120) : null,
                     $usuarioId, ($r['origen'] ?? 'manual') === 'titulacion' ? 'titulacion' : 'manual', $r['tramite_id'] ?? null, $r['examen'] ?? null]
             );
             $pdo->commit();
@@ -194,6 +193,95 @@ final class Agenda
             $pdo->rollBack();
             throw $ex;
         }
+    }
+
+    /** Fechas de una serie semanal: días de la semana (1 = lunes … 7 = domingo) entre dos fechas, hasta 300 sesiones y un año. */
+    public static function fechasSerie(string $desde, string $hasta, array $dias): array
+    {
+        $a = DateTimeImmutable::createFromFormat('!Y-m-d', $desde);
+        $b = DateTimeImmutable::createFromFormat('!Y-m-d', $hasta);
+        $dias = array_values(array_unique(array_filter(array_map('intval', $dias), static fn(int $d): bool => $d >= 1 && $d <= 7)));
+        if (!$a || !$b || $b < $a || !$dias) {
+            throw new RuntimeException('Para repetir el evento elige al menos un día de la semana y una fecha de término posterior a la de inicio.');
+        }
+        if ($b > $a->modify('+1 year')) {
+            throw new RuntimeException('Una serie puede durar como máximo un año.');
+        }
+        $fechas = [];
+        for ($d = $a; $d <= $b; $d = $d->modify('+1 day')) {
+            if (in_array((int) $d->format('N'), $dias, true)) {
+                $fechas[] = $d->format('Y-m-d');
+            }
+        }
+        if (count($fechas) > 300) {
+            throw new RuntimeException('La serie tendría más de 300 sesiones; acórtala.');
+        }
+        return $fechas;
+    }
+
+    /** Fechas de la lista en las que el horario ya está ocupado: fecha => «HH:MM–HH:MM descripción». */
+    public static function choques(int $espacioId, array $fechas, string $inicio, string $fin): array
+    {
+        if (!$fechas) {
+            return [];
+        }
+        $salida = [];
+        foreach (Database::todas(
+            "SELECT fecha, hora_inicio, hora_fin, descripcion FROM esp_reservas WHERE espacio_id = ? AND estado = 'activa' AND hora_inicio < ? AND hora_fin > ?
+              AND fecha IN (" . implode(',', array_fill(0, count($fechas), '?')) . ') ORDER BY fecha, hora_inicio',
+            [$espacioId, $fin . ':00', $inicio . ':00', ...$fechas]) as $r) {
+            $salida[$r['fecha']] = substr((string) $r['hora_inicio'], 0, 5) . '–' . substr((string) $r['hora_fin'], 0, 5) . ' ' . $r['descripcion'];
+        }
+        return $salida;
+    }
+
+    /**
+     * Registra una serie semanal: crea la serie y una reserva por fecha libre (las que chocan se omiten).
+     * @return array{serie:int,creadas:int,omitidas:string[]}
+     */
+    public static function reservarSerie(int $espacioId, array $r, array $dias, string $hasta, int $usuarioId): array
+    {
+        $fechas = array_values(array_filter(self::fechasSerie((string) $r['fecha'], $hasta, $dias), static fn(string $f): bool => $f >= date('Y-m-d')));
+        if (!$fechas) {
+            throw new RuntimeException('La serie no tiene fechas futuras.');
+        }
+        $choques = self::choques($espacioId, $fechas, (string) $r['inicio'], (string) $r['fin']);
+        $libres = array_values(array_diff($fechas, array_keys($choques)));
+        if (!$libres) {
+            throw new RuntimeException('Todas las fechas de la serie chocan con otros registros.');
+        }
+        $serie = Database::ejecutar(
+            'INSERT INTO esp_series (espacio_id, dias, hora_inicio, hora_fin, fecha_inicio, fecha_fin, descripcion, responsable, responsable_email, registrado_por) VALUES (?,?,?,?,?,?,?,?,?,?)',
+            [$espacioId, implode(',', array_map('intval', $dias)), $r['inicio'] . ':00', $r['fin'] . ':00', $fechas[0], end($fechas), mb_substr(trim((string) $r['descripcion']), 0, 500),
+                mb_substr(trim((string) $r['responsable']), 0, 160), trim((string) ($r['responsable_email'] ?? '')) ?: null, $usuarioId]
+        );
+        $creadas = 0;
+        $omitidas = array_keys($choques);
+        foreach ($libres as $f) {
+            try {
+                self::reservar($espacioId, ['fecha' => $f, 'serie_id' => $serie] + $r, $usuarioId);
+                $creadas++;
+            } catch (RuntimeException) {
+                $omitidas[] = $f;   // se ocupó mientras se guardaba
+            }
+        }
+        sort($omitidas);
+        return ['serie' => $serie, 'creadas' => $creadas, 'omitidas' => $omitidas];
+    }
+
+    /** Cancela una sesión, esa y las siguientes de su serie, o la serie completa (solo fechas de hoy en adelante). */
+    public static function cancelarAlcance(array $reserva, string $alcance, int $usuarioId): int
+    {
+        if (empty($reserva['serie_id']) || $alcance === 'esta') {
+            self::cancelar((int) $reserva['id'], $usuarioId);
+            return 1;
+        }
+        $desde = $alcance === 'siguientes' ? (string) $reserva['fecha'] : date('Y-m-d');
+        $params = [(int) $reserva['serie_id'], max($desde, date('Y-m-d'))];
+        $n = (int) Database::valor("SELECT COUNT(*) FROM esp_reservas WHERE serie_id = ? AND estado = 'activa' AND fecha >= ?", $params);
+        Database::ejecutar("UPDATE esp_reservas SET estado = 'cancelada', cancelada_por = ?, cancelada_en = NOW() WHERE serie_id = ? AND estado = 'activa' AND fecha >= ?",
+            [$usuarioId, ...$params]);
+        return $n;
     }
 
     public static function cancelar(int $reservaId, int $usuarioId): void
