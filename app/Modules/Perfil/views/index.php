@@ -89,6 +89,33 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   <?php if ($profesor['imparte']): ?><p class="texto-suave" style="margin-bottom:0"><strong>Imparto clases en:</strong> <?= e(implode(', ', array_map(static fn(array $u): string => $u['nombre'], $profesor['imparte']))) ?>.</p><?php endif; ?>
 </section>
 <?php endif; ?>
+<?php if (\App\Core\Auth::tieneRol('profesor') || !empty($profesor)):
+  $miCa = (int) ($cuerpos[0]['id'] ?? 0);
+  $porPrograma = [];
+  foreach ($organosPosgrado as $o) { $porPrograma[$o['siglas']]['nombre'] = $o['programa']; $porPrograma[$o['siglas']][$o['tipo']] = $o; }
+?>
+<section class="card" style="padding:20px;margin-bottom:18px" id="academico">
+  <h3 style="margin-top:0">Cuerpo Académico y órganos de posgrado</h3>
+  <p class="texto-suave" style="margin-top:0">Indica tu Cuerpo Académico y si eres integrante del Núcleo Académico Básico (NAB) o de la Comisión Académica de Posgrado (CAP) de algún programa. Se registra de inmediato; la Subdirección Académica puede corregirlo.</p>
+  <form method="post" action="<?= url('perfil/academico') ?>" class="formulario">
+    <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+    <label style="max-width:520px">Cuerpo Académico
+      <select name="cuerpo_academico"><option value="0">No pertenezco a un Cuerpo Académico</option>
+        <?php foreach ($catalogoCa as $ca): ?><option value="<?= (int) $ca['id'] ?>" <?= (int) $ca['id'] === $miCa ? 'selected' : '' ?>><?= e($ca['nombre']) ?></option><?php endforeach; ?>
+      </select><small class="ayuda-form">Si el tuyo no aparece, avisa a la Subdirección Académica para darlo de alta.</small></label>
+    <fieldset><legend>Integrante de NAB o CAP</legend>
+      <table class="tabla-organos"><thead><tr><th>Programa de posgrado</th><th>NAB</th><th>CAP</th></tr></thead><tbody>
+        <?php foreach ($porPrograma as $siglas => $p): ?>
+          <tr><td><strong><?= e($siglas) ?></strong> · <?= e($p['nombre']) ?></td>
+            <?php foreach (['NAB', 'CAP'] as $t): ?><td><?php if (!empty($p[$t])): ?><input type="checkbox" name="organos[]" value="<?= (int) $p[$t]['id'] ?>" <?= (int) $p[$t]['soy'] ? 'checked' : '' ?> aria-label="<?= $t ?> de <?= e($siglas) ?>"><?php endif; ?></td><?php endforeach; ?></tr>
+        <?php endforeach; ?>
+      </tbody></table>
+    </fieldset>
+    <button class="btn btn-primario" type="submit">Guardar</button>
+  </form>
+</section>
+<style>.tabla-organos{border-collapse:collapse;width:100%;max-width:640px}.tabla-organos th,.tabla-organos td{padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:left}.tabla-organos td:not(:first-child),.tabla-organos th:not(:first-child){text-align:center;width:70px}</style>
+<?php endif; ?>
 <section class="card" style="padding:20px;margin-bottom:18px" id="preferencias-avisos">
   <h3 style="margin-top:0">Mis avisos</h3>
   <p class="texto-suave">Con tu carrera<?= $grupoAvisos === 'alumno' ? ', tu semestre' : '' ?> y los temas que elijas, «Avisos y eventos» te muestra primero lo que te toca. Sin temas marcados ves todos.</p>

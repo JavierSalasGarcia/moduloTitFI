@@ -97,6 +97,7 @@ final class OrganizacionController extends Controller
                 Database::ejecutar('INSERT INTO programa_responsables(programa_id,usuario_id,cargo,fecha_inicio) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE activo=1,fecha_fin=NULL,observaciones=NULL', [$programaId,$usuarioId,$cargo,$fecha]);
             }
             if ($cargo === 'coordinador') $this->sincronizarCoordinadorReuniones($programaId, $usuarioId);
+            if ($cargo === 'coordinador') self::rolCoordinadorPosgrado($programaId, $usuarioId);
             $pdo->commit();
             flash('exito', 'Responsabilidad del programa guardada.');
         } catch (Throwable $e) {
@@ -154,6 +155,7 @@ final class OrganizacionController extends Controller
         $asignacion = Database::una('SELECT id,programa_id,cargo FROM programa_responsables WHERE id=? AND activo=1', [(int)$id]);
         if (!$asignacion) { flash('error','La asignación ya no está vigente.'); redirigir('ajustes/organizacion'); }
         Database::ejecutar('UPDATE programa_responsables SET activo=0,fecha_fin=CURRENT_DATE WHERE id=?', [$asignacion['id']]);
+        if ($asignacion['cargo'] === 'coordinador') self::rolCoordinadorPosgrado((int) $asignacion['programa_id'], null);
         if ($asignacion['cargo'] === 'coordinador') {
             $programa = Database::una('SELECT siglas FROM programas WHERE id=?', [$asignacion['programa_id']]);
             Database::ejecutar('DELETE rc FROM reuniones_coordinadores rc JOIN reuniones_posgrados rp ON rp.id=rc.posgrado_id WHERE rp.codigo=? AND rc.activo=0', [$programa['siglas']]);
@@ -202,6 +204,19 @@ final class OrganizacionController extends Controller
         if(!$this->caExiste($caId)){flash('error','El Cuerpo Académico no existe.');redirigir('ajustes/organizacion?vista=ca');}
         Database::ejecutar('DELETE FROM firma_grupo_miembros WHERE grupo_id=? AND usuario_id=?',[$caId,$usuarioId]);
         flash('exito','Integrante retirado del Cuerpo Académico.');redirigir('ajustes/organizacion?vista=ca&ca_id='.$caId);
+    }
+
+    /** Rol «Coordinador de la Maestría/Doctorado …» (usuario_roles con la coordinación del programa) para quien coordina el posgrado. */
+    private static function rolCoordinadorPosgrado(int $programaId, ?int $usuarioId): void
+    {
+        try {
+            $d = Database::valor("SELECT d.id FROM programas p JOIN departamentos d ON d.clave = CONCAT('coordinacion_posgrado_', LOWER(p.siglas)) WHERE p.id = ? AND p.nivel = 'posgrado'", [$programaId]);
+            if (!$d) return;
+            Database::ejecutar("DELETE FROM usuario_roles WHERE rol = 'coordinador' AND departamento_id = ?", [(int) $d]);
+            if ($usuarioId) Database::ejecutar("INSERT INTO usuario_roles (usuario_id, rol, departamento_id, programa_id, cargo) VALUES (?, 'coordinador', ?, ?, 'titular')", [$usuarioId, (int) $d, $programaId]);
+        } catch (\Throwable $e) {
+            error_log('Rol coordinador posgrado: ' . $e->getMessage());
+        }
     }
 
     private function programa(int $id): ?array

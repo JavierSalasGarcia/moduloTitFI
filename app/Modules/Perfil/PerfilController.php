@@ -31,6 +31,10 @@ final class PerfilController extends Controller
             'grupoAvisos' => \App\Modules\Eventos\Clasificacion::grupo(Auth::roles()),
             'fiseVigencia' => FirmaUaemex::aplica() ? FirmaUaemex::deUsuario((int) $id) : null,
             'fiseAplica' => FirmaUaemex::aplica(),
+            'catalogoCa' => Database::todas("SELECT id, nombre FROM firma_grupos WHERE tipo = 'cuerpo_academico' ORDER BY nombre"),
+            'organosPosgrado' => Database::todas("SELECT po.id, po.tipo, p.siglas, p.nombre AS programa,
+                    EXISTS(SELECT 1 FROM programa_organo_miembros m WHERE m.organo_id = po.id AND m.usuario_id = ? AND m.activo = 1 AND (m.fecha_fin IS NULL OR m.fecha_fin >= CURDATE())) AS soy
+               FROM programa_organos po JOIN programas p ON p.id = po.programa_id WHERE p.nivel = 'posgrado' AND po.activo = 1 ORDER BY p.siglas LIKE 'D%', p.siglas, po.tipo DESC", [$id]),
             'dependencias' => Database::todas('SELECT dr.*,d.nombre AS dependencia FROM departamento_responsables dr JOIN departamentos d ON d.id=dr.departamento_id WHERE dr.usuario_id=? ORDER BY dr.activo DESC,dr.fecha_inicio DESC', [$id]),
         ]);
     }
@@ -121,5 +125,48 @@ Es válido durante 10 minutos. Si no lo solicitaste, ignora este mensaje: tu cue
         }
         flash($ok ? 'exito' : 'error', $ok ? 'Tu correo se actualizó. Sigue siendo la misma cuenta: conservas tus constancias y accesos; ya puedes entrar con el correo nuevo.' : 'Código incorrecto, vencido o sin intentos disponibles. Solicita otro.');
         redirigir('perfil');
+    }
+
+    /**
+     * El profesor declara su Cuerpo Académico y si integra el NAB o la CAP de cada posgrado. Queda vigente de inmediato;
+     * la Subdirección Académica puede corregirlo en Organización. Solo se cierran las membresías que la persona desmarca.
+     */
+    public function academico(): void
+    {
+        $id = (int) Auth::id();
+        if (!Auth::tieneRol('profesor') && !\App\Core\Profesores::deUsuario($id)) {
+            flash('error', 'Esta sección es para profesores.');
+            redirigir('perfil');
+        }
+        $ca = (int) ($_POST['cuerpo_academico'] ?? 0);
+        $marcados = array_map('intval', (array) ($_POST['organos'] ?? []));
+        $pdo = Database::pdo();
+        try {
+            $pdo->beginTransaction();
+            Database::ejecutar("DELETE gm FROM firma_grupo_miembros gm JOIN firma_grupos g ON g.id = gm.grupo_id WHERE gm.usuario_id = ? AND g.tipo = 'cuerpo_academico'", [$id]);
+            if ($ca > 0 && Database::valor("SELECT 1 FROM firma_grupos WHERE id = ? AND tipo = 'cuerpo_academico'", [$ca])) {
+                Database::ejecutar('INSERT IGNORE INTO firma_grupo_miembros (grupo_id, usuario_id) VALUES (?, ?)', [$ca, $id]);
+            }
+            foreach (Database::todas("SELECT po.id FROM programa_organos po JOIN programas p ON p.id = po.programa_id WHERE p.nivel = 'posgrado' AND po.activo = 1") as $o) {
+                $oid = (int) $o['id'];
+                $actual = Database::una('SELECT id FROM programa_organo_miembros WHERE organo_id = ? AND usuario_id = ? AND activo = 1 AND (fecha_fin IS NULL OR fecha_fin >= CURDATE()) LIMIT 1', [$oid, $id]);
+                if (in_array($oid, $marcados, true) && !$actual) {
+                    Database::ejecutar("INSERT INTO programa_organo_miembros (organo_id, usuario_id, cargo, fecha_inicio, observaciones) VALUES (?, ?, 'miembro', CURDATE(), 'Declarado por el profesor en Mi perfil')
+                        ON DUPLICATE KEY UPDATE activo = 1, fecha_fin = NULL, observaciones = VALUES(observaciones)", [$oid, $id]);
+                } elseif (!in_array($oid, $marcados, true) && $actual) {
+                    Database::ejecutar('UPDATE programa_organo_miembros SET activo = 0, fecha_fin = CURDATE() WHERE id = ?', [(int) $actual['id']]);
+                }
+            }
+            $pdo->commit();
+            Audit::record('perfil::academico', 'correcto', 'CA ' . $ca . '; órganos ' . implode(',', $marcados));
+            flash('exito', 'Se guardaron tu Cuerpo Académico y tus órganos de posgrado.');
+        } catch (\Throwable $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            error_log('Perfil académico: ' . $e->getMessage());
+            flash('error', 'No fue posible guardar. Intenta de nuevo.');
+        }
+        redirigir('perfil#academico');
     }
 }

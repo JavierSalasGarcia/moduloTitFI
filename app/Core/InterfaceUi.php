@@ -28,7 +28,7 @@ final class InterfaceUi
     ];
 
     /** Icono de entradas que se pintan sueltas (grupo «Inicio»). */
-    private const ICONOS_ENTRADA = ['notificaciones' => 'alerta', 'eventos' => 'reloj'];
+    private const ICONOS_ENTRADA = ['notificaciones' => 'alerta', 'eventos' => 'reloj', 'perfil' => 'usuario'];
 
     private static ?array $navegacion = null;
 
@@ -46,6 +46,8 @@ final class InterfaceUi
                 'foro','encuestas','comisiones','concursos' => 'Comunidad', 'ajustes','formularios' => 'Administración',
                 'recursos' => empty($item['dinamico']) ? 'Administración' : 'Recursos', default => 'Recursos'
             };
+            // «Mi perfil» va suelto en el menú principal.
+            if ($item['ruta'] === 'perfil') $group = 'Inicio';
             if (in_array($root, ['seguridad', 'perfil'], true) && empty($item['grupo'])) $item['grupo'] = 'Mi cuenta';
             if ($root === 'concursos' && empty($item['grupo'])) $item['grupo'] = 'Concursos';
             // Las constancias de Titulación se muestran en el grupo Constancias (mismas rutas y permisos), en su propio subgrupo.
