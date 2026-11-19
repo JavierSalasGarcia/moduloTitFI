@@ -116,6 +116,9 @@ final class AvisoController extends Controller
         if (Auth::id() && !$comoVisitante) {
             Lecturas::marcar('comunicado', (int) $c['id']);
         }
+        if (!($comoVisitante && Auth::id())) {   // la vista previa del gestor no cuenta
+            Estadisticas::visita('comunicado', (int) $c['id']);
+        }
         $c['programas_lista'] = array_column(Database::todas('SELECT p.siglas FROM comunicado_programas cp JOIN programas p ON p.id = cp.programa_id WHERE cp.comunicado_id = ? ORDER BY p.siglas', [(int) $c['id']]), 'siglas');
         // Otros calendarios de exámenes (p. ej. licenciatura ↔ posgrado): se muestran como botones grandes.
         $relacionados = [];
@@ -132,6 +135,7 @@ final class AvisoController extends Controller
         }
         $datos = [
             'relacionados' => $relacionados,
+            'estad' => !$comoVisitante && Estadisticas::puedeVer() ? Estadisticas::de('comunicado', (int) $c['id']) : null, 'estadTipo' => 'comunicado',
             'titulo' => $c['titulo'], 'seccion' => 'Avisos', 'c' => $c, 'adjuntos' => self::adjuntos((int) $c['id']),
             'gestiona' => $gestiona && !$comoVisitante, 'comoVisitante' => $comoVisitante, 'clases' => self::CLASES,
         ];
@@ -154,6 +158,7 @@ final class AvisoController extends Controller
         if (!$a || $base === false || $ruta === false || !is_file($ruta) || !str_starts_with($ruta, rtrim($base, '/\\') . DIRECTORY_SEPARATOR)) {
             $this->noEncontrado();
         }
+        Estadisticas::descarga((int) $c['id'], (int) $a['id']);
         $nombre = preg_replace('/[^A-Za-z0-9._-]+/', '_', (string) $a['nombre']) ?: 'archivo.pdf';
         header('Content-Type: ' . (str_ends_with(strtolower($nombre), '.pdf') ? 'application/pdf' : 'application/octet-stream'));
         header('X-Content-Type-Options: nosniff');

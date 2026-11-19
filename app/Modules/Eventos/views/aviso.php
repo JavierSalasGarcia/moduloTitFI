@@ -66,6 +66,8 @@ $borrador = $c['categoria'] === 'Ocultar';
   <?php endif; ?>
 </article>
 
+<?php include __DIR__ . '/_estadisticas.php'; ?>
+
 <?php if ($gestiona): ?>
   <section class="card" style="margin-top:16px">
     <h2 style="font-size:16px;margin:0 0 10px">Gestión del aviso</h2>

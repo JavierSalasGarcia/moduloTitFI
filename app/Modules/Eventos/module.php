@@ -4,6 +4,7 @@ use App\Modules\Eventos\AsistenciaController;
 use App\Modules\Eventos\AvisoController;
 use App\Modules\Eventos\AvisosController;
 use App\Modules\Eventos\EventosController;
+use App\Modules\Eventos\EstadisticasController;
 
 return [
     'clave' => 'eventos',
@@ -27,6 +28,10 @@ return [
         // Las rutas fijas van antes que /eventos/{id}.
         // Consulta sin sesión: solo los avisos públicos (con sesión, todo lo que le corresponde a la persona).
         'GET /eventos'                              => [EventosController::class, 'index', 'publico'],
+        'GET /eventos/estadisticas'                 => [EstadisticasController::class, 'index'],
+        'GET /eventos/estadisticas/excel'           => [EstadisticasController::class, 'excel'],
+        'POST /eventos/estadisticas/personas'       => [EstadisticasController::class, 'agregar'],
+        'POST /eventos/estadisticas/personas/{usuario}/quitar' => [EstadisticasController::class, 'quitar'],
         'POST /eventos/leidos'                      => [AvisoController::class, 'marcarLeidos'],
         'POST /eventos/no-leido'                    => [AvisoController::class, 'noLeido'],
         'GET /aviso/{id}'                           => [AvisoController::class, 'ver', 'publico'],

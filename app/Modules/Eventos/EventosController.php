@@ -75,6 +75,7 @@ final class EventosController extends Controller
             'perfil'        => $perfil,
             'preferencias'  => Clasificacion::preferencias(Auth::id()),
             'visitante'     => false,
+            'verEstadisticas' => Estadisticas::puedeVer(),
         ]);
     }
 
@@ -201,6 +202,7 @@ final class EventosController extends Controller
         );
 
         Lecturas::marcar('evento', (int) $ev['id']);
+        Estadisticas::visita('evento', (int) $ev['id']);
         $ev = Clasificacion::conProgramas([$ev])[0];
         $gestiona = Clasificacion::puedeGestionar($ev);
         $this->vista('detalle', [
@@ -212,6 +214,7 @@ final class EventosController extends Controller
             'siglas'     => array_column(Database::todas('SELECT id, siglas FROM programas'), 'siglas', 'id'),
             'programas'  => Database::todas("SELECT id, siglas, nombre FROM programas ORDER BY nivel = 'posgrado', siglas"),
             'gestiona'   => $gestiona,
+            'estad'      => Estadisticas::puedeVer() ? Estadisticas::de('evento', (int) $ev['id']) : null, 'estadTipo' => 'evento',
             'asistencia' => Asistencias::de((int) $ev['id'], Auth::id()),
             'asistentes' => $gestiona ? Asistencias::delEvento((int) $ev['id']) : [],
             'evidencias' => $gestiona ? Database::todas('SELECT x.*, p.siglas, u.nombre AS autor FROM evento_evidencias x LEFT JOIN programas p ON p.id = x.programa_id JOIN usuarios u ON u.id = x.autor_id WHERE x.evento_id = ? ORDER BY x.id DESC', [(int) $ev['id']]) : [],

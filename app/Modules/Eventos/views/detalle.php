@@ -167,3 +167,5 @@ $metodos = ['qr' => 'QR', 'clave' => 'Palabra clave', 'constancia' => 'Constanci
 </section>
 <?php endif; ?>
 <?php endif; ?>
+
+<?php include __DIR__ . '/_estadisticas.php'; ?>

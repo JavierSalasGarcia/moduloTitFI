@@ -32,6 +32,7 @@ if (!$visitante) {
       <form method="post" action="<?= url('eventos/leidos') ?>"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><button class="btn btn-mini" type="submit">✓ Marcar todo como leído</button></form>
     <?php endif; ?>
     <?php if ($puedeEmitir): ?><a class="btn btn-mini" href="<?= url('eventos/nuevo') ?>">+ Publicar evento</a><?php endif; ?>
+    <?php if (!empty($verEstadisticas)): ?><a class="btn btn-mini" href="<?= url('eventos/estadisticas') ?>">📊 Estadísticas</a><?php endif; ?>
   </div>
   <?php endif; ?>
 </header>
