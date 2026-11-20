@@ -1,5 +1,5 @@
 // Service worker de Traza FI: página «Sin conexión» y notificaciones push. No guarda datos personales en caché.
-const CACHE = 'trazafi-v1';
+const CACHE = 'trazafi-v2';
 const OFFLINE = '/offline.html';
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll([OFFLINE, '/assets/img/icono-192.png'])).then(() => self.skipWaiting()));
@@ -18,6 +18,8 @@ self.addEventListener('push', (e) => {
   e.waitUntil(self.registration.showNotification(d.titulo || 'Traza FI', {
     body: d.cuerpo || '', icon: '/assets/img/icono-192.png', badge: '/assets/img/icono-insignia.png',
     data: {url: d.url || '/'}, tag: d.url || undefined, renotify: true,
+    // Sonido y vibración del sistema; la notificación permanece hasta que la persona la toque o la descarte.
+    silent: false, vibrate: [200, 100, 200, 100, 300], requireInteraction: true,
   }));
 });
 self.addEventListener('notificationclick', (e) => {

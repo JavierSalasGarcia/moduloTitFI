@@ -244,15 +244,55 @@ final class Clasificacion
             $profesor[(int) $r['usuario_id']][] = (int) $r['programa_id'];
         }
         $n = 0;
+        $avisados = [];
         foreach ($filas as $u) {
             $perfil = ['grupo' => self::grupo([(string) $u['rol']]), 'programas' => array_values(array_filter(array_merge([(int) $u['programa_id']], $profesor[(int) $u['id']] ?? []))),
                 'semestre' => $u['semestre'] !== null ? (int) $u['semestre'] : null];
             if (self::dirigidoA($ev, $perfil)) {
+                $avisados[(int) $u['id']] = true;
                 $n += \App\Modules\Notificaciones\Notificaciones::crear((string) $u['email'], 'Nuevo aviso: ' . $ev['titulo'],
                     mb_substr((string) $ev['descripcion'], 0, 400), 'eventos/' . (int) $ev['id'], 'avisos') > 0 ? 1 : 0;
             }
         }
+        self::notificarPush($ev, $profesor, $avisados);
         return $n;
+    }
+
+    /**
+     * Push al teléfono o computadora de todas las personas con notificaciones activadas a quienes va dirigido el
+     * evento, sigan o no su tema (incluido quien lo publica). Quien ya recibió la notificación de bandeja (que también
+     * manda push) se omite para no duplicar. @return int personas a las que se envió
+     */
+    public static function notificarPush(array $ev, ?array $profesor = null, array $omitir = []): int
+    {
+        try {
+            if ($profesor === null) {
+                $profesor = [];
+                foreach (Database::todas('SELECT usuario_id, programa_id FROM programa_profesores WHERE activo = 1') as $r) {
+                    $profesor[(int) $r['usuario_id']][] = (int) $r['programa_id'];
+                }
+            }
+            $ids = [];
+            foreach (Database::todas(
+                'SELECT DISTINCT u.id, u.rol, u.programa_id, p.semestre FROM push_suscripciones s
+                   JOIN usuarios u ON u.id = s.usuario_id LEFT JOIN aviso_preferencias p ON p.usuario_id = u.id
+                  WHERE u.activo = 1'
+            ) as $u) {
+                if (isset($omitir[(int) $u['id']])) {
+                    continue;
+                }
+                $perfil = ['grupo' => self::grupo([(string) $u['rol']]), 'programas' => array_values(array_filter(array_merge([(int) $u['programa_id']], $profesor[(int) $u['id']] ?? []))),
+                    'semestre' => $u['semestre'] !== null ? (int) $u['semestre'] : null];
+                if (self::dirigidoA($ev, $perfil)) {
+                    $ids[] = (int) $u['id'];
+                }
+            }
+            \App\Modules\Notificaciones\Push::aUsuarios($ids, 'Nuevo aviso: ' . $ev['titulo'], (string) $ev['descripcion'], 'eventos/' . (int) $ev['id']);
+            return count($ids);
+        } catch (\Throwable $e) {
+            error_log('Push de evento: ' . $e->getMessage());
+            return 0;
+        }
     }
 
     // ------------------------------------------------------------------ sugerencia de clasificación
