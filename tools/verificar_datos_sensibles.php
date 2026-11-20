@@ -9,6 +9,8 @@ declare(strict_types=1);
  *   php tools/verificar_datos_sensibles.php --staged   Revisa solo lo que está por entrar al commit (lo usa el hook pre-commit).
  *   php tools/verificar_datos_sensibles.php --instalar-hook   Instala el hook en .git/hooks/pre-commit.
  *
+ * tools/verificar_datos_sensibles.py aplica las mismas reglas para equipos o agentes sin PHP; si cambian, cambiar ambos.
+ *
  * Sale con código 1 si encuentra algo. No imprime los datos encontrados, solo el archivo, la línea y el motivo.
  */
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
@@ -16,7 +18,13 @@ chdir(dirname(__DIR__));
 
 if (in_array('--instalar-hook', $argv, true)) {
     $hook = ".git/hooks/pre-commit";
-    file_put_contents($hook, "#!/bin/sh\n# Instalado por tools/verificar_datos_sensibles.php\nphp tools/verificar_datos_sensibles.php --staged || {\n  echo 'Commit detenido: hay datos sensibles. Revisa docs/DATOS_SENSIBLES.md.' >&2\n  exit 1\n}\n");
+    // Mismo hook que escribe tools/verificar_datos_sensibles.py: usa PHP si existe y, si no, Python.
+    file_put_contents($hook, "#!/bin/sh\n# Instalado por tools/verificar_datos_sensibles.(php|py). Usa PHP si está disponible y, si no, Python.\n"
+        . "if php -v >/dev/null 2>&1; then\n  php tools/verificar_datos_sensibles.php --staged\n"
+        . "elif python3 -c \"\" >/dev/null 2>&1; then\n  python3 tools/verificar_datos_sensibles.py --staged\n"
+        . "elif python -c \"\" >/dev/null 2>&1; then\n  python tools/verificar_datos_sensibles.py --staged\n"
+        . "else\n  echo 'No hay PHP ni Python para verificar datos sensibles.' >&2\n  false\n"
+        . "fi || {\n  echo 'Commit detenido: hay datos sensibles. Revisa docs/DATOS_SENSIBLES.md.' >&2\n  exit 1\n}\n");
     @chmod($hook, 0755);
     echo "Hook instalado en $hook\n";
     exit(0);

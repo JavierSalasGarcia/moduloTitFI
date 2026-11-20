@@ -44,6 +44,7 @@ node_modules/
 /tmp/
 /tools/despliegue.local.conf
 /tools/subir/ftp.local.json
+/tools/subir/github.local.txt
 /tools/subir/__pycache__/
 
 # Datos de personas y de la operación: nunca versionar (docs/DATOS_SENSIBLES.md). Solo se conservan los .htaccess.

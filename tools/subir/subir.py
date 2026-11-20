@@ -11,11 +11,14 @@ Flujo normal (ver AGENTS.md y docs/DESPLIEGUE.md):
     2. python tools/subir/subir.py revisar <archivos .php>      # php -l en el servidor (misma versión de PHP)
     3. git add ... && git commit -m "..."
     4. git push origin main                                       # GitHub
+       (o: python tools/subir/subir.py push, que usa un token si git no tiene credenciales)
     5. python tools/subir/subir.py publicar                       # sube lo que cambió desde la última publicación
 
 Comandos:
 
     estado                         Commits y archivos pendientes de publicar y si HEAD ya está en GitHub.
+    push                           git push origin main; si git no tiene credenciales usa el token de
+                                   TRAZAFI_GITHUB_TOKEN o de tools/subir/github.local.txt (no versionado).
     publicar [--desde C] [--simular] [--sin-push-check]
                                    Sube los archivos desplegables que cambiaron entre la última
                                    publicación (o el commit C) y HEAD. Exige que estén commiteados.
@@ -33,7 +36,8 @@ Comandos:
 
 Credenciales: variables TRAZAFI_FTP_HOST/USER/PASS, o tools/subir/ftp.local.json
 ({"host": ..., "usuario": ..., "contrasena": ...}), o cred.txt en la raíz (USUARIO / CONTRASEÑA).
-Ninguno se versiona.
+Ninguno se versiona. El commit pasa por el hook pre-commit, que funciona con PHP o con Python
+(tools/verificar_datos_sensibles.php|py); no se usa --no-verify.
 
 Respaldos: antes de reemplazar un archivo se guarda la versión del servidor en
 <carpeta padre del proyecto>/trazafi-backups/ftp/<fecha-hora>/ (fuera del proyecto, nunca dentro del sitio).
@@ -297,6 +301,44 @@ def publicar_rutas(f, rutas, simular, desde_git=False):
     return reemplazados + nuevos
 
 
+REPO_GITHUB = "github.com/JavierSalasGarcia/moduloTitFI.git"
+
+
+def token_github():
+    t = os.environ.get("TRAZAFI_GITHUB_TOKEN")
+    ruta = os.path.join(AQUI, "github.local.txt")
+    if not t and os.path.exists(ruta):
+        t = open(ruta, encoding="utf-8").read().strip()
+    return t or ""
+
+
+def cmd_push(a):
+    rama = git("rev-parse", "--abbrev-ref", "HEAD")
+    if rama != "main":
+        sys.exit(f"Está en la rama {rama}; se publica desde main.")
+    p = subprocess.run(["git", "push", "origin", "main"], cwd=RAIZ, capture_output=True, text=True,
+                       env={**os.environ, "GIT_TERMINAL_PROMPT": "0"})
+    if p.returncode == 0:
+        print("Push a GitHub hecho." + (" " + p.stderr.strip() if p.stderr.strip() else ""))
+        return
+    tok = token_github()
+    if not tok:
+        print(p.stderr.strip())
+        sys.exit("git push falló y no hay token. Guarde un token de GitHub con permiso de escritura en "
+                 "tools/subir/github.local.txt (o en TRAZAFI_GITHUB_TOKEN) o haga el push desde una terminal "
+                 "con credenciales.")
+    url = f"https://x-access-token:{tok}@{REPO_GITHUB}"
+    p = subprocess.run(["git", "push", url, "HEAD:main"], cwd=RAIZ, capture_output=True, text=True,
+                       env={**os.environ, "GIT_TERMINAL_PROMPT": "0"})
+    salida = (p.stdout + p.stderr).replace(tok, "***")
+    if p.returncode != 0:
+        print(salida.strip())
+        sys.exit("El push con token falló (¿token vencido o sin permiso de escritura?, ¿hay commits nuevos en GitHub? "
+                 "En ese caso: git pull --rebase origin main).")
+    git("fetch", "-q", "origin", "main", check=False)
+    print("Push a GitHub hecho con token.")
+
+
 def cmd_estado(a):
     f = conectar()
     base, subir, borrados = pendientes(f, a.desde)
@@ -320,7 +362,7 @@ def cmd_estado(a):
 
 def cmd_publicar(a):
     if not a.sin_push_check and not en_github():
-        sys.exit("HEAD no está en GitHub. Haga primero: git push origin main  (o use --sin-push-check).")
+        sys.exit("HEAD no está en GitHub. Haga primero: python tools/subir/subir.py push")
     f = conectar()
     base, subir, borrados = pendientes(f, a.desde)
     if not subir:
@@ -473,6 +515,7 @@ def main():
     ap = argparse.ArgumentParser(description="Publica Traza FI por FTP (ver AGENTS.md).")
     sp = ap.add_subparsers(dest="cmd", required=True)
     s = sp.add_parser("estado"); s.add_argument("--desde"); s.set_defaults(fn=cmd_estado)
+    s = sp.add_parser("push"); s.set_defaults(fn=cmd_push)
     s = sp.add_parser("publicar"); s.add_argument("--desde"); s.add_argument("--simular", action="store_true")
     s.add_argument("--sin-push-check", action="store_true"); s.set_defaults(fn=cmd_publicar)
     s = sp.add_parser("revisar"); s.add_argument("archivos", nargs="+"); s.set_defaults(fn=cmd_revisar)
