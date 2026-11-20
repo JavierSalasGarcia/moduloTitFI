@@ -1,4 +1,23 @@
-// Activar/desactivar notificaciones push en este dispositivo (página «Traza FI en tu teléfono»).
+// Página «Traza FI en tu teléfono»: paso 1, instalar la app (botón nativo o instrucciones según el dispositivo); paso 2, notificaciones push.
+(() => {
+  const ver = (id, si) => { const n = document.getElementById(id); if (n) n.hidden = !si; };
+  const esIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const esSafari = /safari/i.test(navigator.userAgent) && !/crios|fxios|edgios|chrome|android/i.test(navigator.userAgent);
+  const yaApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  let aviso = window.__trazaInstalar || null;   // el evento puede llegar antes de que cargue este archivo (ver _pwa.php)
+  if (yaApp) ver('inst-listo', true);
+  else if (esIOS) ver(esSafari ? 'inst-ios' : 'inst-safari', true);
+  else {
+    // Chrome y Edge ofrecen la instalación con un evento; si no llega en unos segundos, se muestran las alternativas.
+    const listo = () => { aviso = window.__trazaInstalar || aviso; if (aviso) { ver('inst-manual', false); ver('inst-boton', true); } };
+    const t = setTimeout(() => { if (!aviso) ver('inst-manual', true); }, 3000);
+    listo();
+    document.addEventListener('traza-instalable', () => { clearTimeout(t); listo(); });
+    window.addEventListener('appinstalled', () => { ver('inst-boton', false); ver('inst-manual', false); ver('inst-hecho', true); });
+    const b = document.getElementById('btn-instalar');
+    if (b) b.addEventListener('click', async () => { if (!aviso) return; aviso.prompt(); const r = await aviso.userChoice; aviso = null; if (r.outcome === 'accepted') { ver('inst-boton', false); ver('inst-hecho', true); } });
+  }
+})();
 (() => {
   const cfg = window.trazaPush; if (!cfg) return;
   const estado = document.getElementById('push-estado'), on = document.getElementById('push-activar'), off = document.getElementById('push-desactivar');
@@ -6,7 +25,7 @@
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const instalada = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
-    decir(ios && !instalada ? 'En iPhone primero agrega Traza FI a tu pantalla de inicio (pasos abajo) y ábrela desde el icono; ahí podrás activar las notificaciones.'
+    decir(ios && !instalada ? 'En iPhone primero agrega Traza FI a tu pantalla de inicio (paso 1, arriba) y ábrela desde el icono; ahí podrás activar las notificaciones.'
                             : 'Este navegador no admite notificaciones. Usa Chrome (Android/computadora) o la app instalada en iPhone.');
     return;
   }
