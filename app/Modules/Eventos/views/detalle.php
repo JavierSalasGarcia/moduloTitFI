@@ -52,7 +52,7 @@ $metodos = ['qr' => 'QR', 'clave' => 'Palabra clave', 'constancia' => 'Constanci
     <?php if (!empty($ev['evidencia_post_url'])): ?><a class="btn btn-mini" href="<?= e($ev['evidencia_post_url']) ?>" target="_blank" rel="noopener noreferrer">Ver publicación de la evidencia</a><?php endif; ?>
   </div>
 
-  <p class="descripcion-solicitud"><?= nl2br(e($ev['descripcion'])) ?></p>
+  <p class="descripcion-solicitud"><?= texto_enlazado($ev['descripcion']) ?></p>
 
   <?php
   $paras = array_filter($destinatarios, fn($d) => $d['tipo'] === 'para');

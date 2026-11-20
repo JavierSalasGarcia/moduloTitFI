@@ -48,7 +48,7 @@
         <?php endif; ?>
       </div>
     </header>
-    <p style="margin:0; padding-bottom: 12px;"><?= nl2br(e($c['contenido'])) ?></p>
+    <p style="margin:0; padding-bottom: 12px;"><?= texto_enlazado($c['contenido']) ?></p>
 
     <?php if ($puedeEmitir && (Auth::tieneRol('admin') || in_array((int) $c['depto_id'], Auth::departamentoIds(), true))): ?>
       <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; border-top: 1px dashed var(--gris-100); padding-top: 10px;">

@@ -10,6 +10,26 @@ function e(?string $texto): string
     return htmlspecialchars($texto ?? '', ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Texto libre de un aviso o evento listo para HTML: escapa todo, conserva saltos de línea y convierte en enlaces
+ * clicables las direcciones que empiezan con http:// o https:// (se abren en otra pestaña). Úsese en lugar de
+ * nl2br(e(...)) para descripciones y contenidos que escriben las personas.
+ */
+function texto_enlazado(?string $texto): string
+{
+    $partes = preg_split('~(https?://[^\s<>"\']+)~iu', (string) $texto, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [(string) $texto];
+    $html = '';
+    foreach ($partes as $i => $parte) {
+        if ($i % 2 === 0) {
+            $html .= e($parte);
+            continue;
+        }
+        $url = rtrim($parte, '.,;:!?)');
+        $html .= '<a href="' . e($url) . '" target="_blank" rel="noopener noreferrer">' . e($url) . '</a>' . e(substr($parte, strlen($url)));
+    }
+    return nl2br($html);
+}
+
 /** Construye una URL interna respetando la subcarpeta donde viva la app. */
 function url(string $ruta = ''): string
 {
