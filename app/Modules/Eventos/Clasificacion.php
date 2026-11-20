@@ -259,6 +259,30 @@ final class Clasificacion
     }
 
     /**
+     * Personas que reciben el push de todos los avisos y eventos, sin importar a quién vayan dirigidos: titulares de
+     * cualquier coordinación, cuentas con rol coordinador y las cuentas del ajuste «avisos_reciben_todo» (ids separados
+     * por coma; hoy el Director y el Subdirector Académico). @return int[]
+     */
+    public static function recibenTodo(): array
+    {
+        $ids = [];
+        try {
+            $extra = (string) Database::valor("SELECT valor FROM ajustes WHERE clave = 'avisos_reciben_todo'");
+            $ids = array_map('intval', array_filter(explode(',', $extra), 'ctype_digit'));
+            foreach (Database::todas(
+                "SELECT u.id FROM usuarios u LEFT JOIN departamentos d ON d.id = u.departamento_id
+                  WHERE u.activo = 1 AND (u.rol = 'coordinador' OR (u.rol = 'titular' AND d.nombre LIKE 'Coordinaci%'))
+                 UNION SELECT r.usuario_id FROM usuario_roles r JOIN departamentos d ON d.id = r.departamento_id JOIN usuarios u ON u.id = r.usuario_id
+                  WHERE u.activo = 1 AND (r.rol = 'coordinador' OR (r.rol = 'titular' AND d.nombre LIKE 'Coordinaci%'))"
+            ) as $r) {
+                $ids[] = (int) $r['id'];
+            }
+        } catch (\Throwable) {
+        }
+        return array_values(array_unique(array_filter($ids)));
+    }
+
+    /**
      * Push al teléfono o computadora de todas las personas con notificaciones activadas a quienes va dirigido el
      * evento, sigan o no su tema (incluido quien lo publica). Quien ya recibió la notificación de bandeja (que también
      * manda push) se omite para no duplicar. @return int personas a las que se envió
@@ -287,6 +311,7 @@ final class Clasificacion
                     $ids[] = (int) $u['id'];
                 }
             }
+            $ids = array_values(array_diff(array_unique(array_merge($ids, self::recibenTodo())), array_keys($omitir)));
             \App\Modules\Notificaciones\Push::aUsuarios($ids, 'Nuevo aviso: ' . $ev['titulo'], (string) $ev['descripcion'], 'eventos/' . (int) $ev['id']);
             return count($ids);
         } catch (\Throwable $e) {

@@ -69,9 +69,19 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
 <body class="ux-app <?= !empty($portalMinimal) ? 'portal-minimal' : '' ?>" data-user="<?= (int) $usuario['id'] ?>" data-base="<?= e(url('')) ?>" data-module="<?= e($moduloActivo) ?>">
   <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
   <header class="barra-superior">
-    <button type="button" class="btn-menu-movil" id="btn-menu-movil" aria-label="Abrir menú" aria-controls="menu-lateral" aria-expanded="false">
+    <?php $pendientesMenu = (int) array_sum(array_column($enlacesMenu, 'contador')); ?>
+    <button type="button" class="btn-menu-movil" id="btn-menu-movil" aria-label="Abrir menú<?= $pendientesMenu > 0 ? ' (' . $pendientesMenu . ' por atender)' : '' ?>" aria-controls="menu-lateral" aria-expanded="false">
       <span></span><span></span><span></span>
+      <?php if ($pendientesMenu > 0): ?><b class="menu-badge" aria-hidden="true"><?= $pendientesMenu > 99 ? '99+' : $pendientesMenu ?></b><?php endif; ?>
     </button>
+    <script>
+    // Número del ícono de la app instalada = pendientes del menú; al abrir un aviso se retira su notificación del teléfono
+    // (y todas si ya no queda nada pendiente), porque en Android el punto del ícono sigue a las notificaciones visibles.
+    (() => { const n = <?= $pendientesMenu ?>;
+      try { if ('setAppBadge' in navigator) { n > 0 ? navigator.setAppBadge(n) : navigator.clearAppBadge(); } } catch (e) {}
+      try { if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then((r) => r.getNotifications()).then((ns) => ns.forEach((x) => {
+        if (n === 0 || (x.data && x.data.url === location.pathname)) x.close(); })).catch(() => {}); } catch (e) {} })();
+    </script>
     <a href="<?= url('') ?>" class="logo-barra" aria-label="Inicio" style="background: url('<?= url('assets/img/logo.png') ?>') no-repeat center center; background-size: cover; border-radius: 50%; font-size: 0; width: 44px; height: 44px; display: inline-block;">Traza FI</a>
     <a href="<?= url('') ?>" class="marca" aria-label="Traza FI · Inicio"><strong>Traza FI</strong> <span class="marca-desc">Facultad de Ingeniería · UAEMEX</span></a>
     <div class="sesion">

@@ -157,3 +157,7 @@ button.consulta-notificacion { cursor:pointer; font:inherit; }
  .sec-frase { margin-bottom:22px; }
  .sec-tarjeta { padding:16px; }
 }
+
+/* Círculo con el total de pendientes sobre el botón del menú (celular y app instalada). */
+.btn-menu-movil { position:relative; }
+.btn-menu-movil .menu-badge { position:absolute; top:-2px; right:-4px; min-width:18px; height:18px; padding:0 5px; border-radius:999px; background:var(--error,#B91C1C); color:#fff; font:700 11px/18px system-ui,sans-serif; text-align:center; box-shadow:0 0 0 2px #fff; }

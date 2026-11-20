@@ -1,5 +1,5 @@
 // Service worker de Traza FI: página «Sin conexión» y notificaciones push. No guarda datos personales en caché.
-const CACHE = 'trazafi-v2';
+const CACHE = 'trazafi-v3';
 const OFFLINE = '/offline.html';
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll([OFFLINE, '/assets/img/icono-192.png'])).then(() => self.skipWaiting()));
@@ -15,6 +15,8 @@ self.addEventListener('fetch', (e) => {
 self.addEventListener('push', (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch (x) { d = {cuerpo: e.data ? e.data.text() : ''}; }
+  // Punto en el ícono de la app instalada; la página pone el número exacto al abrirse.
+  try { if ('setAppBadge' in self.navigator) self.navigator.setAppBadge().catch(() => {}); } catch (x) {}
   e.waitUntil(self.registration.showNotification(d.titulo || 'Traza FI', {
     body: d.cuerpo || '', icon: '/assets/img/icono-192.png', badge: '/assets/img/icono-insignia.png',
     data: {url: d.url || '/'}, tag: d.url || undefined, renotify: true,

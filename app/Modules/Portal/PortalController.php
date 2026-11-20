@@ -76,16 +76,13 @@ final class PortalController extends Controller
             [$usuario['id']]
         );
 
-        $comunicados = Database::valor(
-            "SELECT COUNT(*) FROM comunicados WHERE creado_en > DATE_SUB(NOW(), INTERVAL 14 DAY) AND categoria <> 'Ocultar'
-                AND NOT EXISTS (SELECT 1 FROM ajustes a WHERE a.clave=CONCAT('comunicado_vence_',comunicados.id) AND a.valor<>'' AND a.valor < CURRENT_DATE())" .
-            $this->filtroComunicados($usuario)
-        );
+        // Avisos y eventos que la persona aún no abre (mismo número que el círculo del menú); se borra al abrirlos.
+        $comunicados = \App\Modules\Eventos\Lecturas::noLeidos();
 
         return [
             ['ruta' => $esComunidad ? 'tickets' : 'tickets?bandeja=recibidos', 'icono' => 'lista', 'cantidad' => (int) $tickets, 'etiqueta' => 'Solicitudes activas', 'detalle' => 'solicitudes en seguimiento.'],
             ['ruta' => 'reuniones?tab=disponibilidad', 'icono' => 'alerta', 'cantidad' => (int) $reuniones, 'etiqueta' => 'Reuniones pendientes', 'detalle' => 'invitaciones esperan tus horarios.'],
-            ['ruta' => 'eventos?recientes=1', 'icono' => 'entrada', 'cantidad' => (int) $comunicados, 'etiqueta' => 'Avisos recientes', 'detalle' => 'avisos publicados en los últimos 14 días.'],
+            ['ruta' => 'eventos', 'icono' => 'entrada', 'cantidad' => (int) $comunicados, 'etiqueta' => 'Avisos sin leer', 'detalle' => 'avisos y eventos que todavía no has abierto.'],
             ['ruta' => 'encuestas?vista=pendientes', 'icono' => 'ok', 'cantidad' => (int) Database::valor("SELECT COUNT(*) FROM encuestas e WHERE e.estado = 'abierta' AND NOT EXISTS (SELECT 1 FROM encuesta_participantes p WHERE p.encuesta_id=e.id AND p.usuario_id=?)", [Auth::id()]), 'etiqueta' => 'Encuestas pendientes', 'detalle' => 'encuestas que todavía no has respondido.'],
         ];
     }

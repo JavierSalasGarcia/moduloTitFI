@@ -49,7 +49,7 @@ final class AvisoController extends Controller
             $c = Database::una('SELECT id, token, titulo, contenido, clase FROM comunicados WHERE id = ? AND categoria <> \'Ocultar\'', [$id]);
             if ($c) {
                 $tipo = ['examenes' => 'Exámenes', 'convocatoria' => 'Convocatoria'][$c['clase'] ?? ''] ?? 'Aviso oficial';
-                \App\Modules\Notificaciones\Push::aUsuarios(\App\Modules\Notificaciones\Push::destinatariosAviso($id), $tipo . ': ' . $c['titulo'],
+                \App\Modules\Notificaciones\Push::aUsuarios(array_merge(\App\Modules\Notificaciones\Push::destinatariosAviso($id), Clasificacion::recibenTodo()), $tipo . ': ' . $c['titulo'],
                     trim((string) $c['contenido']) !== '' ? (string) $c['contenido'] : 'Toca para consultarlo en Traza FI.', self::ruta($c));
             }
         } catch (\Throwable) {
