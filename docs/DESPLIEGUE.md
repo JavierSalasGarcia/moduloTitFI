@@ -33,6 +33,10 @@ commit juntos. Las migraciones se despliegan como archivo pero **no se ejecutan 
 
 Deshacer el último despliegue: `tools/desplegar.sh --restaurar`.
 
+## Sin SSH: `tools/subir/subir.py` (FTP)
+
+Hace lo mismo que `desplegar.sh`, pero por FTP, y solo requiere Python 3.9+. El flujo es `revisar` → commit → `git push origin main` → `publicar` → `estado`. Publica lo commiteado entre el marcador `storage/.ultimo_commit_publicado` y HEAD, dentro de las mismas rutas desplegables. Exige que HEAD ya esté en GitHub, revisa `php -l` en el servidor antes de subir y reemplaza cada archivo de forma atómica (`.subiendo` → renombrar). Los respaldos se guardan en `../trazafi-backups/ftp/<fecha>/`, o en `TRAZAFI_RESPALDOS` si está definido. Las credenciales salen de `TRAZAFI_FTP_USER`/`TRAZAFI_FTP_PASS`, de `tools/subir/ftp.local.json` o de `cred.txt`; ninguno de estos se versiona. Los comandos `php`, `migrar`, `storage`, `comparar` y `descargar` se describen en `AGENTS.md` y en `python tools/subir/subir.py -h`.
+
 ## Política de respaldos
 
 - **Dentro del sitio no hay respaldos.** Nada de `archivo.php.bak-AAAAMMDD` junto al código: el historial está en git y

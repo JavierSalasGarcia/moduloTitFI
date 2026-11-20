@@ -43,6 +43,8 @@ node_modules/
 /storage/backups/
 /tmp/
 /tools/despliegue.local.conf
+/tools/subir/ftp.local.json
+/tools/subir/__pycache__/
 
 # Datos de personas y de la operación: nunca versionar (docs/DATOS_SENSIBLES.md). Solo se conservan los .htaccess.
 /storage/*
