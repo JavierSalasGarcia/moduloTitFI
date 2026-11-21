@@ -17,6 +17,7 @@ use App\Core\Database;
 use App\Modules\Consejos\Services\Busqueda;
 use App\Modules\Consejos\Services\Dictamenes;
 use App\Modules\Consejos\Services\Html;
+use App\Modules\Consejos\Services\Importador;
 use App\Modules\Consejos\Services\Word;
 
 App::cargarConfiguracion();
@@ -96,6 +97,45 @@ try {
     $ok('Dictámenes: números de oficio y membrete conservado', str_contains($x, 'ACAD/FI/9001/2099') && str_contains($x, 'ACAD/FI/9005/2099') && $zip->locateName('word/header1.xml') !== false);
     $ok('Dictámenes: pendientes resaltados en amarillo', str_contains($x, 'w:highlight'));
     $ok('Dictámenes: sin marcadores sin reemplazar', !str_contains($x, '{{'));
+
+    // Observación → comentario de Word.
+    Database::ejecutar("UPDATE consejos_asuntos SET observacion = 'Verificar con Recursos Humanos.', observacion_autor = 'Javier Salas' WHERE reunion_id = ? AND grupo = 'profesor' AND numero = 1", [$rid]);
+    $asuntos = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ? ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [$rid]);
+    file_put_contents($salida . '/acta_con_comentario.docx', Word::acta($r, 'gobierno', $asuntos));
+    $zip = new ZipArchive();
+    $zip->open($salida . '/acta_con_comentario.docx');
+    $com = (string) $zip->getFromName('word/comments.xml');
+    $ok('Acta: observación como comentario de Word con su autor', str_contains($com, 'Verificar con Recursos Humanos.') && str_contains($com, 'w:author="Javier Salas"') && str_contains((string) $zip->getFromName('word/document.xml'), 'w:commentReference'));
+    $zip->close();
+
+    // Leer de nuevo el acta generada (ida y vuelta) y mezclarla en otra reunión.
+    $lectura = \App\Modules\Consejos\Services\ActaWord::leer($salida . '/acta_con_comentario.docx', 'acta.docx');
+    $ok('Lectura de Word: Consejo, fecha, hora, mesa y consejeros', $lectura['consejo'] === 'gobierno' && $lectura['fecha'] === '2099-01-19' && $lectura['hora'] === '09:30' && $lectura['presidente'] === 'DR. PRESIDENTE PRUEBA' && count($lectura['consejeros']) === 2);
+    $ok('Lectura de Word: 4 casos con claves y acuerdos', count($lectura['casos']) === 4 && $lectura['casos'][0]['grupo'] === 'profesor' && str_contains($lectura['casos'][0]['acuerdo_gobierno'], 'Se aprueba'));
+    $ok('Lectura de Word: tabla con celdas combinadas', str_contains($lectura['casos'][1]['antecedentes_html'], 'rowspan="2"') && str_contains($lectura['casos'][1]['antecedentes_html'], 'colspan="2"'));
+    $ok('Lectura de Word: actas anteriores', $lectura['actas_anteriores'] === ['ordinaria del día 9 de octubre de 2099 a las 09:00 horas en segunda convocatoria'] || count($lectura['actas_anteriores']) === 0);
+    $rid2 = Importador::crearReunion($lectura, 'PRUEBA IMPORTADA');
+    $res = Importador::casos($rid2, $lectura['casos'], $lectura['consejo']);
+    $ok('Importar acta: crea la reunión con sus casos', $res['nuevos'] === 4 && (int) Database::valor('SELECT COUNT(*) FROM consejos_asuntos WHERE reunion_id = ?', [$rid2]) === 4);
+    $res = Importador::casos($rid2, $lectura['casos'], $lectura['consejo']);
+    $ok('Importar de nuevo no duplica ni pisa', $res['nuevos'] === 0 && $res['sinCambio'] === 4);
+    Database::ejecutar("UPDATE consejos_asuntos SET acuerdo_academico = '', aval_academico = 'pendiente' WHERE reunion_id = ? AND grupo = 'profesor' AND numero = 1", [$rid2]);
+    $res = Importador::casos($rid2, [['grupo' => 'profesor', 'numero' => 1, 'solicitud_html' => '<p>x</p>', 'acuerdo_academico' => 'El H. Consejo Académico avala algo.', 'acuerdo_gobierno' => 'Otro']], 'academico');
+    $ok('Importar un acta del Académico completa solo su acuerdo', $res['completados'] === 1 && Database::valor("SELECT aval_academico FROM consejos_asuntos WHERE reunion_id = ? AND grupo = 'profesor' AND numero = 1", [$rid2]) === 'avala'
+        && str_contains((string) Database::valor("SELECT acuerdo_gobierno FROM consejos_asuntos WHERE reunion_id = ? AND grupo = 'profesor' AND numero = 1", [$rid2]), 'Se aprueba'));
+    Database::ejecutar('DELETE FROM consejos_reuniones WHERE id = ?', [$rid2]);
+
+    // Excel: plantilla → lectura.
+    file_put_contents($salida . '/plantilla.xlsx', \App\Modules\Consejos\Services\ExcelCasos::plantilla());
+    $xl = \App\Modules\Consejos\Services\ExcelCasos::leer($salida . '/plantilla.xlsx', 'plantilla.xlsx');
+    $ok('Excel: la plantilla se lee de vuelta (P1 y AG1)', count($xl) === 2 && $xl[0]['grupo'] === 'profesor' && $xl[1]['grupo'] === 'general' && str_contains($xl[1]['solicitud_html'], 'plantilla'));
+    $falla = false;
+    try {
+        \App\Modules\Consejos\Services\ExcelCasos::leer($salida . '/acta_gobierno.docx', 'x.docx');
+    } catch (\RuntimeException) {
+        $falla = true;
+    }
+    $ok('Excel: rechaza lo que no es .xlsx', $falla);
 
     $b = Busqueda::buscar('sabátic*', 'frase', 'todo', null, '');
     $ok('Búsqueda con comodín * y sin acentos', in_array('P1', array_column($b['filas'], 'clave'), true));

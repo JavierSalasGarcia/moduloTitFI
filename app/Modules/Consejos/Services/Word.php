@@ -239,7 +239,7 @@ final class Word
     // ------------------------------------------------------------------ empaquetado
 
     /** Arma el .docx (cadena binaria) con el XML del cuerpo. */
-    public static function documento(string $cuerpo): string
+    public static function documento(string $cuerpo, array $comentarios = []): string
     {
         if (!class_exists(\ZipArchive::class)) {
             throw new RuntimeException('Este servidor no puede crear archivos de Word (falta la extensión ZipArchive de PHP).');
@@ -252,11 +252,13 @@ final class Word
         $tipos = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
             . '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>'
             . '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
-            . '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>';
+            . '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>'
+            . ($comentarios ? '<Override PartName="/word/comments.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml"/>' : '') . '</Types>';
         $rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
             . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>';
         $relsDoc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-            . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>';
+            . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'
+            . ($comentarios ? '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments" Target="comments.xml"/>' : '') . '</Relationships>';
         $tmp = tempnam(sys_get_temp_dir(), 'cns');
         $zip = new \ZipArchive();
         if ($tmp === false || $zip->open($tmp, \ZipArchive::OVERWRITE) !== true) {
@@ -267,6 +269,18 @@ final class Word
         $zip->addFromString('word/document.xml', $doc);
         $zip->addFromString('word/styles.xml', $estilos);
         $zip->addFromString('word/_rels/document.xml.rels', $relsDoc);
+        if ($comentarios) {
+            $c = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:comments ' . self::NS . '>';
+            foreach ($comentarios as $id => $k) {
+                $iniciales = mb_strtoupper(implode('', array_map(static fn($p) => mb_substr($p, 0, 1), array_slice(preg_split('/\s+/u', trim($k['autor'])) ?: [], 0, 3))));
+                $c .= '<w:comment w:id="' . $id . '" w:author="' . self::esc($k['autor']) . '" w:date="' . date('Y-m-d\TH:i:s\Z') . '" w:initials="' . self::esc($iniciales) . '">';
+                foreach (preg_split('/\R/u', $k['texto']) ?: [] as $linea) {
+                    $c .= '<w:p>' . self::run($linea, 20, false, false, false) . '</w:p>';
+                }
+                $c .= '</w:comment>';
+            }
+            $zip->addFromString('word/comments.xml', $c . '</w:comments>');
+        }
         $zip->close();
         $bin = (string) file_get_contents($tmp);
         @unlink($tmp);
@@ -281,6 +295,7 @@ final class Word
      */
     public static function acta(array $r, string $consejo, array $asuntos): string
     {
+        self::$comentarios = [];
         $gob = $consejo === 'gobierno';
         $nombre = $gob ? 'H. CONSEJO DE GOBIERNO' : 'H. CONSEJO ACADÉMICO';
         $fecha = (string) ($r[$consejo . '_fecha'] ?? '');
@@ -321,8 +336,11 @@ final class Word
         $fin = (string) ($r[$consejo . '_fin'] ?? '');
         $x .= self::parrafo('Sin otro asunto que tratar, se dio por terminada la sesión siendo las ' . ($fin !== '' ? date('H:i', strtotime($fin)) : '[HORA]') . ' horas de la fecha indicada.', ['before' => 240, 'after' => 600]);
         $x .= self::firmas($r, $nombre);
-        return self::documento($x);
+        return self::documento($x, self::$comentarios);
     }
+
+    /** Comentarios de Word pendientes de escribir: [id => ['autor'=>, 'texto'=>]]. */
+    private static array $comentarios = [];
 
     private static function tablaAsunto(array $a, bool $gob): string
     {
@@ -343,7 +361,15 @@ final class Word
         $xml = '<w:tbl><w:tblPr><w:tblW w:w="' . self::ANCHO . '" w:type="dxa"/><w:tblBorders>'
             . implode('', array_map(static fn($l) => '<w:' . $l . ' w:val="single" w:sz="4" w:space="0" w:color="000000"/>', ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']))
             . '</w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid><w:gridCol w:w="' . $c1 . '"/><w:gridCol w:w="' . $c2 . '"/></w:tblGrid>';
-        $xml .= $fila($celda($c1, self::parrafo($clave, ['b' => true, 'jc' => 'center']), 1, '<w:vAlign w:val="center"/>')
+        $obs = trim((string) ($a['observacion'] ?? ''));
+        if ($obs !== '') {
+            $cid = count(self::$comentarios);
+            self::$comentarios[$cid] = ['autor' => trim((string) ($a['observacion_autor'] ?? '')) ?: 'Subdirección Académica', 'texto' => $obs];
+            $claveXml = self::parrafoRuns('<w:commentRangeStart w:id="' . $cid . '"/>' . self::run($clave, 18, true, false, false) . '<w:commentRangeEnd w:id="' . $cid . '"/><w:r><w:commentReference w:id="' . $cid . '"/></w:r>', ['jc' => 'center']);
+        } else {
+            $claveXml = self::parrafo($clave, ['b' => true, 'jc' => 'center']);
+        }
+        $xml .= $fila($celda($c1, $claveXml, 1, '<w:vAlign w:val="center"/>')
             . $celda($c2, self::htmlABloques((string) $a['solicitud_html']) ?: self::parrafo(''), 1, '<w:vAlign w:val="center"/>'));
         $xml .= $fila($celda(self::ANCHO, $titulo('Documentos y/o Antecedentes'), 2));
         $xml .= $fila($celda(self::ANCHO, self::htmlABloques((string) $a['antecedentes_html']) ?: self::parrafo(''), 2));

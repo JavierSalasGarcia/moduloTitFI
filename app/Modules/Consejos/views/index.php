@@ -17,6 +17,17 @@ $estados = ['preparacion' => 'En preparación', 'academico' => 'Consejo Académi
     </div>
   </section>
 
+  <details class="tarjeta">
+    <summary style="cursor:pointer;font-weight:700;color:var(--verde-900)">Crear una reunión desde un acta de Word</summary>
+    <p class="cns-sub" style="margin:8px 0">El sistema lee el encabezado, la mesa, los consejeros, cada caso (con sus tablas) y los acuerdos. Después puedes importar la otra acta a la misma reunión.</p>
+    <form class="cns-form cns-acciones" method="post" enctype="multipart/form-data" action="<?= e(url('consejos/importar')) ?>" style="align-items:flex-end">
+      <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
+      <label style="margin:0">Acta (.docx)<input type="file" name="archivo" accept=".docx" required></label>
+      <label style="margin:0">Nombre de la reunión (opcional)<input type="text" name="etiqueta" maxlength="80" placeholder="Se toma de la fecha del acta"></label>
+      <button class="btn btn-primario" type="submit">Importar</button>
+    </form>
+  </details>
+
   <?php if (!$reuniones): ?>
     <section class="tarjeta" style="text-align:center;padding:28px 16px">
       <h2 style="margin:0 0 6px;font-size:18px">Aún no hay reuniones</h2>

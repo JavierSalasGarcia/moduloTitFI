@@ -111,6 +111,7 @@ $nombre = $gob ? 'Consejo de Gobierno' : 'Consejo Académico';
     caso.append(h('h2', {}, a.clave + ' · ' + ({profesor: 'Caso de profesor', alumno: 'Caso de alumno', general: 'Asunto general'})[a.grupo]));
     const sol = h('div', {class: 'cns-caja'}, h('h3', {}, 'Solicitud')); const d1 = h('div', {class: 'cns-doc'}); d1.innerHTML = a.solicitud; sol.append(d1); caso.append(sol);
     if (a.antecedentes) { const an = h('div', {class: 'cns-caja'}, h('h3', {}, 'Documentos y/o antecedentes')); const d2 = h('div', {class: 'cns-doc'}); d2.innerHTML = a.antecedentes; an.append(d2); caso.append(an); }
+    if (a.observacion) { const ob = h('div', {class: 'cns-caja cns-solo-gestion', style: 'background:#fffbeb'}, h('h3', {}, 'Observación de la Subdirección (no se proyecta)')); ob.append(h('div', {style: 'white-space:pre-wrap'}, a.observacion)); caso.append(ob); }
     if (GOB) {
       const ac = h('div', {class: 'cns-caja'}, h('h3', {}, 'Acuerdo del H. Consejo Académico'));
       const et = {avala: ['Avalado', 'ok'], no_avala: ['No avalado', 'no'], pendiente: ['Sin decisión', '']}[a.aval];

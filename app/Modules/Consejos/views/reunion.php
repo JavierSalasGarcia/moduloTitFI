@@ -91,6 +91,23 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
     </div>
   </div>
 
+  <details class="tarjeta">
+    <summary style="cursor:pointer;font-weight:700;color:var(--verde-900)">Importar casos desde un acta de Word o un Excel</summary>
+    <p class="cns-sub" style="margin:8px 0">Un caso que ya existe (misma clave) no se duplica ni se pisa: solo se completa lo que le falta. Así puedes importar el acta del Consejo Académico y luego la del de Gobierno. Del Excel se leen clave, solicitud, antecedentes, acuerdos y observación; <a href="<?= e(url('consejos/plantilla-casos')) ?>">descarga la plantilla</a>.</p>
+    <form class="cns-form cns-acciones" method="post" enctype="multipart/form-data" action="<?= e(url('consejos/reunion/' . $r['id'] . '/importar')) ?>" style="align-items:flex-end">
+      <?= $csrf ?>
+      <label style="margin:0">Archivo (.docx o .xlsx)<input type="file" name="archivo" accept=".docx,.xlsx" required></label>
+      <button class="btn btn-primario" type="submit">Importar</button>
+    </form>
+  </details>
+
+  <?php if (!empty($r['gobierno_fin'])): ?>
+  <section class="tarjeta cns-acciones" style="justify-content:space-between">
+    <span>La sesión del Consejo de Gobierno terminó: los profesores ya ven sus comisiones.</span>
+    <form method="post" action="<?= e(url('consejos/reunion/' . $r['id'] . '/avisar')) ?>" data-confirm="¿Avisar por correo a los profesores mencionados en los casos de esta reunión?"><?= $csrf ?><button class="btn" type="submit">✉️ Avisar a los profesores mencionados</button></form>
+  </section>
+  <?php endif; ?>
+
   <?php foreach ($grupos as $g => $titulo): ?>
     <section class="tarjeta">
       <div class="cns-cab" style="margin-bottom:8px">

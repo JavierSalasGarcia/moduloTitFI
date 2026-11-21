@@ -43,7 +43,18 @@ $desactualizado = (int) $a['version_acuerdo'] > (int) $o['version_acuerdo'];
     <form class="cns-acciones" method="post" enctype="multipart/form-data" action="<?= e(url('consejos/oficio/' . $o['id'] . '/escaneado')) ?>">
       <?= $csrf ?>
       <input type="file" name="archivo" accept="application/pdf" required>
+      <label style="margin:0;font-weight:400"><input type="checkbox" name="avisar" value="1" checked> Avisar por correo</label>
+      <input type="email" name="correo" placeholder="Otro correo (opcional)" maxlength="120" style="max-width:240px">
       <button class="btn" type="submit"><?= $archivos ? 'Reemplazar' : 'Subir PDF' ?></button>
     </form>
+    <p class="cns-ayuda">El aviso llega a los profesores mencionados en el caso (correo y bandeja de Notificaciones) y, si lo escribes, a otro correo. El correo lleva un enlace a «Comisiones»; el PDF se descarga ahí con sesión.</p>
+    <?php if ($archivos): ?>
+    <form class="cns-acciones" method="post" action="<?= e(url('consejos/oficio/' . $o['id'] . '/avisar')) ?>">
+      <?= $csrf ?>
+      <input type="email" name="correo" placeholder="Otro correo (opcional)" maxlength="120" style="max-width:240px">
+      <button class="btn" type="submit">✉️ Avisar de nuevo</button>
+      <?php if (!empty($o['avisado_en'])): ?><span class="cns-ayuda">Último aviso: <?= e(date('d/m/Y H:i', strtotime((string) $o['avisado_en']))) ?></span><?php endif; ?>
+    </form>
+    <?php endif; ?>
   </section>
 </div>

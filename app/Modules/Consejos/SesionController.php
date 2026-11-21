@@ -26,7 +26,7 @@ final class SesionController extends ConsejosBase
         $filas = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ? ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
         $asuntos = array_map(static fn(array $a) => [
             'id' => (int) $a['id'], 'clave' => Texto::clave($a['grupo'], (int) $a['numero']), 'grupo' => $a['grupo'],
-            'solicitud' => (string) $a['solicitud_html'], 'antecedentes' => (string) $a['antecedentes_html'],
+            'observacion' => (string) $a['observacion'], 'solicitud' => (string) $a['solicitud_html'], 'antecedentes' => (string) $a['antecedentes_html'],
             'aval' => (string) $a['aval_academico'], 'acuerdoAcademico' => (string) $a['acuerdo_academico'],
             'aprob' => (string) $a['aprob_gobierno'], 'acuerdoGobierno' => (string) $a['acuerdo_gobierno'], 'nota' => (string) $a['nota_gobierno'],
         ], $filas);

@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-21 21:47)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-21 21:59)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (49 fuentes, en orden).
+-- a partir de las migraciones (50 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3296,4 +3296,22 @@ INSERT IGNORE INTO ajustes (clave, valor, descripcion) VALUES
   ('consejos_oficio_prefijo', 'ACAD/FI/', 'Prefijo del número de los oficios de dictamen de los Consejos'),
   ('consejos_oficio_digitos', '4', 'Dígitos del consecutivo de los oficios de dictamen'),
   ('consejos_oficio_ultimo', '0', 'Último consecutivo de oficio de dictamen asignado');
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/062_consejos_observaciones_avisos.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Consejos: observación de la Subdirección por caso (sale como comentario de Word en el acta) y registro del aviso por correo
+-- de cada oficio. Repetible: solo agrega lo que falta.
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE consejos_asuntos ADD COLUMN observacion TEXT NULL AFTER nota_gobierno', 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consejos_asuntos' AND COLUMN_NAME = 'observacion');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE consejos_asuntos ADD COLUMN observacion_autor VARCHAR(120) NULL AFTER observacion', 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consejos_asuntos' AND COLUMN_NAME = 'observacion_autor');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE consejos_oficios ADD COLUMN avisado_en DATETIME NULL AFTER estado', 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consejos_oficios' AND COLUMN_NAME = 'avisado_en');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 

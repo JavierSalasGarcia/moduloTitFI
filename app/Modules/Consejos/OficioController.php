@@ -6,6 +6,7 @@ namespace App\Modules\Consejos;
 use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Database;
+use App\Modules\Consejos\Services\Avisar;
 use App\Modules\Consejos\Services\Dictamenes;
 use App\Modules\Consejos\Services\Texto;
 
@@ -139,7 +140,27 @@ final class OficioController extends ConsejosBase
         Database::ejecutar('INSERT INTO consejos_archivos (reunion_id, asunto_id, oficio_id, tipo, nombre, ruta, bytes, subido_por) VALUES (?, ?, ?, \'dictamen\', ?, ?, ?, ?)',
             [(int) $r['id'], (int) $a['id'], (int) $o['id'], $nombre, $rel, $bytes, Auth::id()]);
         Audit::record('consejos::archivo', 'correcto', 'Sube dictamen oficio ' . $o['numero']);
-        flash('exito', 'Dictamen escaneado guardado.');
+        $avisados = 0;
+        if ($this->post('avisar') === '1' && !empty($r['gobierno_fin'])) {
+            $avisados = Avisar::oficio($o, $a, $r, $this->post('correo'));
+        }
+        flash('exito', 'Dictamen escaneado guardado.' . ($avisados ? ' Se avisó a ' . $avisados . ' persona' . ($avisados > 1 ? 's' : '') . ' por correo.' : ''));
+        redirigir('consejos/oficio/' . $o['id']);
+    }
+
+    /** Avisa por correo (y en la bandeja) que el dictamen ya está en «Comisiones». */
+    public function avisar(string $id): void
+    {
+        $this->gestor();
+        [$o, $a, $r] = $this->cargar($id);
+        $correo = strtolower($this->post('correo'));
+        if ($correo !== '' && !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'El correo no es válido.');
+            redirigir('consejos/oficio/' . $o['id']);
+        }
+        $n = Avisar::oficio($o, $a, $r, $correo);
+        Audit::record('consejos::avisar', 'correcto', 'Oficio ' . $o['numero'] . ': ' . $n);
+        flash($n ? 'exito' : 'alerta', $n ? 'Aviso enviado a ' . $n . ' persona' . ($n > 1 ? 's' : '') . '.' : 'No hay a quién avisar: el caso no menciona profesores con cuenta y no escribiste un correo.');
         redirigir('consejos/oficio/' . $o['id']);
     }
 

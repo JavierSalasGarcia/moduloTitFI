@@ -116,6 +116,21 @@ final class ReunionController extends ConsejosBase
         redirigir('consejos');
     }
 
+    /** Avisa por correo y en la bandeja a los profesores mencionados en la reunión (cuando ya terminó el Consejo de Gobierno). */
+    public function avisar(string $id): void
+    {
+        $this->gestor();
+        $r = $this->reunion($id);
+        if (empty($r['gobierno_fin'])) {
+            flash('error', 'Avisa a los profesores cuando termine la sesión del Consejo de Gobierno: hasta entonces no ven sus comisiones.');
+            redirigir('consejos/reunion/' . $r['id']);
+        }
+        $n = \App\Modules\Consejos\Services\Avisar::reunion($r);
+        Audit::record('consejos::avisar', 'correcto', 'Reunión #' . $r['id'] . ': ' . $n . ' profesores');
+        flash($n ? 'exito' : 'alerta', $n ? 'Se avisó a ' . $n . ' profesor' . ($n > 1 ? 'es' : '') . ' (correo y bandeja de Notificaciones).' : 'Ningún caso de esta reunión menciona a profesores con cuenta.');
+        redirigir('consejos/reunion/' . $r['id']);
+    }
+
     /** Acta del Consejo en Word, con lo capturado hasta el momento. */
     public function acta(string $id, string $consejo): void
     {

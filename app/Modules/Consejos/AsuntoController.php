@@ -34,9 +34,10 @@ final class AsuntoController extends ConsejosBase
             redirigir('consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=' . $grupo);
         }
         $numero = $this->siguiente((int) $r['id'], $grupo);
+        $obs = mb_substr(trim(str_replace("\r", '', $this->post('observacion'))), 0, 3000);
         $aid = Database::ejecutar(
-            'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, solicitud_html, antecedentes_html, texto_busqueda, creado_por) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [(int) $r['id'], $grupo, $numero, $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), Auth::id()]
+            'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, solicitud_html, antecedentes_html, texto_busqueda, observacion, observacion_autor, creado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [(int) $r['id'], $grupo, $numero, $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), $obs !== '' ? $obs : null, $obs !== '' ? (string) (Auth::usuario()['nombre'] ?? '') : null, Auth::id()]
         );
         $this->guardarProfesores($aid);
         Audit::record('consejos::asunto', 'correcto', 'Crea ' . Texto::clave($grupo, $numero) . ' reunión #' . $r['id']);
@@ -67,8 +68,12 @@ final class AsuntoController extends ConsejosBase
             flash('error', 'Ya existe el caso ' . Texto::clave($a['grupo'], $numero) . ' en esta reunión.');
             redirigir('consejos/asunto/' . $a['id'] . '/editar');
         }
-        Database::ejecutar('UPDATE consejos_asuntos SET numero = ?, solicitud_html = ?, antecedentes_html = ?, texto_busqueda = ? WHERE id = ?',
-            [$numero, $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), (int) $a['id']]);
+        // El comentario conserva a quien lo escribió mientras no cambie su texto.
+        $obs = mb_substr(trim(str_replace("\r", '', $this->post('observacion'))), 0, 3000);
+        $autor = $obs === '' ? null : ($obs === trim((string) $a['observacion']) ? $a['observacion_autor'] : (string) (Auth::usuario()['nombre'] ?? ''));
+        Database::ejecutar('UPDATE consejos_asuntos SET numero = ?, solicitud_html = ?, antecedentes_html = ?, texto_busqueda = ?, observacion = ?, observacion_autor = ? WHERE id = ?',
+            [$numero, $sol, $ant, trim(Html::texto($sol) . "
+" . Html::texto($ant)), $obs !== '' ? $obs : null, $autor, (int) $a['id']]);
         $this->guardarProfesores((int) $a['id']);
         Audit::record('consejos::asunto', 'correcto', 'Actualiza ' . Texto::clave($a['grupo'], $numero) . ' reunión #' . $a['reunion_id']);
         flash('exito', 'Caso ' . Texto::clave($a['grupo'], $numero) . ' actualizado.');

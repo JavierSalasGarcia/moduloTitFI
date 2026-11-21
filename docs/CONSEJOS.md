@@ -23,7 +23,7 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 4. **Sesión del Consejo de Gobierno** (en otra reunión; solo después de terminar el Académico). Se proyecta el caso con el *acuerdo del
    Consejo Académico* y se captura el acuerdo del Consejo de Gobierno, **Se aprueba / No se aprueba el acuerdo del Académico** y una
    **nota adicional** (se agrega al acuerdo del acta y del dictamen).
-5. **Actas en Word** (`/consejos/reunion/{id}/acta/{academico|gobierno}`), con el formato del acta de ejemplo. Una vez firmadas y
+5. **Actas en Word** (`/consejos/reunion/{id}/acta/{academico|gobierno}`), con el formato del acta de ejemplo y las observaciones como comentarios. Una vez firmadas y
    selladas se **sube el PDF escaneado** de cada una.
 6. **Dictámenes** (`/consejos/reunion/{id}/dictamenes`). Un oficio por caso (o por alumno si el caso trae una tabla con columnas
    *Nombre* y *Cuenta*). Redacta destinatario, cuerpo y acuerdo con las reglas de `consejos/dictamenes.py`; lo dudoso queda marcado
@@ -36,6 +36,24 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 8. **Búsqueda** (`/consejos/buscar`). Solicitudes, antecedentes y acuerdos de todas las reuniones. Comodines: `*` (cualquier cantidad
    de letras, `sabátic*`) y `?` (una letra, `Garc?a`). No distingue mayúsculas ni acentos. Modo «la frase tal cual» o «todas las
    palabras» (en cualquier orden); se puede limitar a solicitudes, a acuerdos, a una reunión o a un tipo de caso.
+
+## Importar, observaciones y avisos
+
+- **Importar un acta de Word** (`POST /consejos/importar`, desde «Crear una reunión desde un acta de Word»): lee el encabezado (Consejo,
+  tipo de sesión, fecha, hora, lugar, convocatoria), la mesa, los consejeros, las actas anteriores, la hora de terminación y cada caso con
+  su clave, solicitud, antecedentes (tablas con celdas combinadas incluidas) y acuerdos (`Services/ActaWord`). En una reunión existente
+  (`POST /consejos/reunion/{id}/importar`) se puede importar después la otra acta: **un caso que ya existe no se duplica ni se pisa**,
+  solo se completa lo que le falta (`Services/Importador`).
+- **Importar un Excel** (.xlsx, misma ruta): una fila por caso con las columnas Clave, Solicitud, Documentos y/o antecedentes, Acuerdo del
+  Consejo Académico, Acuerdo del Consejo de Gobierno y Observación. La plantilla se baja de `GET /consejos/plantilla-casos`. Las tablas no
+  caben en una celda: se agregan después con el lienzo (pegando desde Word).
+- **Observaciones**: cada caso tiene un campo opcional «Observación de la Subdirección» (no es parte del acuerdo). En el acta en Word sale
+  como **comentario** anclado a la clave del caso, con el nombre de quien lo escribió como autor. En la pantalla de sesión se ve, pero no
+  se proyecta.
+- **Avisos por correo** (`Services/Avisar`): al subir el escaneado de un dictamen se avisa a los profesores mencionados en el caso (correo
+  y bandeja de Notificaciones) y, si se escribe, a otro correo; hay también «Avisar de nuevo» en el oficio y «Avisar a los profesores
+  mencionados» en la reunión (cuando terminó el Consejo de Gobierno). Usa el mismo envío que Constancias: el servicio de correo de la
+  plataforma no admite adjuntos, así que el correo lleva un enlace a «Comisiones» (pide sesión) y el PDF se descarga ahí.
 
 ## Acceso
 
@@ -72,16 +90,21 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 | `GET/POST /consejos/oficio/{id}`, `POST …/regenerar`, `GET …/descargar`, `POST …/escaneado` | Revisar un oficio, regenerarlo, bajarlo y subir su escaneado | gestor |
 | `GET /consejos/archivo/{id}` (`?descargar=1`) | PDF firmado | gestor o persona mencionada |
 | `POST /consejos/archivo/{id}/quitar` | Retira un PDF | gestor |
+| `POST /consejos/importar` | Crea una reunión desde un acta de Word | gestor |
+| `POST /consejos/reunion/{id}/importar`, `GET /consejos/plantilla-casos` | Importa casos (Word o Excel) / plantilla de Excel | gestor |
+| `POST /consejos/reunion/{id}/avisar`, `POST /consejos/oficio/{id}/avisar` | Aviso por correo y bandeja a los profesores mencionados | gestor |
 | `GET /consejos/buscar` | Búsqueda con comodines | gestor |
 | `GET /consejos/comisiones`, `GET /consejos/comisiones/{id}/actas` | Comisiones de la persona; ZIP de actas | cuenta del módulo |
 
 ## Datos
 
-Migración `database/migrations/061_consejos.sql` (repetible; entra en `database/construir_actualizar.php`):
+Migraciones `061_consejos.sql` y `062_consejos_observaciones_avisos.sql` (repetibles; entran en `database/construir_actualizar.php`):
 
 - `consejos_reuniones`: datos de la mesa y de cada Consejo, `academico_fin` y `gobierno_fin` (terminación), `estado`.
 - `consejos_asuntos`: grupo, número, `solicitud_html`, `antecedentes_html`, `texto_busqueda`, `aval_academico`, `acuerdo_academico`,
   `aprob_gobierno`, `acuerdo_gobierno`, `nota_gobierno`, `version_acuerdo` (sube con cada cambio).
+- `consejos_asuntos.observacion` y `observacion_autor` (migración 062): comentario de Word.
+- `consejos_oficios.avisado_en` (062): último aviso por correo.
 - `consejos_asunto_profesores`: profesores (cuentas) mencionados en el caso.
 - `consejos_oficios`: oficio por caso o alumno; `version_acuerdo` menor que la del caso = desactualizado.
 - `consejos_archivos`: PDF escaneados (actas y dictámenes) en `storage/consejos/<reunión>/` (nunca versionado).
@@ -95,7 +118,7 @@ Repositorio público: solo estructura. Los casos, nombres y escaneados viven en 
 
 - `Services/Html.php`: limpieza del HTML pegado y texto plano. `Services/Word.php`: acta y utilidades de WordprocessingML (sin
   librerías; usa `ZipArchive`). `Services/Dictamenes.php`: reglas de redacción, número de oficio y Word sobre la plantilla.
-  `Services/Busqueda.php`: comodines → `LIKE`. `Services/Texto.php`: fechas y normalización.
+  `Services/Busqueda.php`: comodines → `LIKE`. `Services/ActaWord.php`, `Services/ExcelCasos.php` e `Services/Importador.php`: lectura de actas y hojas. `Services/Avisar.php`: avisos. `Services/Texto.php`: fechas y normalización.
 - `ConsejosAccess.php`: quién gestiona. Controladores: `ReunionController`, `AsuntoController`, `SesionController`,
   `OficioController`, `BusquedaController`, `ComisionController`.
 
@@ -105,10 +128,11 @@ Repositorio público: solo estructura. Los casos, nombres y escaneados viven en 
 C:\xampp\php\php.exe tools/prueba_consejos.php <carpeta_de_salida>
 ```
 
-Contra la base local con la migración 061: captura casos con tablas, genera actas y oficios en Word (quedan en la carpeta indicada, para
+Contra la base local con la migración 061: captura casos con tablas, genera actas (con comentarios) y oficios en Word, vuelve a leer el acta generada, importa un Excel (quedan en la carpeta indicada, para
 abrirlos), busca con comodines y borra lo que creó. En Word conviene abrir `acta_gobierno.docx` y `dictamenes.docx`.
 
-## Fuera de alcance (por ahora)
+## Pendiente
 
-Firma electrónica de actas y oficios (se suben escaneados hasta que el Consejo avale la firma electrónica), envío por correo, lectura
-automática del acta de Word o de PDF, observaciones como comentarios de Word, y alta de reuniones desde un Excel.
+**Firma electrónica** de actas y oficios: todavía no la autoriza el Consejo. Mientras tanto se suben los escaneados firmados y sellados.
+Cuando se autorice, la firma entra en `Services/Dictamenes` (oficios) y `ReunionController` (actas) con el mismo esquema de firmas de
+`Constancias` y `Posgrado`; el resto del flujo no cambia.

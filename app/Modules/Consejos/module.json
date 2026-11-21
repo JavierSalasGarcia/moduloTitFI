@@ -72,6 +72,12 @@
     "GET /consejos/oficio/{id}/descargar": ["App\\Modules\\Consejos\\OficioController", "descargarUno"],
     "POST /consejos/oficio/{id}/escaneado": ["App\\Modules\\Consejos\\OficioController", "subirEscaneado"],
 
+    "POST /consejos/importar": ["App\\Modules\\Consejos\\ImportarController", "nueva"],
+    "POST /consejos/reunion/{id}/importar": ["App\\Modules\\Consejos\\ImportarController", "casos"],
+    "GET /consejos/plantilla-casos": ["App\\Modules\\Consejos\\ImportarController", "plantilla"],
+    "POST /consejos/reunion/{id}/avisar": ["App\\Modules\\Consejos\\ReunionController", "avisar"],
+    "POST /consejos/oficio/{id}/avisar": ["App\\Modules\\Consejos\\OficioController", "avisar"],
+
     "GET /consejos/buscar": ["App\\Modules\\Consejos\\BusquedaController", "index"],
 
     "GET /consejos/comisiones": ["App\\Modules\\Consejos\\ComisionController", "index"],

@@ -50,6 +50,11 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     <input type="search" id="buscar-persona" placeholder="Escribe el nombre o correo del profesor…" autocomplete="off" style="max-width:420px">
     <div class="cns-sug" id="sugerencias" hidden></div>
 
+    <label style="margin-top:16px">Observación de la Subdirección (opcional)
+      <span class="cns-ayuda">No es parte del acuerdo: en el acta en Word sale como <strong>comentario</strong> junto a la clave del caso, con tu nombre como autor.</span>
+      <textarea name="observacion" rows="3" maxlength="3000"><?= e((string) ($a['observacion'] ?? '')) ?></textarea>
+    </label>
+
     <div class="cns-acciones" style="margin-top:18px">
       <button class="btn btn-primario" type="submit">Guardar</button>
       <?php if ($nuevo): ?><button class="btn" type="submit" name="seguir" value="1">Guardar y agregar otro</button><?php endif; ?>
