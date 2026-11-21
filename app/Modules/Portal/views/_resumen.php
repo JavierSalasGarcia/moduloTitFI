@@ -49,7 +49,7 @@ $dia = static function (string $f): string {
       <?php if (!$resumen['avisos']): ?><p class="inicio-vacio">Sin avisos nuevos.</p><?php else: ?>
       <ul>
         <?php foreach ($resumen['avisos'] as $c): ?>
-          <li><a href="<?= url('eventos') ?>"><small><?= e(fecha_corta((string) $c['creado_en'])) ?> · <?= e((string) $c['depto']) ?></small><?= e((string) $c['titulo']) ?></a></li>
+          <li><a href="<?= url('eventos') ?>"><small><?= e((string) $c['depto']) ?></small><?= e((string) $c['titulo']) ?></a></li>
         <?php endforeach; ?>
       </ul>
       <?php endif; ?>

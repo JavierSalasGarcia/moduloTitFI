@@ -32,7 +32,7 @@
             <span class="badge" style="background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1;">👁️ Oculto</span>
           <?php endif; ?>
         </h2>
-        <small class="texto-suave" style="display: block; margin-top: 4px;"><?= e($c['depto']) ?> · <?= e($c['autor']) ?> · <?= e(fecha_corta($c['creado_en'])) ?></small>
+        <small class="texto-suave" style="display: block; margin-top: 4px;"><?= e($c['depto']) ?> · <?= e($c['autor']) ?></small>
       </div>
       <div class="grupo-chips">
         <?php if ($c['alcance'] === 'programa'): ?>

@@ -38,14 +38,15 @@ final class EventosController extends Controller
         $puedeEmitirEventos = Clasificacion::puedePublicar();
         $puedeEmitirComunicados = $this->puedeEmitirComunicados();
 
-        // 1. Eventos próximos (con los filtros de carrera, semestre, tema… de Clasificacion)
+        // 1. Eventos próximos y los concluidos en los últimos 90 días (estos salen en gris; el resto está en la biblioteca)
+        // (con los filtros de carrera, semestre, tema… de Clasificacion)
         [$condicion, $params] = $this->filtros();
         $eventos = Database::todas(
             "SELECT ev.*, d.nombre AS depto,
                     EXISTS(SELECT 1 FROM evento_suscripciones s WHERE s.evento_id = ev.id AND s.usuario_id = ?) AS suscrito,
                     (SELECT COUNT(*) FROM evento_suscripciones s2 WHERE s2.evento_id = ev.id) AS interesados
                FROM eventos ev JOIN departamentos d ON d.id = ev.depto_id
-              WHERE COALESCE(ev.fin, ev.inicio) >= NOW() {$condicion}
+              WHERE COALESCE(ev.fin, ev.inicio) >= DATE_SUB(NOW(), INTERVAL 90 DAY) {$condicion}
               ORDER BY ev.inicio",
             [Auth::id(), ...$params]
         );
@@ -55,17 +56,11 @@ final class EventosController extends Controller
 
         // 2. Avisos oficiales: cada aviso aparece una sola vez, aunque la persona pertenezca a varios programas destinatarios
         $comunicados = \App\Modules\Comunicados\Avisos::visibles($puedeEmitirComunicados);
-        $archivo = ($_GET['avisos'] ?? '') === 'archivo';
-        $comunicados = array_values(array_filter($comunicados, static function($c) use ($archivo) {
-            $vencido = !empty($c['vence_en']) && $c['vence_en'] < date('Y-m-d');
-            return $archivo === $vencido;
-        }));
-
         $this->vista('index', [
             'titulo'     => 'Avisos y eventos',
-            'items'      => self::lista($comunicados, $archivo ? [] : $eventos, Lecturas::leidos()),
+            'items'      => self::lista($comunicados, $eventos, Lecturas::leidos()),
             'eventos'    => $eventos,
-            'avisosArchivo' => $archivo,
+            'avisosArchivo' => false,
             'categorias' => self::CATEGORIAS,
             'puedeEmitir'=> $puedeEmitirEventos,
             'puedeEmitirComunicados' => $puedeEmitirComunicados,
@@ -124,16 +119,16 @@ final class EventosController extends Controller
             $items[] = ['tipo' => 'comunicado', 'id' => (int) $c['id'], 'filtro' => ['aviso' => 'avisos', 'convocatoria' => 'convocatorias', 'examenes' => 'examenes'][$clase] ?? 'avisos',
                 'titulo' => $c['titulo'], 'texto' => $c['contenido'], 'fecha' => $c['creado_en'], 'origen' => $c['depto'],
                 'destino' => \App\Modules\Comunicados\Avisos::destino($c), 'importante' => $c['categoria'] === 'Importantes',
-                'borrador' => $c['categoria'] === 'Ocultar', 'publico' => (int) ($c['publico'] ?? 0) === 1, 'vence' => $c['vence_en'] ?? null,
+                'borrador' => $c['categoria'] === 'Ocultar', 'vencido' => !empty($c['vence_en']) && $c['vence_en'] < date('Y-m-d'), 'publico' => (int) ($c['publico'] ?? 0) === 1, 'vence' => $c['vence_en'] ?? null,
                 'adjuntos' => $adjuntos[(int) $c['id']] ?? 0, 'leido' => !empty($leidos['comunicado'][(int) $c['id']]), 'url' => AvisoController::ruta($c), 'dato' => $c];
         }
         foreach ($eventos as $ev) {
             $items[] = ['tipo' => 'evento', 'id' => (int) $ev['id'], 'filtro' => $ev['categoria'] === 'convocatoria' ? 'convocatorias' : 'eventos',
                 'titulo' => $ev['titulo'], 'texto' => (string) ($ev['descripcion'] ?? ''), 'fecha' => $ev['creado_en'] ?? $ev['inicio'], 'origen' => $ev['depto'],
-                'importante' => false, 'borrador' => false, 'leido' => !empty($leidos['evento'][(int) $ev['id']]), 'url' => 'eventos/' . (int) $ev['id'], 'dato' => $ev];
+                'importante' => false, 'borrador' => false, 'vencido' => strtotime((string) ($ev['fin'] ?: $ev['inicio'])) < time(), 'leido' => !empty($leidos['evento'][(int) $ev['id']]), 'url' => 'eventos/' . (int) $ev['id'], 'dato' => $ev];
         }
-        // Lo importante primero; después lo no leído y lo más reciente.
-        usort($items, static fn($a, $b) => [$b['importante'], $a['leido'], $b['fecha']] <=> [$a['importante'], $b['leido'], $a['fecha']]);
+        // Lo vigente primero (lo importante, luego lo no leído y lo más reciente); al final lo vencido, lo más reciente primero.
+        usort($items, static fn($a, $b) => [$a['vencido'], $b['importante'] && !$b['vencido'], $a['leido'], $b['fecha']] <=> [$b['vencido'], $a['importante'] && !$a['vencido'], $b['leido'], $a['fecha']]);
         return $items;
     }
 

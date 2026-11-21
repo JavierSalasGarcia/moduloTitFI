@@ -6,7 +6,7 @@ $filtrosTipo = ['todo' => 'Todo', 'avisos' => 'Avisos oficiales', 'convocatorias
 $cuenta = ['todo' => count($items)]; $sinLeer = ['todo' => 0];
 foreach ($items as $it) {
     $cuenta[$it['filtro']] = ($cuenta[$it['filtro']] ?? 0) + 1;
-    if (!$it['leido'] && !$visitante && !$it['borrador']) { $sinLeer[$it['filtro']] = ($sinLeer[$it['filtro']] ?? 0) + 1; $sinLeer['todo']++; }
+    if (!$it['leido'] && !$visitante && !$it['borrador'] && empty($it['vencido'])) { $sinLeer[$it['filtro']] = ($sinLeer[$it['filtro']] ?? 0) + 1; $sinLeer['todo']++; }
 }
 $meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 $etiquetaTipo = ['avisos' => 'Aviso oficial', 'convocatorias' => 'Convocatoria', 'eventos' => 'Evento', 'examenes' => 'Exámenes'];
@@ -19,7 +19,7 @@ if (!$visitante) {
 
 <header class="avisos-cabecera">
   <div>
-    <h1 style="margin:0;font-size:22px"><?= $avisosArchivo ? 'Archivo de avisos' : 'Avisos y eventos' ?></h1>
+    <h1 style="margin:0;font-size:22px">Avisos y eventos</h1>
     <p class="texto-suave" style="margin:4px 0 0">
       <?php if ($visitante): ?>Avisos públicos de la Facultad de Ingeniería.
       <?php elseif ($sinLeer['todo'] > 0): ?><strong style="color:var(--verde-700)"><?= (int) $sinLeer['todo'] ?> sin leer</strong> · abre cada aviso para leerlo completo.
@@ -66,7 +66,7 @@ if (!$visitante) {
   </details>
 <?php endif; ?>
 
-<?php if (!$visitante && $perfil['grupo'] === 'alumno' && !$preferencias['vigente'] && !$avisosArchivo): ?>
+<?php if (!$visitante && $perfil['grupo'] === 'alumno' && !$preferencias['vigente']): ?>
   <form method="post" action="<?= url('eventos/preferencias') ?>" class="card ux-toolbar" style="margin-bottom:14px;background:#FFFBEB;flex-wrap:wrap">
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="volver" value="eventos">
     <?php foreach ($preferencias['temas'] as $t): ?><input type="hidden" name="temas[]" value="<?= e($t) ?>"><?php endforeach; ?>
@@ -88,7 +88,7 @@ if (!$visitante) {
 
 <div id="lista-avisos">
   <?php foreach ($items as $it): $ev = $it['tipo'] === 'evento' ? $it['dato'] : null; ?>
-    <article class="card aviso-item<?= (!$it['leido'] && !$visitante) ? ' no-leido' : '' ?>" data-filtro="<?= e($it['filtro']) ?>" data-texto="<?= e(mb_strtolower($it['titulo'] . ' ' . $it['texto'] . ' ' . $it['origen'])) ?>">
+    <article class="card aviso-item<?= (!$it['leido'] && !$visitante && empty($it['vencido'])) ? ' no-leido' : '' ?><?= !empty($it['vencido']) ? ' vencido' : '' ?>" data-filtro="<?= e($it['filtro']) ?>" data-texto="<?= e(mb_strtolower($it['titulo'] . ' ' . $it['texto'] . ' ' . $it['origen'])) ?>">
       <a class="aviso-enlace" href="<?= e(url($it['url'])) ?>">
         <?php if ($ev): $t = strtotime($ev['inicio']); ?>
           <span class="evento-fecha" aria-hidden="true"><span class="evento-dia"><?= (int) date('d', $t) ?></span><span class="evento-mes"><?= $meses[(int) date('n', $t) - 1] ?></span></span>
@@ -98,7 +98,7 @@ if (!$visitante) {
         <span class="aviso-cuerpo">
           <span class="grupo-chips" style="gap:6px">
             <span class="badge tipo-<?= e($it['filtro']) ?>"><?= e($etiquetaTipo[$it['filtro']] ?? 'Aviso') ?></span>
-            <?php if (!$visitante && !$it['borrador']): ?><?php if ($it['leido']): ?><span class="badge badge-visto">✓ Visto</span><?php else: ?><span class="badge badge-nuevo">● Nuevo</span><?php endif; ?><?php endif; ?>
+            <?php if (!empty($it['vencido'])): ?><span class="badge badge-vencido"><?= $ev ? 'Concluido' : 'Vencido' ?></span><?php elseif (!$visitante && !$it['borrador']): ?><?php if ($it['leido']): ?><span class="badge badge-visto">✓ Visto</span><?php else: ?><span class="badge badge-nuevo">● Nuevo</span><?php endif; ?><?php endif; ?>
             <?php if ($it['importante']): ?><span class="badge" style="background:#fef3c7;color:#b45309;border-color:#fde68a">⭐ Importante</span><?php endif; ?>
             <?php if ($it['borrador']): ?><span class="badge" style="background:#f1f5f9;color:#475569">Borrador · solo tu área lo ve</span><?php endif; ?>
             <?php if (!$visitante && !empty($it['publico'])): ?><span class="badge" title="Se consulta sin iniciar sesión">🌐 Público</span><?php endif; ?>
@@ -107,11 +107,11 @@ if (!$visitante) {
           <?php if ($it['filtro'] !== 'examenes'): ?><span class="aviso-resumen"><?= e(mb_strimwidth(preg_replace('/\s+/', ' ', $it['texto']), 0, 190, '…')) ?></span><?php endif; ?>
           <small class="texto-suave">
             <?php if ($ev): ?><?= e(fecha_corta($ev['inicio'])) ?><?= $ev['lugar'] ? ' · ' . e($ev['lugar']) : '' ?> · <?= e($it['origen']) ?>
-            <?php else: ?><?= e($it['origen']) ?><?= $it['filtro'] === 'examenes' ? '' : ' · ' . e(fecha_corta($it['fecha'])) ?><?= !empty($it['destino']) ? ' · ' . e($it['destino']) : '' ?><?= !empty($it['adjuntos']) ? ' · 📎 ' . (int) $it['adjuntos'] . ' archivo' . ($it['adjuntos'] > 1 ? 's' : '') : '' ?><?php endif; ?>
+            <?php else: ?><?= e($it['origen']) ?><?= !empty($it['destino']) ? ' · ' . e($it['destino']) : '' ?><?= !empty($it['adjuntos']) ? ' · 📎 ' . (int) $it['adjuntos'] . ' archivo' . ($it['adjuntos'] > 1 ? 's' : '') : '' ?><?php endif; ?>
           </small>
         </span>
       </a>
-      <?php if (!$visitante && !$it['borrador'] && $it['leido']): ?>
+      <?php if (!$visitante && !$it['borrador'] && $it['leido'] && empty($it['vencido'])): ?>
         <form method="post" action="<?= url('eventos/no-leido') ?>" class="aviso-accion aviso-no-leido">
           <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="tipo" value="<?= e($it['tipo']) ?>"><input type="hidden" name="id" value="<?= (int) $it['id'] ?>">
           <button type="submit" class="btn btn-mini" title="Volver a marcarlo como nuevo">Marcar como no leído</button>
@@ -143,8 +143,7 @@ if (!$visitante) {
     </form>
   </details>
   <p class="texto-suave" style="margin-top:14px;font-size:13px">
-    <?php if ($avisosArchivo): ?><a href="<?= url('eventos') ?>">← Volver a los avisos vigentes</a><?php else: ?><a href="<?= url('eventos?avisos=archivo') ?>">Archivo de avisos vencidos</a><?php endif; ?>
-    · <a href="<?= url('eventos/biblioteca') ?>">Biblioteca de eventos concluidos</a> · <a href="<?= url('eventos/expediente') ?>">Mi expediente de formación integral</a>
+    <a href="<?= url('eventos/biblioteca') ?>">Biblioteca de eventos concluidos</a> · <a href="<?= url('eventos/expediente') ?>">Mi expediente de formación integral</a>
   </p>
 <?php endif; ?>
 
@@ -166,6 +165,10 @@ if (!$visitante) {
 .aviso-resumen{font-size:13.5px;color:var(--gris-700,#334155);line-height:1.45}
 .aviso-accion{padding:0 16px 0 0}
 .badge-nuevo{background:#fee4e2;color:#b42318;border-color:#fecdca}
+.aviso-item.vencido .aviso-titulo,.aviso-item.vencido .aviso-resumen,.aviso-item.vencido .evento-fecha{color:#8a94a0}
+.aviso-item.vencido{background:#f8f9fa}
+.aviso-item.vencido .aviso-icono{filter:grayscale(1);opacity:.6}
+.badge-vencido{background:#eef0f2;color:#6b7480;border-color:#dde1e5}
 .badge-visto{background:#f1f5f9;color:#475569;border-color:#e2e8f0}
 .aviso-no-leido{padding:0 8px 0 0}
 .tipo-examenes{background:#e0ecff;color:#1d4ed8;border-color:#bfd5ff}

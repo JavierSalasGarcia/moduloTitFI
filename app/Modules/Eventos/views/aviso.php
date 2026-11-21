@@ -24,7 +24,7 @@ $borrador = $c['categoria'] === 'Ocultar';
     <?php if ($borrador && !$comoVisitante): ?><span class="badge" style="background:#f1f5f9;color:#475569">Borrador · aún no publicado</span><?php endif; ?>
   </div>
   <h1 style="margin:0 0 6px;font-size:22px;color:var(--verde-900,#1f4d36)"><?= e($c['titulo']) ?></h1>
-  <p class="texto-suave" style="margin:0 0 16px"><?= e($c['depto']) ?><?= ($c['clase'] ?? '') === 'examenes' ? '' : ' · ' . e(fecha_corta($c['creado_en'])) ?> · <?= e(Avisos::destino($c)) ?><?= !empty($c['vence_en']) ? ' · Vigente hasta ' . e($c['vence_en']) : '' ?></p>
+  <p class="texto-suave" style="margin:0 0 16px"><?= e($c['depto']) ?> · <?= e(Avisos::destino($c)) ?><?= !empty($c['vence_en']) ? (($c['vence_en'] < date('Y-m-d')) ? ' · Vencido' : ' · Vigente hasta ' . e(fecha_corta($c['vence_en']))) : '' ?></p>
   <?php if (trim((string) $c['contenido']) !== ''): ?><div style="font-size:15px;line-height:1.6"><?= texto_enlazado($c['contenido']) ?></div><?php endif; ?>
 
   <?php foreach ($relacionados ?? [] as $r): ?>
