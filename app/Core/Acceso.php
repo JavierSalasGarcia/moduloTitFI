@@ -159,6 +159,7 @@ final class Acceso
         'documentos.subir' => ['nombre' => 'Archivo documental: subir documentos', 'titular' => true],
         'ingesta.subir' => ['nombre' => 'Documentos indizados: ingresar PDFs, carpetas y enlaces de Teams', 'titular' => true],
         'ingesta.carpeta' => ['nombre' => 'Documentos indizados: consultar carpetas de otras dependencias', 'titular' => true],
+        'consejos.gestor' => ['nombre' => 'Consejos: capturar asuntos, conducir sesiones, actas y dictámenes', 'titular' => true],
         'grafo.personas' => ['nombre' => 'Grafo de relaciones: ver el de todas las personas', 'titular' => false],
         'grafo.programa' => ['nombre' => 'Grafo de relaciones: profesores de un programa', 'titular' => false, 'recurso' => 'programa'],
         'grafo.organo' => ['nombre' => 'Grafo de relaciones: miembros de un cuerpo u órgano académico', 'titular' => false, 'recurso' => 'organo'],

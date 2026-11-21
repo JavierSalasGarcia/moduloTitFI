@@ -14,6 +14,8 @@ El asistente de la página de inicio usa Jev como árbitro y Gemini para orienta
 
 Los registros de personas sin cuenta se vinculan solo por correo verificado, nunca por nombre, mediante `Identidad::vincularDatos`; leer `docs/VINCULACION_DE_CUENTAS.md`.
 
+Actas y dictámenes de los HH. Consejos Académico y de Gobierno (`/consejos`, dentro de Constancias): leer `docs/CONSEJOS.md`. Los casos, nombres y escaneados nunca se versionan; los profesores se mencionan a mano en cada caso, nunca por coincidencia de nombre. Prueba: `php tools/prueba_consejos.php <carpeta>`.
+
 El despliegue se hace con `tools/desplegar.sh` (`docs/DESPLIEGUE.md`). No dejar archivos `.bak` ni respaldos dentro del sitio o del repositorio.
 
 ## Subir cambios: local → GitHub → producción

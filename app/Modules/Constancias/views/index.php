@@ -6,6 +6,20 @@ $ve = $alcance['todas'] ? 'Ves todas las constancias de la Facultad, agrupadas p
     : ($alcance['deptos'] ? 'Ves las constancias que recibiste y todas las que emitió tu departamento.' : 'Ves las constancias que se te extendieron, agrupadas por el departamento que las emitió.');
 ?>
 <div class="const-pila">
+  <?php if (class_exists(\App\Modules\Consejos\ConsejosAccess::class) && !empty(\App\Core\Auth::tieneRol('admin', 'titular', 'operativo', 'coordinador', 'profesor'))): $consejosGestor = \App\Modules\Consejos\ConsejosAccess::esGestor(); ?>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+    <a class="tarjeta" href="<?= e(url('consejos/comisiones')) ?>" style="display:block;color:inherit;text-decoration:none">
+      <strong style="font-size:17px;color:var(--verde-900)">Comisiones</strong>
+      <p class="const-ayuda" style="margin:4px 0 0">Dictámenes y comisiones de los HH. Consejos Académico y de Gobierno en los que se te menciona.<?= \App\Modules\Consejos\ConsejosAccess::tieneComisiones() ? ' <strong>Tienes dictámenes disponibles.</strong>' : '' ?></p>
+    </a>
+    <?php if ($consejosGestor): ?>
+    <a class="tarjeta" href="<?= e(url('consejos')) ?>" style="display:block;color:inherit;text-decoration:none">
+      <strong style="font-size:17px;color:var(--verde-900)">Consejos</strong>
+      <p class="const-ayuda" style="margin:4px 0 0">Reuniones, sesiones, actas y dictámenes. Incluye la búsqueda en las actas.</p>
+    </a>
+    <?php endif; ?>
+  </div>
+  <?php endif; ?>
   <section class="tarjeta">
     <div class="const-cabecera">
       <p class="const-frase"><?= e($ve) ?></p>

@@ -1,0 +1,80 @@
+{
+  "clave": "consejos",
+  "nombre": "Consejos",
+  "version": "1.0.0",
+  "descripcion": "Actas y dictámenes de los HH. Consejos Académico y de Gobierno: captura de casos (profesores, alumnos, generales) con tablas pegadas desde Word, conducción de las sesiones con aval y acuerdos, actas y oficios de dictamen en Word, escaneados firmados, búsqueda con comodines y «Comisiones» de cada profesor.",
+  "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+  "consulta": [
+    {"ruta": "consejos/comisiones", "descripcion": "Comisiones y dictámenes de los HH. Consejos Académico y de Gobierno en los que se te menciona, con el escaneado firmado y las actas.", "palabras": "comisiones comisión dictamen dictámenes consejo académico gobierno acta acuerdo aval"},
+    {"ruta": "consejos", "descripcion": "Gestión de los Consejos: reuniones, casos, sesiones, actas y dictámenes.", "palabras": "consejos acta actas dictamen dictámenes sesión reunión consejo académico gobierno casos", "condicion": "App\\Modules\\Consejos\\ConsejosAccess::esGestor"},
+    {"ruta": "consejos/buscar", "descripcion": "Busca una palabra o frase, con comodines, en las solicitudes y acuerdos de las actas de los Consejos.", "palabras": "buscar búsqueda actas acuerdos solicitudes consejos comodín", "condicion": "App\\Modules\\Consejos\\ConsejosAccess::esGestor"}
+  ],
+  "menu": [
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Comisiones",
+      "ruta": "consejos/comisiones",
+      "descripcion": "Dictámenes y comisiones de los HH. Consejos en que se te menciona.",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+      "orden": 12
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Consejos",
+      "ruta": "consejos",
+      "descripcion": "Reuniones, casos, sesiones, actas y dictámenes de los HH. Consejos.",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+      "orden": 13,
+      "condicion": "App\\Modules\\Consejos\\ConsejosAccess::esGestor"
+    },
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Buscar en las actas",
+      "ruta": "consejos/buscar",
+      "descripcion": "Busca palabras o frases, con comodines, en las solicitudes y acuerdos.",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+      "orden": 14,
+      "condicion": "App\\Modules\\Consejos\\ConsejosAccess::esGestor"
+    }
+  ],
+  "rutas": {
+    "GET /consejos": ["App\\Modules\\Consejos\\ReunionController", "index"],
+    "GET /consejos/nueva": ["App\\Modules\\Consejos\\ReunionController", "nueva"],
+    "POST /consejos": ["App\\Modules\\Consejos\\ReunionController", "crear"],
+    "GET /consejos/reunion/{id}": ["App\\Modules\\Consejos\\ReunionController", "ver"],
+    "GET /consejos/reunion/{id}/editar": ["App\\Modules\\Consejos\\ReunionController", "editar"],
+    "POST /consejos/reunion/{id}": ["App\\Modules\\Consejos\\ReunionController", "actualizar"],
+    "POST /consejos/reunion/{id}/eliminar": ["App\\Modules\\Consejos\\ReunionController", "eliminar"],
+    "GET /consejos/reunion/{id}/acta/{consejo}": ["App\\Modules\\Consejos\\ReunionController", "acta"],
+    "POST /consejos/reunion/{id}/acta/{consejo}/firmada": ["App\\Modules\\Consejos\\ReunionController", "subirFirmada"],
+    "GET /consejos/archivo/{id}": ["App\\Modules\\Consejos\\ReunionController", "archivo"],
+    "POST /consejos/archivo/{id}/quitar": ["App\\Modules\\Consejos\\ReunionController", "quitarArchivo"],
+
+    "GET /consejos/reunion/{id}/asunto/nuevo": ["App\\Modules\\Consejos\\AsuntoController", "nuevo"],
+    "POST /consejos/reunion/{id}/asunto": ["App\\Modules\\Consejos\\AsuntoController", "crear"],
+    "GET /consejos/asunto/{id}/editar": ["App\\Modules\\Consejos\\AsuntoController", "editar"],
+    "POST /consejos/asunto/{id}": ["App\\Modules\\Consejos\\AsuntoController", "actualizar"],
+    "POST /consejos/asunto/{id}/eliminar": ["App\\Modules\\Consejos\\AsuntoController", "eliminar"],
+    "GET /consejos/personas": ["App\\Modules\\Consejos\\AsuntoController", "personas"],
+
+    "GET /consejos/reunion/{id}/sesion/{consejo}": ["App\\Modules\\Consejos\\SesionController", "pantalla"],
+    "POST /consejos/reunion/{id}/sesion/{consejo}/iniciar": ["App\\Modules\\Consejos\\SesionController", "iniciar"],
+    "POST /consejos/reunion/{id}/sesion/{consejo}/terminar": ["App\\Modules\\Consejos\\SesionController", "terminar"],
+    "POST /consejos/reunion/{id}/sesion/{consejo}/reabrir": ["App\\Modules\\Consejos\\SesionController", "reabrir"],
+    "POST /consejos/asunto/{id}/acuerdo": ["App\\Modules\\Consejos\\SesionController", "guardar"],
+
+    "GET /consejos/reunion/{id}/dictamenes": ["App\\Modules\\Consejos\\OficioController", "index"],
+    "POST /consejos/reunion/{id}/dictamenes/generar": ["App\\Modules\\Consejos\\OficioController", "generar"],
+    "GET /consejos/reunion/{id}/dictamenes/descargar": ["App\\Modules\\Consejos\\OficioController", "descargar"],
+    "GET /consejos/oficio/{id}": ["App\\Modules\\Consejos\\OficioController", "editar"],
+    "POST /consejos/oficio/{id}": ["App\\Modules\\Consejos\\OficioController", "actualizar"],
+    "POST /consejos/oficio/{id}/regenerar": ["App\\Modules\\Consejos\\OficioController", "regenerar"],
+    "GET /consejos/oficio/{id}/descargar": ["App\\Modules\\Consejos\\OficioController", "descargarUno"],
+    "POST /consejos/oficio/{id}/escaneado": ["App\\Modules\\Consejos\\OficioController", "subirEscaneado"],
+
+    "GET /consejos/buscar": ["App\\Modules\\Consejos\\BusquedaController", "index"],
+
+    "GET /consejos/comisiones": ["App\\Modules\\Consejos\\ComisionController", "index"],
+    "GET /consejos/comisiones/{id}/actas": ["App\\Modules\\Consejos\\ComisionController", "actas"]
+  }
+}
