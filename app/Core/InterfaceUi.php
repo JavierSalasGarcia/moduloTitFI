@@ -11,7 +11,7 @@ final class InterfaceUi
         'foro'=>'Foro','comisiones'=>'Comisiones','encuestas'=>'Encuestas','grupos-destinatarios'=>'Grupos de destinatarios',
         'busqueda'=>'Encontrar un trámite','directorio'=>'Directorio','funciones'=>'Mis funciones',
         'teams'=>'Carpetas de Teams','recursos'=>'Recursos','ajustes'=>'Ajustes','seguridad'=>'Acceso seguro',
-        'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI','posgrado'=>'Obtención de grado','titulacion'=>'Titulación','constancias'=>'Constancias emitidas'];
+        'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI','posgrado'=>'Obtención de grado','titulacion'=>'Titulación','constancias'=>'Constancias emitidas','consejos'=>'Consejos'];
 
     /** Un enlace por grupo en el menú lateral; las páginas de entrada viven en `seccion/<slug>`. */
     public const GRUPOS = [
@@ -42,7 +42,7 @@ final class InterfaceUi
                 // «Avisos y eventos» va suelto en el menú principal, con su globito de no leídos.
                 'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : ($item['ruta'] === 'eventos' ? 'Inicio' : 'Agenda'),
                 'fila' => 'Fila', 'titulacion' => str_starts_with($item['ruta'], 'titulacion/constancias') ? 'Constancias' : 'Titulación',
-                'posgrado' => 'Titulación', 'constancias' => 'Constancias',
+                'posgrado' => 'Titulación', 'constancias', 'consejos' => 'Constancias',
                 'foro','encuestas','comisiones','concursos' => 'Comunidad', 'ajustes','formularios' => 'Administración',
                 'recursos' => empty($item['dinamico']) ? 'Administración' : 'Recursos', default => 'Recursos'
             };
