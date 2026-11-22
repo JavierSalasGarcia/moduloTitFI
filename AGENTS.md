@@ -16,7 +16,7 @@ Todo cuadro donde se capturen personas (por nombre o correo) usa el componente `
 
 Los registros de personas sin cuenta se vinculan solo por correo verificado, nunca por nombre, mediante `Identidad::vincularDatos`; leer `docs/VINCULACION_DE_CUENTAS.md`.
 
-Actas y dictámenes de los HH. Consejos Académico y de Gobierno (`/consejos`, dentro de Constancias): leer `docs/CONSEJOS.md`. Los casos, nombres y escaneados nunca se versionan; los profesores se mencionan a mano en cada caso, nunca por coincidencia de nombre. Prueba: `php tools/prueba_consejos.php <carpeta>`.
+Actas y dictámenes de los HH. Consejos Académico y de Gobierno (`/consejos`, dentro de Constancias): leer `docs/CONSEJOS.md`. Los casos, nombres y escaneados nunca se versionan; los profesores se mencionan a mano en cada caso, nunca por coincidencia de nombre. Prueba: `php tools/prueba_consejos.php <carpeta>`. Las solicitudes de profesores y coordinadores llevan el Vo. Bo. de la Coordinación de Docencia o de Estudios Avanzados (acuerdo AG28) y la firma se configura en `/consejos/firmas`; ambos están en el mismo documento.
 
 El despliegue se hace con `tools/desplegar.sh` (`docs/DESPLIEGUE.md`). No dejar archivos `.bak` ni respaldos dentro del sitio o del repositorio.
 

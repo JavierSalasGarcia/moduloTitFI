@@ -98,6 +98,21 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
     </div>
   </div>
 
+  <?php if (!empty($solicitudes) && !$cerrada): ?>
+  <section class="tarjeta">
+    <h2 style="margin:0 0 6px;font-size:18px">Solicitudes con Vo. Bo. por incorporar (<?= count($solicitudes) ?>)</h2>
+    <p class="cns-sub" style="margin:0 0 8px">Ya tienen el visto bueno de la coordinación y esperaban una reunión.</p>
+    <?php foreach ($solicitudes as $sl): ?>
+      <form method="post" action="<?= e(url('consejos/solicitudes/' . $sl['id'] . '/incorporar')) ?>" class="cns-acciones" style="margin:4px 0"><?= $csrf ?>
+        <input type="hidden" name="reunion_id" value="<?= (int) $r['id'] ?>">
+        <span><strong><?= e($sl['folio']) ?></strong> · <?= e($sl['solicitante']) ?> · <?= e($sl['coordinacion']) ?></span>
+        <a class="btn btn-mini" href="<?= e(url('consejos/solicitudes/' . $sl['id'])) ?>">Ver</a>
+        <button class="btn btn-mini btn-primario" type="submit">Incorporar aquí</button>
+      </form>
+    <?php endforeach; ?>
+  </section>
+  <?php endif; ?>
+
   <details class="tarjeta">
     <summary style="cursor:pointer;font-weight:700;color:var(--verde-900)">Importar casos desde un acta de Word o un Excel</summary>
     <p class="cns-sub" style="margin:8px 0">Un caso que ya existe (misma clave) no se duplica ni se pisa: solo se completa lo que le falta. Así puedes importar el acta del Consejo Académico y luego la del de Gobierno. Del Excel se leen clave, solicitud, antecedentes, acuerdos y observación; <a href="<?= e(url('consejos/plantilla-casos')) ?>">descarga la plantilla</a>.</p>
@@ -129,7 +144,7 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
           <tbody>
           <?php foreach ($porGrupo[$g] as $a): ?>
             <tr>
-              <td class="cns-clave"><?= e(Texto::clave($a['grupo'], (int) $a['numero'])) ?><?= ($a['origen'] ?? '') === 'gobierno' ? '<br><small class="cns-etq" title="Se presentó directamente al Consejo de Gobierno">Nuevo en Gobierno</small>' : '' ?></td>
+              <td class="cns-clave"><?= e(Texto::clave($a['grupo'], (int) $a['numero'])) ?><?= !empty($a['sol_folio']) ? '<br><small class="cns-etq ' . ($a['sol_escaneado'] ? 'ok' : 'no') . '">Solicitud ' . e($a['sol_folio']) . ($a['sol_escaneado'] ? ' · firmada' : ' · sin escaneado') . '</small>' : '' ?><?= ($a['origen'] ?? '') === 'gobierno' ? '<br><small class="cns-etq" title="Se presentó directamente al Consejo de Gobierno">Nuevo en Gobierno</small>' : '' ?></td>
               <td><?= e(mb_strimwidth(Texto::limpio(Html::texto((string) $a['solicitud_html'])), 0, 170, '…')) ?></td>
               <td><?= (int) $a['profesores'] ?: '—' ?></td>
               <td><span class="cns-etq <?= e($aval[$a['aval_academico']][1]) ?>"><?= e($aval[$a['aval_academico']][0]) ?></span></td>

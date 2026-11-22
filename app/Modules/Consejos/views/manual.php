@@ -43,10 +43,23 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
         <p class="cns-sub">Guía para los departamentos: cómo registrar un caso para el H. Consejo Académico y el H. Consejo de Gobierno, con la redacción que usan las actas de 2026.</p>
       </div>
       <div class="cns-acciones cns-solo-pantalla">
+        <a class="btn btn-primario" href="<?= e(url('consejos/solicitudes/nueva')) ?>">Redactar una solicitud</a>
         <button class="btn" type="button" id="abrir-todo">Abrir todos los trámites</button>
         <button class="btn" type="button" onclick="window.print()">Imprimir</button>
       </div>
     </div>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Si eres profesor o coordinador: redacta tu solicitud en la plataforma</h2>
+    <p class="cns-sub">En <strong>Constancias → Solicitudes a Consejos</strong> puedes redactar tu solicitud con el asistente de plantillas, sin esperar a que alguien más la capture.</p>
+    <ol class="pasos">
+      <li><h3>Redacta</h3>Elige el tipo de trámite, llena lo resaltado y anota los antecedentes. Puedes guardar un borrador.</li>
+      <li><h3>Elige la coordinación</h3>Por acuerdo del H. Consejo de Gobierno del 19 de noviembre de 2026 (AG28), toda solicitud lleva el Vo. Bo. o de enterado de la Coordinación de Docencia respectiva o de la de Estudios Avanzados.</li>
+      <li><h3>La coordinación revisa</h3>Recibe un aviso; da su Vo. Bo. o de enterado, o la devuelve con lo que debes corregir.</li>
+      <li><h3>Llega al acta</h3>Con el Vo. Bo. se vuelve un caso de la siguiente reunión. El sistema genera además el oficio en hoja membretada.</li>
+      <li><h3>Firma</h3>Si la firma es autógrafa, imprime el oficio, que firmen tú y la coordinación, y sube el escaneado. Si está habilitada la firma interna, se firma dentro de la plataforma.</li>
+    </ol>
   </section>
 
   <section class="tarjeta">

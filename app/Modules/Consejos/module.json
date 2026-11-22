@@ -5,11 +5,20 @@
   "descripcion": "Actas y dictámenes de los HH. Consejos Académico y de Gobierno: captura de casos (profesores, alumnos, generales) con tablas pegadas desde Word, conducción de las sesiones con aval y acuerdos, actas y oficios de dictamen en Word, escaneados firmados, búsqueda con comodines y «Comisiones» de cada profesor.",
   "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
   "consulta": [
+    {"ruta": "consejos/solicitudes", "descripcion": "Redactar una solicitud para los HH. Consejos Académico y de Gobierno y darle seguimiento al Vo. Bo. de la Coordinación de Docencia o de Estudios Avanzados.", "palabras": "solicitud solicitudes consejos redactar vobo visto bueno coordinación docencia estudios avanzados"},
     {"ruta": "consejos/comisiones", "descripcion": "Comisiones y dictámenes de los HH. Consejos Académico y de Gobierno en los que se te menciona, con el escaneado firmado y las actas.", "palabras": "comisiones comisión dictamen dictámenes consejo académico gobierno acta acuerdo aval"},
     {"ruta": "consejos", "descripcion": "Gestión de los Consejos: reuniones, casos, sesiones, actas y dictámenes.", "palabras": "consejos acta actas dictamen dictámenes sesión reunión consejo académico gobierno casos", "condicion": "App\\Modules\\Consejos\\ConsejosAccess::esGestor"},
     {"ruta": "consejos/buscar", "descripcion": "Busca una palabra o frase, con comodines, en las solicitudes y acuerdos de las actas de los Consejos.", "palabras": "buscar búsqueda actas acuerdos solicitudes consejos comodín", "condicion": "App\\Modules\\Consejos\\ConsejosAccess::esGestor"}
   ],
   "menu": [
+    {
+      "seccion": "CONSTANCIAS",
+      "titulo": "Solicitudes a Consejos",
+      "ruta": "consejos/solicitudes",
+      "descripcion": "Redacta una solicitud para los HH. Consejos y dale seguimiento al Vo. Bo. de la coordinación.",
+      "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
+      "orden": 11
+    },
     {
       "seccion": "CONSTANCIAS",
       "titulo": "Comisiones",
@@ -39,6 +48,23 @@
   ],
   "rutas": {
     "GET /consejos": ["App\\Modules\\Consejos\\ReunionController", "index"],
+    "GET /consejos/solicitudes": ["App\\Modules\\Consejos\\SolicitudController", "index"],
+    "GET /consejos/solicitudes/nueva": ["App\\Modules\\Consejos\\SolicitudController", "nueva"],
+    "GET /consejos/solicitudes/personas": ["App\\Modules\\Consejos\\SolicitudController", "personas"],
+    "POST /consejos/solicitudes": ["App\\Modules\\Consejos\\SolicitudController", "crear"],
+    "GET /consejos/solicitudes/{id}": ["App\\Modules\\Consejos\\SolicitudController", "ver"],
+    "GET /consejos/solicitudes/{id}/editar": ["App\\Modules\\Consejos\\SolicitudController", "editar"],
+    "POST /consejos/solicitudes/{id}": ["App\\Modules\\Consejos\\SolicitudController", "actualizar"],
+    "POST /consejos/solicitudes/{id}/enviar": ["App\\Modules\\Consejos\\SolicitudController", "enviar"],
+    "POST /consejos/solicitudes/{id}/vobo": ["App\\Modules\\Consejos\\SolicitudController", "vobo"],
+    "POST /consejos/solicitudes/{id}/devolver": ["App\\Modules\\Consejos\\SolicitudController", "devolver"],
+    "POST /consejos/solicitudes/{id}/cancelar": ["App\\Modules\\Consejos\\SolicitudController", "cancelar"],
+    "POST /consejos/solicitudes/{id}/incorporar": ["App\\Modules\\Consejos\\SolicitudController", "incorporar"],
+    "POST /consejos/solicitudes/{id}/escaneado": ["App\\Modules\\Consejos\\SolicitudController", "subirEscaneado"],
+    "GET /consejos/solicitudes/{id}/oficio": ["App\\Modules\\Consejos\\SolicitudController", "oficio"],
+    "GET /consejos/solicitudes/{id}/escaneado": ["App\\Modules\\Consejos\\SolicitudController", "escaneado"],
+    "GET /consejos/firmas": ["App\\Modules\\Consejos\\SolicitudController", "firmas"],
+    "POST /consejos/firmas": ["App\\Modules\\Consejos\\SolicitudController", "guardarFirmas"],
     "GET /consejos/manual": ["App\\Modules\\Consejos\\ReunionController", "manual"],
     "GET /consejos/nueva": ["App\\Modules\\Consejos\\ReunionController", "nueva"],
     "POST /consejos": ["App\\Modules\\Consejos\\ReunionController", "crear"],

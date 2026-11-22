@@ -83,7 +83,7 @@ abstract class ConsejosBase extends Controller
     }
 
     /** Guarda un PDF subido en storage/consejos/<reunión>/. @return array{0:?string,1:int,2:string} [ruta relativa, bytes, mensaje de error] */
-    protected function guardarPdf(array $f, int $reunionId): array
+    protected function guardarPdf(array $f, int|string $reunionId): array
     {
         if (($f['error'] ?? 1) !== UPLOAD_ERR_OK) {
             return [null, 0, 'No llegó el archivo (revisa que pese menos de ' . (int) (self::MAX_PDF / 1048576) . ' MB).'];

@@ -11,6 +11,8 @@ $estados = ['preparacion' => 'En preparación', 'academico' => 'Consejo Académi
         <p class="cns-sub">Captura los casos del mes, conduce la sesión del Consejo Académico y la del Consejo de Gobierno, y genera las actas y los dictámenes en Word.</p>
       </div>
       <div class="cns-acciones">
+        <a class="btn" href="<?= e(url('consejos/solicitudes')) ?>">Solicitudes</a>
+        <a class="btn" href="<?= e(url('consejos/firmas')) ?>">Firmas</a>
         <a class="btn" href="<?= e(url('consejos/manual')) ?>">Manual de captura</a>
         <a class="btn" href="<?= e(url('consejos/buscar')) ?>"><?= icono('buscar', 16) ?> Buscar en las actas</a>
         <a class="btn btn-primario" href="<?= e(url('consejos/nueva')) ?>">Nueva reunión</a>

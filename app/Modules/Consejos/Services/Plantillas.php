@@ -126,7 +126,7 @@ final class Plantillas
                 $tabla = '<table><tbody><tr>' . $th . '</tr><tr>' . $td . '</tr></tbody></table><p><br></p>';
             }
             $fila = [
-                'clave' => $p['clave'], 'nombre' => $p['nombre'], 'propia' => $p['grupo'] === $grupo,
+                'clave' => $p['clave'], 'grupo' => $p['grupo'], 'nombre' => $p['nombre'], 'propia' => $p['grupo'] === $grupo,
                 'solicitud' => '<p>' . htmlspecialchars($p['solicitud'], ENT_QUOTES, 'UTF-8') . '</p>' . $tabla,
                 'antecedentes' => '<p>' . htmlspecialchars($p['antecedentes'], ENT_QUOTES, 'UTF-8') . '</p>',
             ];

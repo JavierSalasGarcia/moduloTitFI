@@ -55,6 +55,7 @@ $fuentes = [
     'migrations/063_consejos_enlaces.sql',
     'migrations/064_consejos_origen_caso.sql',
     'migrations/065_consejos_aval_condiciona.sql',
+    'migrations/066_consejos_solicitudes.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

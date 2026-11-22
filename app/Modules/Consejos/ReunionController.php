@@ -29,7 +29,7 @@ final class ReunionController extends ConsejosBase
     /** Manual de llenado para los departamentos: se arma con el mismo catálogo de plantillas, así nunca queda desactualizado. */
     public function manual(): void
     {
-        $this->gestor();
+        $this->privado();
         $this->vista('manual', ['titulo' => 'Manual de captura de casos', 'plantillas' => \App\Modules\Consejos\Services\Plantillas::todas()]);
     }
 
@@ -61,7 +61,9 @@ final class ReunionController extends ConsejosBase
             [...array_values($datos), Auth::id()]
         );
         Audit::record('consejos::reunion', 'correcto', 'Crea reunión #' . $id);
-        flash('exito', 'Reunión creada. Agrega los casos de profesores, de alumnos y los asuntos generales.');
+        // Las solicitudes con Vo. Bo. que esperaban una reunión pasan a ésta como casos.
+        $llegaron = \App\Modules\Consejos\Services\Solicitudes::incorporarPendientes($id);
+        flash('exito', 'Reunión creada.' . ($llegaron ? ' Se incorporaron ' . $llegaron . ' solicitud(es) con Vo. Bo.' : '') . ' Agrega los casos de profesores, de alumnos y los asuntos generales.');
         redirigir('consejos/reunion/' . $id);
     }
 
@@ -70,14 +72,17 @@ final class ReunionController extends ConsejosBase
         $this->gestor();
         $r = $this->reunion($id);
         $asuntos = Database::todas(
-            "SELECT a.*, (SELECT COUNT(*) FROM consejos_asunto_profesores p WHERE p.asunto_id = a.id) AS profesores
+            "SELECT a.*, (SELECT COUNT(*) FROM consejos_asunto_profesores p WHERE p.asunto_id = a.id) AS profesores,
+                    (SELECT s.folio FROM consejos_solicitudes s WHERE s.id = a.solicitud_id) AS sol_folio,
+                    (SELECT s.escaneado_ruta FROM consejos_solicitudes s WHERE s.id = a.solicitud_id) AS sol_escaneado
                FROM consejos_asuntos a WHERE a.reunion_id = ? ORDER BY FIELD(a.grupo, 'profesor', 'alumno', 'general'), a.numero",
             [(int) $r['id']]
         );
         $archivos = Database::todas("SELECT * FROM consejos_archivos WHERE reunion_id = ? AND tipo IN ('acta_academico','acta_gobierno') ORDER BY id DESC", [(int) $r['id']]);
         $oficios = (int) Database::valor('SELECT COUNT(*) FROM consejos_oficios o JOIN consejos_asuntos a ON a.id = o.asunto_id WHERE a.reunion_id = ?', [(int) $r['id']]);
         $this->vista('reunion', ['titulo' => 'Reunión ' . $r['etiqueta'], 'r' => $r, 'asuntos' => $asuntos,
-            'actaFirmada' => ['academico' => self::primero($archivos, 'acta_academico'), 'gobierno' => self::primero($archivos, 'acta_gobierno')], 'oficios' => $oficios, 'cerrada' => self::cerrada((int) $r['id'])]);
+            'actaFirmada' => ['academico' => self::primero($archivos, 'acta_academico'), 'gobierno' => self::primero($archivos, 'acta_gobierno')], 'oficios' => $oficios, 'cerrada' => self::cerrada((int) $r['id']),
+            'solicitudes' => Database::todas("SELECT s.id, s.folio, s.vobo_tipo, s.coordinacion, u.nombre AS solicitante FROM consejos_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id WHERE s.estado = 'visto_bueno' ORDER BY s.vobo_en, s.id")]);
     }
 
     public function editar(string $id): void
