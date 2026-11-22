@@ -6,7 +6,7 @@ namespace App\Modules\Constancias;
 use App\Core\Audit;
 use App\Modules\Constancias\Services\Indice;
 
-/** «Constancias emitidas»: índice unificado agrupado por departamento emisor y descarga con permiso. */
+/** «Constancias firmadas»: lista única de las constancias ya firmadas, ordenable por emisión, firma o departamento, y descarga con permiso. */
 final class IndiceController extends ConstanciasBase
 {
     public function index(): void
@@ -18,11 +18,13 @@ final class IndiceController extends ConstanciasBase
         if ($anio !== null && ($anio < 2000 || $anio > 2100)) {
             $anio = null;
         }
-        $r = Indice::listar($alcance, $q, $anio);
+        $orden = in_array($_GET['orden'] ?? '', ['emision', 'firma', 'depto'], true) ? (string) $_GET['orden'] : 'firma';
+        $dir = ($_GET['dir'] ?? '') === 'asc' ? 'asc' : 'desc';
+        $r = Indice::listar($alcance, $q, $anio, $orden, $dir);
         $this->vista('index', [
-            'titulo' => 'Constancias emitidas',
-            'grupos' => Indice::porDepartamento($r['filas']),
-            'total' => count($r['filas']),
+            'titulo' => 'Constancias firmadas',
+            'filas' => $r['filas'],
+            'orden' => $orden, 'dir' => $dir,
             'recortado' => $r['recortado'],
             'q' => $q, 'anio' => $anio, 'anios' => Indice::anios(),
             'alcance' => $alcance,

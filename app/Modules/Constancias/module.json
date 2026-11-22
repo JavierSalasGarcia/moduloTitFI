@@ -2,21 +2,21 @@
   "clave": "constancias",
   "nombre": "Constancias",
   "version": "1.0.0",
-  "descripcion": "Constancias emitidas por la plataforma, agrupadas por el departamento que las emite (Titulación, Posgrado y las solicitadas aquí), y solicitud de constancias con firma en línea de un titular o coordinador, folio por departamento y QR de verificación.",
+  "descripcion": "Constancias ya firmadas (Titulación, Posgrado y las solicitadas aquí), ordenables por fecha de emisión, fecha de firma o departamento, y solicitud de constancias con firma en línea de un titular o coordinador, folio por departamento y QR de verificación.",
   "roles": [],
   "pendientes": "App\\Modules\\Constancias\\FirmaController::pendientesDeSesion",
   "vinculacion": "App\\Modules\\Constancias\\Services\\Solicitudes::vincular",
   "consulta": [
-    {"ruta": "constancias", "descripcion": "Constancias emitidas: las que recibiste y, si eres personal, las que emitió tu departamento, agrupadas por departamento, para descargar.", "palabras": "constancia constancias descargar emitidas recibí departamento folio"},
+    {"ruta": "constancias", "descripcion": "Constancias firmadas: las que recibiste y, si eres personal, las que emitió tu departamento; se ordenan por fecha de emisión, fecha de firma o departamento y se descargan en PDF.", "palabras": "constancia constancias descargar emitidas recibí departamento folio"},
     {"ruta": "constancias/solicitar", "descripcion": "Solicita una constancia con texto propio o un archivo de Word y envíala a firma a un titular o coordinador.", "palabras": "solicitar constancia redactar firma titular coordinador word oficio", "roles": ["admin", "titular", "coordinador", "operativo"]},
     {"ruta": "constancias/firmar", "descripcion": "Constancias que esperan tu firma.", "palabras": "firmar constancia pendiente firma", "condicion": "App\\Modules\\Constancias\\ConstanciasAccess::tieneFirmas"}
   ],
   "menu": [
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Constancias emitidas",
+      "titulo": "Constancias firmadas",
       "ruta": "constancias",
-      "descripcion": "Las que recibiste y las que emitió tu departamento, agrupadas por departamento.",
+      "descripcion": "Todas las constancias ya firmadas que puedes ver, ordenables por fecha de emisión, fecha de firma o departamento.",
       "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
       "orden": 10
     },
@@ -24,7 +24,7 @@
       "seccion": "CONSTANCIAS",
       "titulo": "Solicitar una constancia",
       "ruta": "constancias/solicitar",
-      "descripcion": "Escribe el texto o sube un Word y envíala a firma.",
+      "descripcion": "Redacta el cuerpo, elige a quién la firma (coordinación, Subdirección o Dirección) y envíala.",
       "roles": ["admin", "titular", "operativo", "coordinador"],
       "orden": 11
     },

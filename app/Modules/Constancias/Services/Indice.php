@@ -50,10 +50,11 @@ final class Indice
     }
 
     /**
-     * Renglones visibles para el alcance, con filtros opcionales (q: nombre o folio; anio).
+     * Renglones firmados visibles para el alcance, con filtros opcionales (q: nombre o folio; anio) y orden
+     * (`emision`, `firma` o `depto`; `asc` o `desc`). Las que aún esperan firma se ven en «Solicitar una constancia».
      * @return array{filas:array<int,array>,recortado:bool}
      */
-    public static function listar(array $alcance, string $q = '', ?int $anio = null): array
+    public static function listar(array $alcance, string $q = '', ?int $anio = null, string $orden = 'firma', string $dir = 'desc'): array
     {
         $filas = [];
         $recortado = false;
@@ -68,7 +69,14 @@ final class Indice
             $recortado = $recortado || count($r) >= self::LIMITE;
             array_push($filas, ...$r);
         }
-        usort($filas, static fn(array $a, array $b): int => [$a['departamento'], $b['fecha']] <=> [$b['departamento'], $a['fecha']]);
+        $filas = array_values(array_filter($filas, static fn(array $f): bool => $f['estado'] === 'firmada'));
+        $clave = static fn(array $f): string => match ($orden) {
+            'emision' => (string) $f['fecha_emision'],
+            'depto' => mb_strtolower((string) $f['departamento']),
+            default => (string) $f['fecha_firma'],
+        };
+        $sentido = $dir === 'asc' ? 1 : -1;
+        usort($filas, static fn(array $a, array $b): int => ($sentido * ($clave($a) <=> $clave($b))) ?: strcmp((string) $b['fecha_firma'], (string) $a['fecha_firma']));
         return ['filas' => $filas, 'recortado' => $recortado];
     }
 
@@ -169,6 +177,7 @@ final class Indice
                 'fuente' => 'titulacion', 'id' => (int) $f['id'], 'departamento_id' => $dep,
                 'departamento' => $nombres[$dep] ?? \App\Modules\Titulacion\Services\Constancias::EMISORES[$f['emisor']] ?? 'Titulación',
                 'tipo' => $tipo, 'persona' => (string) $f['nombre'], 'fecha' => (string) ($f['subdir_en'] ?: $f['creado_en']),
+                'fecha_emision' => (string) $f['creado_en'], 'fecha_firma' => (string) ($f['subdir_ruta'] ? ($f['subdir_en'] ?: $f['creado_en']) : ''),
                 'folio' => (string) ($f['oficio'] ?: $f['tramite_folio']), 'detalle' => 'Trámite ' . $f['tramite_folio'],
                 'estado' => $f['subdir_ruta'] ? 'firmada' : 'en_firma', '_ruta' => (string) ($f['subdir_ruta'] ?? ''),
             ];
@@ -226,6 +235,7 @@ final class Indice
             $r[] = [
                 'fuente' => 'posgrado', 'id' => (int) $f['id'], 'departamento_id' => $dep, 'departamento' => $nombre,
                 'tipo' => self::POSGRADO[$f['clave']][0], 'persona' => self::personasPosgrado($f), 'fecha' => (string) ($f['firmada_en'] ?: $f['generado_en']),
+                'fecha_emision' => (string) $f['generado_en'], 'fecha_firma' => $f['festado'] === 'firmada' ? (string) $f['firmada_en'] : '',
                 'folio' => (string) $f['folio'], 'detalle' => 'Trámite de grado ' . $f['folio'],
                 'estado' => $f['festado'] === 'firmada' ? 'firmada' : 'en_firma', '_ruta' => $f['festado'] === 'firmada' ? (string) $f['ruta'] : '',
             ];
@@ -296,7 +306,7 @@ final class Indice
             $p[] = $anio;
         }
         $filas = Database::todas(
-            'SELECT s.id, s.estado, s.asunto, s.folio, s.persona_nombre, s.enviada_en, s.firmada_en, s.ruta_firmado, s.departamento_id, d.nombre AS departamento, s.firmante_nombre
+            'SELECT s.id, s.estado, s.asunto, s.folio, s.persona_nombre, s.creado_en, s.enviada_en, s.firmada_en, s.ruta_firmado, s.departamento_id, d.nombre AS departamento, s.firmante_nombre
                FROM cst_solicitudes s JOIN departamentos d ON d.id = s.departamento_id
               WHERE ' . implode(' AND ', $donde) . ' ORDER BY COALESCE(s.firmada_en, s.enviada_en) DESC LIMIT ' . self::LIMITE,
             $p
@@ -314,6 +324,7 @@ final class Indice
                 'fuente' => 'constancias', 'id' => (int) $f['id'], 'departamento_id' => (int) $f['departamento_id'], 'departamento' => (string) $f['departamento'],
                 'tipo' => self::tipoDeAsunto($asunto),
                 'persona' => (string) $f['persona_nombre'], 'fecha' => (string) ($f['firmada_en'] ?: $f['enviada_en']), 'folio' => (string) $f['folio'],
+                'fecha_emision' => (string) ($f['enviada_en'] ?: $f['creado_en']), 'fecha_firma' => $f['estado'] === 'firmada' ? (string) $f['firmada_en'] : '',
                 'detalle' => 'Firma: ' . $f['firmante_nombre'], 'estado' => $f['estado'] === 'firmada' ? 'firmada' : 'en_firma',
                 '_ruta' => $f['estado'] === 'firmada' ? (string) $f['ruta_firmado'] : '',
             ];

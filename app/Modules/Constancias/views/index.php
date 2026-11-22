@@ -1,35 +1,30 @@
 <?php
-/** @var array $grupos @var int $total @var bool $recortado @var string $q @var ?int $anio @var int[] $anios @var array $alcance @var bool $puedeSolicitar */
+/** @var array $filas @var string $orden @var string $dir @var bool $recortado @var string $q @var ?int $anio @var int[] $anios @var array $alcance @var bool $puedeSolicitar */
 include __DIR__ . '/_estilos.php';
 $filtrando = $q !== '' || $anio !== null;
-$ve = $alcance['todas'] ? 'Ves todas las constancias de la Facultad, agrupadas por el departamento que las emitió.'
-    : ($alcance['deptos'] ? 'Ves las constancias que recibiste y todas las que emitió tu departamento.' : 'Ves las constancias que se te extendieron, agrupadas por el departamento que las emitió.');
+$ve = $alcance['todas'] ? 'Ves todas las constancias firmadas de la Facultad.'
+    : ($alcance['deptos'] ? 'Ves las constancias firmadas que recibiste y todas las que emitió tu departamento.' : 'Ves las constancias firmadas que se te extendieron.');
+// Encabezado ordenable: al volver a pulsar la columna activa se invierte el sentido; fechas empiezan por la más reciente.
+$enlace = static function (string $clave, string $texto) use ($orden, $dir, $q, $anio): string {
+    $sigue = $orden === $clave ? ($dir === 'asc' ? 'desc' : 'asc') : ($clave === 'depto' ? 'asc' : 'desc');
+    $consulta = http_build_query(array_filter(['q' => $q, 'anio' => $anio, 'orden' => $clave, 'dir' => $sigue], static fn($v) => $v !== '' && $v !== null));
+    $flecha = $orden === $clave ? ($dir === 'asc' ? ' ▲' : ' ▼') : '';
+    return '<a href="' . e(url('constancias?' . $consulta)) . '" title="Ordenar por ' . e(mb_strtolower($texto)) . '"' . ($orden === $clave ? ' aria-current="true"' : '') . '>' . e($texto) . $flecha . '</a>';
+};
+$fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)) : '—';
 ?>
 <div class="const-pila">
-  <?php if (class_exists(\App\Modules\Consejos\ConsejosAccess::class) && !empty(\App\Core\Auth::tieneRol('admin', 'titular', 'operativo', 'coordinador', 'profesor'))): $consejosGestor = \App\Modules\Consejos\ConsejosAccess::esGestor(); ?>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
-    <a class="tarjeta" href="<?= e(url('consejos/comisiones')) ?>" style="display:block;color:inherit;text-decoration:none">
-      <strong style="font-size:17px;color:var(--verde-900)">Comisiones</strong>
-      <p class="const-ayuda" style="margin:4px 0 0">Dictámenes y comisiones de los HH. Consejos Académico y de Gobierno en los que se te menciona.<?= \App\Modules\Consejos\ConsejosAccess::tieneComisiones() ? ' <strong>Tienes dictámenes disponibles.</strong>' : '' ?></p>
-    </a>
-    <?php if ($consejosGestor): ?>
-    <a class="tarjeta" href="<?= e(url('consejos')) ?>" style="display:block;color:inherit;text-decoration:none">
-      <strong style="font-size:17px;color:var(--verde-900)">Consejos</strong>
-      <p class="const-ayuda" style="margin:4px 0 0">Reuniones, sesiones, actas y dictámenes. Incluye la búsqueda en las actas.</p>
-    </a>
-    <?php endif; ?>
-  </div>
-  <?php endif; ?>
   <section class="tarjeta">
     <div class="const-cabecera">
       <p class="const-frase"><?= e($ve) ?></p>
       <?php if ($puedeSolicitar): ?><a class="btn btn-primario" href="<?= e(url('constancias/solicitar')) ?>">Solicitar una constancia</a><?php endif; ?>
     </div>
     <form class="const-filtros" method="get" action="<?= e(url('constancias')) ?>" role="search" style="margin-top:12px">
+      <input type="hidden" name="orden" value="<?= e($orden) ?>"><input type="hidden" name="dir" value="<?= e($dir) ?>">
       <label class="const-q">Buscar por nombre o folio
         <input type="search" name="q" value="<?= e($q) ?>" maxlength="80" placeholder="Ej. Pérez o CEA/CONST/004">
       </label>
-      <label>Año
+      <label>Año de firma
         <select name="anio">
           <option value="">Todos</option>
           <?php foreach ($anios as $a): ?><option value="<?= $a ?>"<?= $anio === $a ? ' selected' : '' ?>><?= $a ?></option><?php endforeach; ?>
@@ -41,38 +36,41 @@ $ve = $alcance['todas'] ? 'Ves todas las constancias de la Facultad, agrupadas p
     <?php if ($recortado): ?><p class="const-alcance">Hay muchas constancias: se muestran las más recientes de cada origen. Usa la búsqueda o el año para encontrar otras.</p><?php endif; ?>
   </section>
 
-  <?php if (!$grupos): ?>
+  <?php if (!$filas): ?>
     <section class="tarjeta const-vacio">
       <?php if ($filtrando): ?>
         <h2>No encontramos constancias con esa búsqueda</h2>
         <p>Revisa cómo escribiste el nombre o el folio, o quita el filtro de año.</p>
       <?php else: ?>
-        <h2>Aún no tienes constancias</h2>
-        <p>Cuando la Facultad te extienda una constancia (por ejemplo, por participar en un comité de titulación o en un sínodo) aparecerá aquí, agrupada por el departamento que la emitió, lista para descargar.</p>
+        <h2>Aún no hay constancias firmadas</h2>
+        <p>Cuando la Facultad firme una constancia que se te extendió, o que emitió tu departamento, aparecerá aquí lista para descargar.</p>
       <?php endif; ?>
     </section>
+  <?php else: ?>
+  <section class="tarjeta">
+    <p class="const-ayuda" style="margin:0 0 8px"><?= count($filas) ?> <?= count($filas) === 1 ? 'constancia firmada' : 'constancias firmadas' ?>. Pulsa el título de una columna para ordenar.</p>
+    <table class="const-lista">
+      <thead><tr>
+        <th>Constancia</th><th>Se extiende a</th>
+        <th><?= $enlace('depto', 'Departamento') ?></th>
+        <th><?= $enlace('emision', 'Emisión') ?></th>
+        <th><?= $enlace('firma', 'Firma') ?></th>
+        <th>Folio</th><th><span class="sr-only">PDF</span></th>
+      </tr></thead>
+      <tbody>
+      <?php foreach ($filas as $f): ?>
+        <tr>
+          <td><strong><?= e($f['tipo']) ?></strong><br><small><?= e($f['detalle']) ?></small></td>
+          <td data-et="Se extiende a"><?= e($f['persona'] !== '' ? $f['persona'] : '—') ?></td>
+          <td data-et="Departamento"><?= e($f['departamento']) ?></td>
+          <td data-et="Emisión"><?= e($fecha((string) $f['fecha_emision'])) ?></td>
+          <td data-et="Firma"><?= e($fecha((string) $f['fecha_firma'])) ?></td>
+          <td data-et="Folio"><?= e($f['folio']) ?></td>
+          <td class="const-acc"><a class="btn btn-mini" href="<?= e(url('constancias/descargar/' . $f['fuente'] . '/' . $f['id'])) ?>" target="_blank" rel="noopener">Descargar PDF</a></td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
+  </section>
   <?php endif; ?>
-
-  <?php $i = 0; foreach ($grupos as $depto => $filas): ?>
-    <details class="const-depto"<?= ($i++ === 0 || $filtrando || count($grupos) <= 3) ? ' open' : '' ?>>
-      <summary><span><?= e($depto) ?></span> <span class="const-cuenta"><?= count($filas) ?> <?= count($filas) === 1 ? 'constancia' : 'constancias' ?></span></summary>
-      <div class="const-depto-cuerpo">
-        <table class="const-lista">
-          <thead><tr><th>Constancia</th><th>Se extiende a</th><th>Fecha</th><th>Folio</th><th>Estado</th><th><span class="sr-only">PDF</span></th></tr></thead>
-          <tbody>
-          <?php foreach ($filas as $f): ?>
-            <tr>
-              <td><strong><?= e($f['tipo']) ?></strong><br><small><?= e($f['detalle']) ?></small></td>
-              <td data-et="Se extiende a"><?= e($f['persona'] !== '' ? $f['persona'] : '—') ?></td>
-              <td data-et="Fecha"><?= e(date('d/m/Y', strtotime($f['fecha']))) ?></td>
-              <td data-et="Folio"><?= e($f['folio']) ?></td>
-              <td><span class="const-estado <?= e($f['estado']) ?>"><?= $f['estado'] === 'firmada' ? 'Firmada' : 'En firma' ?></span></td>
-              <td class="const-acc"><?php if ($f['estado'] === 'firmada'): ?><a class="btn btn-mini" href="<?= e(url('constancias/descargar/' . $f['fuente'] . '/' . $f['id'])) ?>" target="_blank" rel="noopener">Descargar PDF</a><?php elseif ($f['fuente'] === 'constancias'): ?><a class="btn btn-mini" href="<?= e(url('constancias/solicitud/' . $f['id'])) ?>">Ver</a><?php endif; ?></td>
-            </tr>
-          <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </details>
-  <?php endforeach; ?>
 </div>

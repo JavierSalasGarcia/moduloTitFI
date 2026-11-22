@@ -363,13 +363,13 @@ final class Solicitudes
         }
         Audit::record('constancias::firmar', 'correcto', 'Constancia ' . $id . ' · ' . $s['folio'] . ' · ' . substr($hash, 0, 16));
         $texto = 'La constancia ' . $s['folio'] . ($s['persona_nombre'] !== '' ? ', extendida a ' . $s['persona_nombre'] . ',' : '') . ' ya está firmada por '
-            . $s['firmante_nombre'] . ".\nDescárgala en Traza FI, en «Constancias → Constancias emitidas» (necesitas iniciar sesión).";
+            . $s['firmante_nombre'] . ".\nDescárgala en Traza FI, en «Constancias → Constancias firmadas» (necesitas iniciar sesión).";
         Aviso::enviar((string) $s['solicitante_email'], (string) $s['solicitante_nombre'], 'Constancia firmada · ' . $s['folio'], $texto, 'constancias/solicitud/' . $id, 'Descargar la constancia');
         $persona = Identidad::normalizar((string) $s['persona_email']);
         if ($persona !== '' && $persona !== Identidad::normalizar((string) $s['solicitante_email'])) {
             Aviso::enviar($persona, (string) $s['persona_nombre'], 'Tienes una constancia firmada · ' . $s['folio'],
                 'Se te extendió la constancia ' . $s['folio'] . ', firmada por ' . $s['firmante_nombre'] . ', ' . $s['firmante_cargo']
-                . ".\nLa encuentras en Traza FI, en «Constancias → Constancias emitidas». Si aún no tienes cuenta, regístrate con este correo y aparecerá ahí.",
+                . ".\nLa encuentras en Traza FI, en «Constancias → Constancias firmadas». Si aún no tienes cuenta, regístrate con este correo y aparecerá ahí.",
                 'constancias', 'Ver mis constancias');
         }
         return self::obtener($id) ?? $s;
