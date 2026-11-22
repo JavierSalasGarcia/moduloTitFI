@@ -9,7 +9,7 @@ $fe = static fn(?string $f) => $f ? date('d/m/Y', strtotime($f)) : 'sin fecha';
 $grupos = ['profesor' => 'Casos de profesores', 'alumno' => 'Casos de alumnos', 'general' => 'Asuntos generales'];
 $porGrupo = array_fill_keys(array_keys($grupos), []);
 foreach ($asuntos as $a) { $porGrupo[$a['grupo']][] = $a; }
-$aval = ['pendiente' => ['Pendiente', ''], 'avala' => ['Avala', 'ok'], 'no_avala' => ['No avala', 'no']];
+$aval = ['pendiente' => ['Pendiente', ''], 'avala' => ['Avala', 'ok'], 'no_avala' => ['No avala', 'no'], 'condiciona' => ['Con condición', '']];
 $aprob = ['pendiente' => ['Pendiente', ''], 'aprueba' => ['Aprueba', 'ok'], 'no_aprueba' => ['No aprueba', 'no']];
 $sesion = static function (string $k, string $nombre, array $r, ?array $firmada) use ($csrf, $fe): void {
     $inicioListo = true;   // el Consejo de Gobierno también se puede conducir y proyectar aunque el Académico no se haya marcado como terminado (p. ej. casos importados de un acta)

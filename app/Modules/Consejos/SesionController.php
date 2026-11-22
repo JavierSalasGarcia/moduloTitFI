@@ -53,7 +53,7 @@ final class SesionController extends ConsejosBase
         }
         $acuerdo = mb_substr(str_replace("\r", '', $this->post('acuerdo')), 0, 6000);
         if ($consejo === 'academico') {
-            $aval = in_array($this->post('decision'), ['pendiente', 'avala', 'no_avala'], true) ? $this->post('decision') : 'pendiente';
+            $aval = in_array($this->post('decision'), ['pendiente', 'avala', 'no_avala', 'condiciona'], true) ? $this->post('decision') : 'pendiente';
             $cambio = $acuerdo !== (string) $a['acuerdo_academico'] || $aval !== $a['aval_academico'];
             Database::ejecutar('UPDATE consejos_asuntos SET aval_academico = ?, acuerdo_academico = ?, version_acuerdo = version_acuerdo + ? WHERE id = ?', [$aval, $acuerdo, $cambio ? 1 : 0, (int) $a['id']]);
         } else {

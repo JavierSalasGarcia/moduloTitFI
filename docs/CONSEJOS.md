@@ -67,9 +67,10 @@ fila del Académico. Al importar, un caso que solo trae acuerdo de Gobierno tamb
 
 | Consejo | Decisión | Frase |
 |---|---|---|
-| Académico | Se avala | «El H. Consejo Académico avala la solicitud de » + lo que se solicita, tomado del caso (sin el «<Persona>, <cargo>, solicita» del principio) |
-| Académico | No se avala | «El H. Consejo Académico no avala la solicitud de » + lo que se solicita + « en virtud de que » + el motivo |
-| Gobierno | Se aprueba | «Se aprueba el Acuerdo del H. Consejo Académico.» (+ lo que se precise); la nota adicional se agrega al acuerdo final |
+| Académico | Se avala | «El H. Consejo Académico otorga el aval a / para …» (fórmula de las actas de 2026) repitiendo lo que se solicita, tomado del caso sin el «<Persona>, <cargo>, solicita» del principio: «solicita el aval a las comisiones…» → «otorga el aval a las comisiones…»; «solicita autorización para que sea depurada…» → «otorga el aval para que sea depurada…»; si no encaja, «otorga el aval a la solicitud de …» |
+| Académico | Con condición / se turna | «El H. Consejo Académico solicita que » + lo que se pide (revisar, esperar a que se autoricen los exámenes, enviar el caso a la Comisión de Responsabilidades y Sanciones…). Hay frases frecuentes en el botón de abajo. Es un tercer desenlace, distinto de avalar y de no avalar (migración 065) |
+| Académico | No se avala | «El H. Consejo Académico no otorga el aval …» + « en virtud de que » + el motivo. Una improcedencia se redacta con la frase frecuente «resuelve que, con base en …» |
+| Gobierno | Se aprueba | «Se aprueba el acuerdo del H. Consejo Académico.» (+ lo que se precise); la nota adicional se agrega al acuerdo final |
 | Gobierno | No se aprueba | «No se aprueba el aval del H. Consejo Académico en virtud de que » + el motivo |
 
 Lo que se escribió para una decisión se recuerda: si se cambia de decisión y se regresa, reaparece tal cual. Hay frases frecuentes («Se da por enterado el H.
@@ -211,3 +212,9 @@ Cuando se autorice, la firma entra en `Services/Dictamenes` (oficios) y `Reunion
 ## Hora y convocatorias
 
 En la reunión se captura una sola hora por Consejo: la de la **segunda convocatoria**. En una sesión **ordinaria** el acta anota además la primera convocatoria media hora antes («A LAS 08:30 HORAS EN PRIMERA CONVOCATORIA Y A LAS 09:00 HORAS EN SEGUNDA CONVOCATORIA»). En una **extraordinaria** solo hay una convocatoria («A LAS 09:00 HORAS EN ÚNICA CONVOCATORIA»). Al importar un acta que dice «primera convocatoria», la hora se corrige sumando 30 minutos.
+
+## Plantillas de solicitud por tipo de trámite
+
+Al crear un caso, «Tipo de trámite» rellena la solicitud (y los antecedentes y, si aplica, una tabla con encabezados) con la redacción literal de las actas de 2026. Los datos que cambian van entre [corchetes] y el formulario avisa si alguno queda sin llenar. Los tipos viven en `Services/Plantillas.php`: caso de profesor (informe y dictamen de año sabático, estancia, salida de capítulo estudiantil), de alumno (homologación, depuración de trayectoria, exención de servicio social, otro) y asuntos generales (examen especial y por competencias, comisiones para evaluar profesores, programas de estudio, guías de evaluación, admisión y tesis de posgrado, plantilla docente, fe de erratas). «Escribir libremente» sigue disponible. Solo se agregan plantillas con redacción vista en actas; no se inventan.
+
+Las actas no dicen a quién se notifica un acuerdo: los destinatarios del dictamen se capturan siempre a mano (ver Notificar dictamen).

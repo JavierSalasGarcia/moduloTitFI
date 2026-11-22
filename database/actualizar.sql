@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 02:48)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 06:52)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (52 fuentes, en orden).
+-- a partir de las migraciones (53 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3351,4 +3351,11 @@ PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 -- Casos que ya traen acuerdo del Consejo de Gobierno pero nunca tuvieron decisión ni acuerdo del Académico: se presentaron en el de Gobierno.
 UPDATE consejos_asuntos SET origen = 'gobierno'
  WHERE origen = 'academico' AND aval_academico = 'pendiente' AND COALESCE(acuerdo_academico, '') = '' AND COALESCE(acuerdo_gobierno, '') <> '';
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/065_consejos_aval_condiciona.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Consejos: tercer desenlace del Consejo Académico («con condición / se turna / se devuelve»), según las actas de 2026.
+ALTER TABLE consejos_asuntos
+  MODIFY aval_academico ENUM('pendiente','avala','no_avala','condiciona') NOT NULL DEFAULT 'pendiente';
 

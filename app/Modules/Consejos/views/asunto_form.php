@@ -21,7 +21,14 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
       <?php if (!$nuevo): ?><label style="margin:0;max-width:130px">Número<input type="text" name="numero" inputmode="numeric" pattern="\d{1,3}" value="<?= (int) $a['numero'] ?>"></label><?php endif; ?>
     </div>
 
-    <label>Solicitud <span class="req">*</span>
+    <?php $plantillas = \App\Modules\Consejos\Services\Plantillas::paraGrupo((string) $a['grupo']); ?>
+    <?php if ($plantillas): ?>
+    <label>Tipo de trámite (plantilla opcional)
+      <select id="plantilla"><option value="">— Escribir libremente —</option><?php foreach ($plantillas as $k => $p): ?><option value="<?= (int) $k ?>"><?= e($p['nombre']) ?></option><?php endforeach; ?></select>
+      <span class="cns-ayuda">Rellena la solicitud con la redacción que usan las actas y, si el trámite lleva tabla, la deja armada. Sustituye lo que está entre [corchetes]; el sistema avisa si queda alguno sin llenar.</span>
+    </label>
+    <?php endif; ?>
+    <label style="margin-top:12px">Solicitud <span class="req">*</span>
       <span class="cns-ayuda">Escribe o pega el texto tal como irá en el acta («El Dr. …, profesor de esta Facultad, solicita a los H.H. Consejos…»).</span>
     </label>
     <?php include __DIR__ . '/_herramientas.php'; ?>
@@ -158,9 +165,21 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     else if (cmd === 'tabla-') { if (confirm('¿Borrar toda la tabla?')) tabla.remove(); }
   }));
 
+  // Plantillas de solicitud por tipo de trámite.
+  const PLANTILLAS = <?= json_encode($plantillas, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;
+  const selPl = document.getElementById('plantilla');
+  if (selPl) selPl.addEventListener('change', () => {
+    const p = PLANTILLAS[selPl.value]; if (!p) return;
+    const sol = document.getElementById('ed-solicitud'), ant = document.getElementById('ed-antecedentes');
+    if ((sol.textContent.trim() || ant.textContent.trim()) && !confirm('Esto reemplaza la solicitud y los antecedentes que ya escribiste. ¿Continuar?')) { selPl.value = ''; return; }
+    sol.innerHTML = p.solicitud; ant.innerHTML = p.antecedentes; sol.focus();
+  });
+
   // Al enviar, el contenido de los lienzos viaja en campos ocultos.
   const form = document.getElementById('form-asunto');
-  form.addEventListener('submit', () => {
+  form.addEventListener('submit', ev => {
+    const pend = (document.getElementById('ed-solicitud').textContent + ' ' + document.getElementById('ed-antecedentes').textContent).match(/\[[^\]]{2,60}\]/g);
+    if (pend && !confirm('Aún hay datos entre corchetes sin llenar: ' + pend.slice(0, 3).join(', ') + (pend.length > 3 ? '…' : '') + '\n¿Guardar así?')) { ev.preventDefault(); return; }
     document.getElementById('in-solicitud').value = document.getElementById('ed-solicitud').innerHTML;
     document.getElementById('in-antecedentes').value = document.getElementById('ed-antecedentes').innerHTML;
   });

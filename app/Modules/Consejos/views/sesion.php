@@ -141,7 +141,7 @@ $desde = 'sesion:' . $consejo;
   const GRUPOS = {profesor: 'Casos de profesores', alumno: 'Casos de alumnos', general: 'Asuntos generales'};
   const TIPOS = {profesor: 'Caso de profesor', alumno: 'Caso de alumno', general: 'Asunto general'};
 
-  /* ---- Cómo se redactan los acuerdos. La fórmula del Consejo Académico es «El H. Consejo Académico avala la solicitud de …» y se repite
+  /* ---- Cómo se redactan los acuerdos. La fórmula del Consejo Académico (actas de 2026) es «El H. Consejo Académico otorga el aval a / para …» y se repite
      parte de lo que dice el caso, sin el «<Persona>, <cargo>, solicita» del principio: materia(a) toma lo que se solicita (hasta el fin de esa oración).
      Consejo de Gobierno: «Se aprueba el Acuerdo del H. Consejo Académico.» (+ lo que se precise) / «No se aprueba el aval del H. Consejo Académico en virtud de que …» */
   const ABREV = new Set(['dr', 'dra', 'mtro', 'mtra', 'ing', 'lic', 'prof', 'm', 'c', 'sr', 'sra', 'núm', 'num', 'art', 'etc', 'depto', 'dpto', 'en', 'ca']);
@@ -163,10 +163,20 @@ $desde = 'sesion:' . $consejo;
     }
     return r.replace(/[\s.,;:]+$/, '');
   }
+  // Fórmula de las actas de 2026: «El H. Consejo Académico otorga el aval a / para …» repitiendo lo que se solicita.
+  function tramoAval(a) {
+    const m = materia(a); if (!m) return 'a la solicitud de ';
+    let x;
+    if ((x = m.match(/^aval\s+(?:a|de)\s+(.+)$/iu))) return 'a ' + x[1];
+    if ((x = m.match(/^(?:aval|autorizaci[oó]n)\s+para\s+(.+)$/iu))) return 'para ' + x[1];
+    if ((x = m.match(/^aprobaci[oó]n\s+de\s+(.+)$/iu))) return 'a ' + x[1];
+    return 'a la solicitud de ' + m;
+  }
   const FRASES = GOB
-    ? {aprueba: () => 'Se aprueba el Acuerdo del H. Consejo Académico.', no_aprueba: () => 'No se aprueba el aval del H. Consejo Académico en virtud de que '}
-    : {avala: a => { const m = materia(a); return 'El H. Consejo Académico avala la solicitud de ' + (m ? m + '.' : ''); },
-       no_avala: a => { const m = materia(a); return 'El H. Consejo Académico no avala la solicitud de ' + (m ? m + ' ' : '') + 'en virtud de que '; }};
+    ? {aprueba: () => 'Se aprueba el acuerdo del H. Consejo Académico.', no_aprueba: () => 'No se aprueba el aval del H. Consejo Académico en virtud de que '}
+    : {avala: a => 'El H. Consejo Académico otorga el aval ' + tramoAval(a) + (materia(a) ? '.' : ''),
+       no_avala: a => 'El H. Consejo Académico no otorga el aval ' + tramoAval(a) + ' en virtud de que ',
+       condiciona: () => 'El H. Consejo Académico solicita que '};
   const frase = (a, dec) => FRASES[dec] ? FRASES[dec](a) : '';
   /* Al elegir la decisión el acuerdo cambia a la frase que le corresponde. Lo que se haya escrito para la decisión anterior no se pierde:
      se recuerda por decisión, así que al volver a elegirla reaparece tal como estaba (y «Deshacer» regresa a lo último guardado). */
@@ -178,10 +188,14 @@ $desde = 'sesion:' . $consejo;
   }
   const OPCIONES = GOB
     ? [['aprueba', 'Se aprueba', ''], ['no_aprueba', 'No se aprueba', 'neg']]
-    : [['avala', 'Se avala', ''], ['no_avala', 'No se avala', 'neg']];
+    : [['avala', 'Se avala', ''], ['condiciona', 'Con condición / se turna', ''], ['no_avala', 'No se avala', 'neg']];
   const RAPIDAS = GOB
     ? [['Se da por enterado el H. Consejo de Gobierno.', null], ['No es competencia del H. Consejo de Gobierno ', null]]
-    : [['Se da por enterado el H. Consejo Académico.', null]];
+    : [['Se da por enterado el H. Consejo Académico.', null],
+       ['El H. Consejo Académico solicita que se revisen ', 'condiciona'],
+       ['El H. Consejo Académico solicita que el aval a la integración de las comisiones revisoras se realice en el momento que se autoricen los exámenes a los alumnos.', 'condiciona'],
+       ['El H. Consejo Académico solicita se envíe el caso a la Comisión de Responsabilidades y Sanciones de la Universidad para su resolución, y se informe la determinación a este H. Consejo.', 'condiciona'],
+       ['El H. Consejo Académico resuelve que, con base en ', 'no_avala']];
   const CD = GOB ? 'aprob' : 'aval', CA = GOB ? 'acuerdoGobierno' : 'acuerdoAcademico';
 
   const lado = document.getElementById('lado'), caso = document.getElementById('caso'), estado = document.getElementById('estado');
@@ -243,7 +257,7 @@ $desde = 'sesion:' . $consejo;
 
     if (GOB && a.origen !== 'gobierno') {
       const ac = h('div', {class: 'cns-caja ref'}, h('h3', {}, 'Acuerdo del H. Consejo Académico'));
-      const et = {avala: ['Avalado', 'ok'], no_avala: ['No avalado', 'no'], pendiente: ['Sin decisión', '']}[a.aval];
+      const et = {avala: ['Avalado', 'ok'], no_avala: ['No avalado', 'no'], condiciona: ['Con condición', ''], pendiente: ['Sin decisión', '']}[a.aval];
       ac.append(h('p', {style: 'margin:0 0 6px'}, h('span', {class: 'cns-etq ' + et[1]}, et[0])));
       ac.append(h('div', {style: 'white-space:pre-wrap'}, a.acuerdoAcademico || '(sin acuerdo capturado)')); izq.append(conZoom('acad', ac));   // junto al caso: la columna izquierda es lo que se lee; la derecha, lo que se redacta
     }
