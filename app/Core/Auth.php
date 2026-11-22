@@ -285,6 +285,8 @@ final class Auth
             || (bool) preg_match('#^titulacion/revision/t/[A-Za-z0-9_-]{40,50}$#', $ruta)
             || (bool) preg_match('#^eventos/\d{1,9}/asistir/[a-f0-9]{32}$#', $ruta)
             || (bool) preg_match('#^f/[a-z0-9-]{3,80}$#', $ruta)
+            // Enlace del correo «Notificar dictamen» (Consejos): tras iniciar sesión regresa al dictamen.
+            || (bool) preg_match('#^consejos/dictamen/[A-Za-z0-9_-]{40,50}$#', $ruta)
             // Enlaces de los avisos por correo que piden firmar o consultar algo con sesión.
             || (bool) preg_match('#^(constancias/firmar(/\d{1,9})?|constancias|posgrado/firmas|posgrado/firma/mia/\d{1,9}|titulacion/firma/mia/\d{1,9}|titulacion/pendientes|titulacion/constancias|notificaciones)$#', $ruta);
     }

@@ -54,6 +54,23 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
   mencionados» en la reunión (cuando terminó el Consejo de Gobierno). Usa el mismo envío que Constancias: el servicio de correo de la
   plataforma no admite adjuntos, así que el correo lleva un enlace a «Comisiones» (pide sesión) y el PDF se descarga ahí.
 
+## Notificar dictamen (enlace con token)
+
+Con el dictamen escaneado subido, el oficio tiene el botón **«Notificar dictamen»** (`POST /consejos/oficio/{id}/avisar`; también se puede
+marcar al subir el PDF). Envía un correo —y deja la notificación en la bandeja— a los profesores mencionados en el caso y a las personas o
+correos que se agreguen con el selector. **Cada destinatario recibe su propio enlace** `GET /consejos/dictamen/{token}`:
+
+- El token (256 bits) solo viaja en el correo; en `consejos_enlaces` (migración 063) se guarda su SHA-256, el correo al que se emitió y su
+  vencimiento (**60 días**, `Services/Enlaces`). Notificar de nuevo crea otro enlace; los anteriores siguen vigentes hasta vencer.
+- La página (`EnlaceController`, pública) **le dice a la persona qué hacer**: si ya hay una cuenta con ese correo, «Iniciar sesión» (al entrar
+  regresa al enlace, `Auth::recordarDestino`); si no, «Crear mi cuenta» con ese correo (`registro`, o `registro/egresado` si no es
+  institucional) y luego volver a abrir el enlace. El correo se muestra enmascarado.
+- El token **no basta**: para ver o descargar el PDF hay que iniciar sesión con una cuenta que tenga ese correo (las cuentas se crean con
+  correo verificado). Con otra cuenta se pide cerrar sesión. `ReunionController::puedeVer()` acepta esa combinación (`Enlaces::permiteAlUsuario`)
+  y el PDF sale por el mismo `GET /consejos/archivo/{id}` de siempre (ver o `?descargar=1`).
+- Un enlace inválido o vencido muestra «no es válido o ya venció»; se pide a la Subdirección que vuelva a notificar. Cada apertura queda en
+  la auditoría (`consejos::enlace`).
+
 ## Personas: SelectorPersonas y menciones con @
 
 Todos los cuadros de Consejos donde se capturan personas usan el componente **`SelectorPersonas`** (`docs/SELECTOR_DE_PERSONAS.md`): se
@@ -109,19 +126,22 @@ búsqueda el caso se abre en modo consulta (`views/asunto_ver.php`). Si hay que 
 | `GET /consejos/archivo/{id}` (`?descargar=1`) | PDF firmado | gestor o persona mencionada |
 | `POST /consejos/archivo/{id}/quitar` | Retira un PDF | gestor |
 | `POST /consejos/reunion/{id}/importar`, `GET /consejos/plantilla-casos` | Importa casos (Word o Excel) / plantilla de Excel | gestor |
-| `POST /consejos/reunion/{id}/avisar`, `POST /consejos/oficio/{id}/avisar` | Aviso por correo y bandeja a los profesores mencionados | gestor |
+| `POST /consejos/reunion/{id}/avisar` | Aviso de comisiones a los profesores mencionados | gestor |
+| `POST /consejos/oficio/{id}/avisar` | «Notificar dictamen»: correo con enlace con token a los implicados | gestor |
+| `GET /consejos/dictamen/{token}` | Página del enlace del correo: inicia sesión o crea tu cuenta y ve/descarga el PDF | pública (el PDF exige sesión con el correo del enlace) |
 | `GET /consejos/buscar` | Búsqueda con comodines | gestor |
 | `GET /consejos/comisiones`, `GET /consejos/comisiones/{id}/actas` | Comisiones de la persona; ZIP de actas | cuenta del módulo |
 
 ## Datos
 
-Migraciones `061_consejos.sql` y `062_consejos_observaciones_avisos.sql` (repetibles; entran en `database/construir_actualizar.php`):
+Migraciones `061_consejos.sql`, `062_consejos_observaciones_avisos.sql` y `063_consejos_enlaces.sql` (repetibles; entran en `database/construir_actualizar.php`):
 
 - `consejos_reuniones`: datos de la mesa y de cada Consejo, `academico_fin` y `gobierno_fin` (terminación), `estado`.
 - `consejos_asuntos`: grupo, número, `solicitud_html`, `antecedentes_html`, `texto_busqueda`, `aval_academico`, `acuerdo_academico`,
   `aprob_gobierno`, `acuerdo_gobierno`, `nota_gobierno`, `version_acuerdo` (sube con cada cambio).
 - `consejos_asuntos.observacion` y `observacion_autor` (migración 062): comentario de Word.
 - `consejos_oficios.avisado_en` (062): último aviso por correo.
+- `consejos_enlaces` (063): token (solo su SHA-256), correo, oficio y vencimiento del enlace de «Notificar dictamen».
 - `consejos_asunto_profesores`: profesores (cuentas) mencionados en el caso.
 - `consejos_oficios`: oficio por caso o alumno; `version_acuerdo` menor que la del caso = desactualizado.
 - `consejos_archivos`: PDF escaneados (actas y dictámenes) en `storage/consejos/<reunión>/` (nunca versionado).

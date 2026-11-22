@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-21 21:59)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 02:06)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (50 fuentes, en orden).
+-- a partir de las migraciones (51 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3314,4 +3314,26 @@ PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
 SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE consejos_oficios ADD COLUMN avisado_en DATETIME NULL AFTER estado', 'DO 0')
             FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consejos_oficios' AND COLUMN_NAME = 'avisado_en');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/063_consejos_enlaces.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Consejos: enlaces con token para ver y descargar un dictamen escaneado. El correo de «Notificar dictamen» lleva el token; en la base
+-- solo se guarda su huella (SHA-256). El enlace sirve únicamente a la cuenta que tenga ese correo (verificado) y vence.
+-- Repetible: solo crea lo que falta.
+
+CREATE TABLE IF NOT EXISTS consejos_enlaces (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  oficio_id INT UNSIGNED NOT NULL,
+  email VARCHAR(160) NOT NULL,
+  token_hash CHAR(64) NOT NULL,
+  expira_en DATETIME NOT NULL,
+  creado_por INT UNSIGNED NULL,
+  creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  ultimo_acceso DATETIME NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_consejos_enlace_token (token_hash),
+  KEY idx_consejos_enlace_oficio (oficio_id, email),
+  CONSTRAINT fk_consejos_enlace_oficio FOREIGN KEY (oficio_id) REFERENCES consejos_oficios (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 

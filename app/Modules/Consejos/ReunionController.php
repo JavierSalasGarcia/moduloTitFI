@@ -211,6 +211,10 @@ final class ReunionController extends ConsejosBase
             return false;
         }
         if ($f['tipo'] === 'dictamen') {
+            // Quien abrió el enlace de «Notificar dictamen» con la cuenta del correo al que se envió.
+            if (!empty($f['oficio_id']) && \App\Modules\Consejos\Services\Enlaces::permiteAlUsuario((int) $f['oficio_id'])) {
+                return true;
+            }
             return $f['asunto_id'] && Database::valor('SELECT 1 FROM consejos_asunto_profesores WHERE asunto_id = ? AND usuario_id = ?', [(int) $f['asunto_id'], Auth::id()]);
         }
         return ConsejosAccess::mencionadoEn((int) $f['reunion_id']);

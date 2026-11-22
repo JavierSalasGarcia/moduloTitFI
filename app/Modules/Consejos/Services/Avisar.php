@@ -12,30 +12,44 @@ use App\Core\Database;
  */
 final class Avisar
 {
-    private static function enviar(string $correo, string $nombre, string $asunto, string $texto): bool
+    private static function enviar(string $correo, string $nombre, string $asunto, string $texto, string $ruta = 'consejos/comisiones', string $boton = 'Ver mis comisiones y dictámenes'): bool
     {
         if (!class_exists(\App\Modules\Constancias\Services\Aviso::class) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
-        \App\Modules\Constancias\Services\Aviso::enviar($correo, $nombre, $asunto, $texto, 'consejos/comisiones', 'Ver mis comisiones y dictámenes');
+        \App\Modules\Constancias\Services\Aviso::enviar($correo, $nombre, $asunto, $texto, $ruta, $boton);
         return true;
     }
 
-    /** Avisa del dictamen de un oficio a los profesores mencionados en su caso y, si se indica, a otro correo. @return int avisos enviados */
-    public static function oficio(array $oficio, array $asunto, array $reunion, string $otroCorreo = ''): int
+    /**
+     * «Notificar dictamen»: correo a los profesores mencionados en el caso y a los correos que se indiquen, cada uno con su propio enlace
+     * con token (`Services/Enlaces`). El enlace pide iniciar sesión con ese correo (o crear la cuenta si no existe) y da el PDF.
+     * @param string[] $otros correos adicionales
+     * @return int avisos enviados
+     */
+    public static function oficio(array $oficio, array $asunto, array $reunion, array $otros = [], ?int $por = null): int
     {
         $clave = Texto::clave($asunto['grupo'], (int) $asunto['numero']);
         $texto = 'Ya está disponible el dictamen ' . $oficio['numero'] . ' (caso ' . $clave . ', reunión ' . $reunion['etiqueta'] . ') de los HH. Consejos Académico y de Gobierno de la Facultad de Ingeniería. '
-            . 'Puedes consultarlo y descargarlo, firmado y sellado, en Constancias → Comisiones.';
-        $n = 0;
-        $vistos = [];
+            . "Para verlo y descargarlo, firmado y sellado, abre el enlace e inicia sesión en Traza FI con este mismo correo; si todavía no tienes cuenta, el enlace te lleva a crearla.\n"
+            . 'El enlace vence en ' . Enlaces::VIGENCIA_DIAS . ' días y solo funciona con la cuenta de este correo.';
+        $destinos = [];
         foreach (Database::todas('SELECT u.nombre, u.email FROM consejos_asunto_profesores p JOIN usuarios u ON u.id = p.usuario_id WHERE p.asunto_id = ? AND u.activo = 1', [(int) $asunto['id']]) as $u) {
-            $vistos[strtolower((string) $u['email'])] = true;
-            $n += self::enviar((string) $u['email'], (string) $u['nombre'], 'Dictamen de los HH. Consejos · ' . $oficio['numero'], $texto) ? 1 : 0;
+            $destinos[strtolower((string) $u['email'])] = (string) $u['nombre'];
         }
-        $otroCorreo = strtolower(trim($otroCorreo));
-        if ($otroCorreo !== '' && empty($vistos[$otroCorreo])) {
-            $n += self::enviar($otroCorreo, '', 'Dictamen de los HH. Consejos · ' . $oficio['numero'], $texto) ? 1 : 0;
+        foreach ($otros as $c) {
+            $c = strtolower(trim((string) $c));
+            if ($c !== '' && !isset($destinos[$c])) {
+                $destinos[$c] = '';
+            }
+        }
+        $n = 0;
+        foreach ($destinos as $correo => $nombre) {
+            if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+                continue;
+            }
+            $token = Enlaces::crear((int) $oficio['id'], $correo, $por);
+            $n += self::enviar($correo, $nombre, 'Dictamen de los HH. Consejos · ' . $oficio['numero'], $texto, 'consejos/dictamen/' . $token, 'Ver y descargar el dictamen') ? 1 : 0;
         }
         if ($n > 0) {
             Database::ejecutar('UPDATE consejos_oficios SET avisado_en = NOW() WHERE id = ?', [(int) $oficio['id']]);

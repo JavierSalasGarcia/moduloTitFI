@@ -142,7 +142,7 @@ final class OficioController extends ConsejosBase
         Audit::record('consejos::archivo', 'correcto', 'Sube dictamen oficio ' . $o['numero']);
         $avisados = 0;
         if ($this->post('avisar') === '1' && !empty($r['gobierno_fin'])) {
-            $avisados = Avisar::oficio($o, $a, $r, $this->post('correo'));
+            $avisados = Avisar::oficio($o, $a, $r, $this->correos(), Auth::id());
         }
         flash('exito', 'Dictamen escaneado guardado.' . ($avisados ? ' Se avisó a ' . $avisados . ' persona' . ($avisados > 1 ? 's' : '') . ' por correo.' : ''));
         redirigir('consejos/oficio/' . $o['id']);
@@ -153,15 +153,28 @@ final class OficioController extends ConsejosBase
     {
         $this->gestor();
         [$o, $a, $r] = $this->cargar($id);
-        $correo = strtolower($this->post('correo'));
-        if ($correo !== '' && !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            flash('error', 'El correo no es válido.');
+        if (!Database::valor("SELECT 1 FROM consejos_archivos WHERE oficio_id = ? AND tipo = 'dictamen' LIMIT 1", [(int) $o['id']])) {
+            flash('error', 'Primero sube el dictamen escaneado: el correo lleva el enlace para verlo y descargarlo.');
             redirigir('consejos/oficio/' . $o['id']);
         }
-        $n = Avisar::oficio($o, $a, $r, $correo);
+        $n = Avisar::oficio($o, $a, $r, $this->correos(), Auth::id());
         Audit::record('consejos::avisar', 'correcto', 'Oficio ' . $o['numero'] . ': ' . $n);
-        flash($n ? 'exito' : 'alerta', $n ? 'Aviso enviado a ' . $n . ' persona' . ($n > 1 ? 's' : '') . '.' : 'No hay a quién avisar: el caso no menciona profesores con cuenta y no escribiste un correo.');
+        flash($n ? 'exito' : 'alerta', $n ? 'Dictamen notificado a ' . $n . ' persona' . ($n > 1 ? 's' : '') . '.' : 'No hay a quién notificar: el caso no menciona profesores con cuenta y no agregaste a nadie más.');
         redirigir('consejos/oficio/' . $o['id']);
+    }
+
+    /** Correos adicionales elegidos en el selector de personas (solo direcciones válidas). @return string[] */
+    private function correos(): array
+    {
+        $crudo = $_POST['correos'] ?? [];
+        $lista = [];
+        foreach ((array) $crudo as $c) {
+            $c = strtolower(trim((string) $c));
+            if ($c !== '' && filter_var($c, FILTER_VALIDATE_EMAIL)) {
+                $lista[] = $c;
+            }
+        }
+        return array_slice(array_values(array_unique($lista)), 0, 10);
     }
 
     /** @return array{0:array,1:array,2:array} oficio, asunto y reunión */

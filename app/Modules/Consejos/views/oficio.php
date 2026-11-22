@@ -43,18 +43,18 @@ $desactualizado = (int) $a['version_acuerdo'] > (int) $o['version_acuerdo'];
     <form class="cns-acciones" method="post" enctype="multipart/form-data" action="<?= e(url('consejos/oficio/' . $o['id'] . '/escaneado')) ?>">
       <?= $csrf ?>
       <input type="file" name="archivo" accept="application/pdf" required>
-      <label style="margin:0;font-weight:400"><input type="checkbox" name="avisar" value="1" checked> Avisar por correo</label>
-      <?php $campo = 'correo'; $url = url('consejos/personas') . '?alumnos=1'; $seleccion = []; $id = ''; $max = 1; $libre = true; $valor = 'email'; $placeholder = 'Otra persona o correo (opcional)'; $etiqueta = 'Otro destinatario del aviso';
+      <label style="margin:0;font-weight:400"><input type="checkbox" name="avisar" value="1" checked> Notificar el dictamen por correo</label>
+      <?php $campo = 'correos[]'; $url = url('consejos/personas') . '?alumnos=1'; $seleccion = []; $id = ''; $max = 0; $libre = true; $valor = 'email'; $placeholder = 'Agregar a otra persona o correo (opcional)'; $etiqueta = 'Otros destinatarios de la notificación';
             include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?>
       <button class="btn" type="submit"><?= $archivos ? 'Reemplazar' : 'Subir PDF' ?></button>
     </form>
-    <p class="cns-ayuda">El aviso llega a los profesores mencionados en el caso (correo y bandeja de Notificaciones) y, si lo escribes, a otro correo. El correo lleva un enlace a «Comisiones»; el PDF se descarga ahí con sesión.</p>
+    <p class="cns-ayuda">«Notificar dictamen» envía un correo a los profesores mencionados en el caso (y a quien agregues) con un enlace personal: al abrirlo se les pide iniciar sesión con ese correo, o crear su cuenta si aún no tienen, y entonces ven y descargan el PDF. El enlace vence en 60 días y solo funciona con la cuenta de ese correo.</p>
     <?php if ($archivos): ?>
     <form class="cns-acciones" method="post" action="<?= e(url('consejos/oficio/' . $o['id'] . '/avisar')) ?>">
       <?= $csrf ?>
-      <?php $campo = 'correo'; $url = url('consejos/personas') . '?alumnos=1'; $seleccion = []; $id = ''; $max = 1; $libre = true; $valor = 'email'; $placeholder = 'Otra persona o correo (opcional)'; $etiqueta = 'Otro destinatario del aviso';
+      <?php $campo = 'correos[]'; $url = url('consejos/personas') . '?alumnos=1'; $seleccion = []; $id = ''; $max = 0; $libre = true; $valor = 'email'; $placeholder = 'Agregar a otra persona o correo (opcional)'; $etiqueta = 'Otros destinatarios de la notificación';
             include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?>
-      <button class="btn" type="submit">✉️ Avisar de nuevo</button>
+      <button class="btn" type="submit">✉️ Notificar dictamen</button>
       <?php if (!empty($o['avisado_en'])): ?><span class="cns-ayuda">Último aviso: <?= e(date('d/m/Y H:i', strtotime((string) $o['avisado_en']))) ?></span><?php endif; ?>
     </form>
     <?php endif; ?>

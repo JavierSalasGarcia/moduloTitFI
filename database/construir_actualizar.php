@@ -52,6 +52,7 @@ $fuentes = [
     'migrations/053_posgrado_academico.sql',
     'migrations/061_consejos.sql',
     'migrations/062_consejos_observaciones_avisos.sql',
+    'migrations/063_consejos_enlaces.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */

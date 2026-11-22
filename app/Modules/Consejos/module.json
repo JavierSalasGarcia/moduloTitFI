@@ -47,6 +47,7 @@
     "POST /consejos/reunion/{id}/eliminar": ["App\\Modules\\Consejos\\ReunionController", "eliminar"],
     "GET /consejos/reunion/{id}/acta/{consejo}": ["App\\Modules\\Consejos\\ReunionController", "acta"],
     "POST /consejos/reunion/{id}/acta/{consejo}/firmada": ["App\\Modules\\Consejos\\ReunionController", "subirFirmada"],
+    "GET /consejos/dictamen/{token}": ["App\\Modules\\Consejos\\EnlaceController", "ver", "publico"],
     "GET /consejos/archivo/{id}": ["App\\Modules\\Consejos\\ReunionController", "archivo"],
     "POST /consejos/archivo/{id}/quitar": ["App\\Modules\\Consejos\\ReunionController", "quitarArchivo"],
 
