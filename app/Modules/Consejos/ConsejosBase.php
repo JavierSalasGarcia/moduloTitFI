@@ -116,9 +116,14 @@ abstract class ConsejosBase extends Controller
         return $ruta;
     }
 
-    protected function enviarPdf(string $absoluta, string $nombre, bool $enLinea = true): never
+    protected function enviarPdf(string $absoluta, string $nombre, bool $enLinea = true, bool $marco = false): never
     {
         $this->privado();
+        if ($marco) {
+            // Para mostrarlo dentro de la propia plataforma (visor de la sesión proyectada): solo se permite enmarcarlo desde este mismo sitio.
+            header('X-Frame-Options: SAMEORIGIN');
+            header("Content-Security-Policy: frame-ancestors 'self'");
+        }
         header('Content-Type: application/pdf');
         header('X-Content-Type-Options: nosniff');
         header('Content-Disposition: ' . ($enLinea ? 'inline' : 'attachment') . '; filename="' . (preg_replace('/[^A-Za-z0-9._-]+/', '_', $nombre) ?: 'archivo.pdf') . '"');

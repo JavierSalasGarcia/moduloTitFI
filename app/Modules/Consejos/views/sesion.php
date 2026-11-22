@@ -67,6 +67,11 @@ $desde = 'sesion:' . $consejo;
 .cns-ses.proy .cns-caja.ref{flex:none}
 .cns-ses.proy .cns-decide label{padding:.45em .9em;font-size:1em}
 .cns-ses.proy .cns-nav{flex:none}
+.cns-oficio{position:fixed;inset:0;z-index:400;background:#2b2b2b;display:flex;flex-direction:column}
+.cns-oficio[hidden]{display:none}
+.cns-oficio-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px;background:#fff;flex-wrap:wrap}
+.cns-oficio-bar .btn{min-height:0 !important}
+.cns-oficio iframe{flex:1;border:0;background:#fff;width:100%}
 .cns-ses.proy.una .cns-cols{display:flex;flex-direction:column;overflow:auto;gap:1vh}
 .cns-ses.proy.una .cns-col{overflow:visible;flex:none;min-height:auto}
 .cns-ses.proy.una .cns-sec.crece{flex:none}
@@ -107,12 +112,20 @@ $desde = 'sesion:' . $consejo;
         <button class="btn" type="button" id="ant">← Anterior</button>
         <span class="cns-estado-guardado" id="estado" role="status"></span>
         <span class="cns-bot">
+          <button class="btn" type="button" id="ver-oficio" aria-label="Mostrar el oficio original de la solicitud" hidden>📄 Oficio</button>
           <button class="btn" type="button" id="una-col" aria-label="Mostrar todo en una columna (útil con tablas anchas)" aria-pressed="false">▤ 1 columna</button>
           <button class="btn" type="button" id="deshacer" aria-label="Deshacer: vuelve a lo último que se guardó en este caso">↶ Deshacer</button>
           <button class="btn btn-primario" type="button" id="guardar" aria-label="Guardar (Ctrl+S)">💾 Guardar</button>
           <button class="btn btn-mini cns-solo-proy" type="button" id="btn-salir-proy">Salir</button>
         </span>
         <button class="btn btn-primario" type="button" id="sig">Siguiente →</button>
+      </div>
+      <div class="cns-oficio" id="oficio-vista" hidden role="dialog" aria-label="Oficio original de la solicitud">
+        <div class="cns-oficio-bar">
+          <strong>Oficio original de la solicitud</strong>
+          <span class="cns-bot"><button class="btn btn-mini" type="button" id="of-gen">Oficio</button><button class="btn btn-mini" type="button" id="of-esc">Escaneado firmado</button><button class="btn btn-primario btn-mini" type="button" id="of-cerrar">Cerrar</button></span>
+        </div>
+        <iframe id="of-marco" title="Oficio original de la solicitud"></iframe>
       </div>
       <?php if (!$terminada): ?>
       <form method="post" action="<?= e(url('consejos/reunion/' . $r['id'] . '/sesion/' . $consejo . '/terminar')) ?>" class="tarjeta cns-solo-gestion cns-acciones" style="margin-top:14px">
@@ -136,6 +149,7 @@ $desde = 'sesion:' . $consejo;
   const REUNION = <?= (int) $r['id'] ?>, DESDE = '<?= e($desde) ?>';
   const URL_GUARDAR = id => '<?= e(url('consejos/asunto')) ?>/' + id + '/acuerdo';
   const URL_NUEVO = g => '<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo')) ?>?grupo=' + g + '&desde=' + encodeURIComponent(DESDE);
+  const URL_OFICIO = (id, esc) => '<?= e(url('consejos/solicitudes')) ?>/' + id + (esc ? '/escaneado' : '/oficio') + '?marco=1';
   const URL_EDITAR = id => '<?= e(url('consejos/asunto')) ?>/' + id + '/editar?desde=' + encodeURIComponent(DESDE);
   const CSRF = '<?= e(Auth::csrfToken()) ?>';
   const GRUPOS = {profesor: 'Casos de profesores', alumno: 'Casos de alumnos', general: 'Asuntos generales'};
@@ -245,6 +259,7 @@ $desde = 'sesion:' . $consejo;
 
   function pintarCaso() {
     const a = DATOS[i]; caso.innerHTML = '';
+    document.getElementById('ver-oficio').hidden = !(a.solId && (a.oficio || a.escaneado));
     const cab = h('div', {class: 'cns-caso-cab'}, h('h2', {}, a.clave + ' · ' + TIPOS[a.grupo]));
     if (a.origen === 'gobierno') cab.append(h('span', {class: 'cns-etq', title: 'Se presentó directamente al Consejo de Gobierno'}, 'Nuevo en el Consejo de Gobierno'));
     if (!BLOQUEADA) cab.append(h('a', {class: 'btn btn-mini cns-solo-gestion', href: URL_EDITAR(a.id)}, 'Editar el caso'));
@@ -346,6 +361,14 @@ $desde = 'sesion:' . $consejo;
   const bUna = document.getElementById('una-col');
   const pintarUna = () => { ses.classList.toggle('una', UNA); bUna.setAttribute('aria-pressed', UNA ? 'true' : 'false'); bUna.textContent = UNA ? '▥ 2 columnas' : '▤ 1 columna'; ajustar(); };
   bUna.addEventListener('click', () => { UNA = !UNA; guardarPref(); pintarUna(); });
+  // Oficio original de la solicitud (cuando el caso nació de una): el generado, o el escaneado con las firmas.
+  const bOf = document.getElementById('ver-oficio'), vista = document.getElementById('oficio-vista'), marco = document.getElementById('of-marco');
+  const abrirOficio = esc => { const a = DATOS[i]; if (!a.solId) return; marco.src = URL_OFICIO(a.solId, esc); document.getElementById('of-gen').hidden = !a.oficio; document.getElementById('of-esc').hidden = !a.escaneado; vista.hidden = false; };
+  const cerrarOficio = () => { vista.hidden = true; marco.removeAttribute('src'); };
+  bOf.addEventListener('click', () => abrirOficio(!!DATOS[i].escaneado));
+  document.getElementById('of-gen').addEventListener('click', () => abrirOficio(false));
+  document.getElementById('of-esc').addEventListener('click', () => abrirOficio(true));
+  document.getElementById('of-cerrar').addEventListener('click', cerrarOficio);
   const proyectar = on => {
     ses.classList.toggle('proy', on); ajustar();
     if (on && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
@@ -353,7 +376,7 @@ $desde = 'sesion:' . $consejo;
   };
   document.getElementById('btn-proy').addEventListener('click', () => proyectar(!ses.classList.contains('proy')));
   document.getElementById('btn-salir-proy').addEventListener('click', () => proyectar(false));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && ses.classList.contains('proy')) proyectar(false); });
+  document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!vista.hidden) { cerrarOficio(); return; } if (ses.classList.contains('proy')) proyectar(false); });
 
   // Caso a mostrar al regresar de agregar o editar uno (?caso=ID) y «Proyectar» desde la reunión (?proyectar=1: la pantalla completa la pide el botón).
   const p = new URLSearchParams(location.search), k0 = DATOS.findIndex(a => String(a.id) === p.get('caso'));

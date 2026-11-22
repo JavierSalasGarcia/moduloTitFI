@@ -34,7 +34,7 @@ include __DIR__ . '/_estilos.php';
   <section class="tarjeta">
     <h2 style="margin:0 0 6px;font-size:18px">Cómo funciona cada modo</h2>
     <ul style="margin:0;padding-left:20px;line-height:1.6">
-      <li><strong>Autógrafa:</strong> el oficio se genera en la hoja membretada con los espacios de firma; se imprime, firman quien solicita y la coordinación, y se sube el escaneado.</li>
+      <li><strong>Autógrafa:</strong> la revisión y el Vo. Bo. se hacen dentro de la plataforma; después del Vo. Bo. se imprime el oficio (hoja membretada con los espacios de firma), firman quien solicita y la coordinación, y se sube el escaneado para incluirlo en el acta.</li>
       <li><strong>Firma interna:</strong> quien solicita y quien da el Vo. Bo. firman dentro de la plataforma; el oficio recibe un sello de conformidad con la huella del documento (registro interno, no firma electrónica).</li>
       <li><strong>Electrónica:</strong> queda reservada para cuando los Consejos la autoricen.</li>
     </ul>

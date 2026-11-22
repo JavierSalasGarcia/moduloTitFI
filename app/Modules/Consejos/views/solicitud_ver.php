@@ -60,8 +60,12 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
       <li>Firma de quien solicita: <strong><?= $modoSol === 'interna' ? 'firma interna de la plataforma (sello de conformidad)' : 'autógrafa' ?></strong></li>
       <li>Vo. Bo. de la coordinación: <strong><?= $modoVobo === 'interna' ? 'firma interna de la plataforma (sello de conformidad)' : 'autógrafa' ?></strong></li>
     </ul>
-    <?php if ($necesitaEscaneado && $s['estado'] !== 'borrador' && $s['estado'] !== 'cancelada'): ?>
-      <p class="cns-ayuda">Con firma autógrafa: imprime el oficio, que firmen quien solicita y la coordinación (Vo. Bo.), y sube aquí el escaneado.</p>
+    <?php $conVobo = in_array($s['estado'], ['visto_bueno', 'incorporada'], true); ?>
+    <?php if ($necesitaEscaneado && !$conVobo && in_array($s['estado'], ['enviada', 'devuelta'], true)): ?>
+      <p class="cns-ayuda">La revisión y el Vo. Bo. se hacen aquí, dentro de la plataforma. La firma autógrafa va <strong>después</strong> del Vo. Bo. (o del de enterado): entonces se imprime el oficio, firman quien solicita y la coordinación, y se sube el escaneado para el acta.</p>
+    <?php endif; ?>
+    <?php if ($necesitaEscaneado && $conVobo): ?>
+      <p class="cns-ayuda">Ya hay Vo. Bo. de la coordinación. Con firma autógrafa: imprime el oficio, que firmen quien solicita y la coordinación, y sube aquí el escaneado; se incluye en el acta.</p>
       <?php if ($s['escaneado_ruta']): ?><p>Escaneado subido el <?= e(date('d/m/Y H:i', strtotime((string) $s['escaneado_en']))) ?>: <a href="<?= $ruta($s['id'] . '/escaneado') ?>" target="_blank" rel="noopener">verlo</a></p>
       <?php else: ?><p><span class="cns-etq no">Falta el escaneado firmado</span></p><?php endif; ?>
       <form method="post" action="<?= $ruta($s['id'] . '/escaneado') ?>" enctype="multipart/form-data" class="cns-acciones"><?= $csrf ?>

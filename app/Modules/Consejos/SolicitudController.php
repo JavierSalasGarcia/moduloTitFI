@@ -272,7 +272,7 @@ final class SolicitudController extends ConsejosBase
         if (!$abs) {
             $this->noEncontrado();
         }
-        $this->enviarPdf($abs, 'Solicitud_' . $s['folio'] . '.pdf', ($_GET['descargar'] ?? '') !== '1');
+        $this->enviarPdf($abs, 'Solicitud_' . $s['folio'] . '.pdf', ($_GET['descargar'] ?? '') !== '1', ($_GET['marco'] ?? '') === '1');
     }
 
     public function escaneado(string $id): void
@@ -282,15 +282,15 @@ final class SolicitudController extends ConsejosBase
         if (!$abs) {
             $this->noEncontrado();
         }
-        $this->enviarPdf($abs, 'Solicitud_firmada_' . $s['folio'] . '.pdf');
+        $this->enviarPdf($abs, 'Solicitud_firmada_' . $s['folio'] . '.pdf', true, ($_GET['marco'] ?? '') === '1');
     }
 
     /** Sube el oficio impreso con el Vo. Bo. y la firma autógrafa, escaneado. */
     public function subirEscaneado(string $id): void
     {
         $s = $this->solicitud($id);
-        if (in_array($s['estado'], ['borrador', 'cancelada'], true)) {
-            flash('error', 'Primero hay que enviar la solicitud.');
+        if (!in_array($s['estado'], ['visto_bueno', 'incorporada'], true)) {
+            flash('error', 'El escaneado firmado se sube después del Vo. Bo. (o del de enterado) de la coordinación.');
             redirigir('consejos/solicitudes/' . $s['id']);
         }
         [$rel, , $error] = $this->guardarPdf($_FILES['archivo'] ?? [], 'solicitudes/' . (int) $s['id']);

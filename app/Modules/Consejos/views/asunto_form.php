@@ -21,6 +21,9 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
       <?php if (!$nuevo): ?><label style="margin:0;max-width:130px">Número<input type="text" name="numero" inputmode="numeric" pattern="\d{1,3}" value="<?= (int) $a['numero'] ?>"></label><?php endif; ?>
     </div>
 
+    <?php if (!empty($a['solicitud_id'])): ?>
+    <p class="cns-ayuda" style="background:#f3f8f3;border:1px solid var(--gris-100);border-radius:var(--radio);padding:8px 12px">Este caso viene de una solicitud con Vo. Bo. de la coordinación. Aquí puedes editarlo con el mismo lienzo (tablas incluidas); el oficio original no cambia: <a href="<?= e(url('consejos/solicitudes/' . (int) $a['solicitud_id'])) ?>">ver la solicitud y su oficio</a>.</p>
+    <?php endif; ?>
     <?php $plantillas = \App\Modules\Consejos\Services\Plantillas::paraGrupo((string) $a['grupo']); ?>
     <?php if ($plantillas): ?>
     <label>Tipo de trámite (plantilla opcional)

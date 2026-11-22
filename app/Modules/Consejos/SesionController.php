@@ -20,10 +20,10 @@ final class SesionController extends ConsejosBase
         $r = $this->reunion($id);
         $consejo = self::consejo($consejo);
         // Los casos son los mismos para los dos Consejos; en el Académico no salen los que nacieron en el de Gobierno.
-        $filas = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ?" . ($consejo === 'academico' ? " AND origen = 'academico'" : '') . " ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
+        $filas = Database::todas("SELECT a.*, s.id AS sol_id, s.oficio_ruta AS sol_oficio, s.escaneado_ruta AS sol_escaneado FROM consejos_asuntos a LEFT JOIN consejos_solicitudes s ON s.id = a.solicitud_id WHERE a.reunion_id = ?" . ($consejo === 'academico' ? " AND a.origen = 'academico'" : '') . " ORDER BY FIELD(a.grupo, 'profesor', 'alumno', 'general'), a.numero", [(int) $r['id']]);
         $asuntos = array_map(static fn(array $a) => [
             'id' => (int) $a['id'], 'clave' => Texto::clave($a['grupo'], (int) $a['numero']), 'grupo' => $a['grupo'], 'origen' => (string) $a['origen'],
-            'observacion' => (string) $a['observacion'], 'solicitud' => (string) $a['solicitud_html'], 'antecedentes' => (string) $a['antecedentes_html'],
+            'observacion' => (string) $a['observacion'], 'solId' => (int) ($a['sol_id'] ?? 0), 'oficio' => !empty($a['sol_oficio']), 'escaneado' => !empty($a['sol_escaneado']), 'solicitud' => (string) $a['solicitud_html'], 'antecedentes' => (string) $a['antecedentes_html'],
             'aval' => (string) $a['aval_academico'], 'acuerdoAcademico' => (string) $a['acuerdo_academico'],
             'aprob' => (string) $a['aprob_gobierno'], 'acuerdoGobierno' => (string) $a['acuerdo_gobierno'], 'nota' => (string) $a['nota_gobierno'],
         ], $filas);
