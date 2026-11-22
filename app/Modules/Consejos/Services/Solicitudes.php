@@ -97,6 +97,13 @@ final class Solicitudes
             "INSERT INTO consejos_asuntos (reunion_id, grupo, numero, origen, solicitud_id, solicitud_html, antecedentes_html, texto_busqueda, creado_por) VALUES (?, ?, ?, 'academico', ?, ?, ?, ?, ?)",
             [$reunionId, $s['grupo'], $numero, (int) $s['id'], $s['solicitud_html'], $ant, trim(Html::texto((string) $s['solicitud_html']) . "\n" . Html::texto($ant)), (int) $s['solicitante_id']]
         );
+        // Los anexos de la solicitud pasan al caso y se citan en sus antecedentes.
+        $anexos = Adjuntos::de('solicitud_id', (int) $s['id']);
+        if ($anexos) {
+            Database::ejecutar('UPDATE consejos_adjuntos SET asunto_id = ? WHERE solicitud_id = ?', [$aid, (int) $s['id']]);
+            $nota = '<p><i>Anexos: ' . htmlspecialchars(Adjuntos::lista($anexos), ENT_QUOTES, 'UTF-8') . '.</i></p>';
+            Database::ejecutar('UPDATE consejos_asuntos SET antecedentes_html = CONCAT(COALESCE(antecedentes_html, \'\'), ?) WHERE id = ?', [$nota, $aid]);
+        }
         $ids = array_filter(array_map('intval', explode(',', (string) $s['profesores'])));
         if ($s['grupo'] === 'profesor') {
             $ids[] = (int) $s['solicitante_id'];

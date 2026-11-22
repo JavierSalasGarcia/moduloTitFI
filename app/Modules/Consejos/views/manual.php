@@ -79,6 +79,7 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
       <li><h3>Elige el tipo de trámite</h3>El menú «Tipo de trámite» rellena la solicitud con la redacción oficial. Si no hay uno parecido, usa «Otro» o escribe libremente.</li>
       <li><h3>Llena lo resaltado</h3>Sustituye cada dato entre <mark>[corchetes]</mark> (nombre, cuenta, periodo…). Borra las opciones que no apliquen, por ejemplo «[Examen Especial / Examen por Competencias]».</li>
       <li><h3>Completa los antecedentes</h3>Es la lista de documentos que se anexan («Oficio de solicitud»). Las tablas de Word se pegan con Ctrl+C / Ctrl+V.</li>
+      <li><h3>Sube los anexos</h3>Si tu caso lleva documentos (constancias, oficios…), adjúntalos y escribe de qué es cada uno. En el caso de un oficio que llegó impreso, sube el escaneado como «Oficio original escaneado»: se muestra en la proyección.</li>
       <li><h3>Menciona a los profesores</h3>Escribe <strong>@</strong> y parte del nombre; así el caso aparece en Comisiones. Nunca se deduce por el nombre.</li>
       <li><h3>Guarda</h3>Si queda un dato entre corchetes sin llenar, el sistema te avisa antes de guardar.</li>
     </ol>

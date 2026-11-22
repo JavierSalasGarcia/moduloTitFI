@@ -74,7 +74,8 @@ final class SolicitudController extends ConsejosBase
         $ids = array_filter(array_map('intval', explode(',', (string) ($s['profesores'] ?? ''))));
         $profes = $ids ? Database::todas('SELECT id, nombre, email FROM usuarios WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ') ORDER BY nombre', array_values($ids)) : [];
         $this->vista('solicitud_form', ['titulo' => $s['id'] ? 'Editar solicitud' : 'Nueva solicitud', 's' => $s, 'profesores' => $profes,
-            'coordinaciones' => Solicitudes::coordinaciones(), 'plantillas' => Plantillas::paraGrupo('')]);
+            'coordinaciones' => Solicitudes::coordinaciones(), 'plantillas' => Plantillas::paraGrupo(''),
+            'adjuntos' => $s['id'] ? \App\Modules\Consejos\Services\Adjuntos::de('solicitud_id', (int) $s['id']) : []]);
     }
 
     public function crear(): void
@@ -124,6 +125,7 @@ final class SolicitudController extends ConsejosBase
             Database::ejecutar('UPDATE consejos_solicitudes SET folio = ? WHERE id = ?', [Solicitudes::folio($id), $id]);
         }
         Audit::record('consejos::solicitud', 'correcto', ($previa ? 'Edita ' : 'Crea ') . Solicitudes::folio($id));
+        $this->avisarAdjuntos(\App\Modules\Consejos\Services\Adjuntos::guardarDelFormulario(['solicitud_id' => $id]));
         if ($this->post('accion') === 'enviar') {
             $this->enviarYa($id);
         }
@@ -260,7 +262,7 @@ final class SolicitudController extends ConsejosBase
     {
         $s = $this->solicitud($id);
         $solicitante = Database::una('SELECT nombre, grado, email FROM usuarios WHERE id = ?', [(int) $s['solicitante_id']]);
-        $this->vista('solicitud_ver', ['titulo' => 'Solicitud ' . $s['folio'], 's' => $s, 'solicitante' => $solicitante, 'historial' => Solicitudes::historial((int) $s['id']),
+        $this->vista('solicitud_ver', ['titulo' => 'Solicitud ' . $s['folio'], 's' => $s, 'solicitante' => $solicitante, 'historial' => Solicitudes::historial((int) $s['id']), 'adjuntos' => \App\Modules\Consejos\Services\Adjuntos::de('solicitud_id', (int) $s['id']),
             'caso' => $s['asunto_id'] ? Database::una('SELECT a.grupo, a.numero, r.etiqueta, r.id AS reunion FROM consejos_asuntos a JOIN consejos_reuniones r ON r.id = a.reunion_id WHERE a.id = ?', [(int) $s['asunto_id']]) : null,
             'reuniones' => ConsejosAccess::esGestor() ? Database::todas("SELECT id, etiqueta FROM consejos_reuniones WHERE estado = 'preparacion' ORDER BY id DESC") : []]);
     }

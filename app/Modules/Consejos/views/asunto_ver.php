@@ -16,6 +16,7 @@ $clave = Texto::clave($a['grupo'], (int) $a['numero']);
     <?php if (trim((string) $a['antecedentes_html']) !== ''): ?><h2>Documentos y/o antecedentes</h2><?= $a['antecedentes_html'] ?><?php endif; ?>
     <?php if (trim((string) ($a['acuerdo_academico'] ?? '')) !== ''): ?><h2>Acuerdo del H. Consejo Académico</h2><p><?= e((string) $a['acuerdo_academico']) ?></p><?php endif; ?>
     <?php if (trim((string) ($a['acuerdo_gobierno'] ?? '')) !== ''): ?><h2>Acuerdo del H. Consejo de Gobierno</h2><p><?= e((string) $a['acuerdo_gobierno']) ?></p><?php endif; ?>
+    <?php if (!empty($adjuntos)): ?><h2>Documentos del caso</h2><?php $lista = $adjuntos; $quitar = false; include __DIR__ . '/_adjuntos_lista.php'; ?><?php endif; ?>
     <?php if ($profesores): ?><h2>Profesores mencionados</h2><p><?= e(implode(', ', array_column($profesores, 'nombre'))) ?></p><?php endif; ?>
   </section>
 </div>

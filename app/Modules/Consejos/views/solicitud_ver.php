@@ -1,5 +1,5 @@
 <?php
-/** @var array $s @var array $solicitante @var ?array $caso @var array $reuniones @var array $historial */
+/** @var array $s @var array $solicitante @var ?array $caso @var array $reuniones @var array $historial @var array $adjuntos */
 use App\Core\Auth;
 use App\Modules\Consejos\ConsejosAccess;
 use App\Modules\Consejos\Services\FirmaConfig;
@@ -36,6 +36,22 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
     <?php if (trim(strip_tags((string) $s['antecedentes_html'])) !== ''): ?><h3 style="margin:14px 0 4px;font-size:15px">Documentos y/o antecedentes</h3><div class="cns-doc"><?= $s['antecedentes_html'] ?></div><?php endif; ?>
     <p class="cns-ayuda" style="margin-top:12px"><?= e(Solicitudes::fundamento()) ?></p>
   </section>
+
+  <?php $editable = $soy && in_array($s['estado'], ['borrador', 'devuelta'], true); ?>
+  <?php if ($adjuntos || $editable): ?>
+  <section class="tarjeta">
+    <h2 style="margin:0 0 4px;font-size:18px">Anexos</h2>
+    <?php if (!$adjuntos): ?><p class="cns-sub">Sin anexos todavía.</p><?php endif; ?>
+    <?php $lista = $adjuntos; $quitar = $editable; include __DIR__ . '/_adjuntos_lista.php'; ?>
+    <?php if ($editable): ?>
+    <form method="post" action="<?= $ruta($s['id'] . '/adjuntos') ?>" enctype="multipart/form-data"><?= $csrf ?>
+      <p class="cns-ayuda" style="margin:0 0 6px">Agrega documentos que acompañen la solicitud, cada uno con una breve descripción de qué es.</p>
+      <?php $admiteOficio = false; include __DIR__ . '/_adjuntos_campos.php'; ?>
+      <button class="btn" type="submit" style="margin-top:6px">Subir</button>
+    </form>
+    <?php endif; ?>
+  </section>
+  <?php endif; ?>
 
   <?php if ($historial): ?>
   <section class="tarjeta">

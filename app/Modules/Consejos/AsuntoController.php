@@ -45,6 +45,7 @@ final class AsuntoController extends ConsejosBase
             [(int) $r['id'], $grupo, $numero, (!empty($r['academico_fin']) || $this->post('desde') === 'sesion:gobierno') ? 'gobierno' : 'academico', $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), $obs !== '' ? $obs : null, $obs !== '' ? (string) (Auth::usuario()['nombre'] ?? '') : null, Auth::id()]
         );
         $this->guardarProfesores($aid);
+        $this->avisarAdjuntos(\App\Modules\Consejos\Services\Adjuntos::guardarDelFormulario(['asunto_id' => $aid], true));
         Audit::record('consejos::asunto', 'correcto', 'Crea ' . Texto::clave($grupo, $numero) . ' reunión #' . $r['id']);
         flash('exito', 'Caso ' . Texto::clave($grupo, $numero) . ' guardado.');
         if ($volver = $this->volverASesion((int) $r['id'], $aid)) {
@@ -60,12 +61,12 @@ final class AsuntoController extends ConsejosBase
         $r = $this->reunion((string) $a['reunion_id']);
         if (self::cerrada((int) $r['id'])) {
             // Caso cerrado: solo se consulta.
-            $this->vista('asunto_ver', ['titulo' => 'Caso ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a,
+            $this->vista('asunto_ver', ['titulo' => 'Caso ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a, 'adjuntos' => \App\Modules\Consejos\Services\Adjuntos::de('asunto_id', (int) $a['id']),
                 'profesores' => Database::todas('SELECT u.nombre FROM consejos_asunto_profesores p JOIN usuarios u ON u.id = p.usuario_id WHERE p.asunto_id = ? ORDER BY u.nombre', [(int) $a['id']])]);
             return;
         }
         $profes = Database::todas('SELECT u.id, u.nombre, u.email FROM consejos_asunto_profesores p JOIN usuarios u ON u.id = p.usuario_id WHERE p.asunto_id = ? ORDER BY u.nombre', [(int) $a['id']]);
-        $this->vista('asunto_form', ['titulo' => 'Editar ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a, 'profesores' => $profes, 'grupos' => self::GRUPOS,
+        $this->vista('asunto_form', ['titulo' => 'Editar ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a, 'profesores' => $profes, 'adjuntos' => \App\Modules\Consejos\Services\Adjuntos::de('asunto_id', (int) $a['id']), 'grupos' => self::GRUPOS,
             'desde' => preg_match('/^sesion:(academico|gobierno)$/', (string) ($_GET['desde'] ?? '')) ? (string) $_GET['desde'] : '']);
     }
 
@@ -91,6 +92,7 @@ final class AsuntoController extends ConsejosBase
             [$numero, $sol, $ant, trim(Html::texto($sol) . "
 " . Html::texto($ant)), $obs !== '' ? $obs : null, $autor, (int) $a['id']]);
         $this->guardarProfesores((int) $a['id']);
+        $this->avisarAdjuntos(\App\Modules\Consejos\Services\Adjuntos::guardarDelFormulario(['asunto_id' => (int) $a['id']], true));
         Audit::record('consejos::asunto', 'correcto', 'Actualiza ' . Texto::clave($a['grupo'], $numero) . ' reunión #' . $a['reunion_id']);
         flash('exito', 'Caso ' . Texto::clave($a['grupo'], $numero) . ' actualizado.');
         if ($volver = $this->volverASesion((int) $a['reunion_id'], (int) $a['id'])) {

@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 19:11)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 19:45)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (55 fuentes, en orden).
+-- a partir de las migraciones (56 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3420,5 +3420,29 @@ CREATE TABLE IF NOT EXISTS consejos_solicitud_obs (
   PRIMARY KEY (id),
   KEY idx_cons_obs_solicitud (solicitud_id, id),
   CONSTRAINT fk_cons_obs_solicitud FOREIGN KEY (solicitud_id) REFERENCES consejos_solicitudes (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/068_consejos_adjuntos.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Consejos: documentos adjuntos con una breve descripción. De una solicitud (anexos que sube quien solicita) o de un caso (el oficio
+-- original escaneado de lo que llegó sin pasar por la plataforma, y sus anexos). Al incorporar una solicitud, sus adjuntos pasan al caso.
+-- Repetible.
+
+CREATE TABLE IF NOT EXISTS consejos_adjuntos (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  solicitud_id INT UNSIGNED NULL,
+  asunto_id INT UNSIGNED NULL,
+  tipo ENUM('oficio','anexo') NOT NULL DEFAULT 'anexo',   -- oficio = el oficio original escaneado; anexo = documento que lo acompaña
+  descripcion VARCHAR(200) NOT NULL,                       -- de qué es el archivo: «Constancias de recursos humanos», «Anexo 1…»
+  nombre VARCHAR(160) NOT NULL,
+  ruta VARCHAR(255) NOT NULL,
+  extension VARCHAR(8) NOT NULL,
+  bytes INT UNSIGNED NOT NULL DEFAULT 0,
+  subido_por INT UNSIGNED NULL,
+  creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_cons_adj_solicitud (solicitud_id),
+  KEY idx_cons_adj_asunto (asunto_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 

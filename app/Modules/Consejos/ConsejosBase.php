@@ -44,6 +44,17 @@ abstract class ConsejosBase extends Controller
         }
     }
 
+    /** @param array{guardados:int,errores:string[]} $r resultado de Adjuntos::guardarDelFormulario */
+    protected function avisarAdjuntos(array $r): void
+    {
+        if ($r['guardados'] > 0) {
+            flash('exito', $r['guardados'] === 1 ? 'Documento guardado.' : $r['guardados'] . ' documentos guardados.');
+        }
+        if ($r['errores']) {
+            flash('error', implode(' ', $r['errores']));
+        }
+    }
+
     protected function gestor(): void
     {
         $this->privado();

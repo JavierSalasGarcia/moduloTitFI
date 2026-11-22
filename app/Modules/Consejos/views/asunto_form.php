@@ -8,7 +8,7 @@ $clave = Texto::clave($a['grupo'], (int) $a['numero']);
 $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto/' . $a['id'];
 ?>
 <div class="cns-pila">
-  <form class="tarjeta cns-form" method="post" action="<?= e(url($accion)) ?>" id="form-asunto">
+  <form class="tarjeta cns-form" method="post" action="<?= e(url($accion)) ?>" id="form-asunto" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
     <input type="hidden" name="grupo" value="<?= e($a['grupo']) ?>">
     <?php $desde = (string) ($desde ?? ''); $rutaVolver = $desde !== '' ? 'consejos/reunion/' . $r['id'] . '/sesion/' . substr($desde, 7) : 'consejos/reunion/' . $r['id']; ?>
@@ -62,6 +62,11 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     include dirname(__DIR__, 3) . '/Views/selector_personas.php';
     ?>
 
+    <label style="margin-top:16px">Oficio original escaneado y anexos (opcional)
+      <span class="cns-ayuda">Si el caso llegó sin pasar por la plataforma, sube aquí el <strong>oficio escaneado</strong> (elige «Oficio original escaneado»): en la proyección del caso se abre con el botón «Oficio y anexos». Cada archivo lleva una breve descripción de qué es.</span>
+    </label>
+    <?php $admiteOficio = true; include __DIR__ . '/_adjuntos_campos.php'; ?>
+
     <label style="margin-top:16px">Observación de la Subdirección (opcional)
       <span class="cns-ayuda">No es parte del acuerdo: en el acta en Word sale como <strong>comentario</strong> junto a la clave del caso, con tu nombre como autor.</span>
       <textarea name="observacion" rows="3" maxlength="3000"><?= e((string) ($a['observacion'] ?? '')) ?></textarea>
@@ -73,6 +78,12 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
       <a class="btn" href="<?= e(url($rutaVolver)) ?>">Cancelar</a>
     </div>
   </form>
+  <?php if (!empty($adjuntos)): ?>
+  <section class="tarjeta">
+    <h2 style="margin:0 0 4px;font-size:18px">Documentos del caso</h2>
+    <?php $lista = $adjuntos; $quitar = true; include __DIR__ . '/_adjuntos_lista.php'; ?>
+  </section>
+  <?php endif; ?>
 </div>
 
 <?php include __DIR__ . '/_editor_js.php'; ?>

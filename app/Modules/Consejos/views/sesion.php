@@ -122,8 +122,8 @@ $desde = 'sesion:' . $consejo;
       </div>
       <div class="cns-oficio" id="oficio-vista" hidden role="dialog" aria-label="Oficio original de la solicitud">
         <div class="cns-oficio-bar">
-          <strong>Oficio original de la solicitud</strong>
-          <span class="cns-bot"><button class="btn btn-mini" type="button" id="of-gen">Oficio</button><button class="btn btn-mini" type="button" id="of-esc">Escaneado firmado</button><button class="btn btn-primario btn-mini" type="button" id="of-cerrar">Cerrar</button></span>
+          <strong id="of-titulo">Oficio original y anexos</strong>
+          <span class="cns-bot" id="of-lista"></span><button class="btn btn-primario btn-mini" type="button" id="of-cerrar">Cerrar</button>
         </div>
         <iframe id="of-marco" title="Oficio original de la solicitud"></iframe>
       </div>
@@ -149,7 +149,6 @@ $desde = 'sesion:' . $consejo;
   const REUNION = <?= (int) $r['id'] ?>, DESDE = '<?= e($desde) ?>';
   const URL_GUARDAR = id => '<?= e(url('consejos/asunto')) ?>/' + id + '/acuerdo';
   const URL_NUEVO = g => '<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo')) ?>?grupo=' + g + '&desde=' + encodeURIComponent(DESDE);
-  const URL_OFICIO = (id, esc) => '<?= e(url('consejos/solicitudes')) ?>/' + id + (esc ? '/escaneado' : '/oficio') + '?marco=1';
   const URL_EDITAR = id => '<?= e(url('consejos/asunto')) ?>/' + id + '/editar?desde=' + encodeURIComponent(DESDE);
   const CSRF = '<?= e(Auth::csrfToken()) ?>';
   const GRUPOS = {profesor: 'Casos de profesores', alumno: 'Casos de alumnos', general: 'Asuntos generales'};
@@ -259,7 +258,7 @@ $desde = 'sesion:' . $consejo;
 
   function pintarCaso() {
     const a = DATOS[i]; caso.innerHTML = '';
-    document.getElementById('ver-oficio').hidden = !(a.solId && (a.oficio || a.escaneado));
+    const nDocs = (a.docs || []).length, bDocs = document.getElementById('ver-oficio'); bDocs.hidden = !nDocs; bDocs.textContent = (a.docs || []).some(d => d.oficio) ? '📄 Oficio' + (nDocs > 1 ? ' y anexos (' + nDocs + ')' : '') : '📄 Anexos (' + nDocs + ')';
     const cab = h('div', {class: 'cns-caso-cab'}, h('h2', {}, a.clave + ' · ' + TIPOS[a.grupo]));
     if (a.origen === 'gobierno') cab.append(h('span', {class: 'cns-etq', title: 'Se presentó directamente al Consejo de Gobierno'}, 'Nuevo en el Consejo de Gobierno'));
     if (!BLOQUEADA) cab.append(h('a', {class: 'btn btn-mini cns-solo-gestion', href: URL_EDITAR(a.id)}, 'Editar el caso'));
@@ -363,11 +362,22 @@ $desde = 'sesion:' . $consejo;
   bUna.addEventListener('click', () => { UNA = !UNA; guardarPref(); pintarUna(); });
   // Oficio original de la solicitud (cuando el caso nació de una): el generado, o el escaneado con las firmas.
   const bOf = document.getElementById('ver-oficio'), vista = document.getElementById('oficio-vista'), marco = document.getElementById('of-marco');
-  const abrirOficio = esc => { const a = DATOS[i]; if (!a.solId) return; marco.src = URL_OFICIO(a.solId, esc); document.getElementById('of-gen').hidden = !a.oficio; document.getElementById('of-esc').hidden = !a.escaneado; vista.hidden = false; };
+  // Cada documento del caso (oficio de la solicitud, escaneado firmado, oficio original escaneado y anexos) tiene su botón en el visor;
+  // los que no se pueden ver en pantalla (Word, Excel) se descargan.
+  const abrirDoc = d => {
+    if (!d.vis) { window.open(d.url, '_blank', 'noopener'); return; }
+    marco.src = d.url; document.getElementById('of-titulo').textContent = d.etq;
+    [...document.getElementById('of-lista').children].forEach(x => x.classList.toggle('btn-primario', x.dataset.url === d.url));
+  };
+  const abrirOficio = () => {
+    const docs = DATOS[i].docs || []; if (!docs.length) return;
+    const lista = document.getElementById('of-lista'); lista.innerHTML = '';
+    docs.forEach(d => { const b = h('button', {type: 'button', class: 'btn btn-mini', 'data-url': d.url}, mb_corto(d.etq)); b.addEventListener('click', () => abrirDoc(d)); lista.append(b); });
+    vista.hidden = false; abrirDoc(docs.find(d => d.vis) || docs[0]);
+  };
+  const mb_corto = t => t.length > 38 ? t.slice(0, 36) + '…' : t;
   const cerrarOficio = () => { vista.hidden = true; marco.removeAttribute('src'); };
-  bOf.addEventListener('click', () => abrirOficio(!!DATOS[i].escaneado));
-  document.getElementById('of-gen').addEventListener('click', () => abrirOficio(false));
-  document.getElementById('of-esc').addEventListener('click', () => abrirOficio(true));
+  bOf.addEventListener('click', abrirOficio);
   document.getElementById('of-cerrar').addEventListener('click', cerrarOficio);
   const proyectar = on => {
     ses.classList.toggle('proy', on); ajustar();

@@ -71,6 +71,11 @@ final class SolicitudOficio
             $pdf->texto('Documentos y/o antecedentes', 'B', 10);
             self::bloque($pdf, (string) $s['antecedentes_html']);
         }
+        $anexos = Adjuntos::de('solicitud_id', (int) $s['id']);
+        if ($anexos) {
+            $pdf->Ln(1);
+            $pdf->texto('Anexos: ' . Adjuntos::lista($anexos) . '.', '', 9.5);
+        }
         $pdf->Ln(2);
         $pdf->texto(Solicitudes::fundamento(), 'I', 8.5);
         $pdf->Ln(3);

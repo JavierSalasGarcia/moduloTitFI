@@ -14,7 +14,7 @@ foreach ($coordinaciones as $c) {
 }
 ?>
 <div class="cns-pila">
-  <form class="tarjeta cns-form" method="post" action="<?= e(url($accion)) ?>" id="form-asunto">
+  <form class="tarjeta cns-form" method="post" action="<?= e(url($accion)) ?>" id="form-asunto" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
     <input type="hidden" name="plantilla" id="plantilla-clave" value="<?= e((string) ($s['plantilla'] ?? '')) ?>">
     <div class="cns-cab" style="margin-bottom:12px">
@@ -56,6 +56,11 @@ foreach ($coordinaciones as $c) {
     <div class="cns-lienzo" id="ed-antecedentes" contenteditable="true" data-vacio="Lista de antecedentes…" data-herr="1"><?= $s['antecedentes_html'] ?></div>
     <input type="hidden" name="antecedentes_html" id="in-antecedentes">
 
+    <label style="margin-top:16px">Anexos (opcional)
+      <span class="cns-ayuda">Documentos que acompañan tu solicitud (constancias, oficios, dictámenes…). Cada archivo lleva una breve descripción de qué es, por ejemplo «Constancias de recursos humanos» o «Anexo 1: programa de actividades».</span>
+    </label>
+    <?php $admiteOficio = false; include __DIR__ . '/_adjuntos_campos.php'; ?>
+
     <label style="margin-top:16px">Vo. Bo. de la coordinación <span class="req">*</span>
       <span class="cns-ayuda">Por acuerdo del H. Consejo de Gobierno del <?= e(Solicitudes::ACUERDO_FECHA) ?> (<?= e(Solicitudes::ACUERDO_CLAVE) ?>), toda solicitud lleva el Vo. Bo. o de enterado de la Coordinación de Docencia respectiva o de la de Estudios Avanzados. Elige a quién se la envías.</span>
       <select name="coordinacion" required>
@@ -82,5 +87,11 @@ foreach ($coordinaciones as $c) {
       <a class="btn" href="<?= e(url('consejos/solicitudes')) ?>">Cancelar</a>
     </div>
   </form>
+  <?php if (!empty($adjuntos)): ?>
+  <section class="tarjeta">
+    <h2 style="margin:0 0 4px;font-size:18px">Anexos ya subidos</h2>
+    <?php $lista = $adjuntos; $quitar = true; include __DIR__ . '/_adjuntos_lista.php'; ?>
+  </section>
+  <?php endif; ?>
 </div>
 <?php include __DIR__ . '/_editor_js.php'; ?>
