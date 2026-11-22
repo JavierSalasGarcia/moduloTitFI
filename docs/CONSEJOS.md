@@ -75,6 +75,8 @@ fila del Académico. Al importar, un caso que solo trae acuerdo de Gobierno tamb
 Lo que se escribió para una decisión se recuerda: si se cambia de decisión y se regresa, reaparece tal cual. Hay frases frecuentes («Se da por enterado el H.
 Consejo …», «No es competencia del H. Consejo de Gobierno »).
 
+El Consejo de Gobierno se puede conducir y proyectar **aunque el Académico no esté marcado como terminado** (p. ej. cuando los casos se importaron de un acta); en ese caso la página de la reunión solo lo advierte.
+
 **Guardar y Deshacer.** Los cambios no se guardan solos: **💾 Guardar** (o Ctrl+S) los guarda y **↶ Deshacer** vuelve a lo último guardado en ese caso. Al pasar a
 otro caso se guarda el actual; si no se pudo guardar, no se cambia de caso. Un Consejo cuya sesión terminó no se edita (se reabre desde la reunión).
 

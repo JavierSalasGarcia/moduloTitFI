@@ -12,7 +12,7 @@ foreach ($asuntos as $a) { $porGrupo[$a['grupo']][] = $a; }
 $aval = ['pendiente' => ['Pendiente', ''], 'avala' => ['Avala', 'ok'], 'no_avala' => ['No avala', 'no']];
 $aprob = ['pendiente' => ['Pendiente', ''], 'aprueba' => ['Aprueba', 'ok'], 'no_aprueba' => ['No aprueba', 'no']];
 $sesion = static function (string $k, string $nombre, array $r, ?array $firmada) use ($csrf, $fe): void {
-    $inicioListo = $k === 'academico' || !empty($r['academico_fin']);
+    $inicioListo = true;   // el Consejo de Gobierno también se puede conducir y proyectar aunque el Académico no se haya marcado como terminado (p. ej. casos importados de un acta)
     $fin = $r[$k . '_fin'] ?? null;
     $enCurso = !$fin && (($k === 'academico' && $r['estado'] !== 'preparacion') || ($k === 'gobierno' && in_array($r['estado'], ['gobierno', 'cerrada'], true)));
     ?>
@@ -20,6 +20,7 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
       <h3><?= $k === 'academico' ? '2' : '3' ?>. Consejo <?= e($nombre) ?></h3>
       <p><?= e($fe($r[$k . '_fecha'])) ?><?= $r[$k . '_hora'] ? ' · ' . e(substr((string) $r[$k . '_hora'], 0, 5)) . ' h' : '' ?>
         <?php if ($fin): ?><br><strong>Terminó el <?= e(date('d/m/Y', strtotime($fin))) ?> a las <?= e(date('H:i', strtotime($fin))) ?> h</strong><?php endif; ?></p>
+      <?php if ($k === 'gobierno' && empty($r['academico_fin']) && empty($r['gobierno_fin'])): ?><p class="cns-ayuda" style="margin:0">El Consejo Académico aún no está marcado como terminado.</p><?php endif; ?>
       <div class="cns-acciones">
         <?php if (!$inicioListo): ?>
           <span class="cns-ayuda">Disponible cuando termine el Consejo Académico.</span>

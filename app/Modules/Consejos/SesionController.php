@@ -19,10 +19,6 @@ final class SesionController extends ConsejosBase
         $this->gestor();
         $r = $this->reunion($id);
         $consejo = self::consejo($consejo);
-        if ($consejo === 'gobierno' && empty($r['academico_fin'])) {
-            flash('alerta', 'Primero debe terminar la sesión del Consejo Académico.');
-            redirigir('consejos/reunion/' . $r['id']);
-        }
         // Los casos son los mismos para los dos Consejos; en el Académico no salen los que nacieron en el de Gobierno.
         $filas = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ?" . ($consejo === 'academico' ? " AND origen = 'academico'" : '') . " ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
         $asuntos = array_map(static fn(array $a) => [
@@ -39,10 +35,6 @@ final class SesionController extends ConsejosBase
         $this->gestor();
         $r = $this->reunion($id);
         $consejo = self::consejo($consejo);
-        if ($consejo === 'gobierno' && empty($r['academico_fin'])) {
-            flash('error', 'Primero debe terminar la sesión del Consejo Académico.');
-            redirigir('consejos/reunion/' . $r['id']);
-        }
         $estado = $consejo === 'gobierno' ? 'gobierno' : ($r['estado'] === 'preparacion' ? 'academico' : $r['estado']);
         Database::ejecutar('UPDATE consejos_reuniones SET estado = ? WHERE id = ?', [$estado, (int) $r['id']]);
         Audit::record('consejos::sesion', 'correcto', 'Inicia Consejo ' . $consejo . ' reunión #' . $r['id']);
