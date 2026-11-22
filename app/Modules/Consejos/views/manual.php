@@ -40,7 +40,7 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
       <div>
         <p class="cns-sub" style="margin:0"><a href="<?= e(url('consejos')) ?>">← Consejos</a></p>
         <h1>Manual de captura de casos</h1>
-        <p class="cns-sub">Guía para los departamentos: cómo registrar un caso para el H. Consejo Académico y el H. Consejo de Gobierno, con la redacción que usan las actas de 2026.</p>
+        <p class="cns-sub">Guía para profesores, coordinaciones y la Subdirección Académica: cómo llega un caso al H. Consejo Académico y al H. Consejo de Gobierno, y cómo se captura con la redacción que usan las actas de 2026.</p>
       </div>
       <div class="cns-acciones cns-solo-pantalla">
         <a class="btn btn-primario" href="<?= e(url('consejos/solicitudes/nueva')) ?>">Redactar una solicitud</a>
@@ -54,18 +54,20 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
     <h2>Si eres profesor o coordinador: redacta tu solicitud en la plataforma</h2>
     <p class="cns-sub">En <strong>Constancias → Solicitudes a Consejos</strong> puedes redactar tu solicitud con el asistente de plantillas, sin esperar a que alguien más la capture.</p>
     <ol class="pasos">
-      <li><h3>Redacta</h3>Elige el tipo de trámite, llena lo resaltado y sube tus anexos. El apartado del acta (P, A o AG) lo asigna el sistema y lo ajusta la Subdirección. Puedes guardar un borrador.</li>
-      <li><h3>Elige la coordinación</h3>Por acuerdo del H. Consejo de Gobierno del 19 de noviembre de 2026 (AG28), toda solicitud lleva el Vo. Bo. o de enterado de la Coordinación de Docencia respectiva o de la de Estudios Avanzados.</li>
+      <li><h3>Redacta</h3>Elige el tipo de trámite (rellena la redacción oficial), sustituye lo resaltado y sube tus anexos. En «Solicitud» va solo el enunciado de lo que pides: <strong>sin listas ni tablas de nombres</strong>; si las necesitas, súbelas como anexo. Puedes guardar un borrador.</li>
+      <li><h3>El apartado del acta se asigna solo</h3>No lo capturas: las solicitudes de profesores van en «Casos de profesores» (P) y las de coordinaciones en «Asuntos generales» (AG). La Subdirección Académica o su asistente lo ajustan si hace falta.</li>
+      <li><h3>Elige la coordinación</h3>Por acuerdo del H. Consejo de Gobierno del <?= e(\App\Modules\Consejos\Services\Solicitudes::ACUERDO_FECHA) ?> (<?= e(\App\Modules\Consejos\Services\Solicitudes::ACUERDO_CLAVE) ?>), toda solicitud lleva el Vo. Bo. o de enterado de la Coordinación de Docencia respectiva o de la de Estudios Avanzados.</li>
       <li><h3>La coordinación revisa</h3>Recibe un aviso. Si hay algo que corregir, hace observaciones y te la regresa; la corriges, anotas qué cambiaste y la reenvías. Puede haber varias rondas, y todo queda en el historial.</li>
-      <li><h3>Pasa a la cartera</h3>Cuando está bien, la coordinación da su Vo. Bo. o de enterado y la solicitud pasa a la cartera de casos para el Consejo; el secretario académico y su asistente reciben el aviso y la llevan a una reunión. El sistema genera además el oficio en hoja membretada.</li>
+      <li><h3>Pasa a la cartera</h3>Cuando está bien, la coordinación da su Vo. Bo. o de enterado y la solicitud pasa a la cartera de casos para el Consejo. El sistema genera el oficio en hoja membretada y avisa al secretario académico y a su asistente, que la llevan a una reunión.</li>
       <li><h3>Firma</h3>Si la firma es autógrafa, imprime el oficio, que firmen tú y la coordinación, y sube el escaneado. Si está habilitada la firma interna, se firma dentro de la plataforma.</li>
+      <li><h3>Queda en el acta</h3>Al llevarla a la reunión se vuelve un caso con su clave (P# o AG#). En el acta, «Documentos y/o antecedentes» siempre es tu «Oficio de solicitud», más la lista de los anexos que subiste. Tu solicitud te muestra el caso y la reunión.</li>
     </ol>
   </section>
 
   <section class="tarjeta">
     <h2>1. El recorrido de un caso</h2>
     <ol class="pasos">
-      <li><h3>Se captura</h3>Antes de la sesión, desde la reunión del mes: eliges el apartado (profesor, alumno o general) y el tipo de trámite.</li>
+      <li><h3>Llega o se captura</h3>Antes de la sesión, las solicitudes con Vo. Bo. de la cartera se llevan a la reunión del mes; los casos que no vienen de una solicitud los captura la Subdirección Académica o su asistente desde la misma reunión.</li>
       <li><h3>Se analiza en el Consejo Académico</h3>Se proyecta el caso; el Consejo decide si avala, avala con condición, o no avala, y el acuerdo se redacta en pantalla.</li>
       <li><h3>Se aprueba en el Consejo de Gobierno</h3>Son los mismos casos: Gobierno aprueba el acuerdo del Académico. Los asuntos propios de Gobierno se marcan en su plantilla.</li>
       <li><h3>Se firma el acta y se notifica</h3>Con el acta firmada el caso se cierra y ya no se edita. Después se puede notificar el dictamen a los interesados.</li>
@@ -73,14 +75,18 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
   </section>
 
   <section class="tarjeta">
-    <h2>2. Cómo capturar un caso, paso a paso</h2>
+    <h2>2. Cómo se captura un caso (Subdirección Académica y su asistente)</h2>
     <ol class="pasos">
-      <li><h3>Entra a la reunión</h3>Consejos → la reunión del mes → los botones «+ Profesor», «+ Alumno» o «+ General» (o «+ Agregar» dentro de cada apartado).</li>
-      <li><h3>Elige el tipo de trámite</h3>El menú «Tipo de trámite» rellena la solicitud con la redacción oficial. Si no hay uno parecido, usa «Otro» o escribe libremente.</li>
+      <li><h3>Entra a la reunión</h3>Consejos → la reunión del mes. Ahí aparece la cartera de solicitudes con Vo. Bo.</li>
+      <li><h3>Lleva la cartera</h3>«Incorporar» las lleva todas como casos, o una por una desde la solicitud. Antes de incorporarla, puedes cambiar su «Apartado del acta» (P, A o AG) en la vista de la solicitud.</li>
+      <li><h3>O captura un caso nuevo</h3>Con «+ Profesor», «+ Alumno» o «+ General» (o «+ Agregar» dentro de cada apartado), para lo que no vino de una solicitud.</li>
+      <li><h3>Elige el tipo de trámite</h3>Rellena la solicitud con la redacción oficial. Si no hay uno parecido, escribe libremente.</li>
       <li><h3>Llena lo resaltado</h3>Sustituye cada dato entre <mark>[corchetes]</mark> (nombre, cuenta, periodo…). Borra las opciones que no apliquen, por ejemplo «[Examen Especial / Examen por Competencias]».</li>
-      <li><h3>Revisa los antecedentes</h3>«Documentos y/o antecedentes» siempre empieza con «Oficio de solicitud» y los archivos que subas se enlistan solos. No es narrativa: aquí van solo listas y tablas (por ejemplo, la de comités), que se pegan desde Word con Ctrl+C / Ctrl+V. En la solicitud no van listas ni tablas.</li>
-      <li><h3>Sube los anexos</h3>Si tu caso lleva documentos (constancias, oficios…), adjúntalos y escribe de qué es cada uno. En el caso de un oficio que llegó impreso, sube el escaneado como «Oficio original escaneado»: se muestra en la proyección.</li>
+      <li><h3>Solicitud: solo el enunciado</h3>Sin listas ni tablas de nombres: el editor ya no ofrece esos controles y, si pegas una tabla, se convierte en texto.</li>
+      <li><h3>Documentos y/o antecedentes</h3>Empieza con «Oficio de solicitud» y los archivos que subas se enlistan solos. No es narrativa: aquí van solo listas y tablas (por ejemplo, la de comités o de alumnos), que se pegan desde Word con Ctrl+C / Ctrl+V.</li>
+      <li><h3>Sube los anexos</h3>Si el caso lleva documentos, adjúntalos y escribe de qué es cada uno. Si el oficio llegó impreso, súbelo como «Oficio original escaneado»: se muestra en la proyección.</li>
       <li><h3>Menciona a los profesores</h3>Escribe <strong>@</strong> y parte del nombre; así el caso aparece en Comisiones. Nunca se deduce por el nombre.</li>
+      <li><h3>Observación y apartado</h3>La «Observación de la Subdirección» sale como comentario de Word junto a la clave del caso. Al editar, puedes cambiar el apartado: el caso toma el siguiente número de ese apartado.</li>
       <li><h3>Guarda</h3>Si queda un dato entre corchetes sin llenar, el sistema te avisa antes de guardar.</li>
     </ol>
   </section>
@@ -115,7 +121,7 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
             <div><strong>Así queda la solicitud</strong><div class="ejemplo"><?= $resaltar($p['solicitud']) ?></div></div>
             <dl>
               <dt>Documentos y/o antecedentes</dt><dd><?= e($p['antecedentes']) ?></dd>
-              <?php if ($p['tabla']): ?><dt>Tabla que se arma sola</dt><dd>Columnas: <?= e(implode(' · ', $p['tabla'])) ?>. Agrega una fila por cada persona o asunto.</dd><?php endif; ?>
+              <?php if ($p['tabla']): ?><dt>Tabla que se arma sola (en antecedentes)</dt><dd>Columnas: <?= e(implode(' · ', $p['tabla'])) ?>. Agrega una fila por cada persona o asunto.</dd><?php endif; ?>
               <?php if ($p['gobierno']): ?><dt>Dónde se presenta</dt><dd>Solo en el Consejo de Gobierno: se captura como caso nuevo en esa sesión.</dd><?php endif; ?>
             </dl>
           </div>
@@ -129,8 +135,9 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
     <ul class="avisos">
       <li><strong>No dejes corchetes.</strong> Si aparece «[nombre]» en el acta, quedó un dato sin llenar.</li>
       <li><strong>Número de cuenta siempre en los trámites de alumnos.</strong> Es lo que identifica a la persona; no basta el nombre.</li>
-      <li><strong>Un caso, un trámite.</strong> Si hay varios alumnos o materias del mismo trámite, van en la tabla del mismo caso, no en casos separados.</li>
+      <li><strong>Un caso, un trámite.</strong> Si hay varios alumnos o materias del mismo trámite, van en la tabla de antecedentes del mismo caso, no en casos separados.</li>
       <li><strong>Anexa el oficio.</strong> El acta cita siempre el «Oficio de solicitud»; los archivos adjuntos se enlistan en antecedentes. Las listas y tablas de nombres van en antecedentes, nunca en la solicitud.</li>
+      <li><strong>El apartado lo decide la Subdirección.</strong> Quien solicita no lo elige; si una solicitud quedó en un apartado que no es, se pide a la Subdirección o a su asistente que la reasigne.</li>
       <li><strong>Un caso cerrado no se edita.</strong> Una vez subida el acta firmada solo se puede consultar. Corrige antes de la sesión o por Fe de erratas.</li>
       <li><strong>Altas durante la sesión son la excepción.</strong> Los casos se capturan al preparar la reunión; en la sesión del Consejo de Gobierno solo se agregan asuntos propios o urgentes.</li>
     </ul>

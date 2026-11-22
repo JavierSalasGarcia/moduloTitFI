@@ -12,7 +12,7 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 1. **Nueva reunión** (`/consejos/nueva`). Es el par Consejo Académico + Consejo de Gobierno de un mes: mesa (presidente, secretario),
    consejeros, fecha, hora, lugar y convocatoria de cada Consejo, y las actas anteriores que se aprueban. Parte de los datos de la
    reunión anterior.
-2. **Casos** (`P#` profesores, `A#` alumnos, `AG#` asuntos generales). La *solicitud* y los *documentos y/o antecedentes* se escriben en un
+2. **Casos** (`P#` profesores, `A#` alumnos, `AG#` asuntos generales). Las solicitudes de profesores y coordinaciones llegan por «Solicitudes a Consejos» (Vo. Bo. de la coordinación → cartera → la Subdirección las lleva a la reunión; el apartado P o AG lo asigna el sistema según el rol y la Subdirección lo ajusta). La *solicitud* (solo enunciado, sin listas ni tablas) y los *documentos y/o antecedentes* (siempre «Oficio de solicitud» más los anexos; solo listas y tablas) se escriben en un
    lienzo: **se copia la tabla de Word y se pega** (Ctrl+V); se conservan filas, columnas y celdas combinadas. El lienzo también tiene
    negrita, cursiva, listas y botones para tablas nuevas, +/− fila y columna. Se eligen a mano los **profesores mencionados**
    (alimentan «Comisiones»; nunca se deducen por el nombre, ver `docs/VINCULACION_DE_CUENTAS.md`).
