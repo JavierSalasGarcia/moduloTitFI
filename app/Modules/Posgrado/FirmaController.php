@@ -311,6 +311,12 @@ final class FirmaController extends PosgradoBase
         redirigir('posgrado/firmas');
     }
 
+    /** Proveedor `por_firmar` de la bandeja única (docs/FIRMAS_UNICA.md): lo que espera mi firma en Posgrado. */
+    public static function porFirmar(): array
+    {
+        return array_values(array_filter(self::pendientesDeSesion(), static fn(array $i): bool => in_array($i['tipo'], ['Firma', 'Firmas'], true)));
+    }
+
     /** Proveedor «pendientes» del módulo (Notificaciones y la insignia del menú). */
     public static function pendientesDeSesion(): array
     {

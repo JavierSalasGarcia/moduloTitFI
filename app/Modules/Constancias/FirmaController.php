@@ -73,6 +73,27 @@ final class FirmaController extends ConstanciasBase
         return $s;
     }
 
+    /**
+     * Proveedor `por_firmar` de la bandeja única (docs/FIRMAS_UNICA.md): las constancias que esperan MI firma, sin importar
+     * de qué departamento lleguen ni quién las solicitó; basta ser el firmante designado.
+     */
+    public static function porFirmar(): array
+    {
+        $yo = Auth::id();
+        if (!$yo) {
+            return [];
+        }
+        $r = [];
+        foreach (Solicitudes::delFirmante($yo) as $f) {
+            if ($f['estado'] !== 'en_firma') {
+                continue;
+            }
+            $r[] = ['tipo' => 'Constancia', 'texto' => 'Constancia ' . $f['folio'] . ' · ' . ($f['persona_nombre'] !== '' ? $f['persona_nombre'] : $f['asunto']) . ' (solicita ' . $f['solicitante_nombre'] . ', ' . $f['departamento'] . ')',
+                'enlace' => 'constancias/firmar/' . (int) $f['id'], 'fecha' => $f['enviada_en']];
+        }
+        return $r;
+    }
+
     /** Proveedor de pendientes (Notificaciones): constancias por firmar y constancias propias devueltas para corregir. */
     public static function pendientesDeSesion(): array
     {

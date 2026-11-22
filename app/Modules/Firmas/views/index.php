@@ -21,9 +21,27 @@
   <a class="chip<?= $vistaFiltro === 'terminadas' ? ' estado-en_atencion' : '' ?>" href="<?= url($base . 'vista=terminadas') ?>">Terminadas</a>
 </nav>
 
+<?php if (!empty($otros)): ?>
+  <div class="card sin-relleno tabla-contenedor" style="margin-bottom:12px">
+    <p class="texto-suave" style="margin:12px 16px 0"><strong>Constancias y trámites que esperan tu firma</strong> (de cualquier departamento).</p>
+    <table class="tabla">
+      <thead><tr><th>Origen</th><th>Qué firmar</th><th class="oculta-movil">Desde</th><th><span class="sr-only">Abrir</span></th></tr></thead>
+      <tbody>
+        <?php foreach ($otros as $o): ?>
+          <tr class="fila-enlace" data-href="<?= url($o['enlace']) ?>">
+            <td><span class="chip estado-abierto"><?= e($o['tipo']) ?></span><br><small class="texto-suave"><?= e($o['origen']) ?></small></td>
+            <td><a href="<?= url($o['enlace']) ?>"><?= e($o['texto']) ?></a></td>
+            <td class="oculta-movil texto-suave"><?= $o['fecha'] ? e(fecha_corta($o['fecha'])) : '—' ?></td>
+            <td><a class="btn btn-mini" href="<?= url($o['enlace']) ?>">Firmar</a></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+<?php endif; ?>
 <?php if (!$solicitudes): ?>
   <div class="card"><p class="texto-suave">
-    <?= $bandeja === 'firmar' ? 'No tienes solicitudes de firma en esta vista.' : 'No has creado solicitudes en esta vista.' ?>
+    <?= $bandeja === 'firmar' ? (empty($otros) ? 'No tienes documentos ni constancias por firmar.' : 'No tienes más solicitudes de firma de documentos en esta vista.') : 'No has creado solicitudes en esta vista.' ?>
   </p></div>
 <?php else: ?>
   <div class="card sin-relleno tabla-contenedor">

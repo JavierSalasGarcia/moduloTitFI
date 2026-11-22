@@ -5,6 +5,7 @@
   "descripcion": "Constancias ya firmadas (Titulación, Posgrado y las solicitadas aquí), ordenables por fecha de emisión, fecha de firma o departamento, y solicitud de constancias con firma en línea de un titular o coordinador, folio por departamento y QR de verificación.",
   "roles": [],
   "pendientes": "App\\Modules\\Constancias\\FirmaController::pendientesDeSesion",
+  "por_firmar": "App\\Modules\\Constancias\\FirmaController::porFirmar",
   "vinculacion": "App\\Modules\\Constancias\\Services\\Solicitudes::vincular",
   "consulta": [
     {"ruta": "constancias", "descripcion": "Constancias firmadas: las que recibiste y, si eres personal, las que emitió tu departamento; se ordenan por fecha de emisión, fecha de firma o departamento y se descargan en PDF.", "palabras": "constancia constancias descargar emitidas recibí departamento folio"},
@@ -27,16 +28,6 @@
       "descripcion": "Redacta el cuerpo, elige a quién la firma (coordinación, Subdirección o Dirección) y envíala.",
       "roles": ["admin", "titular", "operativo", "coordinador"],
       "orden": 11
-    },
-    {
-      "seccion": "CONSTANCIAS",
-      "titulo": "Por firmar",
-      "ruta": "constancias/firmar",
-      "descripcion": "Constancias que esperan tu firma.",
-      "grupo": "Por firmar",
-      "roles": ["admin", "titular", "operativo", "coordinador", "profesor", "alumno"],
-      "orden": 20,
-      "condicion": "App\\Modules\\Constancias\\ConstanciasAccess::tieneFirmas"
     }
   ],
   "rutas": {

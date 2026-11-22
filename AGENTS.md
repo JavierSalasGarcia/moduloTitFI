@@ -8,6 +8,8 @@ Las migraciones nuevas se agregan a `database/migrations/` y a `database/constru
 
 Los secretos y datos personales nuevos se cifran en reposo con `App\Core\Cifrado` (llave fuera de la base); leer `docs/CIFRADO_DE_DATOS.md`. Nunca guardar secretos TOTP ni llaves en claro.
 
+**Firmas: un solo lugar.** Todo documento, constancia u oficio que espera la firma de alguien (coordinaciones, Subdirector Académico, Director, profesores, alumnos) se concentra en `/firmas` → «Por firmar», sin importar el departamento o módulo de origen. Un módulo con flujo de firma declara `por_firmar` en su manifiesto y no crea bandejas ni entradas de menú propias; leer `docs/FIRMAS_UNICA.md`.
+
 El acceso se decide por rol del módulo y, para casos especiales, por concesiones por persona con vigencia (`App\Core\Acceso`); leer `docs/CONCESIONES_DE_ACCESO.md`.
 
 El asistente de la página de inicio usa Jev como árbitro y Gemini para orientar; leer `docs/ASISTENTE_JEV_GEMINI.md`. Los prompts viven solo en `app/Modules/Portal/Prompts.php` y las claves solo se leen con `App\Core\SecretosIa`. Ningún modelo recibe registros, esquema ni permisos, ni arma consultas SQL. Un módulo nuevo se integra con la clave `consulta` de su manifiesto.

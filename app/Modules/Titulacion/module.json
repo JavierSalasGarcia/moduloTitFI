@@ -10,6 +10,7 @@
     {"ruta": "titulacion/firmas", "descripcion": "Documentos de titulación que esperan tu firma.", "palabras": "firma oficio titulación firmar"}
   ],
   "pendientes": "App\\Modules\\Titulacion\\PanelController::pendientesDeSesion",
+  "por_firmar": "App\\Modules\\Titulacion\\PanelController::porFirmar",
   "vinculacion": "App\\Modules\\Titulacion\\Services\\Constancias::vincular",
   "grafo": "App\\Modules\\Titulacion\\Services\\GrafoTitulacion::de",
   "nombre": "Titulación",

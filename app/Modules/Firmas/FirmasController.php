@@ -58,6 +58,8 @@ final class FirmasController extends Controller
             'bandeja'      => $bandeja,
             'vistaFiltro'  => $vista,
             'solicitudes'  => $solicitudes,
+            // Bandeja única: constancias y trámites de otros módulos que esperan mi firma (docs/FIRMAS_UNICA.md).
+            'otros'        => $bandeja === 'firmar' && $vista === 'activas' ? \App\Core\PorFirmar::lista() : [],
             'puedeCrear'   => Auth::tieneRol(...self::ROLES_CREADORES),
         ]);
     }

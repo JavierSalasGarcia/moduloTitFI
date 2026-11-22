@@ -217,6 +217,12 @@ final class PanelController extends TitulacionBase
         return (new self('titulacion'))->itemsPendientes();
     }
 
+    /** Proveedor `por_firmar` de la bandeja única (docs/FIRMAS_UNICA.md): lo que espera mi firma en Titulación. */
+    public static function porFirmar(): array
+    {
+        return array_values(array_filter((new self('titulacion'))->itemsPendientes(), static fn(array $i): bool => in_array($i['tipo'], ['Firma', 'Firmas'], true)));
+    }
+
     private function itemsPendientes(): array
     {
         $email = TitulacionAccess::correoSesion();

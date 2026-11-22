@@ -186,7 +186,7 @@ final class ModuleManager
         if (isset($config['pendientes']) && (!is_string($config['pendientes']) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $config['pendientes']))) {
             throw new RuntimeException('La función de pendientes no es válida.');
         }
-        foreach (['vinculacion', 'grafo'] as $proveedor) {
+        foreach (['vinculacion', 'grafo', 'por_firmar'] as $proveedor) {
             if (isset($config[$proveedor]) && (!is_string($config[$proveedor]) || !preg_match('/^App\\\\Modules\\\\[A-Za-z0-9_\\\\]+::[a-z][A-Za-z0-9_]*$/D', $config[$proveedor]))) {
                 throw new RuntimeException("La función de {$proveedor} no es válida.");
             }

@@ -14,7 +14,7 @@ return [
     'clave' => 'firmas',
     // Catálogo de consulta del asistente (docs/ASISTENTE_JEV_GEMINI.md).
     'consulta' => [
-        ['ruta' => 'firmas', 'descripcion' => 'Firma electrónica de documentos: pendientes por firmar y documentos firmados.', 'palabras' => 'firma firmar documento electrónica sello'],
+        ['ruta' => 'firmas', 'descripcion' => 'Bandeja única por firmar: documentos, constancias y trámites de cualquier departamento que esperan tu firma, y firma electrónica de documentos.', 'palabras' => 'firma firmar documento constancia electrónica sello pendientes por firmar'],
     ],
     'pendientes' => 'App\Modules\Firmas\PendientesFirmas::de',
     // Todos los roles: los alumnos también firman. La restricción de
@@ -22,7 +22,7 @@ return [
     'menu'  => [
         ['seccion'=>'MI ESPACIO','titulo'=>'Grupos de destinatarios','ruta'=>'grupos-destinatarios','roles'=>['admin','titular','operativo','coordinador','profesor','alumno'],'orden'=>31],
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Firmas de documentos', 'ruta' => 'firmas',
-         'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 30],
+         'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'], 'orden' => 30],
     ],
     'rutas' => [
         'GET /grupos-destinatarios' => [\App\Modules\Firmas\DestinatariosController::class,'index'],

@@ -5,6 +5,7 @@
   "descripcion": "Trámite de evaluación de grado de maestría, doctorado y especialidad: el egresado captura sus datos, su sínodo y la fecha; director, sínodo y Coordinación de Estudios Avanzados firman en línea (el director y el sínodo desde un enlace personal, sin cuenta) y Apoyo a Grado valida, coteja y programa.",
   "roles": [],
   "pendientes": "App\\Modules\\Posgrado\\FirmaController::pendientesDeSesion",
+  "por_firmar": "App\\Modules\\Posgrado\\FirmaController::porFirmar",
   "consulta": [
     {
       "ruta": "posgrado",
