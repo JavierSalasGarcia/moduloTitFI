@@ -169,5 +169,6 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
   <script>window.fiUploadRules = <?= json_encode(['maxMb'=>(float)\App\Core\App::config('archivos.max_bytes',10485760)/1048576, 'extensions'=>\App\Core\App::config('archivos.ext_permitidas',[])], JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?>;</script>
   <script src="<?= url('assets/js/app.js?v=' . (string) filemtime(dirname(__DIR__, 3) . '/public/assets/js/app.js')) ?>"></script>
   <script src="<?= url('assets/js/ux.js?v=' . (string) filemtime(dirname(__DIR__, 3) . '/public/assets/js/ux.js')) ?>"></script>
+  <script src="<?= url('assets/js/selector-personas.js?v=' . (string) filemtime(dirname(__DIR__, 3) . '/public/assets/js/selector-personas.js')) ?>"></script>
 </body>
 </html>

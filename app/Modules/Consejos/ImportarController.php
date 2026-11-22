@@ -8,39 +8,15 @@ use App\Modules\Consejos\Services\ActaWord;
 use App\Modules\Consejos\Services\ExcelCasos;
 use App\Modules\Consejos\Services\Importador;
 
-/** Alta de reuniones y casos desde un acta de Word o una hoja de Excel. */
+/** Alta de casos en una reunión ya creada, desde un acta de Word o una hoja de Excel (no se crean reuniones desde un acta). */
 final class ImportarController extends ConsejosBase
 {
-    /** Crea una reunión nueva a partir de un acta de Word (encabezado, mesa, consejeros, casos y acuerdos). */
-    public function nueva(): void
-    {
-        $this->gestor();
-        $f = $_FILES['archivo'] ?? null;
-        try {
-            if (!$f || ($f['error'] ?? 1) !== UPLOAD_ERR_OK) {
-                throw new \RuntimeException('Elige el acta en Word (.docx).');
-            }
-            $acta = ActaWord::leer($f['tmp_name'], (string) $f['name']);
-            $id = Importador::crearReunion($acta, $this->post('etiqueta'));
-            $r = Importador::casos($id, $acta['casos'], $acta['consejo']);
-        } catch (\RuntimeException $e) {
-            flash('error', $e->getMessage());
-            redirigir('consejos');
-        } catch (\Throwable $e) {
-            error_log('Consejos importar: ' . $e->getMessage());
-            flash('error', 'No fue posible importar el acta.');
-            redirigir('consejos');
-        }
-        Audit::record('consejos::importar', 'correcto', 'Acta de Word → reunión #' . $id . ' (' . $r['nuevos'] . ' casos)');
-        flash('exito', 'Reunión creada con ' . $r['nuevos'] . ' casos del acta del Consejo ' . ($acta['consejo'] === 'gobierno' ? 'de Gobierno' : 'Académico') . '. Revisa los datos de la mesa y del otro Consejo.');
-        redirigir('consejos/reunion/' . $id);
-    }
-
     /** Agrega casos (o completa sus acuerdos) en una reunión existente desde un acta de Word o un Excel. */
     public function casos(string $id): void
     {
         $this->gestor();
         $r = $this->reunion($id);
+        $this->noCerrada((int) $r['id']);
         $f = $_FILES['archivo'] ?? null;
         try {
             if (!$f || ($f['error'] ?? 1) !== UPLOAD_ERR_OK) {

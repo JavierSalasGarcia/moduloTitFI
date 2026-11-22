@@ -29,6 +29,21 @@ abstract class ConsejosBase extends Controller
         exit;
     }
 
+    /** Un caso queda cerrado cuando se sube el acta escaneada, firmada y sellada, de cualquiera de los dos Consejos. Quitar el escaneado lo reabre. */
+    public static function cerrada(int $reunionId): bool
+    {
+        return (bool) Database::valor("SELECT 1 FROM consejos_archivos WHERE reunion_id = ? AND tipo IN ('acta_academico', 'acta_gobierno') LIMIT 1", [$reunionId]);
+    }
+
+    /** Corta la operación si la reunión ya tiene acta firmada: lo firmado no se edita. */
+    protected function noCerrada(int $reunionId): void
+    {
+        if (self::cerrada($reunionId)) {
+            flash('error', 'Esta reunión ya tiene el acta firmada y sellada: sus casos quedaron cerrados y no se pueden modificar. Para corregir algo, primero retira el acta escaneada.');
+            redirigir('consejos/reunion/' . $reunionId);
+        }
+    }
+
     protected function gestor(): void
     {
         $this->privado();

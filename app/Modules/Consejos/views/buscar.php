@@ -29,7 +29,7 @@ include __DIR__ . '/_estilos.php';
         <?php foreach ($f['fragmentos'] as $fr): ?>
           <p><small><?= e($fr['campo']) ?>:</small> <?= $fr['html'] /* ya escapado y con <mark> */ ?></p>
         <?php endforeach; ?>
-        <p><a class="btn btn-mini" href="<?= e(url('consejos/asunto/' . $f['id'] . '/editar')) ?>">Abrir el caso</a></p>
+        <p><a class="btn btn-mini" href="<?= e(url('consejos/asunto/' . $f['id'] . '/editar')) ?>"><?= !empty($f['cerrada']) ? 'Ver el caso (cerrado)' : 'Abrir el caso' ?></a></p>
       </article>
     <?php endforeach; ?>
   <?php endif; ?>

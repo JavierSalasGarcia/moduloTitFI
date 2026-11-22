@@ -73,7 +73,7 @@ final class Busqueda
             $params[] = $grupo;
         }
         $filas = Database::todas(
-            'SELECT a.*, r.etiqueta, r.academico_fecha, r.gobierno_fecha FROM consejos_asuntos a JOIN consejos_reuniones r ON r.id = a.reunion_id
+            'SELECT a.*, r.etiqueta, r.academico_fecha, r.gobierno_fecha, EXISTS(SELECT 1 FROM consejos_archivos f WHERE f.reunion_id = r.id AND f.tipo IN (\'acta_academico\', \'acta_gobierno\')) AS cerrada FROM consejos_asuntos a JOIN consejos_reuniones r ON r.id = a.reunion_id
               WHERE ' . implode(' AND ', $where) . ' ORDER BY COALESCE(r.gobierno_fecha, r.academico_fecha, DATE(r.creado_en)) DESC, FIELD(a.grupo, \'profesor\', \'alumno\', \'general\'), a.numero LIMIT ' . (self::MAX + 1),
             $params
         );

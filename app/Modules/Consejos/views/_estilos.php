@@ -48,4 +48,5 @@
 .cns-res p{margin:6px 0 0;font-size:14px;line-height:1.5}
 .cns-res small{color:var(--gris-600)}
 .cns-amarillo{background:#fef9c3}
+.cns-etiq{display:block;font-weight:600;margin:10px 0 2px}
 </style>

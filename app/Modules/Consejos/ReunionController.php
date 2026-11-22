@@ -70,7 +70,7 @@ final class ReunionController extends ConsejosBase
         $archivos = Database::todas("SELECT * FROM consejos_archivos WHERE reunion_id = ? AND tipo IN ('acta_academico','acta_gobierno') ORDER BY id DESC", [(int) $r['id']]);
         $oficios = (int) Database::valor('SELECT COUNT(*) FROM consejos_oficios o JOIN consejos_asuntos a ON a.id = o.asunto_id WHERE a.reunion_id = ?', [(int) $r['id']]);
         $this->vista('reunion', ['titulo' => 'Reunión ' . $r['etiqueta'], 'r' => $r, 'asuntos' => $asuntos,
-            'actaFirmada' => ['academico' => self::primero($archivos, 'acta_academico'), 'gobierno' => self::primero($archivos, 'acta_gobierno')], 'oficios' => $oficios]);
+            'actaFirmada' => ['academico' => self::primero($archivos, 'acta_academico'), 'gobierno' => self::primero($archivos, 'acta_gobierno')], 'oficios' => $oficios, 'cerrada' => self::cerrada((int) $r['id'])]);
     }
 
     public function editar(string $id): void
@@ -242,7 +242,10 @@ final class ReunionController extends ConsejosBase
             $d[$c] = mb_substr($this->post($c), 0, 160);
         }
         foreach (self::CAMPOS_LARGOS as $c) {
-            $d[$c] = mb_substr(str_replace("\r", '', $this->post($c)), 0, 6000);
+            // Los consejeros llegan del selector de personas como una lista (uno por elemento).
+            $crudo = $_POST[$c] ?? '';
+            $texto = is_array($crudo) ? implode("\n", array_map(static fn($n) => trim((string) $n), $crudo)) : $this->post($c);
+            $d[$c] = mb_substr(trim(str_replace("\r", '', $texto)), 0, 6000);
         }
         foreach (['academico', 'gobierno'] as $c) {
             $f = $this->post($c . '_fecha');

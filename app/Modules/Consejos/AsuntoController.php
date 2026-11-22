@@ -18,6 +18,7 @@ final class AsuntoController extends ConsejosBase
     {
         $this->gestor();
         $r = $this->reunion($id);
+        $this->noCerrada((int) $r['id']);
         $grupo = array_key_exists($_GET['grupo'] ?? '', self::GRUPOS) ? (string) $_GET['grupo'] : 'profesor';
         $a = ['id' => 0, 'grupo' => $grupo, 'numero' => $this->siguiente((int) $r['id'], $grupo), 'solicitud_html' => '', 'antecedentes_html' => ''];
         $this->vista('asunto_form', ['titulo' => 'Nuevo caso', 'r' => $r, 'a' => $a, 'profesores' => [], 'grupos' => self::GRUPOS]);
@@ -27,6 +28,7 @@ final class AsuntoController extends ConsejosBase
     {
         $this->gestor();
         $r = $this->reunion($id);
+        $this->noCerrada((int) $r['id']);
         $grupo = array_key_exists($this->post('grupo'), self::GRUPOS) ? $this->post('grupo') : 'profesor';
         [$sol, $ant, $error] = $this->contenido();
         if ($error !== '') {
@@ -50,6 +52,12 @@ final class AsuntoController extends ConsejosBase
         $this->gestor();
         $a = $this->asunto($id);
         $r = $this->reunion((string) $a['reunion_id']);
+        if (self::cerrada((int) $r['id'])) {
+            // Caso cerrado: solo se consulta.
+            $this->vista('asunto_ver', ['titulo' => 'Caso ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a,
+                'profesores' => Database::todas('SELECT u.nombre FROM consejos_asunto_profesores p JOIN usuarios u ON u.id = p.usuario_id WHERE p.asunto_id = ? ORDER BY u.nombre', [(int) $a['id']])]);
+            return;
+        }
         $profes = Database::todas('SELECT u.id, u.nombre, u.email FROM consejos_asunto_profesores p JOIN usuarios u ON u.id = p.usuario_id WHERE p.asunto_id = ? ORDER BY u.nombre', [(int) $a['id']]);
         $this->vista('asunto_form', ['titulo' => 'Editar ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a, 'profesores' => $profes, 'grupos' => self::GRUPOS]);
     }
@@ -58,6 +66,7 @@ final class AsuntoController extends ConsejosBase
     {
         $this->gestor();
         $a = $this->asunto($id);
+        $this->noCerrada((int) $a['reunion_id']);
         [$sol, $ant, $error] = $this->contenido();
         if ($error !== '') {
             flash('error', $error);
@@ -84,6 +93,7 @@ final class AsuntoController extends ConsejosBase
     {
         $this->gestor();
         $a = $this->asunto($id);
+        $this->noCerrada((int) $a['reunion_id']);
         Database::ejecutar('DELETE FROM consejos_asuntos WHERE id = ?', [(int) $a['id']]);
         Audit::record('consejos::asunto', 'correcto', 'Elimina ' . Texto::clave($a['grupo'], (int) $a['numero']) . ' reunión #' . $a['reunion_id']);
         flash('exito', 'Caso eliminado.');
@@ -98,9 +108,19 @@ final class AsuntoController extends ConsejosBase
         if (mb_strlen($q) < 2) {
             $this->json(['personas' => []]);
         }
+        // Cada palabra escrita debe aparecer en el nombre o en el correo, en cualquier orden (como en Teams).
+        $donde = [];
+        $params = [];
+        foreach (array_slice(preg_split('/\s+/u', $q) ?: [], 0, 5) as $palabra) {
+            $like = '%' . strtr($palabra, ['\\' => '\\\\', '%' => '\\%', '_' => '\\_']) . '%';
+            $donde[] = '(nombre LIKE ? OR email LIKE ?)';
+            array_push($params, $like, $like);
+        }
+        // Los consejeros alumnos también se buscan; los profesores mencionados en un caso, no.
+        $filtroRol = ($_GET['alumnos'] ?? '') === '1' ? '' : " AND rol <> 'alumno'";
         $filas = Database::todas(
-            "SELECT id, nombre, email FROM usuarios WHERE activo = 1 AND rol <> 'alumno' AND (nombre LIKE ? OR email LIKE ?) ORDER BY nombre LIMIT 15",
-            ['%' . strtr($q, ['%' => '\\%', '_' => '\\_']) . '%', '%' . strtr($q, ['%' => '\\%', '_' => '\\_']) . '%']
+            'SELECT id, nombre, email FROM usuarios WHERE activo = 1' . $filtroRol . ' AND ' . implode(' AND ', $donde) . ' ORDER BY nombre LIMIT 15',
+            $params
         );
         $this->json(['personas' => array_map(static fn($f) => ['id' => (int) $f['id'], 'nombre' => $f['nombre'], 'email' => $f['email']], $filas)]);
     }

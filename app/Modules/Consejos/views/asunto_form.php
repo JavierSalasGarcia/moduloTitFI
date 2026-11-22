@@ -35,20 +35,18 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
 
     <?php if ($a['grupo'] !== 'alumno'): ?>
     <label style="margin-top:16px">Profesores mencionados en el caso
-      <span class="cns-ayuda">A quienes elijas aquí les aparecerá el caso (y su dictamen escaneado) en <strong>Comisiones</strong>. Se eligen a mano; el sistema no los deduce por el nombre.</span>
+      <span class="cns-ayuda">A quienes elijas aquí les aparecerá el caso (y su dictamen escaneado) en <strong>Comisiones</strong>. Si en la solicitud escribes <strong>@</strong> y parte del nombre, la persona se agrega aquí sola; quitarla de esta lista no la borra del texto. El sistema nunca los deduce por el nombre.</span>
     </label>
     <?php else: ?>
     <label style="margin-top:16px">Profesores mencionados (opcional)
       <span class="cns-ayuda">Solo si el caso incluye comités o sínodos de profesores que deban verlo en <strong>Comisiones</strong>.</span>
     </label>
     <?php endif; ?>
-    <div class="cns-personas" id="personas">
-      <?php foreach ($profesores as $p): ?>
-        <span class="cns-chip" data-id="<?= (int) $p['id'] ?>"><?= e($p['nombre']) ?><input type="hidden" name="profesores[]" value="<?= (int) $p['id'] ?>"><button type="button" aria-label="Quitar a <?= e($p['nombre']) ?>">×</button></span>
-      <?php endforeach; ?>
-    </div>
-    <input type="search" id="buscar-persona" placeholder="Escribe el nombre o correo del profesor…" autocomplete="off" style="max-width:420px">
-    <div class="cns-sug" id="sugerencias" hidden></div>
+    <?php
+    $campo = 'profesores[]'; $url = url('consejos/personas'); $seleccion = array_map(static fn($p) => ['id' => (int) $p['id'], 'nombre' => $p['nombre'], 'email' => $p['email']], $profesores);
+    $id = 'personas'; $max = 0; $libre = false; $valor = 'id'; $placeholder = 'Escribe el nombre o correo del profesor…'; $etiqueta = 'Profesores mencionados en el caso';
+    include dirname(__DIR__, 3) . '/Views/selector_personas.php';
+    ?>
 
     <label style="margin-top:16px">Observación de la Subdirección (opcional)
       <span class="cns-ayuda">No es parte del acuerdo: en el acta en Word sale como <strong>comentario</strong> junto a la clave del caso, con tu nombre como autor.</span>
@@ -142,6 +140,7 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     const cmd = btn.dataset.cmd, ed = btn.closest('.cns-herr').nextElementSibling;
     ed.focus();
     if (['bold','italic','insertUnorderedList','insertOrderedList'].includes(cmd)) { document.execCommand(cmd); return; }
+    if (cmd === 'mencionar') { document.execCommand('insertText', false, '@'); return; }
     if (cmd === 'tabla') {
       const f = parseInt(prompt('¿Cuántas filas?', '3'), 10), c = parseInt(prompt('¿Cuántas columnas?', '3'), 10);
       if (!(f > 0 && c > 0)) return;
@@ -164,32 +163,11 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     document.getElementById('in-antecedentes').value = document.getElementById('ed-antecedentes').innerHTML;
   });
 
-  // Profesores mencionados.
-  const caja = document.getElementById('personas'), q = document.getElementById('buscar-persona'), sug = document.getElementById('sugerencias');
-  let t = null;
-  caja.addEventListener('click', e => { const b = e.target.closest('button'); if (b) b.closest('.cns-chip').remove(); });
-  q.addEventListener('input', () => {
-    clearTimeout(t); const v = q.value.trim();
-    if (v.length < 2) { sug.hidden = true; return; }
-    t = setTimeout(async () => {
-      try {
-        const r = await fetch('<?= e(url('consejos/personas')) ?>?q=' + encodeURIComponent(v), {headers: {'Accept': 'application/json'}});
-        const d = await r.json(); sug.innerHTML = '';
-        (d.personas || []).forEach(p => {
-          if (caja.querySelector('[data-id="' + p.id + '"]')) return;
-          const b = document.createElement('button'); b.type = 'button'; b.textContent = p.nombre + ' · ' + p.email;
-          b.addEventListener('click', () => {
-            const c = document.createElement('span'); c.className = 'cns-chip'; c.dataset.id = p.id;
-            c.append(document.createTextNode(p.nombre));
-            const i = document.createElement('input'); i.type = 'hidden'; i.name = 'profesores[]'; i.value = p.id; c.append(i);
-            const x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'Quitar a ' + p.nombre); c.append(x);
-            caja.append(c); q.value = ''; sug.hidden = true;
-          });
-          sug.append(b);
-        });
-        sug.hidden = !sug.children.length;
-      } catch (_) { sug.hidden = true; }
-    }, 250);
+  // Menciones con @ en la solicitud y en los antecedentes: suman a la persona a «Profesores mencionados».
+  document.addEventListener('DOMContentLoaded', () => {
+    const sel = document.getElementById('personas');
+    if (!sel || !window.SelectorPersonas) return;
+    ['ed-solicitud', 'ed-antecedentes'].forEach(i => SelectorPersonas.mencionar(document.getElementById(i), sel));
   });
 })();
 </script>

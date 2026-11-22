@@ -12,6 +12,8 @@ El acceso se decide por rol del módulo y, para casos especiales, por concesione
 
 El asistente de la página de inicio usa Jev como árbitro y Gemini para orientar; leer `docs/ASISTENTE_JEV_GEMINI.md`. Los prompts viven solo en `app/Modules/Portal/Prompts.php` y las claves solo se leen con `App\Core\SecretosIa`. Ningún modelo recibe registros, esquema ni permisos, ni arma consultas SQL. Un módulo nuevo se integra con la clave `consulta` de su manifiesto.
 
+Todo cuadro donde se capturen personas (por nombre o correo) usa el componente `SelectorPersonas`, al estilo de Teams: chips con «×» y coincidencias mientras se teclea; leer `docs/SELECTOR_DE_PERSONAS.md` y usar `app/Views/selector_personas.php`, sin cajas de texto libres para nombres.
+
 Los registros de personas sin cuenta se vinculan solo por correo verificado, nunca por nombre, mediante `Identidad::vincularDatos`; leer `docs/VINCULACION_DE_CUENTAS.md`.
 
 Actas y dictámenes de los HH. Consejos Académico y de Gobierno (`/consejos`, dentro de Constancias): leer `docs/CONSEJOS.md`. Los casos, nombres y escaneados nunca se versionan; los profesores se mencionan a mano en cada caso, nunca por coincidencia de nombre. Prueba: `php tools/prueba_consejos.php <carpeta>`.

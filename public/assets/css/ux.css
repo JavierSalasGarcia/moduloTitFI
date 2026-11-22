@@ -161,3 +161,20 @@ button.consulta-notificacion { cursor:pointer; font:inherit; }
 /* Círculo con el total de pendientes sobre el botón del menú (celular y app instalada). */
 .btn-menu-movil { position:relative; }
 .btn-menu-movil .menu-badge { position:absolute; top:-2px; right:-4px; min-width:18px; height:18px; padding:0 5px; border-radius:999px; background:var(--error,#B91C1C); color:#fff; font:700 11px/18px system-ui,sans-serif; text-align:center; box-shadow:0 0 0 2px #fff; }
+
+/* SelectorPersonas (docs/SELECTOR_DE_PERSONAS.md): chips con «×» y cuadro de búsqueda en el mismo campo, como en Teams. */
+.sp { position:relative; margin:6px 0; max-width:640px; }
+.sp-caja { display:flex; flex-wrap:wrap; gap:6px; align-items:center; border:1px solid var(--ux-line,#dce5de); border-radius:8px; background:#fff; padding:5px 8px; min-height:44px; cursor:text; }
+.sp-caja:focus-within { border-color:#327547; box-shadow:0 0 0 2px #32754733; }
+.sp .sp-q { flex:1 1 160px; min-width:140px; border:0 !important; outline:0 !important; box-shadow:none !important; background:transparent; min-height:32px !important; padding:2px 4px; font:inherit; }
+.sp-chip { display:inline-flex; align-items:center; gap:4px; background:#e3efe6; color:#1b3a27; border-radius:999px; padding:3px 4px 3px 11px; font-size:13px; font-weight:600; max-width:100%; overflow-wrap:anywhere; }
+.sp-x { border:0; background:none; cursor:pointer; font-size:17px; line-height:1; color:inherit; width:22px; height:22px; border-radius:50%; padding:0; }
+.sp-x:hover { background:#1b3a2722; }
+.sp-lista { position:absolute; left:0; right:0; z-index:50; margin:2px 0 0; padding:4px 0; list-style:none; background:#fff; border:1px solid var(--ux-line,#dce5de); border-radius:8px; box-shadow:0 6px 18px #20392b26; max-height:260px; overflow:auto; }
+.sp-lista-mencion { position:absolute; max-width:420px; }
+.sp-op { display:flex; flex-direction:column; padding:7px 12px; cursor:pointer; }
+.sp-op.sp-activa,.sp-op:hover { background:#e3efe6; }
+.sp-nombre { font-weight:600; }
+.sp-correo { color:#52635a; }
+.sp-estado { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+.sp-lista-mencion{left:auto;right:auto;width:420px;max-width:92vw}

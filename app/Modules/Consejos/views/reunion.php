@@ -1,5 +1,5 @@
 <?php
-/** @var array $r @var array $asuntos @var array $actaFirmada @var int $oficios */
+/** @var array $r @var array $asuntos @var array $actaFirmada @var int $oficios @var bool $cerrada */
 use App\Core\Auth;
 use App\Modules\Consejos\Services\Html;
 use App\Modules\Consejos\Services\Texto;
@@ -76,11 +76,15 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
     <div class="cns-paso<?= $asuntos ? ' hecho' : '' ?>">
       <h3>1. Casos</h3>
       <p><?= count($porGrupo['profesor']) ?> de profesores · <?= count($porGrupo['alumno']) ?> de alumnos · <?= count($porGrupo['general']) ?> generales</p>
+      <?php if ($cerrada): ?>
+        <p class="cns-sub">Casos cerrados: el acta firmada ya está subida.</p>
+      <?php else: ?>
       <div class="cns-acciones">
         <a class="btn btn-primario btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=profesor')) ?>">+ Profesor</a>
         <a class="btn btn-primario btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=alumno')) ?>">+ Alumno</a>
         <a class="btn btn-primario btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=general')) ?>">+ General</a>
       </div>
+      <?php endif; ?>
     </div>
     <?php $sesion('academico', 'Académico', $r, $actaFirmada['academico']); ?>
     <?php $sesion('gobierno', 'de Gobierno', $r, $actaFirmada['gobierno']); ?>
@@ -112,7 +116,7 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
     <section class="tarjeta">
       <div class="cns-cab" style="margin-bottom:8px">
         <h2><?= e($titulo) ?></h2>
-        <a class="btn btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=' . $g)) ?>">+ Agregar</a>
+        <?php if (!$cerrada): ?><a class="btn btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=' . $g)) ?>">+ Agregar</a><?php endif; ?>
       </div>
       <?php if (!$porGrupo[$g]): ?>
         <p class="cns-sub">Sin casos todavía.</p>
@@ -128,8 +132,12 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
               <td><span class="cns-etq <?= e($aval[$a['aval_academico']][1]) ?>"><?= e($aval[$a['aval_academico']][0]) ?></span></td>
               <td><span class="cns-etq <?= e($aprob[$a['aprob_gobierno']][1]) ?>"><?= e($aprob[$a['aprob_gobierno']][0]) ?></span></td>
               <td class="cns-acciones">
+                <?php if ($cerrada): ?>
+                  <a class="btn btn-mini" href="<?= e(url('consejos/asunto/' . $a['id'] . '/editar')) ?>">Ver</a>
+                <?php else: ?>
                 <a class="btn btn-mini" href="<?= e(url('consejos/asunto/' . $a['id'] . '/editar')) ?>">Editar</a>
                 <form method="post" action="<?= e(url('consejos/asunto/' . $a['id'] . '/eliminar')) ?>" data-confirm="¿Eliminar el caso <?= e(Texto::clave($a['grupo'], (int) $a['numero'])) ?>?"><?= $csrf ?><button class="btn btn-mini btn-peligro" type="submit">Quitar</button></form>
+                <?php endif; ?>
               </td>
             </tr>
           <?php endforeach; ?>

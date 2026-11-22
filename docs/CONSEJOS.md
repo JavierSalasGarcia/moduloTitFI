@@ -39,12 +39,11 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 
 ## Importar, observaciones y avisos
 
-- **Importar un acta de Word** (`POST /consejos/importar`, desde «Crear una reunión desde un acta de Word»): lee el encabezado (Consejo,
-  tipo de sesión, fecha, hora, lugar, convocatoria), la mesa, los consejeros, las actas anteriores, la hora de terminación y cada caso con
-  su clave, solicitud, antecedentes (tablas con celdas combinadas incluidas) y acuerdos (`Services/ActaWord`). En una reunión existente
-  (`POST /consejos/reunion/{id}/importar`) se puede importar después la otra acta: **un caso que ya existe no se duplica ni se pisa**,
-  solo se completa lo que le falta (`Services/Importador`).
-- **Importar un Excel** (.xlsx, misma ruta): una fila por caso con las columnas Clave, Solicitud, Documentos y/o antecedentes, Acuerdo del
+- **Importar casos de un acta de Word** (`POST /consejos/reunion/{id}/importar`): **no se crean reuniones desde un acta**; la reunión
+  se crea con el formulario («Nueva reunión») y después, dentro de ella, se pueden importar los casos de un acta de Word: se leen la
+  clave, solicitud, antecedentes (tablas con celdas combinadas incluidas) y acuerdos (`Services/ActaWord`), y se completan la mesa y las
+  actas anteriores que falten. **Un caso que ya existe no se duplica ni se pisa**, solo se completa lo que le falta (`Services/Importador`).
+- **Importar un Excel** (.xlsx, misma ruta de la reunión): una fila por caso con las columnas Clave, Solicitud, Documentos y/o antecedentes, Acuerdo del
   Consejo Académico, Acuerdo del Consejo de Gobierno y Observación. La plantilla se baja de `GET /consejos/plantilla-casos`. Las tablas no
   caben en una celda: se agregan después con el lienzo (pegando desde Word).
 - **Observaciones**: cada caso tiene un campo opcional «Observación de la Subdirección» (no es parte del acuerdo). En el acta en Word sale
@@ -54,6 +53,25 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
   y bandeja de Notificaciones) y, si se escribe, a otro correo; hay también «Avisar de nuevo» en el oficio y «Avisar a los profesores
   mencionados» en la reunión (cuando terminó el Consejo de Gobierno). Usa el mismo envío que Constancias: el servicio de correo de la
   plataforma no admite adjuntos, así que el correo lleva un enlace a «Comisiones» (pide sesión) y el PDF se descarga ahí.
+
+## Personas: SelectorPersonas y menciones con @
+
+Todos los cuadros de Consejos donde se capturan personas usan el componente **`SelectorPersonas`** (`docs/SELECTOR_DE_PERSONAS.md`): se
+teclea parte del nombre o del correo, salen las coincidencias, al elegir una queda como elemento con una «×» y el cuadro sigue libre para la
+siguiente. Se usa en presidente y secretario (una persona), en los consejeros presentes de cada Consejo (se pueden agregar nombres sin cuenta
+escribiéndolos completos y pulsando Enter), en los profesores mencionados de cada caso y en el «otro destinatario» de los avisos del oficio.
+
+**Menciones en el cuerpo del caso.** En la solicitud y en los antecedentes se escribe `@` y parte del nombre (o el botón «@ Mencionar»):
+al elegir a la persona su nombre queda en el texto y **se agrega sola a «Profesores mencionados en el caso»**, sin buscarla otra vez.
+Quitar a alguien de esa lista no lo borra del texto del caso. Lo que decide qué ve cada profesor en Comisiones sigue siendo esa lista
+(`consejos_asunto_profesores`); el sistema nunca deduce personas por coincidencia de nombre.
+
+## Casos cerrados
+
+Una reunión queda **cerrada** cuando se sube el acta escaneada, firmada y sellada de cualquiera de los dos Consejos
+(`ConsejosBase::cerrada()`). Con eso sus casos ya no se editan, ni se eliminan, ni se agregan o importan casos: en la reunión y en la
+búsqueda el caso se abre en modo consulta (`views/asunto_ver.php`). Si hay que corregir algo, se retira primero el acta escaneada
+(«Quitar» en la reunión) y la reunión se reabre.
 
 ## Acceso
 
@@ -80,7 +98,7 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 | `GET /consejos/reunion/{id}/editar`, `POST /consejos/reunion/{id}`, `POST …/eliminar` | Datos / eliminar (solo si no ha iniciado) | gestor |
 | `GET /consejos/reunion/{id}/asunto/nuevo?grupo=`, `POST …/asunto` | Nuevo caso | gestor |
 | `GET /consejos/asunto/{id}/editar`, `POST /consejos/asunto/{id}`, `POST …/eliminar` | Editar / eliminar caso | gestor |
-| `GET /consejos/personas?q=` | Buscador de personas (JSON) para mencionarlas | gestor |
+| `GET /consejos/personas?q=` (`&alumnos=1` incluye alumnos) | Buscador de personas (JSON) del componente `SelectorPersonas`: cada palabra escrita debe estar en el nombre o en el correo | gestor |
 | `GET /consejos/reunion/{id}/sesion/{consejo}` | Pantalla de la sesión | gestor |
 | `POST …/sesion/{consejo}/iniciar`, `…/terminar`, `…/reabrir` | Estado de la sesión | gestor |
 | `POST /consejos/asunto/{id}/acuerdo` | Guarda el acuerdo y la decisión (JSON) | gestor |
@@ -90,7 +108,6 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 | `GET/POST /consejos/oficio/{id}`, `POST …/regenerar`, `GET …/descargar`, `POST …/escaneado` | Revisar un oficio, regenerarlo, bajarlo y subir su escaneado | gestor |
 | `GET /consejos/archivo/{id}` (`?descargar=1`) | PDF firmado | gestor o persona mencionada |
 | `POST /consejos/archivo/{id}/quitar` | Retira un PDF | gestor |
-| `POST /consejos/importar` | Crea una reunión desde un acta de Word | gestor |
 | `POST /consejos/reunion/{id}/importar`, `GET /consejos/plantilla-casos` | Importa casos (Word o Excel) / plantilla de Excel | gestor |
 | `POST /consejos/reunion/{id}/avisar`, `POST /consejos/oficio/{id}/avisar` | Aviso por correo y bandeja a los profesores mencionados | gestor |
 | `GET /consejos/buscar` | Búsqueda con comodines | gestor |
