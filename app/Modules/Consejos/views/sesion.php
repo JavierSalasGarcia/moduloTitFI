@@ -25,9 +25,9 @@ $desde = 'sesion:' . $consejo;
 .cns-col{display:flex;flex-direction:column;gap:12px;min-width:0}
 @media (min-width:1200px){.cns-ses:not(.proy) .cns-cols{grid-template-columns:1.2fr 1fr}}
 .cns-caja{border:1px solid var(--gris-100);border-radius:var(--radio);padding:12px 16px;background:#fff;position:relative}
-.cns-zoom{position:absolute;top:4px;right:6px;display:flex;gap:3px;opacity:.55;transition:opacity .15s;z-index:2}
-.cns-caja:hover .cns-zoom,.cns-zoom:focus-within{opacity:1}
-.cns-zb{border:1px solid var(--gris-100);background:#fff;color:var(--verde-900);border-radius:6px;min-width:28px;height:28px;padding:0 6px;font:inherit;font-size:15px !important;font-weight:800;line-height:1;cursor:pointer}
+.cns-sec{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cns-zoom{align-self:flex-end;display:flex;gap:3px;flex:none}
+.cns-zb{border:1px solid var(--gris-100);background:#fff;color:var(--verde-900);border-radius:6px;min-width:28px;height:26px;padding:0 6px;font:inherit;font-size:15px !important;font-weight:800;line-height:1;cursor:pointer}
 .cns-zb:hover{background:var(--verde-050)}
 .cns-ses.una .cns-cols{grid-template-columns:1fr !important}
 .cns-caja>h3{margin:0 0 6px;font-size:.8em;text-transform:uppercase;letter-spacing:.05em;color:var(--gris-600)}
@@ -54,7 +54,9 @@ $desde = 'sesion:' . $consejo;
 .cns-ses.proy .cns-caso h2{font-size:1.3em}
 .cns-ses.proy .cns-cols{flex:1;min-height:0;grid-template-columns:1fr 1.05fr;gap:1.4vw}
 .cns-ses.proy .cns-col{min-height:0;overflow:auto}
-.cns-ses.proy .cns-col-der .cns-caja.crece{flex:1 0 auto;display:flex;flex-direction:column}
+.cns-ses.proy .cns-sec.crece{flex:1 0 auto}
+.cns-ses.proy .cns-sec.crece>.cns-caja{flex:1;display:flex;flex-direction:column}
+.cns-ses.proy .cns-zb{min-width:1.6em;height:1.6em;font-size:max(12px,.75em) !important}
 .cns-ses.proy .cns-caja{padding:.6em .9em}
 .cns-ses.proy .cns-caja.sin-titulo>h3{display:none}
 .cns-ses.proy .cns-caja>h3{font-size:.62em}
@@ -67,7 +69,7 @@ $desde = 'sesion:' . $consejo;
 .cns-ses.proy .cns-nav{flex:none}
 .cns-ses.proy.una .cns-cols{display:flex;flex-direction:column;overflow:auto;gap:1vh}
 .cns-ses.proy.una .cns-col{overflow:visible;flex:none;min-height:auto}
-.cns-ses.proy.una .cns-col-der .cns-caja.crece{flex:none}
+.cns-ses.proy.una .cns-sec.crece{flex:none}
 .cns-ses.proy.una textarea{min-height:8em}
 .cns-ses.proy .cns-nav .btn{min-height:0 !important;min-width:0 !important;padding:.3em .8em;font-size:max(11px,.7em);line-height:1.2}
 .cns-ses.proy .cns-nav .cns-bot{gap:.5em}
@@ -190,15 +192,15 @@ $desde = 'sesion:' . $consejo;
   let Z = {sol: 1, ant: 1, acad: 1, gob: 1}, UNA = false;
   try { const g = JSON.parse(localStorage.getItem(PREF) || '{}'); if (g.Z) Z = Object.assign(Z, g.Z); UNA = !!g.UNA; } catch (_) { /* sin almacenamiento: se usan los valores por omisión */ }
   const guardarPref = () => { try { localStorage.setItem(PREF, JSON.stringify({Z, UNA})); } catch (_) { /* opcional */ } };
-  function conZoom(clave, caja) {
+  function conZoom(clave, caja, extra = '') {
     if (Z[clave] !== 1) caja.style.fontSize = Z[clave] + 'em';
-    const w = h('span', {class: 'cns-zoom'});
+    const w = h('div', {class: 'cns-zoom'});
     [['−', 1 / 1.15, 'Reducir el texto de esta sección'], ['+', 1.15, 'Ampliar el texto de esta sección']].forEach(([t, f, lab]) => {
       const b = h('button', {type: 'button', class: 'cns-zb', 'aria-label': lab}, t);
       b.addEventListener('click', () => { Z[clave] = Math.max(0.6, Math.min(3.5, +(Z[clave] * f).toFixed(3))); caja.style.fontSize = Z[clave] === 1 ? '' : Z[clave] + 'em'; guardarPref(); });
       w.append(b);
     });
-    caja.append(w); return caja;
+    return h('div', {class: 'cns-sec ' + extra}, w, caja);   // la franja de − / + queda arriba a la derecha, fuera de la caja de texto
   }
   DATOS.forEach(a => { a._b = {d: a[CD], a: a[CA] || '', n: a.nota || ''}; });
   const sucio = a => a[CD] !== a._b.d || (a[CA] || '') !== a._b.a || (GOB && (a.nota || '') !== a._b.n);
@@ -274,7 +276,7 @@ $desde = 'sesion:' . $consejo;
       nota.addEventListener('input', () => { a.nota = nota.value; refrescar(); });
       mio.append(h('div', {style: 'margin-top:8px;flex:none'}, h('small', {class: 'cns-ayuda'}, 'Nota adicional'), nota));
     }
-    der.append(conZoom('gob', mio));
+    der.append(conZoom('gob', mio, 'crece'));
     caso.append(h('div', {class: 'cns-cols'}, izq, der));
 
     document.getElementById('ant').disabled = i === 0; document.getElementById('sig').disabled = i === DATOS.length - 1;
