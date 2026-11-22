@@ -56,11 +56,12 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
 
 ## Sesiones: casos, redacción de acuerdos y proyección
 
-**Los mismos casos para los dos Consejos.** Una reunión tiene un solo conjunto de casos: primero los ve el Consejo Académico y después, en otra sesión, el de
-Gobierno (que ve el caso con el acuerdo del Académico y redacta el suyo). En la sesión de Gobierno **sí se pueden agregar casos nuevos** (p. ej. asuntos
-generales que surgen ahí) con «+ Profesor / + Alumno / + General»; al guardar se regresa a la sesión, en ese caso. Esos casos quedan con `origen = 'gobierno'`
-(migración 064): no salen en la sesión ni en el acta del Académico, y en el acta de Gobierno no llevan fila del Académico. Un caso creado cuando el Académico
-ya terminó nace en Gobierno; al importar, uno que solo trae acuerdo de Gobierno también.
+**Los mismos casos para los dos Consejos.** Los casos se crean al preparar la reunión (desde la página de la reunión, antes del Consejo Académico) y son un
+solo conjunto: primero los ve el Consejo Académico y después, en otra sesión, el de Gobierno (que ve el caso con el acuerdo del Académico y redacta el suyo).
+**Agregar un caso durante la sesión proyectada es la excepción** (p. ej. un asunto general que surge en Gobierno): está recogido en «Caso excepcional…» del
+menú lateral de la sesión (no aparece al proyectar) y, al guardar, se regresa a la sesión en ese caso. Un caso agregado desde la sesión de Gobierno, o creado
+cuando el Académico ya terminó, queda con `origen = 'gobierno'` (migración 064): no sale en la sesión ni en el acta del Académico, y en el acta de Gobierno no lleva
+fila del Académico. Al importar, un caso que solo trae acuerdo de Gobierno también nace así.
 
 **Redacción automática del acuerdo.** Al elegir la decisión el acuerdo cambia a la frase de las actas y se completa a mano:
 

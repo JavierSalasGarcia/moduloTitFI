@@ -13,7 +13,9 @@ $desde = 'sesion:' . $consejo;
 .cns-lado h3{margin:10px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--gris-600)}
 .cns-lado button{display:flex;gap:8px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:6px 8px;border-radius:6px;cursor:pointer;font:inherit;font-weight:700}
 .cns-lado button.act{background:var(--verde-050);color:var(--verde-900)}
-.cns-lado .cns-nuevos{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;border-top:1px solid var(--gris-100);padding-top:10px}
+.cns-lado .cns-nuevos{margin-top:10px;border-top:1px solid var(--gris-100);padding-top:8px;font-size:12px;color:var(--gris-600)}
+.cns-lado .cns-nuevos summary{cursor:pointer}
+.cns-lado .cns-nuevos div{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .cns-pt{width:10px;height:10px;border-radius:50%;background:#cbd5e1;flex:none}
 .cns-pt.si{background:#16a34a}.cns-pt.no{background:#dc2626}
 .cns-caso{display:flex;flex-direction:column;gap:14px}
@@ -66,7 +68,7 @@ $desde = 'sesion:' . $consejo;
       <div>
         <p class="cns-sub" style="margin:0"><a href="<?= e(url('consejos/reunion/' . $r['id'])) ?>">← <?= e($r['etiqueta']) ?></a></p>
         <h1>Sesión del <?= e($nombre) ?></h1>
-        <p class="cns-sub"><?= $gob ? 'Son los mismos casos que vio el Consejo Académico: se proyecta cada uno con su acuerdo y se redacta el del Consejo de Gobierno. Aquí también se pueden agregar casos nuevos.' : 'Se proyecta cada caso y se redacta el acuerdo del Consejo Académico.' ?> Al elegir la decisión el acuerdo se redacta solo; edítalo y pulsa <strong>Guardar</strong> (o <strong>Deshacer</strong> para volver a lo guardado).</p>
+        <p class="cns-sub"><?= $gob ? 'Son los mismos casos que vio el Consejo Académico (se crearon al preparar la reunión): se proyecta cada uno con su acuerdo y se redacta el del Consejo de Gobierno.' : 'Se proyecta cada caso y se redacta el acuerdo del Consejo Académico.' ?> Al elegir la decisión el acuerdo se redacta solo; edítalo y pulsa <strong>Guardar</strong> (o <strong>Deshacer</strong> para volver a lo guardado).</p>
       </div>
       <div class="cns-acciones">
         <button class="btn btn-primario" type="button" id="btn-proy">🖥️ Modo proyección</button>
@@ -79,7 +81,7 @@ $desde = 'sesion:' . $consejo;
   </section>
 
   <?php if (!$asuntos): ?>
-    <section class="tarjeta"><p class="cns-sub">Esta reunión aún no tiene casos<?= $gob ? ' para el Consejo de Gobierno' : '' ?>. <a href="<?= e(url('consejos/reunion/' . $r['id'] . '/asunto/nuevo?desde=' . $desde)) ?>">Agrega el primero</a>.</p></section>
+    <section class="tarjeta"><p class="cns-sub">Esta reunión aún no tiene casos. Se crean al preparar la reunión: <a href="<?= e(url('consejos/reunion/' . $r['id'])) ?>">vuelve a la reunión y agrégalos</a>.</p></section>
   <?php else: ?>
   <div class="cns-ses" id="ses">
     <nav class="tarjeta cns-lado" id="lado" aria-label="Casos"></nav>
@@ -167,9 +169,10 @@ $desde = 'sesion:' . $consejo;
       b.addEventListener('click', () => ir(k)); lado.append(b);
     });
     if (!BLOQUEADA) {
-      const nu = h('div', {class: 'cns-nuevos'}, h('small', {class: 'cns-ayuda', style: 'width:100%'}, 'Agregar un caso'));
-      [['profesor', '+ Profesor'], ['alumno', '+ Alumno'], ['general', '+ General']].forEach(([g2, t]) => nu.append(h('a', {class: 'btn btn-mini', href: URL_NUEVO(g2)}, t)));
-      lado.append(nu);
+      // Los casos se crean al preparar la reunión; agregar uno durante la sesión es la excepción, por eso va recogido.
+      const nu = h('details', {class: 'cns-nuevos'}, h('summary', {}, 'Caso excepcional…')), en = h('div');
+      [['profesor', '+ Profesor'], ['alumno', '+ Alumno'], ['general', '+ General']].forEach(([g2, t]) => en.append(h('a', {class: 'btn btn-mini', href: URL_NUEVO(g2)}, t)));
+      nu.append(en); lado.append(nu);
     }
   }
 

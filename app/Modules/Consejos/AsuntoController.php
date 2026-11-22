@@ -42,7 +42,7 @@ final class AsuntoController extends ConsejosBase
         $aid = Database::ejecutar(
             'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, origen, solicitud_html, antecedentes_html, texto_busqueda, observacion, observacion_autor, creado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             // Los casos son los mismos para los dos Consejos; uno nuevo, creado cuando el Académico ya terminó, se presenta directamente al de Gobierno.
-            [(int) $r['id'], $grupo, $numero, !empty($r['academico_fin']) ? 'gobierno' : 'academico', $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), $obs !== '' ? $obs : null, $obs !== '' ? (string) (Auth::usuario()['nombre'] ?? '') : null, Auth::id()]
+            [(int) $r['id'], $grupo, $numero, (!empty($r['academico_fin']) || $this->post('desde') === 'sesion:gobierno') ? 'gobierno' : 'academico', $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), $obs !== '' ? $obs : null, $obs !== '' ? (string) (Auth::usuario()['nombre'] ?? '') : null, Auth::id()]
         );
         $this->guardarProfesores($aid);
         Audit::record('consejos::asunto', 'correcto', 'Crea ' . Texto::clave($grupo, $numero) . ' reunión #' . $r['id']);
