@@ -37,7 +37,7 @@ depender del departamento por el que llegó el documento.
 5. Conserva además el proveedor `pendientes` del módulo (bandeja de Notificaciones y su insignia); lo habitual es que
    `por_firmar` sea el subconjunto de `pendientes` con `tipo` «Firma».
 6. No dupliques la entrada en el menú lateral: la pantalla de firma se abre desde la bandeja única o desde el enlace del correo
-   de aviso. Los módulos de Titulación y Posgrado conservan todavía su propia entrada de menú; al tocarlos, retírala.
+   de aviso. Titulación y Posgrado ya no tienen entrada propia de firmas en el menú (sus pantallas de firma se abren desde la bandeja única).
 7. Toda ruta de firma sigue comprobando que la persona sea el firmante designado (404 en otro caso) y deja registro en la
    auditoría.
 

@@ -61,22 +61,6 @@
       "orden": 24,
       "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::menuGestion",
       "descripcion": "Valida documentos, coteja originales y programa exámenes de grado."
-    },
-    {
-      "seccion": "TITULACIÓN",
-      "titulo": "Posgrado: firmas",
-      "ruta": "posgrado/firmas",
-      "descripcion": "Documentos de evaluación de grado que esperan tu firma en línea.",
-      "roles": [
-        "admin",
-        "titular",
-        "operativo",
-        "coordinador",
-        "profesor",
-        "alumno"
-      ],
-      "orden": 23,
-      "condicion": "App\\Modules\\Posgrado\\PosgradoAccess::tieneFirmas"
     }
   ],
   "rutas": {
