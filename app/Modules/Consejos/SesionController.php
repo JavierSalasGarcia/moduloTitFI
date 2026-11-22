@@ -23,9 +23,10 @@ final class SesionController extends ConsejosBase
             flash('alerta', 'Primero debe terminar la sesión del Consejo Académico.');
             redirigir('consejos/reunion/' . $r['id']);
         }
-        $filas = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ? ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
+        // Los casos son los mismos para los dos Consejos; en el Académico no salen los que nacieron en el de Gobierno.
+        $filas = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ?" . ($consejo === 'academico' ? " AND origen = 'academico'" : '') . " ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
         $asuntos = array_map(static fn(array $a) => [
-            'id' => (int) $a['id'], 'clave' => Texto::clave($a['grupo'], (int) $a['numero']), 'grupo' => $a['grupo'],
+            'id' => (int) $a['id'], 'clave' => Texto::clave($a['grupo'], (int) $a['numero']), 'grupo' => $a['grupo'], 'origen' => (string) $a['origen'],
             'observacion' => (string) $a['observacion'], 'solicitud' => (string) $a['solicitud_html'], 'antecedentes' => (string) $a['antecedentes_html'],
             'aval' => (string) $a['aval_academico'], 'acuerdoAcademico' => (string) $a['acuerdo_academico'],
             'aprob' => (string) $a['aprob_gobierno'], 'acuerdoGobierno' => (string) $a['acuerdo_gobierno'], 'nota' => (string) $a['nota_gobierno'],

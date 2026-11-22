@@ -373,8 +373,10 @@ final class Word
             . $celda($c2, self::htmlABloques((string) $a['solicitud_html']) ?: self::parrafo(''), 1, '<w:vAlign w:val="center"/>'));
         $xml .= $fila($celda(self::ANCHO, $titulo('Documentos y/o Antecedentes'), 2));
         $xml .= $fila($celda(self::ANCHO, self::htmlABloques((string) $a['antecedentes_html']) ?: self::parrafo(''), 2));
-        $xml .= $fila($celda(self::ANCHO, $titulo('Acuerdo del H. Consejo Académico'), 2));
-        $xml .= $fila($celda(self::ANCHO, $acuerdo($acAcad), 2));
+        if (($a['origen'] ?? 'academico') !== 'gobierno') {
+            $xml .= $fila($celda(self::ANCHO, $titulo('Acuerdo del H. Consejo Académico'), 2));
+            $xml .= $fila($celda(self::ANCHO, $acuerdo($acAcad), 2));
+        }
         if ($gob) {
             $xml .= $fila($celda(self::ANCHO, $titulo('Acuerdo del H. Consejo de Gobierno'), 2));
             $xml .= $fila($celda(self::ANCHO, $acuerdo($acGob), 2));

@@ -137,7 +137,7 @@ final class ReunionController extends ConsejosBase
         $this->gestor();
         $r = $this->reunion($id);
         $consejo = self::consejo($consejo);
-        $asuntos = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ? ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
+        $asuntos = Database::todas("SELECT * FROM consejos_asuntos WHERE reunion_id = ?" . ($consejo === 'academico' ? " AND origen = 'academico'" : '') . " ORDER BY FIELD(grupo, 'profesor', 'alumno', 'general'), numero", [(int) $r['id']]);
         Audit::record('consejos::acta', 'correcto', 'Descarga acta ' . $consejo . ' reunión #' . $r['id']);
         $fecha = $r[$consejo . '_fecha'] ?: date('Y-m-d');
         $this->enviarDocx(Word::acta($r, $consejo, $asuntos), 'Acta_Consejo_' . ($consejo === 'gobierno' ? 'Gobierno' : 'Academico') . '_' . $fecha . '.docx');

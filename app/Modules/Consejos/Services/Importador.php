@@ -78,9 +78,9 @@ final class Importador
                 $ex = Database::una('SELECT * FROM consejos_asuntos WHERE reunion_id = ? AND grupo = ? AND numero = ?', [$reunionId, $c['grupo'], (int) $c['numero']]);
                 if (!$ex) {
                     Database::ejecutar(
-                        'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, solicitud_html, antecedentes_html, texto_busqueda, aval_academico, acuerdo_academico, aprob_gobierno, acuerdo_gobierno, observacion, observacion_autor, creado_por)
-                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                        [$reunionId, $c['grupo'], (int) $c['numero'], $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), self::aval($ac), $ac, self::aprob($go), $go,
+                        'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, origen, solicitud_html, antecedentes_html, texto_busqueda, aval_academico, acuerdo_academico, aprob_gobierno, acuerdo_gobierno, observacion, observacion_autor, creado_por)
+                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                        [$reunionId, $c['grupo'], (int) $c['numero'], ($ac === '' && $go !== '') ? 'gobierno' : 'academico', $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), self::aval($ac), $ac, self::aprob($go), $go,
                             $obs !== '' ? $obs : null, $obs !== '' ? $autor : null, Auth::id()]
                     );
                     $nuevos++;

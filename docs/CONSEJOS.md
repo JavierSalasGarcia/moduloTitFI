@@ -54,12 +54,34 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
   mencionados» en la reunión (cuando terminó el Consejo de Gobierno). Usa el mismo envío que Constancias: el servicio de correo de la
   plataforma no admite adjuntos, así que el correo lleva un enlace a «Comisiones» (pide sesión) y el PDF se descarga ahí.
 
-## Proyectar en la reunión
+## Sesiones: casos, redacción de acuerdos y proyección
 
-En la página de la reunión, cada Consejo (pasos 2 y 3) tiene el botón **🖥️ Proyectar** (o **🖥️ Iniciar y proyectar** si la sesión aún no empieza): abre la
-pantalla de la sesión ya en modo proyección (`/consejos/reunion/{id}/sesion/{consejo}?proyectar=1`), que muestra solo el caso y el acuerdo, sin menús ni la
-observación de la Subdirección. Dentro de la sesión, el botón «Modo proyección» alterna lo mismo; la pantalla completa la pide ese botón (el navegador exige
-un clic). Se sale con «Salir de la proyección» o Esc.
+**Los mismos casos para los dos Consejos.** Una reunión tiene un solo conjunto de casos: primero los ve el Consejo Académico y después, en otra sesión, el de
+Gobierno (que ve el caso con el acuerdo del Académico y redacta el suyo). En la sesión de Gobierno **sí se pueden agregar casos nuevos** (p. ej. asuntos
+generales que surgen ahí) con «+ Profesor / + Alumno / + General»; al guardar se regresa a la sesión, en ese caso. Esos casos quedan con `origen = 'gobierno'`
+(migración 064): no salen en la sesión ni en el acta del Académico, y en el acta de Gobierno no llevan fila del Académico. Un caso creado cuando el Académico
+ya terminó nace en Gobierno; al importar, uno que solo trae acuerdo de Gobierno también.
+
+**Redacción automática del acuerdo.** Al elegir la decisión el acuerdo cambia a la frase de las actas y se completa a mano:
+
+| Consejo | Decisión | Frase |
+|---|---|---|
+| Académico | Se avala | «El H. Consejo Académico otorga el aval » + lo propio del caso (para…, de…) |
+| Académico | No se avala | «No se otorga el aval del H. Consejo Académico, dado que » + el motivo |
+| Gobierno | Se aprueba | «Se aprueba el Acuerdo del H. Consejo Académico.» (+ lo que se precise); la nota adicional se agrega al acuerdo final |
+| Gobierno | No se aprueba | «No se aprueba el aval del H. Consejo Académico en virtud de que » + el motivo |
+
+Lo que se escribió para una decisión se recuerda: si se cambia de decisión y se regresa, reaparece tal cual. Hay frases frecuentes («Se da por enterado el H.
+Consejo …», «Se otorga el aval del H. Consejo Académico.», «No es competencia del H. Consejo de Gobierno »).
+
+**Guardar y Deshacer.** Los cambios no se guardan solos: **💾 Guardar** (o Ctrl+S) los guarda y **↶ Deshacer** vuelve a lo último guardado en ese caso. Al pasar a
+otro caso se guarda el actual; si no se pudo guardar, no se cambia de caso. Un Consejo cuya sesión terminó no se edita (se reabre desde la reunión).
+
+**Proyectar.** En la página de la reunión, cada Consejo tiene **🖥️ Proyectar** (o **🖥️ Iniciar y proyectar**): abre la sesión en modo proyección
+(`/consejos/reunion/{id}/sesion/{consejo}?proyectar=1`). La pantalla arranca directamente con el caso —sin menús ni encabezados— en horizontal: a la izquierda la
+solicitud y los antecedentes (con sus tablas) y a la derecha el acuerdo del Académico (en Gobierno), la decisión y el acuerdo que se redacta. El tamaño del texto se
+adapta a la pantalla hasta que el caso quepa sin desplazarse. Con las flechas ← → se cambia de caso (fuera de los cuadros de texto); Esc o «Salir» cierra la
+proyección. La pantalla completa la pide el botón «Modo proyección» de la sesión (el navegador exige un clic). La observación de la Subdirección no se proyecta.
 
 ## Notificar dictamen (enlace con token)
 
@@ -141,13 +163,14 @@ búsqueda el caso se abre en modo consulta (`views/asunto_ver.php`). Si hay que 
 
 ## Datos
 
-Migraciones `061_consejos.sql`, `062_consejos_observaciones_avisos.sql` y `063_consejos_enlaces.sql` (repetibles; entran en `database/construir_actualizar.php`):
+Migraciones `061_consejos.sql`, `062_consejos_observaciones_avisos.sql`, `063_consejos_enlaces.sql` y `064_consejos_origen_caso.sql` (repetibles; entran en `database/construir_actualizar.php`):
 
 - `consejos_reuniones`: datos de la mesa y de cada Consejo, `academico_fin` y `gobierno_fin` (terminación), `estado`.
 - `consejos_asuntos`: grupo, número, `solicitud_html`, `antecedentes_html`, `texto_busqueda`, `aval_academico`, `acuerdo_academico`,
   `aprob_gobierno`, `acuerdo_gobierno`, `nota_gobierno`, `version_acuerdo` (sube con cada cambio).
 - `consejos_asuntos.observacion` y `observacion_autor` (migración 062): comentario de Word.
 - `consejos_oficios.avisado_en` (062): último aviso por correo.
+- `consejos_asuntos.origen` (064): Consejo ante el que se presentó el caso (`academico` o `gobierno`).
 - `consejos_enlaces` (063): token (solo su SHA-256), correo, oficio y vencimiento del enlace de «Notificar dictamen».
 - `consejos_asunto_profesores`: profesores (cuentas) mencionados en el caso.
 - `consejos_oficios`: oficio por caso o alumno; `version_acuerdo` menor que la del caso = desactualizado.

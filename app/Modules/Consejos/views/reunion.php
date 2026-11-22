@@ -128,7 +128,7 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
           <tbody>
           <?php foreach ($porGrupo[$g] as $a): ?>
             <tr>
-              <td class="cns-clave"><?= e(Texto::clave($a['grupo'], (int) $a['numero'])) ?></td>
+              <td class="cns-clave"><?= e(Texto::clave($a['grupo'], (int) $a['numero'])) ?><?= ($a['origen'] ?? '') === 'gobierno' ? '<br><small class="cns-etq" title="Se presentó directamente al Consejo de Gobierno">Nuevo en Gobierno</small>' : '' ?></td>
               <td><?= e(mb_strimwidth(Texto::limpio(Html::texto((string) $a['solicitud_html'])), 0, 170, '…')) ?></td>
               <td><?= (int) $a['profesores'] ?: '—' ?></td>
               <td><span class="cns-etq <?= e($aval[$a['aval_academico']][1]) ?>"><?= e($aval[$a['aval_academico']][0]) ?></span></td>

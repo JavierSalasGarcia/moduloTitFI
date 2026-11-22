@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 02:06)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 02:48)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (51 fuentes, en orden).
+-- a partir de las migraciones (52 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3336,4 +3336,19 @@ CREATE TABLE IF NOT EXISTS consejos_enlaces (
   KEY idx_consejos_enlace_oficio (oficio_id, email),
   CONSTRAINT fk_consejos_enlace_oficio FOREIGN KEY (oficio_id) REFERENCES consejos_oficios (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/064_consejos_origen_caso.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Consejos: los casos de una reunión son los mismos para el Consejo Académico y para el de Gobierno. «origen» dice ante qué Consejo se
+-- presentó por primera vez: los casos creados cuando el Académico ya terminó (p. ej. asuntos generales nuevos) nacen en el de Gobierno y no
+-- salen en el acta ni en la sesión del Académico. Repetible: solo agrega lo que falta.
+
+SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE consejos_asuntos ADD COLUMN origen ENUM(''academico'',''gobierno'') NOT NULL DEFAULT ''academico'' AFTER numero', 'DO 0')
+            FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consejos_asuntos' AND COLUMN_NAME = 'origen');
+PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- Casos que ya traen acuerdo del Consejo de Gobierno pero nunca tuvieron decisión ni acuerdo del Académico: se presentaron en el de Gobierno.
+UPDATE consejos_asuntos SET origen = 'gobierno'
+ WHERE origen = 'academico' AND aval_academico = 'pendiente' AND COALESCE(acuerdo_academico, '') = '' AND COALESCE(acuerdo_gobierno, '') <> '';
 

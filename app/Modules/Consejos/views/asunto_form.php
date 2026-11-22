@@ -11,6 +11,8 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
   <form class="tarjeta cns-form" method="post" action="<?= e(url($accion)) ?>" id="form-asunto">
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
     <input type="hidden" name="grupo" value="<?= e($a['grupo']) ?>">
+    <?php $desde = (string) ($desde ?? ''); $rutaVolver = $desde !== '' ? 'consejos/reunion/' . $r['id'] . '/sesion/' . substr($desde, 7) : 'consejos/reunion/' . $r['id']; ?>
+    <?php if ($desde !== ''): ?><input type="hidden" name="desde" value="<?= e($desde) ?>"><?php endif; ?>
     <div class="cns-cab" style="margin-bottom:12px">
       <div>
         <p class="cns-sub" style="margin:0"><a href="<?= e(url('consejos/reunion/' . $r['id'])) ?>">← <?= e($r['etiqueta']) ?></a></p>
@@ -56,7 +58,7 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     <div class="cns-acciones" style="margin-top:18px">
       <button class="btn btn-primario" type="submit">Guardar</button>
       <?php if ($nuevo): ?><button class="btn" type="submit" name="seguir" value="1">Guardar y agregar otro</button><?php endif; ?>
-      <a class="btn" href="<?= e(url('consejos/reunion/' . $r['id'])) ?>">Cancelar</a>
+      <a class="btn" href="<?= e(url($rutaVolver)) ?>">Cancelar</a>
     </div>
   </form>
 </div>

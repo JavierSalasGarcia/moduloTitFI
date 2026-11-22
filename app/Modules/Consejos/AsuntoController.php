@@ -21,7 +21,9 @@ final class AsuntoController extends ConsejosBase
         $this->noCerrada((int) $r['id']);
         $grupo = array_key_exists($_GET['grupo'] ?? '', self::GRUPOS) ? (string) $_GET['grupo'] : 'profesor';
         $a = ['id' => 0, 'grupo' => $grupo, 'numero' => $this->siguiente((int) $r['id'], $grupo), 'solicitud_html' => '', 'antecedentes_html' => ''];
-        $this->vista('asunto_form', ['titulo' => 'Nuevo caso', 'r' => $r, 'a' => $a, 'profesores' => [], 'grupos' => self::GRUPOS]);
+        // Con ?desde=sesion:gobierno el caso se agrega durante la sesión y al guardar se regresa a ella.
+        $desde = preg_match('/^sesion:(academico|gobierno)$/', (string) ($_GET['desde'] ?? '')) ? (string) $_GET['desde'] : '';
+        $this->vista('asunto_form', ['titulo' => 'Nuevo caso', 'r' => $r, 'a' => $a, 'profesores' => [], 'grupos' => self::GRUPOS, 'desde' => $desde]);
     }
 
     public function crear(string $id): void
@@ -38,12 +40,16 @@ final class AsuntoController extends ConsejosBase
         $numero = $this->siguiente((int) $r['id'], $grupo);
         $obs = mb_substr(trim(str_replace("\r", '', $this->post('observacion'))), 0, 3000);
         $aid = Database::ejecutar(
-            'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, solicitud_html, antecedentes_html, texto_busqueda, observacion, observacion_autor, creado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [(int) $r['id'], $grupo, $numero, $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), $obs !== '' ? $obs : null, $obs !== '' ? (string) (Auth::usuario()['nombre'] ?? '') : null, Auth::id()]
+            'INSERT INTO consejos_asuntos (reunion_id, grupo, numero, origen, solicitud_html, antecedentes_html, texto_busqueda, observacion, observacion_autor, creado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            // Los casos son los mismos para los dos Consejos; uno nuevo, creado cuando el Académico ya terminó, se presenta directamente al de Gobierno.
+            [(int) $r['id'], $grupo, $numero, !empty($r['academico_fin']) ? 'gobierno' : 'academico', $sol, $ant, trim(Html::texto($sol) . "\n" . Html::texto($ant)), $obs !== '' ? $obs : null, $obs !== '' ? (string) (Auth::usuario()['nombre'] ?? '') : null, Auth::id()]
         );
         $this->guardarProfesores($aid);
         Audit::record('consejos::asunto', 'correcto', 'Crea ' . Texto::clave($grupo, $numero) . ' reunión #' . $r['id']);
         flash('exito', 'Caso ' . Texto::clave($grupo, $numero) . ' guardado.');
+        if ($volver = $this->volverASesion((int) $r['id'], $aid)) {
+            redirigir($volver);
+        }
         redirigir($this->post('seguir') === '1' ? 'consejos/reunion/' . $r['id'] . '/asunto/nuevo?grupo=' . $grupo : 'consejos/reunion/' . $r['id']);
     }
 
@@ -59,7 +65,8 @@ final class AsuntoController extends ConsejosBase
             return;
         }
         $profes = Database::todas('SELECT u.id, u.nombre, u.email FROM consejos_asunto_profesores p JOIN usuarios u ON u.id = p.usuario_id WHERE p.asunto_id = ? ORDER BY u.nombre', [(int) $a['id']]);
-        $this->vista('asunto_form', ['titulo' => 'Editar ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a, 'profesores' => $profes, 'grupos' => self::GRUPOS]);
+        $this->vista('asunto_form', ['titulo' => 'Editar ' . Texto::clave($a['grupo'], (int) $a['numero']), 'r' => $r, 'a' => $a, 'profesores' => $profes, 'grupos' => self::GRUPOS,
+            'desde' => preg_match('/^sesion:(academico|gobierno)$/', (string) ($_GET['desde'] ?? '')) ? (string) $_GET['desde'] : '']);
     }
 
     public function actualizar(string $id): void
@@ -86,6 +93,9 @@ final class AsuntoController extends ConsejosBase
         $this->guardarProfesores((int) $a['id']);
         Audit::record('consejos::asunto', 'correcto', 'Actualiza ' . Texto::clave($a['grupo'], $numero) . ' reunión #' . $a['reunion_id']);
         flash('exito', 'Caso ' . Texto::clave($a['grupo'], $numero) . ' actualizado.');
+        if ($volver = $this->volverASesion((int) $a['reunion_id'], (int) $a['id'])) {
+            redirigir($volver);
+        }
         redirigir('consejos/reunion/' . $a['reunion_id']);
     }
 
@@ -123,6 +133,12 @@ final class AsuntoController extends ConsejosBase
             $params
         );
         $this->json(['personas' => array_map(static fn($f) => ['id' => (int) $f['id'], 'nombre' => $f['nombre'], 'email' => $f['email']], $filas)]);
+    }
+
+    /** Ruta de la sesión (con el caso a mostrar) si el formulario se abrió desde ella. */
+    private function volverASesion(int $reunionId, int $asuntoId): ?string
+    {
+        return preg_match('/^sesion:(academico|gobierno)$/', $this->post('desde'), $m) ? 'consejos/reunion/' . $reunionId . '/sesion/' . $m[1] . '?caso=' . $asuntoId : null;
     }
 
     private function siguiente(int $reunionId, string $grupo): int
