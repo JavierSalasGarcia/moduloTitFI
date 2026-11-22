@@ -9,10 +9,16 @@ use App\Modules\Constancias\Services\Indice;
 /** «Constancias firmadas»: lista única de las constancias ya firmadas, ordenable por emisión, firma o departamento, y descarga con permiso. */
 final class IndiceController extends ConstanciasBase
 {
+    /** Cada persona ve solo las constancias que se le extendieron, no las que firmó, solicitó o emitió su departamento. */
+    private static function alcancePropio(): array
+    {
+        return ['todas' => false, 'deptos' => [], 'solo_recibidas' => true] + ConstanciasAccess::alcance();
+    }
+
     public function index(): void
     {
         $this->privado();
-        $alcance = ConstanciasAccess::alcance();
+        $alcance = self::alcancePropio();
         $q = mb_substr(trim((string) ($_GET['q'] ?? '')), 0, 80);
         $anio = ctype_digit((string) ($_GET['anio'] ?? '')) ? (int) $_GET['anio'] : null;
         if ($anio !== null && ($anio < 2000 || $anio > 2100)) {
@@ -36,7 +42,7 @@ final class IndiceController extends ConstanciasBase
     public function descargar(string $fuente, string $id): void
     {
         $num = self::id($id);
-        $fila = $num !== null ? Indice::uno(ConstanciasAccess::alcance(), $fuente, $num) : null;
+        $fila = $num !== null ? Indice::uno(self::alcancePropio(), $fuente, $num) : null;
         $archivo = $fila ? Indice::archivo($fila) : null;
         if ($archivo === null) {
             $this->noEncontrado();

@@ -272,8 +272,12 @@ final class Indice
         $donde = ["s.estado IN ('en_firma','firmada')"];
         $p = [];
         if (empty($a['todas'])) {
-            $vis = ['s.solicitante_id = ?', 's.firmante_id = ?'];
-            array_push($p, (int) $a['yo'], (int) $a['yo']);
+            // Con «solo_recibidas» no cuentan quien la solicitó ni quien la firmó: solo a quien se le extendió.
+            $vis = [];
+            if (empty($a['solo_recibidas'])) {
+                $vis = ['s.solicitante_id = ?', 's.firmante_id = ?'];
+                array_push($p, (int) $a['yo'], (int) $a['yo']);
+            }
             if ($a['deptos']) {
                 $vis[] = 's.departamento_id IN (' . self::marcas($a['deptos']) . ')';
                 array_push($p, ...$a['deptos']);
@@ -295,7 +299,7 @@ final class Indice
             if ($rec) {
                 $vis[] = "(s.estado = 'firmada' AND (" . implode(' OR ', $rec) . '))';
             }
-            $donde[] = '(' . implode(' OR ', $vis) . ')';
+            $donde[] = $vis ? '(' . implode(' OR ', $vis) . ')' : '0 = 1';
         }
         if ($id !== null) {
             $donde[] = 's.id = ?';

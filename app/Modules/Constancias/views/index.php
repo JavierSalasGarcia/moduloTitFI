@@ -2,8 +2,7 @@
 /** @var array $filas @var string $orden @var string $dir @var bool $recortado @var string $q @var ?int $anio @var int[] $anios @var array $alcance @var bool $puedeSolicitar */
 include __DIR__ . '/_estilos.php';
 $filtrando = $q !== '' || $anio !== null;
-$ve = $alcance['todas'] ? 'Ves todas las constancias firmadas de la Facultad.'
-    : ($alcance['deptos'] ? 'Ves las constancias firmadas que recibiste y todas las que emitió tu departamento.' : 'Ves las constancias firmadas que se te extendieron.');
+$ve = 'Aquí ves las constancias firmadas que se te extendieron a ti. No aparecen las que tú firmas o solicitas para otras personas.';
 // Encabezado ordenable: al volver a pulsar la columna activa se invierte el sentido; fechas empiezan por la más reciente.
 $enlace = static function (string $clave, string $texto) use ($orden, $dir, $q, $anio): string {
     $sigue = $orden === $clave ? ($dir === 'asc' ? 'desc' : 'asc') : ($clave === 'depto' ? 'asc' : 'desc');
@@ -43,7 +42,7 @@ $fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)
         <p>Revisa cómo escribiste el nombre o el folio, o quita el filtro de año.</p>
       <?php else: ?>
         <h2>Aún no hay constancias firmadas</h2>
-        <p>Cuando la Facultad firme una constancia que se te extendió, o que emitió tu departamento, aparecerá aquí lista para descargar.</p>
+        <p>Cuando se firme una constancia que se te extendió, aparecerá aquí lista para descargar.</p>
       <?php endif; ?>
     </section>
   <?php else: ?>
