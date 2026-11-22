@@ -24,8 +24,10 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     <?php $plantillas = \App\Modules\Consejos\Services\Plantillas::paraGrupo((string) $a['grupo']); ?>
     <?php if ($plantillas): ?>
     <label>Tipo de trámite (plantilla opcional)
-      <select id="plantilla"><option value="">— Escribir libremente —</option><?php foreach ($plantillas as $k => $p): ?><option value="<?= (int) $k ?>"><?= e($p['nombre']) ?></option><?php endforeach; ?></select>
-      <span class="cns-ayuda">Rellena la solicitud con la redacción que usan las actas y, si el trámite lleva tabla, la deja armada. Sustituye lo que está entre [corchetes]; el sistema avisa si queda alguno sin llenar.</span>
+      <select id="plantilla"><option value="">— Escribir libremente —</option>
+        <optgroup label="De este apartado del acta"><?php foreach ($plantillas as $k => $p): if ($p['propia']): ?><option value="<?= (int) $k ?>"><?= e($p['nombre']) ?></option><?php endif; endforeach; ?></optgroup>
+        <optgroup label="De otros apartados"><?php foreach ($plantillas as $k => $p): if (!$p['propia']): ?><option value="<?= (int) $k ?>"><?= e($p['nombre']) ?></option><?php endif; endforeach; ?></optgroup></select>
+      <span class="cns-ayuda">Rellena la solicitud con la redacción que usan las actas (sujeto + «solicita a los H.H. Consejos…» + lo que se pide + su finalidad) y, si el trámite lleva tabla, la deja armada. Sustituye lo que está entre [corchetes]; el sistema avisa si queda alguno sin llenar.</span>
     </label>
     <?php endif; ?>
     <label style="margin-top:12px">Solicitud <span class="req">*</span>
