@@ -8,7 +8,7 @@ $ve = $alcance['todas'] ? 'Ves todas las constancias firmadas de la Facultad.'
 $enlace = static function (string $clave, string $texto) use ($orden, $dir, $q, $anio): string {
     $sigue = $orden === $clave ? ($dir === 'asc' ? 'desc' : 'asc') : ($clave === 'depto' ? 'asc' : 'desc');
     $consulta = http_build_query(array_filter(['q' => $q, 'anio' => $anio, 'orden' => $clave, 'dir' => $sigue], static fn($v) => $v !== '' && $v !== null));
-    $flecha = $orden === $clave ? ($dir === 'asc' ? ' ▲' : ' ▼') : '';
+    $flecha = $orden === $clave ? ($dir === 'asc' ? ' ▲' : ' ▼') : ' ⇅';
     return '<a href="' . e(url('constancias?' . $consulta)) . '" title="Ordenar por ' . e(mb_strtolower($texto)) . '"' . ($orden === $clave ? ' aria-current="true"' : '') . '>' . e($texto) . $flecha . '</a>';
 };
 $fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)) : '—';
@@ -48,8 +48,8 @@ $fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)
     </section>
   <?php else: ?>
   <section class="tarjeta">
-    <p class="const-ayuda" style="margin:0 0 8px"><?= count($filas) ?> <?= count($filas) === 1 ? 'constancia firmada' : 'constancias firmadas' ?>. Pulsa el título de una columna para ordenar.</p>
-    <table class="const-lista">
+    <p class="const-ayuda" style="margin:0 0 8px"><?= count($filas) ?> <?= count($filas) === 1 ? 'constancia firmada' : 'constancias firmadas' ?>. Pulsa el título subrayado de <strong>Departamento</strong>, <strong>Emisión</strong> o <strong>Firma</strong> para ordenar (⇅); si pulsas otra vez, se invierte el orden.</p>
+    <div class="const-scroll"><table class="const-lista const-tabla">
       <thead><tr>
         <th>Constancia</th><th>Se extiende a</th>
         <th><?= $enlace('depto', 'Departamento') ?></th>
@@ -70,7 +70,7 @@ $fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)
         </tr>
       <?php endforeach; ?>
       </tbody>
-    </table>
+    </table></div>
   </section>
   <?php endif; ?>
 </div>

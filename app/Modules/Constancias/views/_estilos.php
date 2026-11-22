@@ -23,6 +23,14 @@
 .const-lista tr:last-child td{border-bottom:0}
 .const-lista small{color:var(--gris-600)}
 .const-acc .btn{white-space:nowrap}
+/* Tabla de «Constancias firmadas»: siempre tabla (con desplazamiento lateral en pantallas angostas) y encabezados ordenables. */
+.const-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.const-tabla{min-width:760px}
+.const-tabla th{white-space:nowrap;background:var(--verde-050,#f3f8f3);border-bottom:2px solid var(--gris-100)}
+.const-tabla th a{color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.const-tabla th a[aria-current]{color:var(--verde-900);font-weight:800}
+.const-tabla td,.const-tabla th{border-right:1px solid var(--gris-100)}
+.const-tabla td:last-child,.const-tabla th:last-child{border-right:0}
 .const-estado{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;white-space:nowrap}
 .const-estado.firmada{background:var(--verde-050);color:var(--verde-900)}
 .const-estado.en_firma,.const-estado.borrador{background:var(--oro-050);color:var(--oro-texto)}
@@ -95,12 +103,12 @@ label.con-error input,label.con-error textarea{border-color:var(--error)}
 /* En pantallas angostas cada constancia se muestra como tarjeta */
 @media (max-width:719px){
   .const-hoja p.J{text-align:left}
-  .const-lista thead{display:none}
-  .const-lista,.const-lista tbody,.const-lista tr,.const-lista td{display:block;width:100%}
-  .const-lista tr{padding:10px 0;border-bottom:1px dashed var(--gris-100)}
-  .const-lista tr:last-child{border-bottom:0}
-  .const-lista td{border:0;padding:2px 0}
-  .const-lista td[data-et]::before{content:attr(data-et) ': ';color:var(--gris-600);font-size:12px}
-  .const-lista td.const-acc{padding-top:8px}
+  .const-lista:not(.const-tabla) thead{display:none}
+  .const-lista:not(.const-tabla),.const-lista:not(.const-tabla) tbody,.const-lista:not(.const-tabla) tr,.const-lista:not(.const-tabla) td{display:block;width:100%}
+  .const-lista:not(.const-tabla) tr{padding:10px 0;border-bottom:1px dashed var(--gris-100)}
+  .const-lista:not(.const-tabla) tr:last-child{border-bottom:0}
+  .const-lista:not(.const-tabla) td{border:0;padding:2px 0}
+  .const-lista:not(.const-tabla) td[data-et]::before{content:attr(data-et) ': ';color:var(--gris-600);font-size:12px}
+  .const-lista:not(.const-tabla) td.const-acc{padding-top:8px}
 }
 </style>
