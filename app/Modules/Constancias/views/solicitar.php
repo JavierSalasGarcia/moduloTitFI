@@ -80,8 +80,7 @@ $modo = $docx ? $v['modo'] : 'texto';
           </ul>
         <?php endif; ?>
         <div id="const-evid"></div>
-        <button type="button" class="btn btn-mini" id="const-evid-mas">+ Agregar archivo</button>
-        <span class="const-ayuda">PDF, imagen (JPG o PNG), Word o Excel; hasta 15 MB cada uno. La descripción es opcional. Solo la ven quien firma y tú.</span>
+        <span class="const-ayuda">PDF, imagen (JPG o PNG), Word o Excel; hasta 15 MB cada uno. La descripción es opcional. Al elegir un archivo aparece otro espacio por si quieres adjuntar más. Solo la ven quien firma y tú.</span>
       </fieldset>
 
       <div class="const-acciones">
@@ -126,14 +125,17 @@ $modo = $docx ? $v['modo'] : 'texto';
   });
   // Evidencia: filas de archivo + descripción opcional.
   var caja = document.getElementById('const-evid');
-  var mas = document.getElementById('const-evid-mas');
   function fila() {
     var d = document.createElement('div');
     d.style.cssText = 'display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:0 0 8px';
     d.innerHTML = '<input type="file" name="adjuntos[]" accept=".pdf,.jpg,.jpeg,.png,.docx,.xlsx" aria-label="Archivo de evidencia">'
       + '<input type="text" name="adjuntos_desc[]" maxlength="200" placeholder="De qué es (opcional)" aria-label="Descripción de la evidencia">';
     caja.appendChild(d);
+    // Solo cuando ya hay un archivo en la última fila aparece otra para el siguiente; mientras esté vacía no se abre ninguna.
+    d.querySelector('input[type=file]').addEventListener('change', function () {
+      if (this.files.length && caja.lastElementChild === d) fila();
+    });
   }
-  if (caja && mas) { fila(); mas.addEventListener('click', fila); }
+  if (caja) fila();
 })();
 </script>
