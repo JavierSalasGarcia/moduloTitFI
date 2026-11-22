@@ -9,8 +9,8 @@ use App\Core\Database;
 
 /**
  * Quién hace qué en Consejos (docs/CONSEJOS.md):
- *  - Gestionan (capturan asuntos, conducen las sesiones, generan actas y dictámenes, buscan): administración, el Subdirector
- *    Académico, su asistente y quien tenga la concesión «consejos.gestor» con vigencia.
+ *  - Gestionan (capturan asuntos, conducen las sesiones, generan actas y dictámenes, buscan): solo el Subdirector Académico, su
+ *    asistente y quien tenga la concesión «consejos.gestor» con vigencia. Administración no gestiona por serlo.
  *  - Cada profesor ve en «Comisiones» solo los asuntos en que se le mencionó, una vez concluida la sesión del Consejo de Gobierno.
  */
 final class ConsejosAccess
@@ -20,7 +20,7 @@ final class ConsejosAccess
         if (!Auth::id()) {
             return false;
         }
-        if (Auth::tieneRol('admin') || Acceso::tiene(Auth::id(), 'consejos.gestor')) {
+        if (Acceso::tiene(Auth::id(), 'consejos.gestor')) {
             return true;
         }
         try {

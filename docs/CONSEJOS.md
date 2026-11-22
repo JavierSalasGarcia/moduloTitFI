@@ -126,9 +126,9 @@ búsqueda el caso se abre en modo consulta (`views/asunto_ver.php`). Si hay que 
 
 ## Acceso
 
-- **Gestionan**: administración, el Subdirector Académico, su asistente (`SubdireccionFirma::esSubdirector/esAsistente`) y quien tenga
+- **Gestionan** (únicas personas que ven «Consejos» y «Buscar en las actas»): el Subdirector Académico, su asistente (`SubdireccionFirma::esSubdirector/esAsistente`) y quien tenga
   la concesión con vigencia `consejos.gestor` (`docs/CONCESIONES_DE_ACCESO.md`). Ver `ConsejosAccess::esGestor`.
-- **Profesores** (y cualquier cuenta no alumna): solo «Comisiones», con lo que les corresponde. Los archivos (`/consejos/archivo/{id}`)
+- **Profesores y coordinaciones** (y cualquier cuenta no alumna): solo «Solicitudes a Consejos» y «Comisiones», con lo que les corresponde. Los archivos (`/consejos/archivo/{id}`)
   se sirven únicamente a gestores y a las personas mencionadas, y solo cuando la sesión de Gobierno terminó.
 - Los alumnos no entran al módulo (el manifiesto no los incluye).
 - Todo POST lleva CSRF (lo exige el Router); las consultas son preparadas; la salida se escapa; el HTML pegado se limpia en el cliente y
