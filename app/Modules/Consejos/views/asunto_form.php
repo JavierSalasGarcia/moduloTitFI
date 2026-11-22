@@ -10,7 +10,7 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
 <div class="cns-pila">
   <form class="tarjeta cns-form" method="post" action="<?= e(url($accion)) ?>" id="form-asunto" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-    <input type="hidden" name="grupo" value="<?= e($a['grupo']) ?>">
+    <?php if ($nuevo): ?><input type="hidden" name="grupo" value="<?= e($a['grupo']) ?>"><?php endif; ?>
     <?php $desde = (string) ($desde ?? ''); $rutaVolver = $desde !== '' ? 'consejos/reunion/' . $r['id'] . '/sesion/' . substr($desde, 7) : 'consejos/reunion/' . $r['id']; ?>
     <?php if ($desde !== ''): ?><input type="hidden" name="desde" value="<?= e($desde) ?>"><?php endif; ?>
     <div class="cns-cab" style="margin-bottom:12px">
@@ -18,7 +18,12 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
         <p class="cns-sub" style="margin:0"><a href="<?= e(url('consejos/reunion/' . $r['id'])) ?>">← <?= e($r['etiqueta']) ?></a></p>
         <h1><?= $nuevo ? 'Nuevo ' . e(mb_strtolower($grupos[$a['grupo']])) . ' (' . e($clave) . ')' : 'Caso ' . e($clave) ?></h1>
       </div>
-      <?php if (!$nuevo): ?><label style="margin:0;max-width:130px">Número<input type="text" name="numero" inputmode="numeric" pattern="\d{1,3}" value="<?= (int) $a['numero'] ?>"></label><?php endif; ?>
+      <?php if (!$nuevo): ?>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <label style="margin:0;min-width:220px">Apartado del acta<select name="grupo"><?php foreach ($grupos as $g => $titulo): ?><option value="<?= e($g) ?>"<?= $a['grupo'] === $g ? ' selected' : '' ?>><?= e($titulo) ?></option><?php endforeach; ?></select></label>
+        <label style="margin:0;max-width:130px">Número<input type="text" name="numero" inputmode="numeric" pattern="\d{1,3}" value="<?= (int) $a['numero'] ?>"></label>
+      </div>
+      <?php endif; ?>
     </div>
 
     <?php if (!empty($a['solicitud_id'])): ?>
@@ -27,23 +32,23 @@ $accion = $nuevo ? 'consejos/reunion/' . $r['id'] . '/asunto' : 'consejos/asunto
     <?php $plantillas = \App\Modules\Consejos\Services\Plantillas::paraGrupo((string) $a['grupo']); ?>
     <?php if ($plantillas): ?>
     <label>Tipo de trámite (plantilla opcional)
-      <select id="plantilla"><option value="">— Escribir libremente —</option>
+      <select id="plantilla" data-sin-filtro><option value="">— Escribir libremente —</option>
         <optgroup label="De este apartado del acta"><?php foreach ($plantillas as $k => $p): if ($p['propia']): ?><option value="<?= (int) $k ?>"><?= e($p['nombre']) ?></option><?php endif; endforeach; ?></optgroup>
         <optgroup label="De otros apartados"><?php foreach ($plantillas as $k => $p): if (!$p['propia']): ?><option value="<?= (int) $k ?>"><?= e($p['nombre']) ?></option><?php endif; endforeach; ?></optgroup></select>
       <span class="cns-ayuda">Rellena la solicitud con la redacción que usan las actas (sujeto + «solicita a los H.H. Consejos…» + lo que se pide + su finalidad) y, si el trámite lleva tabla, la deja armada. Sustituye lo que está entre [corchetes]; el sistema avisa si queda alguno sin llenar.</span>
     </label>
     <?php endif; ?>
     <label style="margin-top:12px">Solicitud <span class="req">*</span>
-      <span class="cns-ayuda">Escribe o pega el texto tal como irá en el acta («El Dr. …, profesor de esta Facultad, solicita a los H.H. Consejos…»).</span>
+      <span class="cns-ayuda">Escribe o pega el enunciado tal como irá en el acta («El Dr. …, profesor de esta Facultad, solicita a los H.H. Consejos…»). <strong>Aquí no van listas ni tablas de nombres:</strong> las tablas y listas van en «Documentos y/o antecedentes».</span>
     </label>
-    <?php include __DIR__ . '/_herramientas.php'; ?>
-    <div class="cns-lienzo" id="ed-solicitud" contenteditable="true" data-vacio="Escribe o pega aquí la solicitud…" data-herr="1"><?= $a['solicitud_html'] ?></div>
+    <?php $soloTexto = true; include __DIR__ . '/_herramientas.php'; ?>
+    <div class="cns-lienzo" id="ed-solicitud" contenteditable="true" data-vacio="Escribe o pega aquí la solicitud…" data-herr="1" data-solo-texto="1"><?= $a['solicitud_html'] ?></div>
     <input type="hidden" name="solicitud_html" id="in-solicitud">
 
     <label style="margin-top:16px">Documentos y/o antecedentes
-      <span class="cns-ayuda"><strong>Para poner una tabla: cópiala en Word (Ctrl+C) y pégala aquí (Ctrl+V).</strong> Se conservan las filas, columnas y celdas combinadas. También puedes escribir listas como «Oficio de solicitud».</span>
+      <span class="cns-ayuda">Siempre empieza con «Oficio de solicitud»; los archivos que subas abajo se enlistan solos. <strong>No es narrativa: solo listas y tablas</strong> (por ejemplo, la tabla de comités). Para poner una tabla: cópiala en Word (Ctrl+C) y pégala aquí (Ctrl+V); se conservan filas, columnas y celdas combinadas.</span>
     </label>
-    <?php include __DIR__ . '/_herramientas.php'; ?>
+    <?php $soloTexto = false; include __DIR__ . '/_herramientas.php'; ?>
     <div class="cns-lienzo" id="ed-antecedentes" contenteditable="true" data-vacio="Pega aquí tablas y documentos de Word, o escribe la lista de antecedentes…" data-herr="1"><?= $a['antecedentes_html'] ?></div>
     <input type="hidden" name="antecedentes_html" id="in-antecedentes">
 

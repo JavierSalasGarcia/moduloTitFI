@@ -127,8 +127,8 @@ final class Plantillas
             }
             $fila = [
                 'clave' => $p['clave'], 'grupo' => $p['grupo'], 'nombre' => $p['nombre'], 'propia' => $p['grupo'] === $grupo,
-                'solicitud' => '<p>' . htmlspecialchars($p['solicitud'], ENT_QUOTES, 'UTF-8') . '</p>' . $tabla,
-                'antecedentes' => '<p>' . htmlspecialchars($p['antecedentes'], ENT_QUOTES, 'UTF-8') . '</p>',
+                'solicitud' => '<p>' . htmlspecialchars($p['solicitud'], ENT_QUOTES, 'UTF-8') . '</p>',
+                'antecedentes' => '<p>' . htmlspecialchars($p['antecedentes'], ENT_QUOTES, 'UTF-8') . '</p>' . $tabla,
             ];
             if ($fila['propia']) {
                 $propias[] = $fila;

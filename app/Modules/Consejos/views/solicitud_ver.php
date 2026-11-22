@@ -112,6 +112,11 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
         <label style="margin:0">Registrar como<select name="tipo"><option value="vobo">Vo. Bo.</option><option value="enterado">De enterado</option></select></label>
         <button class="btn btn-primario" type="submit">Está bien: dar Vo. Bo. y pasar a cartera</button></form>
     <?php endif; ?>
+    <?php if (ConsejosAccess::esGestor() && in_array($s['estado'], ['enviada', 'visto_bueno'], true)): ?>
+      <form method="post" action="<?= $ruta($s['id'] . '/apartado') ?>" class="cns-acciones" style="margin-top:10px"><?= $csrf ?>
+        <label style="margin:0">Apartado del acta<select name="grupo"><?php foreach (['profesor' => 'Casos de profesores (P)', 'alumno' => 'Trámites de alumnos (A)', 'general' => 'Asuntos generales y comisiones (AG)'] as $g => $t): ?><option value="<?= e($g) ?>"<?= $s['grupo'] === $g ? ' selected' : '' ?>><?= e($t) ?></option><?php endforeach; ?></select></label>
+        <button class="btn" type="submit">Cambiar apartado</button></form>
+    <?php endif; ?>
     <?php if ($reuniones && $s['estado'] === 'visto_bueno'): ?>
       <form method="post" action="<?= $ruta($s['id'] . '/incorporar') ?>" class="cns-acciones" style="margin-top:10px"><?= $csrf ?>
         <label style="margin:0">Llevar de la cartera a la reunión<select name="reunion_id"><?php foreach ($reuniones as $r): ?><option value="<?= (int) $r['id'] ?>"><?= e($r['etiqueta']) ?></option><?php endforeach; ?></select></label>

@@ -66,3 +66,6 @@ node_modules/
 /Plan/Matriz2.xlsx
 /Plan/Memoria2.xlsx
 /Plan/obs2/
+
+# Material de contexto con datos personales (actas y oficios)
+/consejos/

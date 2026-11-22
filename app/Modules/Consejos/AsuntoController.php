@@ -20,7 +20,7 @@ final class AsuntoController extends ConsejosBase
         $r = $this->reunion($id);
         $this->noCerrada((int) $r['id']);
         $grupo = array_key_exists($_GET['grupo'] ?? '', self::GRUPOS) ? (string) $_GET['grupo'] : 'profesor';
-        $a = ['id' => 0, 'grupo' => $grupo, 'numero' => $this->siguiente((int) $r['id'], $grupo), 'solicitud_html' => '', 'antecedentes_html' => ''];
+        $a = ['id' => 0, 'grupo' => $grupo, 'numero' => $this->siguiente((int) $r['id'], $grupo), 'solicitud_html' => '', 'antecedentes_html' => '<p>Oficio de solicitud</p>'];
         // Con ?desde=sesion:gobierno el caso se agrega durante la sesión y al guardar se regresa a ella.
         $desde = preg_match('/^sesion:(academico|gobierno)$/', (string) ($_GET['desde'] ?? '')) ? (string) $_GET['desde'] : '';
         $this->vista('asunto_form', ['titulo' => 'Nuevo caso', 'r' => $r, 'a' => $a, 'profesores' => [], 'grupos' => self::GRUPOS, 'desde' => $desde]);
@@ -80,16 +80,23 @@ final class AsuntoController extends ConsejosBase
             flash('error', $error);
             redirigir('consejos/asunto/' . $a['id'] . '/editar');
         }
-        $numero = max(1, (int) $this->post('numero', (string) $a['numero']));
-        if ($numero !== (int) $a['numero'] && Database::valor('SELECT 1 FROM consejos_asuntos WHERE reunion_id = ? AND grupo = ? AND numero = ? AND id <> ?', [(int) $a['reunion_id'], $a['grupo'], $numero, (int) $a['id']])) {
+        // Subdirección o su asistente pueden cambiar el apartado del acta; el caso toma el siguiente número de ese apartado.
+        $grupoNuevo = array_key_exists($this->post('grupo'), self::GRUPOS) ? $this->post('grupo') : (string) $a['grupo'];
+        if ($grupoNuevo !== $a['grupo']) {
+            $numero = $this->siguiente((int) $a['reunion_id'], $grupoNuevo);
+            $a['grupo'] = $grupoNuevo;
+        } else {
+            $numero = max(1, (int) $this->post('numero', (string) $a['numero']));
+        }
+        if ($numero !== (int) $a['numero'] && $grupoNuevo === $a['grupo'] && Database::valor('SELECT 1 FROM consejos_asuntos WHERE reunion_id = ? AND grupo = ? AND numero = ? AND id <> ?', [(int) $a['reunion_id'], $a['grupo'], $numero, (int) $a['id']])) {
             flash('error', 'Ya existe el caso ' . Texto::clave($a['grupo'], $numero) . ' en esta reunión.');
             redirigir('consejos/asunto/' . $a['id'] . '/editar');
         }
         // El comentario conserva a quien lo escribió mientras no cambie su texto.
         $obs = mb_substr(trim(str_replace("\r", '', $this->post('observacion'))), 0, 3000);
         $autor = $obs === '' ? null : ($obs === trim((string) $a['observacion']) ? $a['observacion_autor'] : (string) (Auth::usuario()['nombre'] ?? ''));
-        Database::ejecutar('UPDATE consejos_asuntos SET numero = ?, solicitud_html = ?, antecedentes_html = ?, texto_busqueda = ?, observacion = ?, observacion_autor = ? WHERE id = ?',
-            [$numero, $sol, $ant, trim(Html::texto($sol) . "
+        Database::ejecutar('UPDATE consejos_asuntos SET grupo = ?, numero = ?, solicitud_html = ?, antecedentes_html = ?, texto_busqueda = ?, observacion = ?, observacion_autor = ? WHERE id = ?',
+            [$a['grupo'], $numero, $sol, $ant, trim(Html::texto($sol) . "
 " . Html::texto($ant)), $obs !== '' ? $obs : null, $autor, (int) $a['id']]);
         $this->guardarProfesores((int) $a['id']);
         $this->avisarAdjuntos(\App\Modules\Consejos\Services\Adjuntos::guardarDelFormulario(['asunto_id' => (int) $a['id']], true));
@@ -151,7 +158,7 @@ final class AsuntoController extends ConsejosBase
     /** @return array{0:string,1:string,2:string} solicitud limpia, antecedentes limpios y error */
     private function contenido(): array
     {
-        $sol = Html::limpiar((string) ($_POST['solicitud_html'] ?? ''));
+        $sol = Html::sinTablasNiListas(Html::limpiar((string) ($_POST['solicitud_html'] ?? '')));
         $ant = Html::limpiar((string) ($_POST['antecedentes_html'] ?? ''));
         if (trim(Html::texto($sol)) === '') {
             return ['', '', 'Escribe o pega la solicitud del caso.'];

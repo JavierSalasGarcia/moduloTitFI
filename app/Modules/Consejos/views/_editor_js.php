@@ -66,6 +66,10 @@
       ev.preventDefault();
       let limpio = html ? limpiarPegado(html) : '';
       if (!limpio.replace(/<[^>]*>/g,'').trim() && !/<table/.test(limpio)) limpio = txt.split(/\r?\n/).filter(l => l.trim()).map(l => '<p>' + esc(l.trim()) + '</p>').join('');
+      if (ed.hasAttribute('data-solo-texto')) {
+        const d = document.createElement('div'); d.innerHTML = limpio;
+        limpio = [...d.querySelectorAll('p, li')].map(x => x.innerHTML.trim()).filter(Boolean).map(x => '<p>' + x + '</p>').join('');
+      }
       document.execCommand('insertHTML', false, limpio);
     });
     ed.addEventListener('drop', e => e.preventDefault());
@@ -100,8 +104,8 @@
   if (selPl) selPl.addEventListener('change', () => {
     const p = PLANTILLAS[selPl.value]; if (!p) return;
     const sol = document.getElementById('ed-solicitud'), ant = document.getElementById('ed-antecedentes');
-    if ((sol.textContent.trim() || ant.textContent.trim()) && !confirm('Esto reemplaza la solicitud y los antecedentes que ya escribiste. ¿Continuar?')) { selPl.value = ''; return; }
-    sol.innerHTML = p.solicitud; ant.innerHTML = p.antecedentes; sol.focus();
+    if ((sol.textContent.trim() || (ant && ant.textContent.trim())) && !confirm('Esto reemplaza la solicitud y los antecedentes que ya escribiste. ¿Continuar?')) { selPl.value = ''; return; }
+    sol.innerHTML = p.solicitud; if (ant) ant.innerHTML = p.antecedentes; sol.focus();
     const gs = document.getElementById('grupo-sel'); if (gs && p.grupo) gs.value = p.grupo;
     const cl = document.getElementById('plantilla-clave'); if (cl) cl.value = p.clave;
   });
@@ -109,10 +113,11 @@
   // Al enviar, el contenido de los lienzos viaja en campos ocultos.
   const form = document.getElementById('form-asunto');
   form.addEventListener('submit', ev => {
-    const pend = (document.getElementById('ed-solicitud').textContent + ' ' + document.getElementById('ed-antecedentes').textContent).match(/\[[^\]]{2,60}\]/g);
+    const antEd = document.getElementById('ed-antecedentes');
+    const pend = (document.getElementById('ed-solicitud').textContent + ' ' + (antEd ? antEd.textContent : '')).match(/\[[^\]]{2,60}\]/g);
     if (pend && !confirm('Aún hay datos entre corchetes sin llenar: ' + pend.slice(0, 3).join(', ') + (pend.length > 3 ? '…' : '') + '\n¿Guardar así?')) { ev.preventDefault(); return; }
     document.getElementById('in-solicitud').value = document.getElementById('ed-solicitud').innerHTML;
-    document.getElementById('in-antecedentes').value = document.getElementById('ed-antecedentes').innerHTML;
+    if (antEd) document.getElementById('in-antecedentes').value = antEd.innerHTML;
   });
 
   // Menciones con @ en la solicitud y en los antecedentes: suman a la persona a «Profesores mencionados».

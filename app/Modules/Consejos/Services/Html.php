@@ -42,6 +42,15 @@ final class Html
         return trim($salida);
     }
 
+    /** Quita tablas y listas (la solicitud es un enunciado): su contenido queda como párrafos de texto. */
+    public static function sinTablasNiListas(string $html): string
+    {
+        if (!preg_match('~<(table|ul|ol)\b~i', $html)) {
+            return $html;
+        }
+        return self::limpiar(self::deTexto(self::texto($html)));
+    }
+
     /** Texto plano (para el buscador y las vistas previas): celdas separadas por espacio, párrafos por salto de línea. */
     public static function texto(string $html): string
     {

@@ -56,7 +56,7 @@ final class SolicitudController extends ConsejosBase
     public function nueva(): void
     {
         $this->privado();
-        $this->formulario(['id' => 0, 'grupo' => 'profesor', 'plantilla' => '', 'solicitud_html' => '', 'antecedentes_html' => '', 'coordinador_id' => 0, 'coordinacion' => '', 'profesores' => '']);
+        $this->formulario(['id' => 0, 'grupo' => self::grupoPorDefecto(), 'plantilla' => '', 'solicitud_html' => '', 'antecedentes_html' => '', 'coordinador_id' => 0, 'coordinacion' => '', 'profesores' => '']);
     }
 
     public function editar(string $id): void
@@ -67,6 +67,37 @@ final class SolicitudController extends ConsejosBase
             redirigir('consejos/solicitudes/' . $s['id']);
         }
         $this->formulario($s);
+    }
+
+    /** Apartado del acta por defecto: «general» (AG) si quien captura es coordinación; «profesor» (P) en los demás casos. */
+    private static function grupoPorDefecto(): string
+    {
+        $uid = (int) Auth::id();
+        if (Auth::tieneRol('coordinador')) {
+            return 'general';
+        }
+        foreach (Solicitudes::coordinaciones() as $c) {
+            if ($c['usuario_id'] === $uid) {
+                return 'general';
+            }
+        }
+        return 'profesor';
+    }
+
+    /** Subdirección Académica o su asistente ajustan el apartado del acta de una solicitud que espera reunión. */
+    public function cambiarApartado(string $id): void
+    {
+        $this->gestor();
+        $s = $this->solicitud($id);
+        $grupo = $this->post('grupo');
+        if (!in_array($grupo, ['profesor', 'alumno', 'general'], true) || !in_array($s['estado'], ['enviada', 'visto_bueno'], true)) {
+            flash('error', 'El apartado solo se ajusta mientras la solicitud espera su Vo. Bo. o su reunión.');
+            redirigir('consejos/solicitudes/' . $s['id']);
+        }
+        Database::ejecutar('UPDATE consejos_solicitudes SET grupo = ? WHERE id = ?', [$grupo, (int) $s['id']]);
+        Audit::record('consejos::solicitud', 'correcto', 'Cambia el apartado de ' . $s['folio'] . ' a ' . $grupo);
+        flash('exito', 'Apartado del acta actualizado.');
+        redirigir('consejos/solicitudes/' . $s['id']);
     }
 
     private function formulario(array $s): void
@@ -96,9 +127,12 @@ final class SolicitudController extends ConsejosBase
     private function guardar(?array $previa): void
     {
         $this->privado();
-        $grupo = in_array($this->post('grupo'), ['profesor', 'alumno', 'general'], true) ? $this->post('grupo') : 'general';
-        $sol = Html::limpiar((string) ($_POST['solicitud_html'] ?? ''));
-        $ant = Html::limpiar((string) ($_POST['antecedentes_html'] ?? ''));
+        // El apartado del acta no lo captura quien solicita: profesores → «Casos de profesores»; coordinaciones → «Asuntos generales».
+        // Subdirección Académica o su asistente lo ajustan después, antes de llevar la solicitud a una reunión.
+        $grupo = $previa ? (string) $previa['grupo'] : self::grupoPorDefecto();
+        $sol = Html::sinTablasNiListas(Html::limpiar((string) ($_POST['solicitud_html'] ?? '')));
+        // «Documentos y/o antecedentes» del acta siempre es el oficio de solicitud; los anexos se enlistan desde los archivos adjuntos.
+        $ant = '<p>Oficio de solicitud</p>';
         $volver = $previa ? 'consejos/solicitudes/' . $previa['id'] . '/editar' : 'consejos/solicitudes/nueva';
         if (trim(Html::texto($sol)) === '') {
             flash('error', 'Escribe la solicitud.');

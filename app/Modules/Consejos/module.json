@@ -61,6 +61,7 @@
     "POST /consejos/solicitudes/{id}/devolver": ["App\\Modules\\Consejos\\SolicitudController", "devolver"],
     "POST /consejos/solicitudes/{id}/cancelar": ["App\\Modules\\Consejos\\SolicitudController", "cancelar"],
     "POST /consejos/solicitudes/{id}/incorporar": ["App\\Modules\\Consejos\\SolicitudController", "incorporar"],
+    "POST /consejos/solicitudes/{id}/apartado": ["App\\Modules\\Consejos\\SolicitudController", "cambiarApartado"],
     "POST /consejos/solicitudes/{id}/escaneado": ["App\\Modules\\Consejos\\SolicitudController", "subirEscaneado"],
     "GET /consejos/solicitudes/{id}/oficio": ["App\\Modules\\Consejos\\SolicitudController", "oficio"],
     "GET /consejos/solicitudes/{id}/escaneado": ["App\\Modules\\Consejos\\SolicitudController", "escaneado"],

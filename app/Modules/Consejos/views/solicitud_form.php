@@ -30,34 +30,24 @@ foreach ($coordinaciones as $c) {
 
     <div class="cns-fila">
       <label>Tipo de trámite
-        <select id="plantilla"><option value="">— Escribir libremente —</option>
+        <select id="plantilla" data-sin-filtro><option value="">— Escribir libremente —</option>
           <?php foreach ($apartados as $g => $titulo): ?>
             <optgroup label="<?= e($titulo) ?>"><?php foreach ($plantillas as $k => $p): if ($p['grupo'] === $g): ?><option value="<?= (int) $k ?>"<?= ($s['plantilla'] ?? '') === $p['clave'] ? ' data-previa="1"' : '' ?>><?= e($p['nombre']) ?></option><?php endif; endforeach; ?></optgroup>
           <?php endforeach; ?>
         </select>
         <span class="cns-ayuda">Rellena la solicitud con la redacción oficial. Sustituye lo que está entre [corchetes].</span>
       </label>
-      <label>Apartado del acta
-        <select name="grupo" id="grupo-sel"><?php foreach ($apartados as $g => $titulo): ?><option value="<?= e($g) ?>"<?= $s['grupo'] === $g ? ' selected' : '' ?>><?= e($titulo) ?></option><?php endforeach; ?></select>
-      </label>
     </div>
 
     <label>Solicitud <span class="req">*</span>
-      <span class="cns-ayuda">Sujeto y calidad + «solicita a los H.H. Consejos Académico y de Gobierno» + lo que se pide + su finalidad o fundamento.</span>
+      <span class="cns-ayuda">Sujeto y calidad + «solicita a los H.H. Consejos Académico y de Gobierno» + lo que se pide + su finalidad o fundamento. <strong>Solo el enunciado: no pongas listas ni tablas de nombres.</strong> Los documentos que acompañan la solicitud se suben como anexos.</span>
     </label>
-    <?php include __DIR__ . '/_herramientas.php'; ?>
-    <div class="cns-lienzo" id="ed-solicitud" contenteditable="true" data-vacio="Escribe aquí la solicitud o elige un tipo de trámite…" data-herr="1"><?= $s['solicitud_html'] ?></div>
+    <?php $soloTexto = true; include __DIR__ . '/_herramientas.php'; ?>
+    <div class="cns-lienzo" id="ed-solicitud" contenteditable="true" data-vacio="Escribe aquí la solicitud o elige un tipo de trámite…" data-herr="1" data-solo-texto="1"><?= $s['solicitud_html'] ?></div>
     <input type="hidden" name="solicitud_html" id="in-solicitud">
 
-    <label style="margin-top:16px">Documentos y/o antecedentes
-      <span class="cns-ayuda">Lista de los documentos que anexas («Oficio de solicitud»). Las tablas de Word se pegan con Ctrl+C / Ctrl+V.</span>
-    </label>
-    <?php include __DIR__ . '/_herramientas.php'; ?>
-    <div class="cns-lienzo" id="ed-antecedentes" contenteditable="true" data-vacio="Lista de antecedentes…" data-herr="1"><?= $s['antecedentes_html'] ?></div>
-    <input type="hidden" name="antecedentes_html" id="in-antecedentes">
-
     <label style="margin-top:16px">Anexos (opcional)
-      <span class="cns-ayuda">Documentos que acompañan tu solicitud (constancias, oficios, dictámenes…). Cada archivo lleva una breve descripción de qué es, por ejemplo «Constancias de recursos humanos» o «Anexo 1: programa de actividades».</span>
+      <span class="cns-ayuda">En el acta, «Documentos y/o antecedentes» siempre lleva tu «Oficio de solicitud»; si anexas archivos, se enlistan ahí. Documentos que acompañan tu solicitud (constancias, oficios, dictámenes, listas de nombres…): cada archivo lleva una breve descripción de qué es, por ejemplo «Constancias de recursos humanos» o «Anexo 1: programa de actividades».</span>
     </label>
     <?php $admiteOficio = false; include __DIR__ . '/_adjuntos_campos.php'; ?>
 
