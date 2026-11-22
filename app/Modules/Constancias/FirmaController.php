@@ -24,7 +24,7 @@ final class FirmaController extends ConstanciasBase
     {
         $s = $this->mia($id);
         $this->privado();
-        $this->vista('firma', ['titulo' => 'Firmar constancia ' . $s['folio'], 's' => $s, 'historial' => Solicitudes::historial((int) $s['id'])]);
+        $this->vista('firma', ['titulo' => 'Firmar constancia ' . $s['folio'], 's' => $s, 'historial' => Solicitudes::historial((int) $s['id']), 'evidencia' => \App\Modules\Constancias\Services\Adjuntos::de((int) $s['id'])]);
     }
 
     public function firmar(string $id): void

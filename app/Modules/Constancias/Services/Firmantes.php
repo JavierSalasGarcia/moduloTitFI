@@ -74,6 +74,22 @@ final class Firmantes
         return $cache = $r;
     }
 
+    /**
+     * Quienes pueden firmar una constancia solicitada: titulares de las coordinaciones (y coordinadores de programa), el Subdirector
+     * Académico y el Director. No incluye jefaturas ni otras dependencias.
+     * @return array<string,array>
+     */
+    public static function paraConstancias(): array
+    {
+        return array_filter(self::todos(), static function (array $f): bool {
+            if (str_starts_with($f['clave'], 'p')) {
+                return true;   // coordinador de programa
+            }
+            return in_array($f['depto_clave'], ['subdireccion_academica', 'titular_de_la_subdireccion_academica', 'direccion'], true)
+                || preg_match('/^(Titular de la )?Coordinaci[oó]n/iu', $f['departamento']) === 1;
+        });
+    }
+
     public static function una(string $clave): ?array
     {
         return self::todos()[$clave] ?? null;

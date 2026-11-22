@@ -321,8 +321,8 @@ final class Solicitudes
             [Cifrado::cifrar($observacion, self::contexto('observacion', $id)), $id]);
         self::anotar($id, $firmanteId, 'devuelta', $observacion);
         Audit::record('constancias::devolver', 'correcto', 'Constancia ' . $id . ' · ' . $s['folio']);
-        Aviso::enviar((string) $s['solicitante_email'], (string) $s['solicitante_nombre'], 'Constancia devuelta para corregir · ' . $s['folio'],
-            $s['firmante_nombre'] . " devolvió la constancia con esta observación:\n\n«" . $observacion . "»\n\nCorrígela y vuelve a enviarla a firma.",
+        Aviso::enviar((string) $s['solicitante_email'], (string) $s['solicitante_nombre'], 'Constancia devuelta sin firmar: pide evidencia o datos · ' . $s['folio'],
+            $s['firmante_nombre'] . " devolvió la constancia sin firmar y te pide lo siguiente:\n\n«" . $observacion . "»\n\nAdjunta la evidencia o corrige lo que pide y vuelve a enviarla a firma.",
             'constancias/solicitud/' . $id, 'Corregir la constancia');
     }
 
