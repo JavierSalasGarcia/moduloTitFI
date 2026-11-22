@@ -14,13 +14,20 @@
   // Los buscadores del sitio responden {personas:[…]}, {resultados:[…]} o directamente una lista.
   const lista_de = j => Array.isArray(j) ? j : (j.personas || j.resultados || []);
   const sinAcentos = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const coincide = (p, q) => { const h = sinAcentos(p.nombre + ' ' + (p.email || '')); return sinAcentos(q).split(/\s+/).filter(Boolean).every(w => h.includes(w)); };
+  const coincide = (p, q) => { const h = sinAcentos(p.nombre + ' ' + (p.email || '') + ' ' + (p.sub || '')); return sinAcentos(q).split(/\s+/).filter(Boolean).every(w => h.includes(w)); };
+
+  const esCorreo = t => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(t);
+  const icono = p => p.tipo === 'departamento' ? '🏢 ' : '';
 
   function montar(raiz) {
     if (estados.has(raiz)) return estados.get(raiz);
     const d = raiz.dataset;
     const max = parseInt(d.max || '0', 10) || 0;
-    const libre = d.libre === '1';
+    const libreCorreo = d.libre === 'correo';   // solo admite escribir un correo (invitados externos)
+    const libre = d.libre === '1' || libreCorreo;
+    const campoTipo = d.campoTipo || '';        // segundo campo oculto con el tipo del elemento (persona o departamento)
+    const campoLibre = d.campoLibre || '';      // los correos externos viajan juntos en este campo, separados por comas
+    const fuenteLocal = d.listaVar ? (window[d.listaVar] || []) : null;   // lista ya cargada en la página
     const min = parseInt(d.min || '2', 10) || 2;
     const ir = d.ir || ''; // si existe, al elegir a alguien se navega a esa dirección (?email=… o ?id=…)
     const valorDe = d.valor || 'id'; // id | nombre | email: qué viaja en el formulario
@@ -36,25 +43,34 @@
     caja.append(q);
     let opciones = [], activa = -1, temporizador = null, peticion = null, turno = 0;
 
-    const claveDe = p => String(valorDe === 'nombre' ? p.nombre : valorDe === 'email' ? (p.email || p.nombre) : (p.id ?? p.nombre)).toLowerCase();
+    const claveDe = p => p.tipo ? p.tipo + ':' + p.id : String(valorDe === 'nombre' ? p.nombre : valorDe === 'email' ? (p.email || p.nombre) : (p.id || p.email || p.nombre)).toLowerCase();
     const valorForm = p => valorDe === 'nombre' ? p.nombre : valorDe === 'email' ? (p.email || p.nombre) : String(p.id ?? p.nombre);
 
     function pintarElegidos() {
       caja.querySelectorAll('.sp-chip').forEach(c => c.remove());
       elegidos.forEach((p, k) => {
         const c = el('span', 'sp-chip'); c.dataset.clave = k; if (p.id) c.dataset.id = p.id; c.title = p.email || '';
-        c.append(document.createTextNode(p.nombre));
-        const h = el('input'); h.type = 'hidden'; h.name = campo; h.value = valorForm(p); c.append(h);
+        c.append(document.createTextNode(icono(p) + p.nombre + (p.libre && campoLibre ? ' (externo)' : '')));
+        if (p.libre && campoLibre) c.classList.add('sp-externo');
+        else {
+          const h = el('input'); h.type = 'hidden'; h.name = campo; h.value = valorForm(p); c.append(h);
+          if (campoTipo) { const t = el('input'); t.type = 'hidden'; t.name = campoTipo; t.value = p.tipo || 'usuario'; c.append(t); }
+        }
         const x = el('button', 'sp-x', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Quitar a ' + p.nombre);
         x.addEventListener('click', () => { elegidos.delete(k); pintarElegidos(); q.focus(); raiz.dispatchEvent(new CustomEvent('sp:quitar', {detail: p, bubbles: true})); });
         c.append(x); caja.insertBefore(c, q);
       });
+      caja.querySelectorAll('input[data-sp-libre]').forEach(n => n.remove());
+      if (campoLibre) {
+        const h = el('input'); h.type = 'hidden'; h.name = campoLibre; h.dataset.spLibre = '1';
+        h.value = [...elegidos.values()].filter(x => x.libre).map(x => x.email || x.nombre).join(','); caja.append(h);
+      }
       q.hidden = max > 0 && elegidos.size >= max;
       q.placeholder = elegidos.size ? '' : (d.placeholder || 'Escribe un nombre o correo…');
     }
 
     function agregar(p, silencioso) {
-      p = {id: p.id || 0, nombre: String(p.nombre || '').trim(), email: p.email || ''};
+      p = {id: p.id || 0, nombre: String(p.nombre || '').trim(), email: p.email || '', tipo: p.tipo || '', sub: p.sub || '', libre: !!p.libre};
       if (!p.nombre) return false;
       const k = claveDe(p);
       if (elegidos.has(k)) return false;
@@ -78,11 +94,14 @@
     function mostrar(personas, texto) {
       lista.replaceChildren(); opciones = [];
       personas.filter(p => !elegidos.has(claveDe(p))).forEach(p => opciones.push(p));
-      if (libre && texto && !opciones.some(p => p.nombre.toLowerCase() === texto.toLowerCase())) opciones.push({id: 0, nombre: texto, email: '', libre: true});
+      if (libreCorreo) {
+        const c = texto.toLowerCase();
+        if (esCorreo(c) && !(fuenteLocal || []).some(u => (u.email || '').toLowerCase() === c) && !opciones.some(p => (p.email || '').toLowerCase() === c) && !elegidos.has(claveDe({id: 0, nombre: c, email: c}))) opciones.push({id: 0, nombre: c, email: c, libre: true});
+      } else if (libre && texto && !opciones.some(p => p.nombre.toLowerCase() === texto.toLowerCase())) opciones.push({id: 0, nombre: texto, email: '', libre: true});
       opciones.forEach((p, i) => {
         const li = el('li', 'sp-op'); li.setAttribute('role', 'option');
-        li.append(el('span', 'sp-nombre', p.libre ? 'Agregar «' + p.nombre + '» tal cual' : p.nombre));
-        if (p.email) li.append(el('small', 'sp-correo', p.email));
+        li.append(el('span', 'sp-nombre', p.libre ? 'Agregar «' + p.nombre + '»' + (libreCorreo ? ' (invitado externo)' : ' tal cual') : icono(p) + p.nombre));
+        if (p.sub || (p.email && !p.libre)) li.append(el('small', 'sp-correo', p.sub || p.email));
         li.addEventListener('mousedown', e => { e.preventDefault(); elegir(i); });
         lista.append(li);
       });
@@ -91,6 +110,7 @@
       if (opciones.length) resaltar(0);
     }
     async function buscar(texto) {
+      if (fuenteLocal) { mostrar(fuenteLocal.filter(p => coincide(p, texto)).slice(0, 10), texto); return; }
       const t = ++turno; peticion?.abort(); peticion = new AbortController();
       try {
         const r = await fetch(url + (url.includes('?') ? '&' : '?') + 'q=' + encodeURIComponent(texto), {signal: peticion.signal, headers: {Accept: 'application/json'}});
@@ -107,7 +127,7 @@
     q.addEventListener('keydown', e => {
       if (e.key === 'ArrowDown') { e.preventDefault(); resaltar(activa + 1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); resaltar(activa - 1); }
-      else if (e.key === 'Enter') { if (!lista.hidden && activa >= 0) { e.preventDefault(); elegir(activa); } else if (libre && q.value.trim()) { e.preventDefault(); agregar({nombre: q.value.trim()}); q.value = ''; cerrar(); } else e.preventDefault(); }
+      else if (e.key === 'Enter') { if (!lista.hidden && activa >= 0) { e.preventDefault(); elegir(activa); } else if (libre && !libreCorreo && q.value.trim()) { e.preventDefault(); agregar({nombre: q.value.trim()}); q.value = ''; cerrar(); } else e.preventDefault(); }
       else if (e.key === 'Escape') { cerrar(); }
       else if (e.key === 'Backspace' && !q.value && elegidos.size) { const k = [...elegidos.keys()].pop(); const p = elegidos.get(k); elegidos.delete(k); pintarElegidos(); raiz.dispatchEvent(new CustomEvent('sp:quitar', {detail: p, bubbles: true})); }
     });
@@ -117,7 +137,7 @@
     let inicial = []; try { inicial = JSON.parse(d.seleccion || '[]'); } catch (_) { /* sin selección previa */ }
     inicial.forEach(p => agregar(typeof p === 'string' ? {nombre: p} : p, true));
     pintarElegidos();
-    const api = {agregar, valores: () => [...elegidos.values()], quitar: k => { elegidos.delete(String(k).toLowerCase()); pintarElegidos(); }, tiene: p => elegidos.has(claveDe(p)), url};
+    const api = {agregar, valores: () => [...elegidos.values()], quitar: k => { elegidos.delete(String(k).toLowerCase()); pintarElegidos(); }, limpiar: () => { elegidos.clear(); pintarElegidos(); }, tiene: p => elegidos.has(claveDe(p)), url};
     estados.set(raiz, api); return api;
   }
 
@@ -225,6 +245,7 @@
     mencionar,
     agregar: (raiz, p) => montar(raiz).agregar(p),
     quitar: (raiz, k) => montar(raiz).quitar(k),
+    limpiar: raiz => montar(raiz).limpiar(),
     valores: raiz => montar(raiz).valores(),
   };
   const iniciar = () => {

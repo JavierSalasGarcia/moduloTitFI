@@ -180,3 +180,4 @@ button.consulta-notificacion { cursor:pointer; font:inherit; }
 .sp-lista-mencion{left:auto;right:auto;width:420px;max-width:92vw}
 .sp-envoltura{position:relative;display:block}
 .sp-envoltura>.sp-lista{top:100%}
+.sp-externo{background:#ffedd5;color:#9a3412}

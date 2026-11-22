@@ -57,10 +57,21 @@ ahí** quién puede buscar y a quién (p. ej. `GET /comisiones/personas`, `/conc
 Consejos (mesa, consejeros, profesores mencionados, avisos), Grupos de destinatarios (integrantes y audiencia), Teams (compartir documento),
 Comisiones (invitar), Accesos especiales (persona y persona cuyo grafo se ve), Estadísticas de avisos (dar acceso), Estructura académica
 (buscar profesor, responsables, NAB/CAP), Constancias de Titulación (buscar profesor) y de Constancias (se extiende a), Firmas (firmantes y
-pasos, grupos), Titulación (asesores, jurado, agenda) y Espacios (responsables y administradores).
+pasos, grupos), Titulación (asesores, jurado, agenda), Espacios (responsables y administradores), Reuniones (invitados) y Tickets (Para y CC).
 
-## Excepciones conocidas
+## Casos mixtos
 
-Los selectores propios de **Reuniones** (invitados internos y externos con disponibilidad en el calendario) y de **Tickets** (personas o
-departamentos) ya funcionan como el de Teams —buscan al teclear y dejan elementos con «×»— pero llevan lógica propia; al rehacerlos, usar
-`SelectorPersonas`.
+- **Personas y departamentos en el mismo cuadro** (Tickets: Para y CC): cada elemento lleva `tipo` (`usuario` o `departamento`); con `$campoTipo` viaja un
+  segundo campo oculto (`para_type[]` junto a `para_id[]`) y la clave de cada elemento incluye el tipo, así que un departamento y una persona con el
+  mismo número no chocan.
+- **Invitados externos por correo** (Reuniones): `$libre = 'correo'` y `$campoLibre = 'invitados_externos'`. Se puede escribir un correo ajeno a la
+  plataforma (sale «Agregar «x» (invitado externo)»), queda como elemento naranja y todos los externos viajan juntos, separados por comas, en ese campo;
+  las personas de la plataforma viajan en `invitados[]`.
+- **Lista local** en lugar de un buscador del servidor (`$listaVar`): nombre de una variable global de JavaScript con la lista `[{id,nombre,email,tipo,sub}]`,
+  definida en la página antes de que cargue el componente. Útil cuando la página ya trae a todas las personas.
+- **Borradores**: las páginas con borrador (`data-draft`) vuelven a llenar el selector en el evento `ux:draft-restored` con `SelectorPersonas.limpiar(contenedor)`
+  y `SelectorPersonas.agregar(contenedor, elemento)` (ver Tickets y Reuniones).
+
+## Excepciones
+
+Ninguna conocida: todo cuadro de personas de la plataforma usa `SelectorPersonas`. Si aparece uno nuevo, se hace con este componente.

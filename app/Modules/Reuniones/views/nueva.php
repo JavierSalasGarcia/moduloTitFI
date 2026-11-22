@@ -57,30 +57,15 @@
     <?= \App\Core\RecipientGroups::selector('grupos_invitados','Invitar a grupos guardados') ?>
     <!-- INVITADOS DINÁMICOS -->
     <div style="margin-top: 10px;">
-      <label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; color: #475569; position: relative;">
-        Buscar y añadir invitados (Internos o Externos)
-        <input type="text" id="buscador-invitados" placeholder="Escribe el nombre o correo del invitado..." autocomplete="off" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
-        
-        <!-- Dropdown de autocompletado -->
-        <div id="sugerencias-contenedor" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 100; max-height: 200px; overflow-y: auto; margin-top: 4px;"></div>
-      </label>
-
-      <!-- Botón dinámico para añadir externo -->
-      <div id="boton-externo-contenedor" style="margin-top: 8px; display: none;">
-        <button type="button" id="btn-add-externo" class="btn" style="background: #ffedd5; color: #ea580c; border: 1px solid #fdba74; font-weight: 600; width: 100%; text-align: left; padding: 8px 12px; border-radius: 8px;">
-          + Añadir a <span id="correo-externo-texto"></span> (Invitado Externo)
-        </button>
-      </div>
-
-      <!-- Lista de invitados agregados -->
-      <div id="lista-invitados-agregados" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;"></div>
+      <label style="font-weight: 600; color: #475569;">Buscar y añadir invitados (internos o externos)</label>
+      <?php $campo = 'invitados[]'; $url = ''; $listaVar = 'usuariosReunion'; $seleccion = []; $id = 'sp-invitados'; $max = 0; $libre = 'correo'; $campoLibre = 'invitados_externos'; $valor = 'id';
+            $placeholder = 'Escribe el nombre o correo del invitado… (un correo ajeno a la plataforma se añade como externo)'; $etiqueta = 'Personas invitadas';
+            include dirname(__DIR__, 3) . '/Views/selector_personas.php'; unset($listaVar, $campoLibre); ?>
     </div>
 
     </fieldset>
     <!-- Campos ocultos para enviar al backend -->
     <input type="hidden" name="horarios_json" id="horarios_json" value="[]">
-    <div id="hidden-inputs-invitados"></div>
-    <input type="hidden" name="invitados_externos" id="invitados_externos" value="">
 
     <!-- Envío -->
     <button class="btn btn-primario" type="submit" style="padding: 12px; font-size: 16px; font-weight: 600; border-radius: 8px; margin-top: 12px; background: #2563eb; color: #fff;">Crear Convocatoria</button>
@@ -96,25 +81,15 @@
       'email' => strtolower($u['email'])
   ], $usuarios)) ?>;
 
+  window.usuariosReunion = usuariosDb;   // lista local para el selector de invitados
+
   const rangoInicio = document.getElementById('rango_inicio');
   const rangoFin = document.getElementById('rango_fin');
   const calMensaje = document.getElementById('calendario-mensaje');
   const calGrid = document.getElementById('calendario-grid');
   const inputHorarios = document.getElementById('horarios_json');
   
-  const buscador = document.getElementById('buscador-invitados');
-  const sugerencias = document.getElementById('sugerencias-contenedor');
-  const botonExternoCont = document.getElementById('boton-externo-contenedor');
-  const correoExternoTexto = document.getElementById('correo-externo-texto');
-  const btnAddExterno = document.getElementById('btn-add-externo');
-  
-  const listaAgregados = document.getElementById('lista-invitados-agregados');
-  const hiddenGuestsCont = document.getElementById('hidden-inputs-invitados');
-  const hiddenExternosInput = document.getElementById('invitados_externos');
-
   const horariosSeleccionados = new Set();
-  const invitadosInternos = new Set();
-  const invitadosExternos = new Set();
 
   // HORAS DE 08:00 A 20:00 (12 bloques de 60 mins)
   const bloquesHoras = [];
@@ -234,132 +209,16 @@
   rangoInicio.addEventListener('change', actualizarCalendario);
   rangoFin.addEventListener('change', actualizarCalendario);
 
-  // GESTIÓN DE INVITADOS
-  const renderInvitados = () => {
-    listaAgregados.innerHTML = '';
-    hiddenGuestsCont.innerHTML = '';
-    
-    // Internos
-    invitadosInternos.forEach(usr => {
-      const chip = document.createElement('span');
-      chip.style.display = 'inline-flex';
-      chip.style.alignItems = 'center';
-      chip.style.gap = '6px';
-      chip.style.background = '#dbeafe';
-      chip.style.color = '#1e40af';
-      chip.style.padding = '4px 10px';
-      chip.style.borderRadius = '20px';
-      chip.style.fontSize = '13px';
-      chip.style.fontWeight = '500';
-      chip.innerHTML = `${usr.nombre} <button type="button" style="border:none;background:transparent;color:#1e40af;cursor:pointer;font-weight:bold;">&times;</button>`;
-      chip.querySelector('button').addEventListener('click', () => {
-        invitadosInternos.delete(usr);
-        renderInvitados();
-      });
-      listaAgregados.appendChild(chip);
-
-      // hidden input
-      const hid = document.createElement('input');
-      hid.type = 'hidden';
-      hid.name = 'invitados[]';
-      hid.value = usr.id;
-      hiddenGuestsCont.appendChild(hid);
-    });
-
-    // Externos
-    const arrExternos = Array.from(invitadosExternos);
-    arrExternos.forEach(correo => {
-      const chip = document.createElement('span');
-      chip.style.display = 'inline-flex';
-      chip.style.alignItems = 'center';
-      chip.style.gap = '6px';
-      chip.style.background = '#ffedd5';
-      chip.style.color = '#c2410c';
-      chip.style.padding = '4px 10px';
-      chip.style.borderRadius = '20px';
-      chip.style.fontSize = '13px';
-      chip.style.fontWeight = '500';
-      chip.innerHTML = `${correo} (Externo) <button type="button" style="border:none;background:transparent;color:#c2410c;cursor:pointer;font-weight:bold;">&times;</button>`;
-      chip.querySelector('button').addEventListener('click', () => {
-        invitadosExternos.delete(correo);
-        renderInvitados();
-      });
-      listaAgregados.appendChild(chip);
-    });
-
-    hiddenExternosInput.value = arrExternos.join(',');
-    hiddenExternosInput.dispatchEvent(new Event('change', {bubbles:true}));
-  };
-
-  // Buscador y coincidencia dinámica
-  buscador.addEventListener('input', () => {
-    const val = buscador.value.trim().toLowerCase();
-    sugerencias.innerHTML = '';
-    sugerencias.style.display = 'none';
-    botonExternoCont.style.display = 'none';
-
-    if (val === '') return;
-
-    // Buscar internos
-    const coincidencias = usuariosDb.filter(u => 
-      (u.nombre.toLowerCase().includes(val) || u.email.includes(val)) &&
-      ![...invitadosInternos].some(i => i.id === u.id)
-    );
-
-    if (coincidencias.length > 0) {
-      sugerencias.style.display = 'block';
-      coincidencias.slice(0, 5).forEach(u => {
-        const item = document.createElement('div');
-        item.style.padding = '10px 14px';
-        item.style.cursor = 'pointer';
-        item.style.borderBottom = '1px solid #f1f5f9';
-        item.innerHTML = `<div style="font-weight:600;color:#1e293b;">${u.nombre}</div><div style="font-size:12px;color:#64748b;">${u.email}</div>`;
-        item.addEventListener('click', () => {
-          invitadosInternos.add(u);
-          buscador.value = '';
-          sugerencias.style.display = 'none';
-          renderInvitados();
-        });
-        sugerencias.appendChild(item);
-      });
-    }
-
-    // Verificar si es email externo al ingresar el '.' del dominio tras un '@'
-    const matchEmail = val.match(/^([a-z0-9_\.-]+)@([a-z0-9\.-]+)\.([a-z\.]{2,6})$/);
-    if (matchEmail) {
-      // Verificar si ya existe en la base de datos interna o ya está agregado
-      const existeEnDb = usuariosDb.some(u => u.email === val);
-      if (!existeEnDb && !invitadosExternos.has(val)) {
-        correoExternoTexto.textContent = val;
-        botonExternoCont.style.display = 'block';
-      }
-    }
-  });
-
-  btnAddExterno.addEventListener('click', () => {
-    const correo = buscador.value.trim().toLowerCase();
-    if (correo) {
-      invitadosExternos.add(correo);
-      buscador.value = '';
-      botonExternoCont.style.display = 'none';
-      renderInvitados();
-    }
-  });
-
-  // Cerrar sugerencias al hacer clic fuera
+  // Al recuperar un borrador
   inputHorarios.form.addEventListener('ux:draft-restored', (event) => {
-    horariosSeleccionados.clear(); invitadosInternos.clear(); invitadosExternos.clear();
+    horariosSeleccionados.clear();
     const values=event.detail;
     try {JSON.parse(values.find(v=>v.name==='horarios_json')?.value||'[]').forEach(v=>horariosSeleccionados.add(v.inicio.replace(' ','T')));}catch{}
-    values.filter(v=>v.name==='invitados[]').forEach(v=>{const u=usuariosDb.find(u=>String(u.id)===String(v.value));if(u)invitadosInternos.add(u);});
-    (values.find(v=>v.name==='invitados_externos')?.value||'').split(',').filter(Boolean).forEach(v=>invitadosExternos.add(v));
-    actualizarCalendario(); actualizarJsonHorarios(); renderInvitados();
-  });
-  // Cerrar sugerencias al hacer clic fuera
-  document.addEventListener('click', (e) => {
-    if (e.target !== buscador) {
-      sugerencias.style.display = 'none';
-    }
+    // Invitados: el selector de personas (SelectorPersonas) se vuelve a llenar con lo guardado en el borrador.
+    const sel = document.getElementById('sp-invitados'); SelectorPersonas.limpiar(sel);
+    values.filter(v=>v.name==='invitados[]').forEach(v=>{const u=usuariosDb.find(u=>String(u.id)===String(v.value));if(u)SelectorPersonas.agregar(sel,u);});
+    (values.find(v=>v.name==='invitados_externos')?.value||'').split(',').filter(Boolean).forEach(v=>SelectorPersonas.agregar(sel,{nombre:v,email:v,libre:true}));
+    actualizarCalendario(); actualizarJsonHorarios();
   });
 })();
 </script>
