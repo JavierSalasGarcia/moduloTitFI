@@ -49,18 +49,23 @@ $desde = 'sesion:' . $consejo;
 .cns-ses.proy .cns-caso h2{font-size:1.3em}
 .cns-ses.proy .cns-cols{flex:1;min-height:0;grid-template-columns:1fr 1.05fr;gap:1.4vw}
 .cns-ses.proy .cns-col{min-height:0;overflow:auto}
-.cns-ses.proy .cns-col-der .cns-caja.crece{flex:1;min-height:0;display:flex;flex-direction:column}
+.cns-ses.proy .cns-col-der .cns-caja.crece{flex:1 0 auto;display:flex;flex-direction:column}
 .cns-ses.proy .cns-caja{padding:.6em .9em}
 .cns-ses.proy .cns-caja.sin-titulo>h3{display:none}
 .cns-ses.proy .cns-caja>h3{font-size:.62em}
 .cns-ses.proy .cns-doc,.cns-ses.proy .cns-doc p,.cns-ses.proy .cns-doc li,.cns-ses.proy .cns-doc td,.cns-ses.proy .cns-doc th{font-size:1em}
 .cns-ses.proy .cns-doc table{font-size:.92em}
 .cns-ses.proy textarea{flex:1;min-height:5em;font-size:1em;resize:none}
-.cns-ses.proy #nota{flex:none;min-height:0;height:3.2em}
-.cns-ses.proy .cns-caja.ref{flex:none;max-height:30%;overflow:auto}
+.cns-ses.proy #nota{flex:none;height:2.6em}
+.cns-ses.proy .cns-caja.ref{flex:none}
 .cns-ses.proy .cns-decide label{padding:.45em .9em;font-size:1em}
 .cns-ses.proy .cns-nav{flex:none}
-.cns-ses.proy .cns-nav .btn{min-height:0;padding:.35em .9em;font-size:.7em}
+.cns-ses.proy .cns-nav .btn{min-height:0 !important;min-width:0 !important;padding:.3em .8em;font-size:max(11px,.7em);line-height:1.2}
+.cns-ses.proy .cns-nav .cns-bot{gap:.5em}
+.cns-ses.proy #nota{min-height:0 !important}
+.cns-ses.proy .cns-decide{gap:.5em}
+.cns-ses.proy .cns-decide label{padding:.3em .8em}
+.cns-ses.proy .cns-etq{font-size:.7em}
 </style>
 <div class="cns-pila">
   <section class="tarjeta cns-solo-gestion" id="cab-gestion">
@@ -91,8 +96,8 @@ $desde = 'sesion:' . $consejo;
         <button class="btn" type="button" id="ant">← Anterior</button>
         <span class="cns-estado-guardado" id="estado" role="status"></span>
         <span class="cns-bot">
-          <button class="btn" type="button" id="deshacer" title="Vuelve a lo último que se guardó en este caso">↶ Deshacer</button>
-          <button class="btn btn-primario" type="button" id="guardar" title="Guardar (Ctrl+S)">💾 Guardar</button>
+          <button class="btn" type="button" id="deshacer" aria-label="Deshacer: vuelve a lo último que se guardó en este caso">↶ Deshacer</button>
+          <button class="btn btn-primario" type="button" id="guardar" aria-label="Guardar (Ctrl+S)">💾 Guardar</button>
           <button class="btn btn-mini cns-solo-proy" type="button" id="btn-salir-proy">Salir</button>
         </span>
         <button class="btn btn-primario" type="button" id="sig">Siguiente →</button>
@@ -160,8 +165,8 @@ $desde = 'sesion:' . $consejo;
     return a._mem[dec] !== undefined ? a._mem[dec] : frase(a, dec);
   }
   const OPCIONES = GOB
-    ? [['aprueba', 'Se aprueba el acuerdo del Consejo Académico', ''], ['no_aprueba', 'No se aprueba', 'neg']]
-    : [['avala', 'Se avala la solicitud', ''], ['no_avala', 'No se avala', 'neg']];
+    ? [['aprueba', 'Se aprueba', ''], ['no_aprueba', 'No se aprueba', 'neg']]
+    : [['avala', 'Se avala', ''], ['no_avala', 'No se avala', 'neg']];
   const RAPIDAS = GOB
     ? [['Se da por enterado el H. Consejo de Gobierno.', null], ['No es competencia del H. Consejo de Gobierno ', null]]
     : [['Se da por enterado el H. Consejo Académico.', null]];
@@ -213,7 +218,7 @@ $desde = 'sesion:' . $consejo;
       const ac = h('div', {class: 'cns-caja ref'}, h('h3', {}, 'Acuerdo del H. Consejo Académico'));
       const et = {avala: ['Avalado', 'ok'], no_avala: ['No avalado', 'no'], pendiente: ['Sin decisión', '']}[a.aval];
       ac.append(h('p', {style: 'margin:0 0 6px'}, h('span', {class: 'cns-etq ' + et[1]}, et[0])));
-      ac.append(h('div', {style: 'white-space:pre-wrap'}, a.acuerdoAcademico || '(sin acuerdo capturado)')); der.append(ac);
+      ac.append(h('div', {style: 'white-space:pre-wrap'}, a.acuerdoAcademico || '(sin acuerdo capturado)')); izq.append(ac);   // junto al caso: la columna izquierda es lo que se lee; la derecha, lo que se redacta
     }
     const mio = h('div', {class: 'cns-caja crece'}, h('h3', {}, GOB ? 'Acuerdo del H. Consejo de Gobierno' : 'Acuerdo del H. Consejo Académico'));
     const dec = h('div', {class: 'cns-decide', role: 'radiogroup', 'aria-label': 'Decisión'});
@@ -229,7 +234,7 @@ $desde = 'sesion:' . $consejo;
     });
     mio.append(dec);
     ta.addEventListener('input', () => { a[CA] = ta.value; refrescar(); });
-    mio.append(h('div', {style: 'margin-top:10px;display:flex;flex-direction:column;flex:1;min-height:0'}, ta));
+    mio.append(h('div', {style: 'margin-top:10px;display:flex;flex-direction:column;flex:1;min-height:5em'}, ta));
     if (!BLOQUEADA) {
       const fr = h('div', {class: 'cns-frases cns-solo-gestion'}, h('small', {class: 'cns-ayuda'}, 'Frases frecuentes:'));
       RAPIDAS.forEach(([txt, d]) => {
@@ -240,7 +245,7 @@ $desde = 'sesion:' . $consejo;
       mio.append(fr);
     }
     if (GOB) {
-      const nota = h('textarea', {id: 'nota', placeholder: 'Nota adicional (opcional): se agrega al acuerdo en el acta y en el dictamen.', style: 'min-height:4.5em', 'aria-label': 'Nota adicional'}); nota.value = a.nota || ''; nota.disabled = BLOQUEADA;
+      const nota = h('textarea', {id: 'nota', placeholder: 'Nota adicional (opcional; se agrega al acuerdo)', style: 'min-height:4.5em', 'aria-label': 'Nota adicional'}); nota.value = a.nota || ''; nota.disabled = BLOQUEADA;
       nota.addEventListener('input', () => { a.nota = nota.value; refrescar(); });
       mio.append(h('div', {style: 'margin-top:8px;flex:none'}, h('small', {class: 'cns-ayuda'}, 'Nota adicional'), nota));
     }
@@ -258,8 +263,8 @@ $desde = 'sesion:' . $consejo;
     if (!ses.classList.contains('proy')) { ses.style.removeProperty('--fs'); return; }
     let fs = Math.max(15, Math.min(36, Math.min(innerWidth / 56, innerHeight / 30)));
     ses.style.setProperty('--fs', fs + 'px');
-    const cols = [...ses.querySelectorAll('.cns-col')];
-    for (let k = 0; k < 40 && fs > 12 && cols.some(c => c.scrollHeight > c.clientHeight + 2); k++) { fs *= 0.94; ses.style.setProperty('--fs', fs + 'px'); }
+    const cajas = [...ses.querySelectorAll('.cns-col, .cns-caja.ref')];   // la letra baja hasta que ninguna columna ni el cuadro del acuerdo del Académico se desborde
+    for (let k = 0; k < 80 && fs > 9 && cajas.some(c => c.scrollHeight > c.clientHeight + 2); k++) { fs *= 0.94; ses.style.setProperty('--fs', fs + 'px'); }
   }
 
   function guardar() {
