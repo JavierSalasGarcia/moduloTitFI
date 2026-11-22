@@ -207,3 +207,7 @@ abrirlos), busca con comodines y borra lo que creó. En Word conviene abrir `act
 **Firma electrónica** de actas y oficios: todavía no la autoriza el Consejo. Mientras tanto se suben los escaneados firmados y sellados.
 Cuando se autorice, la firma entra en `Services/Dictamenes` (oficios) y `ReunionController` (actas) con el mismo esquema de firmas de
 `Constancias` y `Posgrado`; el resto del flujo no cambia.
+
+## Hora y convocatorias
+
+En la reunión se captura una sola hora por Consejo: la de la **segunda convocatoria**. En una sesión **ordinaria** el acta anota además la primera convocatoria media hora antes («A LAS 08:30 HORAS EN PRIMERA CONVOCATORIA Y A LAS 09:00 HORAS EN SEGUNDA CONVOCATORIA»). En una **extraordinaria** solo hay una convocatoria («A LAS 09:00 HORAS EN ÚNICA CONVOCATORIA»). Al importar un acta que dice «primera convocatoria», la hora se corrige sumando 30 minutos.

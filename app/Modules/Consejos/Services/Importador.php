@@ -38,8 +38,8 @@ final class Importador
         }
         $r = Database::una('SELECT * FROM consejos_reuniones WHERE id = ?', [$id]) ?: [];
         $nuevo = [
-            $c . '_fecha' => $acta['fecha'], $c . '_hora' => $acta['hora'] ? $acta['hora'] . ':00' : null, $c . '_lugar' => mb_substr($acta['lugar'], 0, 160),
-            $c . '_convocatoria' => $acta['convocatoria'], 'consejeros_' . $c => implode("\n", $acta['consejeros']),
+            $c . '_fecha' => $acta['fecha'], $c . '_hora' => $acta['hora'] ? date('H:i', strtotime($acta['hora']) + ($acta['convocatoria'] === 'primera' ? 1800 : 0)) . ':00' : null, $c . '_lugar' => mb_substr($acta['lugar'], 0, 160),
+            $c . '_convocatoria' => $acta['sesion'] === 'extraordinaria' ? 'unica' : 'segunda', 'consejeros_' . $c => implode("\n", $acta['consejeros']),
             'actas_anteriores_' . $c => implode("\n", $acta['actas_anteriores']),
             'presidente' => mb_substr($acta['presidente'], 0, 160), 'secretario' => mb_substr($acta['secretario'], 0, 160),
         ];

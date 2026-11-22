@@ -10,7 +10,6 @@ $selector = static function (string $campo, array $seleccion, int $max, string $
     $url = $urlPersonas; $valor = 'nombre'; $libre = true; $placeholder = $ph;
     include dirname(__DIR__, 3) . '/Views/selector_personas.php';
 };
-$conv = ['primera' => 'Primera convocatoria', 'segunda' => 'Segunda convocatoria', 'unica' => 'Única convocatoria'];
 ?>
 <div class="cns-pila">
   <form class="tarjeta cns-form" method="post" action="<?= e(url($nueva ? 'consejos' : 'consejos/reunion/' . $r['id'])) ?>">
@@ -30,8 +29,7 @@ $conv = ['primera' => 'Primera convocatoria', 'segunda' => 'Segunda convocatoria
         <legend style="font-weight:800;color:var(--verde-900);padding:0 6px"><?= e($nombre) ?></legend>
         <div class="cns-fila">
           <label>Fecha de la sesión<input type="date" name="<?= $k ?>_fecha" value="<?= $v($k . '_fecha') ?>"></label>
-          <label>Hora de inicio<input type="time" name="<?= $k ?>_hora" value="<?= $hora($k . '_hora') ?>"></label>
-          <label>Convocatoria<select name="<?= $k ?>_convocatoria"><?php foreach ($conv as $ck => $cn): ?><option value="<?= e($ck) ?>"<?= ($r[$k . '_convocatoria'] ?? 'segunda') === $ck ? ' selected' : '' ?>><?= e($cn) ?></option><?php endforeach; ?></select></label>
+          <label><span data-etq-hora><?= $r['tipo_sesion'] === 'extraordinaria' ? 'Hora de la convocatoria única' : 'Hora de la segunda convocatoria' ?></span><input type="time" name="<?= $k ?>_hora" value="<?= $hora($k . '_hora') ?>" data-hora-conv><span class="cns-ayuda" data-ayuda-conv>Ordinaria: la primera convocatoria se anota media hora antes. Extraordinaria: solo hay una convocatoria.</span></label>
         </div>
         <label>Lugar (como va en el acta)<input type="text" name="<?= $k ?>_lugar" maxlength="160" value="<?= $v($k . '_lugar') ?>" placeholder="la Sala de Usos Múltiples del Edificio “C”"></label>
         <span class="cns-etiq">Consejeros presentes</span>
@@ -48,3 +46,11 @@ $conv = ['primera' => 'Primera convocatoria', 'segunda' => 'Segunda convocatoria
     </div>
   </form>
 </div>
+<script>
+(function () {
+  var t = document.querySelector('select[name=tipo_sesion]');
+  if (!t) return;
+  var pon = function () { document.querySelectorAll('[data-etq-hora]').forEach(function (e) { e.textContent = t.value === 'extraordinaria' ? 'Hora de la convocatoria única' : 'Hora de la segunda convocatoria'; }); };
+  t.addEventListener('change', pon);
+})();
+</script>

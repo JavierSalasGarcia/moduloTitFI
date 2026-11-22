@@ -262,8 +262,8 @@ final class ReunionController extends ConsejosBase
             }
             $d[$c . '_fecha'] = $f !== '' ? $f : null;
             $d[$c . '_hora'] = $h !== '' ? $h . ':00' : null;
-            $conv = $this->post($c . '_convocatoria');
-            $d[$c . '_convocatoria'] = in_array($conv, ['primera', 'segunda', 'unica'], true) ? $conv : 'segunda';
+            // La hora capturada es la de la segunda convocatoria (la primera es media hora antes); la extraordinaria solo tiene una.
+            $d[$c . '_convocatoria'] = $d['tipo_sesion'] === 'extraordinaria' ? 'unica' : 'segunda';
         }
         return [$d, ''];
     }

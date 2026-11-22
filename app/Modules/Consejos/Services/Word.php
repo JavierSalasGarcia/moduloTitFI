@@ -301,11 +301,16 @@ final class Word
         $fecha = (string) ($r[$consejo . '_fecha'] ?? '');
         $hora = substr((string) ($r[$consejo . '_hora'] ?? ''), 0, 5);
         $lugar = Texto::mayus((string) ($r[$consejo . '_lugar'] ?? ''));
-        $conv = ['primera' => 'PRIMERA', 'segunda' => 'SEGUNDA', 'unica' => 'ÚNICA'][$r[$consejo . '_convocatoria'] ?? 'segunda'] ?? 'SEGUNDA';
+        // La hora guardada es la de la segunda convocatoria (la primera es media hora antes); la extraordinaria tiene una sola.
+        $extra = ($r['tipo_sesion'] ?? '') === 'extraordinaria';
+        $horaTxt = $hora === '' ? '[HORA]' : $hora;
+        $cuandoHora = $extra || $hora === ''
+            ? 'A LAS ' . $horaTxt . ' HORAS EN ' . ($extra ? 'ÚNICA' : 'SEGUNDA') . ' CONVOCATORIA'
+            : 'A LAS ' . date('H:i', strtotime($hora) - 1800) . ' HORAS EN PRIMERA CONVOCATORIA Y A LAS ' . $hora . ' HORAS EN SEGUNDA CONVOCATORIA';
         $t = $fecha !== '' ? strtotime($fecha) : false;
         $cuando = $t === false ? '[FECHA]' : mb_strtoupper(Texto::diaSemana($fecha)) . ' ' . (int) date('j', $t) . ' DE ' . mb_strtoupper(Texto::MESES[(int) date('n', $t) - 1]) . ' DE ' . date('Y', $t);
         $titulo = 'ACTA DE LA SESIÓN ' . mb_strtoupper((string) $r['tipo_sesion']) . ' DEL ' . $nombre . ' DE LA FACULTAD DE INGENIERÍA, CELEBRADA EL ' . $cuando
-            . ($lugar !== '' ? ', EN ' . $lugar . ', DE ESTA FACULTAD' : '') . ', A LAS ' . ($hora !== '' ? $hora : '[HORA]') . ' HORAS EN ' . $conv . ' CONVOCATORIA, BAJO EL SIGUIENTE ORDEN DEL DÍA:';
+            . ($lugar !== '' ? ', EN ' . $lugar . ', DE ESTA FACULTAD' : '') . ', ' . $cuandoHora . ', BAJO EL SIGUIENTE ORDEN DEL DÍA:';
         $x = self::parrafo($titulo, ['b' => true, 'after' => 120]);
         foreach (['Lista de presentes', 'Lectura y aprobación, en su caso, del acta de la sesión anterior', 'Casos profesores', 'Casos de alumnos', 'Asuntos generales'] as $k => $o) {
             $x .= self::parrafo(($k + 1) . '.' . "\t" . $o, ['left' => 425, 'hanging' => 425, 'after' => 0]);
