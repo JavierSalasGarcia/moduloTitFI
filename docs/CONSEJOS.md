@@ -85,6 +85,7 @@ otro caso se guarda el actual; si no se pudo guardar, no se cambia de caso. Un C
 solicitud y los antecedentes (con sus tablas) y a la derecha el acuerdo del Académico (en Gobierno), la decisión y el acuerdo que se redacta. El tamaño del texto se
 adapta a la pantalla hasta que el caso quepa sin desplazarse. Con las flechas ← → se cambia de caso (fuera de los cuadros de texto); Esc o «Salir» cierra la
 proyección. La pantalla completa la pide el botón «Modo proyección» de la sesión (el navegador exige un clic). La observación de la Subdirección no se proyecta.
+Cada sección (solicitud, antecedentes, acuerdo del Académico y acuerdo que se redacta) tiene botones **−** y **+** para reducir o ampliar solo su texto, y la barra de abajo tiene **▤ 1 columna** para mostrar todo en una sola columna (con tablas anchas); en ese modo el caso se desplaza en vez de reducir la letra. El tamaño y la columna se recuerdan en el navegador.
 
 ## Notificar dictamen (enlace con token)
 

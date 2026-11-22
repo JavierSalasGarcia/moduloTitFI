@@ -24,7 +24,12 @@ $desde = 'sesion:' . $consejo;
 .cns-cols{display:grid;grid-template-columns:1fr;gap:14px}
 .cns-col{display:flex;flex-direction:column;gap:12px;min-width:0}
 @media (min-width:1200px){.cns-ses:not(.proy) .cns-cols{grid-template-columns:1.2fr 1fr}}
-.cns-caja{border:1px solid var(--gris-100);border-radius:var(--radio);padding:12px 16px;background:#fff}
+.cns-caja{border:1px solid var(--gris-100);border-radius:var(--radio);padding:12px 16px;background:#fff;position:relative}
+.cns-zoom{position:absolute;top:4px;right:6px;display:flex;gap:3px;opacity:.55;transition:opacity .15s;z-index:2}
+.cns-caja:hover .cns-zoom,.cns-zoom:focus-within{opacity:1}
+.cns-zb{border:1px solid var(--gris-100);background:#fff;color:var(--verde-900);border-radius:6px;min-width:28px;height:28px;padding:0 6px;font:inherit;font-size:15px !important;font-weight:800;line-height:1;cursor:pointer}
+.cns-zb:hover{background:var(--verde-050)}
+.cns-ses.una .cns-cols{grid-template-columns:1fr !important}
 .cns-caja>h3{margin:0 0 6px;font-size:.8em;text-transform:uppercase;letter-spacing:.05em;color:var(--gris-600)}
 .cns-decide{display:flex;flex-wrap:wrap;gap:8px}
 .cns-decide label{display:flex;gap:8px;align-items:center;border:2px solid var(--gris-100);border-radius:var(--radio);padding:10px 16px;cursor:pointer;font-weight:700;margin:0;font-size:1em}
@@ -60,6 +65,10 @@ $desde = 'sesion:' . $consejo;
 .cns-ses.proy .cns-caja.ref{flex:none}
 .cns-ses.proy .cns-decide label{padding:.45em .9em;font-size:1em}
 .cns-ses.proy .cns-nav{flex:none}
+.cns-ses.proy.una .cns-cols{display:flex;flex-direction:column;overflow:auto;gap:1vh}
+.cns-ses.proy.una .cns-col{overflow:visible;flex:none;min-height:auto}
+.cns-ses.proy.una .cns-col-der .cns-caja.crece{flex:none}
+.cns-ses.proy.una textarea{min-height:8em}
 .cns-ses.proy .cns-nav .btn{min-height:0 !important;min-width:0 !important;padding:.3em .8em;font-size:max(11px,.7em);line-height:1.2}
 .cns-ses.proy .cns-nav .cns-bot{gap:.5em}
 .cns-ses.proy #nota{min-height:0 !important}
@@ -96,6 +105,7 @@ $desde = 'sesion:' . $consejo;
         <button class="btn" type="button" id="ant">← Anterior</button>
         <span class="cns-estado-guardado" id="estado" role="status"></span>
         <span class="cns-bot">
+          <button class="btn" type="button" id="una-col" aria-label="Mostrar todo en una columna (útil con tablas anchas)" aria-pressed="false">▤ 1 columna</button>
           <button class="btn" type="button" id="deshacer" aria-label="Deshacer: vuelve a lo último que se guardó en este caso">↶ Deshacer</button>
           <button class="btn btn-primario" type="button" id="guardar" aria-label="Guardar (Ctrl+S)">💾 Guardar</button>
           <button class="btn btn-mini cns-solo-proy" type="button" id="btn-salir-proy">Salir</button>
@@ -175,6 +185,21 @@ $desde = 'sesion:' . $consejo;
   const lado = document.getElementById('lado'), caso = document.getElementById('caso'), estado = document.getElementById('estado');
   const bGuardar = document.getElementById('guardar'), bDeshacer = document.getElementById('deshacer'), ses = document.getElementById('ses');
   let i = 0, guardando = false;
+  // Tamaño del texto de cada sección (− / +) y «todo en una columna»: se recuerdan en este navegador.
+  const PREF = 'trazafi_consejos_sesion';
+  let Z = {sol: 1, ant: 1, acad: 1, gob: 1}, UNA = false;
+  try { const g = JSON.parse(localStorage.getItem(PREF) || '{}'); if (g.Z) Z = Object.assign(Z, g.Z); UNA = !!g.UNA; } catch (_) { /* sin almacenamiento: se usan los valores por omisión */ }
+  const guardarPref = () => { try { localStorage.setItem(PREF, JSON.stringify({Z, UNA})); } catch (_) { /* opcional */ } };
+  function conZoom(clave, caja) {
+    if (Z[clave] !== 1) caja.style.fontSize = Z[clave] + 'em';
+    const w = h('span', {class: 'cns-zoom'});
+    [['−', 1 / 1.15, 'Reducir el texto de esta sección'], ['+', 1.15, 'Ampliar el texto de esta sección']].forEach(([t, f, lab]) => {
+      const b = h('button', {type: 'button', class: 'cns-zb', 'aria-label': lab}, t);
+      b.addEventListener('click', () => { Z[clave] = Math.max(0.6, Math.min(3.5, +(Z[clave] * f).toFixed(3))); caja.style.fontSize = Z[clave] === 1 ? '' : Z[clave] + 'em'; guardarPref(); });
+      w.append(b);
+    });
+    caja.append(w); return caja;
+  }
   DATOS.forEach(a => { a._b = {d: a[CD], a: a[CA] || '', n: a.nota || ''}; });
   const sucio = a => a[CD] !== a._b.d || (a[CA] || '') !== a._b.a || (GOB && (a.nota || '') !== a._b.n);
   const h = (tag, attrs = {}, ...hijos) => { const e = document.createElement(tag); Object.entries(attrs).forEach(([k, v]) => k === 'class' ? e.className = v : e.setAttribute(k, v)); hijos.forEach(x => e.append(x)); return e; };
@@ -210,15 +235,15 @@ $desde = 'sesion:' . $consejo;
     caso.append(cab);
 
     const izq = h('div', {class: 'cns-col cns-col-izq'}), der = h('div', {class: 'cns-col cns-col-der'});
-    const sol = h('div', {class: 'cns-caja sin-titulo'}, h('h3', {}, 'Solicitud')); const d1 = h('div', {class: 'cns-doc'}); d1.innerHTML = a.solicitud; sol.append(d1); izq.append(sol);
-    if (a.antecedentes) { const an = h('div', {class: 'cns-caja sin-titulo'}, h('h3', {}, 'Documentos y/o antecedentes')); const d2 = h('div', {class: 'cns-doc'}); d2.innerHTML = a.antecedentes; an.append(d2); izq.append(an); }
+    const sol = h('div', {class: 'cns-caja sin-titulo'}, h('h3', {}, 'Solicitud')); const d1 = h('div', {class: 'cns-doc'}); d1.innerHTML = a.solicitud; sol.append(d1); izq.append(conZoom('sol', sol));
+    if (a.antecedentes) { const an = h('div', {class: 'cns-caja sin-titulo'}, h('h3', {}, 'Documentos y/o antecedentes')); const d2 = h('div', {class: 'cns-doc'}); d2.innerHTML = a.antecedentes; an.append(d2); izq.append(conZoom('ant', an)); }
     if (a.observacion) { const ob = h('div', {class: 'cns-caja cns-solo-gestion', style: 'background:#fffbeb'}, h('h3', {}, 'Observación de la Subdirección (no se proyecta)')); ob.append(h('div', {style: 'white-space:pre-wrap'}, a.observacion)); izq.append(ob); }
 
     if (GOB && a.origen !== 'gobierno') {
       const ac = h('div', {class: 'cns-caja ref'}, h('h3', {}, 'Acuerdo del H. Consejo Académico'));
       const et = {avala: ['Avalado', 'ok'], no_avala: ['No avalado', 'no'], pendiente: ['Sin decisión', '']}[a.aval];
       ac.append(h('p', {style: 'margin:0 0 6px'}, h('span', {class: 'cns-etq ' + et[1]}, et[0])));
-      ac.append(h('div', {style: 'white-space:pre-wrap'}, a.acuerdoAcademico || '(sin acuerdo capturado)')); izq.append(ac);   // junto al caso: la columna izquierda es lo que se lee; la derecha, lo que se redacta
+      ac.append(h('div', {style: 'white-space:pre-wrap'}, a.acuerdoAcademico || '(sin acuerdo capturado)')); izq.append(conZoom('acad', ac));   // junto al caso: la columna izquierda es lo que se lee; la derecha, lo que se redacta
     }
     const mio = h('div', {class: 'cns-caja crece'}, h('h3', {}, GOB ? 'Acuerdo del H. Consejo de Gobierno' : 'Acuerdo del H. Consejo Académico'));
     const dec = h('div', {class: 'cns-decide', role: 'radiogroup', 'aria-label': 'Decisión'});
@@ -249,7 +274,7 @@ $desde = 'sesion:' . $consejo;
       nota.addEventListener('input', () => { a.nota = nota.value; refrescar(); });
       mio.append(h('div', {style: 'margin-top:8px;flex:none'}, h('small', {class: 'cns-ayuda'}, 'Nota adicional'), nota));
     }
-    der.append(mio);
+    der.append(conZoom('gob', mio));
     caso.append(h('div', {class: 'cns-cols'}, izq, der));
 
     document.getElementById('ant').disabled = i === 0; document.getElementById('sig').disabled = i === DATOS.length - 1;
@@ -263,6 +288,7 @@ $desde = 'sesion:' . $consejo;
     if (!ses.classList.contains('proy')) { ses.style.removeProperty('--fs'); return; }
     let fs = Math.max(15, Math.min(36, Math.min(innerWidth / 56, innerHeight / 30)));
     ses.style.setProperty('--fs', fs + 'px');
+    if (ses.classList.contains('una')) return;   // en una columna el caso se desplaza: no se reduce la letra
     const cajas = [...ses.querySelectorAll('.cns-col, .cns-caja.ref')];   // la letra baja hasta que ninguna columna ni el cuadro del acuerdo del Académico se desborde
     for (let k = 0; k < 80 && fs > 9 && cajas.some(c => c.scrollHeight > c.clientHeight + 2); k++) { fs *= 0.94; ses.style.setProperty('--fs', fs + 'px'); }
   }
@@ -301,6 +327,9 @@ $desde = 'sesion:' . $consejo;
   window.addEventListener('beforeunload', e => { if (sucio(DATOS[i])) { e.preventDefault(); e.returnValue = ''; } });
   window.addEventListener('resize', ajustar);
 
+  const bUna = document.getElementById('una-col');
+  const pintarUna = () => { ses.classList.toggle('una', UNA); bUna.setAttribute('aria-pressed', UNA ? 'true' : 'false'); bUna.textContent = UNA ? '▥ 2 columnas' : '▤ 1 columna'; ajustar(); };
+  bUna.addEventListener('click', () => { UNA = !UNA; guardarPref(); pintarUna(); });
   const proyectar = on => {
     ses.classList.toggle('proy', on); ajustar();
     if (on && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
@@ -314,6 +343,6 @@ $desde = 'sesion:' . $consejo;
   const p = new URLSearchParams(location.search), k0 = DATOS.findIndex(a => String(a.id) === p.get('caso'));
   if (k0 >= 0) i = k0;
   if (p.get('proyectar') === '1') ses.classList.add('proy');
-  pintarLado(); pintarCaso();
+  pintarUna(); pintarLado(); pintarCaso();
 })();
 </script>
