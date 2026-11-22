@@ -25,8 +25,10 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
           <span class="cns-ayuda">Disponible cuando termine el Consejo Académico.</span>
         <?php elseif (!$enCurso && !$fin): ?>
           <form method="post" action="<?= e(url('consejos/reunion/' . $r['id'] . '/sesion/' . $k . '/iniciar')) ?>"><?= $csrf ?><button class="btn btn-primario btn-mini" type="submit">Iniciar la sesión</button></form>
+          <form method="post" action="<?= e(url('consejos/reunion/' . $r['id'] . '/sesion/' . $k . '/iniciar')) ?>"><?= $csrf ?><input type="hidden" name="proyectar" value="1"><button class="btn btn-mini" type="submit">🖥️ Iniciar y proyectar</button></form>
         <?php else: ?>
           <a class="btn btn-primario btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/sesion/' . $k)) ?>"><?= $fin ? 'Ver la sesión' : 'Entrar a la sesión' ?></a>
+          <a class="btn btn-mini" href="<?= e(url('consejos/reunion/' . $r['id'] . '/sesion/' . $k . '?proyectar=1')) ?>">🖥️ Proyectar</a>
         <?php endif; ?>
         <?php if ($fin): ?>
           <form method="post" action="<?= e(url('consejos/reunion/' . $r['id'] . '/sesion/' . $k . '/reabrir')) ?>" data-confirm="¿Reabrir la sesión para corregir los acuerdos?"><?= $csrf ?><button class="btn btn-mini" type="submit">Reabrir</button></form>

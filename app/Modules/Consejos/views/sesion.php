@@ -174,6 +174,8 @@ $nombre = $gob ? 'Consejo de Gobierno' : 'Consejo Académico';
   });
   document.getElementById('btn-salir-proy').addEventListener('click', () => { ses.classList.remove('proy'); if (document.fullscreenElement) document.exitFullscreen(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && ses.classList.contains('proy')) ses.classList.remove('proy'); });
+  // «Proyectar» desde la reunión abre la sesión ya en modo proyección (la pantalla completa la pide el botón: el navegador exige un clic).
+  if (new URLSearchParams(location.search).get('proyectar') === '1') ses.classList.add('proy');
   pintarLado(); pintarCaso();
 })();
 </script>

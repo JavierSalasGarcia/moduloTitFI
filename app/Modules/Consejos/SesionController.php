@@ -45,7 +45,7 @@ final class SesionController extends ConsejosBase
         $estado = $consejo === 'gobierno' ? 'gobierno' : ($r['estado'] === 'preparacion' ? 'academico' : $r['estado']);
         Database::ejecutar('UPDATE consejos_reuniones SET estado = ? WHERE id = ?', [$estado, (int) $r['id']]);
         Audit::record('consejos::sesion', 'correcto', 'Inicia Consejo ' . $consejo . ' reunión #' . $r['id']);
-        redirigir('consejos/reunion/' . $r['id'] . '/sesion/' . $consejo);
+        redirigir('consejos/reunion/' . $r['id'] . '/sesion/' . $consejo . ($this->post('proyectar') === '1' ? '?proyectar=1' : ''));
     }
 
     /** Guarda el acuerdo de un caso (JSON). El Consejo cuya sesión ya terminó no se modifica sin reabrirla. */

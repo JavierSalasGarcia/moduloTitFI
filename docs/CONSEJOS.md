@@ -54,6 +54,13 @@ Reemplaza el flujo manual de la carpeta `consejos/` (acta en Word → `dictamene
   mencionados» en la reunión (cuando terminó el Consejo de Gobierno). Usa el mismo envío que Constancias: el servicio de correo de la
   plataforma no admite adjuntos, así que el correo lleva un enlace a «Comisiones» (pide sesión) y el PDF se descarga ahí.
 
+## Proyectar en la reunión
+
+En la página de la reunión, cada Consejo (pasos 2 y 3) tiene el botón **🖥️ Proyectar** (o **🖥️ Iniciar y proyectar** si la sesión aún no empieza): abre la
+pantalla de la sesión ya en modo proyección (`/consejos/reunion/{id}/sesion/{consejo}?proyectar=1`), que muestra solo el caso y el acuerdo, sin menús ni la
+observación de la Subdirección. Dentro de la sesión, el botón «Modo proyección» alterna lo mismo; la pantalla completa la pide ese botón (el navegador exige
+un clic). Se sale con «Salir de la proyección» o Esc.
+
 ## Notificar dictamen (enlace con token)
 
 Con el dictamen escaneado subido, el oficio tiene el botón **«Notificar dictamen»** (`POST /consejos/oficio/{id}/avisar`; también se puede
