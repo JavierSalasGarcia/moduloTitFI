@@ -147,7 +147,7 @@ $pintarCampo = static function (array $c, array $campo, array $errores, bool $re
 
       <div class="const-doble">
         <label>Se extiende a (nombre)
-          <input type="text" name="persona_nombre" value="<?= e($v['persona_nombre']) ?>" maxlength="160" autocomplete="off">
+          <input type="text" name="persona_nombre" value="<?= e($v['persona_nombre']) ?>" maxlength="160" autocomplete="off" data-sp-url="<?= e(url('constancias/personas')) ?>" data-sp-llena="[name=persona_email]">
         </label>
         <label>Correo de esa persona (opcional)
           <input type="email" name="persona_email" value="<?= e($v['persona_email']) ?>" maxlength="190" autocomplete="off">

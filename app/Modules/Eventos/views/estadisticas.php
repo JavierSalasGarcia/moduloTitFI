@@ -36,7 +36,9 @@
     </ul>
     <form method="post" action="<?= e(url('eventos/estadisticas/personas')) ?>" class="ux-toolbar" style="flex-wrap:wrap">
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-      <label>Correo de la cuenta <input type="email" name="email" required maxlength="120" placeholder="usuario@uaemex.mx"></label>
+      <label>Persona (nombre o correo de su cuenta)</label>
+      <?php $campo = 'email'; $url = url('eventos/estadisticas/buscar'); $seleccion = []; $id = 'sp-estad'; $max = 1; $libre = false; $valor = 'email'; $placeholder = 'Escribe un nombre o correo…'; $etiqueta = 'Persona con acceso a estadísticas';
+            include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?>
       <button class="btn btn-mini btn-primario" type="submit">Dar acceso a estadísticas</button>
     </form>
   </section>

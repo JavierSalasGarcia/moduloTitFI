@@ -256,6 +256,16 @@ final class ComisionesController extends Controller
 
     // ── Auxiliares ──────────────────────────────────────────────────
 
+    /** Buscador de profesores para invitar (SelectorPersonas): quien forma o gestiona comisiones. */
+    public function personas(): void
+    {
+        if (!Auth::tieneRol('admin', 'titular') && !Database::valor('SELECT 1 FROM comisiones WHERE creador_id = ? LIMIT 1', [Auth::id()])) {
+            http_response_code(403);
+            exit;
+        }
+        \App\Core\BuscadorPersonas::responder(['profesor']);
+    }
+
     private function exigirAutoridad(): void
     {
         if (!Auth::tieneRol('admin', 'titular')) {

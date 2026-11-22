@@ -34,7 +34,7 @@
       <?php $etiquetas = ['Paso 1 (primer firmante)', 'Paso 2', 'Paso 3', 'Paso 4 (si aplica)']; ?>
       <?php for ($i = 1; $i <= 4; $i++): ?>
         <label <?= $i>1?'class="firmante-secuencial-extra" hidden':'' ?>><?= $etiquetas[$i - 1] ?>
-          <input list="dl-usuarios" name="paso<?= $i ?>" autocomplete="off" placeholder="Nombre o email institucional…">
+          <input list="dl-usuarios" data-sp-lista="dl-usuarios" name="paso<?= $i ?>" autocomplete="off" placeholder="Nombre o email institucional…">
         </label>
       <?php endfor; ?>
       <button type="button" class="btn" id="mas-pasos">Añadir siguiente firmante</button>
@@ -53,7 +53,7 @@
       </label>
       <?php for ($i = 1; $i <= 10; $i++): ?>
         <label <?= $i > 1 ? 'class="firmante-extra" style="display:none"' : '' ?>>Firmante <?= $i ?>
-          <input list="dl-usuarios" name="firmante<?= $i ?>" autocomplete="off" placeholder="Nombre o email institucional…">
+          <input list="dl-usuarios" data-sp-lista="dl-usuarios" name="firmante<?= $i ?>" autocomplete="off" placeholder="Nombre o email institucional…">
         </label>
       <?php endfor; ?>
       <button type="button" class="btn" id="mas-firmantes">+ Más firmantes</button>

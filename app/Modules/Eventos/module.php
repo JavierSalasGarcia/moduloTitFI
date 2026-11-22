@@ -30,6 +30,7 @@ return [
         'GET /eventos'                              => [EventosController::class, 'index', 'publico'],
         'GET /eventos/estadisticas'                 => [EstadisticasController::class, 'index'],
         'GET /eventos/estadisticas/excel'           => [EstadisticasController::class, 'excel'],
+        'GET /eventos/estadisticas/buscar'          => [EstadisticasController::class, 'buscar'],
         'POST /eventos/estadisticas/personas'       => [EstadisticasController::class, 'agregar'],
         'POST /eventos/estadisticas/personas/{usuario}/quitar' => [EstadisticasController::class, 'quitar'],
         'POST /eventos/leidos'                      => [AvisoController::class, 'marcarLeidos'],

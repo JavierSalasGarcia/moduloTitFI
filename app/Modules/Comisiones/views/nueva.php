@@ -32,14 +32,10 @@
       </select>
     </label>
 
-    <label>Invitar profesores (deberán confirmar su participación)
-      <select name="profesores[]" multiple size="6">
-        <?php foreach ($profesores as $p): ?>
-          <option value="<?= (int) $p['id'] ?>"><?= e($p['nombre']) ?> · <?= e($p['depto']) ?></option>
-        <?php endforeach; ?>
-      </select>
-      <p class="ayuda-form">Marca a las personas que deseas invitar. Los profesores también pueden postularse como voluntarios.</p>
-    </label>
+    <label>Invitar profesores (deberán confirmar su participación)</label>
+    <?php $campo = 'profesores[]'; $url = url('comisiones/personas'); $seleccion = []; $id = 'sp-profesores'; $max = 0; $libre = false; $valor = 'id'; $placeholder = 'Escribe el nombre o correo del profesor…'; $etiqueta = 'Invitar profesores';
+          include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?>
+    <p class="ayuda-form">Elige a las personas que deseas invitar. Los profesores también pueden postularse como voluntarios.</p>
 
     <div class="acciones-formulario">
       <a class="btn" href="<?= url('comisiones') ?>">Cancelar</a>

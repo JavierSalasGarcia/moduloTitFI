@@ -120,13 +120,9 @@
         <?php if ($profesores && $c['estado'] !== 'concluida'): ?>
           <form method="post" action="<?= url('comisiones/' . $c['id'] . '/invitar') ?>" class="formulario">
             <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-            <label>Invitar profesor
-              <select name="profesor">
-                <?php foreach ($profesores as $p): ?>
-                  <option value="<?= (int) $p['id'] ?>"><?= e($p['nombre']) ?></option>
-                <?php endforeach; ?>
-              </select>
-            </label>
+            <label>Invitar profesor</label>
+            <?php $campo = 'profesor'; $url = url('comisiones/personas'); $seleccion = []; $id = 'sp-invitar'; $max = 1; $libre = false; $valor = 'id'; $placeholder = 'Nombre o correo del profesor…'; $etiqueta = 'Invitar profesor';
+                  include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?>
             <button type="submit" class="btn btn-bloque">Enviar invitación</button>
           </form>
           <hr style="border:none;border-top:1px solid var(--gris-100);margin:14px 0">

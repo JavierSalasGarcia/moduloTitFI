@@ -11,12 +11,18 @@
   'use strict';
   const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt !== undefined) n.textContent = txt; return n; };
   const estados = new WeakMap();
+  // Los buscadores del sitio responden {personas:[…]}, {resultados:[…]} o directamente una lista.
+  const lista_de = j => Array.isArray(j) ? j : (j.personas || j.resultados || []);
+  const sinAcentos = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const coincide = (p, q) => { const h = sinAcentos(p.nombre + ' ' + (p.email || '')); return sinAcentos(q).split(/\s+/).filter(Boolean).every(w => h.includes(w)); };
 
   function montar(raiz) {
     if (estados.has(raiz)) return estados.get(raiz);
     const d = raiz.dataset;
     const max = parseInt(d.max || '0', 10) || 0;
     const libre = d.libre === '1';
+    const min = parseInt(d.min || '2', 10) || 2;
+    const ir = d.ir || ''; // si existe, al elegir a alguien se navega a esa dirección (?email=… o ?id=…)
     const valorDe = d.valor || 'id'; // id | nombre | email: qué viaja en el formulario
     const campo = d.campo || 'personas[]';
     const url = d.url;
@@ -66,6 +72,7 @@
     }
     function elegir(i) {
       const o = opciones[i]; if (!o) return;
+      if (ir) { location.href = ir + (ir.includes('?') ? '&' : '?') + (d.irParam || 'email') + '=' + encodeURIComponent(/id$/.test(d.irParam || '') ? o.id : (o.email || o.nombre)); return; }
       agregar(o); q.value = ''; cerrar(); q.focus();
     }
     function mostrar(personas, texto) {
@@ -89,12 +96,12 @@
         const r = await fetch(url + (url.includes('?') ? '&' : '?') + 'q=' + encodeURIComponent(texto), {signal: peticion.signal, headers: {Accept: 'application/json'}});
         if (!r.ok) throw new Error();
         const j = await r.json(); if (t !== turno) return;
-        mostrar(j.personas || [], texto);
+        mostrar(lista_de(j), texto);
       } catch (e) { if (e.name !== 'AbortError' && t === turno) { mostrar([], texto); estado.textContent = 'No se pudo buscar. Intenta de nuevo.'; } }
     }
     q.addEventListener('input', () => {
       clearTimeout(temporizador); const v = q.value.trim();
-      if (v.length < 2) { turno++; peticion?.abort(); if (libre && v) mostrar([], v); else cerrar(); return; }
+      if (v.length < min) { turno++; peticion?.abort(); if (libre && v) mostrar([], v); else cerrar(); return; }
       temporizador = setTimeout(() => buscar(v), 180);
     });
     q.addEventListener('keydown', e => {
@@ -162,13 +169,69 @@
     lienzo.addEventListener('blur', () => setTimeout(cerrar, 150));
   }
 
+  /* Cuadro de texto que ya existe (nombre, correo…) con las mismas coincidencias desplegables del selector. Conserva el valor que el
+     servidor ya espera: opciones.formato(p) dice qué texto queda en la caja y opciones.alElegir(p) rellena campos relacionados.
+     Fuente: opciones.url (buscador JSON) o opciones.lista (arreglo local de {nombre,email}). Dispara «sp:elegir» en la caja. */
+  function sugerir(caja, op) {
+    if (estados.has(caja)) return;
+    estados.set(caja, true);
+    const min = op.min || 2;
+    caja.removeAttribute('list'); caja.autocomplete = 'off';
+    const envoltura = el('span', 'sp-envoltura'); caja.parentNode.insertBefore(envoltura, caja); envoltura.append(caja);
+    const lista = el('ul', 'sp-lista'); lista.hidden = true; lista.setAttribute('role', 'listbox'); envoltura.append(lista);
+    let opciones = [], activa = -1, t = null, turno = 0, ctl = null;
+    const cerrar = () => { lista.hidden = true; lista.replaceChildren(); opciones = []; activa = -1; };
+    const resaltar = i => { const li = [...lista.children]; if (!li.length) return; activa = (i + li.length) % li.length; li.forEach((n, j) => n.classList.toggle('sp-activa', j === activa)); li[activa].scrollIntoView({block: 'nearest'}); };
+    function elegir(i) {
+      const p = opciones[i]; if (!p) return;
+      caja.value = op.formato ? op.formato(p) : p.nombre; cerrar();
+      if (op.alElegir) op.alElegir(p);
+      caja.dispatchEvent(new CustomEvent('sp:elegir', {detail: p, bubbles: true})); caja.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+    function mostrar(ps) {
+      lista.replaceChildren(); opciones = ps.slice(0, 15);
+      opciones.forEach((p, i) => { const li = el('li', 'sp-op'); li.setAttribute('role', 'option'); li.append(el('span', 'sp-nombre', p.nombre)); if (p.email) li.append(el('small', 'sp-correo', p.email)); li.addEventListener('mousedown', e => { e.preventDefault(); elegir(i); }); lista.append(li); });
+      lista.hidden = !opciones.length; if (opciones.length) resaltar(0);
+    }
+    caja.addEventListener('input', () => {
+      clearTimeout(t); const v = caja.value.trim().replace(/\s+—\s+.*$/, '');
+      if (v.length < min) { turno++; ctl?.abort(); cerrar(); return; }
+      if (op.lista) { mostrar(op.lista.filter(p => coincide(p, v))); return; }
+      t = setTimeout(async () => {
+        const n = ++turno; ctl?.abort(); ctl = new AbortController();
+        try { const r = await fetch(op.url + (op.url.includes('?') ? '&' : '?') + 'q=' + encodeURIComponent(v), {signal: ctl.signal, headers: {Accept: 'application/json'}, credentials: 'same-origin'}); const j = await r.json(); if (n === turno) mostrar(lista_de(j)); } catch (_) { if (n === turno) cerrar(); }
+      }, 180);
+    });
+    caja.addEventListener('keydown', e => {
+      if (lista.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); resaltar(activa + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); resaltar(activa - 1); }
+      else if (e.key === 'Enter' && activa >= 0) { e.preventDefault(); elegir(activa); }
+      else if (e.key === 'Escape') { cerrar(); }
+    });
+    caja.addEventListener('blur', () => setTimeout(cerrar, 150));
+  }
+
+  /* «Nombre — correo» de las listas <datalist> que ya traen a todas las personas: se vuelven coincidencias desplegables sin cambiar el servidor. */
+  function desdeDatalist(caja) {
+    const dl = document.getElementById(caja.dataset.spLista); if (!dl) return;
+    const lista = [...dl.options].map(o => { const [nombre, ...r] = o.value.split(' — '); return {nombre: nombre.trim(), email: r.join(' — ').trim(), valor: o.value}; });
+    sugerir(caja, {lista, formato: p => p.valor, min: parseInt(caja.dataset.min || '2', 10)});
+  }
+
   window.SelectorPersonas = {
+    sugerir,
     montar,
     mencionar,
     agregar: (raiz, p) => montar(raiz).agregar(p),
     quitar: (raiz, k) => montar(raiz).quitar(k),
     valores: raiz => montar(raiz).valores(),
   };
-  const iniciar = () => document.querySelectorAll('[data-selector-personas]').forEach(montar);
+  const iniciar = () => {
+    document.querySelectorAll('[data-selector-personas]').forEach(montar);
+    document.querySelectorAll('input[data-sp-lista]').forEach(desdeDatalist);
+    document.querySelectorAll('input[data-sp-url]').forEach(c => sugerir(c, {url: c.dataset.spUrl, formato: p => c.dataset.spValor === 'email' ? (p.email || p.nombre) : p.nombre,
+      alElegir: p => { const o = c.dataset.spLlena && document.querySelector(c.dataset.spLlena); if (o) o.value = p.email || ''; }}));
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();

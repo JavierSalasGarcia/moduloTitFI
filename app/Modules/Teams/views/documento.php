@@ -21,7 +21,8 @@
 </section></div>
 <?php if($owner && $d['estado']==='indizado'): ?><section class="card" style="margin-top:20px"><h2>Compartir dentro de la plataforma</h2><p>Los destinatarios encontrarán este expediente en su Archivo documental. No se envían correos ni copias externas.</p>
 <form class="formulario" method="post" action="<?= url('documentos/'.$d['id'].'/compartir') ?>"><input type="hidden" name="_csrf" value="<?= e($csrf) ?>">
-<div data-person-picker data-field="usuarios" data-selected="[]"><label>Buscar destinatarios<input type="search" autocomplete="off" placeholder="Nombre o correo"></label><p data-picker-status role="status"></p><div data-picker-results></div><ul data-picker-selected></ul></div>
+<label>Buscar destinatarios</label>
+<?php $campo='usuarios[]'; $url=url('grupos-destinatarios/personas'); $seleccion=[]; $id='sp-usuarios'; $max=0; $libre=false; $valor='id'; $placeholder='Nombre o correo'; $etiqueta='Destinatarios'; include dirname(__DIR__,3).'/Views/selector_personas.php'; ?>
 <?= RecipientGroups::selector('grupos_documento','Usar grupos de destinatarios') ?>
 <label>Permiso<select name="permiso"><option value="leer">Leer y descargar</option><option value="responder">Leer, adjuntar respuestas y completar tareas asignadas</option></select></label><button class="btn">Compartir documento</button></form>
 <ul><?php foreach($shares as $s): ?><li><?= e($s['nombre']) ?> · <?= e($s['permiso']) ?><form method="post" action="<?= url('documentos/'.$d['id'].'/revocar') ?>"><input type="hidden" name="_csrf" value="<?= e($csrf) ?>"><input type="hidden" name="usuario_id" value="<?= (int)$s['usuario_id'] ?>"><button class="btn">Retirar acceso</button></form></li><?php endforeach; ?></ul></section><?php endif; ?>

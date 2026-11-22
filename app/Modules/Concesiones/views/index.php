@@ -19,9 +19,9 @@
   <h2>Conceder acceso</h2>
   <form method="post" action="<?= url('concesiones') ?>">
     <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
-    <label>Correo de la persona (con cuenta en Traza FI)
-      <input type="email" name="correo" required maxlength="120" autocomplete="off">
-    </label>
+    <label>Persona (con cuenta en Traza FI): nombre o correo</label>
+    <?php $campo = 'correo'; $url = url('concesiones/personas'); $seleccion = []; $id = 'sp-conc'; $max = 1; $libre = false; $valor = 'email'; $placeholder = 'Escribe un nombre o correo…'; $etiqueta = 'Persona que recibe el acceso';
+          include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?>
     <label>Función
       <select name="funcion" required>
         <option value="">Elige…</option>
@@ -39,9 +39,9 @@
       <label data-recurso="organo">Cuerpo u órgano académico cuyos miembros podrá ver
         <select name="recurso_organo"><option value="">Elige…</option><?php foreach ($organos as $og): ?><option value="<?= (int) $og['id'] ?>"><?= e($og['tipo'] . ' · ' . ($og['nombre'] ?: $og['programa'])) ?></option><?php endforeach; ?></select>
       </label>
-      <label data-recurso="persona">Correo de la persona cuyo grafo podrá ver
-        <input type="email" name="recurso_persona" maxlength="120" autocomplete="off">
-      </label>
+      <div data-recurso="persona"><label>Persona cuyo grafo podrá ver (nombre o correo)</label>
+      <?php $campo = 'recurso_persona'; $url = url('concesiones/personas'); $seleccion = []; $id = 'sp-conc-grafo'; $max = 1; $libre = false; $valor = 'email'; $placeholder = 'Escribe un nombre o correo…'; $etiqueta = 'Persona cuyo grafo podrá ver';
+            include dirname(__DIR__, 3) . '/Views/selector_personas.php'; ?></div>
     </fieldset>
     <?php endif; ?>
     <label>Dependencia que lo concede

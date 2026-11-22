@@ -70,7 +70,7 @@
     <form method="post" action="<?= url('firmas/grupos/' . $g['id'] . '/miembros') ?>" class="formulario">
       <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
       <label>Agregar integrante
-        <input list="dl-usuarios" name="usuario" autocomplete="off" required placeholder="Nombre o email institucional…">
+        <input list="dl-usuarios" data-sp-lista="dl-usuarios" name="usuario" autocomplete="off" required placeholder="Nombre o email institucional…">
       </label>
       <div class="acciones-formulario">
         <button type="submit" class="btn btn-primario">Agregar</button>

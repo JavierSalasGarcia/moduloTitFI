@@ -14,34 +14,11 @@ include __DIR__ . '/_estilos.php';
 
 <?php if ($busqueda): ?>
 <section class="tarjeta" style="margin-bottom:16px">
-  <label for="buscar-prof"><strong>Profesor</strong></label>
-  <input type="search" id="buscar-prof" placeholder="Nombre o correo institucional" autocomplete="off" style="width:100%;max-width:520px" value="<?= e((string) ($email ?? '')) ?>">
-  <ul id="buscar-res" style="list-style:none;padding:0;margin:6px 0 0;max-width:520px"></ul>
+  <label><strong>Profesor</strong></label>
+  <?php $campo = 'email'; $url = url('titulacion/constancias/personas'); $seleccion = !empty($email) ? [['nombre' => (string) $email, 'email' => (string) $email]] : [];
+        $id = 'buscar-prof'; $max = 1; $libre = false; $valor = 'email'; $ir = url('titulacion/constancias/busqueda'); $irParam = 'email'; $placeholder = 'Nombre o correo institucional'; $etiqueta = 'Profesor';
+        include dirname(__DIR__, 3) . '/Views/selector_personas.php'; unset($ir, $irParam); ?>
 </section>
-<script>
-(function () {
-  var i = document.getElementById('buscar-prof'), r = document.getElementById('buscar-res'), t;
-  var url = <?= json_encode(url('titulacion/constancias/personas')) ?>, ir = <?= json_encode(url('titulacion/constancias/busqueda')) ?>;
-  i.addEventListener('input', function () {
-    clearTimeout(t);
-    t = setTimeout(function () {
-      var q = i.value.trim();
-      if (q.length < 2) { r.innerHTML = ''; return; }
-      fetch(url + '?q=' + encodeURIComponent(q), { credentials: 'same-origin' }).then(function (x) { return x.json(); }).then(function (d) {
-        r.innerHTML = '';
-        if (!d.length) { r.innerHTML = '<li class="texto-secundario">Sin coincidencias.</li>'; return; }
-        d.forEach(function (p) {
-          var li = document.createElement('li'), a = document.createElement('a');
-          a.href = ir + '?email=' + encodeURIComponent(p.email);
-          a.textContent = p.nombre + ' · ' + p.email + ' (' + p.total + ')';
-          a.style.display = 'block'; a.style.padding = '6px 8px';
-          li.appendChild(a); r.appendChild(li);
-        });
-      });
-    }, 250);
-  });
-})();
-</script>
 <?php endif; ?>
 
 <?php if (!$busqueda || $persona):

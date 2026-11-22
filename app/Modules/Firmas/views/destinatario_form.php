@@ -9,18 +9,16 @@
   <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>"><input type="hidden" name="version" value="<?= (int)$g['version'] ?>">
   <label>Nombre del grupo<input type="text" name="nombre" value="<?= e($g['nombre']) ?>" maxlength="160" required placeholder="Ej. Comité de tutoría"></label>
   <h2>Integrantes</h2><p class="ayuda-form">Estas personas serán los destinatarios cuando uses el grupo. Puedes agregar hasta 500.</p>
-  <div data-person-picker data-field="miembros" data-selected="<?= e(json_encode($miembros,JSON_UNESCAPED_UNICODE)) ?>">
-    <label>Buscar integrantes<input type="search" autocomplete="off" placeholder="Nombre o correo (al menos 2 caracteres)"></label><p data-picker-status role="status"></p><div data-picker-results></div><ul data-picker-selected><?php foreach($miembros as $u): ?><li><?= e($u['nombre']) ?><input type="hidden" name="miembros[]" value="<?= (int)$u['id'] ?>"></li><?php endforeach; ?></ul>
-  </div>
+  <label>Buscar integrantes</label>
+  <?php $campo='miembros[]'; $url=url('grupos-destinatarios/personas'); $seleccion=$miembros; $id='sp-miembros'; $max=0; $libre=false; $valor='id'; $placeholder='Nombre o correo (al menos 2 caracteres)'; $etiqueta='Integrantes del grupo'; include dirname(__DIR__,3).'/Views/selector_personas.php'; ?>
   <?php if(Auth::tieneRol('admin')): ?>
   <hr><h2>Quién puede ver y usar este grupo</h2><p class="ayuda-form">Esta audiencia no modifica la lista de integrantes ni recibe permisos para editar.</p>
   <label>Visibilidad<select name="visibilidad" id="grupo-visibilidad"><option value="privado" <?= $g['visibilidad']==='privado'?'selected':'' ?>>Privado · solo su creador</option><option value="publico" <?= $g['visibilidad']==='publico'?'selected':'' ?>>Público · compartir dentro de la plataforma</option></select></label>
   <div id="grupo-audiencia">
     <fieldset><legend>Compartir por categoría</legend><?php foreach(RecipientGroups::CATEGORIES as $key=>$label): ?><label style="display:flex;align-items:center;gap:10px"><input type="checkbox" name="roles[]" value="<?= e($key) ?>" <?= in_array($key,$roles,true)?'checked':'' ?>><?= e($label) ?></label><?php endforeach; ?></fieldset>
     <p class="ayuda-form">Administrativos incluye titulares y operativos. Coordinadores incluye el rol de coordinador y las coordinaciones de posgrado activas.</p>
-    <div data-person-picker data-field="audiencia" data-selected="<?= e(json_encode($audiencia,JSON_UNESCAPED_UNICODE)) ?>">
-      <label>O compartir con personas específicas<input type="search" autocomplete="off" placeholder="Busca a quien podrá usar el grupo"></label><p data-picker-status role="status"></p><div data-picker-results></div><ul data-picker-selected><?php foreach($audiencia as $u): ?><li><?= e($u['nombre']) ?><input type="hidden" name="audiencia[]" value="<?= (int)$u['id'] ?>"></li><?php endforeach; ?></ul>
-    </div>
+    <label>O compartir con personas específicas</label>
+    <?php $campo='audiencia[]'; $url=url('grupos-destinatarios/personas'); $seleccion=$audiencia; $id='sp-audiencia'; $max=0; $libre=false; $valor='id'; $placeholder='Busca a quien podrá usar el grupo'; $etiqueta='Personas con quien compartir'; include dirname(__DIR__,3).'/Views/selector_personas.php'; ?>
   </div>
   <p class="ayuda-form">El administrador siempre puede consultar y gestionar el grupo, incluso cuando sea privado.</p>
   <?php else: ?><p class="ayuda-form"><?= $g['visibilidad']==='privado'?'Este grupo es privado: solo tú puedes usarlo, además de la administración.':'La administración ha compartido este grupo. Conservas el derecho de editarlo.' ?> Solo el administrador cambia su visibilidad.</p><?php endif; ?>

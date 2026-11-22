@@ -51,6 +51,16 @@ final class ConcesionesController extends Controller
         return $f;
     }
 
+    /** Buscador de cuentas para conceder un acceso (SelectorPersonas): solo administración y titulares. */
+    public function personas(): void
+    {
+        if (isset($_SESSION['impersonador']) || !Auth::tieneRol('admin', 'titular')) {
+            http_response_code(403);
+            exit;
+        }
+        \App\Core\BuscadorPersonas::responder([], true);
+    }
+
     public function index(): void
     {
         $deptos = $this->alcance();

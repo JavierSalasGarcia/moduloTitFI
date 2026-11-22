@@ -16,6 +16,7 @@ return [
     'rutas' => [
         'GET /comisiones'                 => [ComisionesController::class, 'index'],
         'GET /comisiones/nueva'           => [ComisionesController::class, 'nueva'],
+        'GET /comisiones/personas'        => [ComisionesController::class, 'personas'],
         'POST /comisiones'                => [ComisionesController::class, 'crear'],
         'GET /comisiones/archivo/{id}'    => [ComisionesController::class, 'archivo', 'token'],
         'GET /comisiones/{id}'            => [ComisionesController::class, 'detalle'],

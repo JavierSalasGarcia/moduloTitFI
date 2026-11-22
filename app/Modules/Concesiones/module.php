@@ -14,6 +14,7 @@ return [
     'pendientes' => 'App\Modules\Concesiones\PendientesConcesiones::de',
     'rutas' => [
         'GET /concesiones' => [ConcesionesController::class, 'index'],
+        'GET /concesiones/personas' => [ConcesionesController::class, 'personas'],
         'POST /concesiones' => [ConcesionesController::class, 'crear'],
         'POST /concesiones/{id}/revocar' => [ConcesionesController::class, 'revocar'],
     ],

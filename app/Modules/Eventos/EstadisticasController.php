@@ -46,6 +46,16 @@ final class EstadisticasController extends Controller
         exit;
     }
 
+    /** Buscador de cuentas para dar acceso a estadísticas (SelectorPersonas): solo quien gestiona ese acceso. */
+    public function buscar(): void
+    {
+        if (!Estadisticas::esGestor()) {
+            http_response_code(403);
+            exit;
+        }
+        \App\Core\BuscadorPersonas::responder();
+    }
+
     public function agregar(): void
     {
         if (!Estadisticas::esGestor()) {

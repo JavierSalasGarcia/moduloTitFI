@@ -18,6 +18,13 @@ use RuntimeException;
 /** «Solicitar una constancia»: captura, vista previa, envío a firma, corrección tras una devolución y consulta. */
 final class SolicitudController extends ConstanciasBase
 {
+    /** Buscador de personas del personal para «Se extiende a» (SelectorPersonas en modo sugerencias). */
+    public function personas(): void
+    {
+        $this->soloSolicitantes();
+        \App\Core\BuscadorPersonas::responder();
+    }
+
     public function formulario(): void
     {
         $this->soloSolicitantes();

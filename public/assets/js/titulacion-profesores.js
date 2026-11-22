@@ -1,9 +1,8 @@
-// Sugerencias de profesores registrados al capturar asesor/coasesor: por nombre o por correo.
+// Sugerencias de profesores registrados (asesor, coasesor, jurado, responsable…): por nombre o por correo.
+// Usa el componente SelectorPersonas (docs/SELECTOR_DE_PERSONAS.md): al teclear salen las coincidencias y, al elegir una,
+// se rellenan el nombre, el correo, el grado y el género de la fila (los campos que existan con data-prof-*).
 (function () {
-  var inputs = document.querySelectorAll('[data-prof], [data-prof-correo]');
-  if (!inputs.length) { return; }
   var url = (document.currentScript && document.currentScript.dataset.url) || '/titulacion/profesores';
-  var cache = {}, temporizador;
 
   function par(rol) {
     return {
@@ -13,43 +12,25 @@
       genero: document.querySelector('[data-prof-genero="' + rol + '"]')
     };
   }
-  function buscar(q, cb) {
-    if (q.length < 3) { cb([]); return; }
-    if (cache[q]) { cb(cache[q]); return; }
-    fetch(url + '?q=' + encodeURIComponent(q), { credentials: 'same-origin' })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (d) { cache[q] = d; cb(d); })
-      .catch(function () { cb([]); });
+
+  function iniciar() {
+    if (!window.SelectorPersonas) { return; }
+    document.querySelectorAll('[data-prof], [data-prof-correo]').forEach(function (el) {
+      var rol = el.getAttribute('data-prof') || el.getAttribute('data-prof-correo');
+      var porNombre = el.hasAttribute('data-prof');
+      window.SelectorPersonas.sugerir(el, {
+        url: url,
+        min: 2,
+        formato: function (p) { return porNombre ? p.nombre : p.email; },
+        alElegir: function (p) {
+          var f = par(rol);
+          if (f.nombre) { f.nombre.value = p.nombre; }
+          if (f.correo) { f.correo.value = p.email; }
+          if (f.grado) { f.grado.value = p.grado || ''; }
+          if (f.genero) { f.genero.value = p.genero || ''; }
+        }
+      });
+    });
   }
-  inputs.forEach(function (el) {
-    var rol = el.getAttribute('data-prof') || el.getAttribute('data-prof-correo');
-    var porNombre = el.hasAttribute('data-prof');
-    var lista = document.getElementById('dl-prof-' + rol + (porNombre ? '' : '-c'));
-    el.addEventListener('input', function () {
-      clearTimeout(temporizador);
-      temporizador = setTimeout(function () {
-        buscar(el.value.trim(), function (datos) {
-          if (!lista) { return; }
-          lista.innerHTML = '';
-          datos.forEach(function (p) {
-            var o = document.createElement('option');
-            o.value = porNombre ? p.nombre : p.email;
-            o.label = porNombre ? p.email : p.nombre;
-            o.dataset.nombre = p.nombre; o.dataset.email = p.email; o.dataset.grado = p.grado || ''; o.dataset.genero = p.genero || '';
-            lista.appendChild(o);
-          });
-        });
-      }, 250);
-    });
-    el.addEventListener('change', function () {
-      if (!lista) { return; }
-      var o = Array.prototype.find.call(lista.options, function (x) { return x.value === el.value; });
-      if (!o) { return; }
-      var p = par(rol);
-      if (p.nombre) { p.nombre.value = o.dataset.nombre; }
-      if (p.correo) { p.correo.value = o.dataset.email; }
-      if (p.grado) { p.grado.value = o.dataset.grado; }
-      if (p.genero) { p.genero.value = o.dataset.genero; }
-    });
-  });
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', iniciar); } else { iniciar(); }
 })();
