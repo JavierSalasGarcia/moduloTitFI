@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS consejos_adjuntos (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   solicitud_id INT UNSIGNED NULL,
   asunto_id INT UNSIGNED NULL,
-  tipo ENUM('oficio','anexo') NOT NULL DEFAULT 'anexo',   -- oficio = el oficio original escaneado; anexo = documento que lo acompaña
+  tipo ENUM('oficio','anexo') NOT NULL DEFAULT 'anexo',   -- oficio = el oficio original escaneado, anexo = documento que lo acompaña
   descripcion VARCHAR(200) NOT NULL,                       -- de qué es el archivo: «Constancias de recursos humanos», «Anexo 1…»
   nombre VARCHAR(160) NOT NULL,
   ruta VARCHAR(255) NOT NULL,
