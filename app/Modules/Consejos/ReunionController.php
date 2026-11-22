@@ -61,9 +61,8 @@ final class ReunionController extends ConsejosBase
             [...array_values($datos), Auth::id()]
         );
         Audit::record('consejos::reunion', 'correcto', 'Crea reunión #' . $id);
-        // Las solicitudes con Vo. Bo. que esperaban una reunión pasan a ésta como casos.
-        $llegaron = \App\Modules\Consejos\Services\Solicitudes::incorporarPendientes($id);
-        flash('exito', 'Reunión creada.' . ($llegaron ? ' Se incorporaron ' . $llegaron . ' solicitud(es) con Vo. Bo.' : '') . ' Agrega los casos de profesores, de alumnos y los asuntos generales.');
+        $cartera = (int) Database::valor("SELECT COUNT(*) FROM consejos_solicitudes WHERE estado = 'visto_bueno'");
+        flash('exito', 'Reunión creada.' . ($cartera ? ' Hay ' . $cartera . ' solicitud(es) con Vo. Bo. en la cartera para incorporar.' : '') . ' Agrega los casos de profesores, de alumnos y los asuntos generales.');
         redirigir('consejos/reunion/' . $id);
     }
 

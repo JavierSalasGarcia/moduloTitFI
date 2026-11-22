@@ -1,10 +1,10 @@
 -- ============================================================================================================
--- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 19:04)
+-- Traza FI · Actualización acumulativa de la base de datos (generada: 2026-11-22 19:11)
 --
 -- Lleva la base desde cualquier versión anterior hasta la actual. Es repetible: se puede importar las veces que
 -- haga falta (phpMyAdmin → Importar, o mysql < actualizar.sql); solo crea o cambia lo que falta y no borra datos.
 -- Requiere una base ya instalada con schema.sql. No editar a mano: se genera con database/construir_actualizar.php
--- a partir de las migraciones (54 fuentes, en orden).
+-- a partir de las migraciones (55 fuentes, en orden).
 -- ============================================================================================================
 
 SET NAMES utf8mb4;
@@ -3402,4 +3402,23 @@ CREATE TABLE IF NOT EXISTS consejos_solicitudes (
 SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE consejos_asuntos ADD COLUMN solicitud_id INT UNSIGNED NULL AFTER origen', 'DO 0')
             FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consejos_asuntos' AND COLUMN_NAME = 'solicitud_id');
 PREPARE st FROM @s; EXECUTE st; DEALLOCATE PREPARE st;
+
+-- ------------------------------------------------------------------------------------------------------------
+-- migrations/067_consejos_solicitud_observaciones.sql
+-- ------------------------------------------------------------------------------------------------------------
+-- Consejos: historial de observaciones de la coordinación y respuestas de quien solicita (varias rondas) antes de que la solicitud
+-- pase a la cartera del Consejo. Repetible.
+
+CREATE TABLE IF NOT EXISTS consejos_solicitud_obs (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  solicitud_id INT UNSIGNED NOT NULL,
+  ronda SMALLINT UNSIGNED NOT NULL,
+  tipo ENUM('observacion','respuesta') NOT NULL,
+  autor_id INT UNSIGNED NOT NULL,
+  texto VARCHAR(1000) NOT NULL,
+  creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_cons_obs_solicitud (solicitud_id, id),
+  CONSTRAINT fk_cons_obs_solicitud FOREIGN KEY (solicitud_id) REFERENCES consejos_solicitudes (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 

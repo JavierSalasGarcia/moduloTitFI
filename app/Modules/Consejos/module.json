@@ -51,6 +51,7 @@
     "GET /consejos/solicitudes": ["App\\Modules\\Consejos\\SolicitudController", "index"],
     "GET /consejos/solicitudes/nueva": ["App\\Modules\\Consejos\\SolicitudController", "nueva"],
     "GET /consejos/solicitudes/personas": ["App\\Modules\\Consejos\\SolicitudController", "personas"],
+    "POST /consejos/solicitudes/cartera": ["App\\Modules\\Consejos\\SolicitudController", "incorporarTodas"],
     "POST /consejos/solicitudes": ["App\\Modules\\Consejos\\SolicitudController", "crear"],
     "GET /consejos/solicitudes/{id}": ["App\\Modules\\Consejos\\SolicitudController", "ver"],
     "GET /consejos/solicitudes/{id}/editar": ["App\\Modules\\Consejos\\SolicitudController", "editar"],

@@ -46,7 +46,9 @@ final class SolicitudController extends ConsejosBase
         $mias = Database::todas("SELECT * FROM consejos_solicitudes WHERE solicitante_id = ? AND estado <> 'cancelada' ORDER BY id DESC LIMIT 100", [$uid]);
         $revisar = Database::todas("SELECT s.*, u.nombre AS solicitante FROM consejos_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id WHERE s.coordinador_id = ? AND s.estado = 'enviada' ORDER BY s.enviado_en, s.id", [$uid]);
         $revisadas = Database::todas("SELECT s.*, u.nombre AS solicitante FROM consejos_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id WHERE s.coordinador_id = ? AND s.estado IN ('visto_bueno','incorporada','devuelta') ORDER BY s.actualizado_en DESC LIMIT 30", [$uid]);
-        $this->vista('solicitudes', ['titulo' => 'Solicitudes a los Consejos', 'mias' => $mias, 'revisar' => $revisar, 'revisadas' => $revisadas]);
+        $cartera = ConsejosAccess::esGestor() ? Database::todas("SELECT s.*, u.nombre AS solicitante FROM consejos_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id WHERE s.estado = 'visto_bueno' ORDER BY s.vobo_en, s.id") : [];
+        $reuniones = $cartera ? Database::todas("SELECT id, etiqueta FROM consejos_reuniones WHERE estado = 'preparacion' ORDER BY id DESC") : [];
+        $this->vista('solicitudes', ['titulo' => 'Solicitudes a los Consejos', 'mias' => $mias, 'revisar' => $revisar, 'revisadas' => $revisadas, 'cartera' => $cartera, 'reuniones' => $reuniones]);
     }
 
     // ------------------------------------------------------------------ redactar
@@ -144,6 +146,11 @@ final class SolicitudController extends ConsejosBase
             flash('error', 'Esta solicitud no se puede enviar.');
             redirigir('consejos/solicitudes');
         }
+        // Al reenviar una solicitud devuelta, lo que se corrigió queda en el historial de la ronda.
+        $respuesta = mb_substr(trim($this->post('respuesta')), 0, 1000);
+        if ($s['estado'] === 'devuelta' && $respuesta !== '') {
+            Database::ejecutar("INSERT INTO consejos_solicitud_obs (solicitud_id, ronda, tipo, autor_id, texto) VALUES (?, ?, 'respuesta', ?, ?)", [$id, max(1, Solicitudes::ronda($id)), (int) Auth::id(), $respuesta]);
+        }
         Database::ejecutar("UPDATE consejos_solicitudes SET estado = 'enviada', enviado_en = NOW(), modo_solicitante = ?, comentario = NULL WHERE id = ?", [FirmaConfig::efectivo('solicitud_solicitante'), $id]);
         $s = Database::una('SELECT * FROM consejos_solicitudes WHERE id = ?', [$id]);
         try {
@@ -152,7 +159,8 @@ final class SolicitudController extends ConsejosBase
             flash('error', 'La solicitud se envió, pero no se pudo generar el oficio en PDF: ' . $e->getMessage());
         }
         Audit::record('consejos::solicitud', 'correcto', 'Envía ' . $s['folio'] . ' a ' . $s['coordinacion']);
-        Solicitudes::avisar((int) $s['coordinador_id'], 'Solicitud ' . $s['folio'] . ' para tu Vo. Bo.', Solicitudes::nombreCompleto((int) $s['solicitante_id']) . ' envió la solicitud ' . $s['folio'] . ' a los HH. Consejos. Requiere tu Vo. Bo. o de enterado (' . $s['coordinacion'] . ').', 'consejos/solicitudes/' . $id, 'Revisar la solicitud');
+        $ronda = Solicitudes::ronda($id);
+        Solicitudes::avisar((int) $s['coordinador_id'], 'Solicitud ' . $s['folio'] . ($ronda > 0 ? ' corregida' : ' para tu Vo. Bo.'), Solicitudes::nombreCompleto((int) $s['solicitante_id']) . ($ronda > 0 ? ' corrigió y reenvió' : ' envió') . ' la solicitud ' . $s['folio'] . ' a los HH. Consejos. Requiere tu Vo. Bo. o de enterado (' . $s['coordinacion'] . ').' . ($respuesta !== '' ? ' Respuesta: ' . $respuesta : ''), 'consejos/solicitudes/' . $id, 'Revisar la solicitud');
         flash('exito', 'Solicitud ' . $s['folio'] . ' enviada a ' . $s['coordinacion'] . '.');
         redirigir('consejos/solicitudes/' . $id);
     }
@@ -173,14 +181,13 @@ final class SolicitudController extends ConsejosBase
             flash('error', 'No se pudo actualizar el oficio en PDF: ' . $e->getMessage());
         }
         Audit::record('consejos::solicitud', 'correcto', ($tipo === 'enterado' ? 'Enterado de ' : 'Vo. Bo. a ') . $s['folio']);
-        $reunion = Solicitudes::siguienteReunion();
-        if ($reunion !== null && !self::cerrada($reunion)) {
-            Solicitudes::incorporar($s, $reunion);
-            flash('exito', 'Listo: la solicitud ' . $s['folio'] . ' quedó en la siguiente reunión de los Consejos.');
-        } else {
-            Solicitudes::avisar((int) $s['solicitante_id'], 'Tu solicitud ' . $s['folio'] . ' tiene Vo. Bo.', $s['coordinacion'] . ' dio el ' . ($tipo === 'enterado' ? 'enterado' : 'Vo. Bo.') . ' a tu solicitud ' . $s['folio'] . '. Entrará al acta de la siguiente reunión.', 'consejos/solicitudes/' . (int) $s['id'], 'Ver mi solicitud');
-            flash('exito', 'Vo. Bo. registrado. La solicitud entrará al acta cuando se abra la siguiente reunión.');
+        // Con el Vo. Bo. la solicitud pasa a la cartera del Consejo y se avisa al secretario académico y a su asistente, que la llevan a una reunión.
+        $quien = Solicitudes::nombreCompleto((int) $s['solicitante_id']);
+        foreach (Solicitudes::destinatariosCartera() as $d) {
+            Solicitudes::avisar($d['id'], 'Nueva solicitud en cartera: ' . $s['folio'], $quien . ' presentó la solicitud ' . $s['folio'] . ' con el ' . ($tipo === 'enterado' ? 'de enterado' : 'Vo. Bo.') . ' de ' . $s['coordinacion'] . '. Ya está en la cartera de casos para el Consejo.', 'consejos/solicitudes', 'Ver la cartera');
         }
+        Solicitudes::avisar((int) $s['solicitante_id'], 'Tu solicitud ' . $s['folio'] . ' tiene Vo. Bo.', $s['coordinacion'] . ' dio el ' . ($tipo === 'enterado' ? 'enterado' : 'Vo. Bo.') . ' a tu solicitud ' . $s['folio'] . '. Pasó a la cartera de casos para el Consejo; entrará al acta de la reunión que se programe.', 'consejos/solicitudes/' . (int) $s['id'], 'Ver mi solicitud');
+        flash('exito', 'Vo. Bo. registrado. La solicitud pasó a la cartera de casos para el Consejo y se avisó al secretario académico y a su asistente.');
         redirigir('consejos/solicitudes/' . $s['id']);
     }
 
@@ -197,9 +204,11 @@ final class SolicitudController extends ConsejosBase
             redirigir('consejos/solicitudes/' . $s['id']);
         }
         Database::ejecutar("UPDATE consejos_solicitudes SET estado = 'devuelta', comentario = ?, enviado_en = NULL, modo_solicitante = NULL WHERE id = ?", [$motivo, (int) $s['id']]);
-        Audit::record('consejos::solicitud', 'correcto', 'Devuelve ' . $s['folio']);
+        $ronda = Solicitudes::ronda((int) $s['id']) + 1;
+        Database::ejecutar("INSERT INTO consejos_solicitud_obs (solicitud_id, ronda, tipo, autor_id, texto) VALUES (?, ?, 'observacion', ?, ?)", [(int) $s['id'], $ronda, (int) Auth::id(), $motivo]);
+        Audit::record('consejos::solicitud', 'correcto', 'Devuelve ' . $s['folio'] . ' (ronda ' . $ronda . ')');
         Solicitudes::avisar((int) $s['solicitante_id'], 'Tu solicitud ' . $s['folio'] . ' fue devuelta', $s['coordinacion'] . ' devolvió tu solicitud: ' . $motivo, 'consejos/solicitudes/' . (int) $s['id'], 'Corregir la solicitud');
-        flash('exito', 'Solicitud devuelta a quien la redactó.');
+        flash('exito', 'Observaciones enviadas: la solicitud regresó a quien la redactó para que la corrija. Cuando la reenvíe te llegará de nuevo.');
         redirigir('consejos/solicitudes');
     }
 
@@ -233,13 +242,25 @@ final class SolicitudController extends ConsejosBase
         redirigir('consejos/reunion/' . $r['id']);
     }
 
+    /** Lleva a una reunión toda la cartera (las solicitudes con Vo. Bo. que esperan). */
+    public function incorporarTodas(): void
+    {
+        $this->gestor();
+        $r = $this->reunion($this->post('reunion_id'));
+        $this->noCerrada((int) $r['id']);
+        $n = Solicitudes::incorporarPendientes((int) $r['id']);
+        Audit::record('consejos::solicitud', 'correcto', 'Incorpora ' . $n . ' solicitud(es) de la cartera a la reunión #' . $r['id']);
+        flash('exito', $n ? $n . ' solicitud(es) de la cartera incorporada(s) como casos.' : 'La cartera está vacía.');
+        redirigir('consejos/reunion/' . $r['id']);
+    }
+
     // ------------------------------------------------------------------ detalle y archivos
 
     public function ver(string $id): void
     {
         $s = $this->solicitud($id);
         $solicitante = Database::una('SELECT nombre, grado, email FROM usuarios WHERE id = ?', [(int) $s['solicitante_id']]);
-        $this->vista('solicitud_ver', ['titulo' => 'Solicitud ' . $s['folio'], 's' => $s, 'solicitante' => $solicitante,
+        $this->vista('solicitud_ver', ['titulo' => 'Solicitud ' . $s['folio'], 's' => $s, 'solicitante' => $solicitante, 'historial' => Solicitudes::historial((int) $s['id']),
             'caso' => $s['asunto_id'] ? Database::una('SELECT a.grupo, a.numero, r.etiqueta, r.id AS reunion FROM consejos_asuntos a JOIN consejos_reuniones r ON r.id = a.reunion_id WHERE a.id = ?', [(int) $s['asunto_id']]) : null,
             'reuniones' => ConsejosAccess::esGestor() ? Database::todas("SELECT id, etiqueta FROM consejos_reuniones WHERE estado = 'preparacion' ORDER BY id DESC") : []]);
     }

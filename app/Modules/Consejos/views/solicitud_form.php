@@ -25,7 +25,7 @@ foreach ($coordinaciones as $c) {
       </div>
     </div>
     <?php if (!empty($s['comentario'])): ?>
-      <p class="cns-aviso" style="background:#fffbeb;border:1px solid #f1e1a6;border-radius:var(--radio);padding:10px 12px"><strong>La coordinación pidió corregir:</strong> <?= e((string) $s['comentario']) ?></p>
+      <p class="cns-aviso" style="background:#fffbeb;border:1px solid #f1e1a6;border-radius:var(--radio);padding:10px 12px"><strong>La coordinación hizo observaciones:</strong> <?= e((string) $s['comentario']) ?></p>
     <?php endif; ?>
 
     <div class="cns-fila">
@@ -73,8 +73,11 @@ foreach ($coordinaciones as $c) {
     include dirname(__DIR__, 3) . '/Views/selector_personas.php';
     ?>
 
+    <?php if (($s['estado'] ?? '') === 'devuelta'): ?>
+    <label style="margin-top:16px">Qué corregiste (opcional)<input type="text" name="respuesta" maxlength="1000" placeholder="Queda en el historial de observaciones y la coordinación lo ve al revisar"></label>
+    <?php endif; ?>
     <div class="cns-acciones" style="margin-top:18px">
-      <button class="btn btn-primario" type="submit" name="accion" value="enviar">Guardar y enviar a la coordinación</button>
+      <button class="btn btn-primario" type="submit" name="accion" value="enviar"><?= ($s['estado'] ?? '') === 'devuelta' ? 'Guardar y reenviar a la coordinación' : 'Guardar y enviar a la coordinación' ?></button>
       <button class="btn" type="submit" name="accion" value="borrador">Guardar borrador</button>
       <a class="btn" href="<?= e(url('consejos/solicitudes')) ?>">Cancelar</a>
     </div>

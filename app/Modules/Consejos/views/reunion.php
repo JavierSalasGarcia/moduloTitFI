@@ -100,8 +100,9 @@ $sesion = static function (string $k, string $nombre, array $r, ?array $firmada)
 
   <?php if (!empty($solicitudes) && !$cerrada): ?>
   <section class="tarjeta">
-    <h2 style="margin:0 0 6px;font-size:18px">Solicitudes con Vo. Bo. por incorporar (<?= count($solicitudes) ?>)</h2>
-    <p class="cns-sub" style="margin:0 0 8px">Ya tienen el visto bueno de la coordinación y esperaban una reunión.</p>
+    <h2 style="margin:0 0 6px;font-size:18px">Cartera de casos para el Consejo (<?= count($solicitudes) ?>)</h2>
+    <p class="cns-sub" style="margin:0 0 8px">Solicitudes con el Vo. Bo. de la coordinación que esperan reunión. Incorpóralas una por una o todas juntas.</p>
+    <form method="post" action="<?= e(url('consejos/solicitudes/cartera')) ?>" style="margin:0 0 6px"><?= $csrf ?><input type="hidden" name="reunion_id" value="<?= (int) $r['id'] ?>"><button class="btn btn-primario btn-mini" type="submit">Incorporar toda la cartera aquí</button></form>
     <?php foreach ($solicitudes as $sl): ?>
       <form method="post" action="<?= e(url('consejos/solicitudes/' . $sl['id'] . '/incorporar')) ?>" class="cns-acciones" style="margin:4px 0"><?= $csrf ?>
         <input type="hidden" name="reunion_id" value="<?= (int) $r['id'] ?>">

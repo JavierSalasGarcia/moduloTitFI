@@ -56,8 +56,8 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
     <ol class="pasos">
       <li><h3>Redacta</h3>Elige el tipo de trámite, llena lo resaltado y anota los antecedentes. Puedes guardar un borrador.</li>
       <li><h3>Elige la coordinación</h3>Por acuerdo del H. Consejo de Gobierno del 19 de noviembre de 2026 (AG28), toda solicitud lleva el Vo. Bo. o de enterado de la Coordinación de Docencia respectiva o de la de Estudios Avanzados.</li>
-      <li><h3>La coordinación revisa</h3>Recibe un aviso; da su Vo. Bo. o de enterado, o la devuelve con lo que debes corregir.</li>
-      <li><h3>Llega al acta</h3>Con el Vo. Bo. se vuelve un caso de la siguiente reunión. El sistema genera además el oficio en hoja membretada.</li>
+      <li><h3>La coordinación revisa</h3>Recibe un aviso. Si hay algo que corregir, hace observaciones y te la regresa; la corriges, anotas qué cambiaste y la reenvías. Puede haber varias rondas, y todo queda en el historial.</li>
+      <li><h3>Pasa a la cartera</h3>Cuando está bien, la coordinación da su Vo. Bo. o de enterado y la solicitud pasa a la cartera de casos para el Consejo; el secretario académico y su asistente reciben el aviso y la llevan a una reunión. El sistema genera además el oficio en hoja membretada.</li>
       <li><h3>Firma</h3>Si la firma es autógrafa, imprime el oficio, que firmen tú y la coordinación, y sube el escaneado. Si está habilitada la firma interna, se firma dentro de la plataforma.</li>
     </ol>
   </section>

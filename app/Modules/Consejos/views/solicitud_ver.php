@@ -1,5 +1,5 @@
 <?php
-/** @var array $s @var array $solicitante @var ?array $caso @var array $reuniones */
+/** @var array $s @var array $solicitante @var ?array $caso @var array $reuniones @var array $historial */
 use App\Core\Auth;
 use App\Modules\Consejos\ConsejosAccess;
 use App\Modules\Consejos\Services\FirmaConfig;
@@ -25,9 +25,9 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
       </div>
       <span class="cns-etq <?= in_array($s['estado'], ['visto_bueno', 'incorporada'], true) ? 'ok' : ($s['estado'] === 'devuelta' ? 'no' : '') ?>"><?= e(Solicitudes::ESTADOS[$s['estado']] ?? $s['estado']) ?></span>
     </div>
-    <?php if ($s['estado'] === 'devuelta' && $s['comentario']): ?><p style="background:#fffbeb;border:1px solid #f1e1a6;border-radius:var(--radio);padding:10px 12px"><strong>La coordinación pidió corregir:</strong> <?= e((string) $s['comentario']) ?></p><?php endif; ?>
+    <?php if ($s['estado'] === 'devuelta' && $s['comentario']): ?><p style="background:#fffbeb;border:1px solid #f1e1a6;border-radius:var(--radio);padding:10px 12px"><strong>La coordinación hizo observaciones:</strong> <?= e((string) $s['comentario']) ?></p><?php endif; ?>
     <?php if ($caso): ?><p>Quedó como caso <strong><?= e(\App\Modules\Consejos\Services\Texto::clave((string) $caso['grupo'], (int) $caso['numero'])) ?></strong> de la reunión <a href="<?= e(url('consejos/reunion/' . $caso['reunion'])) ?>"><?= e($caso['etiqueta']) ?></a><?= ConsejosAccess::esGestor() ? '' : '.' ?></p><?php endif; ?>
-    <?php if ($s['estado'] === 'visto_bueno'): ?><p class="cns-sub">Tiene el <?= $s['vobo_tipo'] === 'enterado' ? 'de enterado' : 'Vo. Bo.' ?> de la coordinación y entrará al acta de la siguiente reunión en cuanto se abra.</p><?php endif; ?>
+    <?php if ($s['estado'] === 'visto_bueno'): ?><p class="cns-sub">Tiene el <?= $s['vobo_tipo'] === 'enterado' ? 'de enterado' : 'Vo. Bo.' ?> de la coordinación y está en la <strong>cartera de casos para el Consejo</strong>: el secretario académico o su asistente la llevarán a una reunión.</p><?php endif; ?>
   </section>
 
   <section class="tarjeta">
@@ -36,6 +36,19 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
     <?php if (trim(strip_tags((string) $s['antecedentes_html'])) !== ''): ?><h3 style="margin:14px 0 4px;font-size:15px">Documentos y/o antecedentes</h3><div class="cns-doc"><?= $s['antecedentes_html'] ?></div><?php endif; ?>
     <p class="cns-ayuda" style="margin-top:12px"><?= e(Solicitudes::fundamento()) ?></p>
   </section>
+
+  <?php if ($historial): ?>
+  <section class="tarjeta">
+    <h2 style="margin:0 0 6px;font-size:18px">Observaciones y respuestas</h2>
+    <p class="cns-sub" style="margin:0 0 8px">La coordinación puede hacer observaciones y regresar la solicitud cuantas veces haga falta; cuando está bien, da el Vo. Bo.</p>
+    <?php foreach ($historial as $h): ?>
+      <div style="border-left:4px solid <?= $h['tipo'] === 'observacion' ? '#e0b72e' : 'var(--verde-900)' ?>;background:#fafafa;padding:8px 12px;margin:6px 0;border-radius:0 var(--radio) var(--radio) 0">
+        <small class="cns-ayuda"><?= $h['tipo'] === 'observacion' ? 'Observaciones de la coordinación' : 'Respuesta de quien solicita' ?> · ronda <?= (int) $h['ronda'] ?> · <?= e((string) $h['nombre']) ?> · <?= e(date('d/m/Y H:i', strtotime((string) $h['creado_en']))) ?></small><br>
+        <?= nl2br(e((string) $h['texto'])) ?>
+      </div>
+    <?php endforeach; ?>
+  </section>
+  <?php endif; ?>
 
   <section class="tarjeta">
     <h2 style="margin:0 0 6px;font-size:18px">Oficio y firmas</h2>
@@ -61,7 +74,9 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
     <div class="cns-acciones">
       <?php if ($soy && in_array($s['estado'], ['borrador', 'devuelta'], true)): ?>
         <a class="btn" href="<?= $ruta($s['id'] . '/editar') ?>">Editar</a>
-        <form method="post" action="<?= $ruta($s['id'] . '/enviar') ?>" style="display:inline"><?= $csrf ?><button class="btn btn-primario" type="submit">Enviar a la coordinación</button></form>
+        <form method="post" action="<?= $ruta($s['id'] . '/enviar') ?>" style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap"><?= $csrf ?>
+          <?php if ($s['estado'] === 'devuelta'): ?><label style="margin:0;flex:1;min-width:240px">Qué corregiste (opcional)<input type="text" name="respuesta" maxlength="1000" placeholder="Ya corregí las fechas y anexé el oficio…"></label><?php endif; ?>
+          <button class="btn btn-primario" type="submit"><?= $s['estado'] === 'devuelta' ? 'Reenviar a la coordinación' : 'Enviar a la coordinación' ?></button></form>
       <?php endif; ?>
       <?php if ($soy && in_array($s['estado'], ['borrador', 'enviada', 'devuelta'], true)): ?>
         <form method="post" action="<?= $ruta($s['id'] . '/cancelar') ?>" style="display:inline" onsubmit="return confirm('¿Cancelar esta solicitud?')"><?= $csrf ?><button class="btn" type="submit">Cancelar solicitud</button></form>
@@ -69,16 +84,17 @@ $ruta = static fn(string $x): string => e(url('consejos/solicitudes/' . $x));
     </div>
     <?php if ($coord && $s['estado'] === 'enviada'): ?>
       <h2 style="margin:14px 0 6px;font-size:18px">Tu revisión</h2>
+      <p class="cns-ayuda">Si hay algo que corregir, haz tus observaciones y regrésala a quien la redactó; puede haber varias rondas. Cuando esté bien, dale el Vo. Bo.: pasa a la cartera de casos para el Consejo.</p>
+      <form method="post" action="<?= $ruta($s['id'] . '/devolver') ?>" style="margin:0 0 12px"><?= $csrf ?>
+        <label>Observaciones para quien la redactó<textarea name="comentario" rows="3" maxlength="1000" placeholder="Qué debe corregirse o aclararse…" required></textarea></label>
+        <button class="btn" type="submit">Hacer observaciones y regresarla</button></form>
       <form method="post" action="<?= $ruta($s['id'] . '/vobo') ?>" class="cns-acciones"><?= $csrf ?>
         <label style="margin:0">Registrar como<select name="tipo"><option value="vobo">Vo. Bo.</option><option value="enterado">De enterado</option></select></label>
-        <button class="btn btn-primario" type="submit">Dar Vo. Bo. y pasar al acta</button></form>
-      <form method="post" action="<?= $ruta($s['id'] . '/devolver') ?>" style="margin-top:10px"><?= $csrf ?>
-        <label>Devolver para corregir<textarea name="comentario" rows="2" maxlength="1000" placeholder="Qué debe corregirse…" required></textarea></label>
-        <button class="btn" type="submit">Devolver</button></form>
+        <button class="btn btn-primario" type="submit">Está bien: dar Vo. Bo. y pasar a cartera</button></form>
     <?php endif; ?>
     <?php if ($reuniones && $s['estado'] === 'visto_bueno'): ?>
       <form method="post" action="<?= $ruta($s['id'] . '/incorporar') ?>" class="cns-acciones" style="margin-top:10px"><?= $csrf ?>
-        <label style="margin:0">Incorporar a la reunión<select name="reunion_id"><?php foreach ($reuniones as $r): ?><option value="<?= (int) $r['id'] ?>"><?= e($r['etiqueta']) ?></option><?php endforeach; ?></select></label>
+        <label style="margin:0">Llevar de la cartera a la reunión<select name="reunion_id"><?php foreach ($reuniones as $r): ?><option value="<?= (int) $r['id'] ?>"><?= e($r['etiqueta']) ?></option><?php endforeach; ?></select></label>
         <button class="btn" type="submit">Incorporar como caso</button></form>
     <?php endif; ?>
   </section>

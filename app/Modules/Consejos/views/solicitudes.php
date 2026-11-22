@@ -1,5 +1,6 @@
 <?php
-/** @var array $mias @var array $revisar @var array $revisadas */
+/** @var array $mias @var array $revisar @var array $revisadas @var array $cartera @var array $reuniones */
+use App\Core\Auth;
 use App\Modules\Consejos\Services\Solicitudes;
 include __DIR__ . '/_estilos.php';
 $etq = ['borrador' => '', 'enviada' => '', 'visto_bueno' => 'ok', 'devuelta' => 'no', 'incorporada' => 'ok', 'cancelada' => ''];
@@ -17,6 +18,27 @@ $etq = ['borrador' => '', 'enviada' => '', 'visto_bueno' => 'ok', 'devuelta' => 
       </div>
     </div>
   </section>
+
+  <?php if ($cartera): ?>
+  <section class="tarjeta">
+    <h2 style="margin:0 0 6px;font-size:18px">Cartera de casos para el Consejo (<?= count($cartera) ?>)</h2>
+    <p class="cns-sub" style="margin:0 0 8px">Solicitudes con el Vo. Bo. de la coordinación, listas para llevarse a una reunión.</p>
+    <table class="cns-tabla"><thead><tr><th>Folio</th><th>Quién solicita</th><th>Solicitud</th><th>Coordinación</th><th>Vo. Bo.</th><th></th></tr></thead><tbody>
+    <?php foreach ($cartera as $c): ?>
+      <tr><td><?= e($c['folio']) ?></td><td><?= e($c['solicitante']) ?></td>
+        <td><?= e(mb_strimwidth(trim(\App\Modules\Consejos\Services\Html::texto((string) $c['solicitud_html'])), 0, 90, '…')) ?></td>
+        <td><?= e($c['coordinacion']) ?></td><td><?= e(date('d/m/Y', strtotime((string) $c['vobo_en']))) ?></td>
+        <td><a class="btn btn-mini" href="<?= e(url('consejos/solicitudes/' . $c['id'])) ?>">Abrir</a></td></tr>
+    <?php endforeach; ?>
+    </tbody></table>
+    <?php if ($reuniones): ?>
+    <form method="post" action="<?= e(url('consejos/solicitudes/cartera')) ?>" class="cns-acciones" style="margin-top:10px"><input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+      <label style="margin:0">Llevar toda la cartera a la reunión<select name="reunion_id"><?php foreach ($reuniones as $r): ?><option value="<?= (int) $r['id'] ?>"><?= e($r['etiqueta']) ?></option><?php endforeach; ?></select></label>
+      <button class="btn btn-primario" type="submit">Incorporar la cartera como casos</button>
+    </form>
+    <?php else: ?><p class="cns-ayuda" style="margin-top:8px">No hay una reunión en preparación: crea la reunión del mes y vuelve para incorporar la cartera.</p><?php endif; ?>
+  </section>
+  <?php endif; ?>
 
   <?php if ($revisar): ?>
   <section class="tarjeta">

@@ -121,6 +121,47 @@ final class Solicitudes
         return $n;
     }
 
+    /**
+     * Quienes reciben el aviso de cada solicitud que llega a la cartera del Consejo: el Subdirector Académico (secretario de los
+     * Consejos) y su asistente.
+     * @return list<array{id:int,nombre:string}>
+     */
+    public static function destinatariosCartera(): array
+    {
+        $r = [];
+        try {
+            $correos = [];
+            $sub = \App\Modules\Titulacion\Services\Autoridades::subdirector();
+            if (!empty($sub['email'])) {
+                $correos[] = strtolower((string) $sub['email']);
+            }
+            foreach (Database::todas('SELECT email FROM tit_asistentes WHERE activo = 1') as $a) {
+                $correos[] = strtolower((string) $a['email']);
+            }
+            foreach (array_unique($correos) as $c) {
+                $u = Database::una('SELECT id, nombre FROM usuarios WHERE LOWER(email) = ? AND activo = 1', [$c]);
+                if ($u) {
+                    $r[(int) $u['id']] = ['id' => (int) $u['id'], 'nombre' => (string) $u['nombre']];
+                }
+            }
+        } catch (\Throwable) {
+            // sin directorio de autoridades no hay a quién avisar
+        }
+        return array_values($r);
+    }
+
+    /** Observaciones y respuestas de la solicitud, en orden. */
+    public static function historial(int $id): array
+    {
+        return Database::todas('SELECT o.*, u.nombre FROM consejos_solicitud_obs o JOIN usuarios u ON u.id = o.autor_id WHERE o.solicitud_id = ? ORDER BY o.id', [$id]);
+    }
+
+    /** Ronda de observaciones en curso (0 si nunca se ha devuelto). */
+    public static function ronda(int $id): int
+    {
+        return (int) Database::valor("SELECT COALESCE(MAX(ronda), 0) FROM consejos_solicitud_obs WHERE solicitud_id = ? AND tipo = 'observacion'", [$id]);
+    }
+
     /** Aviso en la bandeja y por correo; un fallo nunca interrumpe la acción. */
     public static function avisar(int $uid, string $asunto, string $texto, string $ruta, string $boton): void
     {
