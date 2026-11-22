@@ -47,25 +47,23 @@ $fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)
     </section>
   <?php else: ?>
   <section class="tarjeta">
-    <p class="const-ayuda" style="margin:0 0 8px"><?= count($filas) ?> <?= count($filas) === 1 ? 'constancia firmada' : 'constancias firmadas' ?>. Pulsa el título subrayado de <strong>Departamento</strong>, <strong>Emisión</strong> o <strong>Firma</strong> para ordenar (⇅); si pulsas otra vez, se invierte el orden.</p>
+    <p class="const-ayuda" style="margin:0 0 8px"><?= count($filas) ?> <?= count($filas) === 1 ? 'constancia firmada' : 'constancias firmadas' ?>. Pulsa el nombre de una constancia para descargar su PDF. Pulsa el título subrayado de <strong>Departamento</strong>, <strong>Emisión</strong> o <strong>Firma</strong> para ordenar (⇅); si pulsas otra vez, se invierte el orden.</p>
     <div class="const-scroll"><table class="const-lista const-tabla">
       <thead><tr>
-        <th>Constancia</th><th>Se extiende a</th>
+        <th>Constancia</th>
         <th><?= $enlace('depto', 'Departamento') ?></th>
         <th><?= $enlace('emision', 'Emisión') ?></th>
         <th><?= $enlace('firma', 'Firma') ?></th>
-        <th>Folio</th><th><span class="sr-only">PDF</span></th>
+        <th>Folio</th>
       </tr></thead>
       <tbody>
       <?php foreach ($filas as $f): ?>
         <tr>
-          <td><strong><?= e($f['tipo']) ?></strong><br><small><?= e($f['detalle']) ?></small></td>
-          <td data-et="Se extiende a"><?= e($f['persona'] !== '' ? $f['persona'] : '—') ?></td>
+          <td><a href="<?= e(url('constancias/descargar/' . $f['fuente'] . '/' . $f['id'])) ?>" target="_blank" rel="noopener" title="Descargar el PDF"><strong><?= e($f['tipo']) ?></strong></a><br><small><?= e($f['detalle']) ?></small></td>
           <td data-et="Departamento"><?= e($f['departamento']) ?></td>
           <td data-et="Emisión"><?= e($fecha((string) $f['fecha_emision'])) ?></td>
           <td data-et="Firma"><?= e($fecha((string) $f['fecha_firma'])) ?></td>
           <td data-et="Folio"><?= e($f['folio']) ?></td>
-          <td class="const-acc"><a class="btn btn-mini" href="<?= e(url('constancias/descargar/' . $f['fuente'] . '/' . $f['id'])) ?>" target="_blank" rel="noopener">Descargar PDF</a></td>
         </tr>
       <?php endforeach; ?>
       </tbody>
