@@ -12,7 +12,7 @@ namespace App\Modules\Consejos\Services;
  */
 final class Plantillas
 {
-    /** @return list<array{clave:string,grupo:string,nombre:string,solicitud:string,antecedentes:string,tabla:list<string>}> */
+    /** @return list<array{clave:string,grupo:string,nombre:string,solicitud:string,antecedentes:string,tabla:list<string>,gobierno:bool,datos:list<string>}> */
     public static function todas(): array
     {
         $c = 'a los H.H. Consejos Académico y de Gobierno';
@@ -73,12 +73,36 @@ final class Plantillas
                 "Se solicita $c la aprobación para la apertura del Diplomado Superior en [tema], que se desarrollará del [fecha] al [fecha] con una duración de [horas] horas, así como el aval a la plantilla de instructores propuesta.", $of, ['Módulo', 'Instructor', 'Horas']],
             ['general', 'fe_erratas', 'Fe de erratas de actas o acuerdos previos',
                 "La [cargo] solicita $c autorización para realizar la Fe de erratas en el acuerdo asentado en el acta de la sesión [ordinaria/extraordinaria] de fecha [fecha], para quedar de la siguiente forma: donde dice «[texto]», debe decir «[texto]».", 'Acta del día [fecha], dice […] Debe decir […]', []],
+            ['general', 'calendarios', 'Calendario escolar o calendarios de evaluación',
+                "La [cargo], Subdirectora Académica, presenta el [Calendario Escolar / Calendarios de exámenes departamentales / Calendarios de Evaluación] de la Facultad de Ingeniería correspondiente al periodo escolar [periodo], para su revisión y, en su caso, aprobación por los H.H. Consejos Académico y de Gobierno.", 'Calendario propuesto (anexo con periodos de evaluación y suspensión de labores)', []],
+            ['general', 'presea', 'Presea o postulación de aspirantes (mérito universitario)',
+                "El [Dr./Dra. nombre], Director de la Facultad de Ingeniería, presenta [la propuesta de aspirante / el listado de postulantes] para participar en la convocatoria de la Presea “[nombre de la presea]”, versión [año], con base en el dictamen de la Comisión Especial del Mérito Universitario.", 'Dictamen de la Comisión Especial del Mérito Universitario', ['Candidato', 'Puntaje']],
+            ['general', 'nota_laudatoria', 'Nota Laudatoria (solo Consejo de Gobierno)',
+                "El [Dr./Dra. nombre], Director de la Facultad, presenta a consideración del H. Consejo de Gobierno a los candidatos a recibir la Nota Laudatoria [año], cuyos expedientes fueron revisados por la comisión designada por el H. Consejo Académico, obteniendo los puntajes indicados en la tabla adjunta. Asimismo, la Dirección General de Evaluación y Control de la Gestión Universitaria ha ratificado los puntajes obtenidos por la comisión, con base en el punto [número] de la Convocatoria.", 'Dictamen de la comisión / Puntajes ratificados', ['Candidato', 'Puntaje'], true],
+            ['general', 'reconocimiento_admin', 'Reconocimiento al desempeño o nota al servicio administrativo',
+                "La [cargo], Subdirectora Académica, presenta el dictamen de la comisión revisora de los expedientes de los solicitantes a participar en el [Reconocimiento al Desempeño Administrativo / Nota al Servicio Administrativo] [año] para su análisis y aprobación.", 'Dictamen de la comisión revisora', ['Solicitante', 'Puntaje']],
+            ['general', 'informe', 'Informe o reporte para conocimiento',
+                "La [cargo] presenta a los H.H. Consejos Académico y de Gobierno el [reporte con las Estadísticas de Titulación / Informe de actividades] correspondiente al periodo [periodo o del fecha al fecha], para su conocimiento.", 'Reporte (anexo)', []],
+            ['general', 'plan_desarrollo', 'Plan de desarrollo de una licenciatura',
+                "La/El [cargo] presenta a los H.H. Consejos Académico y de Gobierno el Plan de Desarrollo 2025-2029 de la Licenciatura en [programa] para su revisión y, en su caso, aprobación.", 'Plan de Desarrollo (anexo)', []],
+            ['general', 'comision_gobierno', 'Comisión de Glosa o de Procesos Electorales (solo Consejo de Gobierno)',
+                "Con base en la reglamentación vigente, el [Dr./Dra. nombre], Director de la Facultad de Ingeniería, solicita a este H. Consejo de Gobierno la conformación de la [Comisión de Glosa para el n° informe de actividades / Comisión de Procesos Electorales Ampliada para el Proceso de Elección de Titular de la Dirección para el periodo ordinario AAAA-AAAA].", $of, [], true],
+            ['general', 'calificacion_eleccion', 'Auscultación y calificación de la elección de Director (solo Consejo de Gobierno)',
+                "Con fundamento en el artículo 107 fracción III del Estatuto Universitario y la Base [número] de la Convocatoria para la Elección de Directora o Director de la Facultad de Ingeniería de la Universidad Autónoma del Estado de México, para el periodo ordinario [periodo], el [Dr./Dra. nombre], Presidente del H. Consejo de Gobierno, somete a consideración el acta de auscultación cuantitativa del citado proceso para su calificación y emisión del acuerdo correspondiente.", 'Acta de auscultación cuantitativa', [], true],
             ['general', 'otro_general', 'Otro asunto general',
                 "La/El [cargo] solicita $c [lo que solicita].", $of, []],
         ];
         return array_map(static fn(array $f): array => [
             'clave' => $f[1], 'grupo' => $f[0], 'nombre' => $f[2], 'solicitud' => $f[3], 'antecedentes' => $f[4], 'tabla' => $f[5],
+            'gobierno' => $f[6] ?? false, 'datos' => self::datos($f[3]),
         ], $filas);
+    }
+
+    /** Los datos que hay que llenar: lo que va entre [corchetes] (sin repetir). */
+    private static function datos(string $texto): array
+    {
+        preg_match_all('/\[([^\[\]]+)\]/u', $texto, $m);
+        return array_values(array_unique($m[1]));
     }
 
     /**

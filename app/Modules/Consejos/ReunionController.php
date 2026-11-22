@@ -26,6 +26,13 @@ final class ReunionController extends ConsejosBase
         $this->vista('index', ['titulo' => 'Consejos', 'reuniones' => $reuniones]);
     }
 
+    /** Manual de llenado para los departamentos: se arma con el mismo catálogo de plantillas, así nunca queda desactualizado. */
+    public function manual(): void
+    {
+        $this->gestor();
+        $this->vista('manual', ['titulo' => 'Manual de captura de casos', 'plantillas' => \App\Modules\Consejos\Services\Plantillas::todas()]);
+    }
+
     public function nueva(): void
     {
         $this->gestor();

@@ -39,6 +39,7 @@
   ],
   "rutas": {
     "GET /consejos": ["App\\Modules\\Consejos\\ReunionController", "index"],
+    "GET /consejos/manual": ["App\\Modules\\Consejos\\ReunionController", "manual"],
     "GET /consejos/nueva": ["App\\Modules\\Consejos\\ReunionController", "nueva"],
     "POST /consejos": ["App\\Modules\\Consejos\\ReunionController", "crear"],
     "GET /consejos/reunion/{id}": ["App\\Modules\\Consejos\\ReunionController", "ver"],
