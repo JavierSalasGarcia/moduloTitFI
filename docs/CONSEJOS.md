@@ -67,13 +67,13 @@ fila del Académico. Al importar, un caso que solo trae acuerdo de Gobierno tamb
 
 | Consejo | Decisión | Frase |
 |---|---|---|
-| Académico | Se avala | «El H. Consejo Académico otorga el aval » + lo propio del caso (para…, de…) |
-| Académico | No se avala | «No se otorga el aval del H. Consejo Académico, dado que » + el motivo |
+| Académico | Se avala | «El H. Consejo Académico avala la solicitud de » + lo que se solicita, tomado del caso (sin el «<Persona>, <cargo>, solicita» del principio) |
+| Académico | No se avala | «El H. Consejo Académico no avala la solicitud de » + lo que se solicita + « en virtud de que » + el motivo |
 | Gobierno | Se aprueba | «Se aprueba el Acuerdo del H. Consejo Académico.» (+ lo que se precise); la nota adicional se agrega al acuerdo final |
 | Gobierno | No se aprueba | «No se aprueba el aval del H. Consejo Académico en virtud de que » + el motivo |
 
 Lo que se escribió para una decisión se recuerda: si se cambia de decisión y se regresa, reaparece tal cual. Hay frases frecuentes («Se da por enterado el H.
-Consejo …», «Se otorga el aval del H. Consejo Académico.», «No es competencia del H. Consejo de Gobierno »).
+Consejo …», «No es competencia del H. Consejo de Gobierno »).
 
 **Guardar y Deshacer.** Los cambios no se guardan solos: **💾 Guardar** (o Ctrl+S) los guarda y **↶ Deshacer** vuelve a lo último guardado en ese caso. Al pasar a
 otro caso se guarda el actual; si no se pudo guardar, no se cambia de caso. Un Consejo cuya sesión terminó no se edita (se reabre desde la reunión).

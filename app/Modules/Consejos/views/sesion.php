@@ -124,26 +124,47 @@ $desde = 'sesion:' . $consejo;
   const GRUPOS = {profesor: 'Casos de profesores', alumno: 'Casos de alumnos', general: 'Asuntos generales'};
   const TIPOS = {profesor: 'Caso de profesor', alumno: 'Caso de alumno', general: 'Asunto general'};
 
-  /* ---- Cómo se redactan los acuerdos (según las actas): una frase fija según la decisión y, después, lo propio del caso.
-     Consejo Académico:  «El H. Consejo Académico otorga el aval para …»  /  «No se otorga el aval del H. Consejo Académico, dado que …»
-     Consejo de Gobierno: «Se aprueba el Acuerdo del H. Consejo Académico.» (+ lo que se precise)  /  «No se aprueba el aval del H. Consejo Académico en virtud de que …» */
-  const FRASE = GOB
-    ? {aprueba: 'Se aprueba el Acuerdo del H. Consejo Académico.', no_aprueba: 'No se aprueba el aval del H. Consejo Académico en virtud de que '}
-    : {avala: 'El H. Consejo Académico otorga el aval ', no_avala: 'No se otorga el aval del H. Consejo Académico, dado que '};
+  /* ---- Cómo se redactan los acuerdos. La fórmula del Consejo Académico es «El H. Consejo Académico avala la solicitud de …» y se repite
+     parte de lo que dice el caso, sin el «<Persona>, <cargo>, solicita» del principio: materia(a) toma lo que se solicita (hasta el fin de esa oración).
+     Consejo de Gobierno: «Se aprueba el Acuerdo del H. Consejo Académico.» (+ lo que se precise) / «No se aprueba el aval del H. Consejo Académico en virtud de que …» */
+  const ABREV = new Set(['dr', 'dra', 'mtro', 'mtra', 'ing', 'lic', 'prof', 'm', 'c', 'sr', 'sra', 'núm', 'num', 'art', 'etc', 'depto', 'dpto', 'en', 'ca']);
+  function materia(a) {
+    const d = document.createElement('div'); d.innerHTML = a.solicitud || ''; d.querySelectorAll('table').forEach(t => t.remove());
+    const t = (d.textContent || '').replace(/\s+/g, ' ').trim();
+    const m = t.match(/\b(?:solicitan?|presenta|informa(?:\s+sobre)?|plantea|propone)\b[:,]?\s+(.+)$/iu);
+    if (!m) return '';
+    let r = m[1];
+    r = r.replace(/^(?:a|ante)\s+los\s+h\.?\s*h\.?\s*consejos\s+acad[eé]mico\s+y\s+de\s+gobierno\s*,?\s*/iu, '');   // «solicita a los H.H. Consejos Académico y de Gobierno,»
+    r = r.replace(/\s+(?:de|a)\s+los\s+h\.?\s*h\.?\s*consejos\s+acad[eé]mico\s+y\s+de\s+gobierno\b/iu, '');               // «el aval de los H.H. Consejos … del dictamen»
+    r = r.replace(/^se\s+avalen?\s+/iu, '');
+    r = r.replace(/^(?:la|su|el)\s+(?=(?:autorizaci[oó]n|aprobaci[oó]n|aval|validaci[oó]n|designaci[oó]n|revalidaci[oó]n|reconocimiento))/iu, '');   // «la autorización para…» → «autorización para…»
+    const re = /([^\s.]+)\.\s+(?=\S)/g; let x;
+    while ((x = re.exec(r))) {            // se queda con la primera oración (sin cortar en «Dr.», «Ing.», «M. en I.»…)
+      const w = x[1].toLowerCase();
+      const abreviatura = /^[a-záéíóúñ]+$/.test(w) && (w.length < 4 || ABREV.has(w));   // «Dr.», «Ing.», «M. en I.»…; «2027-B.» o «Facultad.» sí cierran la oración
+      if (!abreviatura) { r = r.slice(0, x.index + x[1].length); break; }
+    }
+    return r.replace(/[\s.,;:]+$/, '');
+  }
+  const FRASES = GOB
+    ? {aprueba: () => 'Se aprueba el Acuerdo del H. Consejo Académico.', no_aprueba: () => 'No se aprueba el aval del H. Consejo Académico en virtud de que '}
+    : {avala: a => { const m = materia(a); return 'El H. Consejo Académico avala la solicitud de ' + (m ? m + '.' : ''); },
+       no_avala: a => { const m = materia(a); return 'El H. Consejo Académico no avala la solicitud de ' + (m ? m + ' ' : '') + 'en virtud de que '; }};
+  const frase = (a, dec) => FRASES[dec] ? FRASES[dec](a) : '';
   /* Al elegir la decisión el acuerdo cambia a la frase que le corresponde. Lo que se haya escrito para la decisión anterior no se pierde:
      se recuerda por decisión, así que al volver a elegirla reaparece tal como estaba (y «Deshacer» regresa a lo último guardado). */
   function cambiarFrase(a, dec) {
     a._mem = a._mem || {};
     const previa = a[CD] || 'pendiente', actual = (a[CA] || '');
-    if (actual.trim() !== '' && actual.trim() !== (FRASE[previa] || '').trim()) a._mem[previa] = actual;
-    return a._mem[dec] !== undefined ? a._mem[dec] : FRASE[dec];
+    if (actual.trim() !== '' && actual.trim() !== frase(a, previa).trim()) a._mem[previa] = actual;
+    return a._mem[dec] !== undefined ? a._mem[dec] : frase(a, dec);
   }
   const OPCIONES = GOB
     ? [['aprueba', 'Se aprueba el acuerdo del Consejo Académico', ''], ['no_aprueba', 'No se aprueba', 'neg']]
     : [['avala', 'Se avala la solicitud', ''], ['no_avala', 'No se avala', 'neg']];
   const RAPIDAS = GOB
     ? [['Se da por enterado el H. Consejo de Gobierno.', null], ['No es competencia del H. Consejo de Gobierno ', null]]
-    : [['Se otorga el aval del H. Consejo Académico.', 'avala'], ['Se da por enterado el H. Consejo Académico.', null]];
+    : [['Se da por enterado el H. Consejo Académico.', null]];
   const CD = GOB ? 'aprob' : 'aval', CA = GOB ? 'acuerdoGobierno' : 'acuerdoAcademico';
 
   const lado = document.getElementById('lado'), caso = document.getElementById('caso'), estado = document.getElementById('estado');
