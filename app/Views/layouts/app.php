@@ -190,10 +190,18 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
       <?php endif; ?>
       <?php if (empty($portalMinimal)): ?>
         <?php $raizRuta = explode('/', $rutaActual)[0]; $nombreRaiz = $raizRuta === 'seccion' ? $titulo : (\App\Core\InterfaceUi::NAMES[$raizRuta] ?? $titulo); if ($raizRuta === 'seccion') $rutaActual = 'seccion'; ?>
-        <nav class="breadcrumbs" aria-label="Tu ubicación"><a href="<?= url('') ?>">Inicio</a><span aria-hidden="true">/</span><?php if ($grupoVolver): /* la página pertenece a un grupo con página de entrada: la miga intermedia regresa a ella */ ?><a href="<?= e(url('seccion/' . $grupoVolver['slug'])) ?>"><?= e($grupoVolver['etiqueta']) ?></a><span aria-hidden="true">/</span><?php elseif ($rutaActual !== $raizRuta): ?><a href="<?= url($raizRuta) ?>"><?= e($nombreRaiz) ?></a><span aria-hidden="true">/</span><?php endif; ?><span aria-current="page"><?= e($rutaActual === $raizRuta && !$grupoVolver ? $nombreRaiz : $titulo) ?></span></nav>
-        <h1><?= e($rutaActual === $raizRuta ? $nombreRaiz : $titulo) ?></h1>
+        <?php
+          // El h1 ya dice en qué página estás: las migas muestran el camino (Inicio / grupo) y solo agregan la página actual si su texto difiere del h1.
+          $h1Texto = $rutaActual === $raizRuta ? $nombreRaiz : $titulo;
+          $miga = [['url' => url(''), 'texto' => 'Inicio']];
+          if ($grupoVolver) { $miga[] = ['url' => url('seccion/' . $grupoVolver['slug']), 'texto' => $grupoVolver['etiqueta']]; }
+          elseif ($rutaActual !== $raizRuta) { $miga[] = ['url' => url($raizRuta), 'texto' => $nombreRaiz]; }
+          $actualMiga = $rutaActual === $raizRuta && !$grupoVolver ? $nombreRaiz : $titulo;
+        ?>
+        <nav class="breadcrumbs" aria-label="Tu ubicación"><?php foreach ($miga as $k => $m): ?><?php if ($k > 0): ?><span aria-hidden="true">/</span><?php endif; ?><a href="<?= e($m['url']) ?>"><?= e($m['texto']) ?></a><?php endforeach; ?><?php if (!\App\Core\Titulos::yaDicho((string) $actualMiga, (string) $h1Texto) && !\App\Core\Titulos::yaDicho((string) $h1Texto, (string) $actualMiga)): ?><span aria-hidden="true">/</span><span aria-current="page"><?= e($actualMiga) ?></span><?php endif; ?></nav>
+        <h1><?= e($h1Texto) ?></h1>
       <?php endif; ?>
-      <?= $contenido ?>
+      <?= empty($portalMinimal) && isset($h1Texto) ? \App\Core\Titulos::quitarRepetido((string) $contenido, (string) $h1Texto) : $contenido ?>
     </main>
   </div>
   <div id="modal-privacidad" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">

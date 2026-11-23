@@ -285,6 +285,14 @@ persona, junto con su historial.
 - Salida HTML: imprimir datos variables con `e()`.
 - CSV: anteponer `'` a celdas que comiencen con `=`, `+`, `-` o `@`.
 
+## Títulos de página
+
+El diseño (`layouts/app.php`) pone **un solo h1** con el `titulo` que pasa el controlador y unas migas de pan que muestran el camino
+(Inicio / grupo) sin repetir la página actual. Una vista **no debe volver a escribir ese título**: `App\Core\Titulos::quitarRepetido`
+retira de la vista su primer h1 (o su primer h2, si no tiene h1 y es lo primero que se lee) cuando repite lo que dice el h1 del diseño.
+Escribe en la vista solo encabezados que digan algo distinto (secciones, subtítulos). El `titulo` del controlador debe ser corto y
+no incluir el nombre de otra página.
+
 ## Seguridad mínima exigida a cada módulo
 
 1. Privado por defecto. Marcar como pública cada ruta excepcional, no todo el módulo.
