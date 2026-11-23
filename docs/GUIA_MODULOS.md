@@ -293,6 +293,7 @@ Todos los formatos y oficios que genera la plataforma usan **DM Sans**.
   cursiva, negrita cursiva), y convierte a UTF-8 los textos que el código heredado entrega en Windows-1252 (`Hoja::l1`). **No** cargues otra
   copia de FPDF ni otra fuente. Las TTF y su caché de métricas están en `lib/fpdf/font/unifont/` (licencia SIL OFL, `OFL-DMSans.txt`); el
   caché se versiona para que el servidor no tenga que escribirlo.
+- Si cambias o agregas una fuente: borra su caché (`*.mtx.php`, `*.cw.dat`, `*.cw127.php`), genera uno nuevo en local, quita de los `.mtx.php` la ruta absoluta de tu máquina y súbelos; `tfpdf.php` ya usa siempre la ruta de la fuente del servidor.
 - **Medir texto**: usa `GetStringWidth()` (no las tablas `CurrentFont['cw']` de FPDF clásico); `Hoja::renglones()` ya lo hace. DM Sans es más ancha
   que Helvetica: deja holgura en celdas de un solo renglón.
 - **Word** (`.docx` del módulo Consejos): `Consejos/Services/Word.php` y `Consejos/plantillas/plantilla_dictamen.docx` usan la fuente «DM Sans»; quien abre
