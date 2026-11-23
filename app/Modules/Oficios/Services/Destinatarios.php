@@ -48,11 +48,24 @@ final class Destinatarios
             }
             foreach ($filas as $f) {
                 $r[] = ['id' => 0, 'profesor_id' => (int) $f['id'], 'tipo' => 'persona',
-                    'nombre' => trim(($f['grado'] ? $f['grado'] . ' ' : '') . Profesores::nombreCompleto($f)),
+                    'nombre' => trim(self::titulo((string) $f['grado'], (string) $f['genero']) . ' ' . Profesores::nombreCompleto($f)),
                     'cargo' => ($f['genero'] === 'femenino' ? 'Profesora' : 'Profesor') . ' de la Facultad de Ingeniería', 'dependencia' => ''];
             }
         }
         return $r;
+    }
+
+    /** Título abreviado según el grado del directorio («Doctorado» → «Dra.»); si no hay grado, queda vacío (la secretaria puede crear al destinatario con su título). */
+    private static function titulo(string $grado, string $genero): string
+    {
+        $f = $genero === 'femenino';
+        return match (mb_strtolower($grado)) {
+            'doctorado' => $f ? 'Dra.' : 'Dr.',
+            'maestría', 'maestria' => $f ? 'Mtra.' : 'Mtro.',
+            'licenciatura' => 'Lic.',
+            'ingeniería', 'ingenieria' => 'Ing.',
+            default => $grado,
+        };
     }
 
     /** Crea (o reutiliza si ya existe) un destinatario. @return array{id:int,nombre:string,cargo:string,dependencia:string} */

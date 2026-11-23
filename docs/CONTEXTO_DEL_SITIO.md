@@ -183,3 +183,11 @@ Reglas que no deben romperse:
 - Adobe muestra «identidad desconocida» mientras no tenga instalados los certificados raíz del SAT (kit en `/oficios/confianza`); la firma es igualmente íntegra. La verificación pública `/oficios/verificar/{código}` no depende de Adobe.
 - Probado con OpenSSL (`openssl cms -verify`) y pyHanko usando un certificado de prueba; **no** con una e.firma real del SAT (pendiente: primera firma real del Subdirector, registrar su RFC y cargar los certificados del SAT en Configuración).
 - Dependencia de terceros: node-forge (licencia en `public/assets/js/vendor/forge.LICENSE.txt`).
+
+#### Oficios de la Subdirección → «Avisos y eventos → Oficios» (migración 071)
+
+- Ruta `/eventos/oficios` (módulo Eventos, controlador `Oficios\RecibidosController`): tabla Fecha · Número de oficio (enlace al PDF firmado, `/eventos/oficios/{id}/pdf`) · Asunto, con filtro. Chip «Oficios» junto a «Avisos y eventos».
+- Destinatarios (`ofs_destinatarios`): personas o **grupos** (`tipo='grupo'`, `grupo`): `profesores` (todos), `ptc`, `medio_tiempo`, `asignatura`, `tecnico_academico` y `programa:{id}` (uno por programa). Una persona puede ir enlazada a `profesor_id` (directorio) o `usuario_id`; el selector del lienzo sugiere profesores del directorio y los agrega ya enlazados.
+- Al **firmar** se llena `ofs_oficio_destinos` (`Destinatarios::indexar`): grupo → clave; persona → usuario o profesor (si no está enlazada, se busca por nombre con `Profesores::porNombre`, solo si hay una coincidencia). La visibilidad se calcula al consultar (`Destinatarios::recibidos`/`leDirige`): cuenta, directorio (`profesores.usuario_id`, así un profesor que se registra después ve sus oficios) y grupos de la persona (rol `profesor`, `profesores.categoria`, `programa_profesores`).
+- Límite conocido: «Tiempo completo/medio tiempo/asignatura/técnicos» dependen de `profesores.categoria`, que el profesor captura en «Mi perfil» (al 2026-11-23, 61 de 371 la tienen). Quien no la haya capturado solo verá los oficios de «Todos los profesores» o de su programa.
+- Trampa de producción: no usar `? = ''` en SQL (mezcla de intercalaciones); filtrar en PHP.
