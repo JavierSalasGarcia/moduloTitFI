@@ -84,6 +84,27 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
     </script>
     <a href="<?= url('') ?>" class="logo-barra" aria-label="Inicio" style="background: url('<?= url('assets/img/logo.png') ?>') no-repeat center center; background-size: cover; border-radius: 50%; font-size: 0; width: 44px; height: 44px; display: inline-block;">Traza FI</a>
     <a href="<?= url('') ?>" class="marca" aria-label="Traza FI · Inicio"><strong>Traza FI</strong> <span class="marca-desc">Facultad de Ingeniería · UAEMEX</span></a>
+    <?php if (empty($portalMinimal)): ?>
+    <button type="button" class="btn-buscar-movil" id="btn-buscar" aria-label="Buscar en Traza FI" aria-expanded="false" aria-controls="busqueda-barra"><?= icono('buscar', 20) ?></button>
+    <form class="busqueda-barra" id="busqueda-barra" role="search" method="get" action="<?= url('busqueda') ?>">
+      <label class="sr-only" for="busqueda-q">Buscar un trámite o una función</label>
+      <input id="busqueda-q" type="search" name="q" maxlength="120" placeholder="¿Qué necesitas hacer? (tecla /)" autocomplete="off" enterkeyhint="search">
+      <button type="submit" class="btn btn-mini" aria-label="Buscar"><?= icono('buscar', 16) ?></button>
+    </form>
+    <script>
+    (function () {
+      var b = document.getElementById('btn-buscar'), f = document.getElementById('busqueda-barra'), q = document.getElementById('busqueda-q');
+      if (!b || !f || !q) return;
+      function abrir(v) { f.classList.toggle('abierta', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) q.focus(); }
+      b.addEventListener('click', function () { abrir(!f.classList.contains('abierta')); });
+      document.addEventListener('keydown', function (e) {
+        var t = e.target, escribiendo = t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable);
+        if (e.key === '/' && !escribiendo && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); abrir(true); }
+        if (e.key === 'Escape' && f.classList.contains('abierta')) { abrir(false); b.focus(); }
+      });
+    })();
+    </script>
+    <?php endif; ?>
     <div class="sesion">
       <span class="sesion-nombre">
         <?= e($usuario['nombre']) ?> · <?= e($rolEtiqueta) ?><?= $usuario['programa_siglas'] ? ' (' . e($usuario['programa_siglas']) . ')' : '' ?>

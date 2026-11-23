@@ -10,7 +10,7 @@ return [
     ],
     'pendientes' => 'App\Modules\Tickets\PendientesTickets::de',
     'menu'  => [
-        ['seccion' => 'MI ESPACIO', 'titulo' => 'Tickets', 'ruta' => 'tickets',
+        ['seccion' => 'MI ESPACIO', 'titulo' => 'Pedir apoyo a un área', 'ruta' => 'tickets',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 11],
     ],
     'rutas' => [

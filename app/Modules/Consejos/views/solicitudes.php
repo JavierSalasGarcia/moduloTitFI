@@ -9,7 +9,7 @@ $etq = ['borrador' => '', 'enviada' => '', 'visto_bueno' => 'ok', 'devuelta' => 
   <section class="tarjeta">
     <div class="cns-cab">
       <div>
-        <h1>Solicitudes a los Consejos</h1>
+        <h1>Presentar un asunto a los Consejos</h1>
         <p class="cns-sub">Redacta una solicitud para los HH. Consejos Académico y de Gobierno. La revisa la coordinación (Vo. Bo. o de enterado) y, con él, pasa al acta de la siguiente reunión.</p>
       </div>
       <div class="cns-acciones">

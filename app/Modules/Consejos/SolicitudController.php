@@ -48,7 +48,7 @@ final class SolicitudController extends ConsejosBase
         $revisadas = Database::todas("SELECT s.*, u.nombre AS solicitante FROM consejos_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id WHERE s.coordinador_id = ? AND s.estado IN ('visto_bueno','incorporada','devuelta') ORDER BY s.actualizado_en DESC LIMIT 30", [$uid]);
         $cartera = ConsejosAccess::esGestor() ? Database::todas("SELECT s.*, u.nombre AS solicitante FROM consejos_solicitudes s JOIN usuarios u ON u.id = s.solicitante_id WHERE s.estado = 'visto_bueno' ORDER BY s.vobo_en, s.id") : [];
         $reuniones = $cartera ? Database::todas("SELECT id, etiqueta FROM consejos_reuniones WHERE estado = 'preparacion' ORDER BY id DESC") : [];
-        $this->vista('solicitudes', ['titulo' => 'Solicitudes a los Consejos', 'mias' => $mias, 'revisar' => $revisar, 'revisadas' => $revisadas, 'cartera' => $cartera, 'reuniones' => $reuniones]);
+        $this->vista('solicitudes', ['titulo' => 'Presentar un asunto a los Consejos', 'mias' => $mias, 'revisar' => $revisar, 'revisadas' => $revisadas, 'cartera' => $cartera, 'reuniones' => $reuniones]);
     }
 
     // ------------------------------------------------------------------ redactar

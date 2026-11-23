@@ -23,7 +23,7 @@
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Solicitar una constancia",
+      "titulo": "Pedir una constancia",
       "ruta": "constancias/solicitar",
       "descripcion": "Redacta el cuerpo, elige a quién la firma (coordinación, Subdirección o Dirección) y envíala.",
       "roles": ["admin", "titular", "operativo", "coordinador"],

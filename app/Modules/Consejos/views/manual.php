@@ -52,7 +52,7 @@ $resaltar = static fn(string $t): string => preg_replace('/\[([^\[\]]+)\]/u', '<
 
   <section class="tarjeta">
     <h2>Si eres profesor o coordinador: redacta tu solicitud en la plataforma</h2>
-    <p class="cns-sub">En <strong>Constancias → Solicitudes a Consejos</strong> puedes redactar tu solicitud con el asistente de plantillas, sin esperar a que alguien más la capture.</p>
+    <p class="cns-sub">En <strong>Consejos → Presentar un asunto a los Consejos</strong> puedes redactar tu solicitud con el asistente de plantillas, sin esperar a que alguien más la capture.</p>
     <ol class="pasos">
       <li><h3>Redacta</h3>Elige el tipo de trámite (rellena la redacción oficial), sustituye lo resaltado y sube tus anexos. En «Solicitud» va solo el enunciado de lo que pides: <strong>sin listas ni tablas de nombres</strong>; si las necesitas, súbelas como anexo. Puedes guardar un borrador.</li>
       <li><h3>El apartado del acta se asigna solo</h3>No lo capturas: las solicitudes de profesores van en «Casos de profesores» (P) y las de coordinaciones en «Asuntos generales» (AG). La Subdirección Académica o su asistente lo ajustan si hace falta.</li>

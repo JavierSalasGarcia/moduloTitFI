@@ -10,7 +10,7 @@ return [
     ],
     'menu'  => [
         // Visible para todos: la bitácora es auditable por la comunidad
-        ['seccion' => 'COMUNIDAD', 'titulo' => 'Comisiones', 'ruta' => 'comisiones',
+        ['seccion' => 'COMUNIDAD', 'titulo' => 'Comisiones de trabajo', 'ruta' => 'comisiones',
          'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 22],
     ],
     'rutas' => [

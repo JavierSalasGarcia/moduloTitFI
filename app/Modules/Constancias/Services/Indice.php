@@ -51,7 +51,7 @@ final class Indice
 
     /**
      * Renglones firmados visibles para el alcance, con filtros opcionales (q: nombre o folio; anio) y orden
-     * (`emision`, `firma` o `depto`; `asc` o `desc`). Las que aún esperan firma se ven en «Solicitar una constancia».
+     * (`emision`, `firma` o `depto`; `asc` o `desc`). Las que aún esperan firma se ven en «Pedir una constancia».
      * @return array{filas:array<int,array>,recortado:bool}
      */
     public static function listar(array $alcance, string $q = '', ?int $anio = null, string $orden = 'firma', string $dir = 'desc'): array

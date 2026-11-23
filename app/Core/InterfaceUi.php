@@ -5,10 +5,10 @@ namespace App\Core;
 /** Presentation labels and navigation; permissions still come from module manifests. */
 final class InterfaceUi
 {
-    public const NAMES = [''=>'Inicio','portal'=>'Inicio','consulta'=>'Consulta','tickets'=>'Mis solicitudes',
+    public const NAMES = [''=>'Inicio','portal'=>'Inicio','consulta'=>'Consulta','tickets'=>'Pedir apoyo a un área',
         'solicitudes'=>'Gestión entre áreas','firmas'=>'Firmas de documentos','reuniones'=>'Reuniones',
         'calendario'=>'Calendario','eventos'=>'Avisos y eventos','comunicados'=>'Avisos oficiales','fila'=>'Fila',
-        'foro'=>'Foro','comisiones'=>'Comisiones','encuestas'=>'Encuestas','grupos-destinatarios'=>'Grupos de destinatarios',
+        'foro'=>'Foro','comisiones'=>'Comisiones de trabajo','encuestas'=>'Encuestas','grupos-destinatarios'=>'Grupos de destinatarios',
         'busqueda'=>'Encontrar un trámite','directorio'=>'Directorio','funciones'=>'Mis funciones',
         'teams'=>'Carpetas de Teams','recursos'=>'Recursos','ajustes'=>'Ajustes','seguridad'=>'Acceso seguro',
         'alumnos'=>'Alumnos','usuarios'=>'Usuarios y coordinadores','accesos'=>'Cuentas y acceso','auditoria'=>'Registro de acciones','cuenta'=>'Mi cuenta','verificar'=>'Verificar correo','plan'=>'Plan de Desarrollo FI','posgrado'=>'Obtención de grado','titulacion'=>'Titulación','constancias'=>'Constancias firmadas','consejos'=>'Consejos'];

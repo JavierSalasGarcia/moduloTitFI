@@ -181,3 +181,26 @@ button.consulta-notificacion { cursor:pointer; font:inherit; }
 .sp-envoltura{position:relative;display:block}
 .sp-envoltura>.sp-lista{top:100%}
 .sp-externo{background:#ffedd5;color:#9a3412}
+
+/* ── Buscador del encabezado y áreas táctiles (revisión UX) ─────────────────────────────── */
+.busqueda-barra { display:flex; align-items:center; gap:6px; margin-left:auto; }
+.busqueda-barra ~ .sesion { margin-left:0; }
+.busqueda-barra input[type=search] { width:min(280px,28vw); min-height:36px !important; padding:4px 10px; border:1px solid var(--ux-line,#c9d3cc); border-radius:18px; background:#fff; }
+.busqueda-barra .btn-mini { min-height:36px !important; min-width:36px !important; padding:0 8px; }
+.btn-buscar-movil { display:none; }
+@media (max-width:899px) {
+  .btn-buscar-movil { display:inline-flex; align-items:center; justify-content:center; margin-left:auto; width:44px; height:44px; background:none; border:0; border-radius:50%; cursor:pointer; color:inherit; }
+  .btn-buscar-movil ~ .sesion { margin-left:0; }
+  .busqueda-barra { display:none; position:fixed; top:48px; left:0; right:0; z-index:35; margin:0; padding:8px 16px; background:#fff; border-bottom:1px solid var(--ux-line,#c9d3cc); box-shadow:0 6px 12px rgba(0,0,0,.08); }
+  .busqueda-barra.abierta { display:flex; }
+  .busqueda-barra input[type=search] { flex:1; width:auto; min-height:44px !important; font-size:16px !important; }
+  .busqueda-barra .btn-mini { min-height:44px !important; min-width:44px !important; }
+  /* Áreas táctiles de al menos 44 px */
+  .btn-menu-movil { width:44px; height:44px; padding:10px; }
+  .btn-menu-movil span { width:24px; margin:5px auto; }
+  .sesion-salir { min-height:44px; min-width:44px; padding:0 10px; }
+  .ux-draft-details summary, .ux-disclosure summary { min-height:44px; display:flex; align-items:center; }
+  .ux-app .chip[href], .ux-app a.chip { display:inline-flex; align-items:center; min-height:44px; padding:0 14px; }
+  .ux-app .tabla td a:not(.btn) { display:inline-block; padding:10px 0; }
+  .ux-app .seguridad-resumen a { min-height:44px; }
+}

@@ -16,7 +16,7 @@ $fecha = static fn(string $f): string => $f !== '' ? date('d/m/Y', strtotime($f)
   <section class="tarjeta">
     <div class="const-cabecera">
       <p class="const-frase"><?= e($ve) ?></p>
-      <?php if ($puedeSolicitar): ?><a class="btn btn-primario" href="<?= e(url('constancias/solicitar')) ?>">Solicitar una constancia</a><?php endif; ?>
+      <?php if ($puedeSolicitar): ?><a class="btn btn-primario" href="<?= e(url('constancias/solicitar')) ?>">Pedir una constancia</a><?php endif; ?>
     </div>
     <form class="const-filtros" method="get" action="<?= e(url('constancias')) ?>" role="search" style="margin-top:12px">
       <input type="hidden" name="orden" value="<?= e($orden) ?>"><input type="hidden" name="dir" value="<?= e($dir) ?>">

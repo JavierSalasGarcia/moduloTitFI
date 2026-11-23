@@ -6,7 +6,7 @@ include __DIR__ . '/_estilos.php';
 $csrf = e(Auth::csrfToken());
 ?>
 <style>
-/* Plantillas para «Solicitar una constancia» (prefijo pl-). Móvil primero. */
+/* Plantillas para «Pedir una constancia» (prefijo pl-). Móvil primero. */
 .pl-cab{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:6px}
 .pl-cab h2{margin:0;font-size:18px;color:var(--verde-900)}
 .pl-lista{width:100%;border-collapse:collapse;font-size:14px}
@@ -75,7 +75,7 @@ $csrf = e(Auth::csrfToken());
 ?>
 <div class="tit-cabecera"><div>
   <p class="texto-secundario"><a href="<?= url('titulacion/constancias/textos#plantillas') ?>">← Volver a las plantillas</a></p>
-  <p class="texto-secundario">Plantilla para «Solicitar una constancia». Quien solicita la elige, llena los datos que piden los marcadores <code>{así}</code> y revisa el texto que resulta antes de enviarlo a firma.</p>
+  <p class="texto-secundario">Plantilla para «Pedir una constancia». Quien solicita la elige, llena los datos que piden los marcadores <code>{así}</code> y revisa el texto que resulta antes de enviarlo a firma.</p>
 </div></div>
 <section class="tarjeta">
   <?php if ($error !== null): ?><div class="pl-error" role="alert"><?= e($error) ?></div><?php endif; ?>
@@ -172,7 +172,7 @@ $csrf = e(Auth::csrfToken());
 </script>
 <?php return; endif; ?>
 <div class="tit-cabecera"><div>
-  <p class="texto-secundario">Redacción de cada constancia. Los marcadores entre llaves se sustituyen al generarla con los datos del profesor, del pasante y del trabajo. Separa párrafos con una línea en blanco. Los cambios valen para las constancias que se generen después de guardarlos; las ya generadas no cambian. Más abajo están las <a href="#plantillas">plantillas para «Solicitar una constancia»</a>.</p>
+  <p class="texto-secundario">Redacción de cada constancia. Los marcadores entre llaves se sustituyen al generarla con los datos del profesor, del pasante y del trabajo. Separa párrafos con una línea en blanco. Los cambios valen para las constancias que se generen después de guardarlos; las ya generadas no cambian. Más abajo están las <a href="#plantillas">plantillas para «Pedir una constancia»</a>.</p>
 </div></div>
 
 <details class="tarjeta" style="margin-bottom:14px">
@@ -207,7 +207,7 @@ $csrf = e(Auth::csrfToken());
     <h2>Plantillas para solicitar constancias</h2>
     <a class="btn btn-primario" href="<?= url('titulacion/constancias/plantillas/nueva') ?>">Nueva plantilla</a>
   </div>
-  <p class="pl-ayuda" style="margin-bottom:10px">Las activas aparecen a todo el personal en «Constancias → Solicitar una constancia»: eligen una, llenan los datos que pide y revisan el texto antes de enviarlo a firma.</p>
+  <p class="pl-ayuda" style="margin-bottom:10px">Las activas aparecen a todo el personal en «Constancias → Pedir una constancia»: eligen una, llenan los datos que pide y revisan el texto antes de enviarlo a firma.</p>
   <?php if (!$plantillas): ?>
     <p>Aún no hay plantillas.</p>
   <?php else: ?>

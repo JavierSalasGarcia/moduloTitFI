@@ -13,7 +13,7 @@
   "menu": [
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Solicitudes a Consejos",
+      "titulo": "Presentar un asunto a los Consejos",
       "ruta": "consejos/solicitudes",
       "descripcion": "Redacta una solicitud para los HH. Consejos y dale seguimiento al Vo. Bo. de la coordinación.",
       "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],
@@ -21,7 +21,7 @@
     },
     {
       "seccion": "CONSTANCIAS",
-      "titulo": "Comisiones",
+      "titulo": "Mis comisiones de Consejos",
       "ruta": "consejos/comisiones",
       "descripcion": "Dictámenes y comisiones de los HH. Consejos en que se te menciona.",
       "roles": ["admin", "titular", "operativo", "coordinador", "profesor"],

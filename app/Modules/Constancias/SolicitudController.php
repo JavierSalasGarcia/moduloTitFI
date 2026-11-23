@@ -15,7 +15,7 @@ use App\Modules\Constancias\Services\Solicitudes;
 use InvalidArgumentException;
 use RuntimeException;
 
-/** «Solicitar una constancia»: captura, vista previa, envío a firma, corrección tras una devolución y consulta. */
+/** «Pedir una constancia»: captura, vista previa, envío a firma, corrección tras una devolución y consulta. */
 final class SolicitudController extends ConstanciasBase
 {
     public function formulario(): void
@@ -211,7 +211,7 @@ final class SolicitudController extends ConstanciasBase
             'modo' => (string) ($post['modo'] ?? (($s['origen'] ?? 'texto') === 'docx' ? 'docx' : 'texto')),
         ];
         $this->vista('solicitar', [
-            'titulo' => $s ? 'Corregir la constancia' : 'Solicitar una constancia',
+            'titulo' => $s ? 'Corregir la constancia' : 'Pedir una constancia',
             's' => $s, 'v' => $v, 'error' => $error,
             'firmantes' => $firmantes,
             'docx' => Docx::disponible(),
