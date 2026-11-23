@@ -41,7 +41,7 @@ final class InterfaceUi
             $group = match ($root) {
                 '', 'notificaciones' => 'Inicio', 'seguridad', 'perfil' => 'Recursos', 'tickets','solicitudes','firmas','funciones','grupos-destinatarios' => 'Trámites y seguimiento',
                 // «Avisos y eventos» va suelto en el menú principal, con su globito de no leídos.
-                'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : ($item['ruta'] === 'eventos' ? 'Inicio' : 'Agenda'),
+                'calendario','reuniones','eventos' => str_contains($item['ruta'],'biblioteca') ? 'Recursos' : (in_array($item['ruta'], ['eventos', 'eventos/oficios', 'eventos/expediente'], true) ? 'Inicio' : 'Agenda'),
                 'fila' => 'Fila', 'titulacion' => 'Titulación',
                 'posgrado' => 'Titulación', 'constancias' => 'Constancias', 'consejos' => 'Consejos',
                 'foro','encuestas','comisiones','concursos' => 'Comunidad', 'ajustes','formularios' => 'Administración',
@@ -93,7 +93,18 @@ final class InterfaceUi
             $suelto = $nombre === 'Inicio' || $egresado;
             $grupos[$nombre] = $grupo + $meta + ['nombre' => $nombre, 'contador' => $total, 'pagina' => !$suelto && count($grupo['items']) > 1];
             if ($suelto) {
+                // «Avisos y eventos» es un grupo desplegable: Avisos y eventos, Oficios y Mi expediente de formación integral.
+                $deEventos = $nombre === 'Inicio' ? array_values(array_filter($grupo['items'], static fn($i) => $i['ruta'] === 'eventos' || str_starts_with((string) $i['ruta'], 'eventos/'))) : [];
                 foreach ($grupo['items'] as $item) {
+                    if ($deEventos && ($item['ruta'] === 'eventos' || str_starts_with((string) $item['ruta'], 'eventos/'))) {
+                        if ($item['ruta'] === 'eventos') {
+                            $total = array_sum(array_column($deEventos, 'contador'));
+                            $enlaces[] = count($deEventos) > 1
+                                ? ['etiqueta' => 'Avisos y eventos', 'ruta' => 'eventos', 'icono' => self::ICONOS_ENTRADA['eventos'], 'contador' => $total, 'grupo' => $nombre, 'slug' => $meta['slug'], 'items' => $deEventos, 'pagina' => true]
+                                : ['etiqueta' => $item['titulo'], 'ruta' => $item['ruta'], 'icono' => self::ICONOS_ENTRADA['eventos'], 'contador' => $item['contador'], 'grupo' => $nombre, 'slug' => $meta['slug'], 'items' => [$item], 'pagina' => false];
+                        }
+                        continue;
+                    }
                     $enlaces[] = ['etiqueta' => $item['titulo'], 'ruta' => $item['ruta'], 'icono' => self::ICONOS_ENTRADA[$item['ruta']] ?? $meta['icono'],
                         'contador' => $item['contador'], 'grupo' => $nombre, 'slug' => $meta['slug'], 'items' => [$item], 'pagina' => false];
                 }

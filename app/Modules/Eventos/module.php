@@ -18,6 +18,9 @@ return [
     'menu'  => [
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Avisos y eventos', 'ruta' => 'eventos',
          'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'], 'orden' => 4],
+        ['seccion' => 'MI ESPACIO', 'titulo' => 'Oficios', 'ruta' => 'eventos/oficios',
+         'descripcion' => 'Oficios firmados de la Subdirección Académica dirigidos a ti o a un grupo al que perteneces.',
+         'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor'], 'orden' => 4],
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Mi expediente de formación integral', 'ruta' => 'eventos/expediente',
          'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'], 'orden' => 5],
         ['seccion' => 'RECURSOS', 'titulo' => 'Biblioteca de eventos', 'ruta' => 'eventos/biblioteca',

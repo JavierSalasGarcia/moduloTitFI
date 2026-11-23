@@ -18,7 +18,8 @@ final class RecibidosController extends Controller
     public function index(): void
     {
         header('Cache-Control: no-store, private');
-        $this->vista('recibidos', ['titulo' => 'Oficios', 'filas' => Destinatarios::recibidos()]);
+        // La ruta vive en el módulo Eventos, pero la vista es de Oficios.
+        \App\Core\View::render('oficios:recibidos', ['titulo' => 'Oficios', 'moduloActivo' => 'eventos', 'filas' => Destinatarios::recibidos()], 'app');
     }
 
     public function pdf(string $id): void
