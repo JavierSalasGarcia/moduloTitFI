@@ -34,7 +34,7 @@
    panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();panel.style.display='none';}if(e.key==='Tab'){const list=all('button,input,select,textarea,a,[tabindex="0"]',box).filter(visible);if(!list.length){e.preventDefault();return;}if(e.shiftKey&&document.activeElement===list[0]){e.preventDefault();list.at(-1).focus();}else if(!e.shiftKey&&document.activeElement===list.at(-1)){e.preventDefault();list[0].focus();}}});
  });
  // Responsive tables preserve actual links/buttons and do not duplicate IDs.
- all('table.tabla').forEach(table=>{const heads=all('thead th',table);if(!heads.length)return;table.classList.add('ux-card-table');all('tbody tr',table).forEach(row=>all('td',row).forEach((cell,i)=>cell.dataset.label=heads[i]?.textContent.trim()||'Detalle'));if(table.dataset.noTools!==undefined)return;
+ all('table.tabla').forEach(table=>{const heads=all('thead th',table);if(!heads.length)return;if(table.dataset.noCards===undefined)table.classList.add('ux-card-table');all('tbody tr',table).forEach(row=>all('td',row).forEach((cell,i)=>cell.dataset.label=heads[i]?.textContent.trim()||'Detalle'));if(table.dataset.noTools!==undefined)return;
    // A page with its own search keeps only that one: two search boxes over the same list confuse and hide each other's rows.
    if(all('input[type=search]',one('main')||document).some(n=>!n.closest('.ux-toolbar,table')))return;
    const rows=all('tbody tr',table);if(rows.length<2)return;const bar=el('div',undefined,'ux-toolbar'), searchLabel=el('label','Buscar en esta lista'), search=el('input');search.type='search';search.placeholder='Nombre, asunto o palabra clave';searchLabel.append(search);bar.append(searchLabel);

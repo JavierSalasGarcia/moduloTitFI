@@ -5,6 +5,9 @@
 .usr-barra .buscador input { flex:1; width:100%; min-width:0; font-size:15px; }
 .usr-barra .usr-acciones { display:flex; gap:10px; }
 .usr-estado { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin:0 0 8px; font-size:13px; color:var(--gris-600); }
+.usr-editar { all:unset; cursor:pointer; color:var(--verde-900,#2C5234); font-weight:600; text-decoration:underline; text-underline-offset:3px; }
+.usr-editar:hover { color:var(--verde-700,#3E7350); }
+.usr-editar:focus-visible { outline:3px solid #CA9E5280; outline-offset:2px; }
 .th-orden { all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 .th-orden:focus-visible { outline:3px solid #CA9E5280; outline-offset:2px; }
 .th-orden::after { content:'\21C5'; opacity:.55; font-size:12px; }
@@ -22,10 +25,10 @@ th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
     <button type="button" class="btn btn-primario" onclick="abrirModalCrear()">+ Nuevo Usuario</button>
   </div>
 </div>
-<div class="usr-estado"><span id="usr-conteo" role="status" aria-live="polite"></span><span>Pulsa el título de una columna para ordenar.</span></div>
+<div class="usr-estado"><span id="usr-conteo" role="status" aria-live="polite"></span><span>Pulsa el título de una columna para ordenar y el nombre de una persona para editar su cuenta.</span></div>
 
 <div class="card sin-relleno" style="overflow-x: auto;">
-  <table class="tabla" id="tabla-usuarios" data-no-tools style="width: 100%; border-collapse: collapse; text-align: left;">
+  <table class="tabla" id="tabla-usuarios" data-no-tools data-no-cards style="width: 100%; min-width: 900px; border-collapse: collapse; text-align: left;">
     <thead>
       <tr>
         <th style="padding: 12px 16px;" aria-sort="none" data-col="0"><button type="button" class="th-orden">Nombre</button></th>
@@ -34,13 +37,12 @@ th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
         <th style="padding: 12px 16px;" aria-sort="none" data-col="3"><button type="button" class="th-orden">Departamento / Coordinación</button></th>
         <th style="padding: 12px 16px;" aria-sort="none" data-col="4"><button type="button" class="th-orden">Fecha de registro</button></th>
         <th style="padding: 12px 16px;" aria-sort="none" data-col="5"><button type="button" class="th-orden">Estado</button></th>
-        <th style="padding: 12px 16px; text-align: right;">Acciones</th>
       </tr>
     </thead>
     <tbody id="tabla-usuarios-body">
       <?php foreach ($usuarios as $usr): ?>
         <tr class="usuario-fila" style="border-bottom: 1px solid var(--gris-100);">
-          <td class="usr-nombre" style="padding: 12px 16px; font-weight: 500;"><?= e($usr['nombre']) ?></td>
+          <td class="usr-nombre" style="padding: 12px 16px; font-weight: 500;"><button type="button" class="usr-editar" title="Abrir y editar las propiedades de esta cuenta" onclick="abrirModalEditar(<?= e(json_encode($usr)) ?>)"><?= e($usr['nombre']) ?></button></td>
           <td class="usr-email" style="padding: 12px 16px;"><?= e($usr['email']) ?></td>
           <td style="padding: 12px 16px;"><span class="badge" style="background:#f1f5f9; color:#334155; text-transform:uppercase; font-size:10.5px;"><?= e($usr['rol']) ?></span>
             <?php foreach ($usr['roles_extra'] as $x): ?>
@@ -63,13 +65,10 @@ th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
               <span class="chip estado-cerrada" style="background:#ffebee; color:#c62828;">Inactivo</span>
             <?php endif; ?>
           </td>
-          <td style="padding: 12px 16px; text-align: right;">
-            <button type="button" class="btn btn-mini" onclick="abrirModalEditar(<?= e(json_encode($usr)) ?>)">Editar</button>
-          </td>
         </tr>
       <?php endforeach; ?>
       <tr id="sin-resultados-fila" style="display: none;">
-        <td colspan="7" style="padding: 24px; text-align: center; color: var(--gris-600);">No se encontraron coordinadores o usuarios que coincidan con la búsqueda.</td>
+        <td colspan="6" style="padding: 24px; text-align: center; color: var(--gris-600);">No se encontraron coordinadores o usuarios que coincidan con la búsqueda.</td>
       </tr>
     </tbody>
   </table>
