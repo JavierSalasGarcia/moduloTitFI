@@ -46,6 +46,7 @@ depender del departamento por el que llegó el documento.
 | Módulo | Función | Qué aporta |
 |---|---|---|
 | Constancias | `FirmaController::porFirmar` | Constancias en firma cuyo firmante designado es la persona, de cualquier departamento. |
+| Oficios de la Subdirección | `SubdireccionController::porFirmar` | Oficios en firma; solo los ve el titular de la Subdirección Académica (firma con e.firma del SAT). |
 | Titulación | `PanelController::porFirmar` | Firmas externas, y firma electrónica de la Subdirección. |
 | Posgrado | `FirmaController::porFirmar` | Firmas de evaluación de grado y de la Coordinación. |
 | Firmas | (la propia tabla de la pestaña) | Solicitudes de firma de documentos con ruta secuencial o paralela. |

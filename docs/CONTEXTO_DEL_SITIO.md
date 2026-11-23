@@ -155,3 +155,13 @@ Orden aproximado; cada línea indica archivos clave.
 14. **Usuarios** (Ajustes): tabla ordenable con filtro inmediato y edición por nombre.
 16. **DM Sans en todos los PDF y Word** (`lib/fpdf/*`, `Titulacion/Services/Hoja::renglones`, `Consejos/Services/Word.php`, plantilla del dictamen).
 15. Carpeta `consejos/` (material de contexto con datos personales) excluida en `.gitignore`.
+
+### Oficios de la Subdirección Académica (módulo `Oficios`, 2026-11-23)
+
+- Rutas `/oficios/subdireccion*`. Redactan: titular, su asistente y quien tenga `consejos.gestor`; firma solo el titular (`SubdireccionFirma::esSubdirector`).
+- **Número de oficio único** `ACAD/FI/{n 3 dígitos}/{AAAA}`: serie `subdireccion` en `tit_oficio_series` (`NumeroOficio::reservar`), compartida con los dictámenes de Consejos y Titulación; reinicia cada año (último 2026 = 446). El número se asigna al **enviar a firma**.
+- Cuerpo en lienzo (`oficios-lienzo.js`): solo negritas/cursivas; las tablas se pegan con Ctrl+V (sin controles de tabla). PDF con `OficioPdf` (DM Sans, hoja membretada, QR, leyenda de `LemaAnual`, interlineado 1, 0.8 pt tras párrafo, cargo en mayúsculas en dos líneas, sin línea de firma).
+- **Firma con e.firma (FIEL) del SAT**: la .cer/.key/contraseña se procesan solo en el navegador (`oficios-firma.js` + node-forge), se piden en cada firma y nunca se envían ni guardan; el servidor recibe el certificado público y la firma CMS, y la incrusta como PAdES (`Pades`, `Cms`). El RFC del titular se registra cifrado (Configuración) solo para comprobar que la e.firma es suya y **nunca se muestra** ni aparece en el PDF. Independiente de la firma electrónica de la Facultad.
+- Kit de confianza: la administración carga los certificados del SAT en Configuración (`ofs_confianza`); `/oficios/confianza` (público) los ofrece con la guía para Acrobat. Sin ellos, Adobe muestra «identidad desconocida».
+- Verificación pública por QR: `/oficios/verificar/{código}` (compara además la huella SHA-256 del PDF en el navegador).
+- Migración 070. Pendiente real: registrar el RFC del titular y cargar los certificados del SAT; primera firma real a cargo del Subdirector.
