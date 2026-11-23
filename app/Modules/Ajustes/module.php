@@ -5,6 +5,13 @@ use App\Modules\Ajustes\AjustesController;
 return [
     'clave' => 'ajustes',
     'roles' => ['admin'],
+    // Catálogo de consulta (búsqueda del encabezado y asistente): sin esto estas pantallas no tienen texto que buscar.
+    'consulta' => [
+        ['ruta' => 'ajustes', 'descripcion' => 'Ajustes generales de la plataforma: correo, avisos, seguridad y servicios.', 'palabras' => 'ajustes configuración parámetros plataforma sistema'],
+        ['ruta' => 'ajustes/usuarios', 'descripcion' => 'Usuarios de la plataforma: crea, edita o elimina cuentas y asigna roles, permisos y coordinaciones.', 'palabras' => 'usuarios cuentas personas alta baja roles permisos coordinaciones coordinadores titulares operativos profesores alumnos'],
+        ['ruta' => 'ajustes/accesos', 'descripcion' => 'Cuentas y acceso: quién ha entrado, activación de cuentas y acceso como otra persona para dar soporte.', 'palabras' => 'accesos cuentas activar sesión impersonar soporte contraseña usuarios'],
+        ['ruta' => 'ajustes/auditoria', 'descripcion' => 'Registro de acciones de la plataforma: quién hizo qué y cuándo.', 'palabras' => 'auditoría bitácora registro acciones historial seguridad'],
+    ],
     'menu'  => [
         ['seccion'=>'ADMINISTRACIÓN','titulo'=>'Cuentas y acceso','ruta'=>'ajustes/accesos','roles'=>['admin'],'orden'=>43],
         ['seccion'=>'ADMINISTRACIÓN','titulo'=>'Registro de acciones','ruta'=>'ajustes/auditoria','roles'=>['admin'],'orden'=>44],

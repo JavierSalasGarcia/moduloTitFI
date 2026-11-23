@@ -113,7 +113,7 @@ final class BusquedaController extends Controller
         $r = [];
         foreach ($catalogo as $e) {
             $titulo = Titulos::normalizar((string) $e['titulo']);
-            $claves = Titulos::normalizar((string) ($e['palabras'] ?? '') . ' ' . $e['modulo']);
+            $claves = Titulos::normalizar((string) ($e['palabras'] ?? '') . ' ' . $e['modulo'] . ' ' . str_replace(['/', '-', '_'], ' ', (string) $e['ruta']));
             $detalle = Titulos::normalizar((string) $e['descripcion']);
             $puntos = 0;
             foreach ($palabras as $p) {
