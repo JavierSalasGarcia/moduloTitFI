@@ -79,6 +79,8 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
     // (y todas si ya no queda nada pendiente), porque en Android el punto del ícono sigue a las notificaciones visibles.
     (() => { const n = <?= $pendientesMenu ?>;
       try { if ('setAppBadge' in navigator) { n > 0 ? navigator.setAppBadge(n) : navigator.clearAppBadge(); } } catch (e) {}
+      // El service worker parte de este número cuando llegue un aviso con la app cerrada.
+      try { if ('caches' in window) caches.open('trazafi-badge').then((c) => c.put('/__badge', new Response(String(n)))).catch(() => {}); } catch (e) {}
       try { if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then((r) => r.getNotifications()).then((ns) => ns.forEach((x) => {
         if (n === 0 || (x.data && x.data.url === location.pathname)) x.close(); })).catch(() => {}); } catch (e) {} })();
     </script>
