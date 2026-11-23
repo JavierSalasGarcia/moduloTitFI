@@ -39,6 +39,35 @@
   <?php if ($dispositivos > 0): ?><p class="texto-suave" style="margin:10px 0 0;font-size:13px">Tienes <?= (int) $dispositivos ?> dispositivo<?= $dispositivos > 1 ? 's' : '' ?> con notificaciones activas.</p><?php endif; ?>
   <p class="texto-suave" style="margin:10px 0 0;font-size:13px">Si las bloqueaste antes, permítelas en los ajustes: Android, mantén presionado el icono → Información de la app → Notificaciones; iPhone, Configuración → Notificaciones → Traza FI.</p>
 </section>
+<section class="card paso-app" id="insignia">
+  <h2><span class="paso-num">3</span> Número en el icono</h2>
+  <p id="badge-estado" class="texto-suave" style="margin:0 0 12px">Comprobando…</p>
+  <button type="button" class="btn" id="badge-probar" hidden>Probar el número en el icono</button>
+  <p class="texto-suave" style="margin:10px 0 0;font-size:13px">En iPhone el número solo aparece si instalaste Traza FI desde Safari, la abres desde su icono, permitiste las notificaciones (paso 2) y en <strong>Configuración → Notificaciones → Traza FI</strong> está activa la opción <strong>Insignias</strong>. Android lo muestra como un punto o un número según tu teléfono.</p>
+</section>
+<script>
+(function () {
+  var est = document.getElementById('badge-estado'), btn = document.getElementById('badge-probar');
+  if (!est || !btn) return;
+  var soporta = 'setAppBadge' in navigator;
+  var instalada = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  function diagnostico() {
+    if (!soporta) return 'Este navegador no puede mostrar el número en el icono.';
+    if (!instalada) return 'Abre Traza FI desde el icono de tu pantalla de inicio (no desde Safari o Chrome) para que el número aparezca.';
+    if (!('Notification' in window) || Notification.permission !== 'granted') return 'Falta permitir las notificaciones (paso 2): sin ese permiso el teléfono no deja poner el número en el icono.';
+    return 'Todo listo. Si aun así no ves el número, revisa que «Insignias» esté activa en los ajustes de notificaciones de Traza FI.';
+  }
+  est.textContent = diagnostico();
+  if (soporta) btn.hidden = false;
+  btn.addEventListener('click', function () {
+    navigator.setAppBadge(7).then(function () {
+      est.textContent = 'Puse el número 7 en el icono como prueba. Sal de la app y míralo en tu pantalla de inicio; se corregirá solo la próxima vez que abras Traza FI.';
+    }).catch(function (x) {
+      est.textContent = 'El teléfono rechazó la prueba (' + (x && x.name ? x.name : 'error') + '). ' + diagnostico();
+    });
+  });
+})();
+</script>
 <style>
 .paso-app{padding:20px;margin-bottom:16px}
 .paso-app h2{font-size:18px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
