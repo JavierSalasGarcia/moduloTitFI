@@ -118,16 +118,20 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
       }
       function pintar() {
         var texto = q.value.trim(), v = norm(texto), palabras = v ? v.split(' ') : [];
-        var lista = opciones().filter(function (o) { return palabras.every(function (w) { return o.n.indexOf(w) > -1; }); }).slice(0, v ? 6 : 10);
         p.textContent = ''; activo = -1; q.removeAttribute('aria-activedescendant');
-        var cab = document.createElement('div'); cab.className = 'busqueda-cab'; cab.textContent = v ? 'Ir directamente a' : 'Accesos disponibles'; p.appendChild(cab);
+        // Sin texto no se muestra nada: es un buscador, no un menú. Las sugerencias aparecen al escribir.
+        if (!texto) { cerrar(); return; }
+        var lista = opciones().filter(function (o) { return palabras.every(function (w) { return o.n.indexOf(w) > -1; }); }).slice(0, 4);
         lista.forEach(function (o) { op(o.t, o.h, o.g); });
-        if (texto) op('Buscar «' + texto + '» en todo Traza FI', f.action + '?q=' + encodeURIComponent(texto), '', 'busqueda-todo');
-        else op('Ver todo lo que puedes abrir', f.action, '', 'busqueda-todo');
+        op('Buscar «' + texto + '» en todo Traza FI', f.action + '?q=' + encodeURIComponent(texto), '', 'busqueda-todo');
         p.hidden = false; q.setAttribute('aria-expanded', 'true');
       }
       function cerrar() { p.hidden = true; q.setAttribute('aria-expanded', 'false'); activo = -1; }
-      function abrir(v) { f.classList.toggle('abierta', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) { q.focus(); pintar(); } else cerrar(); }
+      function abrir(v) {
+        // En el celular, si el menú lateral está abierto se cierra para que no se encime con la búsqueda.
+        var scrim = document.querySelector('.menu-scrim'); if (v && scrim && !scrim.hidden) scrim.click();
+        f.classList.toggle('abierta', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) q.focus(); else cerrar();
+      }
       b.addEventListener('click', function () { abrir(!f.classList.contains('abierta')); });
       q.addEventListener('focus', pintar); q.addEventListener('input', pintar);
       q.addEventListener('keydown', function (e) {
