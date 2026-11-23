@@ -88,8 +88,9 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
     <button type="button" class="btn-buscar-movil" id="btn-buscar" aria-label="Buscar en Traza FI" aria-expanded="false" aria-controls="busqueda-barra"><?= icono('buscar', 20) ?></button>
     <form class="busqueda-barra" id="busqueda-barra" role="search" method="get" action="<?= url('busqueda') ?>">
       <label class="sr-only" for="busqueda-q">Buscar un trámite o una función</label>
-      <input id="busqueda-q" type="search" name="q" maxlength="120" placeholder="¿Qué necesitas hacer? (tecla /)" autocomplete="off" enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="busqueda-sugerencias" aria-autocomplete="list">
+      <input id="busqueda-q" type="search" name="q" maxlength="120" placeholder="¿Qué necesitas hacer?" aria-keyshortcuts="/" title="Atajo: tecla /" autocomplete="off" enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="busqueda-sugerencias" aria-autocomplete="list">
       <button type="submit" class="btn btn-mini" aria-label="Buscar"><?= icono('buscar', 16) ?></button>
+      <button type="button" class="busqueda-cerrar" id="busqueda-cerrar" aria-label="Cerrar búsqueda"><?= icono('cerrar', 18) ?></button>
       <div id="busqueda-sugerencias" class="busqueda-sugerencias" role="listbox" aria-label="Accesos y sugerencias" hidden></div>
     </form>
     <script>
@@ -127,12 +128,14 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
         p.hidden = false; q.setAttribute('aria-expanded', 'true');
       }
       function cerrar() { p.hidden = true; q.setAttribute('aria-expanded', 'false'); activo = -1; }
+      var barra = document.querySelector('.barra-superior');
       function abrir(v) {
         // En el celular, si el menú lateral está abierto se cierra para que no se encime con la búsqueda.
         var scrim = document.querySelector('.menu-scrim'); if (v && scrim && !scrim.hidden) scrim.click();
-        f.classList.toggle('abierta', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) q.focus(); else cerrar();
+        f.classList.toggle('abierta', v); if (barra) barra.classList.toggle('buscando', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) q.focus(); else cerrar();
       }
       b.addEventListener('click', function () { abrir(!f.classList.contains('abierta')); });
+      var x = document.getElementById('busqueda-cerrar'); if (x) x.addEventListener('click', function () { abrir(false); b.focus(); });
       q.addEventListener('focus', pintar); q.addEventListener('input', pintar);
       q.addEventListener('keydown', function (e) {
         var ops = [].slice.call(p.querySelectorAll('.busqueda-op'));
@@ -147,7 +150,7 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
       document.addEventListener('keydown', function (e) {
         var t = e.target, escribiendo = t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable);
         if ((e.key === '/' || e.key === '\\') && !escribiendo && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); abrir(true); }
-        if (e.key === 'Escape' && !p.hidden) { cerrar(); f.classList.remove('abierta'); b.setAttribute('aria-expanded', 'false'); b.focus(); }
+        if (e.key === 'Escape' && (!p.hidden || f.classList.contains('abierta'))) { abrir(false); b.focus(); }
       });
     })();
     </script>
