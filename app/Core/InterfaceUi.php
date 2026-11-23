@@ -92,7 +92,7 @@ final class InterfaceUi
             if ($suelto) {
                 // «Avisos y eventos» es un grupo desplegable: Avisos y eventos, Oficios y Mi expediente de formación integral.
                 // «Mi perfil» también: sus apartados (según el rol) y la seguridad de la cuenta.
-                $acordeones = $nombre === 'Inicio' ? ['eventos' => ['Avisos y eventos', 'reloj'], 'perfil' => ['Mi perfil', 'usuario']] : [];
+                $acordeones = $nombre === 'Inicio' ? ['eventos' => ['Avisos y eventos', 'reloj', 'Avisos y eventos recientes'], 'perfil' => ['Mi perfil', 'usuario', 'Resumen de mi cuenta']] : [];
                 $claveDe = static function (array $i): string {
                     $r = explode('#', (string) $i['ruta'])[0];
                     $raiz = explode('/', $r)[0];
@@ -100,7 +100,11 @@ final class InterfaceUi
                 };
                 $miembros = [];
                 foreach ($grupo['items'] as $i) {
-                    if (isset($acordeones[$claveDe($i)])) $miembros[$claveDe($i)][] = $i;
+                    $k = $claveDe($i);
+                    if (!isset($acordeones[$k])) continue;
+                    // La entrada principal del grupo no puede llamarse igual que el grupo: dentro se llama distinto.
+                    if ($i['ruta'] === $k) $i['titulo'] = $acordeones[$k][2];
+                    $miembros[$k][] = $i;
                 }
                 foreach ($grupo['items'] as $item) {
                     $k = $claveDe($item);
