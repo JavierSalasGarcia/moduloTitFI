@@ -14,10 +14,12 @@
   <div id="inst-ios" hidden>
     <p style="margin:0 0 8px">En iPhone y iPad se instala desde Safari:</p>
     <ol class="guia-pasos">
-      <li>Toca el botón <strong>Compartir</strong> <span class="icono-ios" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 11V1M4.5 4.5 8 1l3.5 3.5"/><path d="M5 7H2v10h12V7h-3"/></svg></span> en la barra de Safari (abajo en iPhone, arriba en iPad).</li>
-      <li>Desliza y elige <strong>«Agregar a la pantalla de inicio»</strong>; toca <strong>Agregar</strong>.</li>
+      <li>Toca el botón <strong>Más</strong> <span class="icono-ios" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><circle cx="3.5" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="14.5" cy="9" r="1.6"/></svg></span> (tres puntos) de la barra de Safari, abajo en iPhone.</li>
+      <li>Toca <strong>Compartir</strong> <span class="icono-ios" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 11V1M4.5 4.5 8 1l3.5 3.5"/><path d="M5 7H2v10h12V7h-3"/></svg></span> y, en la lista, <strong>«Agregar a pantalla de inicio»</strong>.</li>
+      <li>Deja activado <strong>«Abrir como app web»</strong> y toca <strong>Agregar</strong>.</li>
       <li>Abre <strong>Traza FI</strong> desde su icono nuevo y vuelve a esta página para el paso 2 (en iPhone las notificaciones solo funcionan desde el icono).</li>
     </ol>
+    <p class="texto-suave" style="margin:8px 0 0;font-size:13px">Si tu Safari muestra el botón <strong>Compartir</strong> directamente en la barra (iPad o versiones anteriores a iOS 26), tócalo y continúa con «Agregar a pantalla de inicio». Si no ves «Agregar a pantalla de inicio», desliza hacia abajo la lista de opciones.</p>
   </div>
   <div id="inst-safari" hidden><p style="margin:0">En iPhone y iPad abre <strong>fingenieria.mx</strong> en <strong>Safari</strong> para poder instalarla (requiere iOS 16.4 o posterior).</p></div>
   <div id="inst-manual" hidden>

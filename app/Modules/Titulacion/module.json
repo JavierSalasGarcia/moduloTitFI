@@ -109,8 +109,7 @@
         "titular",
         "operativo",
         "coordinador",
-        "profesor",
-        "alumno"
+        "profesor"
       ],
       "orden": 24,
       "condicion": "App\\Modules\\Titulacion\\TitulacionAccess::esActor"

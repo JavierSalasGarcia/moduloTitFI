@@ -20,9 +20,9 @@ return [
     // Todos los roles: los alumnos también firman. La restricción de
     // CREAR solicitudes (no alumnos) se aplica en el controlador.
     'menu'  => [
-        ['seccion'=>'MI ESPACIO','titulo'=>'Grupos de destinatarios','ruta'=>'grupos-destinatarios','roles'=>['admin','titular','operativo','coordinador','profesor','alumno'],'orden'=>31],
+        ['seccion'=>'MI ESPACIO','titulo'=>'Grupos de destinatarios','ruta'=>'grupos-destinatarios','roles'=>['admin','titular','operativo','coordinador','profesor'],'orden'=>31],
         ['seccion' => 'MI ESPACIO', 'titulo' => 'Firmas de documentos', 'ruta' => 'firmas',
-         'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno'], 'orden' => 30],
+         'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor'], 'orden' => 30],
     ],
     'rutas' => [
         'GET /grupos-destinatarios' => [\App\Modules\Firmas\DestinatariosController::class,'index'],

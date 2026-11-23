@@ -12,6 +12,10 @@ final class SeguimientoController extends TitulacionBase
     public function index(): void
     {
         $this->privado();
+        // El alumnado ve su trámite en «Estado de mi trámite» y lo que le toca en «Mis pendientes»; el seguimiento de casos es del personal.
+        if (Auth::tieneRol('alumno') && !Auth::tieneRol('admin', 'titular', 'operativo', 'coordinador', 'profesor')) {
+            redirigir('titulacion/pendientes');
+        }
         $hist = ($_GET['ver'] ?? '') === 'historico';
         // Un trámite en pausa (abandonado) no está en curso: se consulta en el histórico.
         $estados = $hist ? ['concluido', 'cancelado', 'abandonado'] : ['abierto'];
