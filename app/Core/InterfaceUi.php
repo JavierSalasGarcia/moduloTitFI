@@ -54,6 +54,11 @@ final class InterfaceUi
             if (!str_contains($item['ruta'], '/') && empty($item['dinamico'])) $item['titulo'] = self::NAMES[$root] ?? $item['titulo'];
             $groups[$group]['items'][] = $item;
         }
+        // Agenda: primero Calendario, luego Reuniones y después lo demás (el orden relativo del resto no cambia).
+        if (!empty($groups['Agenda']['items'])) {
+            $peso = static fn(array $i): int => str_starts_with((string) $i['ruta'], 'calendario') ? 0 : (str_starts_with((string) $i['ruta'], 'reuniones') ? 1 : 2);
+            usort($groups['Agenda']['items'], static fn(array $a, array $b): int => $peso($a) <=> $peso($b));
+        }
         return array_filter($groups, fn($group)=>count($group['items'])>0);
     }
 

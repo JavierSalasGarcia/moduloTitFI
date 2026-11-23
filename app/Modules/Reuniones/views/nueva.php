@@ -5,7 +5,7 @@
 <div class="card" style="max-width: 900px; margin: 0 auto; padding: 24px;">
   <p class="texto-secundario">Completa los datos, elige horarios e invita a las personas.</p>
   
-  <form method="post" enctype="multipart/form-data" action="<?= url('reuniones') ?>" data-wizard data-draft="reunion">
+  <form method="post" enctype="multipart/form-data" action="<?= url('reuniones') ?>" data-wizard data-draft="reunion" data-draft-auto>
     <input type="hidden" name="_csrf" value="<?= e(\App\Core\Auth::csrfToken()) ?>">
     <fieldset class="ux-step" data-title="Datos"><legend>Datos de la reunión</legend>
     

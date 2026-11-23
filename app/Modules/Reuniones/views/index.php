@@ -31,50 +31,46 @@
     <?php if (empty($reuniones)): ?>
       <p class="texto-secundario">Todavía no tienes reuniones convocadas o asignadas.</p>
     <?php else: ?>
-      <div style="display:grid;gap:10px;">
-        <?php foreach ($reuniones as $reunion): ?>
-          <?php
-            $bColor = '#ef4444'; // rojo por defecto
-            if (in_array($reunion['estado'], ['fecha_confirmada', 'finalizada'], true)) {
-                $bColor = '#10b981'; // verde
-            } elseif (in_array($reunion['estado'], ['convocada', 'en_respuesta'], true) && (int) $reunion['pendientes'] === 0) {
-                $bColor = '#f59e0b'; // amarillo/ámbar
-            }
-            
-            // Check if user has notifications/pending on this specific meeting
-            $hasNotification = (int) \App\Core\Database::valor(
-                'SELECT COUNT(*) FROM reuniones_participantes rp
-                  WHERE rp.reunion_id = ? AND rp.usuario_id = ? AND rp.estado_invitacion <> \'revocada\'
-                    AND (rp.respondio_en IS NULL OR ? > rp.respondio_en)',
-                [(int) $reunion['id'], \App\Core\Auth::id(), $reunion['actualizado_en']]
-            ) > 0;
-          ?>
-          <article style="border:1px solid var(--gris-200); border-left: 6px solid <?= $bColor ?>; border-radius:var(--radio); padding:14px; background: #fff;">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <?php if ($hasNotification): ?>
-                <div style="background: var(--error); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; box-shadow: 0 4px 6px -1px rgba(185, 28, 28, 0.2);" title="Tienes notificaciones pendientes">🔔</div>
-              <?php endif; ?>
-              
-              <div style="flex: 1;">
-                <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-                  <strong><a href="<?= url('reuniones/' . $reunion['id']) ?>"><?= e($reunion['asunto']) ?></a></strong>
-                  <a class="btn btn-mini" href="<?= e(url('reuniones/minutas/nueva?reunion='.$reunion['id'])) ?>">Compartir minuta</a>
-                  <span class="chip"><?= e(\App\Core\InterfaceUi::status($reunion['estado'])) ?></span>
-                </div>
-                <div class="texto-secundario" style="margin-top:7px; display: flex; gap: 12px; flex-wrap: wrap; font-size: 13px;">
-                  <?php if (in_array($reunion['estado'], ['fecha_confirmada', 'finalizada'], true) && $reunion['fecha_confirmada']): ?>
-                    <span>ID <?= (int) $reunion['id'] ?> · 📅 Fecha: <?= date('d/m/Y', strtotime($reunion['fecha_confirmada'])) ?> · ⏰ Horario: <?= date('H:i', strtotime($reunion['fecha_confirmada'] . ' ' . $reunion['hora_confirmada_inicio'])) ?> a <?= date('H:i', strtotime($reunion['fecha_confirmada'] . ' ' . $reunion['hora_confirmada_fin'])) ?></span>
-                  <?php else: ?>
-                    <span>ID <?= (int) $reunion['id'] ?> · <?= e($reunion['rango_inicio']) ?> a <?= e($reunion['rango_fin']) ?></span>
-                    <span>• Respondieron: <?= (int)$reunion['contestaron'] ?>/<?= (int)$reunion['participantes'] ?></span>
-                    <span>• Mejor horario: <?= (int)$reunion['max_coincidencias'] + 1 ?> personas disponibles</span>
-                  <?php endif; ?>
-                  <span>• <?= (int) $reunion['mensajes'] ?> mensajes</span>
-                </div>
-              </div>
-            </div>
-          </article>
-        <?php endforeach; ?>
+      <p class="texto-secundario" style="margin:0 0 8px">Las reuniones en gris no están activas: son borradores, canceladas o ya pasaron.</p>
+      <div class="tabla-contenedor">
+        <table class="tabla tabla-reuniones">
+          <thead><tr><th>Reunión</th><th>Estado</th><th>Fecha / periodo</th><th class="oculta-movil">Respuestas</th><th class="oculta-movil">Mensajes</th><th><span class="sr-only">Minuta</span></th></tr></thead>
+          <tbody>
+          <?php foreach ($reuniones as $reunion): ?>
+            <?php
+              $confirmada = in_array($reunion['estado'], ['fecha_confirmada', 'finalizada'], true) && $reunion['fecha_confirmada'];
+              // Inactiva: borrador o precargada, cancelada, finalizada o con fecha confirmada ya pasada.
+              $inactiva = in_array($reunion['estado'], ['borrador', 'precargada', 'cancelada', 'finalizada'], true)
+                  || ($reunion['fecha_confirmada'] && $reunion['fecha_confirmada'] < date('Y-m-d'))
+                  || (!$reunion['fecha_confirmada'] && !empty($reunion['rango_fin']) && $reunion['rango_fin'] < date('Y-m-d'));
+              $hasNotification = (int) \App\Core\Database::valor(
+                  'SELECT COUNT(*) FROM reuniones_participantes rp
+                    WHERE rp.reunion_id = ? AND rp.usuario_id = ? AND rp.estado_invitacion <> \'revocada\'
+                      AND (rp.respondio_en IS NULL OR ? > rp.respondio_en)',
+                  [(int) $reunion['id'], \App\Core\Auth::id(), $reunion['actualizado_en']]
+              ) > 0;
+            ?>
+            <tr class="<?= $inactiva ? 'reunion-inactiva' : '' ?>">
+              <td>
+                <?php if ($hasNotification && !$inactiva): ?><span title="Tienes notificaciones pendientes" aria-label="Pendiente de tu respuesta">🔔</span> <?php endif; ?>
+                <strong><a href="<?= url('reuniones/' . $reunion['id']) ?>"><?= e($reunion['asunto']) ?></a></strong>
+                <br><small class="texto-secundario">ID <?= (int) $reunion['id'] ?></small>
+              </td>
+              <td><span class="chip"><?= e(\App\Core\InterfaceUi::status($reunion['estado'])) ?></span><?php if ($inactiva): ?> <small class="texto-secundario">(no activa)</small><?php endif; ?></td>
+              <td>
+                <?php if ($confirmada): ?>
+                  <?= e(date('d/m/Y', strtotime($reunion['fecha_confirmada']))) ?><br><small><?= e(date('H:i', strtotime($reunion['fecha_confirmada'] . ' ' . $reunion['hora_confirmada_inicio']))) ?> h</small>
+                <?php else: ?>
+                  <?= e($reunion['rango_inicio']) ?> a <?= e($reunion['rango_fin']) ?>
+                <?php endif; ?>
+              </td>
+              <td class="oculta-movil"><?= (int) $reunion['contestaron'] ?>/<?= (int) $reunion['participantes'] ?><?php if (!$confirmada && !$inactiva): ?><br><small>Mejor horario: <?= (int) $reunion['max_coincidencias'] + 1 ?> personas</small><?php endif; ?></td>
+              <td class="oculta-movil"><?= (int) $reunion['mensajes'] ?></td>
+              <td><a class="btn btn-mini" href="<?= e(url('reuniones/minutas/nueva?reunion=' . $reunion['id'])) ?>">Compartir minuta</a></td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
     <?php endif; ?>
   </div>

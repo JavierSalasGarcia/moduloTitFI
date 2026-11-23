@@ -1186,3 +1186,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde-700);
 .ing-simple .ing-alcance { display: grid !important; grid-template-columns: auto 1fr; column-gap: 8px; align-items: start; font-weight: 400; }
 .ing-simple .ing-alcance input { margin-top: 3px; }
 .ing-simple .ing-alcance strong, .ing-simple .ing-alcance small { display: block; grid-column: 2; }
+/* Reuniones: borradores, canceladas y pasadas se ven en gris (el estado también va escrito). */
+.tabla tbody tr.reunion-inactiva td { background: var(--gris-100); color: var(--gris-600); }
+.tabla tbody tr.reunion-inactiva a { color: inherit; }
+.tabla tbody tr.reunion-inactiva .chip { opacity: .75; }
