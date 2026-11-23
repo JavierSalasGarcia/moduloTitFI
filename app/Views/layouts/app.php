@@ -88,19 +88,62 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
     <button type="button" class="btn-buscar-movil" id="btn-buscar" aria-label="Buscar en Traza FI" aria-expanded="false" aria-controls="busqueda-barra"><?= icono('buscar', 20) ?></button>
     <form class="busqueda-barra" id="busqueda-barra" role="search" method="get" action="<?= url('busqueda') ?>">
       <label class="sr-only" for="busqueda-q">Buscar un trámite o una función</label>
-      <input id="busqueda-q" type="search" name="q" maxlength="120" placeholder="¿Qué necesitas hacer? (tecla /)" autocomplete="off" enterkeyhint="search">
+      <input id="busqueda-q" type="search" name="q" maxlength="120" placeholder="¿Qué necesitas hacer? (tecla /)" autocomplete="off" enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="busqueda-sugerencias" aria-autocomplete="list">
       <button type="submit" class="btn btn-mini" aria-label="Buscar"><?= icono('buscar', 16) ?></button>
+      <div id="busqueda-sugerencias" class="busqueda-sugerencias" role="listbox" aria-label="Accesos y sugerencias" hidden></div>
     </form>
     <script>
     (function () {
-      var b = document.getElementById('btn-buscar'), f = document.getElementById('busqueda-barra'), q = document.getElementById('busqueda-q');
-      if (!b || !f || !q) return;
-      function abrir(v) { f.classList.toggle('abierta', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) q.focus(); }
+      var b = document.getElementById('btn-buscar'), f = document.getElementById('busqueda-barra'), q = document.getElementById('busqueda-q'), p = document.getElementById('busqueda-sugerencias');
+      if (!b || !f || !q || !p) return;
+      var cache = null, activo = -1;
+      function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
+      // «Comandos»: todo lo que la persona puede abrir según su menú (ya filtrado por rol y condiciones).
+      function opciones() {
+        if (cache) return cache; cache = []; var visto = {};
+        document.querySelectorAll('#menu-lateral a[href]').forEach(function (a) {
+          var t = (a.querySelector('.nav-texto') || a).textContent.replace(/\s+/g, ' ').trim();
+          if (!t || visto[a.href] || a.getAttribute('href') === '#') return; visto[a.href] = 1;
+          var d = a.closest('details'), s = d && d.querySelector('summary .nav-texto');
+          var g = s ? s.textContent.replace(/\s+/g, ' ').trim() : '';
+          cache.push({ t: t, g: g, h: a.href, n: norm(g + ' ' + t) });
+        });
+        return cache;
+      }
+      function op(texto, href, extra, clase) {
+        var a = document.createElement('a'); a.href = href; a.setAttribute('role', 'option'); a.className = 'busqueda-op' + (clase ? ' ' + clase : '');
+        a.id = 'busqueda-op-' + p.querySelectorAll('.busqueda-op').length; a.textContent = texto;
+        if (extra) { var s = document.createElement('small'); s.textContent = ' · ' + extra; a.appendChild(s); }
+        p.appendChild(a);
+      }
+      function pintar() {
+        var texto = q.value.trim(), v = norm(texto), palabras = v ? v.split(' ') : [];
+        var lista = opciones().filter(function (o) { return palabras.every(function (w) { return o.n.indexOf(w) > -1; }); }).slice(0, v ? 6 : 10);
+        p.textContent = ''; activo = -1; q.removeAttribute('aria-activedescendant');
+        var cab = document.createElement('div'); cab.className = 'busqueda-cab'; cab.textContent = v ? 'Ir directamente a' : 'Accesos disponibles'; p.appendChild(cab);
+        lista.forEach(function (o) { op(o.t, o.h, o.g); });
+        if (texto) op('Buscar «' + texto + '» en todo Traza FI', f.action + '?q=' + encodeURIComponent(texto), '', 'busqueda-todo');
+        else op('Ver todo lo que puedes abrir', f.action, '', 'busqueda-todo');
+        p.hidden = false; q.setAttribute('aria-expanded', 'true');
+      }
+      function cerrar() { p.hidden = true; q.setAttribute('aria-expanded', 'false'); activo = -1; }
+      function abrir(v) { f.classList.toggle('abierta', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); if (v) { q.focus(); pintar(); } else cerrar(); }
       b.addEventListener('click', function () { abrir(!f.classList.contains('abierta')); });
+      q.addEventListener('focus', pintar); q.addEventListener('input', pintar);
+      q.addEventListener('keydown', function (e) {
+        var ops = [].slice.call(p.querySelectorAll('.busqueda-op'));
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault(); if (p.hidden) pintar(); ops = [].slice.call(p.querySelectorAll('.busqueda-op'));
+          activo = (activo + (e.key === 'ArrowDown' ? 1 : -1) + ops.length) % ops.length;
+          ops.forEach(function (o, i) { o.classList.toggle('sel', i === activo); });
+          ops[activo].scrollIntoView({ block: 'nearest' }); q.setAttribute('aria-activedescendant', ops[activo].id);
+        } else if (e.key === 'Enter' && activo > -1) { e.preventDefault(); ops[activo].click(); }
+      });
+      document.addEventListener('click', function (e) { if (!f.contains(e.target) && e.target !== b && !b.contains(e.target)) cerrar(); });
       document.addEventListener('keydown', function (e) {
         var t = e.target, escribiendo = t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable);
-        if (e.key === '/' && !escribiendo && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); abrir(true); }
-        if (e.key === 'Escape' && f.classList.contains('abierta')) { abrir(false); b.focus(); }
+        if ((e.key === '/' || e.key === '\\') && !escribiendo && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); abrir(true); }
+        if (e.key === 'Escape' && !p.hidden) { cerrar(); f.classList.remove('abierta'); b.setAttribute('aria-expanded', 'false'); b.focus(); }
       });
     })();
     </script>
