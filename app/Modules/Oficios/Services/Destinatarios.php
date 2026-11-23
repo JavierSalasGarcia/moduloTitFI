@@ -28,10 +28,11 @@ final class Destinatarios
     {
         $q = self::limpio($q, 80);
         $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
+        // (Sin «? = ''» en SQL: mezcla de intercalaciones en producción.)
         $r = Database::todas(
-            'SELECT id, nombre, cargo, dependencia, tipo FROM ofs_destinatarios WHERE activo = 1 AND (? = \'\' OR nombre LIKE ? OR cargo LIKE ? OR dependencia LIKE ?)
-              ORDER BY (tipo = \'grupo\') DESC, nombre LIMIT ' . (int) $limite,
-            [$q, $like, $like, $like]
+            'SELECT id, nombre, cargo, dependencia, tipo FROM ofs_destinatarios WHERE activo = 1' . ($q === '' ? '' : ' AND (nombre LIKE ? OR cargo LIKE ? OR dependencia LIKE ?)')
+              . ' ORDER BY (tipo = \'grupo\') DESC, nombre LIMIT ' . (int) $limite,
+            $q === '' ? [] : [$like, $like, $like]
         );
         if (mb_strlen($q) >= 3) {
             try {
