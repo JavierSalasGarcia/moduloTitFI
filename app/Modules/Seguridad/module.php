@@ -10,7 +10,7 @@ return [
         ['ruta' => 'seguridad', 'descripcion' => 'Segundo factor de autenticación, huella o llave de acceso para tu cuenta.', 'palabras' => 'contraseña mfa totp huella llave acceso seguridad'],
     ],
     'menu'  => [
-        ['seccion' => 'MI ESPACIO', 'titulo' => 'Mi Seguridad (MFA)', 'ruta' => 'seguridad', 'orden' => 90, 'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno']],
+        ['seccion' => 'MI ESPACIO', 'titulo' => 'Mi seguridad (segundo factor)', 'ruta' => 'seguridad', 'orden' => 98, 'roles' => ['admin', 'titular', 'operativo', 'coordinador', 'profesor', 'alumno']],
     ],
     'rutas' => [
         'GET /seguridad' => [SeguridadController::class, 'index'],

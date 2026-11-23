@@ -22,6 +22,7 @@ $esItemActivo = function (array $item) use ($moduloActivo, $rutaActual, $rutasMe
     if (!empty($item['dinamico'])) {
         return $item['ruta'] === $rutaActual;
     }
+    if (str_contains($item['ruta'], '#')) return false;   // apartado dentro de una página: solo se marca la página
     if ($item['ruta'] === '') return $rutaActual === '' || $rutaActual === 'consulta';
     if ($item['ruta'] === 'ajustes') return $rutaActual === 'ajustes';
     if ($item['ruta'] === 'eventos' && str_starts_with($rutaActual, 'eventos/biblioteca')) return false;

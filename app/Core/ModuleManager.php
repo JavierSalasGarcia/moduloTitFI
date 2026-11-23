@@ -107,7 +107,7 @@ final class ModuleManager
             if ($m['roles'] && !array_intersect($roles, $m['roles']) && !$concedido) continue;
             $nombre = (string) ($m['nombre'] ?? InterfaceUi::NAMES[$m['clave']] ?? ucfirst((string) $m['clave']));
             $menu = [];
-            foreach ($m['menu'] as $item) $menu[$item['ruta']] ??= $item;
+            foreach ($m['menu'] as $item) if (!str_contains((string) $item['ruta'], '#')) $menu[$item['ruta']] ??= $item;   // los apartados de una página no son entradas de búsqueda
             $entradas = $m['consulta'] ?? [];
             $descritas = array_column($entradas, 'ruta');
             foreach ($menu as $ruta => $item) {

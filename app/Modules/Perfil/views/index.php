@@ -7,13 +7,13 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   <div class="perfil-cabecera"><div class="perfil-avatar"><?= e(mb_strtoupper(mb_substr($usuarioPerfil['nombre'],0,1))) ?></div><div><h2 style="margin:0"><?= e($usuarioPerfil['nombre']) ?></h2><p class="texto-suave" style="margin:4px 0 0"><?= e($usuarioPerfil['email']) ?> · <?= e($rolEtiquetas[$usuarioPerfil['rol']]??$usuarioPerfil['rol']) ?></p></div></div>
   <div class="perfil-grid"><div><strong>Departamento o adscripción</strong><p><?= e($usuarioPerfil['departamento']?:'Sin adscripción registrada') ?></p></div><div><strong>Programa principal</strong><p><?= e($usuarioPerfil['programa']?:'Sin programa principal') ?></p></div></div>
 </section>
-<section class="card perfil-app" style="padding:18px 20px;margin-bottom:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+<section class="card perfil-app" id="app" style="padding:18px 20px;margin-bottom:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
   <span aria-hidden="true" style="font-size:34px">📱</span>
   <div style="flex:1 1 260px"><h3 style="margin:0 0 4px">Traza FI en tu teléfono</h3>
     <p class="texto-suave" style="margin:0">Instálala como app en Android o iPhone y recibe notificaciones de avisos, exámenes, eventos y de tu bandeja.<?php $nDisp = \App\Modules\Notificaciones\Push::dispositivos((int) $usuarioPerfil['id']); ?><?= $nDisp ? ' <strong>Activas en ' . $nDisp . ' dispositivo' . ($nDisp > 1 ? 's' : '') . '.</strong>' : '' ?></p></div>
   <a class="btn btn-primario" href="<?= e(url('notificaciones/app')) ?>">Cómo instalarla y activar notificaciones</a>
 </section>
-<section class="card" style="padding:20px;margin-bottom:18px">
+<section class="card" style="padding:20px;margin-bottom:18px" id="datos">
   <h3 style="margin-top:0">Mis datos</h3>
   <p class="texto-suave">Se usan en oficios, formatos y correos de toda la plataforma (por ejemplo «Estimada Dra. …»). Si ya aparecen datos tuyos, revísalos y corrígelos; si faltan, complétalos.</p>
   <form method="post" action="<?= url('perfil/tratamiento') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
@@ -48,7 +48,7 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
   </form>
 </section>
 <?php endif; ?>
-<section class="card" style="padding:20px;margin-bottom:18px">
+<section class="card" style="padding:20px;margin-bottom:18px" id="correo">
   <h3 style="margin-top:0">Mi correo institucional</h3>
   <p class="texto-suave">Tu cuenta no depende del dominio del correo: si cambia (por ejemplo, de @profesor.uaemex.mx a @uaemex.mx), actualízalo aquí y seguirás siendo la misma cuenta, con tus constancias y accesos.</p>
   <p style="margin:0 0 10px"><strong><?= e((string) ($correos[0] ?? $usuarioPerfil['email'])) ?></strong> <span class="perfil-estado">Vigente</span><?php if (count($correos) > 1): ?><br><small class="texto-suave">También reconocemos para iniciar sesión: <?= e(implode(', ', array_slice($correos, 1))) ?>. Los códigos siempre llegan al vigente.</small><?php endif; ?></p>
@@ -76,7 +76,7 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
 </section>
 <?php endif; ?>
 <?php if (!empty($profesor)): ?>
-<section class="card" style="padding:20px;margin-bottom:18px">
+<section class="card" style="padding:20px;margin-bottom:18px" id="directorio">
   <h3 style="margin-top:0">Mi nombre en el directorio de profesores</h3>
   <p class="texto-suave">Así aparece tu nombre en constancias y oficios. Vino de la lista de profesores, sin acentos: corrígelos si quieres (por ejemplo «Maria» → «María»). Solo puedes cambiar acentos y mayúsculas.</p>
   <form method="post" action="<?= url('perfil/nombre') ?>" class="formulario" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
@@ -132,7 +132,7 @@ $vigente=fn($r)=>(int)$r['activo']===1 && (empty($r['fecha_fin']) || $r['fecha_f
     <button class="btn btn-primario" type="submit">Guardar preferencias</button>
   </form>
 </section>
-<div class="perfil-grid">
+<div class="perfil-grid" id="programas">
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Programas y carreras donde participo</h3><?php if(!$adscripciones):?><p class="texto-suave">No tienes programas docentes registrados.</p><?php else:?><ul class="perfil-lista"><?php foreach($adscripciones as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['tipo_vinculo'])) ?> · <?= e($r['nivel']) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
   <section class="card" style="padding:20px"><h3 style="margin-top:0">Responsabilidades en programas</h3><?php if(!$responsabilidades):?><p class="texto-suave">No tienes responsabilidades registradas.</p><?php else:?><ul class="perfil-lista"><?php foreach($responsabilidades as $r):?><li><strong><?= e($r['siglas'].' · '.$r['programa']) ?></strong><br><small><?= e(str_replace('_',' ',$r['cargo'])) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>
   <section class="card" style="padding:20px"><h3 style="margin-top:0">NAB y CAP</h3><?php if(!$organos):?><p class="texto-suave">No tienes membresías registradas.</p><?php else:?><ul class="perfil-lista"><?php foreach($organos as $r):?><li><strong><?= e($r['tipo'].' · '.$r['siglas']) ?></strong><br><small><?= e($r['programa']) ?> · <?= e($r['cargo']) ?> · desde <?= e($r['fecha_inicio']) ?></small> <span class="perfil-estado <?= $vigente($r)?'':'hist' ?>"><?= $vigente($r)?'Vigente':'Histórico' ?></span></li><?php endforeach;?></ul><?php endif;?></section>

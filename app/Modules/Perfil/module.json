@@ -26,6 +26,107 @@
         "alumno"
       ],
       "orden": 89
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Mis datos",
+      "ruta": "perfil#datos",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 90
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Mi correo institucional",
+      "ruta": "perfil#correo",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 91
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Mi firma electrónica UAEMéx",
+      "ruta": "perfil#firma-uaemex",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor"
+      ],
+      "orden": 92,
+      "condicion": "App\\Modules\\Perfil\\FirmaUaemex::aplica"
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Mi nombre en el directorio",
+      "ruta": "perfil#directorio",
+      "roles": [
+        "profesor"
+      ],
+      "orden": 93
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Programas y responsabilidades",
+      "ruta": "perfil#programas",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor"
+      ],
+      "orden": 94
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Cuerpo Académico y posgrado",
+      "ruta": "perfil#academico",
+      "roles": [
+        "profesor"
+      ],
+      "orden": 95
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Mis preferencias de avisos",
+      "ruta": "perfil#preferencias-avisos",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 96
+    },
+    {
+      "seccion": "MI ESPACIO",
+      "titulo": "Traza FI en mi teléfono",
+      "ruta": "perfil#app",
+      "roles": [
+        "admin",
+        "titular",
+        "operativo",
+        "coordinador",
+        "profesor",
+        "alumno"
+      ],
+      "orden": 97
     }
   ],
   "rutas": {
