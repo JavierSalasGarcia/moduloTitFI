@@ -36,6 +36,12 @@ if (!$visitante) {
   </div>
   <?php endif; ?>
 </header>
+<?php if (!$visitante): ?>
+<nav class="grupo-chips" aria-label="Secciones" style="margin:0 0 14px">
+  <a class="chip estado-en_atencion" href="<?= url('eventos') ?>" aria-current="page">Avisos y eventos</a>
+  <a class="chip" href="<?= url('eventos/oficios') ?>">Oficios</a>
+</nav>
+<?php endif; ?>
 
 <?php if (!$visitante && $puedeEmitirComunicados): ?>
   <details class="card" style="margin:0 0 16px">

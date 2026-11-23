@@ -12,6 +12,7 @@ return [
     'consulta' => [
         ['ruta' => 'eventos', 'descripcion' => 'Avisos, convocatorias, calendarios de exámenes y eventos de la Facultad, con registro de asistencia.', 'palabras' => 'aviso avisos evento eventos convocatoria conferencia taller curso asistencia examen examenes exámenes calendario definitivos ordinarios extraordinarios inauguración comunicado'],
         ['ruta' => 'eventos/expediente', 'descripcion' => 'Tu expediente de formación integral: eventos a los que asististe y sus evidencias.', 'palabras' => 'formación integral expediente créditos evidencia'],
+        ['ruta' => 'eventos/oficios', 'descripcion' => 'Oficios firmados de la Subdirección Académica dirigidos a ti o a un grupo al que perteneces (todos los profesores, tiempo completo…): fecha, número de oficio y asunto, con el PDF firmado.', 'palabras' => 'oficio oficios circular subdirección académica número de oficio firmado profesores'],
         ['ruta' => 'eventos/biblioteca', 'descripcion' => 'Biblioteca de eventos pasados y sus materiales.', 'palabras' => 'evento pasado grabación material'],
     ],
     'menu'  => [
@@ -40,6 +41,9 @@ return [
         'POST /aviso/{id}/adjuntos'                 => [AvisoController::class, 'adjuntar'],
         'POST /aviso/{id}/adjuntos/{aid}/quitar' => [AvisoController::class, 'quitarAdjunto'],
         'POST /aviso/{id}/estado'                   => [AvisoController::class, 'estado'],
+        // Oficios firmados de la Subdirección Académica dirigidos a la persona (módulo Oficios).
+        'GET /eventos/oficios'                      => [\App\Modules\Oficios\RecibidosController::class, 'index'],
+        'GET /eventos/oficios/{id}/pdf'             => [\App\Modules\Oficios\RecibidosController::class, 'pdf'],
         'GET /eventos/biblioteca'                   => [EventosController::class, 'biblioteca'],
         'GET /eventos/nuevo'                        => [AvisosController::class, 'nuevo'],
         'POST /eventos'                             => [AvisosController::class, 'guardar'],

@@ -107,7 +107,17 @@
     r.forEach(function (d) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'dest-op';
       b.textContent = d.nombre + (d.cargo ? ' — ' + d.cargo : '') + (d.dependencia ? ' (' + d.dependencia + ')' : '');
-      b.addEventListener('click', function () { chip(d); lista.hidden = true; buscar.value = ''; buscar.focus(); });
+      if (d.tipo === 'grupo') b.textContent = '👥 ' + b.textContent;
+      b.addEventListener('click', function () {
+        lista.hidden = true;
+        if (d.id) { chip(d); buscar.value = ''; buscar.focus(); return; }
+        // Profesor del directorio que aún no está en el catálogo: se agrega ya enlazado a su registro.
+        var fd = new URLSearchParams();
+        fd.set('_csrf', csrf); fd.set('nombre', d.nombre); fd.set('cargo', d.cargo || ''); fd.set('dependencia', d.dependencia || ''); fd.set('profesor_id', d.profesor_id);
+        fetch(document.getElementById('dest-nuevo').dataset.url, { method: 'POST', credentials: 'same-origin', body: fd, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+          .then(function (r) { return r.json(); }).then(function (x) { if (x.ok) { chip(x.destinatario); buscar.value = ''; buscar.focus(); } else { alert(x.error || 'No se pudo agregar.'); } })
+          .catch(function () { alert('No se pudo agregar.'); });
+      });
       lista.append(b);
     });
     lista.hidden = !r.length;

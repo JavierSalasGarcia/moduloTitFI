@@ -177,7 +177,7 @@ final class SubdireccionController extends Controller
     {
         $this->redactar();
         try {
-            $this->json(['ok' => true, 'destinatario' => Destinatarios::crear($this->post('nombre'), $this->post('cargo'), $this->post('dependencia'))]);
+            $this->json(['ok' => true, 'destinatario' => Destinatarios::crear($this->post('nombre'), $this->post('cargo'), $this->post('dependencia'), ctype_digit($this->post('profesor_id')) && $this->post('profesor_id') !== '' ? (int) $this->post('profesor_id') : null)]);
         } catch (RuntimeException $e) {
             $this->json(['ok' => false, 'error' => $e->getMessage()], 422);
         }
@@ -352,6 +352,11 @@ final class SubdireccionController extends Controller
                 [(int) Auth::id(), $nombre, hash('sha256', $final), $cadena['detalle'], (int) $o['id']]
             );
             OficiosSub::anotar((int) $o['id'], 'firmado', 'Certificado No. ' . $cert['serie']);
+            try {
+                Destinatarios::indexar((int) $o['id'], (array) $o['dest']);   // queda en «Avisos y eventos → Oficios» de sus destinatarios
+            } catch (\Throwable $e) {
+                Audit::record('oficios_sub', 'error', 'No se pudo registrar a los destinatarios del oficio #' . $o['id'] . ': ' . $e->getMessage());
+            }
             Audit::record('oficios_sub_firma', 'correcto', 'Firma oficio #' . $o['id'] . ' · ' . $o['numero_texto'] . ' · cert ' . $cert['serie']);
             $this->json(['ok' => true, 'cadena' => $cadena['detalle'], 'url' => url('oficios/subdireccion/' . $o['id'])]);
         } catch (RuntimeException $e) {
