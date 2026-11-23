@@ -154,7 +154,7 @@ th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
         <select name="rol" id="crear-rol" required onchange="toggleFormFields(this.value, 'crear')">
           <option value="coordinador">Coordinador de Posgrado</option>
           <option value="titular">Titular de dependencia o coordinación</option>
-          <option value="operativo">Asistente / personal de la dependencia</option>
+          <option value="operativo">Operativo (personal de la dependencia)</option>
           <option value="profesor">Profesor</option>
           <option value="alumno">Alumno</option>
           <option value="admin">Administrador General</option>
@@ -248,7 +248,7 @@ th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
         <select id="edit-rol" name="rol" required onchange="toggleFormFields(this.value, 'edit')">
           <option value="coordinador">Coordinador de Posgrado</option>
           <option value="titular">Titular de dependencia o coordinación</option>
-          <option value="operativo">Asistente / personal de la dependencia</option>
+          <option value="operativo">Operativo (personal de la dependencia)</option>
           <option value="profesor">Profesor</option>
           <option value="alumno">Alumno</option>
           <option value="admin">Administrador General</option>
@@ -302,6 +302,7 @@ th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
           <option value="titular">Titular</option>
           <option value="asistente">Asistente</option>
         </select>
+        <small class="texto-suave">El rol define lo que la persona puede hacer en la plataforma; el puesto es cómo aparece en oficios y documentos (por ejemplo, «Asistente de la Subdirección Académica»).</small>
       </label>
 
       <fieldset style="border:1px solid var(--gris-200); border-radius:6px; padding:8px 12px; margin-top:10px">
@@ -457,7 +458,7 @@ function cerrarModalCrear() {
   document.getElementById('modal-crear').style.display = 'none';
 }
 
-const OPCIONES_ROL = <?= json_encode(['profesor' => 'Profesor', 'alumno' => 'Alumno', 'titular' => 'Titular', 'operativo' => 'Asistente / personal', 'coordinador' => 'Coordinador de Posgrado', 'admin' => 'Administrador'], JSON_UNESCAPED_UNICODE) ?>;
+const OPCIONES_ROL = <?= json_encode(['profesor' => 'Profesor', 'alumno' => 'Alumno', 'titular' => 'Titular', 'operativo' => 'Operativo (personal)', 'coordinador' => 'Coordinador de Posgrado', 'admin' => 'Administrador'], JSON_UNESCAPED_UNICODE) ?>;
 const OPCIONES_DEPTO = <?= json_encode(array_map(fn($d) => [$d['id'], $d['nombre']], $departamentos), JSON_UNESCAPED_UNICODE) ?>;
 const OPCIONES_PROG = <?= json_encode(array_map(fn($p) => [$p['id'], $p['siglas'] . ' · ' . $p['nombre']], $programas), JSON_UNESCAPED_UNICODE) ?>;
 let contadorExtra = 0;
