@@ -1,36 +1,39 @@
 <?php use App\Core\Auth; ?>
-<div class="barra-acciones" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
-  <div style="display: flex; gap: 10px; align-items: center; flex: 1; flex-wrap: wrap;">
-    <div class="buscador" style="margin: 0; flex: 1;">
-      <?= icono('buscar', 16) ?>
-      <input type="text" id="buscador-usuarios" placeholder="Buscar por nombre, correo, rol, carrera o coordinación..." autocomplete="off">
-    </div>
-    <form method="get" action="<?= url('ajustes/usuarios') ?>" style="margin:0;">
-      <label for="orden-usuarios" class="sr-only">Ordenar usuarios</label>
-      <select name="orden" id="orden-usuarios" onchange="this.form.submit()" aria-label="Ordenar usuarios" style="min-width: 205px;">
-        <option value="recientes" <?= $orden === 'recientes' ? 'selected' : '' ?>>Más recientes primero</option>
-        <option value="antiguos" <?= $orden === 'antiguos' ? 'selected' : '' ?>>Más antiguos primero</option>
-        <option value="nombre_asc" <?= $orden === 'nombre_asc' ? 'selected' : '' ?>>Nombre: A–Z</option>
-        <option value="nombre_desc" <?= $orden === 'nombre_desc' ? 'selected' : '' ?>>Nombre: Z–A</option>
-      </select>
-    </form>
+<style>
+.usr-barra { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+.usr-barra .buscador { flex:1 1 420px; margin:0; }
+.usr-barra .buscador input { flex:1; width:100%; min-width:0; font-size:15px; }
+.usr-barra .usr-acciones { display:flex; gap:10px; }
+.usr-estado { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin:0 0 8px; font-size:13px; color:var(--gris-600); }
+.th-orden { all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+.th-orden:focus-visible { outline:3px solid #CA9E5280; outline-offset:2px; }
+.th-orden::after { content:'\21C5'; opacity:.55; font-size:12px; }
+th[aria-sort="ascending"] .th-orden::after { content:'\25B2'; opacity:1; }
+th[aria-sort="descending"] .th-orden::after { content:'\25BC'; opacity:1; }
+</style>
+<div class="usr-barra">
+  <div class="buscador">
+    <?= icono('buscar', 16) ?>
+    <label for="buscador-usuarios" class="sr-only">Buscar usuarios</label>
+    <input type="search" id="buscador-usuarios" placeholder="Buscar por nombre, correo, rol, carrera o coordinación…" autocomplete="off" data-sin-mejora>
   </div>
-  <div style="display: flex; gap: 10px;">
-    <button type="button" class="btn" onclick="abrirModalExportar()" style="border-color: var(--gris-300); color: var(--gris-700);">📥 Exportar...</button>
+  <div class="usr-acciones">
+    <button type="button" class="btn" onclick="abrirModalExportar()" style="border-color: var(--gris-300); color: var(--gris-700);">📥 Exportar…</button>
     <button type="button" class="btn btn-primario" onclick="abrirModalCrear()">+ Nuevo Usuario</button>
   </div>
 </div>
+<div class="usr-estado"><span id="usr-conteo" role="status" aria-live="polite"></span><span>Pulsa el título de una columna para ordenar.</span></div>
 
 <div class="card sin-relleno" style="overflow-x: auto;">
-  <table class="tabla" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <table class="tabla" id="tabla-usuarios" data-no-tools style="width: 100%; border-collapse: collapse; text-align: left;">
     <thead>
       <tr>
-        <th style="padding: 12px 16px;">Nombre</th>
-        <th style="padding: 12px 16px;">Email</th>
-        <th style="padding: 12px 16px;">Rol</th>
-        <th style="padding: 12px 16px;">Departamento / Coordinación</th>
-        <th style="padding: 12px 16px;">Fecha de registro</th>
-        <th style="padding: 12px 16px;">Estado</th>
+        <th style="padding: 12px 16px;" aria-sort="none" data-col="0"><button type="button" class="th-orden">Nombre</button></th>
+        <th style="padding: 12px 16px;" aria-sort="none" data-col="1"><button type="button" class="th-orden">Email</button></th>
+        <th style="padding: 12px 16px;" aria-sort="none" data-col="2"><button type="button" class="th-orden">Rol</button></th>
+        <th style="padding: 12px 16px;" aria-sort="none" data-col="3"><button type="button" class="th-orden">Departamento / Coordinación</button></th>
+        <th style="padding: 12px 16px;" aria-sort="none" data-col="4"><button type="button" class="th-orden">Fecha de registro</button></th>
+        <th style="padding: 12px 16px;" aria-sort="none" data-col="5"><button type="button" class="th-orden">Estado</button></th>
         <th style="padding: 12px 16px; text-align: right;">Acciones</th>
       </tr>
     </thead>
@@ -332,35 +335,60 @@
 </div>
 
 <script>
-// Buscador en tiempo real para todas las cuentas
+// Lista de usuarios: filtro inmediato, orden por encabezados y páginas de 50 (todo en el navegador).
 document.addEventListener('DOMContentLoaded', () => {
+  const tabla = document.getElementById('tabla-usuarios');
   const buscador = document.getElementById('buscador-usuarios');
-  const filas = document.querySelectorAll('.usuario-fila');
+  const conteo = document.getElementById('usr-conteo');
+  if (!tabla || !buscador) return;
+  const cuerpo = tabla.tBodies[0];
   const sinResultados = document.getElementById('sin-resultados-fila');
+  const filas = [...cuerpo.querySelectorAll('.usuario-fila')];
+  const TAM = 50;
+  const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  filas.forEach((f) => { f.dataset.buscar = norm(f.textContent); });
+  let estado = { q: '', col: -1, dir: 1, pagina: 0 };
+  const clave = (f, col) => col === 4 ? ((f.querySelector('time') || {}).dateTime || '') : f.cells[col].textContent.trim();
 
-  if (buscador) {
-    buscador.addEventListener('input', function() {
-      const q = this.value.trim().toLowerCase();
-      let visibles = 0;
+  const pie = document.createElement('div');
+  pie.className = 'usr-estado';
+  pie.style.margin = '10px 0 0';
+  pie.innerHTML = '<span></span><span><button type="button" class="btn btn-mini" data-p="-1">Anterior</button> <button type="button" class="btn btn-mini" data-p="1">Siguiente</button></span>';
+  tabla.closest('.card').after(pie);
+  pie.addEventListener('click', (e) => { const b = e.target.closest('[data-p]'); if (b) { estado.pagina += parseInt(b.dataset.p, 10); pintar(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
 
-      filas.forEach(fila => {
-        const nombre = fila.querySelector('.usr-nombre').textContent.toLowerCase();
-        const email = fila.querySelector('.usr-email').textContent.toLowerCase();
-        const depto = fila.querySelector('.usr-depto').textContent.toLowerCase();
-        const registro = fila.querySelector('.usr-registro').textContent.toLowerCase();
-        const rol = fila.cells[2].textContent.toLowerCase();
-
-        if (nombre.includes(q) || email.includes(q) || depto.includes(q) || registro.includes(q) || rol.includes(q)) {
-          fila.style.display = '';
-          visibles++;
-        } else {
-          fila.style.display = 'none';
-        }
-      });
-
-      sinResultados.style.display = (visibles === 0) ? '' : 'none';
-    });
+  function pintar() {
+    const q = norm(estado.q.trim());
+    let lista = filas.filter((f) => !q || q.split(/\s+/).every((w) => f.dataset.buscar.indexOf(w) > -1));
+    if (estado.col >= 0) {
+      lista = lista.slice().sort((a, b) => estado.dir * clave(a, estado.col).localeCompare(clave(b, estado.col), 'es', { numeric: true, sensitivity: 'base' }));
+    }
+    const paginas = Math.max(1, Math.ceil(lista.length / TAM));
+    estado.pagina = Math.max(0, Math.min(estado.pagina, paginas - 1));
+    const visibles = new Set(lista.slice(estado.pagina * TAM, estado.pagina * TAM + TAM));
+    lista.forEach((f) => cuerpo.insertBefore(f, sinResultados));   // reordena según el orden elegido
+    filas.forEach((f) => { f.hidden = !visibles.has(f); f.style.display = ''; });
+    sinResultados.style.display = lista.length ? 'none' : '';
+    const desde = lista.length ? estado.pagina * TAM + 1 : 0, hasta = Math.min(lista.length, (estado.pagina + 1) * TAM);
+    conteo.textContent = lista.length + (lista.length === 1 ? ' usuario' : ' usuarios') + (lista.length > TAM ? ' · mostrando ' + desde + '–' + hasta : '') + (q ? ' (de ' + filas.length + ')' : '');
+    pie.hidden = lista.length <= TAM;
+    pie.firstElementChild.textContent = 'Página ' + (estado.pagina + 1) + ' de ' + paginas;
+    pie.querySelector('[data-p="-1"]').disabled = estado.pagina === 0;
+    pie.querySelector('[data-p="1"]').disabled = estado.pagina >= paginas - 1;
   }
+
+  buscador.addEventListener('input', () => { estado.q = buscador.value; estado.pagina = 0; pintar(); });
+  tabla.querySelectorAll('th[data-col]').forEach((th) => {
+    th.querySelector('.th-orden').addEventListener('click', () => {
+      const col = parseInt(th.dataset.col, 10);
+      estado.dir = estado.col === col ? -estado.dir : 1;
+      estado.col = col;
+      tabla.querySelectorAll('th[data-col]').forEach((x) => x.setAttribute('aria-sort', x === th ? (estado.dir === 1 ? 'ascending' : 'descending') : 'none'));
+      estado.pagina = 0;
+      pintar();
+    });
+  });
+  pintar();
 });
 
 // Cambiar visibilidad de campos de tipo de contratación, carrera/programa y posgrados
