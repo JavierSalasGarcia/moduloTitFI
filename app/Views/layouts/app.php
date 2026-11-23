@@ -131,11 +131,39 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
       <ul class="nav-lista">
         <?php foreach ($enlacesMenu as $i => $enlace): $activo = !empty($activos[$i]); ?>
           <li>
+          <?php if (!empty($enlace['pagina'])): ?>
+            <?php
+              // Grupo con varias opciones: acordeón con sus opciones secundarias (las que tienen subgrupo van bajo su subtítulo).
+              $bloquesMenu = [];
+              foreach ($enlace['items'] as $it) { $bloquesMenu[trim((string) ($it['grupo'] ?? ''))][] = $it; }
+              uksort($bloquesMenu, static fn($a, $b) => ($a !== '') <=> ($b !== ''));
+            ?>
+            <details class="nav-grupo"<?= $activo ? ' open' : '' ?>>
+              <summary class="nav-enlace<?= $activo ? ' activo' : '' ?>">
+                <?= icono($enlace['icono'], 20) ?>
+                <span class="nav-texto"><?= e($enlace['etiqueta']) ?></span>
+                <?php if ($enlace['contador'] > 0): ?><span class="nav-badge"><span aria-hidden="true"><?= (int) $enlace['contador'] ?></span><span class="nav-sr"><?= (int) $enlace['contador'] ?> por atender</span></span><?php endif; ?>
+                <span class="nav-flecha" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+                <?php foreach ($bloquesMenu as $subtitulo => $lista): ?>
+                  <?php if ($subtitulo !== ''): ?><li class="nav-subtitulo"><?= e($subtitulo) ?></li><?php endif; ?>
+                  <?php foreach ($lista as $it): $on = $esItemActivo($it); ?>
+                    <li><a class="nav-item<?= $on ? ' activo' : '' ?>" <?= $on ? 'aria-current="page"' : '' ?> href="<?= e(url($it['ruta'])) ?>">
+                      <span class="nav-texto"><?= e($it['titulo']) ?></span>
+                      <?php if (!empty($it['contador'])): ?><span class="nav-badge"><span aria-hidden="true"><?= (int) $it['contador'] ?></span><span class="nav-sr"><?= (int) $it['contador'] ?> por atender</span></span><?php endif; ?>
+                    </a></li>
+                  <?php endforeach; ?>
+                <?php endforeach; ?>
+              </ul>
+            </details>
+          <?php else: ?>
             <a class="nav-enlace<?= $activo ? ' activo' : '' ?>" <?= $activo ? 'aria-current="page"' : '' ?> href="<?= e(url($enlace['ruta'])) ?>">
               <?= icono($enlace['icono'], 20) ?>
               <span class="nav-texto"><?= e($enlace['etiqueta']) ?></span>
               <?php if ($enlace['contador'] > 0): ?><span class="nav-badge"><span aria-hidden="true"><?= (int) $enlace['contador'] ?></span><span class="nav-sr"><?= (int) $enlace['contador'] ?> por atender</span></span><?php endif; ?>
             </a>
+          <?php endif; ?>
           </li>
         <?php endforeach; ?>
       </ul>

@@ -204,3 +204,15 @@ button.consulta-notificacion { cursor:pointer; font:inherit; }
   .ux-app .tabla td a:not(.btn) { display:inline-block; padding:10px 0; }
   .ux-app .seguridad-resumen a { min-height:44px; }
 }
+
+/* ── Menú principal con grupos desplegables (acordeón) ────────────────────────────────────── */
+.nav-grupo > summary { list-style:none; cursor:pointer; }
+.nav-grupo > summary::-webkit-details-marker { display:none; }
+.nav-flecha { flex:0 0 auto; width:8px; height:8px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(-45deg); transition:transform .18s ease; opacity:.65; }
+.nav-grupo[open] > summary .nav-flecha { transform:rotate(45deg); }
+.nav-sub { list-style:none; margin:2px 0 8px 22px; padding:0 0 0 12px; border-left:2px solid var(--ux-line,#dfe6e0); display:flex; flex-direction:column; gap:1px; }
+.nav-subtitulo { padding:10px 10px 3px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--ux-muted,#5a6b5e); }
+.nav-item { display:flex; align-items:center; gap:8px; min-height:40px; padding:7px 10px; border-radius:8px; color:var(--ux-ink); font-size:14px; line-height:1.3; text-decoration:none; box-shadow:inset 3px 0 0 transparent; }
+.nav-item:hover { background:var(--verde-050,#EEF4EF); text-decoration:none; }
+.nav-item.activo { background:var(--verde-050,#EEF4EF); color:var(--verde-900,#2C5234); font-weight:650; box-shadow:inset 3px 0 0 var(--oro,#9C8412); }
+@media (max-width:899px) { .nav-item { min-height:44px; } }
