@@ -165,3 +165,21 @@ Orden aproximado; cada línea indica archivos clave.
 - Kit de confianza: la administración carga los certificados del SAT en Configuración (`ofs_confianza`); `/oficios/confianza` (público) los ofrece con la guía para Acrobat. Sin ellos, Adobe muestra «identidad desconocida».
 - Verificación pública por QR: `/oficios/verificar/{código}` (compara además la huella SHA-256 del PDF en el navegador).
 - Migración 070. Pendiente real: registrar el RFC del titular y cargar los certificados del SAT; primera firma real a cargo del Subdirector.
+
+#### Firma de oficios con e.firma (FIEL): contexto técnico para otra IA
+
+Archivos: `public/assets/js/oficios-firma.js` (UMD, usa `vendor/forge.min.js`), `Oficios/Services/{Pades,Cms,OficiosSub,OficioPdf}.php`, `SubdireccionController` (`firmar`, `firmaPreparar`, `firmaGuardar`), vista `sub_firmar.php`.
+
+Flujo (3 pasos, todo con CSRF y solo el titular):
+1. En el navegador, `OficioFiel.abrir(.cer, .key, contraseña)` descifra la llave PKCS#8 (la contraseña y la llave nunca se envían ni se guardan; los campos se vacían al salir de la página) y valida vigencia, `keyUsage` y que la llave corresponda al certificado. Envía a `/firma/preparar` **solo el certificado público** (base64 DER).
+2. El servidor valida el certificado (vigencia, firma digital, emisor SAT, RFC igual al registrado), arma el PDF final con el sello y `Pades::preparar` añade, como actualización incremental, el campo de firma `/adbe.pkcs7.detached` con 8192 bytes reservados; devuelve el PDF y el `ByteRange`. El navegador firma localmente esos bytes (CMS/PKCS#7 desprendido, SHA-256) con `OficioFiel.firmar`.
+3. `/firma/guardar` recibe solo el hex de la firma: `Pades::incrustar`, `Cms::verificar` (parser DER propio + `openssl_verify`), compara la serie del certificado, `Cms::cadena` contra `ofs_confianza` (si hay certificados cargados), guarda el PDF en `storage/oficios_sub/`, actualiza `ofs_oficios` (sha256, cert_serie, cert_nombre, cadena_estado) y audita.
+
+Reglas que no deben romperse:
+- La FIEL **no se almacena** y se pide en cada firma; el procesamiento es en el navegador.
+- El RFC del titular se guarda cifrado (`Cifrado`, ajuste `oficios_rfc_titular`), solo para comparar; **nunca** se muestra en pantalla ni en el PDF ni en la verificación pública.
+- Es independiente de la firma electrónica de la Facultad (aún no aprobada); no mezclar con `Firmas`/constancias salvo la bandeja `por_firmar`.
+- Cualquier cambio al PDF después de firmar invalida la firma: el PDF firmado es inmutable; para corregir hay que cancelar y emitir otro.
+- Adobe muestra «identidad desconocida» mientras no tenga instalados los certificados raíz del SAT (kit en `/oficios/confianza`); la firma es igualmente íntegra. La verificación pública `/oficios/verificar/{código}` no depende de Adobe.
+- Probado con OpenSSL (`openssl cms -verify`) y pyHanko usando un certificado de prueba; **no** con una e.firma real del SAT (pendiente: primera firma real del Subdirector, registrar su RFC y cargar los certificados del SAT en Configuración).
+- Dependencia de terceros: node-forge (licencia en `public/assets/js/vendor/forge.LICENSE.txt`).
