@@ -14,5 +14,6 @@ return [
     ],
     'rutas' => [
         'GET /busqueda' => [BusquedaController::class, 'index'],
+        'GET /busqueda/sugerencias' => [BusquedaController::class, 'sugerencias'],
     ],
 ];

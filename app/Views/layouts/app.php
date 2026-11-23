@@ -97,7 +97,8 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
     (function () {
       var b = document.getElementById('btn-buscar'), f = document.getElementById('busqueda-barra'), q = document.getElementById('busqueda-q'), p = document.getElementById('busqueda-sugerencias');
       if (!b || !f || !q || !p) return;
-      var cache = null, activo = -1;
+      var cache = null, activo = -1, temporizador = null, peticion = 0;
+      var urlSug = <?= json_encode(url('busqueda/sugerencias')) ?>;
       function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
       // «Comandos»: todo lo que la persona puede abrir según su menú (ya filtrado por rol y condiciones).
       function opciones() {
@@ -117,12 +118,15 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
         if (extra) { var s = document.createElement('small'); s.textContent = ' · ' + extra; a.appendChild(s); }
         p.appendChild(a);
       }
+      var avisosSug = [], avisosDe = '';
       function pintar() {
         var texto = q.value.trim(), v = norm(texto), palabras = v ? v.split(' ') : [];
         p.textContent = ''; activo = -1; q.removeAttribute('aria-activedescendant');
         // Sin texto no se muestra nada: es un buscador, no un menú. Las sugerencias aparecen al escribir.
         if (!texto) { cerrar(); return; }
-        var lista = opciones().filter(function (o) { return palabras.every(function (w) { return o.n.indexOf(w) > -1; }); }).slice(0, 4);
+        // Avisos y eventos vigentes que coinciden (los trae el servidor, con el alcance de la sesión).
+        if (avisosDe === texto) avisosSug.forEach(function (a) { op(a.titulo, a.ruta, a.detalle); });
+        var lista = opciones().filter(function (o) { return palabras.every(function (w) { return o.n.indexOf(w) > -1; }); }).slice(0, 3);
         lista.forEach(function (o) { op(o.t, o.h, o.g); });
         op('Buscar «' + texto + '» en todo Traza FI', f.action + '?q=' + encodeURIComponent(texto), '', 'busqueda-todo');
         p.hidden = false; q.setAttribute('aria-expanded', 'true');
@@ -136,7 +140,20 @@ $rolEtiqueta = ['admin' => 'Administración', 'titular' => 'Titular', 'operativo
       }
       b.addEventListener('click', function () { abrir(!f.classList.contains('abierta')); });
       var x = document.getElementById('busqueda-cerrar'); if (x) x.addEventListener('click', function () { abrir(false); b.focus(); });
-      q.addEventListener('focus', pintar); q.addEventListener('input', pintar);
+      function cargarAvisos() {
+        var texto = q.value.trim();
+        if (texto.length < 3) { avisosSug = []; avisosDe = ''; return; }
+        var mia = ++peticion;
+        fetch(urlSug + '?q=' + encodeURIComponent(texto), { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+          .then(function (r) { return r.ok ? r.json() : { avisos: [] }; })
+          .then(function (d) {
+            if (mia !== peticion || q.value.trim() !== texto) return;   // ya escribió otra cosa
+            avisosSug = (d.avisos || []).map(function (a) { return { titulo: a.titulo, detalle: a.detalle, ruta: a.ruta.indexOf('http') === 0 ? a.ruta : (f.action.replace(/busqueda$/, '') + a.ruta) }; });
+            avisosDe = texto; pintar();
+          }).catch(function () {});
+      }
+      q.addEventListener('focus', pintar);
+      q.addEventListener('input', function () { pintar(); clearTimeout(temporizador); temporizador = setTimeout(cargarAvisos, 220); });
       q.addEventListener('keydown', function (e) {
         var ops = [].slice.call(p.querySelectorAll('.busqueda-op'));
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {

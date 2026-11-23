@@ -10,6 +10,8 @@ Los secretos y datos personales nuevos se cifran en reposo con `App\Core\Cifrado
 
 **Firmas: un solo lugar.** Todo documento, constancia u oficio que espera la firma de alguien (coordinaciones, Subdirector Académico, Director, profesores, alumnos) se concentra en `/firmas` → «Por firmar», sin importar el departamento o módulo de origen. Un módulo con flujo de firma declara `por_firmar` en su manifiesto y no crea bandejas ni entradas de menú propias; leer `docs/FIRMAS_UNICA.md`.
 
+**Búsqueda del encabezado:** solo muestra lo que la sesión ya puede ver (menú, avisos vigentes de su público, sus propios registros, manual de organización); nunca personas, expedientes ni casos de los Consejos, con límite de uso y sin guardar el texto buscado. Leer `docs/BUSQUEDA.md` antes de agregar una fuente.
+
 El acceso se decide por rol del módulo y, para casos especiales, por concesiones por persona con vigencia (`App\Core\Acceso`); leer `docs/CONCESIONES_DE_ACCESO.md`.
 
 El asistente de la página de inicio usa Jev como árbitro y Gemini para orientar; leer `docs/ASISTENTE_JEV_GEMINI.md`. Los prompts viven solo en `app/Modules/Portal/Prompts.php` y las claves solo se leen con `App\Core\SecretosIa`. Ningún modelo recibe registros, esquema ni permisos, ni arma consultas SQL. Un módulo nuevo se integra con la clave `consulta` de su manifiesto.

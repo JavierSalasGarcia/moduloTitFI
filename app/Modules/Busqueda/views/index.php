@@ -12,7 +12,9 @@ $datos = $r['datos']['items'] ?? [];
   </form>
 </section>
 
-<?php if ($q === ''): ?>
+<?php if (!empty($aviso)): ?>
+  <section class="card"><p class="texto-suave" role="alert" style="margin:0"><?= e($aviso) ?></p></section>
+<?php elseif ($q === ''): ?>
   <section class="card">
     <h2 class="subtitulo" style="margin-top:0">Lo que puedes abrir</h2>
     <p class="texto-suave">Estas son las opciones disponibles para tu cuenta. Escribe arriba para buscar entre ellas, en los avisos publicados y en las áreas responsables de cada trámite.</p>
