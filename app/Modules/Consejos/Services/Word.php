@@ -11,7 +11,7 @@ use RuntimeException;
 
 /**
  * Genera el acta de cada Consejo como documento de Word (.docx) sin dependencias externas: arma el XML de WordprocessingML
- * y lo empaqueta con ZipArchive. El formato imita el acta de ejemplo (Cambria 9 pt, una tabla por asunto con clave,
+ * y lo empaqueta con ZipArchive. El formato imita el acta de ejemplo (DM Sans 9 pt, una tabla por asunto con clave,
  * solicitud, antecedentes y acuerdos). Las tablas pegadas desde Word se reproducen como tablas reales, con celdas combinadas.
  */
 final class Word
@@ -28,7 +28,7 @@ final class Word
 
     private static function run(string $texto, int $sz, bool $b, bool $i, bool $u): string
     {
-        $rpr = '<w:rFonts w:ascii="Cambria" w:hAnsi="Cambria" w:cs="Cambria"/>' . ($b ? '<w:b/><w:bCs/>' : '') . ($i ? '<w:i/><w:iCs/>' : '')
+        $rpr = '<w:rFonts w:ascii="DM Sans" w:hAnsi="DM Sans" w:cs="DM Sans"/>' . ($b ? '<w:b/><w:bCs/>' : '') . ($i ? '<w:i/><w:iCs/>' : '')
             . '<w:sz w:val="' . $sz . '"/><w:szCs w:val="' . $sz . '"/>' . ($u ? '<w:u w:val="single"/>' : '');
         $partes = [];
         foreach (explode("\t", $texto) as $k => $p) {
@@ -246,7 +246,7 @@ final class Word
         }
         $doc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ' . self::NS . '><w:body>' . $cuerpo
             . '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1417" w:right="1701" w:bottom="1417" w:left="1701" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>';
-        $estilos = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles ' . self::NS . '><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Cambria" w:hAnsi="Cambria" w:cs="Cambria" w:eastAsia="Cambria"/>'
+        $estilos = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles ' . self::NS . '><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="DM Sans" w:hAnsi="DM Sans" w:cs="DM Sans" w:eastAsia="DM Sans"/>'
             . '<w:sz w:val="18"/><w:szCs w:val="18"/><w:lang w:val="es-MX"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="60" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>'
             . '<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>';
         $tipos = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'

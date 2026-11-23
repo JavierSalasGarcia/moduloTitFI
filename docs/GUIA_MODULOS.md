@@ -285,6 +285,21 @@ persona, junto con su historial.
 - Salida HTML: imprimir datos variables con `e()`.
 - CSV: anteponer `'` a celdas que comiencen con `=`, `+`, `-` o `@`.
 
+## Documentos PDF y Word: fuente DM Sans (obligatoria)
+
+Todos los formatos y oficios que genera la plataforma usan **DM Sans**.
+- **PDF**: se generan con `FPDF`/`FPDI` de `lib/` (`Titulacion\Services\Hoja`, `Constancias\Services\Pdf`, sellos, folios, hojas de firmas…).
+  `lib/fpdf/fpdf.php` es una capa sobre tFPDF: cualquier `SetFont('Helvetica'|'Arial'|'Courier'|'Times', …)` usa DM Sans (regular, negrita,
+  cursiva, negrita cursiva), y convierte a UTF-8 los textos que el código heredado entrega en Windows-1252 (`Hoja::l1`). **No** cargues otra
+  copia de FPDF ni otra fuente. Las TTF y su caché de métricas están en `lib/fpdf/font/unifont/` (licencia SIL OFL, `OFL-DMSans.txt`); el
+  caché se versiona para que el servidor no tenga que escribirlo.
+- **Medir texto**: usa `GetStringWidth()` (no las tablas `CurrentFont['cw']` de FPDF clásico); `Hoja::renglones()` ya lo hace. DM Sans es más ancha
+  que Helvetica: deja holgura en celdas de un solo renglón.
+- **Word** (`.docx` del módulo Consejos): `Consejos/Services/Word.php` y `Consejos/plantillas/plantilla_dictamen.docx` usan la fuente «DM Sans»; quien abre
+  el archivo debe tenerla instalada (si no, Word la sustituye). Las viñetas conservan Symbol/Wingdings.
+- La **hoja membretada** (`Titulacion/plantillas/pdf/Membretada.pdf`) trae su texto de pie en otra fuente porque es arte institucional: no se
+  cambia con código.
+
 ## Títulos de página
 
 El diseño (`layouts/app.php`) pone **un solo h1** con el `titulo` que pasa el controlador y unas migas de pan que muestran el camino

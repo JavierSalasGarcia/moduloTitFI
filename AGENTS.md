@@ -12,6 +12,8 @@ Los secretos y datos personales nuevos se cifran en reposo con `App\Core\Cifrado
 
 **Firmas: un solo lugar.** Todo documento, constancia u oficio que espera la firma de alguien (coordinaciones, Subdirector Académico, Director, profesores, alumnos) se concentra en `/firmas` → «Por firmar», sin importar el departamento o módulo de origen. Un módulo con flujo de firma declara `por_firmar` en su manifiesto y no crea bandejas ni entradas de menú propias; leer `docs/FIRMAS_UNICA.md`.
 
+**Documentos PDF/Word:** fuente **DM Sans obligatoria** (`lib/fpdf/fpdf.php` la impone; ver `docs/GUIA_MODULOS.md`). No agregar otras fuentes ni otra copia de FPDF.
+
 **Búsqueda del encabezado:** solo muestra lo que la sesión ya puede ver (menú, avisos vigentes de su público, sus propios registros, manual de organización); nunca personas, expedientes ni casos de los Consejos, con límite de uso y sin guardar el texto buscado. Leer `docs/BUSQUEDA.md` antes de agregar una fuente.
 
 El acceso se decide por rol del módulo y, para casos especiales, por concesiones por persona con vigencia (`App\Core\Acceso`); leer `docs/CONCESIONES_DE_ACCESO.md`.

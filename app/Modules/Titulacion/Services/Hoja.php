@@ -133,52 +133,40 @@ final class Hoja extends \setasign\Fpdi\Fpdi
     }
 
     /**
-     * Renglones que ocupará $txt (ya en ISO-8859-1) en un MultiCell de ancho $w con la fuente actual: corta por palabras
-     * igual que FPDF, para que las celdas de una tabla tengan el alto justo y ningún texto rebase su recuadro.
+     * Renglones que ocupará $txt (en Windows-1252, como el resto del código) en un MultiCell de ancho $w con la fuente actual:
+     * corta por palabras como MultiCell, para que las celdas de una tabla tengan el alto justo y ningún texto rebase su recuadro.
+     * Mide con la fuente DM Sans vigente (GetStringWidth), no con tablas de ancho de la fuente base.
      */
     public function renglones(float $w, string $txt): int
     {
-        $cw = $this->CurrentFont['cw'];
-        $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
-        $s = str_replace("\r", '', $txt);
-        $nb = strlen($s);
-        if ($nb > 0 && $s[$nb - 1] === "\n") {
-            $nb--;
-        }
-        $sep = -1;
-        $i = $j = $l = 0;
-        $nl = 1;
-        while ($i < $nb) {
-            $c = $s[$i];
-            if ($c === "\n") {
-                $i++;
-                $sep = -1;
-                $j = $i;
-                $l = 0;
-                $nl++;
-                continue;
-            }
-            if ($c === ' ') {
-                $sep = $i;
-            }
-            $l += $cw[$c] ?? 0;
-            if ($l > $wmax) {
-                if ($sep === -1) {
-                    if ($i === $j) {
-                        $i++;
-                    }
+        $max = $w - 2 * $this->cMargin;
+        $r = iconv('Windows-1252', 'UTF-8//IGNORE', str_replace("\r", '', $txt));
+        $s = $r === false ? $txt : $r;
+        $lineas = 0;
+        foreach (explode("\n", rtrim($s, "\n")) as $parrafo) {
+            $lineas++;
+            $actual = '';
+            foreach (explode(' ', $parrafo) as $palabra) {
+                $prueba = $actual === '' ? $palabra : $actual . ' ' . $palabra;
+                if ($actual !== '' && $this->GetStringWidth($prueba) > $max) {
+                    $lineas++;
+                    $actual = $palabra;
                 } else {
-                    $i = $sep + 1;
+                    $actual = $prueba;
                 }
-                $sep = -1;
-                $j = $i;
-                $l = 0;
-                $nl++;
-            } else {
-                $i++;
+                // Una palabra más ancha que la celda se parte por caracteres.
+                while ($this->GetStringWidth($actual) > $max && mb_strlen($actual) > 1) {
+                    $n = mb_strlen($actual);
+                    $k = $n - 1;
+                    while ($k > 1 && $this->GetStringWidth(mb_substr($actual, 0, $k)) > $max) {
+                        $k--;
+                    }
+                    $lineas++;
+                    $actual = mb_substr($actual, $k);
+                }
             }
         }
-        return $nl;
+        return max(1, $lineas);
     }
 
     public function MultiCell($w, $h, $txt, $border = 0, $align = 'J', $fill = false)

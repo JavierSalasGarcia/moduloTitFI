@@ -95,6 +95,13 @@ Al cambiar `sw.js`, subir la versión de `CACHE`.
 **Ajustes → Usuarios** (`Ajustes/views/usuarios.php`): un solo campo de búsqueda ancho con filtro inmediato (sin acentos), tabla con
 encabezados ordenables, páginas de 50, tabla real también en celular, y **el nombre abre la edición** de la cuenta (no hay columna Acciones).
 
+**Documentos (PDF y Word)**: todo en **DM Sans** (obligatorio): `lib/fpdf/fpdf.php` (capa sobre tFPDF) sustituye cualquier fuente base; ver
+`docs/GUIA_MODULOS.md` («Documentos PDF y Word»). Reglas del oficio nuevo de la Subdirección (aún por construir): serie única `ACAD/FI/{n}/{AAAA}`
+con 3 dígitos y reinicio anual (el último usado en 2026 fue el 446), firmante siempre el titular de la Subdirección Académica con su **e.firma del SAT**
+(se pide en cada firma y **nunca se almacena**; independiente de la firma electrónica de la Facultad, aún no aprobada), leyenda de `LemaAnual`,
+lienzo solo con negritas/cursivas y tabla pegada con Ctrl+V, interlineado sencillo y 0.8 pt después de cada párrafo, destinatarios reutilizables,
+QR de verificación.
+
 ## 5. Estado observado en producción (2026-11-23), para no volver a investigarlo
 
 - Ingesta (documentos indizados): 0 carpetas, 0 documentos, 0 concesiones. Los casos y dictámenes de los Consejos nunca pasan por la búsqueda.
@@ -146,4 +153,5 @@ Orden aproximado; cada línea indica archivos clave.
 12. **Consejos solo para gestores** (`ConsejosAccess`).
 13. **App instalada**: guía iOS 26, insignia con la app cerrada, diagnóstico (`Notificaciones/views/guia_app.php`, `public/sw.js`).
 14. **Usuarios** (Ajustes): tabla ordenable con filtro inmediato y edición por nombre.
+16. **DM Sans en todos los PDF y Word** (`lib/fpdf/*`, `Titulacion/Services/Hoja::renglones`, `Consejos/Services/Word.php`, plantilla del dictamen).
 15. Carpeta `consejos/` (material de contexto con datos personales) excluida en `.gitignore`.
