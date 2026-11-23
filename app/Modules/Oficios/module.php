@@ -30,6 +30,8 @@ return [
         'GET /oficios/subdireccion/configuracion'            => [SubdireccionController::class, 'configuracion'],
         'POST /oficios/subdireccion/configuracion'           => [SubdireccionController::class, 'guardarConfiguracion'],
         'POST /oficios/subdireccion/configuracion/certificado/{id}/quitar' => [SubdireccionController::class, 'quitarCertificado'],
+        'GET /oficios/subdireccion/firmar-lote'              => [SubdireccionController::class, 'firmarLote'],
+        'POST /oficios/subdireccion/enviar-lote'             => [SubdireccionController::class, 'enviarLote'],
         'GET /oficios/subdireccion/{id}'                     => [SubdireccionController::class, 'ver'],
         'GET /oficios/subdireccion/{id}/editar'              => [SubdireccionController::class, 'editar'],
         'POST /oficios/subdireccion/{id}'                    => [SubdireccionController::class, 'actualizar'],

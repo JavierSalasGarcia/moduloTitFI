@@ -1,7 +1,10 @@
 <?php
 /** @var array $filas @var string $estado @var string $q @var bool $puedeFirmar @var int $siguiente */
 use App\Modules\Oficios\OficiosAccess;
+use App\Core\Auth;
 use App\Modules\Oficios\Services\OficiosSub;
+$hayBorradores = (bool) array_filter($filas, static fn($f) => $f['estado'] === 'borrador');
+$nEnFirma = $puedeFirmar ? count(OficiosSub::enFirma()) : 0;
 ?>
 <div class="barra-acciones" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
   <nav class="grupo-chips" aria-label="Estado">
@@ -10,6 +13,7 @@ use App\Modules\Oficios\Services\OficiosSub;
   </nav>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <?php if (OficiosAccess::puedeConfigurar()): ?><a class="btn" href="<?= e(url('oficios/subdireccion/configuracion')) ?>">Configuración</a><?php endif; ?>
+    <?php if ($puedeFirmar): ?><a class="btn btn-primario" href="<?= e(url('oficios/subdireccion/firmar-lote')) ?>">Firmar en lote<?= $nEnFirma ? ' (' . $nEnFirma . ')' : '' ?></a><?php endif; ?>
     <a class="btn" href="<?= e(url('oficios/confianza')) ?>">Kit de confianza del SAT</a>
     <a class="btn btn-primario" href="<?= e(url('oficios/subdireccion/nuevo')) ?>">+ Nuevo oficio</a>
   </div>
@@ -25,12 +29,21 @@ use App\Modules\Oficios\Services\OficiosSub;
 <?php if (!$filas): ?>
   <div class="card"><p class="texto-suave" style="margin:0">No hay oficios con ese filtro. Crea el primero con «Nuevo oficio».</p></div>
 <?php else: ?>
+<form method="post" action="<?= e(url('oficios/subdireccion/enviar-lote')) ?>" id="form-lote" onsubmit="return confirm('Se asignarán números consecutivos y los oficios seleccionados quedarán en firma del titular. ¿Enviar?')">
+<input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+<?php if ($hayBorradores): ?>
+<p style="margin:0 0 8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+  <button type="button" class="btn" id="b-todos">Seleccionar todos los borradores</button>
+  <button type="submit" class="btn btn-primario">Enviar seleccionados a firma</button>
+</p>
+<?php endif; ?>
 <div class="card sin-relleno tabla-contenedor">
   <table class="tabla" data-no-cards>
-    <thead><tr><th>Número</th><th>Fecha</th><th>Asunto</th><th>Destinatarios</th><th>Estado</th><th>Redactó</th></tr></thead>
+    <thead><tr><?php if ($hayBorradores): ?><th style="width:44px"><span class="sr-only">Elegir</span></th><?php endif; ?><th>Número</th><th>Fecha</th><th>Asunto</th><th>Destinatarios</th><th>Estado</th><th>Redactó</th></tr></thead>
     <tbody>
     <?php foreach ($filas as $f): $dest = json_decode((string) $f['destinatarios'], true) ?: []; ?>
       <tr>
+        <?php if ($hayBorradores): ?><td><?php if ($f['estado'] === 'borrador'): ?><input type="checkbox" class="b-sel" name="ids[]" value="<?= (int) $f['id'] ?>" aria-label="Elegir este borrador"><?php endif; ?></td><?php endif; ?>
         <td class="monoespacio"><a href="<?= e(url('oficios/subdireccion/' . (int) $f['id'])) ?>"><?= e($f['numero_texto'] ?: 'Sin número') ?></a></td>
         <td><?= $f['fecha'] ? e(date('d/m/Y', strtotime((string) $f['fecha']))) : '—' ?></td>
         <td><?= e($f['asunto']) ?></td>
@@ -42,4 +55,10 @@ use App\Modules\Oficios\Services\OficiosSub;
     </tbody>
   </table>
 </div>
+</form>
+<script>
+(function () { var b = document.getElementById('b-todos'); if (!b) return;
+  b.addEventListener('click', function () { var c = document.querySelectorAll('.b-sel'), v = Array.prototype.some.call(c, function (x) { return !x.checked; });
+    Array.prototype.forEach.call(c, function (x) { x.checked = v; }); b.textContent = v ? 'Quitar selección' : 'Seleccionar todos los borradores'; }); })();
+</script>
 <?php endif; ?>

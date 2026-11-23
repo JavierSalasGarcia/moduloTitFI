@@ -75,7 +75,7 @@ final class OficiosSub
     /** Oficios que esperan la firma del titular (proveedor `por_firmar`). */
     public static function enFirma(): array
     {
-        return Database::todas("SELECT id, numero_texto, asunto, enviado_en FROM ofs_oficios WHERE estado = 'en_firma' ORDER BY enviado_en, id");
+        return Database::todas("SELECT id, numero_texto, asunto, destinatarios, enviado_en FROM ofs_oficios WHERE estado = 'en_firma' ORDER BY numero, id");
     }
 
     // ------------------------------------------------------------------ captura

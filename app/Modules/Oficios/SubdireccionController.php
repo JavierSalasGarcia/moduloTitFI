@@ -198,6 +198,27 @@ final class SubdireccionController extends Controller
         redirigir('oficios/subdireccion/' . $o['id']);
     }
 
+    /** Envía a firma varios borradores a la vez (cada uno recibe el siguiente número consecutivo, en orden de creación). */
+    public function enviarLote(): void
+    {
+        $this->redactar();
+        $ids = array_values(array_unique(array_filter(array_map('intval', (array) ($_POST['ids'] ?? [])), static fn($i) => $i > 0)));
+        sort($ids);
+        $ok = 0;
+        $fallas = 0;
+        foreach (array_slice($ids, 0, 500) as $id) {
+            try {
+                OficiosSub::enviarAFirma($id);
+                $ok++;
+            } catch (RuntimeException) {
+                $fallas++;
+            }
+        }
+        Audit::record('oficios_sub', 'correcto', 'Envía a firma en lote: ' . $ok . ' oficio(s)');
+        flash($ok > 0 ? 'exito' : 'error', $ok . ' oficio(s) enviado(s) a firma' . ($fallas ? '; ' . $fallas . ' no se pudieron enviar (¿ya no eran borrador?).' : '.'));
+        redirigir('oficios/subdireccion' . ($ok > 0 ? '?estado=en_firma' : ''));
+    }
+
     public function devolver(string $id): void
     {
         $this->titular();
@@ -246,12 +267,23 @@ final class SubdireccionController extends Controller
             'certificadosSat' => count(OficiosSub::certificadosPem())]);
     }
 
+    /** Cola de oficios por firmar: se eligen todos o algunos y se firman con una sola apertura de la e.firma. */
+    public function firmarLote(): void
+    {
+        $this->titular();
+        header('Cache-Control: no-store, private');
+        $this->vista('sub_firmar_lote', ['titulo' => 'Firmar oficios en lote', 'cola' => OficiosSub::enFirma(), 'rfcRegistrado' => OficiosSub::rfcTitular() !== '',
+            'certificadosSat' => count(OficiosSub::certificadosPem())]);
+    }
+
     /** Recibe SOLO el certificado público (.cer) y devuelve el PDF preparado para que el navegador lo firme. */
     public function firmaPreparar(string $id): void
     {
         $this->titular();
         $o = $this->oficio($id);
-        if (AccessControl::limited('ofs_firma:' . (int) Auth::id(), 20, 300)) {
+        // En lote (hasta cientos de oficios con una sola e.firma) el límite es mayor; sigue acotado por hora.
+        $lote = ($_POST['lote'] ?? '') === '1';
+        if ($lote ? AccessControl::limited('ofs_firma_lote:' . (int) Auth::id(), 1500, 3600) : AccessControl::limited('ofs_firma:' . (int) Auth::id(), 20, 300)) {
             $this->json(['ok' => false, 'error' => 'Demasiados intentos. Espera unos minutos.'], 429);
         }
         try {
