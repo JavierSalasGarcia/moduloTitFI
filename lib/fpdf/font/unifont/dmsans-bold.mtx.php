@@ -13,7 +13,7 @@ $desc=array (
 );
 $up=-100;
 $ut=50;
-$ttffile='D:/Proyectos/plataformaFI/lib/fpdf/font/unifont/DMSans-Bold.ttf';
+$ttffile='DMSans-Bold.ttf';
 $originalsize=73452;
 $fontkey='dmsansB';
 ?>

@@ -534,6 +534,8 @@ function AddFont($family, $style='', $file='', $uni=false)
 		else {
 			$cw = @file_get_contents($unifilename.'.cw.dat'); 
 		}
+		// La ruta guardada en el caché es la de la máquina que lo generó: siempre se usa la de este servidor.
+		$ttffile = $ttffilename;
 		$i = count($this->fonts)+1;
 		if(!empty($this->AliasNbPages))
 			$sbarr = range(0,57);
