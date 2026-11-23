@@ -41,23 +41,19 @@ final class Dictamenes
         $pdo = Database::pdo();
         $pdo->beginTransaction();
         try {
-            // Candado sobre el consecutivo: dos personas generando a la vez no repiten números.
-            $ultimo = (int) Database::valor("SELECT valor FROM ajustes WHERE clave = 'consejos_oficio_ultimo' FOR UPDATE");
-            $prefijo = (string) (Database::valor("SELECT valor FROM ajustes WHERE clave = 'consejos_oficio_prefijo'") ?: 'ACAD/FI/');
-            $digitos = max(1, (int) (Database::valor("SELECT valor FROM ajustes WHERE clave = 'consejos_oficio_digitos'") ?: 4));
-            $n = $inicio !== null && $inicio > 0 ? $inicio - 1 : $ultimo;
-            $anio = date('Y', strtotime($fechaOficio) ?: time());
+            // Contador único de la Subdirección Académica (el mismo de Titulación y de los oficios de la Subdirección); la reserva
+            // lleva candado, así que dos personas generando a la vez no repiten números.
+            $anio = (int) date('Y', strtotime($fechaOficio) ?: time());
+            if ($inicio !== null && $inicio > 0) {
+                \App\Modules\Titulacion\Services\NumeroOficio::fijarUltimo('subdireccion', $anio, $inicio - 1);
+            }
             $creados = 0;
             $primero = $ultimoNum = null;
             foreach ($asuntos as $a) {
                 foreach (self::proponer($a, $r) as $o) {
-                    $n++;
                     do {   // salta números ya usados (p. ej. capturados a mano)
-                        $numero = $prefijo . str_pad((string) $n, $digitos, '0', STR_PAD_LEFT) . '/' . $anio;
+                        [, $numero] = \App\Modules\Titulacion\Services\NumeroOficio::reservar('subdireccion', $anio);
                         $ocupado = (bool) Database::valor('SELECT 1 FROM consejos_oficios WHERE numero = ?', [$numero]);
-                        if ($ocupado) {
-                            $n++;
-                        }
                     } while ($ocupado);
                     Database::ejecutar(
                         'INSERT INTO consejos_oficios (asunto_id, destinatario, cargo, numero, fecha, cuerpo, acuerdo, version_acuerdo, revisar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -67,9 +63,6 @@ final class Dictamenes
                     $primero ??= $numero;
                     $ultimoNum = $numero;
                 }
-            }
-            if ($creados > 0) {
-                Database::ejecutar("UPDATE ajustes SET valor = ? WHERE clave = 'consejos_oficio_ultimo'", [(string) max($n, $ultimo)]);
             }
             $pdo->commit();
         } catch (\Throwable $e) {

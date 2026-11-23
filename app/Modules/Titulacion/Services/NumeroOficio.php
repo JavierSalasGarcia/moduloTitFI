@@ -72,6 +72,35 @@ final class NumeroOficio
         return $texto;
     }
 
+    /**
+     * Reserva el siguiente número de la serie en el año (contador único de la Subdirección Académica: lo usan Titulación, los dictámenes
+     * de los Consejos y los oficios de la Subdirección). Debe llamarse dentro de una transacción si el llamador ya abrió una.
+     * @return array{0:int,1:string} número y texto completo (p. ej. «ACAD/FI/447/2026»)
+     */
+    public static function reservar(string $serie = 'subdireccion', ?int $anio = null): array
+    {
+        $anio ??= (int) date('Y');
+        $pdo = Database::pdo();
+        $propia = !$pdo->inTransaction();
+        if ($propia) {
+            $pdo->beginTransaction();
+        }
+        try {
+            Database::ejecutar('INSERT IGNORE INTO tit_oficio_series (serie, anio, ultimo) VALUES (?, ?, 0)', [$serie, $anio]);
+            $n = (int) Database::valor('SELECT ultimo FROM tit_oficio_series WHERE serie = ? AND anio = ? FOR UPDATE', [$serie, $anio]) + 1;
+            Database::ejecutar('UPDATE tit_oficio_series SET ultimo = ? WHERE serie = ? AND anio = ?', [$n, $serie, $anio]);
+            if ($propia) {
+                $pdo->commit();
+            }
+        } catch (\Throwable $e) {
+            if ($propia && $pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            throw $e;
+        }
+        return [$n, self::texto($serie, $n, $anio)];
+    }
+
     /** Fija el último número usado de la serie en el año (para continuar la numeración de los controles anteriores). */
     public static function fijarUltimo(string $serie, int $anio, int $ultimo): void
     {

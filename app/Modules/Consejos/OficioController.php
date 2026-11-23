@@ -28,7 +28,7 @@ final class OficioController extends ConsejosBase
         $sinAcuerdoGobierno = (int) Database::valor("SELECT COUNT(*) FROM consejos_asuntos WHERE reunion_id = ? AND (acuerdo_gobierno IS NULL OR acuerdo_gobierno = '')", [(int) $r['id']]);
         $this->vista('oficios', [
             'titulo' => 'Dictámenes · ' . $r['etiqueta'], 'r' => $r, 'oficios' => $oficios, 'sinOficio' => $sinOficio, 'sinAcuerdoGobierno' => $sinAcuerdoGobierno,
-            'siguiente' => (int) Database::valor("SELECT valor FROM ajustes WHERE clave = 'consejos_oficio_ultimo'") + 1,
+            'siguiente' => \App\Modules\Titulacion\Services\NumeroOficio::siguiente('subdireccion'),
         ]);
     }
 
