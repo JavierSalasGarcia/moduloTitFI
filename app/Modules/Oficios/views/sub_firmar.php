@@ -6,7 +6,7 @@ $id = (int) $o['id'];
 <p style="margin:0 0 10px"><a href="<?= e(url('oficios/subdireccion/' . $id)) ?>">← Oficio</a></p>
 <section class="card">
   <h2 style="margin:0 0 6px;font-size:20px"><?= e($o['numero_texto']) ?> · <?= e($o['asunto']) ?></h2>
-  <p class="texto-suave" style="margin:0 0 12px">Revisa el oficio y fírmalo con tu e.firma del SAT.</p>
+  <p class="texto-suave" style="margin:0 0 12px">Revisa el oficio y fírmalo con tu e.firma del SAT. Si necesitas corregir algo, puedes <a href="<?= e(url('oficios/subdireccion/' . $id . '/editar')) ?>"><strong>editarlo</strong></a>; conserva su número y regresas aquí para firmarlo.</p>
   <iframe title="Vista previa del oficio" src="<?= e(url('oficios/subdireccion/' . $id . '/pdf')) ?>" style="width:100%;height:560px;border:1px solid var(--gris-300,#cbd5e1);border-radius:8px"></iframe>
 </section>
 

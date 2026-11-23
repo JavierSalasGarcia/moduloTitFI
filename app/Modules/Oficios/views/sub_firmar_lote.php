@@ -21,7 +21,7 @@ use App\Core\Auth;
   </div>
   <div class="tabla-contenedor" style="max-height:420px;overflow:auto">
     <table class="tabla" data-no-cards>
-      <thead><tr><th style="width:44px"><input type="checkbox" id="lt-marca" checked aria-label="Seleccionar todos los visibles"></th><th>Número</th><th>Asunto</th><th>Destinatarios</th><th>Estado</th></tr></thead>
+      <thead><tr><th style="width:44px"><input type="checkbox" id="lt-marca" checked aria-label="Seleccionar todos los visibles"></th><th>Número</th><th>Asunto</th><th>Destinatarios</th><th>Estado</th><th><span class="sr-only">Editar</span></th></tr></thead>
       <tbody>
       <?php foreach ($cola as $f): $dest = json_decode((string) $f['destinatarios'], true) ?: []; ?>
         <tr data-id="<?= (int) $f['id'] ?>" data-texto="<?= e(mb_strtolower($f['numero_texto'] . ' ' . $f['asunto'] . ' ' . implode(' ', array_map(static fn($d) => (string) $d['nombre'], $dest)))) ?>">
@@ -30,6 +30,7 @@ use App\Core\Auth;
           <td><?= e($f['asunto']) ?></td>
           <td><?= e(implode('; ', array_map(static fn($d) => (string) $d['nombre'], array_slice($dest, 0, 2)))) ?><?= count($dest) > 2 ? ' (+' . (count($dest) - 2) . ')' : '' ?></td>
           <td class="lt-estado texto-suave">Pendiente</td>
+          <td><a href="<?= e(url('oficios/subdireccion/' . (int) $f['id'] . '/editar')) ?>" target="_blank" rel="noopener">Editar</a></td>
         </tr>
       <?php endforeach; ?>
       </tbody>

@@ -125,8 +125,9 @@ final class SubdireccionController extends Controller
             redirigir('oficios/subdireccion/' . $o['id'] . '/editar');
         }
         Audit::record('oficios_sub', 'correcto', 'Edita oficio #' . $o['id']);
+        $ahora = OficiosSub::obtener((int) $o['id']);
         flash('exito', 'Cambios guardados.');
-        redirigir('oficios/subdireccion/' . $o['id']);
+        redirigir('oficios/subdireccion/' . $o['id'] . ($ahora && $ahora['estado'] === 'en_firma' && OficiosAccess::puedeFirmar() ? '/firmar' : ''));
     }
 
     public function ver(string $id): void

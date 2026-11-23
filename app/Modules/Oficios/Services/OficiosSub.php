@@ -116,9 +116,12 @@ final class OficiosSub
                 throw new RuntimeException('Este oficio ya no se puede modificar.');
             }
             Database::ejecutar('UPDATE ofs_oficios SET asunto = ?, destinatarios = ?, cuerpo_html = ?, observacion = NULL WHERE id = ?', [$asunto, $json, $cuerpo, $id]);
-            // Si ya estaba en firma, vuelve a borrador para que el titular revise lo nuevo.
-            if ($o['estado'] === 'en_firma') {
+            // Si ya estaba en firma y lo edita otra persona, vuelve a borrador para que el titular revise lo nuevo.
+            // Si lo corrige el propio titular (quien firma), sigue en firma con su mismo número.
+            if ($o['estado'] === 'en_firma' && !\App\Modules\Oficios\OficiosAccess::puedeFirmar()) {
                 Database::ejecutar("UPDATE ofs_oficios SET estado = 'borrador', pdf_preparado = NULL WHERE id = ?", [$id]);
+            } elseif ($o['estado'] === 'en_firma') {
+                Database::ejecutar('UPDATE ofs_oficios SET pdf_preparado = NULL WHERE id = ?', [$id]);
             }
             self::anotar($id, 'editado');
         }
