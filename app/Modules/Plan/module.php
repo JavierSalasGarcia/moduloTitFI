@@ -9,7 +9,8 @@ return [
     ],
     'menu' => [[
         'seccion' => 'FILA', 'titulo' => 'Plan de Desarrollo FI', 'ruta' => 'fila/plan',
-        'roles' => ['admin', 'titular', 'operativo', 'profesor', 'alumno'], 'orden' => 8,
+        // Profesores y alumnos no ven el Plan de Desarrollo en el menú (la Fila es lo que les corresponde).
+        'roles' => ['admin', 'titular', 'operativo'], 'orden' => 8,
     ]],
     'rutas' => [
         'GET /plan' => [PlanController::class, 'index', 'publico'],

@@ -218,6 +218,8 @@ final class FilaController extends Controller
             $propias = array_column($oficinasGestion, 'id');
             foreach (dependencias() as $dep) {
                 if (!(int)$dep['activa'] || in_array($dep['id'], $propias)) continue;
+                // Solo las oficinas con la función de fila configurada (al menos un intervalo de atención activo).
+                if (!horarios((int)$dep['id'])) continue;
                 $counts = fila_una('SELECT SUM(estado=?) AS espera, SUM(estado=?) AS atendiendo '
                     .'FROM turnos WHERE dependencia_id=? AND fecha=?', ['espera','llamado',$dep['id'],date('Y-m-d')]);
                 $otras[] = ['oficina'=>$dep, 'espera'=>(int)($counts['espera']??0),

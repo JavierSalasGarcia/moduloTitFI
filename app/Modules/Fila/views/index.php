@@ -48,10 +48,12 @@ $filaIcono=function(string $icono,string $texto): string {
 .fila-text-btn.fila-pausa-activa { background:#8a5a12; border-color:#8a5a12; color:#fff; }
 @media (max-width:680px) { .fila-main-actions { display:grid; grid-template-columns:1fr; } }
 </style>
+<?php if (!empty($oficinasGestion)): /* Quien no atiende ninguna oficina (profesores, alumnos) solo ve las filas de las oficinas, sin pestañas. */ ?>
 <nav class="pestanas" aria-label="Vistas de Fila">
   <a class="pestana<?= $pestana==='atender'?' activa':'' ?>" <?= $pestana==='atender'?'aria-current="page"':'' ?> href="<?= e(url('fila?vista=atender')) ?>">Para que yo atienda</a>
   <a class="pestana<?= $pestana==='otros'?' activa':'' ?>" <?= $pestana==='otros'?'aria-current="page"':'' ?> href="<?= e(url('fila?vista=otros')) ?>">Otros departamentos</a>
 </nav>
+<?php endif; ?>
 <?php if (\App\Core\Auth::tieneRol('admin')): ?>
 <p><a class="btn fila-icon-btn" aria-label="Administrar Fila" href="<?= e(ruta('admin')) ?>"><?= $filaIcono('engrane','Administrar Fila') ?></a></p>
 <?php endif; ?>
@@ -149,10 +151,11 @@ $referenciaSiguiente=$siguiente?persona_referencia_interna($oficina,$siguiente):
 <?php endforeach; endif; ?>
 <?php endif; ?>
 <?php else: ?>
-<p><a class="btn" href="<?= e(url('fila')) ?>"><?= icono('flecha-izq',20) ?> Volver a Fila</a></p>
-<p>Consulta las filas de otros departamentos o toma un turno. El acceso por QR no requiere cuenta ni iniciar sesión en Traza FI.</p>
-<h2>Filas de otros departamentos</h2>
-<?php if (!($otrasOficinas??[])): ?><p>Todavía no hay otros departamentos con fila habilitada.</p>
+<?php $atiendeOficinas=!empty($oficinasGestion); ?>
+<?php if ($atiendeOficinas): ?><p><a class="btn" href="<?= e(url('fila')) ?>"><?= icono('flecha-izq',20) ?> Volver a Fila</a></p><?php endif; ?>
+<p>Consulta las filas de las oficinas o toma un turno. El acceso por QR no requiere cuenta ni iniciar sesión en Traza FI.</p>
+<h2><?= $atiendeOficinas ? 'Filas de otros departamentos' : 'Filas de las oficinas' ?></h2>
+<?php if (!($otrasOficinas??[])): ?><p>Todavía no hay oficinas con fila habilitada.</p>
 <?php else: foreach ($otrasOficinas as $panel): $oficina=$panel['oficina']; ?>
 <section class="card">
 <h3><?= e($oficina['nombre']) ?></h3>
