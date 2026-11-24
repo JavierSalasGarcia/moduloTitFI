@@ -35,6 +35,7 @@ return [
         'GET /oficios/subdireccion/{id}'                     => [SubdireccionController::class, 'ver'],
         'GET /oficios/subdireccion/{id}/editar'              => [SubdireccionController::class, 'editar'],
         'POST /oficios/subdireccion/{id}'                    => [SubdireccionController::class, 'actualizar'],
+        'GET /oficios/subdireccion/{id}/adjunto/{aid}'       => [SubdireccionController::class, 'adjunto'],
         'GET /oficios/subdireccion/{id}/pdf'                 => [SubdireccionController::class, 'pdf'],
         'POST /oficios/subdireccion/{id}/enviar'             => [SubdireccionController::class, 'enviar'],
         'POST /oficios/subdireccion/{id}/devolver'           => [SubdireccionController::class, 'devolver'],

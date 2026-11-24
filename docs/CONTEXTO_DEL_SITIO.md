@@ -192,6 +192,7 @@ Reglas que no deben romperse:
 - Límite conocido: «Tiempo completo/medio tiempo/asignatura/técnicos» dependen de `profesores.categoria`, que el profesor captura en «Mi perfil» (al 2026-11-23, 61 de 371 la tienen). Quien no la haya capturado solo verá los oficios de «Todos los profesores» o de su programa.
 - Trampa de producción: no usar `? = ''` en SQL (mezcla de intercalaciones); filtrar en PHP.
 
-#### API de Oficios con token (migración 072, 2026-11-23)
+#### API de Oficios de la Subdirección con token (migraciones 072 y 073, 2026-11-23)
 
-- `POST /api/oficios` (multipart, `Authorization: Bearer ofi_…`) archiva un PDF en «Oficios enviados» desde VS Code/curl. Se atiende en `App::run` antes del router (sin sesión ni CSRF). Tokens con huella SHA-256 en `oficios_api_tokens`; se crean con `ApiOficios::crearToken()` vía `subir.py php`. Detalle y ejemplo: `docs/OFICIOS_API.md`.
+- `POST /api/oficios/subdireccion` (multipart, `Authorization: Bearer ofi_…`) crea el borrador en `ofs_oficios` (y con `enviar=1` lo deja en firma con el número de la serie única); `POST /api/oficios/subdireccion/{id}/adjuntos` agrega anexos. Se atiende en `App::run` antes del router (sin sesión ni CSRF); la API **nunca firma**. Quien tiene el token debe poder redactar (`ApiOficios::puedeRedactar`: titular, asistente en `tit_asistentes` o concesión `consejos.gestor`).
+- Anexos: tabla `ofs_adjuntos`, archivos en `storage/oficios_sub/adjuntos/`; se ven y descargan en la ficha (`/oficios/subdireccion/{id}/adjunto/{aid}`) y **no** se unen al PDF firmado. `OficiosSub::comoActor()` fija el autor sin sesión. Tokens: `oficios_api_tokens` (solo huella SHA-256). Detalle: `docs/OFICIOS_API.md`.

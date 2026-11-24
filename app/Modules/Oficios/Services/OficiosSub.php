@@ -25,6 +25,26 @@ final class OficiosSub
     public const ESTADOS = ['borrador' => 'Borrador', 'en_firma' => 'En firma', 'firmado' => 'Firmado', 'cancelado' => 'Cancelado'];
     private const AJUSTE_RFC = 'oficios_rfc_titular';
 
+    /** Persona que actúa cuando no hay sesión (API con token); null = la de la sesión. */
+    private static ?int $actor = null;
+
+    /** Ejecuta $fn con $usuarioId como autor de los registros (historial, creado_por), sin tocar la sesión. */
+    public static function comoActor(int $usuarioId, callable $fn): mixed
+    {
+        $antes = self::$actor;
+        self::$actor = $usuarioId;
+        try {
+            return $fn();
+        } finally {
+            self::$actor = $antes;
+        }
+    }
+
+    public static function actorId(): int
+    {
+        return self::$actor ?? (int) Auth::id();
+    }
+
     // ------------------------------------------------------------------ lectura
 
     public static function lista(string $estado = '', string $q = ''): array
@@ -69,7 +89,7 @@ final class OficiosSub
 
     public static function anotar(int $id, string $accion, ?string $nota = null): void
     {
-        Database::ejecutar('INSERT INTO ofs_historial (oficio_id, accion, usuario_id, nota) VALUES (?, ?, ?, ?)', [$id, $accion, Auth::id(), $nota !== null ? mb_substr($nota, 0, 500) : null]);
+        Database::ejecutar('INSERT INTO ofs_historial (oficio_id, accion, usuario_id, nota) VALUES (?, ?, ?, ?)', [$id, $accion, self::actorId(), $nota !== null ? mb_substr($nota, 0, 500) : null]);
     }
 
     /** Oficios que esperan la firma del titular (proveedor `por_firmar`). */
@@ -108,7 +128,7 @@ final class OficiosSub
         }
         $json = json_encode($dest, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
         if ($id === null) {
-            $id = Database::ejecutar('INSERT INTO ofs_oficios (asunto, destinatarios, cuerpo_html, creado_por) VALUES (?, ?, ?, ?)', [$asunto, $json, $cuerpo, (int) Auth::id()]);
+            $id = Database::ejecutar('INSERT INTO ofs_oficios (asunto, destinatarios, cuerpo_html, creado_por) VALUES (?, ?, ?, ?)', [$asunto, $json, $cuerpo, self::actorId()]);
             self::anotar($id, 'creado');
         } else {
             $o = self::obtener($id);

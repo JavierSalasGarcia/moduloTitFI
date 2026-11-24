@@ -6,7 +6,7 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} \s/+public(?:[/?\x20]) [NC]
 RewriteRule ^(.*)$ /$1 [R=301,L,NE]
 
-# Conserva la cabecera Authorization (API de oficios, /api/oficios).
+# Conserva la cabecera Authorization (API de oficios, /api/oficios/subdireccion).
 RewriteCond %{HTTP:Authorization} .
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 

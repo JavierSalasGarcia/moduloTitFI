@@ -84,7 +84,7 @@ final class Destinatarios
         if ($id) {
             Database::ejecutar('UPDATE ofs_destinatarios SET activo = 1, profesor_id = COALESCE(profesor_id, ?), usuario_id = COALESCE(usuario_id, ?) WHERE id = ?', [$profesorId, $usuarioId, (int) $id]);
         } else {
-            $id = Database::ejecutar('INSERT INTO ofs_destinatarios (nombre, cargo, dependencia, profesor_id, usuario_id, creado_por) VALUES (?, ?, ?, ?, ?, ?)', [$nombre, $cargo, $dependencia, $profesorId, $usuarioId, Auth::id()]);
+            $id = Database::ejecutar('INSERT INTO ofs_destinatarios (nombre, cargo, dependencia, profesor_id, usuario_id, creado_por) VALUES (?, ?, ?, ?, ?, ?)', [$nombre, $cargo, $dependencia, $profesorId, $usuarioId, OficiosSub::actorId() ?: null]);
         }
         return ['id' => (int) $id, 'nombre' => $nombre, 'cargo' => $cargo, 'dependencia' => $dependencia];
     }

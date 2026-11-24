@@ -1,9 +1,9 @@
 <?php
-/** @var array $o @var array $historial @var bool $puedeFirmar */
+/** @var array $o @var array $historial @var array $adjuntos @var bool $puedeFirmar */
 use App\Core\Auth;
 use App\Modules\Oficios\Services\OficiosSub;
 $csrf = '<input type="hidden" name="_csrf" value="' . e(Auth::csrfToken()) . '">';
-$acciones = ['creado' => 'Creado', 'editado' => 'Editado', 'enviado' => 'Enviado a firma', 'devuelto' => 'Devuelto por el titular', 'firmado' => 'Firmado', 'cancelado' => 'Cancelado'];
+$acciones = ['creado' => 'Creado', 'editado' => 'Editado', 'enviado' => 'Enviado a firma', 'anexo' => 'Anexo agregado', 'devuelto' => 'Devuelto por el titular', 'firmado' => 'Firmado', 'cancelado' => 'Cancelado'];
 $edita = in_array($o['estado'], ['borrador', 'en_firma'], true);
 ?>
 <p style="margin:0 0 10px"><a href="<?= e(url('oficios/subdireccion')) ?>">← Oficios de la Subdirección</a></p>
@@ -40,6 +40,15 @@ $edita = in_array($o['estado'], ['borrador', 'en_firma'], true);
     <?php endif; ?>
   </div>
 </section>
+<?php if ($adjuntos): ?>
+<section class="card">
+  <h3 style="margin:0 0 8px;font-size:16px">Anexos</h3>
+  <p class="texto-suave" style="margin:0 0 8px"><small>Acompañan al oficio, pero no forman parte del PDF que se firma.</small></p>
+  <ul style="margin:0;padding-left:18px">
+    <?php foreach ($adjuntos as $a): ?><li><a href="<?= e(url('oficios/subdireccion/' . (int) $o['id'] . '/adjunto/' . (int) $a['id'])) ?>"><?= e($a['nombre']) ?></a> <small class="texto-suave">(<?= e(number_format(max(1, (int) round($a['bytes'] / 1024)))) ?> KB)</small></li><?php endforeach; ?>
+  </ul>
+</section>
+<?php endif; ?>
 <?php if ($historial): ?>
 <section class="card">
   <h3 style="margin:0 0 8px;font-size:16px">Historial</h3>

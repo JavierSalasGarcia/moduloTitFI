@@ -136,6 +136,7 @@ final class SubdireccionController extends Controller
         header('Cache-Control: no-store, private');
         $o = $this->oficio($id);
         $this->vista('sub_ver', ['titulo' => $o['numero_texto'] ?: 'Oficio (borrador)', 'o' => $o, 'historial' => OficiosSub::historial((int) $o['id']),
+            'adjuntos' => Database::todas('SELECT id, nombre, bytes FROM ofs_adjuntos WHERE oficio_id = ? ORDER BY id', [(int) $o['id']]),
             'puedeFirmar' => OficiosAccess::puedeFirmar()]);
     }
 
@@ -162,6 +163,28 @@ final class SubdireccionController extends Controller
         header('X-Content-Type-Options: nosniff');
         header('Cache-Control: no-store, private');
         echo $bytes;
+        exit;
+    }
+
+    /** Descarga un anexo del oficio (anexos subidos con la API; no forman parte del PDF firmado). */
+    public function adjunto(string $id, string $aid): void
+    {
+        $this->redactar();
+        $o = $this->oficio($id);
+        $a = ctype_digit($aid) ? Database::una('SELECT nombre, ruta FROM ofs_adjuntos WHERE id = ? AND oficio_id = ?', [(int) $aid, (int) $o['id']]) : null;
+        $base = realpath((string) App::config('archivos')['storage']);
+        $f = ($a && $base) ? realpath($base . '/' . $a['ruta']) : false;
+        if (!$f || !is_file($f) || !str_starts_with($f, $base . DIRECTORY_SEPARATOR)) {
+            http_response_code(404);
+            exit('Archivo no encontrado.');
+        }
+        Audit::record('oficios_sub', 'correcto', 'Descarga anexo #' . (int) $aid . ' del oficio #' . $o['id']);
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . preg_replace('/[^A-Za-z0-9._-]+/', '_', (string) $a['nombre']) . '"');
+        header('Content-Length: ' . filesize($f));
+        header('X-Content-Type-Options: nosniff');
+        header('Cache-Control: no-store, private');
+        readfile($f);
         exit;
     }
 

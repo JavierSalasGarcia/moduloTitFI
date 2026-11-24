@@ -62,6 +62,7 @@ $fuentes = [
     'migrations/070_oficios_subdireccion.sql',
     'migrations/071_oficios_destinos_profesores.sql',
     'migrations/072_oficios_api_tokens.sql',
+    'migrations/073_ofs_adjuntos.sql',
 ];
 
 /** Sentencias de las fuentes que no son repetibles por sí mismas: se ejecutan solo si hace falta. */
