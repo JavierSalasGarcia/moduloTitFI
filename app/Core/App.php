@@ -24,6 +24,9 @@ final class App
         // Fila conserva su protocolo público y la API Bearer del kiosco/reloj.
         if (\App\Modules\Fila\FilaGateway::dispatch()) return;
 
+        // API con token para archivar oficios desde VS Code (docs/OFICIOS_API.md): sin sesión ni CSRF.
+        if (\App\Modules\Oficios\Services\ApiOficios::dispatch()) return;
+
         $modulos = ModuleManager::descubrir();
         $router  = new Router();
         foreach ($modulos as $modulo) {

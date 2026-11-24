@@ -191,3 +191,7 @@ Reglas que no deben romperse:
 - Al **firmar** se llena `ofs_oficio_destinos` (`Destinatarios::indexar`): grupo → clave; persona → usuario o profesor (si no está enlazada, se busca por nombre con `Profesores::porNombre`, solo si hay una coincidencia). La visibilidad se calcula al consultar (`Destinatarios::recibidos`/`leDirige`): cuenta, directorio (`profesores.usuario_id`, así un profesor que se registra después ve sus oficios) y grupos de la persona (rol `profesor`, `profesores.categoria`, `programa_profesores`).
 - Límite conocido: «Tiempo completo/medio tiempo/asignatura/técnicos» dependen de `profesores.categoria`, que el profesor captura en «Mi perfil» (al 2026-11-23, 61 de 371 la tienen). Quien no la haya capturado solo verá los oficios de «Todos los profesores» o de su programa.
 - Trampa de producción: no usar `? = ''` en SQL (mezcla de intercalaciones); filtrar en PHP.
+
+#### API de Oficios con token (migración 072, 2026-11-23)
+
+- `POST /api/oficios` (multipart, `Authorization: Bearer ofi_…`) archiva un PDF en «Oficios enviados» desde VS Code/curl. Se atiende en `App::run` antes del router (sin sesión ni CSRF). Tokens con huella SHA-256 en `oficios_api_tokens`; se crean con `ApiOficios::crearToken()` vía `subir.py php`. Detalle y ejemplo: `docs/OFICIOS_API.md`.
