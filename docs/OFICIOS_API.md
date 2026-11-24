@@ -28,11 +28,13 @@ Permite que la asistente de la Subdirección Académica cree oficios desde una s
 ```powershell
 curl.exe -X POST https://fingenieria.mx/api/oficios/subdireccion `
   -H "Authorization: Bearer $env:OFICIOS_TOKEN" `
-  -F asunto="Asunto del oficio" `
-  -F 'destinatarios=[{"nombre":"Dra. Ana López","cargo":"Directora","dependencia":"Facultad de Ingeniería"}]' `
-  -F cuerpo="Primer párrafo.`n`nSegundo párrafo." `
-  -F "adjuntos[]=@anexo.pdf" -F enviar=1
+  --form-string asunto="Asunto del oficio" `
+  --form-string 'destinatarios=[{"nombre":"Dra. Ana López","cargo":"Directora","dependencia":"Facultad de Ingeniería"}]' `
+  --form-string "cuerpo=Primer párrafo.`n`nSegundo párrafo." `
+  -F "adjuntos[]=@anexo.pdf" --form-string enviar=1
 ```
+
+Usa `--form-string` (no `-F`) para los textos: `-F` interpreta comillas, comas y `;` y desfigura el JSON de `destinatarios`.
 
 ## Anexos a un oficio existente
 
